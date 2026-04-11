@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
+    "@lunisolar/plugin-char8ex": "^0.2.5",
+    "@lunisolar/plugin-fetalgod": "^0.1.4",
+    "@lunisolar/plugin-takesound": "^0.1.2",
+    "@lunisolar/plugin-thegods": "^0.1.4",
     "@react-navigation/native": "^7.1.8",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
@@ -22,6 +26,7 @@
     "expo-splash-screen": "~31.0.13",
     "expo-status-bar": "~3.0.9",
     "expo-web-browser": "~15.0.10",
+    "lunisolar": "^2.6.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-native": "0.81.5",
