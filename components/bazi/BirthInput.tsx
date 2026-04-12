@@ -11,9 +11,6 @@ import {
   ScrollView,
   Modal,
 } from 'react-native';
-import { BaziEngine } from '@/lib/bazi';
-import type { MingPan } from '@/lib/bazi';
-
 // ── 时辰列表（地支 + 对应时刻） ────────────────────────────────────
 const SHICHEN = [
   { label: '子时', range: '23:00–01:00', hour: 0 },
