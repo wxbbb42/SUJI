@@ -829,21 +829,49 @@ export class BaziEngine {
       if (cong) return cong;
     }
 
-    // 2. 检查化气格（日干与月干或时干五合，且化神得令）
+    // 2. 检查专旺格（日主五行占比>40%，身旺之极）
+    if (riForce / total > 0.40) {
+      const zhuan = this.getZhuanWangGe(riGan);
+      if (zhuan) return zhuan;
+    }
+
+    // 3. 检查化气格（日干与年干、月干或时干五合，且化神得令）
     const huaQi = this.checkHuaQiGe(siZhu, wxStrength);
     if (huaQi) return huaQi;
 
-    // 3. 正格：月支藏干主气的十神
+    // 4. 正格：月支藏干主气的十神
     const monthMainGan = siZhu.month.cangGan[0];
-    const geJuName     = `${monthMainGan.shiShen}格`;
-    const desc         = this.getGeJuDesc(monthMainGan.shiShen, wxStrength.riZhuStrong);
-    const modernMeaning = this.getModernMeaning(monthMainGan.shiShen);
+    const ss = monthMainGan.shiShen;
+
+    // 建禄格/月刃格：月支主气为比肩或劫财时特殊命名（《渊海子平》·禄刃格）
+    let geJuName: string;
+    if (ss === '比肩') {
+      geJuName = '建禄格';
+    } else if (ss === '劫财') {
+      geJuName = '月刃格';
+    } else {
+      geJuName = `${ss}格`;
+    }
+
+    // 格局强度：月支主气五行与用神/忌神比较（《滴天髓》格局清浊论）
+    const monthMainWx = BaziEngine.GAN_WUXING[monthMainGan.gan];
+    let strength: '上' | '中' | '下';
+    if (monthMainWx === wxStrength.yongShen) {
+      strength = '上';
+    } else if (monthMainWx === wxStrength.jiShen) {
+      strength = '下';
+    } else {
+      strength = '中';
+    }
+
+    const desc         = this.getGeJuDesc(ss, wxStrength.riZhuStrong);
+    const modernMeaning = this.getModernMeaning(ss);
 
     return {
       name:    geJuName,
-      category:'正格',
-      strength: wxStrength.riZhuStrong ? '中' : '中',
-      description:   desc,
+      category: '正格',
+      strength,
+      description: desc,
       modernMeaning,
     };
   }
@@ -865,15 +893,35 @@ export class BaziEngine {
     return null;
   }
 
+  /**
+   * 专旺格：日主五行极旺（>40%），五气从一
+   * 五格：曲直（木）、炎上（火）、稼穑（土）、从革（金）、润下（水）
+   * 来源：《渊海子平》·专旺格论
+   */
+  private getZhuanWangGe(riGan: TianGan): GeJu | null {
+    const riWx = BaziEngine.GAN_WUXING[riGan];
+    const map: Partial<Record<WuXing, { name: string; desc: string; modern: string }>> = {
+      木: { name: '曲直格', desc: '日主木气极旺，曲直格成，性格正直，仁慈宽厚，富有生命力', modern: '你有极强的成长力与创造力，善于开辟新领域' },
+      火: { name: '炎上格', desc: '日主火气极旺，炎上格成，热情奔放，礼貌文明，光明磊落', modern: '你充满热情与感召力，天生的领袖与表达者' },
+      土: { name: '稼穑格', desc: '日主土气极旺，稼穑格成，厚德载物，务实包容，信用卓著', modern: '你稳重可靠，是团队中的基石与守护者' },
+      金: { name: '从革格', desc: '日主金气极旺，从革格成，刚毅果断，义气凛然，改革创新', modern: '你具有极强的执行力和改革精神，敢于突破常规' },
+      水: { name: '润下格', desc: '日主水气极旺，润下格成，智慧渊深，随机应变，善于谋略', modern: '你智慧超群，善于在变局中把握先机' },
+    };
+    const info = map[riWx];
+    if (!info) return null;
+    return { name: info.name, category: '特殊格', strength: '上', description: info.desc, modernMeaning: info.modern };
+  }
+
   private checkHuaQiGe(siZhu: SiZhu, wxStrength: WuXingStrength): GeJu | null {
-    // 日干与时干五合化气（简化判断：化神在月令得势）
+    // 日干与年干、月干或时干五合化气（化神在月令得势）
     for (const [a, b, huaWx] of BaziEngine.GAN_HE) {
-      const dayGan  = siZhu.day.ganZhi.gan;
-      const hourGan = siZhu.hour.ganZhi.gan;
+      const dayGan   = siZhu.day.ganZhi.gan;
+      const yearGan  = siZhu.year.ganZhi.gan;
       const monthGan = siZhu.month.ganZhi.gan;
+      const hourGan  = siZhu.hour.ganZhi.gan;
       if (
-        (dayGan === a && (hourGan === b || monthGan === b)) ||
-        (dayGan === b && (hourGan === a || monthGan === a))
+        (dayGan === a && (yearGan === b || monthGan === b || hourGan === b)) ||
+        (dayGan === b && (yearGan === a || monthGan === a || hourGan === a))
       ) {
         const huaKey = BaziEngine.wxToKey(huaWx);
         const total = Object.values(wxStrength.balance).reduce((s, v) => s + v, 0);
