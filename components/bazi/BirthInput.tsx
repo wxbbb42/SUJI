@@ -35,7 +35,7 @@ const MAX_YEAR = CURRENT_YEAR;
 const DAYS_IN_MONTH = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 interface BirthInputProps {
-  onSubmit: (mingPan: MingPan) => void;
+  onSubmit: (date: Date, gender: '男' | '女') => void;
 }
 
 export default function BirthInput({ onSubmit }: BirthInputProps) {
@@ -68,11 +68,9 @@ export default function BirthInput({ onSubmit }: BirthInputProps) {
     try {
       const { hour } = SHICHEN[shichenIdx];
       const birthDate = new Date(year, month - 1, day, hour, 0, 0);
-      const engine = new BaziEngine();
-      const mingPan = engine.calculate(birthDate, gender);
-      onSubmit(mingPan);
+      onSubmit(birthDate, gender);
     } catch (e) {
-      setError('生辰计算出错，请检查日期是否正确');
+      setError('日期格式有误，请重新检查');
     }
   };
 

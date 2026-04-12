@@ -4,7 +4,7 @@
  */
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import type { WuXingStrength, WuXing } from '@/lib/bazi';
+import type { WuXingBalance, WuXing } from '@/lib/bazi';
 
 // ── 五行颜色 ────────────────────────────────────────────────────────
 const WUXING_COLOR: Record<WuXing, string> = {
@@ -27,11 +27,13 @@ const WUXING_ORDER: { key: WuXing; balanceField: keyof { jin: number; mu: number
 const MAX_BAR_HEIGHT = 100;
 
 interface WuXingChartProps {
-  wuXingStrength: WuXingStrength;
+  balance: WuXingBalance;
+  yongShen: WuXing;
+  xiShen: WuXing;
+  jiShen?: WuXing;
 }
 
-export default function WuXingChart({ wuXingStrength }: WuXingChartProps) {
-  const { balance, yongShen, xiShen, jiShen } = wuXingStrength;
+export default function WuXingChart({ balance, yongShen, xiShen, jiShen }: WuXingChartProps) {
 
   // 归一化：以最大值为参照
   const values = WUXING_ORDER.map(e => balance[e.balanceField]);
@@ -82,7 +84,9 @@ export default function WuXingChart({ wuXingStrength }: WuXingChartProps) {
       <View style={styles.legend}>
         <LegendItem color={WUXING_COLOR[yongShen]} label={`用神·${yongShen}`} />
         <LegendItem color={WUXING_COLOR[xiShen]}   label={`喜神·${xiShen}`}   />
-        <LegendItem color="#B8A898"                 label={`忌神·${jiShen}`}   />
+        {jiShen && (
+          <LegendItem color="#B8A898" label={`忌神·${jiShen}`} />
+        )}
       </View>
     </View>
   );
