@@ -1,39 +1,43 @@
 /**
- * PersonalityCard — 人格洞察组件
- * 展示 PersonalityInsight：核心特质标签、优势/挑战列表、职业倾向
+ * 人格洞察卡片组件
+ * 
+ * 展示 InsightEngine 生成的 PersonalityInsight 数据，
+ * 包括核心特质、优势、挑战、沟通风格、职业倾向等。
  */
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-import type { PersonalityInsight } from '@/lib/bazi';
+
+import React from 'react';
+import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import type { PersonalityInsight } from '@/lib/bazi/types';
 
 interface PersonalityCardProps {
   insight: PersonalityInsight;
 }
 
-export default function PersonalityCard({ insight }: PersonalityCardProps) {
-  const [expanded, setExpanded] = useState(false);
+/** 特质标签颜色池 */
+const TAG_COLORS = [
+  '#8B4513', '#4CAF50', '#2196F3', '#E53935', '#C4A35A',
+  '#9C27B0', '#FF9800', '#00BCD4', '#795548', '#607D8B',
+];
 
-  const {
-    coreTraits,
-    strengths,
-    challenges,
-    communicationStyle,
-    emotionalPattern,
-    careerAptitude,
-    relationshipStyle,
-  } = insight;
-
+export function PersonalityCard({ insight }: PersonalityCardProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>人格洞察</Text>
-
-      {/* 核心特质标签 */}
+      {/* 核心特质 */}
       <View style={styles.section}>
-        <Text style={styles.sectionLabel}>核心特质</Text>
+        <View style={styles.sectionHeader}>
+          <FontAwesome name="star" size={14} color="#8B4513" />
+          <Text style={styles.sectionTitle}>核心特质</Text>
+        </View>
         <View style={styles.tagsRow}>
-          {coreTraits.map((t, i) => (
-            <View key={i} style={styles.traitTag}>
-              <Text style={styles.traitTagText}>{t}</Text>
+          {insight.coreTraits.map((trait, i) => (
+            <View
+              key={trait}
+              style={[styles.tag, { backgroundColor: TAG_COLORS[i % TAG_COLORS.length] + '18' }]}
+            >
+              <Text style={[styles.tagText, { color: TAG_COLORS[i % TAG_COLORS.length] }]}>
+                {trait}
+              </Text>
             </View>
           ))}
         </View>
@@ -41,10 +45,13 @@ export default function PersonalityCard({ insight }: PersonalityCardProps) {
 
       {/* 优势 */}
       <View style={styles.section}>
-        <Text style={styles.sectionLabel}>优势</Text>
-        {strengths.map((s, i) => (
-          <View key={i} style={styles.listItem}>
-            <View style={styles.bulletPlus} />
+        <View style={styles.sectionHeader}>
+          <FontAwesome name="arrow-up" size={14} color="#4CAF50" />
+          <Text style={styles.sectionTitle}>天赋优势</Text>
+        </View>
+        {insight.strengths.map((s) => (
+          <View key={s} style={styles.listItem}>
+            <Text style={styles.bullet}>●</Text>
             <Text style={styles.listText}>{s}</Text>
           </View>
         ))}
@@ -52,49 +59,57 @@ export default function PersonalityCard({ insight }: PersonalityCardProps) {
 
       {/* 挑战 */}
       <View style={styles.section}>
-        <Text style={styles.sectionLabel}>挑战</Text>
-        {challenges.map((c, i) => (
-          <View key={i} style={styles.listItem}>
-            <View style={styles.bulletMinus} />
+        <View style={styles.sectionHeader}>
+          <FontAwesome name="exclamation-circle" size={14} color="#E53935" />
+          <Text style={styles.sectionTitle}>成长课题</Text>
+        </View>
+        {insight.challenges.map((c) => (
+          <View key={c} style={styles.listItem}>
+            <Text style={[styles.bullet, { color: '#E53935' }]}>●</Text>
             <Text style={styles.listText}>{c}</Text>
           </View>
         ))}
       </View>
 
+      {/* 沟通与情绪 */}
+      <View style={styles.section}>
+        <View style={styles.row}>
+          <View style={styles.halfCard}>
+            <FontAwesome name="comments" size={16} color="#2196F3" />
+            <Text style={styles.halfTitle}>沟通风格</Text>
+            <Text style={styles.halfText}>{insight.communicationStyle}</Text>
+          </View>
+          <View style={styles.halfCard}>
+            <FontAwesome name="heart" size={16} color="#E53935" />
+            <Text style={styles.halfTitle}>情绪模式</Text>
+            <Text style={styles.halfText}>{insight.emotionalPattern}</Text>
+          </View>
+        </View>
+      </View>
+
       {/* 职业倾向 */}
       <View style={styles.section}>
-        <Text style={styles.sectionLabel}>职业倾向</Text>
+        <View style={styles.sectionHeader}>
+          <FontAwesome name="briefcase" size={14} color="#C4A35A" />
+          <Text style={styles.sectionTitle}>职业倾向</Text>
+        </View>
         <View style={styles.tagsRow}>
-          {careerAptitude.map((c, i) => (
-            <View key={i} style={styles.careerTag}>
-              <Text style={styles.careerTagText}>{c}</Text>
+          {insight.careerAptitude.map((career) => (
+            <View key={career} style={[styles.tag, styles.careerTag]}>
+              <Text style={styles.careerTagText}>{career}</Text>
             </View>
           ))}
         </View>
       </View>
 
-      {/* 展开更多 */}
-      <Pressable style={styles.expandBtn} onPress={() => setExpanded(v => !v)}>
-        <Text style={styles.expandText}>{expanded ? '收起' : '查看更多'}</Text>
-        <Text style={styles.expandArrow}>{expanded ? '▲' : '▼'}</Text>
-      </Pressable>
-
-      {expanded && (
-        <View style={styles.expandedSection}>
-          <DetailRow label="沟通风格" value={communicationStyle} />
-          <DetailRow label="情绪模式" value={emotionalPattern} />
-          <DetailRow label="关系模式" value={relationshipStyle} />
+      {/* 关系模式 */}
+      <View style={styles.section}>
+        <View style={styles.sectionHeader}>
+          <FontAwesome name="users" size={14} color="#9C27B0" />
+          <Text style={styles.sectionTitle}>关系模式</Text>
         </View>
-      )}
-    </View>
-  );
-}
-
-function DetailRow({ label, value }: { label: string; value: string }) {
-  return (
-    <View style={styles.detailRow}>
-      <Text style={styles.detailLabel}>{label}</Text>
-      <Text style={styles.detailValue}>{value}</Text>
+        <Text style={styles.description}>{insight.relationshipStyle}</Text>
+      </View>
     </View>
   );
 }
@@ -107,126 +122,89 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: '#E5DDD0',
   },
-  title: {
+  section: {
+    marginBottom: 20,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 12,
+  },
+  sectionTitle: {
     fontSize: 15,
     color: '#2C1810',
     fontWeight: '600',
-    letterSpacing: 3,
-    marginBottom: 16,
-  },
-  section: {
-    marginBottom: 16,
-  },
-  sectionLabel: {
-    fontSize: 12,
-    color: '#B8A898',
     letterSpacing: 2,
-    marginBottom: 8,
-    fontWeight: '500',
   },
-
-  // 特质标签
   tagsRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
   },
-  traitTag: {
-    backgroundColor: '#F5F0E8',
-    borderRadius: 20,
+  tag: {
     paddingHorizontal: 12,
     paddingVertical: 6,
-    borderWidth: 0.5,
-    borderColor: '#E5DDD0',
+    borderRadius: 16,
   },
-  traitTagText: {
-    fontSize: 12,
-    color: '#6B5040',
-    letterSpacing: 1,
+  tagText: {
+    fontSize: 13,
+    fontWeight: '500',
   },
-
-  // 列表项
+  careerTag: {
+    backgroundColor: '#C4A35A18',
+  },
+  careerTagText: {
+    fontSize: 13,
+    color: '#8B6914',
+    fontWeight: '500',
+  },
   listItem: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    gap: 10,
-    marginBottom: 8,
+    marginBottom: 6,
+    paddingLeft: 4,
   },
-  bulletPlus: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: '#4CAF50',
-    marginTop: 5,
-  },
-  bulletMinus: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: '#E53935',
+  bullet: {
+    fontSize: 8,
+    color: '#4CAF50',
+    marginRight: 8,
     marginTop: 5,
   },
   listText: {
     flex: 1,
-    fontSize: 13,
+    fontSize: 14,
     color: '#2C1810',
-    lineHeight: 20,
+    lineHeight: 22,
   },
-
-  // 职业标签
-  careerTag: {
-    backgroundColor: '#8B4513',
-    borderRadius: 6,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-  },
-  careerTagText: {
-    fontSize: 12,
-    color: '#FFFDF8',
-    letterSpacing: 1,
-    fontWeight: '500',
-  },
-
-  // 展开按钮
-  expandBtn: {
+  row: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 6,
-    paddingVertical: 10,
-    borderTopWidth: 0.5,
-    borderTopColor: '#E5DDD0',
-    marginTop: 4,
-  },
-  expandText: {
-    fontSize: 13,
-    color: '#8B7355',
-    letterSpacing: 1,
-  },
-  expandArrow: {
-    fontSize: 10,
-    color: '#B8A898',
-  },
-
-  // 展开内容
-  expandedSection: {
-    marginTop: 12,
     gap: 12,
   },
-  detailRow: {
+  halfCard: {
+    flex: 1,
     backgroundColor: '#F5F0E8',
-    borderRadius: 10,
-    padding: 12,
+    borderRadius: 12,
+    padding: 14,
+    alignItems: 'center',
+    gap: 6,
   },
-  detailLabel: {
-    fontSize: 11,
-    color: '#B8A898',
-    letterSpacing: 2,
-    marginBottom: 4,
+  halfTitle: {
+    fontSize: 12,
+    color: '#8B7355',
+    fontWeight: '600',
+    letterSpacing: 1,
   },
-  detailValue: {
+  halfText: {
     fontSize: 13,
     color: '#2C1810',
     lineHeight: 20,
+    textAlign: 'center',
+  },
+  description: {
+    fontSize: 14,
+    color: '#2C1810',
+    lineHeight: 24,
+    paddingLeft: 4,
   },
 });
