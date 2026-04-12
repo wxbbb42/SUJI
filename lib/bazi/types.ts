@@ -127,6 +127,8 @@ export interface StemRelation {
   stems: TianGan[];
   result?: WuXing;
   positions: string[];
+  heHua?: boolean;      // 天干五合是否真正化成
+  heHuaDesc?: string;   // 合化条件说明
 }
 
 // ========================

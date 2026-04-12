@@ -605,7 +605,7 @@ export class BaziEngine {
       hourPillar.stem.name as TianGan,
     ];
     const branchRelations = this.computeBranchRelations(branches);
-    const stemRelations   = this.computeStemRelations(stems);
+    const stemRelations   = this.computeStemRelations(stems, monthPillar.branch.name as DiZhi, wuXingStrength);
 
     // ── 9. 格局 ───────────────────────────────
     const geJu = this.determineGeJu(siZhu, wuXingStrength, riGan);
@@ -1000,12 +1000,12 @@ export class BaziEngine {
   /**
    * 计算四柱天干之间的关系（五合、相冲）
    */
-  private computeStemRelations(stems: TianGan[]): StemRelation[] {
+  private computeStemRelations(stems: TianGan[], monthZhi: DiZhi, wxStrength: WuXingStrength): StemRelation[] {
     const relations: StemRelation[] = [];
     const labels = ['年干', '月干', '日干', '时干'];
 
-    // 天干五合
-    for (const [a, b, result] of BaziEngine.GAN_HE) {
+    // 天干五合（含合化条件判断）
+    for (const [a, b, huaWx] of BaziEngine.GAN_HE) {
       const positions: string[] = [];
       stems.forEach((s, i) => {
         stems.forEach((s2, j) => {
@@ -1015,7 +1015,31 @@ export class BaziEngine {
         });
       });
       if (positions.length) {
-        relations.push({ type: '天干五合', stems: [a, b], result, positions });
+        // 判断是否真化（《渊海子平》合化论）
+        // 条件：1. 化神得令（月支本气为化神五行）
+        //        2. 化神在四柱中力量占比较高（>25%）
+        //        3. 无充克破坏
+        const monthMainWx = BaziEngine.GAN_WUXING[BaziEngine.CANG_GAN[monthZhi][0].gan];
+        const huaKey = BaziEngine.wxToKey(huaWx);
+        const total = Object.values(wxStrength.balance).reduce((s, v) => s + v, 0);
+        const huaRatio = total > 0 ? wxStrength.balance[huaKey] / total : 0;
+        
+        const deLing = monthMainWx === huaWx; // 化神得令
+        const liQiang = huaRatio > 0.25;      // 化神力强
+        const heHua = deLing && liQiang;
+        
+        let heHuaDesc: string;
+        if (heHua) {
+          heHuaDesc = `${a}${b}合化${huaWx}成功：化神${huaWx}得令且力量充沛`;
+        } else if (deLing && !liQiang) {
+          heHuaDesc = `${a}${b}合而不化：化神得令但力量不足`;
+        } else if (!deLing && liQiang) {
+          heHuaDesc = `${a}${b}合而不化：化神力强但未得令`;
+        } else {
+          heHuaDesc = `${a}${b}合而不化：化神既未得令且力量不足`;
+        }
+
+        relations.push({ type: '天干五合', stems: [a, b], result: huaWx, positions, heHua, heHuaDesc });
       }
     }
 
