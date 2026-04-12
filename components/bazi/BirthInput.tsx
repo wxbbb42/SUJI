@@ -1,381 +1,269 @@
 /**
- * BirthInput — 生辰输入组件
- * 输入年月日 + 时辰（子时-亥时）+ 性别，提交后调用 BaziEngine.calculate()
+ * BirthInput — 生辰输入组件（重设计版）
+ * 12宫格时辰点选 · 文字性别切换 · 文字提交按钮
  */
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  ScrollView,
-  Modal,
-} from 'react-native';
-// ── 时辰列表（地支 + 对应时刻） ────────────────────────────────────
+import { View, Text, StyleSheet, Pressable } from 'react-native';
+
 const SHICHEN = [
-  { label: '子时', range: '23:00–01:00', hour: 0 },
-  { label: '丑时', range: '01:00–03:00', hour: 2 },
-  { label: '寅时', range: '03:00–05:00', hour: 4 },
-  { label: '卯时', range: '05:00–07:00', hour: 6 },
-  { label: '辰时', range: '07:00–09:00', hour: 8 },
-  { label: '巳时', range: '09:00–11:00', hour: 10 },
-  { label: '午时', range: '11:00–13:00', hour: 12 },
-  { label: '未时', range: '13:00–15:00', hour: 14 },
-  { label: '申时', range: '15:00–17:00', hour: 16 },
-  { label: '酉时', range: '17:00–19:00', hour: 18 },
-  { label: '戌时', range: '19:00–21:00', hour: 20 },
-  { label: '亥时', range: '21:00–23:00', hour: 22 },
+  { label: '子', range: '23–01', hour: 0 },
+  { label: '丑', range: '01–03', hour: 2 },
+  { label: '寅', range: '03–05', hour: 4 },
+  { label: '卯', range: '05–07', hour: 6 },
+  { label: '辰', range: '07–09', hour: 8 },
+  { label: '巳', range: '09–11', hour: 10 },
+  { label: '午', range: '11–13', hour: 12 },
+  { label: '未', range: '13–15', hour: 14 },
+  { label: '申', range: '15–17', hour: 16 },
+  { label: '酉', range: '17–19', hour: 18 },
+  { label: '戌', range: '19–21', hour: 20 },
+  { label: '亥', range: '21–23', hour: 22 },
 ];
 
-const CURRENT_YEAR = new Date().getFullYear();
-const MIN_YEAR = 1920;
-const MAX_YEAR = CURRENT_YEAR;
-
-// ── 每月最大天数（不含闰年判断，超出的日期引擎内部会 clamp） ────────
 const DAYS_IN_MONTH = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+// ── 色彩系统 ───────────────────────────────────────────────────────────
+const C = {
+  bg:      '#F5EDE0',
+  surface: '#FFFBF5',
+  deep:    '#2C1810',
+  mid:     '#6B5040',
+  mute:    '#8B7355',
+  faint:   '#B8A898',
+  brand:   '#8B4513',
+};
 
 interface BirthInputProps {
   onSubmit: (date: Date, gender: '男' | '女') => void;
 }
 
 export default function BirthInput({ onSubmit }: BirthInputProps) {
-  const [year, setYear]       = useState(1990);
-  const [month, setMonth]     = useState(1);
-  const [day, setDay]         = useState(1);
-  const [shichenIdx, setShichenIdx] = useState(4); // 寅时默认
-  const [gender, setGender]   = useState<'男' | '女'>('男');
-  const [shichenModal, setShichenModal] = useState(false);
-  const [error, setError]     = useState('');
+  const [year,       setYear]       = useState(1990);
+  const [month,      setMonth]      = useState(6);
+  const [day,        setDay]        = useState(15);
+  const [shichenIdx, setShichenIdx] = useState(4);   // 寅时默认
+  const [gender,     setGender]     = useState<'男' | '女'>('男');
+  const [error,      setError]      = useState('');
 
-  // ── 数值调节辅助 ──────────────────────────────────────────────────
-  const clamp = (v: number, min: number, max: number) =>
-    Math.max(min, Math.min(max, v));
+  const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
 
-  const adjustYear  = (d: number) => setYear(v => clamp(v + d, MIN_YEAR, MAX_YEAR));
-  const adjustMonth = (d: number) => {
+  const adjYear  = (d: number) => setYear(v => clamp(v + d, 1920, new Date().getFullYear()));
+  const adjMonth = (d: number) =>
     setMonth(v => {
-      const next = clamp(v + d, 1, 12);
-      setDay(dd => clamp(dd, 1, DAYS_IN_MONTH[next - 1]));
-      return next;
+      const n = clamp(v + d, 1, 12);
+      setDay(dd => clamp(dd, 1, DAYS_IN_MONTH[n - 1]));
+      return n;
     });
-  };
-  const adjustDay   = (d: number) =>
-    setDay(v => clamp(v + d, 1, DAYS_IN_MONTH[month - 1]));
+  const adjDay = (d: number) => setDay(v => clamp(v + d, 1, DAYS_IN_MONTH[month - 1]));
 
-  // ── 提交 ──────────────────────────────────────────────────────────
   const handleSubmit = () => {
     setError('');
     try {
       const { hour } = SHICHEN[shichenIdx];
-      const birthDate = new Date(year, month - 1, day, hour, 0, 0);
-      onSubmit(birthDate, gender);
-    } catch (e) {
-      setError('日期格式有误，请重新检查');
+      onSubmit(new Date(year, month - 1, day, hour, 0, 0), gender);
+    } catch {
+      setError('日期有误，请重新检查');
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>输入生辰</Text>
-      <Text style={styles.subtitle}>解锁专属命盘与五行分析</Text>
+      <Text style={styles.heading}>生辰</Text>
+      <Text style={styles.sub}>据此推算你的专属命盘</Text>
 
-      {/* 年 */}
-      <View style={styles.field}>
-        <Text style={styles.fieldLabel}>年</Text>
-        <View style={styles.stepper}>
-          <Pressable style={styles.stepBtn} onPress={() => adjustYear(-1)}>
-            <Text style={styles.stepBtnText}>－</Text>
-          </Pressable>
-          <Text style={styles.stepValue}>{year}</Text>
-          <Pressable style={styles.stepBtn} onPress={() => adjustYear(1)}>
-            <Text style={styles.stepBtnText}>＋</Text>
-          </Pressable>
-        </View>
+      {/* 年月日 */}
+      <View style={styles.dateRow}>
+        <SpinField label="年" value={`${year}`}    onDec={() => adjYear(-1)}  onInc={() => adjYear(1)} />
+        <SpinField label="月" value={`${month}月`} onDec={() => adjMonth(-1)} onInc={() => adjMonth(1)} />
+        <SpinField label="日" value={`${day}日`}   onDec={() => adjDay(-1)}   onInc={() => adjDay(1)} />
       </View>
 
-      {/* 月 */}
-      <View style={styles.field}>
-        <Text style={styles.fieldLabel}>月</Text>
-        <View style={styles.stepper}>
-          <Pressable style={styles.stepBtn} onPress={() => adjustMonth(-1)}>
-            <Text style={styles.stepBtnText}>－</Text>
+      {/* 时辰 12 宫格 */}
+      <Text style={styles.fieldLabel}>时辰</Text>
+      <View style={styles.shichenGrid}>
+        {SHICHEN.map((s, i) => (
+          <Pressable
+            key={s.label}
+            style={[styles.shichenCell, shichenIdx === i && styles.shichenCellOn]}
+            onPress={() => setShichenIdx(i)}
+          >
+            <Text style={[styles.shichenChi, shichenIdx === i && styles.shichenChiOn]}>
+              {s.label}
+            </Text>
+            <Text style={[styles.shichenRange, shichenIdx === i && styles.shichenRangeOn]}>
+              {s.range}
+            </Text>
           </Pressable>
-          <Text style={styles.stepValue}>{month} 月</Text>
-          <Pressable style={styles.stepBtn} onPress={() => adjustMonth(1)}>
-            <Text style={styles.stepBtnText}>＋</Text>
-          </Pressable>
-        </View>
-      </View>
-
-      {/* 日 */}
-      <View style={styles.field}>
-        <Text style={styles.fieldLabel}>日</Text>
-        <View style={styles.stepper}>
-          <Pressable style={styles.stepBtn} onPress={() => adjustDay(-1)}>
-            <Text style={styles.stepBtnText}>－</Text>
-          </Pressable>
-          <Text style={styles.stepValue}>{day} 日</Text>
-          <Pressable style={styles.stepBtn} onPress={() => adjustDay(1)}>
-            <Text style={styles.stepBtnText}>＋</Text>
-          </Pressable>
-        </View>
-      </View>
-
-      {/* 时辰 */}
-      <View style={styles.field}>
-        <Text style={styles.fieldLabel}>时辰</Text>
-        <Pressable style={styles.dropdown} onPress={() => setShichenModal(true)}>
-          <Text style={styles.dropdownText}>
-            {SHICHEN[shichenIdx].label}
-          </Text>
-          <Text style={styles.dropdownSub}>
-            {SHICHEN[shichenIdx].range}
-          </Text>
-          <Text style={styles.dropdownArrow}>▾</Text>
-        </Pressable>
+        ))}
       </View>
 
       {/* 性别 */}
-      <View style={styles.field}>
-        <Text style={styles.fieldLabel}>性别</Text>
-        <View style={styles.genderRow}>
-          {(['男', '女'] as const).map(g => (
-            <Pressable
-              key={g}
-              style={[styles.genderBtn, gender === g && styles.genderBtnActive]}
-              onPress={() => setGender(g)}
-            >
-              <Text style={[styles.genderBtnText, gender === g && styles.genderBtnTextActive]}>
-                {g}
-              </Text>
-            </Pressable>
-          ))}
-        </View>
+      <Text style={[styles.fieldLabel, { marginTop: 24 }]}>性别</Text>
+      <View style={styles.genderRow}>
+        {(['男', '女'] as const).map(g => (
+          <Pressable key={g} style={styles.genderOpt} onPress={() => setGender(g)}>
+            <Text style={[styles.genderChi, gender === g && styles.genderChiOn]}>{g}</Text>
+            {gender === g && <View style={styles.genderLine} />}
+          </Pressable>
+        ))}
       </View>
 
       {error ? <Text style={styles.error}>{error}</Text> : null}
 
-      {/* 提交 */}
-      <Pressable style={styles.submitBtn} onPress={handleSubmit}>
+      {/* 文字提交 */}
+      <Pressable style={styles.submit} onPress={handleSubmit}>
         <Text style={styles.submitText}>推算命盘</Text>
       </Pressable>
-
-      {/* 时辰选择弹窗 */}
-      <Modal
-        visible={shichenModal}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setShichenModal(false)}
-      >
-        <Pressable style={styles.modalOverlay} onPress={() => setShichenModal(false)}>
-          <View style={styles.modalBox}>
-            <Text style={styles.modalTitle}>选择时辰</Text>
-            <ScrollView>
-              {SHICHEN.map((s, i) => (
-                <Pressable
-                  key={s.label}
-                  style={[styles.shichenItem, shichenIdx === i && styles.shichenItemActive]}
-                  onPress={() => {
-                    setShichenIdx(i);
-                    setShichenModal(false);
-                  }}
-                >
-                  <Text style={[styles.shichenLabel, shichenIdx === i && styles.shichenLabelActive]}>
-                    {s.label}
-                  </Text>
-                  <Text style={styles.shichenRange}>{s.range}</Text>
-                </Pressable>
-              ))}
-            </ScrollView>
-          </View>
-        </Pressable>
-      </Modal>
     </View>
   );
 }
 
+// ── SpinField ─────────────────────────────────────────────────────────
+function SpinField({
+  label, value, onDec, onInc,
+}: { label: string; value: string; onDec: () => void; onInc: () => void }) {
+  return (
+    <View style={styles.spinField}>
+      <Text style={styles.spinLabel}>{label}</Text>
+      <Pressable onPress={onDec} hitSlop={10}>
+        <Text style={styles.spinBtn}>−</Text>
+      </Pressable>
+      <Text style={styles.spinVal}>{value}</Text>
+      <Pressable onPress={onInc} hitSlop={10}>
+        <Text style={styles.spinBtn}>+</Text>
+      </Pressable>
+    </View>
+  );
+}
+
+// ── Styles ────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#FFFDF8',
-    borderRadius: 16,
-    padding: 24,
-    borderWidth: 0.5,
-    borderColor: '#E5DDD0',
+    paddingVertical: 32,
+    paddingHorizontal: 24,
   },
-  title: {
-    fontSize: 20,
-    color: '#2C1810',
-    fontWeight: '600',
-    letterSpacing: 4,
-    textAlign: 'center',
-    marginBottom: 4,
+  heading: {
+    fontSize: 32,
+    color: C.deep,
+    fontWeight: '200',
+    letterSpacing: 12,
+    marginBottom: 6,
   },
-  subtitle: {
+  sub: {
     fontSize: 13,
-    color: '#B8A898',
-    textAlign: 'center',
-    letterSpacing: 1,
-    marginBottom: 24,
-  },
-  field: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  fieldLabel: {
-    width: 40,
-    fontSize: 15,
-    color: '#2C1810',
-    fontWeight: '500',
-    letterSpacing: 1,
-  },
-  stepper: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F5F0E8',
-    borderRadius: 10,
-    borderWidth: 0.5,
-    borderColor: '#E5DDD0',
-    overflow: 'hidden',
-  },
-  stepBtn: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    backgroundColor: '#F5F0E8',
-  },
-  stepBtnText: {
-    fontSize: 18,
-    color: '#8B4513',
-    lineHeight: 20,
-  },
-  stepValue: {
-    flex: 1,
-    textAlign: 'center',
-    fontSize: 16,
-    color: '#2C1810',
-    fontWeight: '500',
+    color: C.faint,
     letterSpacing: 2,
+    marginBottom: 32,
   },
-  dropdown: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F5F0E8',
-    borderRadius: 10,
-    borderWidth: 0.5,
-    borderColor: '#E5DDD0',
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-  },
-  dropdownText: {
-    fontSize: 15,
-    color: '#2C1810',
-    fontWeight: '500',
-    letterSpacing: 2,
-    marginRight: 8,
-  },
-  dropdownSub: {
-    flex: 1,
-    fontSize: 12,
-    color: '#B8A898',
-  },
-  dropdownArrow: {
-    fontSize: 14,
-    color: '#8B7355',
-  },
-  genderRow: {
-    flex: 1,
+  // 年月日
+  dateRow: {
     flexDirection: 'row',
     gap: 12,
+    marginBottom: 32,
   },
-  genderBtn: {
+  spinField: {
     flex: 1,
-    paddingVertical: 10,
-    borderRadius: 10,
     alignItems: 'center',
-    backgroundColor: '#F5F0E8',
-    borderWidth: 0.5,
-    borderColor: '#E5DDD0',
+    gap: 8,
   },
-  genderBtnActive: {
-    backgroundColor: '#8B4513',
-    borderColor: '#8B4513',
+  spinLabel: {
+    fontSize: 11,
+    color: C.faint,
+    letterSpacing: 3,
   },
-  genderBtnText: {
-    fontSize: 15,
-    color: '#8B7355',
-    letterSpacing: 2,
-    fontWeight: '500',
+  spinBtn: {
+    fontSize: 22,
+    color: C.mute,
+    lineHeight: 28,
+    paddingHorizontal: 4,
   },
-  genderBtnTextActive: {
-    color: '#FFFDF8',
-  },
-  error: {
-    fontSize: 13,
-    color: '#E53935',
+  spinVal: {
+    fontSize: 18,
+    color: C.deep,
+    fontWeight: '300',
+    letterSpacing: 1,
+    minWidth: 56,
     textAlign: 'center',
+  },
+  // 时辰
+  fieldLabel: {
+    fontSize: 11,
+    color: C.faint,
+    letterSpacing: 3,
     marginBottom: 12,
   },
-  submitBtn: {
-    marginTop: 8,
-    backgroundColor: '#8B4513',
-    borderRadius: 12,
-    paddingVertical: 14,
-    alignItems: 'center',
-  },
-  submitText: {
-    fontSize: 16,
-    color: '#FFFDF8',
-    fontWeight: '600',
-    letterSpacing: 4,
-  },
-  // Modal
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(44,24,16,0.4)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalBox: {
-    width: '80%',
-    maxHeight: '70%',
-    backgroundColor: '#FFFDF8',
-    borderRadius: 16,
-    padding: 20,
-  },
-  modalTitle: {
-    fontSize: 17,
-    color: '#2C1810',
-    fontWeight: '600',
-    letterSpacing: 3,
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  shichenItem: {
+  shichenGrid: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 4,
+  },
+  shichenCell: {
+    width: '24%',
+    paddingVertical: 10,
     alignItems: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 12,
-    borderRadius: 8,
-    marginBottom: 4,
+    borderRadius: 4,
   },
-  shichenItemActive: {
-    backgroundColor: '#F5F0E8',
+  shichenCellOn: {
+    backgroundColor: C.surface,
   },
-  shichenLabel: {
-    fontSize: 15,
-    color: '#2C1810',
+  shichenChi: {
+    fontSize: 17,
+    color: C.mid,
+    fontWeight: '300',
+  },
+  shichenChiOn: {
+    color: C.brand,
     fontWeight: '500',
-    letterSpacing: 2,
-    width: 60,
-  },
-  shichenLabelActive: {
-    color: '#8B4513',
-    fontWeight: '700',
   },
   shichenRange: {
+    fontSize: 9,
+    color: C.faint,
+    marginTop: 2,
+    letterSpacing: 0.5,
+  },
+  shichenRangeOn: {
+    color: C.mute,
+  },
+  // 性别
+  genderRow: {
+    flexDirection: 'row',
+    gap: 32,
+    marginBottom: 40,
+  },
+  genderOpt: {
+    alignItems: 'center',
+    paddingBottom: 4,
+  },
+  genderChi: {
+    fontSize: 16,
+    color: C.faint,
+    letterSpacing: 4,
+  },
+  genderChiOn: {
+    color: C.deep,
+  },
+  genderLine: {
+    marginTop: 4,
+    height: 1,
+    width: '100%',
+    backgroundColor: C.brand,
+  },
+  // 错误
+  error: {
     fontSize: 13,
-    color: '#B8A898',
+    color: '#C0392B',
+    marginBottom: 16,
+    letterSpacing: 1,
+  },
+  // 提交
+  submit: {
+    alignSelf: 'flex-start',
+    paddingVertical: 4,
+  },
+  submitText: {
+    fontSize: 15,
+    color: C.brand,
+    letterSpacing: 6,
+    fontWeight: '400',
   },
 });
