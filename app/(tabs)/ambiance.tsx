@@ -1,14 +1,21 @@
+/**
+ * 静心页面
+ * 
+ * 节气音景 + 呼吸引导
+ * 设计：极简，靠间距和字号说话
+ */
+
 import { StyleSheet, View, Text, Pressable } from 'react-native';
 import { useState } from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { Colors, Space, Type } from '@/lib/design/tokens';
 
 const SOUNDSCAPES = [
-  { id: 'rain', name: '谷雨听雨', icon: 'tint', season: '春' },
-  { id: 'thunder', name: '惊蛰听雷', icon: 'bolt', season: '春' },
-  { id: 'wind', name: '秋风落叶', icon: 'envira', season: '秋' },
-  { id: 'fire', name: '冬至炉火', icon: 'fire', season: '冬' },
-  { id: 'cicada', name: '小暑蝉鸣', icon: 'sun-o', season: '夏' },
-  { id: 'stream', name: '山间溪流', icon: 'leaf', season: '四季' },
+  { id: 'rain',    name: '谷雨听雨', season: '春' },
+  { id: 'thunder', name: '惊蛰听雷', season: '春' },
+  { id: 'wind',    name: '秋风落叶', season: '秋' },
+  { id: 'fire',    name: '冬至炉火', season: '冬' },
+  { id: 'cicada',  name: '小暑蝉鸣', season: '夏' },
+  { id: 'stream',  name: '山间溪流', season: '四季' },
 ];
 
 export default function AmbianceScreen() {
@@ -16,48 +23,41 @@ export default function AmbianceScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.sectionTitle}>节气音景</Text>
-      <Text style={styles.sectionSub}>闭上眼，感受此刻</Text>
+      {/* 节气音景 */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>节气音景</Text>
+        <Text style={styles.sectionSub}>闭上眼，感受此刻</Text>
 
-      <View style={styles.grid}>
-        {SOUNDSCAPES.map((sound) => (
-          <Pressable
-            key={sound.id}
-            style={[
-              styles.soundCard,
-              playing === sound.id && styles.soundCardActive,
-            ]}
-            onPress={() => setPlaying(playing === sound.id ? null : sound.id)}
-          >
-            <FontAwesome
-              name={sound.icon as any}
-              size={28}
-              color={playing === sound.id ? '#FFFDF8' : '#8B7355'}
-            />
-            <Text style={[
-              styles.soundName,
-              playing === sound.id && styles.soundNameActive,
-            ]}>
-              {sound.name}
-            </Text>
-            <Text style={[
-              styles.soundSeason,
-              playing === sound.id && styles.soundSeasonActive,
-            ]}>
-              {sound.season}
-            </Text>
-          </Pressable>
-        ))}
+        <View style={styles.soundList}>
+          {SOUNDSCAPES.map((sound) => {
+            const active = playing === sound.id;
+            return (
+              <Pressable
+                key={sound.id}
+                style={styles.soundItem}
+                onPress={() => setPlaying(active ? null : sound.id)}
+              >
+                <Text style={[styles.soundName, active && styles.soundNameActive]}>
+                  {sound.name}
+                </Text>
+                <Text style={[styles.soundSeason, active && styles.soundSeasonActive]}>
+                  {sound.season}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
       </View>
 
+      {/* 呼吸引导 */}
       <View style={styles.breathSection}>
         <Text style={styles.sectionTitle}>呼吸引导</Text>
-        <Pressable style={styles.breathButton}>
-          <View style={styles.breathCircle}>
-            <Text style={styles.breathText}>开始</Text>
-          </View>
-          <Text style={styles.breathDuration}>5 分钟 · 五行呼吸</Text>
+
+        <Pressable style={styles.breathCenter}>
+          <Text style={styles.breathChar}>息</Text>
         </Pressable>
+
+        <Text style={styles.breathHint}>五分钟 · 五行呼吸</Text>
       </View>
     </View>
   );
@@ -66,86 +66,77 @@ export default function AmbianceScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F0E8',
-    padding: 20,
+    backgroundColor: Colors.bg,
+    paddingHorizontal: Space.lg,
+  },
+
+  section: {
+    paddingTop: Space.xl,
   },
   sectionTitle: {
-    fontSize: 20,
-    color: '#2C1810',
-    fontWeight: '600',
-    letterSpacing: 4,
-    marginTop: 20,
+    ...Type.subtitle,
+    color: Colors.ink,
+    fontWeight: '400',
   },
   sectionSub: {
-    fontSize: 13,
-    color: '#B8A898',
-    marginTop: 6,
-    marginBottom: 20,
-    letterSpacing: 2,
+    ...Type.caption,
+    color: Colors.inkTertiary,
+    marginTop: Space.xs,
+    marginBottom: Space.lg,
   },
-  grid: {
+
+  // 音景列表 — 纯文字，不用卡片
+  soundList: {
+    gap: Space.xs,
+  },
+  soundItem: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-  },
-  soundCard: {
-    width: '47%',
-    backgroundColor: '#FFFDF8',
-    borderRadius: 12,
-    padding: 20,
+    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: 8,
-    borderWidth: 0.5,
-    borderColor: '#E5DDD0',
-  },
-  soundCardActive: {
-    backgroundColor: '#8B4513',
-    borderColor: '#8B4513',
+    paddingVertical: Space.base,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: Colors.inkHint + '40',
   },
   soundName: {
-    fontSize: 14,
-    color: '#2C1810',
-    fontWeight: '500',
-    letterSpacing: 2,
+    ...Type.body,
+    color: Colors.inkSecondary,
   },
   soundNameActive: {
-    color: '#FFFDF8',
+    color: Colors.brand,
+    fontWeight: '600',
   },
   soundSeason: {
-    fontSize: 11,
-    color: '#B8A898',
+    ...Type.label,
+    color: Colors.inkHint,
   },
   soundSeasonActive: {
-    color: '#D4A574',
+    color: Colors.brandMuted,
   },
+
+  // 呼吸引导 — 一个字
   breathSection: {
-    marginTop: 30,
     alignItems: 'center',
+    paddingTop: Space['3xl'],
   },
-  breathButton: {
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  breathCircle: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: '#FFFDF8',
+  breathCenter: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    borderWidth: 1,
+    borderColor: Colors.inkHint + '60',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: '#8B4513',
+    marginTop: Space.xl,
   },
-  breathText: {
-    fontSize: 16,
-    color: '#8B4513',
-    fontWeight: '500',
-    letterSpacing: 2,
+  breathChar: {
+    fontSize: 32,
+    color: Colors.brand,
+    fontWeight: '300',
+    letterSpacing: 0,
   },
-  breathDuration: {
-    fontSize: 13,
-    color: '#8B7355',
-    marginTop: 12,
-    letterSpacing: 1,
+  breathHint: {
+    ...Type.caption,
+    color: Colors.inkTertiary,
+    marginTop: Space.base,
   },
 });
