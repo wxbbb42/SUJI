@@ -7,23 +7,15 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import type { MingPan, WuXing, ZhuDetail } from '@/lib/bazi';
 
-// ── 五行色（偏水墨，比原版更沉） ───────────────────────────────────────
-const WX_COLOR: Record<WuXing, string> = {
-  金: '#B8943A',
-  木: '#4A7A3A',
-  水: '#3A5C8B',
-  火: '#B84A3A',
-  土: '#7A5A14',
-};
+import { Colors, Space, Type } from '@/lib/design/tokens';
 
-// ── 色彩系统 ───────────────────────────────────────────────────────────
-const C = {
-  deep:    '#2C1810',
-  mid:     '#6B5040',
-  mute:    '#8B7355',
-  faint:   '#B8A898',
-  surface: '#FFFBF5',
-  brand:   '#8B4513',
+// ── 五行色 ───────────────────────────────────────────────────────────
+const WX_COLOR: Record<WuXing, string> = {
+  金: Colors.wuxing.jin,
+  木: Colors.wuxing.mu,
+  水: Colors.wuxing.shui,
+  火: Colors.wuxing.huo,
+  土: Colors.wuxing.tu,
 };
 
 const PILLAR_LABELS = ['年柱', '月柱', '日柱', '时柱'];
@@ -126,31 +118,30 @@ function PillarCol({
 // ── Styles ────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 4,
+    paddingVertical: Space.xs,
   },
 
   // 四柱行
   pillarsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 32,
+    marginBottom: Space.xl,
   },
   pillar: {
     flex: 1,
     alignItems: 'center',
-    paddingHorizontal: 4,
-    gap: 8,
+    paddingHorizontal: Space.xs,
+    gap: Space.sm,
   },
   pillarDay: {
     // 日柱仅靠间距和品牌色 label 区分，不加任何边框/背景
   },
   pillarLabel: {
-    fontSize: 10,
-    color: C.faint,
-    letterSpacing: 1,
+    ...Type.label,
+    color: Colors.inkHint,
   },
   pillarLabelDay: {
-    color: C.brand,
+    color: Colors.brand,
   },
   // 字号比例：天干26 / 地支18 / 十神10 ≈ 2.6 : 1.8 : 1
   gan: {
@@ -164,75 +155,74 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   shiShen: {
-    fontSize: 10,
-    color: C.mute,
-    letterSpacing: 1,
+    ...Type.label,
+    color: Colors.inkTertiary,
     opacity: 0.75,
   },
   cangGan: {
-    fontSize: 11,
-    color: C.faint,
+    ...Type.label,
+    color: Colors.inkHint,
     letterSpacing: 2,
   },
   naYin: {
     fontSize: 9,
-    color: C.faint,
+    color: Colors.inkHint,
     textAlign: 'center',
     lineHeight: 13,
   },
 
   // 日主 / 格局 / 神煞
   block: {
-    marginBottom: 20,
+    marginBottom: Space.lg,
   },
   blockLabel: {
-    fontSize: 13,
-    color: C.deep,
+    ...Type.caption,
+    color: Colors.ink,
     fontWeight: '500',
     letterSpacing: 1,
-    marginBottom: 6,
+    marginBottom: Space.xs,
   },
   blockSuffix: {
-    fontSize: 11,
-    color: C.faint,
+    ...Type.label,
+    color: Colors.inkHint,
     fontWeight: '400',
   },
   blockBody: {
-    fontSize: 13,
-    color: C.mid,
+    ...Type.caption,
+    color: Colors.inkSecondary,
     lineHeight: 22,
   },
   faintText: {
-    fontSize: 12,
-    color: C.faint,
+    ...Type.caption,
+    color: Colors.inkHint,
   },
   shenShaToggle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: Space.sm,
   },
   shenShaList: {
-    gap: 12,
+    gap: Space.md,
   },
   shenShaRow: {
-    gap: 3,
+    gap: Space.xs,
   },
   shenShaName: {
-    fontSize: 13,
-    color: C.deep,
+    ...Type.caption,
+    color: Colors.ink,
     fontWeight: '500',
     letterSpacing: 1,
   },
   shenShaDesc: {
-    fontSize: 12,
-    color: C.mute,
+    ...Type.label,
+    color: Colors.inkTertiary,
     lineHeight: 18,
   },
   colorJi: {
-    color: '#7A8B14',
+    color: Colors.good,
   },
   colorXiong: {
-    color: '#B84A3A',
+    color: Colors.warn,
   },
 });
