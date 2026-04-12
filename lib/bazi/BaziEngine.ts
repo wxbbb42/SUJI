@@ -226,6 +226,35 @@ export class BaziEngine {
   }
 
   /**
+   * 六甲空亡计算（《三命通会》·空亡论）
+   *
+   * 六十甲子分六旬，每旬10个干支，对应12地支剩余2支为空亡：
+   *   甲子旬（甲子~癸酉）→ 空亡戌亥
+   *   甲戌旬（甲戌~癸未）→ 空亡申酉
+   *   甲申旬（甲申~癸巳）→ 空亡午未
+   *   甲午旬（甲午~癸卯）→ 空亡辰巳
+   *   甲辰旬（甲辰~癸丑）→ 空亡寅卯
+   *   甲寅旬（甲寅~癸亥）→ 空亡子丑
+   *
+   * @param dayPillar 日柱干支
+   * @returns 空亡的两个地支
+   */
+  static computeKongWang(dayPillar: GanZhi): DiZhi[] {
+    const ganIdx = BaziEngine.TIAN_GAN.indexOf(dayPillar.gan);
+    const zhiIdx = BaziEngine.DI_ZHI.indexOf(dayPillar.zhi);
+    // 由天干/地支索引推算六十甲子序号
+    // 解：sbVal ≡ ganIdx (mod 10), sbVal ≡ zhiIdx (mod 12)
+    // k 满足 ganIdx + 10k ≡ zhiIdx (mod 12)
+    const k = (((ganIdx - zhiIdx) / 2) % 6 + 6) % 6;
+    const sbVal = ganIdx + 10 * k;
+    const xunIndex = Math.floor(sbVal / 10); // 0=甲子旬 … 5=甲寅旬
+    // 空亡地支：甲子旬空戌(10)亥(11)，每升一旬递减2
+    const kongStart = (10 - xunIndex * 2 + 12) % 12;
+    const kongEnd   = (11 - xunIndex * 2 + 12) % 12;
+    return [BaziEngine.DI_ZHI[kongStart], BaziEngine.DI_ZHI[kongEnd]];
+  }
+
+  /**
    * 天干五合表（《渊海子平》）
    * 甲己合→土，乙庚合→金，丙辛合→水，丁壬合→木，戊癸合→火
    */
@@ -581,8 +610,14 @@ export class BaziEngine {
     // ── 9. 格局 ───────────────────────────────
     const geJu = this.determineGeJu(siZhu, wuXingStrength, riGan);
 
-    // ── 10. 神煞（利用 theGods 插件）────────────
-    const shenSha = this.extractShenSha(lsr);
+    // ── 10. 神煞（自建推算 + theGods 插件补充）───
+    const ownShenSha    = this.computeShenShaOwn(siZhu, riGan);
+    const pluginShenSha = this.extractShenSha(lsr);
+    const ownNames      = new Set(ownShenSha.map(s => s.name));
+    const shenSha       = [...ownShenSha, ...pluginShenSha.filter(s => !ownNames.has(s.name))];
+
+    // ── 10b. 空亡 ─────────────────────────────
+    const kongWang = BaziEngine.computeKongWang(dayGanZhi);
 
     // ── 11. 大运 ──────────────────────────────
     const { direction, startAge, daYunList } = this.computeDaYun(birthDate, gender, riGan, lsr, c8ex);
@@ -612,6 +647,7 @@ export class BaziEngine {
       branchRelations,
       stemRelations,
       geJu,
+      kongWang,
       shenSha,
       daYunDirection:  direction,
       daYunStartAge:   startAge,
@@ -1236,6 +1272,326 @@ export class BaziEngine {
       空亡: '这个领域暂时需要更多耐心',
     };
     return map[name] ?? `${name}对你的人生有特殊影响`;
+  }
+
+  // ─────────────────────────────────────────
+  // § 自建神煞推算（《三命通会》·神煞论）
+  // 不依赖任何插件，纯查表推算
+  // ─────────────────────────────────────────
+
+  /**
+   * 自建神煞推算系统（《三命通会》·《渊海子平》神煞论）
+   *
+   * 涵盖18种常见神煞，以日干、日支、年支、月支为基准推算。
+   * 相比插件，本方法提供更丰富的白话描述与现代解读。
+   */
+  private computeShenShaOwn(siZhu: SiZhu, riGan: TianGan): ShenSha[] {
+    const result: ShenSha[] = [];
+
+    const yearGan  = siZhu.year.ganZhi.gan;
+    const monthGan = siZhu.month.ganZhi.gan;
+    const dayGan   = siZhu.day.ganZhi.gan;
+    const hourGan  = siZhu.hour.ganZhi.gan;
+
+    const yearZhi  = siZhu.year.ganZhi.zhi;
+    const monthZhi = siZhu.month.ganZhi.zhi;
+    const dayZhi   = siZhu.day.ganZhi.zhi;
+    const hourZhi  = siZhu.hour.ganZhi.zhi;
+
+    const pillarGans: [TianGan, string][] = [
+      [yearGan, '年柱'], [monthGan, '月柱'], [dayGan, '日柱'], [hourGan, '时柱'],
+    ];
+    const pillarZhis: [DiZhi, string][] = [
+      [yearZhi, '年柱'], [monthZhi, '月柱'], [dayZhi, '日柱'], [hourZhi, '时柱'],
+    ];
+
+    /** 在四柱地支中查目标支，每命中一次记录一条 */
+    const checkZhis = (
+      targets: DiZhi[],
+      name: string,
+      type: ShenSha['type'],
+      description: string,
+      modernMeaning: string,
+    ) => {
+      for (const [zhi, pos] of pillarZhis) {
+        if (targets.includes(zhi)) {
+          result.push({ name, type, position: pos, description, modernMeaning });
+        }
+      }
+    };
+
+    /** 在四柱天干中查目标干，每命中一次记录一条 */
+    const checkGans = (
+      targets: TianGan[],
+      name: string,
+      type: ShenSha['type'],
+      description: string,
+      modernMeaning: string,
+    ) => {
+      for (const [gan, pos] of pillarGans) {
+        if (targets.includes(gan)) {
+          result.push({ name, type, position: pos, description, modernMeaning });
+        }
+      }
+    };
+
+    // ─── 1. 天乙贵人（以日干查各柱地支）────────────
+    // 来源：《渊海子平》·天乙贵人篇
+    const TIAN_YI: Record<TianGan, DiZhi[]> = {
+      甲: ['丑', '未'], 乙: ['子', '申'],
+      丙: ['亥', '酉'], 丁: ['亥', '酉'],
+      戊: ['丑', '未'], 己: ['子', '申'],
+      庚: ['丑', '未'], 辛: ['午', '寅'],
+      壬: ['卯', '巳'], 癸: ['卯', '巳'],
+    };
+    checkZhis(TIAN_YI[riGan], '天乙贵人', '吉',
+      '四柱最吉之神，逢凶化吉，一生多得贵人援手，化险为夷，运势平稳',
+      '你天生具有吸引贵人的气场，困难时刻往往有人在关键节点伸出援手');
+
+    // ─── 2. 文昌贵人（以日干查各柱地支）────────────
+    // 来源：《三命通会》·文昌贵人论
+    const WEN_CHANG: Record<TianGan, DiZhi> = {
+      甲: '巳', 乙: '午', 丙: '申', 丁: '酉',
+      戊: '申', 己: '酉', 庚: '亥', 辛: '子', 壬: '寅', 癸: '卯',
+    };
+    checkZhis([WEN_CHANG[riGan]], '文昌贵人', '吉',
+      '主聪明才智，文采出众，学业有成，利于考试升学与文职工作',
+      '你有出色的学习和表达能力，语言文字是你的天赋领域');
+
+    // ─── 3. 天德贵人（以月支确定，查四柱干支）──────
+    // 来源：《三命通会》·天德贵人
+    // 偶数月（二、五、八、十一月）天德为地支；奇数月为天干
+    const TIAN_DE_GAN: Partial<Record<DiZhi, TianGan>> = {
+      寅: '丁', 辰: '壬', 巳: '辛', 未: '甲',
+      申: '癸', 戌: '丙', 亥: '乙', 丑: '庚',
+    };
+    const TIAN_DE_ZHI: Partial<Record<DiZhi, DiZhi>> = {
+      卯: '申', 午: '亥', 酉: '寅', 子: '巳',
+    };
+    const tiande_gan = TIAN_DE_GAN[monthZhi];
+    if (tiande_gan) {
+      checkGans([tiande_gan], '天德贵人', '吉',
+        '月令天德，一生逢凶化吉，得天地庇佑，遇难呈祥，官司不侵',
+        '你有一种化解危机的天赋，困境中往往能找到转机');
+    }
+    const tiande_zhi = TIAN_DE_ZHI[monthZhi];
+    if (tiande_zhi) {
+      checkZhis([tiande_zhi], '天德贵人', '吉',
+        '月令天德，一生逢凶化吉，得天地庇佑，遇难呈祥，官司不侵',
+        '你有一种化解危机的天赋，困境中往往能找到转机');
+    }
+
+    // ─── 4. 月德贵人（以月支所属三合查四柱天干）────
+    // 来源：《三命通会》·月德贵人
+    const YUE_DE_MAP: Record<DiZhi, TianGan> = {
+      寅: '丙', 午: '丙', 戌: '丙',
+      申: '壬', 子: '壬', 辰: '壬',
+      亥: '甲', 卯: '甲', 未: '甲',
+      巳: '庚', 酉: '庚', 丑: '庚',
+    };
+    const yueDe = YUE_DE_MAP[monthZhi];
+    if (yueDe) {
+      checkGans([yueDe], '月德贵人', '吉',
+        '月令月德，天赋仁德之性，心善积福，官非不侵，有贵人护持',
+        '你有温润的人格魅力，善举往往能转化为自身的好运');
+    }
+
+    // ─── 5. 桃花（咸池，以日支三合组查各柱地支）────
+    // 来源：《渊海子平》·桃花论
+    const TAO_HUA_MAP: Record<DiZhi, DiZhi> = {
+      寅: '卯', 午: '卯', 戌: '卯',
+      申: '酉', 子: '酉', 辰: '酉',
+      巳: '午', 酉: '午', 丑: '午',
+      亥: '子', 卯: '子', 未: '子',
+    };
+    const taoHua = TAO_HUA_MAP[dayZhi];
+    if (taoHua) {
+      checkZhis([taoHua], '桃花', '中性',
+        '桃花贵人，魅力十足，人缘出众，感情丰富；需防感情泛滥或桃花劫',
+        '你天生有吸引人的气质，社交能力强，感情生活容易丰富多彩');
+    }
+
+    // ─── 6. 驿马（以日支三合组查各柱地支）──────────
+    // 来源：《三命通会》·驿马论
+    const YI_MA_MAP: Record<DiZhi, DiZhi> = {
+      寅: '申', 午: '申', 戌: '申',
+      申: '寅', 子: '寅', 辰: '寅',
+      巳: '亥', 酉: '亥', 丑: '亥',
+      亥: '巳', 卯: '巳', 未: '巳',
+    };
+    const yiMa = YI_MA_MAP[dayZhi];
+    if (yiMa) {
+      checkZhis([yiMa], '驿马', '中性',
+        '主变动迁移，奔波忙碌，适合出差行旅与异地发展；逢合则受羁绊',
+        '你适合在流动变化中寻找机会，外出闯荡比守株待兔更有收获');
+    }
+
+    // ─── 7. 华盖（以日支三合组查各柱地支）──────────
+    // 来源：《三命通会》·华盖论
+    const HUA_GAI_MAP: Record<DiZhi, DiZhi> = {
+      寅: '戌', 午: '戌', 戌: '戌',
+      申: '辰', 子: '辰', 辰: '辰',
+      巳: '丑', 酉: '丑', 丑: '丑',
+      亥: '未', 卯: '未', 未: '未',
+    };
+    const huaGai = HUA_GAI_MAP[dayZhi];
+    if (huaGai) {
+      checkZhis([huaGai], '华盖', '中性',
+        '主孤独清高，有宗教信仰或艺术哲学天赋，喜独处，精神世界丰富',
+        '你有强烈的精神追求，独处时往往能激发最深刻的灵感与创造力');
+    }
+
+    // ─── 8. 将星（以日支三合组查各柱地支）──────────
+    // 来源：《三命通会》·将星论
+    const JIANG_XING_MAP: Record<DiZhi, DiZhi> = {
+      寅: '午', 午: '午', 戌: '午',
+      申: '子', 子: '子', 辰: '子',
+      巳: '酉', 酉: '酉', 丑: '酉',
+      亥: '卯', 卯: '卯', 未: '卯',
+    };
+    const jiangXing = JIANG_XING_MAP[dayZhi];
+    if (jiangXing) {
+      checkZhis([jiangXing], '将星', '吉',
+        '将帅之星，主权威与领导力，统率四方，适合担任要职或团队领袖',
+        '你天生有领导气质，团队中往往自然成为核心与决策人物');
+    }
+
+    // ─── 9. 亡神（以日支三合组查各柱地支）──────────
+    // 来源：《三命通会》·亡神论
+    const WANG_SHEN_MAP: Record<DiZhi, DiZhi> = {
+      寅: '巳', 午: '巳', 戌: '巳',
+      申: '亥', 子: '亥', 辰: '亥',
+      巳: '申', 酉: '申', 丑: '申',
+      亥: '寅', 卯: '寅', 未: '寅',
+    };
+    const wangShen = WANG_SHEN_MAP[dayZhi];
+    if (wangShen) {
+      checkZhis([wangShen], '亡神', '凶',
+        '主破财损耗、意外损失，需防财务风险、资产流失与合伙纠纷',
+        '注意资产安全，避免冲动消费或高风险投资决策');
+    }
+
+    // ─── 10. 羊刃（以日干查各柱地支）────────────────
+    // 来源：《渊海子平》·羊刃论
+    const YANG_REN: Record<TianGan, DiZhi> = {
+      甲: '卯', 乙: '寅', 丙: '午', 丁: '巳',
+      戊: '午', 己: '巳', 庚: '酉', 辛: '申', 壬: '子', 癸: '亥',
+    };
+    checkZhis([YANG_REN[riGan]], '羊刃', '中性',
+      '主果断魄力，行动力强，但锋芒毕露易引争端；善用则护身，失控则伤身',
+      '你行动果断，执行力强，注意将魄力用在正确方向，避免无谓争斗');
+
+    // ─── 11. 禄神（以日干查各柱地支）────────────────
+    // 来源：《渊海子平》·禄神论
+    const LU_SHEN: Record<TianGan, DiZhi> = {
+      甲: '寅', 乙: '卯', 丙: '巳', 丁: '午',
+      戊: '巳', 己: '午', 庚: '申', 辛: '酉', 壬: '亥', 癸: '子',
+    };
+    checkZhis([LU_SHEN[riGan]], '禄神', '吉',
+      '禄星临命，衣食无忧，仕途顺畅，职业稳定，财运平稳有保障',
+      '你有稳定的谋生能力，职场中自然能找到立足之地');
+
+    // ─── 12. 太极贵人（以年支查各柱地支）────────────
+    // 来源：《三命通会》·太极贵人
+    const TAI_JI_MAP: Record<DiZhi, DiZhi[]> = {
+      子: ['卯', '酉'], 午: ['卯', '酉'],
+      寅: ['子', '午'], 申: ['子', '午'],
+      辰: ['丑', '未'], 戌: ['丑', '未'],
+      巳: ['寅', '申'], 亥: ['寅', '申'],
+      丑: ['辰', '戌'], 未: ['辰', '戌'],
+      卯: ['巳', '亥'], 酉: ['巳', '亥'],
+    };
+    const taiJiZhis = TAI_JI_MAP[yearZhi] ?? [];
+    checkZhis(taiJiZhis, '太极贵人', '吉',
+      '主智慧超群，思维灵活，善从宏观视角把握局势，有化腐朽为神奇之能',
+      '你具有超凡的洞察力，能看穿事物本质，在复杂局面中找到最优解');
+
+    // ─── 13. 金舆（日干之禄前两位地支）──────────────
+    // 来源：《三命通会》·金舆论
+    const JIN_YU: Record<TianGan, DiZhi> = {
+      甲: '辰', 乙: '巳', 丙: '未', 丁: '申',
+      戊: '未', 己: '申', 庚: '戌', 辛: '亥', 壬: '丑', 癸: '寅',
+    };
+    checkZhis([JIN_YU[riGan]], '金舆', '吉',
+      '主富贵荣华，出行有车马之利，财运丰厚，生活优越，易得配偶助力',
+      '你有享受优质生活的运势，伴侣往往能给你带来实质帮助');
+
+    // ─── 14. 魁罡（特定日柱组合）────────────────────
+    // 来源：《渊海子平》·魁罡格
+    const KUIGANG_DAYS: [TianGan, DiZhi][] = [
+      ['壬', '辰'], ['庚', '辰'], ['庚', '戌'], ['戊', '戌'],
+    ];
+    for (const [g, z] of KUIGANG_DAYS) {
+      if (dayGan === g && dayZhi === z) {
+        result.push({
+          name: '魁罡',
+          type: '中性',
+          position: '日柱',
+          description: '魁罡日主，性格刚强果断，才华横溢，性情峻烈，人生起伏较大',
+          modernMeaning: '你有极强的个人意志和才华，适合在高压环境中独当一面',
+        });
+      }
+    }
+
+    // ─── 15. 红鸾（以年支逆数推，查各柱地支）────────
+    // 来源：《三命通会》·红鸾天喜
+    const HONG_LUAN_MAP: Record<DiZhi, DiZhi> = {
+      子: '卯', 丑: '寅', 寅: '丑', 卯: '子',
+      辰: '亥', 巳: '戌', 午: '酉', 未: '申',
+      申: '未', 酉: '午', 戌: '巳', 亥: '辰',
+    };
+    const hongLuan = HONG_LUAN_MAP[yearZhi];
+    if (hongLuan) {
+      checkZhis([hongLuan], '红鸾', '吉',
+        '婚姻感情之星，主感情顺遂，婚缘美满，易逢喜庆之事',
+        '你的感情生活容易获得美好结果，婚姻运势较为顺遂');
+    }
+
+    // ─── 16. 天喜（红鸾对冲支，以年支查各柱地支）────
+    // 来源：《三命通会》·红鸾天喜
+    const TIAN_XI_MAP: Record<DiZhi, DiZhi> = {
+      子: '酉', 丑: '申', 寅: '未', 卯: '午',
+      辰: '巳', 巳: '辰', 午: '卯', 未: '寅',
+      申: '丑', 酉: '子', 戌: '亥', 亥: '戌',
+    };
+    const tianXi = TIAN_XI_MAP[yearZhi];
+    if (tianXi) {
+      checkZhis([tianXi], '天喜', '吉',
+        '喜庆之星，主逢事多喜，婚嫁、生育、升迁等喜事接踵而来',
+        '你容易在生命中遇到各种值得庆祝的好事，正向能量充足');
+    }
+
+    // ─── 17. 劫煞（以日支三合组查各柱地支）──────────
+    // 来源：《三命通会》·劫煞论
+    const JIE_SHA_MAP: Record<DiZhi, DiZhi> = {
+      寅: '亥', 午: '亥', 戌: '亥',
+      申: '巳', 子: '巳', 辰: '巳',
+      巳: '寅', 酉: '寅', 丑: '寅',
+      亥: '申', 卯: '申', 未: '申',
+    };
+    const jieSha = JIE_SHA_MAP[dayZhi];
+    if (jieSha) {
+      checkZhis([jieSha], '劫煞', '凶',
+        '主破财损耗、小人暗害，防合伙纠纷与资金损失',
+        '注意识别身边不可靠之人，合作时务必谨慎签约核查');
+    }
+
+    // ─── 18. 灾煞（以日支三合组查各柱地支）──────────
+    // 来源：《三命通会》·灾煞论
+    const ZAI_SHA_MAP: Record<DiZhi, DiZhi> = {
+      寅: '子', 午: '子', 戌: '子',
+      申: '午', 子: '午', 辰: '午',
+      巳: '卯', 酉: '卯', 丑: '卯',
+      亥: '酉', 卯: '酉', 未: '酉',
+    };
+    const zaiSha = ZAI_SHA_MAP[dayZhi];
+    if (zaiSha) {
+      checkZhis([zaiSha], '灾煞', '凶',
+        '主意外灾害，宜注意出行安全与身体健康，防突发事故',
+        '提高安全意识，在高风险情境下保持多一份谨慎');
+    }
+
+    return result;
   }
 
   // ─────────────────────────────────────────

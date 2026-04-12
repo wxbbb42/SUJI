@@ -226,6 +226,9 @@ export interface MingPan {
   // 纳音
   yearNaYin: string;
   
+  // 空亡
+  kongWang: DiZhi[];       // 六甲空亡地支
+  
   // 胎元 & 命宫
   taiYuan: GanZhi;        // 胎元
   mingGong: GanZhi;       // 命宫
