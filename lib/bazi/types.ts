@@ -153,6 +153,21 @@ export interface LiuNian {
   interactions: string[];  // 与命盘的互动关系
 }
 
+/** 流月信息 */
+export interface LiuYue {
+  month: number;           // 1-12
+  ganZhi: GanZhi;
+  shiShen: ShiShen;        // 流月天干十神
+  zhiShiShen: ShiShen;     // 流月地支藏干主气十神
+}
+
+/** 流日信息 */
+export interface LiuRi {
+  date: Date;
+  ganZhi: GanZhi;
+  shiShen: ShiShen;        // 流日天干十神
+}
+
 /** 大运排列方向 */
 export type DaYunDirection = '顺行' | '逆行';
 

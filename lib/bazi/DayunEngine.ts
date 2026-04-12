@@ -10,7 +10,7 @@
 
 import type {
   TianGan, DiZhi, WuXing, YinYang, ShiShen,
-  GanZhi, DaYun, LiuNian, MingPan,
+  GanZhi, DaYun, LiuNian, LiuYue, LiuRi, MingPan,
 } from './types';
 
 // ─────────────────────────────────────────────────────────────────
@@ -574,5 +574,123 @@ export class DayunEngine {
       }
     }
     return lucky.sort((a, b) => a - b);
+  }
+
+  // ════════════════════════════════════════════
+  // § 流月排盘
+  // ════════════════════════════════════════════
+
+  /**
+   * 获取某年 12 个流月的干支
+   *
+   * 流月干支推算规则（《渊海子平》月上起天干法）：
+   * 年干     正月天干
+   * 甲己 → 丙寅月
+   * 乙庚 → 戊寅月
+   * 丙辛 → 庚寅月
+   * 丁壬 → 壬寅月
+   * 戊癸 → 甲寅月
+   *
+   * @param year 公历年份
+   */
+  getLiuYue(year: number): LiuYue[] {
+    const riGan = this.mingPan.riZhu.gan;
+    const yearGanZhi = this.yearToGanZhi(year);
+    const yearGanIdx = DayunEngine.TIAN_GAN.indexOf(yearGanZhi.gan);
+
+    // 年干起月干：甲己起丙(2)，乙庚起戊(4)，丙辛起庚(6)，丁壬起壬(8)，戊癸起甲(0)
+    const monthGanStart = ((yearGanIdx % 5) * 2 + 2) % 10;
+
+    // 流月地支从寅开始（正月=寅，二月=卯，...，十一月=子，十二月=丑）
+    const months: LiuYue[] = [];
+    for (let m = 1; m <= 12; m++) {
+      const ganIdx = (monthGanStart + m - 1) % 10;
+      const zhiIdx = (m + 1) % 12; // 正月=寅(2)，二月=卯(3)...
+
+      const gan = DayunEngine.TIAN_GAN[ganIdx];
+      const zhi = DayunEngine.DI_ZHI[zhiIdx];
+      const cycle60 = this.ganZhiTo60(gan, zhi);
+      const naYin = NA_YIN_60[Math.floor(cycle60 / 2)];
+
+      const ganZhi: GanZhi = {
+        gan, zhi,
+        ganWuXing: DayunEngine.GAN_WUXING[gan],
+        zhiWuXing: DayunEngine.ZHI_WUXING[zhi],
+        ganYinYang: DayunEngine.GAN_YINYANG[gan],
+        zhiYinYang: DayunEngine.ZHI_YINYANG[zhi],
+        naYin,
+        naYinWuXing: NA_YIN_WX_MAP[naYin] ?? '土',
+      };
+
+      const shiShen = DayunEngine.computeShiShen(riGan, gan);
+      const zhiMainGan = this.zhiCangGanMain(zhi);
+      const zhiShiShen = DayunEngine.computeShiShen(riGan, zhiMainGan);
+
+      months.push({ month: m, ganZhi, shiShen, zhiShiShen });
+    }
+    return months;
+  }
+
+  // ════════════════════════════════════════════
+  // § 流日排盘
+  // ════════════════════════════════════════════
+
+  /**
+   * 获取某一天的流日干支
+   *
+   * 流日干支基于六十甲子循环。
+   * 基准日：1900-01-01 为甲子日（六十甲子序号 0）
+   *
+   * @param date 公历日期
+   */
+  getLiuRi(date: Date): LiuRi {
+    const riGan = this.mingPan.riZhu.gan;
+
+    // 基准：1900-01-01 = 甲子日
+    const base = new Date(1900, 0, 1);
+    const diffDays = Math.floor((date.getTime() - base.getTime()) / 86400000);
+    const cycle60 = ((diffDays % 60) + 60) % 60;
+
+    const ganZhi = DayunEngine.indexToGanZhi(cycle60);
+    const shiShen = DayunEngine.computeShiShen(riGan, ganZhi.gan);
+
+    return { date, ganZhi, shiShen };
+  }
+
+  /**
+   * 获取某月每一天的流日列表
+   * @param year 年
+   * @param month 月（1-12）
+   */
+  getLiuRiList(year: number, month: number): LiuRi[] {
+    const days: LiuRi[] = [];
+    const daysInMonth = new Date(year, month, 0).getDate();
+    for (let d = 1; d <= daysInMonth; d++) {
+      days.push(this.getLiuRi(new Date(year, month - 1, d)));
+    }
+    return days;
+  }
+
+  // ── 辅助 ──────────────────────────────────────
+
+  /** 天干+地支 → 六十甲子序号 (0-59) */
+  private ganZhiTo60(gan: TianGan, zhi: DiZhi): number {
+    const g = DayunEngine.TIAN_GAN.indexOf(gan);
+    const z = DayunEngine.DI_ZHI.indexOf(zhi);
+    // 找 k 使 g + 10k ≡ z (mod 12)
+    for (let k = 0; k < 6; k++) {
+      if ((g + 10 * k) % 12 === z) return g + 10 * k;
+    }
+    return 0;
+  }
+
+  /** 地支藏干主气天干 */
+  private zhiCangGanMain(zhi: DiZhi): TianGan {
+    const CANG_MAIN: Record<DiZhi, TianGan> = {
+      子: '癸', 丑: '己', 寅: '甲', 卯: '乙',
+      辰: '戊', 巳: '丙', 午: '丁', 未: '己',
+      申: '庚', 酉: '辛', 戌: '戊', 亥: '壬',
+    };
+    return CANG_MAIN[zhi];
   }
 }
