@@ -342,6 +342,160 @@ export class BaziEngine {
     ZHI_BASE: 0.6,  // 地支本气（通过藏干表）
   };
 
+  /**
+   * 调候用神表（《穷通宝鉴》·余春台）
+   * 十天干在十二月令中的调候用神、喜神、忌神
+   *
+   * yong: 主要用神（第一位最重要）
+   * xi:   喜神（辅助）
+   * ji:   忌神（不利之干）
+   */
+  private static readonly TIAO_HOU_YONG_SHEN: Record<
+    TianGan,
+    Record<DiZhi, { yong: TianGan[]; xi: TianGan[]; ji: TianGan[]; desc: string }>
+  > = {
+    甲: {
+      寅: { yong: ['丙', '癸'], xi: ['丙', '癸'], ji: ['庚', '辛'], desc: '初春寒木，丙火暖身，癸水润根' },
+      卯: { yong: ['丙', '庚'], xi: ['丙', '庚'], ji: ['壬', '癸'], desc: '仲春木旺，丙火调候，庚金修剪' },
+      辰: { yong: ['庚', '丙'], xi: ['庚', '丙'], ji: ['壬'],       desc: '土旺木弱，庚金劈甲引丁，丙火暖之' },
+      巳: { yong: ['癸', '丁'], xi: ['癸'],       ji: ['丙'],       desc: '初夏炎热，癸水润根存根，忌丙火太旺' },
+      午: { yong: ['癸', '庚'], xi: ['癸', '庚'], ji: ['丙', '丁'], desc: '仲夏炎燥，癸水滋润为急，庚金辅之' },
+      未: { yong: ['癸', '丙'], xi: ['癸'],       ji: ['庚'],       desc: '未月燥土，癸水润土中木根' },
+      申: { yong: ['丁', '丙'], xi: ['丁', '丙'], ji: ['壬'],       desc: '金旺克木，丁火制金，丙火暖身' },
+      酉: { yong: ['丁', '丙'], xi: ['丁', '丙'], ji: ['壬', '癸'], desc: '秋金最旺，丁火制金为急，丙火辅之' },
+      戌: { yong: ['庚', '丁'], xi: ['庚', '甲'], ji: ['壬'],       desc: '土旺木困，庚金劈甲引丁火' },
+      亥: { yong: ['庚', '丙'], xi: ['庚', '丙'], ji: ['壬'],       desc: '亥月寒水，庚金劈甲，丙火暖身驱寒' },
+      子: { yong: ['丙', '庚'], xi: ['丙', '庚'], ji: ['壬', '癸'], desc: '子月严寒，丙火暖木驱寒为急，庚金辅' },
+      丑: { yong: ['丙', '庚'], xi: ['丙', '庚'], ji: ['癸'],       desc: '丑月冻土，丙火解冻，庚金修剪辅助' },
+    },
+    乙: {
+      寅: { yong: ['丙', '癸'], xi: ['丙'],       ji: ['庚', '辛'], desc: '初春乙木，丙火调候，癸水滋养' },
+      卯: { yong: ['丙', '癸'], xi: ['丙', '癸'], ji: ['庚', '辛'], desc: '卯月乙木最旺，丙火暖之，癸水润根' },
+      辰: { yong: ['癸', '丙'], xi: ['癸', '丙'], ji: ['戊'],       desc: '辰月土盛，癸水润木，丙火暖身' },
+      巳: { yong: ['癸', '丙'], xi: ['癸'],       ji: ['庚'],       desc: '巳月初夏，癸水解渴，丙火适量' },
+      午: { yong: ['癸', '丙'], xi: ['癸'],       ji: ['丙'],       desc: '午月炎热，癸水为急，丙火忌过旺' },
+      未: { yong: ['癸', '丙'], xi: ['癸'],       ji: ['己'],       desc: '未月燥土，癸水润土，丙火暖身' },
+      申: { yong: ['丙', '癸'], xi: ['丙', '癸'], ji: ['庚'],       desc: '申月金旺，丙火制金，癸水滋根' },
+      酉: { yong: ['丙', '癸'], xi: ['丙', '癸'], ji: ['辛'],       desc: '酉月金旺克木，丙癸并用' },
+      戌: { yong: ['癸', '丙'], xi: ['癸', '甲'], ji: ['戊'],       desc: '戌月燥土，癸水润之，甲木为助' },
+      亥: { yong: ['丙', '戊'], xi: ['丙'],       ji: ['壬'],       desc: '亥月寒水泛滥，丙火暖身，戊土制水' },
+      子: { yong: ['丙', '戊'], xi: ['丙', '戊'], ji: ['癸', '壬'], desc: '子月严寒，丙火暖木，戊土培根' },
+      丑: { yong: ['丙', '戊'], xi: ['丙'],       ji: ['癸'],       desc: '丑月严寒，丙火为急，戊土培根' },
+    },
+    丙: {
+      寅: { yong: ['壬', '庚'], xi: ['壬'],       ji: ['己'],       desc: '春火渐旺，壬水既济调候' },
+      卯: { yong: ['壬', '庚'], xi: ['壬'],       ji: ['己', '癸'], desc: '卯月木旺生火，壬水制火调候，庚金辅' },
+      辰: { yong: ['壬', '甲'], xi: ['壬', '甲'], ji: ['戊'],       desc: '辰月土旺晦火，壬水调候，甲木引火' },
+      巳: { yong: ['壬', '庚'], xi: ['壬'],       ji: ['己'],       desc: '巳月火旺，壬水为急既济' },
+      午: { yong: ['壬', '庚'], xi: ['壬', '庚'], ji: ['己', '戊'], desc: '午月火极旺，壬水既济最急' },
+      未: { yong: ['壬', '庚'], xi: ['壬'],       ji: ['己'],       desc: '未月火土旺，壬水调候，庚金引' },
+      申: { yong: ['壬', '甲'], xi: ['壬', '甲'], ji: ['戊'],       desc: '申月金水旺，壬水调候，甲木生火' },
+      酉: { yong: ['壬', '甲'], xi: ['壬', '甲'], ji: ['癸'],       desc: '酉月金旺，壬水调候，甲木助火' },
+      戌: { yong: ['甲', '壬'], xi: ['甲', '壬'], ji: ['戊'],       desc: '戌月土旺晦火，甲木疏土，壬水调候' },
+      亥: { yong: ['甲', '戊'], xi: ['甲'],       ji: ['壬'],       desc: '亥月水旺克火，甲木生火，戊土制水' },
+      子: { yong: ['甲', '戊'], xi: ['甲'],       ji: ['癸'],       desc: '子月严寒，甲木引火，戊土制水' },
+      丑: { yong: ['甲', '壬'], xi: ['甲', '戊'], ji: ['癸', '壬'], desc: '丑月寒冬，甲木生火为先，壬水调候' },
+    },
+    丁: {
+      寅: { yong: ['甲', '庚'], xi: ['甲'],       ji: ['壬'],       desc: '寅月丁火，甲木引火，庚金锻炼' },
+      卯: { yong: ['甲', '庚'], xi: ['甲'],       ji: ['壬', '癸'], desc: '卯月木旺，甲木引火，庚金为用' },
+      辰: { yong: ['甲', '庚'], xi: ['甲', '庚'], ji: ['壬'],       desc: '辰月土旺，甲木疏土引火，庚金辅' },
+      巳: { yong: ['甲', '庚'], xi: ['庚', '甲'], ji: ['壬'],       desc: '巳月火旺，庚金泄秀，甲木辅助' },
+      午: { yong: ['壬', '庚'], xi: ['壬'],       ji: ['甲'],       desc: '午月火极旺，壬水调候，庚金泄秀' },
+      未: { yong: ['甲', '壬'], xi: ['甲', '壬'], ji: ['庚'],       desc: '未月土旺，甲木疏土，壬水调候' },
+      申: { yong: ['甲', '庚'], xi: ['甲'],       ji: ['壬'],       desc: '申月秋凉，甲木生火，庚金锻炼' },
+      酉: { yong: ['甲', '庚'], xi: ['甲'],       ji: ['壬', '癸'], desc: '酉月金旺，甲木生火制金' },
+      戌: { yong: ['甲', '壬'], xi: ['甲'],       ji: ['戊'],       desc: '戌月土旺，甲木疏土，壬水辅助' },
+      亥: { yong: ['甲', '庚'], xi: ['甲'],       ji: ['壬'],       desc: '亥月寒水，甲木生火驱寒，庚金辅' },
+      子: { yong: ['甲', '庚'], xi: ['甲'],       ji: ['壬', '癸'], desc: '子月严寒，甲木生火为急' },
+      丑: { yong: ['甲', '庚'], xi: ['甲'],       ji: ['壬'],       desc: '丑月冻土，甲木生火，庚金疏木' },
+    },
+    戊: {
+      寅: { yong: ['丙', '甲'], xi: ['丙'],       ji: ['壬'],       desc: '春土气寒，丙火暖土，甲木疏松' },
+      卯: { yong: ['丙', '甲'], xi: ['丙'],       ji: ['壬', '癸'], desc: '卯月木旺克土，丙火暖助，甲木有情' },
+      辰: { yong: ['甲', '丙'], xi: ['甲', '丙'], ji: ['庚'],       desc: '辰月土旺，甲木疏松，丙火暖照' },
+      巳: { yong: ['壬', '甲'], xi: ['壬', '甲'], ji: ['庚', '丙'], desc: '巳月火生土旺，壬水调候，甲木疏土' },
+      午: { yong: ['壬', '甲'], xi: ['壬'],       ji: ['丙', '丁'], desc: '午月火土燥热，壬水调候最急' },
+      未: { yong: ['壬', '癸'], xi: ['壬', '甲'], ji: ['丙', '丁'], desc: '未月燥土，壬癸水润之' },
+      申: { yong: ['丙', '癸'], xi: ['丙', '癸'], ji: ['壬'],       desc: '申月金旺土弱，丙火暖照，癸水润之' },
+      酉: { yong: ['丙', '癸'], xi: ['丙', '癸'], ji: ['壬'],       desc: '酉月金旺，丙火暖土，癸水调候' },
+      戌: { yong: ['甲', '丙'], xi: ['甲', '丙'], ji: ['庚'],       desc: '戌月土旺，甲木疏土，丙火暖照' },
+      亥: { yong: ['丙', '甲'], xi: ['丙', '甲'], ji: ['壬'],       desc: '亥月水旺，丙火暖身，甲木疏土' },
+      子: { yong: ['丙', '甲'], xi: ['丙'],       ji: ['壬', '癸'], desc: '子月严寒，丙火暖土为急' },
+      丑: { yong: ['丙', '甲'], xi: ['丙'],       ji: ['癸', '壬'], desc: '丑月冻土，丙火解冻，甲木辅助' },
+    },
+    己: {
+      寅: { yong: ['丙', '癸'], xi: ['丙'],       ji: ['甲'],       desc: '春土气薄，丙火暖助，癸水润之' },
+      卯: { yong: ['丙', '癸'], xi: ['丙'],       ji: ['甲', '乙'], desc: '卯月木旺克土，丙火补助，癸水润根' },
+      辰: { yong: ['丙', '癸'], xi: ['丙', '癸'], ji: ['庚'],       desc: '辰月己土旺，丙火暖照，癸水润泽' },
+      巳: { yong: ['癸', '丙'], xi: ['癸'],       ji: ['庚'],       desc: '巳月火旺燥土，癸水调候为急' },
+      午: { yong: ['癸', '丙'], xi: ['癸'],       ji: ['丙', '丁'], desc: '午月火极燥，癸水调候最急' },
+      未: { yong: ['癸', '丙'], xi: ['癸'],       ji: ['甲'],       desc: '未月燥土，癸水润之为先' },
+      申: { yong: ['丙', '癸'], xi: ['丙', '癸'], ji: ['庚', '壬'], desc: '申月金水旺，丙火暖土，癸水适度' },
+      酉: { yong: ['丙', '癸'], xi: ['丙', '癸'], ji: ['辛'],       desc: '酉月金旺，丙火暖照，癸水调候' },
+      戌: { yong: ['甲', '癸'], xi: ['甲', '癸'], ji: ['庚'],       desc: '戌月土旺，甲木疏松，癸水润泽' },
+      亥: { yong: ['丙', '甲'], xi: ['丙'],       ji: ['壬', '癸'], desc: '亥月寒湿，丙火暖土，甲木疏之' },
+      子: { yong: ['丙', '甲'], xi: ['丙'],       ji: ['壬', '癸'], desc: '子月严寒，丙火暖土为急，甲木辅之' },
+      丑: { yong: ['丙', '甲'], xi: ['丙'],       ji: ['癸'],       desc: '丑月寒土，丙火解冻，甲木疏松' },
+    },
+    庚: {
+      寅: { yong: ['戊', '丁'], xi: ['戊', '丁'], ji: ['壬'],       desc: '寅月木旺，戊土护金，丁火炼金' },
+      卯: { yong: ['丁', '甲'], xi: ['丁'],       ji: ['壬', '癸'], desc: '卯月木旺，丁火锻炼庚金，甲木引丁' },
+      辰: { yong: ['甲', '丁'], xi: ['甲', '丁'], ji: ['壬'],       desc: '辰月土旺埋金，甲木疏土，丁火炼金' },
+      巳: { yong: ['壬', '戊'], xi: ['壬', '戊'], ji: ['丁'],       desc: '巳月火旺克金，壬水调候，戊土护金' },
+      午: { yong: ['壬', '己'], xi: ['壬'],       ji: ['丁', '丙'], desc: '午月火极旺，壬水最急调候救金' },
+      未: { yong: ['丁', '甲'], xi: ['甲', '壬'], ji: ['己'],       desc: '未月土旺，丁火炼金，甲木疏土' },
+      申: { yong: ['丁', '甲'], xi: ['丁', '甲'], ji: ['壬'],       desc: '申月庚金最旺，丁火炼金为急' },
+      酉: { yong: ['丁', '甲'], xi: ['丁', '甲'], ji: ['壬'],       desc: '酉月金旺，丁火炼金，甲木引丁' },
+      戌: { yong: ['甲', '壬'], xi: ['甲', '壬'], ji: ['戊'],       desc: '戌月土旺，甲木疏土，壬水调候' },
+      亥: { yong: ['丁', '甲'], xi: ['丁', '甲'], ji: ['壬', '癸'], desc: '亥月水旺，丁火炼金，甲木生火' },
+      子: { yong: ['丁', '丙'], xi: ['丁'],       ji: ['壬', '癸'], desc: '子月严寒，丁丙火暖金炼金' },
+      丑: { yong: ['丙', '丁'], xi: ['丙', '丁'], ji: ['壬', '癸'], desc: '丑月严寒，丙丁火暖身炼金' },
+    },
+    辛: {
+      寅: { yong: ['己', '壬'], xi: ['己', '壬'], ji: ['丙'],       desc: '寅月木旺，己土生金，壬水洗净' },
+      卯: { yong: ['壬', '甲'], xi: ['壬'],       ji: ['丙', '丁'], desc: '卯月木旺，壬水洗金，辛从壬水' },
+      辰: { yong: ['壬', '庚'], xi: ['壬'],       ji: ['戊'],       desc: '辰月土旺，壬水为用，庚金辅助' },
+      巳: { yong: ['壬', '庚'], xi: ['壬'],       ji: ['丙', '戊'], desc: '巳月火旺，壬水调候救金' },
+      午: { yong: ['壬', '癸'], xi: ['壬', '癸'], ji: ['丙', '丁'], desc: '午月火极，壬癸水调候最急' },
+      未: { yong: ['壬', '庚'], xi: ['壬'],       ji: ['丙', '己'], desc: '未月燥热，壬水调候，庚金辅助' },
+      申: { yong: ['壬', '甲'], xi: ['壬'],       ji: ['戊', '己'], desc: '申月金旺，壬水洗净，甲木引水' },
+      酉: { yong: ['壬', '甲'], xi: ['壬'],       ji: ['戊', '己'], desc: '酉月辛金最旺，壬水洗净为急' },
+      戌: { yong: ['壬', '甲'], xi: ['壬', '甲'], ji: ['戊'],       desc: '戌月土燥，壬水调候，甲木疏土' },
+      亥: { yong: ['壬', '丙'], xi: ['壬'],       ji: ['癸'],       desc: '亥月水旺洗金，丙火暖身' },
+      子: { yong: ['丙', '壬'], xi: ['丙', '壬'], ji: ['癸'],       desc: '子月严寒，丙火暖金，壬水滋养' },
+      丑: { yong: ['丙', '壬'], xi: ['丙'],       ji: ['癸', '己'], desc: '丑月严寒，丙火暖身，壬水洗净' },
+    },
+    壬: {
+      寅: { yong: ['庚', '戊'], xi: ['庚'],       ji: ['丙', '丁'], desc: '寅月初春，庚金发水之源，戊土制水' },
+      卯: { yong: ['戊', '庚'], xi: ['戊', '庚'], ji: ['甲', '乙'], desc: '卯月木旺泄水，戊土制水，庚金生水' },
+      辰: { yong: ['甲', '庚'], xi: ['甲', '庚'], ji: ['戊'],       desc: '辰月土旺克水，甲木疏土，庚金生水' },
+      巳: { yong: ['庚', '壬'], xi: ['庚'],       ji: ['戊', '己'], desc: '巳月火旺，庚金生水，壬水自助' },
+      午: { yong: ['庚', '癸'], xi: ['庚'],       ji: ['戊', '己'], desc: '午月火旺克水，庚金生水为急，癸辅' },
+      未: { yong: ['辛', '庚'], xi: ['辛', '庚'], ji: ['戊', '己'], desc: '未月土旺，辛庚金生水，防土克水' },
+      申: { yong: ['戊', '丁'], xi: ['戊'],       ji: ['庚'],       desc: '申月金水旺，戊土制水，丁火调候' },
+      酉: { yong: ['甲', '丙'], xi: ['甲', '丙'], ji: ['辛'],       desc: '酉月金旺生水，甲木疏通，丙火调候' },
+      戌: { yong: ['甲', '丙'], xi: ['甲', '丙'], ji: ['戊'],       desc: '戌月土克水，甲木疏土，丙火调候' },
+      亥: { yong: ['戊', '丙'], xi: ['戊'],       ji: ['庚'],       desc: '亥月水旺，戊土制水，丙火调候' },
+      子: { yong: ['戊', '丙'], xi: ['戊', '丙'], ji: ['庚', '癸'], desc: '子月水极旺，戊土制水，丙火调候' },
+      丑: { yong: ['丙', '甲'], xi: ['丙', '甲'], ji: ['庚', '癸'], desc: '丑月严寒，丙火调候，甲木引丙' },
+    },
+    癸: {
+      寅: { yong: ['辛', '庚'], xi: ['辛'],       ji: ['甲', '丙'], desc: '寅月初春，辛金生水，庚金辅助' },
+      卯: { yong: ['辛', '庚'], xi: ['辛'],       ji: ['甲', '乙'], desc: '卯月木旺泄水，辛庚金生水' },
+      辰: { yong: ['丙', '辛'], xi: ['丙', '辛'], ji: ['戊'],       desc: '辰月土旺，丙火调候，辛金生水' },
+      巳: { yong: ['辛', '庚'], xi: ['辛', '庚'], ji: ['戊', '丙'], desc: '巳月火旺克水，辛庚金生水为急' },
+      午: { yong: ['庚', '辛'], xi: ['庚', '辛'], ji: ['丙', '丁'], desc: '午月火极克水，庚辛金生水最急' },
+      未: { yong: ['庚', '辛'], xi: ['庚', '辛'], ji: ['戊', '己'], desc: '未月土旺，庚辛金生水' },
+      申: { yong: ['丙', '丁'], xi: ['丙', '丁'], ji: ['庚'],       desc: '申月金旺生水，丙丁火调候' },
+      酉: { yong: ['辛', '丙'], xi: ['辛'],       ji: ['庚'],       desc: '酉月金旺，丙火调候，辛金自旺' },
+      戌: { yong: ['辛', '甲'], xi: ['辛', '甲'], ji: ['戊'],       desc: '戌月土旺，辛金生水，甲木疏土' },
+      亥: { yong: ['庚', '丙'], xi: ['庚'],       ji: ['壬'],       desc: '亥月水旺，庚金生水，丙火调候' },
+      子: { yong: ['丙', '辛'], xi: ['丙', '辛'], ji: ['庚', '壬'], desc: '子月水极旺，丙火调候，辛金适量' },
+      丑: { yong: ['丙', '辛'], xi: ['丙', '辛'], ji: ['壬', '庚'], desc: '丑月严寒，丙火调候暖身，辛金生水' },
+    },
+  };
+
   // ═══════════════════════════════════════════
   // § 构造函数
   // ═══════════════════════════════════════════
@@ -558,13 +712,16 @@ export class BaziEngine {
   }
 
   /**
-   * 五行力量计算（《滴天髓》五行力量论）
+   * 五行力量计算（《滴天髓》五行力量论 + 《穷通宝鉴》调候用神）
    *
    * 力量来源：
    *   1. 四天干，每根权重 WX_WEIGHT.GAN
-   *   2. 四地支藏干，按藏干表权重 × ZHI_BASE 折算
+   *   2. 四地支藏干，按藏干表权重 × ZHI_BASE × 旺相休囚死系数
+   *   3. 天干通根加成（每个通根 +0.3）
+   *   4. 六合/三合合化加成（+0.5）
    *
-   * 月令旺衰系数：月支当令的五行 × 1.5
+   * 月令旺相休囚死（《三命通会》）：
+   *   旺×2.0, 相×1.5, 休×1.0, 囚×0.7, 死×0.5
    */
   private computeWuXingStrength(
     siZhu: SiZhu,
@@ -574,66 +731,107 @@ export class BaziEngine {
     const balance: WuXingBalance = { jin: 0, mu: 0, shui: 0, huo: 0, tu: 0 };
 
     const addWx = (wx: WuXing, amt: number) => {
-      const k = BaziEngine.wxToKey(wx);
-      balance[k] += amt;
+      balance[BaziEngine.wxToKey(wx)] += amt;
     };
 
-    // 四天干
+    // ── 月令本气五行 ──────────────────────────
+    const monthMainWx = BaziEngine.GAN_WUXING[BaziEngine.CANG_GAN[monthZhi][0].gan];
+
+    // ── 旺相休囚死系数 ────────────────────────
+    const wangXiangFactor = (wx: WuXing): number => {
+      if (wx === monthMainWx) return 2.0;                          // 旺
+      if (BaziEngine.SHENG[monthMainWx] === wx) return 1.5;       // 相：月令生wx
+      if (BaziEngine.SHENG[wx] === monthMainWx) return 1.0;       // 休：wx生月令
+      if (BaziEngine.KE[wx] === monthMainWx) return 0.7;          // 囚：wx克月令
+      if (BaziEngine.KE[monthMainWx] === wx) return 0.5;          // 死：月令克wx
+      return 1.0;
+    };
+
+    // ── 1. 四天干 ─────────────────────────────
     for (const zhu of [siZhu.year, siZhu.month, siZhu.day, siZhu.hour]) {
       addWx(zhu.ganZhi.ganWuXing, BaziEngine.WX_WEIGHT.GAN);
     }
 
-    // 四地支藏干（含月令旺衰加权）
-    const monthMainWx = BaziEngine.GAN_WUXING[
-      BaziEngine.CANG_GAN[monthZhi][0].gan
-    ];
-    for (const [key, zhu] of Object.entries(siZhu) as [PillarKey, ZhuDetail][]) {
-      const isMonth = key === 'month';
+    // ── 2. 四地支藏干（旺相休囚死加权）────────
+    for (const zhu of Object.values(siZhu) as ZhuDetail[]) {
       for (const cg of zhu.cangGan) {
         const base = BaziEngine.WX_WEIGHT.ZHI_BASE * cg.weight;
-        // 月令旺相加权（《穷通宝鉴》月令调候）
-        const boost = isMonth && cg.wuXing === monthMainWx ? 1.5 : 1.0;
-        addWx(cg.wuXing, base * boost);
+        addWx(cg.wuXing, base * wangXiangFactor(cg.wuXing));
       }
     }
 
-    // 日主强弱判断（《滴天髓》）
+    // ── 3. 天干通根（每通根 +0.3）───────────────
+    const branches = [siZhu.year, siZhu.month, siZhu.day, siZhu.hour].map(
+      z => z.ganZhi.zhi,
+    );
+    for (const zhu of [siZhu.year, siZhu.month, siZhu.day, siZhu.hour]) {
+      const stemWx = zhu.ganZhi.ganWuXing;
+      for (const zhi of branches) {
+        for (const cg of BaziEngine.CANG_GAN[zhi]) {
+          if (BaziEngine.GAN_WUXING[cg.gan] === stemWx) {
+            addWx(stemWx, 0.3);
+          }
+        }
+      }
+    }
+
+    // ── 4. 六合/三合合化加成 (+0.5) ─────────────
+    for (const [a, b, result] of BaziEngine.ZHI_LIU_HE) {
+      if (branches.includes(a) && branches.includes(b)) {
+        addWx(result, 0.5);
+      }
+    }
+    for (const [x, y, z, result] of BaziEngine.ZHI_SAN_HE) {
+      if ([x, y, z].every(b => branches.includes(b))) {
+        addWx(result, 0.5);
+      }
+    }
+
+    // ── 日主强弱判断（《滴天髓》）───────────────
     const riWx = BaziEngine.GAN_WUXING[riGan];
     const riKey = BaziEngine.wxToKey(riWx);
     const riForce = balance[riKey];
 
-    // 帮身力：比肩劫财 + 印绶偏印
-    const helpWx = [riWx, BaziEngine.SHENG[BaziEngine.reverseSheng(riWx)]];
+    const helpWx = [riWx, BaziEngine.reverseSheng(riWx)];
     const helpForce = helpWx.reduce((s, wx) => s + balance[BaziEngine.wxToKey(wx)], 0);
 
-    // 克泄力：食伤 + 官杀 + 财
     const weakenWx: WuXing[] = [
-      BaziEngine.SHENG[riWx],    // 我生（食伤）
-      BaziEngine.KE[riWx],       // 我克（财）
-      BaziEngine.getKeMe(riWx),  // 克我（官杀）
+      BaziEngine.SHENG[riWx],
+      BaziEngine.KE[riWx],
+      BaziEngine.getKeMe(riWx),
     ];
     const weakenForce = weakenWx.reduce((s, wx) => s + balance[BaziEngine.wxToKey(wx)], 0);
 
     const riZhuStrong = (riForce + helpForce) >= weakenForce;
 
-    // 用神取法（《滴天髓》用神论）
+    // ── 用神取法：优先调候表，fallback 身强/身弱 ──
     let yongShen: WuXing;
     let xiShen: WuXing;
     let jiShen: WuXing;
 
-    if (riZhuStrong) {
-      // 身强：用克泄之神（官杀、财星、食伤）
-      yongShen = BaziEngine.getKeMe(riWx);  // 官杀克制
-      xiShen   = BaziEngine.KE[riWx];       // 财星克泄
-      jiShen   = riWx;                       // 忌同类帮身
+    const tiaoHou = BaziEngine.TIAO_HOU_YONG_SHEN[riGan]?.[monthZhi];
+    if (tiaoHou && tiaoHou.yong.length > 0) {
+      // 调候用神（《穷通宝鉴》）
+      yongShen = BaziEngine.GAN_WUXING[tiaoHou.yong[0]];
+      xiShen   = tiaoHou.yong[1]
+        ? BaziEngine.GAN_WUXING[tiaoHou.yong[1]]
+        : (tiaoHou.xi[0] ? BaziEngine.GAN_WUXING[tiaoHou.xi[0]] : BaziEngine.reverseSheng(riWx));
+      jiShen   = tiaoHou.ji[0]
+        ? BaziEngine.GAN_WUXING[tiaoHou.ji[0]]
+        : BaziEngine.getKeMe(riWx);
+    } else if (riZhuStrong) {
+      // 身强：用克泄之神
+      yongShen = BaziEngine.getKeMe(riWx);
+      xiShen   = BaziEngine.KE[riWx];
+      jiShen   = riWx;
     } else {
-      // 身弱：用生扶之神（印绶、比劫）
-      yongShen = BaziEngine.reverseSheng(riWx); // 印绶生扶
-      xiShen   = riWx;                           // 比劫帮身
-      jiShen   = BaziEngine.getKeMe(riWx);       // 忌官杀克制
+      // 身弱：用生扶之神
+      yongShen = BaziEngine.reverseSheng(riWx);
+      xiShen   = riWx;
+      jiShen   = BaziEngine.getKeMe(riWx);
     }
 
-    // 找最强/最弱五行
+    // ── 最强/最弱五行 ─────────────────────────
     const entries = Object.entries(balance) as [keyof WuXingBalance, number][];
     const strongest = BaziEngine.keyToWx(
       entries.reduce((a, b) => (b[1] > a[1] ? b : a))[0],
