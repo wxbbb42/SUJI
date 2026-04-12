@@ -231,6 +231,9 @@ export interface MingPan {
   // 空亡
   kongWang: DiZhi[];       // 六甲空亡地支
   
+  // 真太阳时
+  trueSolarTimeDesc?: string;  // 真太阳时校正描述
+  
   // 胎元 & 命宫
   taiYuan: GanZhi;        // 胎元
   mingGong: GanZhi;       // 命宫

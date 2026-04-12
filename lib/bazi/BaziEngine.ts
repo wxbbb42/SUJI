@@ -16,6 +16,7 @@ import { takeSound } from '@lunisolar/plugin-takesound';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const fetalGod = require('@lunisolar/plugin-fetalgod') as lunisolar.PluginFunc;
 
+import { toTrueSolarTime, getTrueSolarTimeInfo } from './TrueSolarTime';
 import type {
   TianGan, DiZhi, WuXing, YinYang, ShiShen, ShiErChangSheng,
   GanZhi, SiZhu, ZhuDetail, CangGanItem,
@@ -539,13 +540,23 @@ export class BaziEngine {
 
   /**
    * 排盘：计算完整八字命盘
-   * @param birthDate 出生日期时间（公历）
+   * @param birthDate 出生日期时间（公历，北京时间）
    * @param gender 性别
+   * @param longitude 出生地经度（可选，传入则启用真太阳时校正）
    * @returns 完整命盘 MingPan
    */
-  calculate(birthDate: Date, gender: '男' | '女'): MingPan {
+  calculate(birthDate: Date, gender: '男' | '女', longitude?: number): MingPan {
+    // ── 0. 真太阳时校正 ────────────────────
+    let effectiveDate = birthDate;
+    let trueSolarTimeDesc: string | undefined;
+    if (longitude !== undefined) {
+      const info = getTrueSolarTimeInfo(birthDate, longitude);
+      effectiveDate = info.trueSolarTime;
+      trueSolarTimeDesc = info.description;
+    }
+
     const sexValue = gender === '男' ? 1 : 0;
-    const lsr = lunisolar(birthDate);
+    const lsr = lunisolar(effectiveDate);
     const c8ex = lsr.char8ex(sexValue);
 
     // ── 1. 获取四柱原始数据 ──────────────────
@@ -648,6 +659,7 @@ export class BaziEngine {
       stemRelations,
       geJu,
       kongWang,
+      trueSolarTimeDesc,
       shenSha,
       daYunDirection:  direction,
       daYunStartAge:   startAge,
