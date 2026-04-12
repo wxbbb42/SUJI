@@ -1,43 +1,67 @@
 /**
- * WuXingChart — 五行力量柱状图
- * 展示金木水火土的力量分布，标注用神 / 喜神
+ * WuXingChart — 五行花瓣图（重设计版）
+ * 五角星形点阵布局（纯 View，无 SVG）
+ * 圆点大小代表力量，用神/喜神标注在点外侧
  */
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import type { WuXingBalance, WuXing } from '@/lib/bazi';
 
-// ── 五行颜色 ────────────────────────────────────────────────────────
-const WUXING_COLOR: Record<WuXing, string> = {
-  金: '#C4A35A',
-  木: '#4CAF50',
-  水: '#2196F3',
-  火: '#E53935',
-  土: '#8B6914',
+// ── 五行色（偏水墨） ──────────────────────────────────────────────────
+const WX_COLOR: Record<WuXing, string> = {
+  金: '#B8943A',
+  木: '#4A7A3A',
+  水: '#3A5C8B',
+  火: '#B84A3A',
+  土: '#7A5A14',
 };
 
-// ── 五行顺序 ────────────────────────────────────────────────────────
-const WUXING_ORDER: { key: WuXing; balanceField: keyof { jin: number; mu: number; shui: number; huo: number; tu: number } }[] = [
-  { key: '金', balanceField: 'jin' },
-  { key: '木', balanceField: 'mu' },
-  { key: '水', balanceField: 'shui' },
-  { key: '火', balanceField: 'huo' },
-  { key: '土', balanceField: 'tu' },
+// ── 排列顺序 & 角度（顶点起，顺时针，五角星形）
+//   木(270°) → 火(342°) → 土(54°) → 金(126°) → 水(198°)
+const ITEMS: { key: WuXing; field: keyof WuXingBalance; deg: number }[] = [
+  { key: '木', field: 'mu',   deg: 270 },
+  { key: '火', field: 'huo',  deg: 342 },
+  { key: '土', field: 'tu',   deg: 54  },
+  { key: '金', field: 'jin',  deg: 126 },
+  { key: '水', field: 'shui', deg: 198 },
 ];
 
-const MAX_BAR_HEIGHT = 100;
+// ── 画布参数 ──────────────────────────────────────────────────────────
+const CANVAS  = 240;   // 容器边长（px）
+const C_XY    = CANVAS / 2;    // 中心点
+const ORBIT   = 82;            // 轨道半径
+const DOT_MAX = 60;
+const DOT_MIN = 18;
+
+function petalXY(deg: number) {
+  const rad = (deg * Math.PI) / 180;
+  return { x: C_XY + ORBIT * Math.cos(rad), y: C_XY + ORBIT * Math.sin(rad) };
+}
+
+// ── 标注相对于圆心的偏移方向（避免遮挡） ─────────────────────────────
+// deg → 标注 anchor (相对于圆点中心的偏移，单位 px)
+function tagOffset(deg: number, dotR: number): { dx: number; dy: number } {
+  const rad = (deg * Math.PI) / 180;
+  const dist = dotR + 6;
+  return { dx: Math.round(dist * Math.cos(rad)), dy: Math.round(dist * Math.sin(rad)) };
+}
+
+// ── 色彩 ──────────────────────────────────────────────────────────────
+const C = {
+  faint: '#B8A898',
+  mute:  '#8B7355',
+};
 
 interface WuXingChartProps {
-  balance: WuXingBalance;
+  balance:  WuXingBalance;
   yongShen: WuXing;
-  xiShen: WuXing;
-  jiShen?: WuXing;
+  xiShen:   WuXing;
+  jiShen?:  WuXing;
 }
 
 export default function WuXingChart({ balance, yongShen, xiShen, jiShen }: WuXingChartProps) {
-
-  // 归一化：以最大值为参照
-  const values = WUXING_ORDER.map(e => balance[e.balanceField]);
-  const maxVal = Math.max(...values, 1);
+  const vals   = ITEMS.map(e => balance[e.field]);
+  const maxVal = Math.max(...vals, 1);
 
   const tagFor = (wx: WuXing): string | null => {
     if (wx === yongShen) return '用';
@@ -47,46 +71,66 @@ export default function WuXingChart({ balance, yongShen, xiShen, jiShen }: WuXin
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>五行分布</Text>
+    <View style={styles.outer}>
+      <Text style={styles.title}>五行</Text>
 
-      {/* 柱状图 */}
-      <View style={styles.chartArea}>
-        {WUXING_ORDER.map(({ key, balanceField }) => {
-          const val = balance[balanceField];
-          const barH = Math.max(6, Math.round((val / maxVal) * MAX_BAR_HEIGHT));
-          const color = WUXING_COLOR[key];
-          const tag   = tagFor(key);
+      {/* 花瓣点阵 — 绝对定位在固定画布内 */}
+      <View style={styles.canvas}>
+        {ITEMS.map(({ key, field, deg }) => {
+          const val      = balance[field];
+          const dotSize  = Math.round(DOT_MIN + (val / maxVal) * (DOT_MAX - DOT_MIN));
+          const dotR     = dotSize / 2;
+          const { x, y } = petalXY(deg);
+          const color    = WX_COLOR[key];
+          const tag      = tagFor(key);
+          const { dx, dy } = tagOffset(deg, dotR);
 
           return (
-            <View key={key} style={styles.barCol}>
-              {/* 标签（用/喜/忌） */}
-              <View style={[styles.tagBadge, tag ? { backgroundColor: color } : styles.tagEmpty]}>
-                {tag ? <Text style={styles.tagText}>{tag}</Text> : null}
+            <React.Fragment key={key}>
+              {/* 圆点 */}
+              <View
+                style={[
+                  styles.dot,
+                  {
+                    width:           dotSize,
+                    height:          dotSize,
+                    borderRadius:    dotR,
+                    backgroundColor: color + '1E',  // 12% alpha
+                    borderColor:     color,
+                    left:            x - dotR,
+                    top:             y - dotR,
+                  },
+                ]}
+              >
+                <Text style={[styles.dotChi, { color, fontSize: Math.max(11, Math.round(dotSize * 0.38)) }]}>
+                  {key}
+                </Text>
               </View>
 
-              {/* 数值 */}
-              <Text style={[styles.barValue, { color }]}>{val.toFixed(0)}</Text>
-
-              {/* 柱体 */}
-              <View style={styles.barTrack}>
-                <View style={[styles.bar, { height: barH, backgroundColor: color }]} />
-              </View>
-
-              {/* 五行标签 */}
-              <Text style={[styles.barLabel, { color }]}>{key}</Text>
-            </View>
+              {/* 用/喜/忌 标注（在圆外侧） */}
+              {tag && (
+                <View
+                  style={[
+                    styles.tagBox,
+                    {
+                      left: x + dx - 10,
+                      top:  y + dy - 8,
+                    },
+                  ]}
+                >
+                  <Text style={[styles.tagText, { color }]}>{tag}</Text>
+                </View>
+              )}
+            </React.Fragment>
           );
         })}
       </View>
 
-      {/* 图例 */}
+      {/* 文字图例 */}
       <View style={styles.legend}>
-        <LegendItem color={WUXING_COLOR[yongShen]} label={`用神·${yongShen}`} />
-        <LegendItem color={WUXING_COLOR[xiShen]}   label={`喜神·${xiShen}`}   />
-        {jiShen && (
-          <LegendItem color="#B8A898" label={`忌神·${jiShen}`} />
-        )}
+        <LegendItem color={WX_COLOR[yongShen]} label={`用·${yongShen}`} />
+        <LegendItem color={WX_COLOR[xiShen]}   label={`喜·${xiShen}`}   />
+        {jiShen && <LegendItem color={C.faint} label={`忌·${jiShen}`} />}
       </View>
     </View>
   );
@@ -96,97 +140,67 @@ function LegendItem({ color, label }: { color: string; label: string }) {
   return (
     <View style={styles.legendItem}>
       <View style={[styles.legendDot, { backgroundColor: color }]} />
-      <Text style={styles.legendText}>{label}</Text>
+      <Text style={styles.legendLabel}>{label}</Text>
     </View>
   );
 }
 
+// ── Styles ────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#FFFDF8',
-    borderRadius: 16,
-    padding: 20,
-    borderWidth: 0.5,
-    borderColor: '#E5DDD0',
+  outer: {
+    alignItems: 'center',
+    paddingVertical: 8,
   },
   title: {
-    fontSize: 15,
-    color: '#2C1810',
-    fontWeight: '600',
-    letterSpacing: 3,
-    marginBottom: 20,
+    fontSize: 11,
+    color: C.faint,
+    letterSpacing: 4,
+    marginBottom: 16,
   },
-  chartArea: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'flex-end',
-    height: MAX_BAR_HEIGHT + 80,
+  canvas: {
+    width:    CANVAS,
+    height:   CANVAS + 20,   // 额外20px 防止底部标注被裁掉
+    position: 'relative',
   },
-  barCol: {
-    alignItems: 'center',
-    width: 48,
+  dot: {
+    position:        'absolute',
+    borderWidth:     1,
+    alignItems:      'center',
+    justifyContent:  'center',
   },
-  tagBadge: {
-    width: 22,
-    height: 22,
-    borderRadius: 11,
+  dotChi: {
+    fontWeight: '400',
+  },
+  tagBox: {
+    position:   'absolute',
+    width:      20,
+    height:     16,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 4,
-  },
-  tagEmpty: {
-    backgroundColor: 'transparent',
   },
   tagText: {
-    fontSize: 11,
-    color: '#FFFDF8',
-    fontWeight: '700',
-  },
-  barValue: {
-    fontSize: 11,
-    fontWeight: '600',
-    marginBottom: 4,
-  },
-  barTrack: {
-    width: 28,
-    height: MAX_BAR_HEIGHT,
-    justifyContent: 'flex-end',
-    backgroundColor: '#F5F0E8',
-    borderRadius: 6,
-    overflow: 'hidden',
-  },
-  bar: {
-    width: '100%',
-    borderRadius: 6,
-  },
-  barLabel: {
-    marginTop: 8,
-    fontSize: 15,
-    fontWeight: '600',
-    letterSpacing: 1,
+    fontSize:    9,
+    fontWeight:  '500',
+    letterSpacing: 0.5,
   },
   legend: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 20,
-    marginTop: 16,
-    paddingTop: 16,
-    borderTopWidth: 0.5,
-    borderTopColor: '#E5DDD0',
+    gap:           24,
+    marginTop:     8,
   },
   legendItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
+    flexDirection:  'row',
+    alignItems:     'center',
+    gap:            6,
   },
   legendDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
+    width:        8,
+    height:       8,
+    borderRadius: 4,
   },
-  legendText: {
-    fontSize: 12,
-    color: '#8B7355',
+  legendLabel: {
+    fontSize:     12,
+    color:        C.mute,
     letterSpacing: 1,
   },
 });
