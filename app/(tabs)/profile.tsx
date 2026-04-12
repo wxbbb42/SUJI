@@ -1,355 +1,273 @@
 /**
- * 「我的」页面（重设计版）
- * 日主文字作为视觉锚点 · 无头像圆框 · 菜单纯文字链接 · 无卡片边框
+ * 「我的」页面
+ * 
+ * 未输入生辰：引导输入
+ * 已输入：完整命盘展示
+ * 
+ * 设计：无头像、日主做大视觉锚点、内容按阅读节奏铺开
  */
 
 import { StyleSheet, View, Text, Pressable, ScrollView, Alert } from 'react-native';
 import { useState, useCallback, useMemo } from 'react';
-
+import { Colors, Space, Type } from '@/lib/design/tokens';
 import { BirthInput, MingPanCard, WuXingChart, PersonalityCard } from '@/components/bazi';
 import { BaziEngine } from '@/lib/bazi/BaziEngine';
 import { InsightEngine } from '@/lib/bazi/InsightEngine';
 import type { MingPan, PersonalityInsight } from '@/lib/bazi/types';
 
-// ── 色彩系统 ───────────────────────────────────────────────────────────
-const C = {
-  bg:      '#F5EDE0',
-  surface: '#FFFBF5',
-  deep:    '#2C1810',
-  mid:     '#6B5040',
-  mute:    '#8B7355',
-  faint:   '#B8A898',
-  brand:   '#8B4513',
-};
-
-interface BirthData {
-  date:   Date;
-  gender: '男' | '女';
-}
-
 export default function ProfileScreen() {
-  const [birthData,  setBirthData]  = useState<BirthData | null>(null);
-  const [mingPan,    setMingPan]    = useState<MingPan | null>(null);
+  const [mingPan, setMingPan] = useState<MingPan | null>(null);
   const [personality, setPersonality] = useState<PersonalityInsight | null>(null);
-  const [showInput,  setShowInput]  = useState(false);
+  const [showInput, setShowInput] = useState(false);
 
   const baziEngine = useMemo(() => new BaziEngine(), []);
 
-  const handleBirthSubmit = useCallback((date: Date, gender: '男' | '女') => {
+  const handleSubmit = useCallback((date: Date, gender: '男' | '女') => {
     try {
       const result = baziEngine.calculate(date, gender);
-      const ie     = new InsightEngine(result);
-      setBirthData({ date, gender });
+      const insight = new InsightEngine(result);
       setMingPan(result);
-      setPersonality(ie.getPersonalityInsight());
+      setPersonality(insight.getPersonalityInsight());
       setShowInput(false);
-    } catch (err) {
-      Alert.alert('排盘失败', '请检查输入的日期和时间是否正确');
+    } catch {
+      Alert.alert('排盘失败', '请检查日期和时间');
     }
   }, [baziEngine]);
 
   const handleReset = useCallback(() => {
-    Alert.alert('重新输入', '确定要清除当前命盘数据吗？', [
+    Alert.alert('重新输入', '清除当前命盘？', [
       { text: '取消', style: 'cancel' },
-      {
-        text: '确定',
-        onPress: () => {
-          setBirthData(null);
-          setMingPan(null);
-          setPersonality(null);
-          setShowInput(false);
-        },
-      },
+      { text: '确定', onPress: () => { setMingPan(null); setPersonality(null); } },
     ]);
   }, []);
 
-  // ── 未输入生辰 ────────────────────────────────────────────────────────
-  if (!mingPan) {
-    if (showInput) {
-      return (
-        <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-          <BirthInput onSubmit={handleBirthSubmit} />
-        </ScrollView>
-      );
-    }
-
+  // ── 输入生辰 ──
+  if (showInput) {
     return (
-      <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-        {/* 引导区 */}
-        <View style={styles.hero}>
-          <Text style={styles.heroGlyph}>命</Text>
-          <Text style={styles.heroTitle}>遇见你自己</Text>
-          <Text style={styles.heroSub}>输入生辰，开启专属命盘</Text>
-          <Pressable onPress={() => setShowInput(true)} style={styles.heroAction}>
-            <Text style={styles.heroActionText}>输入生辰</Text>
+      <ScrollView style={styles.container} contentContainerStyle={styles.scroll}>
+        <BirthInput onSubmit={handleSubmit} />
+      </ScrollView>
+    );
+  }
+
+  // ── 未输入 ──
+  if (!mingPan) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.emptyCenter}>
+          <Text style={styles.emptyTitle}>遇见你自己</Text>
+          <Text style={styles.emptySub}>输入生辰，开启专属命盘</Text>
+          <Pressable style={styles.emptyBtn} onPress={() => setShowInput(true)}>
+            <Text style={styles.emptyBtnText}>输入生辰</Text>
           </Pressable>
         </View>
 
         {/* 菜单 */}
         <View style={styles.menuSection}>
-          <MenuItem title="情绪日记" sub="记录每日心情" />
-          <MenuItem title="关系洞察" sub="了解你与 TA 的相处之道" />
-          <MenuItem title="流年运势" sub="年度能量走向" />
-          <MenuItem title="主题"     sub="留白宣纸风" />
-          <MenuItem title="设置"     sub="" />
+          <MenuItem title="情绪日记" />
+          <MenuItem title="关系洞察" />
+          <MenuItem title="流年运势" />
+          <MenuItem title="设置" />
         </View>
-      </ScrollView>
+      </View>
     );
   }
 
-  // ── 已输入生辰 ────────────────────────────────────────────────────────
+  // ── 已有命盘 ──
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      {/* 日主 — 页面视觉锚点 */}
-      <View style={styles.hero}>
-        <Text style={styles.dayMasterGlyph}>{mingPan.riZhu.gan}</Text>
-        <Text style={styles.dayMasterTitle}>
-          {mingPan.riZhu.yinYang}{mingPan.riZhu.wuXing}
+    <ScrollView style={styles.container} contentContainerStyle={styles.scroll}>
+      {/* 日主 — 视觉锚点 */}
+      <View style={styles.heroSection}>
+        <Text style={styles.heroGan}>{mingPan.riZhu.gan}</Text>
+        <Text style={styles.heroMeta}>
+          {mingPan.riZhu.yinYang}{mingPan.riZhu.wuXing} · {mingPan.lunarDate}
         </Text>
-        <Text style={styles.dayMasterDesc} numberOfLines={3}>{mingPan.riZhu.description}</Text>
-        <Text style={styles.lunarDate}>{mingPan.lunarDate}</Text>
-        <Pressable onPress={handleReset} style={styles.resetBtn}>
+        <Text style={styles.heroDesc}>{mingPan.riZhu.description}</Text>
+      </View>
+
+      {/* 四柱 */}
+      <SectionTitle text="四柱" right={
+        <Pressable onPress={handleReset}>
           <Text style={styles.resetText}>重新输入</Text>
         </Pressable>
-      </View>
+      } />
+      <MingPanCard mingPan={mingPan} />
 
-      {/* 四柱命盘 */}
-      <View style={styles.section}>
-        <Text style={styles.sectionLabel}>四柱命盘</Text>
-        <MingPanCard mingPan={mingPan} />
-      </View>
-
-      {/* 五行分布 */}
-      <View style={styles.section}>
-        <Text style={styles.sectionLabel}>五行分布</Text>
-        <WuXingChart
-          balance={mingPan.wuXingStrength.balance}
-          yongShen={mingPan.wuXingStrength.yongShen}
-          xiShen={mingPan.wuXingStrength.xiShen}
-        />
-      </View>
+      {/* 五行 */}
+      <SectionTitle text="五行分布" />
+      <WuXingChart
+        balance={mingPan.wuXingStrength.balance}
+        yongShen={mingPan.wuXingStrength.yongShen}
+        xiShen={mingPan.wuXingStrength.xiShen}
+      />
 
       {/* 格局 */}
-      <View style={styles.section}>
-        <Text style={styles.sectionLabel}>格局</Text>
+      <SectionTitle text="格局" />
+      <View style={styles.geJuBlock}>
         <Text style={styles.geJuName}>{mingPan.geJu.name}</Text>
-        <Text style={styles.geJuMeta}>{mingPan.geJu.category} · {mingPan.geJu.strength}等</Text>
+        <Text style={styles.geJuMeta}>
+          {mingPan.geJu.category} · {mingPan.geJu.strength}等
+        </Text>
         <Text style={styles.geJuDesc}>{mingPan.geJu.modernMeaning}</Text>
       </View>
 
-      {/* 人格洞察 */}
+      {/* 人格 */}
       {personality && (
-        <View style={styles.section}>
-          <Text style={styles.sectionLabel}>人格洞察</Text>
+        <>
+          <SectionTitle text="人格洞察" />
           <PersonalityCard insight={personality} />
-        </View>
-      )}
-
-      {/* 神煞速览 */}
-      {mingPan.shenSha.length > 0 && (
-        <View style={styles.section}>
-          <Text style={styles.sectionLabel}>神煞速览</Text>
-          <View style={styles.shenShaList}>
-            {mingPan.shenSha.slice(0, 8).map((sha, i) => (
-              <View key={`${sha.name}-${i}`} style={styles.shenShaRow}>
-                <Text style={[
-                  styles.shenShaName,
-                  sha.type === '吉' ? styles.colorJi : sha.type === '凶' ? styles.colorXiong : null,
-                ]}>
-                  {sha.name}
-                </Text>
-                <Text style={styles.shenShaDesc} numberOfLines={2}>{sha.modernMeaning}</Text>
-              </View>
-            ))}
-          </View>
-        </View>
+        </>
       )}
 
       {/* 菜单 */}
       <View style={styles.menuSection}>
-        <MenuItem title="情绪日记" sub="记录每日心情" />
-        <MenuItem title="关系洞察" sub="了解你与 TA 的相处之道" />
-        <MenuItem title="流年运势" sub="年度能量走向" />
-        <MenuItem title="主题"     sub="留白宣纸风" />
-        <MenuItem title="设置"     sub="" />
+        <MenuItem title="情绪日记" />
+        <MenuItem title="关系洞察" />
+        <MenuItem title="流年运势" />
+        <MenuItem title="设置" />
       </View>
     </ScrollView>
   );
 }
 
-// ── MenuItem — 纯文字，无图标无箭头 ──────────────────────────────────
-function MenuItem({ title, sub }: { title: string; sub: string }) {
+// ── 通用组件 ──
+
+function SectionTitle({ text, right }: { text: string; right?: React.ReactNode }) {
+  return (
+    <View style={styles.sectionTitleRow}>
+      <Text style={styles.sectionTitle}>{text}</Text>
+      {right}
+    </View>
+  );
+}
+
+function MenuItem({ title }: { title: string }) {
   return (
     <Pressable style={styles.menuItem}>
-      <Text style={styles.menuTitle}>{title}</Text>
-      {sub ? <Text style={styles.menuSub}>{sub}</Text> : null}
+      <Text style={styles.menuText}>{title}</Text>
     </Pressable>
   );
 }
 
-// ── Styles ────────────────────────────────────────────────────────────
+// ── Styles ──
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: C.bg,
+    backgroundColor: Colors.bg,
   },
-  content: {
-    paddingHorizontal: 24,
-    paddingTop: 32,
-    paddingBottom: 64,
-  },
-
-  // 引导 / 日主 hero 区
-  hero: {
-    paddingBottom: 40,
-    alignItems: 'flex-start',
-  },
-  heroGlyph: {
-    fontSize:      80,
-    color:         C.deep,
-    fontWeight:    '100',
-    letterSpacing: 4,
-    lineHeight:    88,
-    marginBottom:  8,
-    opacity:       0.18,
-  },
-  heroTitle: {
-    fontSize:      24,
-    color:         C.deep,
-    fontWeight:    '300',
-    letterSpacing: 8,
-    marginBottom:  8,
-  },
-  heroSub: {
-    fontSize:      13,
-    color:         C.faint,
-    letterSpacing: 2,
-    marginBottom:  24,
-  },
-  heroAction: {
-    paddingVertical: 4,
-  },
-  heroActionText: {
-    fontSize:      15,
-    color:         C.brand,
-    letterSpacing: 6,
-    fontWeight:    '400',
+  scroll: {
+    paddingHorizontal: Space.lg,
+    paddingBottom: Space['3xl'],
   },
 
-  // 日主大字
-  dayMasterGlyph: {
-    fontSize:      80,
-    fontWeight:    '600',
-    color:         C.brand,
-    lineHeight:    88,
-    marginBottom:  4,
+  // 空状态
+  emptyCenter: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: Space['3xl'],
   },
-  dayMasterTitle: {
-    fontSize:      28,
-    color:         C.deep,
-    fontWeight:    '200',
-    letterSpacing: 8,
-    marginBottom:  12,
+  emptyTitle: {
+    ...Type.title,
+    color: Colors.ink,
+    fontWeight: '300',
   },
-  dayMasterDesc: {
-    fontSize:      14,
-    color:         C.mid,
-    lineHeight:    24,
-    marginBottom:  12,
-    maxWidth:      280,
+  emptySub: {
+    ...Type.caption,
+    color: Colors.inkTertiary,
+    marginTop: Space.sm,
   },
-  lunarDate: {
-    fontSize:      12,
-    color:         C.faint,
+  emptyBtn: {
+    marginTop: Space.xl,
+    paddingVertical: Space.md,
+    paddingHorizontal: Space.xl,
+    borderWidth: 1,
+    borderColor: Colors.brand,
+    borderRadius: 2,
+  },
+  emptyBtnText: {
+    ...Type.body,
+    color: Colors.brand,
+    fontWeight: '500',
+  },
+
+  // 日主 hero
+  heroSection: {
+    alignItems: 'center',
+    paddingTop: Space.xl,
+    paddingBottom: Space['2xl'],
+  },
+  heroGan: {
+    fontSize: 72,
+    color: Colors.ink,
+    fontWeight: '200',
+    lineHeight: 80,
+  },
+  heroMeta: {
+    ...Type.caption,
+    color: Colors.inkTertiary,
+    marginTop: Space.sm,
     letterSpacing: 2,
-    marginBottom:  16,
   },
-  resetBtn: {
-    paddingVertical: 4,
+  heroDesc: {
+    ...Type.body,
+    color: Colors.inkSecondary,
+    textAlign: 'center',
+    marginTop: Space.base,
+    paddingHorizontal: Space.xl,
+  },
+
+  // 分区标题
+  sectionTitleRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: Space.xl,
+    paddingBottom: Space.md,
+  },
+  sectionTitle: {
+    ...Type.label,
+    color: Colors.inkTertiary,
+    textTransform: 'uppercase',
   },
   resetText: {
-    fontSize:      13,
-    color:         C.mute,
-    letterSpacing: 2,
+    ...Type.caption,
+    color: Colors.brand,
   },
 
-  // 章节
-  section: {
-    marginBottom: 40,
+  // 格局
+  geJuBlock: {
+    paddingBottom: Space.base,
   },
-  sectionLabel: {
-    fontSize:      11,
-    color:         C.faint,
-    letterSpacing: 4,
-    marginBottom:  16,
-  },
-
-  // 格局（内联文字，不用卡片）
   geJuName: {
-    fontSize:      18,
-    color:         C.deep,
-    fontWeight:    '500',
-    letterSpacing: 3,
-    marginBottom:  4,
+    ...Type.subtitle,
+    color: Colors.ink,
+    fontWeight: '400',
   },
   geJuMeta: {
-    fontSize:      12,
-    color:         C.faint,
-    letterSpacing: 1,
-    marginBottom:  8,
+    ...Type.label,
+    color: Colors.inkTertiary,
+    marginTop: Space.xs,
   },
   geJuDesc: {
-    fontSize:      14,
-    color:         C.mid,
-    lineHeight:    24,
+    ...Type.body,
+    color: Colors.inkSecondary,
+    marginTop: Space.sm,
   },
 
-  // 神煞
-  shenShaList: {
-    gap: 16,
-  },
-  shenShaRow: {
-    gap: 3,
-  },
-  shenShaName: {
-    fontSize:      13,
-    color:         C.deep,
-    fontWeight:    '500',
-    letterSpacing: 1,
-  },
-  shenShaDesc: {
-    fontSize:  12,
-    color:     C.mute,
-    lineHeight: 18,
-  },
-  colorJi: {
-    color: '#7A8B14',
-  },
-  colorXiong: {
-    color: '#B84A3A',
-  },
-
-  // 菜单 — 纯文字链接
+  // 菜单 — 纯文字
   menuSection: {
-    marginTop:    8,
-    paddingTop:   24,
-    borderTopWidth: 0.5,
-    borderTopColor: '#DDD4C4',
+    paddingTop: Space['2xl'],
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: Colors.inkHint + '30',
+    marginTop: Space.xl,
   },
   menuItem: {
-    paddingVertical: 16,
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#DDD4C4',
+    paddingVertical: Space.base,
   },
-  menuTitle: {
-    fontSize:      15,
-    color:         C.deep,
-    letterSpacing: 2,
-  },
-  menuSub: {
-    fontSize:      12,
-    color:         C.faint,
-    letterSpacing: 1,
-    marginTop:     3,
+  menuText: {
+    ...Type.body,
+    color: Colors.inkSecondary,
   },
 });
