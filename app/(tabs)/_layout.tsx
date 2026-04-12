@@ -1,64 +1,87 @@
 import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { Text, StyleSheet } from 'react-native';
 import { Tabs } from 'expo-router';
-
-import Colors from '@/constants/Colors';
+import { Colors } from '@/lib/design/tokens';
 import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={24} style={{ marginBottom: -3 }} {...props} />;
+/**
+ * 岁吉 Tab 导航
+ * 
+ * 用中文字代替图标——文字即界面
+ * 四个字：历 · 问 · 静 · 我
+ */
+
+function TabLabel({ label, color }: { label: string; color: string }) {
+  return <Text style={[styles.tabChar, { color }]}>{label}</Text>;
 }
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const dark = colorScheme === 'dark';
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#8B4513',
-        tabBarInactiveTintColor: '#B8A898',
+        tabBarActiveTintColor: Colors.brand,
+        tabBarInactiveTintColor: Colors.inkTertiary,
         tabBarStyle: {
-          backgroundColor: colorScheme === 'dark' ? '#1A1410' : '#F5F0E8',
-          borderTopColor: colorScheme === 'dark' ? '#2A2420' : '#E5DDD0',
+          backgroundColor: dark ? '#1A1410' : Colors.bg,
+          borderTopWidth: 0,
+          elevation: 0,
+          height: 64,
+          paddingTop: 8,
         },
+        tabBarLabelStyle: { display: 'none' },
         headerStyle: {
-          backgroundColor: colorScheme === 'dark' ? '#1A1410' : '#F5F0E8',
+          backgroundColor: dark ? '#1A1410' : Colors.bg,
+          elevation: 0,
+          shadowOpacity: 0,
         },
-        headerTintColor: colorScheme === 'dark' ? '#F5F0E8' : '#2C1810',
+        headerTitleStyle: {
+          color: dark ? Colors.surface : Colors.ink,
+          fontSize: 17,
+          fontWeight: '500',
+          letterSpacing: 3,
+        },
         headerShown: useClientOnlyValue(false, true),
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: '日历',
-          tabBarIcon: ({ color }) => <TabBarIcon name="calendar" color={color} />,
+          tabBarIcon: ({ color }) => <TabLabel label="历" color={color} />,
         }}
       />
       <Tabs.Screen
         name="insight"
         options={{
           title: '问道',
-          tabBarIcon: ({ color }) => <TabBarIcon name="comments" color={color} />,
+          tabBarIcon: ({ color }) => <TabLabel label="问" color={color} />,
         }}
       />
       <Tabs.Screen
         name="ambiance"
         options={{
           title: '静心',
-          tabBarIcon: ({ color }) => <TabBarIcon name="leaf" color={color} />,
+          tabBarIcon: ({ color }) => <TabLabel label="静" color={color} />,
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
           title: '我的',
-          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
+          tabBarIcon: ({ color }) => <TabLabel label="我" color={color} />,
         }}
       />
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  tabChar: {
+    fontSize: 20,
+    fontWeight: '300',
+    letterSpacing: 0,
+  },
+});
