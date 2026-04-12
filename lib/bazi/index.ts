@@ -19,7 +19,7 @@
  */
 
 export { BaziEngine } from './BaziEngine';
-// export { DayunEngine } from './DayunEngine';    // TODO: 大运引擎（待实现）
+export { DayunEngine } from './DayunEngine';
 // export { YijingEngine } from './YijingEngine';  // TODO: 易经引擎（待实现）
-// export { InsightEngine } from './InsightEngine'; // TODO: 洞察引擎（待实现）
+export { InsightEngine } from './InsightEngine';
 export type * from './types';

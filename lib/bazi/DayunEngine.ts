@@ -54,30 +54,30 @@ export class DayunEngine {
   // § 静态查表数据（与 BaziEngine 共享同一理论来源）
   // ════════════════════════════════════════════
 
-  private static readonly TIAN_GAN: TianGan[] = [
+  static readonly TIAN_GAN: TianGan[] = [
     '甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸',
   ];
 
-  private static readonly DI_ZHI: DiZhi[] = [
+  static readonly DI_ZHI: DiZhi[] = [
     '子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥',
   ];
 
-  private static readonly GAN_WUXING: Record<TianGan, WuXing> = {
+  static readonly GAN_WUXING: Record<TianGan, WuXing> = {
     甲: '木', 乙: '木', 丙: '火', 丁: '火', 戊: '土',
     己: '土', 庚: '金', 辛: '金', 壬: '水', 癸: '水',
   };
 
-  private static readonly GAN_YINYANG: Record<TianGan, YinYang> = {
+  static readonly GAN_YINYANG: Record<TianGan, YinYang> = {
     甲: '阳', 乙: '阴', 丙: '阳', 丁: '阴', 戊: '阳',
     己: '阴', 庚: '阳', 辛: '阴', 壬: '阳', 癸: '阴',
   };
 
-  private static readonly ZHI_WUXING: Record<DiZhi, WuXing> = {
+  static readonly ZHI_WUXING: Record<DiZhi, WuXing> = {
     子: '水', 丑: '土', 寅: '木', 卯: '木', 辰: '土', 巳: '火',
     午: '火', 未: '土', 申: '金', 酉: '金', 戌: '土', 亥: '水',
   };
 
-  private static readonly ZHI_YINYANG: Record<DiZhi, YinYang> = {
+  static readonly ZHI_YINYANG: Record<DiZhi, YinYang> = {
     子: '阳', 丑: '阴', 寅: '阳', 卯: '阴', 辰: '阳', 巳: '阴',
     午: '阳', 未: '阴', 申: '阳', 酉: '阴', 戌: '阳', 亥: '阴',
   };
@@ -145,6 +145,25 @@ export class DayunEngine {
   // ════════════════════════════════════════════
   // § 公开方法
   // ════════════════════════════════════════════
+
+  /** 返回命盘完整大运列表 */
+  getDaYunList(): DaYun[] {
+    return this.mingPan.daYunList;
+  }
+
+  /**
+   * 获取某步大运中的 10 个流年列表
+   * @param daYun 大运对象
+   */
+  getLiuNian(daYun: DaYun): LiuNian[] {
+    const birthYear = this.mingPan.birthDateTime.getFullYear();
+    const list: LiuNian[] = [];
+    for (let i = 0; i < 10; i++) {
+      const year = birthYear + daYun.startAge + i;
+      list.push(this.getCurrentLiuNian(year));
+    }
+    return list;
+  }
 
   /**
    * 获取指定虚岁所处的大运步
@@ -363,6 +382,28 @@ export class DayunEngine {
   // ════════════════════════════════════════════
 
   /**
+   * 六十甲子序号（0–59）→ GanZhi
+   * 供外部模块（如 InsightEngine 的每日干支计算）复用
+   */
+  static indexToGanZhi(idx: number): GanZhi {
+    const i          = ((idx % 60) + 60) % 60;
+    const gan        = DayunEngine.TIAN_GAN[i % 10];
+    const zhi        = DayunEngine.DI_ZHI[i % 12];
+    const naYin      = NA_YIN_60[Math.floor(i / 2)];
+    const naYinWuXing: WuXing = NA_YIN_WX_MAP[naYin] ?? '土';
+    return {
+      gan,
+      zhi,
+      ganWuXing:  DayunEngine.GAN_WUXING[gan],
+      zhiWuXing:  DayunEngine.ZHI_WUXING[zhi],
+      ganYinYang: DayunEngine.GAN_YINYANG[gan],
+      zhiYinYang: DayunEngine.ZHI_YINYANG[zhi],
+      naYin,
+      naYinWuXing,
+    };
+  }
+
+  /**
    * 公历年份 → GanZhi
    *
    * 甲子年基准：1984 年（60 甲子循环索引 = 0）
@@ -397,7 +438,7 @@ export class DayunEngine {
    * 推算天干十神（与 BaziEngine.computeShiShen 逻辑一致）
    * 来源：《渊海子平》十神论
    */
-  private static computeShiShen(riGan: TianGan, targetGan: TianGan): ShiShen {
+  static computeShiShen(riGan: TianGan, targetGan: TianGan): ShiShen {
     const riWx = DayunEngine.GAN_WUXING[riGan];
     const tgWx = DayunEngine.GAN_WUXING[targetGan];
     const same = DayunEngine.GAN_YINYANG[riGan] === DayunEngine.GAN_YINYANG[targetGan];
