@@ -12,6 +12,7 @@ import { useState, useRef, useCallback } from 'react';
 import { useRouter } from 'expo-router';
 import { Colors, Space, Type } from '@/lib/design/tokens';
 import { useUserStore } from '@/lib/store/userStore';
+import { useChatStore } from '@/lib/store/chatStore';
 import { getChatConfig, sendChat } from '@/lib/ai/chat';
 import type { ChatMessage } from '@/lib/ai';
 
@@ -20,8 +21,10 @@ export default function InsightScreen() {
   const store = useUserStore();
   const scrollRef = useRef<ScrollView>(null);
 
+  const { messages: savedMessages, addMessage, clearMessages } = useChatStore();
+
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>(savedMessages);
   const [streamingText, setStreamingText] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -35,6 +38,7 @@ export default function InsightScreen() {
     const userMsg: ChatMessage = { role: 'user', content: text, timestamp: Date.now() };
     const newMessages = [...messages, userMsg];
     setMessages(newMessages);
+    addMessage(userMsg);
     setMessage('');
     setLoading(true);
     setStreamingText('');
@@ -56,6 +60,7 @@ export default function InsightScreen() {
         timestamp: Date.now(),
       };
       setMessages(prev => [...prev, assistantMsg]);
+      addMessage(assistantMsg);
       setStreamingText('');
     } catch (err: any) {
       const errorMsg: ChatMessage = {
@@ -106,6 +111,16 @@ export default function InsightScreen() {
         contentContainerStyle={styles.chatContent}
         onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: true })}
       >
+        {/* 清除对话 */}
+        {messages.length > 0 && (
+          <Pressable
+            style={styles.clearBtn}
+            onPress={() => { clearMessages(); setMessages([]); }}
+          >
+            <Text style={styles.clearBtnText}>清除对话</Text>
+          </Pressable>
+        )}
+
         {/* 欢迎消息 */}
         {messages.length === 0 && !streamingText && (
           <View style={styles.aiBubble}>
@@ -234,6 +249,18 @@ const styles = StyleSheet.create({
     paddingTop: Space.xl,
     paddingBottom: Space['2xl'],
     gap: Space.lg,
+  },
+
+  // 清除对话
+  clearBtn: {
+    alignSelf: 'center',
+    paddingVertical: Space.xs,
+    paddingHorizontal: Space.md,
+    marginBottom: Space.md,
+  },
+  clearBtnText: {
+    ...Type.caption,
+    color: Colors.inkHint,
   },
 
   // AI 气泡

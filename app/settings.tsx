@@ -9,6 +9,7 @@ import { useState, useCallback } from 'react';
 import { useRouter } from 'expo-router';
 import { Colors, Space, Type } from '@/lib/design/tokens';
 import { useUserStore } from '@/lib/store/userStore';
+import { useAuthStore } from '@/lib/store/authStore';
 
 const PROVIDERS = [
   { id: 'openai',    label: 'OpenAI',     defaultModel: 'gpt-4o' },
@@ -20,6 +21,7 @@ const PROVIDERS = [
 export default function SettingsScreen() {
   const router = useRouter();
   const store = useUserStore();
+  const { user, signOut } = useAuthStore();
 
   const [provider, setProvider] = useState(store.apiProvider ?? 'openai');
   const [apiKey, setApiKey] = useState(store.apiKey ?? '');
@@ -130,6 +132,24 @@ export default function SettingsScreen() {
       <Pressable style={styles.saveBtn} onPress={handleSave}>
         <Text style={styles.saveBtnText}>保存配置</Text>
       </Pressable>
+
+      {/* ── 账户 ── */}
+      <Text style={[styles.sectionTitle, { marginTop: Space['2xl'] }]}>账户</Text>
+      {user ? (
+        <View style={styles.infoBlock}>
+          <InfoRow label="邮箱" value={user.email ?? '未设置'} />
+          <Pressable style={{ marginTop: Space.md }} onPress={() => signOut()}>
+            <Text style={styles.dangerText}>退出登录</Text>
+          </Pressable>
+        </View>
+      ) : (
+        <Pressable
+          style={styles.saveBtn}
+          onPress={() => router.push('/auth')}
+        >
+          <Text style={styles.saveBtnText}>登录 / 注册</Text>
+        </Pressable>
+      )}
 
       {/* ── 个人信息 ── */}
       <Text style={[styles.sectionTitle, { marginTop: Space['2xl'] }]}>个人信息</Text>
