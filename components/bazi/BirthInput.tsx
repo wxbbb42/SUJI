@@ -7,7 +7,7 @@ import {
   View, Text, StyleSheet, Pressable, ScrollView, Modal,
 } from 'react-native';
 import { CITY_LONGITUDES } from '@/lib/bazi/TrueSolarTime';
-import { Colors, Space, Type } from '@/lib/design/tokens';
+import { Colors, Space, Radius, Type, Shadow } from '@/lib/design/tokens';
 
 const SHICHEN = [
   { label: '子', range: '23–01', hour: 0 },
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
     width: '24%',
     paddingVertical: Space.sm + 2,
     alignItems: 'center',
-    borderRadius: 4,
+    borderRadius: Radius.sm,
   },
   shichenCellOn: {
     backgroundColor: Colors.surface,
