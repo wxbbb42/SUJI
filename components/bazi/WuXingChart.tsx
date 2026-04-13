@@ -17,11 +17,11 @@ interface WuXingChartProps {
 }
 
 const ELEMENTS: { key: keyof WuXingBalance; label: string; color: string }[] = [
-  { key: 'jin',  label: '金', color: Colors.wuxing.jin },
-  { key: 'mu',   label: '木', color: Colors.wuxing.mu },
-  { key: 'shui', label: '水', color: Colors.wuxing.shui },
-  { key: 'huo',  label: '火', color: Colors.wuxing.huo },
-  { key: 'tu',   label: '土', color: Colors.wuxing.tu },
+  { key: 'jin',  label: '金', color: Colors.wuxing.金 },
+  { key: 'mu',   label: '木', color: Colors.wuxing.木 },
+  { key: 'shui', label: '水', color: Colors.wuxing.水 },
+  { key: 'huo',  label: '火', color: Colors.wuxing.火 },
+  { key: 'tu',   label: '土', color: Colors.wuxing.土 },
 ];
 
 export function WuXingChart({ balance, yongShen, xiShen }: WuXingChartProps) {

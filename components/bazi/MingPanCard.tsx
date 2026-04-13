@@ -11,11 +11,11 @@ import { Colors, Space, Type } from '@/lib/design/tokens';
 
 // ── 五行色 ───────────────────────────────────────────────────────────
 const WX_COLOR: Record<WuXing, string> = {
-  金: Colors.wuxing.jin,
-  木: Colors.wuxing.mu,
-  水: Colors.wuxing.shui,
-  火: Colors.wuxing.huo,
-  土: Colors.wuxing.tu,
+  金: Colors.wuxing.金,
+  木: Colors.wuxing.木,
+  水: Colors.wuxing.水,
+  火: Colors.wuxing.火,
+  土: Colors.wuxing.土,
 };
 
 const PILLAR_LABELS = ['年柱', '月柱', '日柱', '时柱'];

@@ -1,137 +1,179 @@
 /**
- * Onboarding 欢迎流程
+ * Onboarding 引导流程
  *
- * 三页引导 → 登录/注册 → 生辰输入 → 命盘生成
- *
- * 设计理念：
- * - 每页只有一个大字 + 一句话，极简
- * - 水墨风过渡，不用花哨动画
- * - 最后一页自然引导到登录
+ * 三页：品牌印象 → 核心价值 → 开始
+ * Neo-Tactile Warmth 设计
  */
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import {
   StyleSheet, View, Text, Pressable, Dimensions,
   ScrollView, NativeSyntheticEvent, NativeScrollEvent,
-  Platform,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Animated, {
+  useSharedValue, useAnimatedStyle, withSpring,
+} from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
-import { Colors, Space, Type } from '@/lib/design/tokens';
+import { Colors, Space, Radius, Type, Shadow, Motion, Size } from '@/lib/design/tokens';
 import { useUserStore } from '@/lib/store/userStore';
 
-const { width: SCREEN_W, height: SCREEN_H } = Dimensions.get('window');
+const { width: SW } = Dimensions.get('window');
 
-interface OnboardPage {
-  bigChar: string;       // 大字视觉锚点
-  title: string;         // 标题
-  body: string;          // 正文
-  footnote?: string;     // 底部小字
-}
-
-const PAGES: OnboardPage[] = [
-  {
-    bigChar: '岁',
-    title: '时间有纹理',
-    body: '每一年、每一天、每一个时辰\n都有属于你的能量节奏',
-    footnote: '— 岁吉 —',
-  },
-  {
-    bigChar: '知',
-    title: '认识自己',
-    body: '千年命理智慧\n用现代语言重新讲述\n不预测未来，只照亮当下',
-  },
-  {
-    bigChar: '行',
-    title: '顺势而为',
-    body: '知道何时进、何时退\n每一天都活得更从容',
-  },
-];
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export default function OnboardingScreen() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const scrollRef = useRef<ScrollView>(null);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [page, setPage] = useState(0);
   const { birthDate } = useUserStore();
 
   const handleScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const page = Math.round(e.nativeEvent.contentOffset.x / SCREEN_W);
-    setCurrentPage(page);
+    setPage(Math.round(e.nativeEvent.contentOffset.x / SW));
   };
 
-  const goNext = () => {
-    if (currentPage < PAGES.length - 1) {
-      scrollRef.current?.scrollTo({ x: (currentPage + 1) * SCREEN_W, animated: true });
+  const goNext = useCallback(() => {
+    if (page < 2) {
+      scrollRef.current?.scrollTo({ x: (page + 1) * SW, animated: true });
     } else {
-      // 最后一页 → 标记完成 + 进入登录
       useUserStore.getState().setHasOnboarded();
       router.replace('/auth');
     }
-  };
+  }, [page, router]);
 
-  const skip = () => {
+  const skip = useCallback(() => {
     useUserStore.getState().setHasOnboarded();
-    if (birthDate) {
-      router.replace('/(tabs)');
-    } else {
-      router.replace('/auth');
-    }
-  };
+    router.replace(birthDate ? '/(tabs)' : '/auth');
+  }, [birthDate, router]);
 
   return (
-    <View style={styles.container}>
-      {/* 跳过按钮 */}
-      <Pressable style={styles.skipBtn} onPress={skip}>
+    <View style={[styles.container, { paddingTop: insets.top }]}>
+      {/* 跳过 */}
+      <Pressable style={styles.skipBtn} onPress={skip} hitSlop={16}>
         <Text style={styles.skipText}>跳过</Text>
       </Pressable>
 
-      {/* 引导页 */}
+      {/* 页面 */}
       <ScrollView
         ref={scrollRef}
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         onMomentumScrollEnd={handleScroll}
-        style={styles.pager}
+        scrollEventThrottle={16}
       >
-        {PAGES.map((page, i) => (
-          <View key={i} style={styles.page}>
-            {/* 大字 */}
-            <Text style={styles.bigChar}>{page.bigChar}</Text>
-
-            {/* 内容 */}
-            <View style={styles.content}>
-              <Text style={styles.title}>{page.title}</Text>
-              <Text style={styles.body}>{page.body}</Text>
-              {page.footnote && (
-                <Text style={styles.footnote}>{page.footnote}</Text>
-              )}
-            </View>
-          </View>
-        ))}
+        <PageBrand />
+        <PageValue />
+        <PageStart onStart={goNext} />
       </ScrollView>
 
-      {/* 底部：进度指示 + 按钮 */}
-      <View style={styles.footer}>
-        {/* 点状进度 */}
+      {/* 底部导航 */}
+      <View style={[styles.footer, { paddingBottom: insets.bottom + Space.lg }]}>
         <View style={styles.dots}>
-          {PAGES.map((_, i) => (
+          {[0, 1, 2].map(i => (
             <View
               key={i}
-              style={[styles.dot, currentPage === i && styles.dotActive]}
+              style={[
+                styles.dot,
+                page === i && styles.dotActive,
+              ]}
             />
           ))}
         </View>
 
-        {/* 下一步按钮 */}
-        <Pressable style={styles.nextBtn} onPress={goNext}>
-          <Text style={styles.nextText}>
-            {currentPage === PAGES.length - 1 ? '开始' : '继续'}
-          </Text>
-        </Pressable>
+        {page < 2 && (
+          <Pressable style={styles.nextBtn} onPress={goNext} hitSlop={12}>
+            <Text style={styles.nextText}>继续</Text>
+          </Pressable>
+        )}
       </View>
     </View>
   );
 }
+
+// ── 第 1 页：品牌印象 ─────────────────────────────
+
+function PageBrand() {
+  return (
+    <View style={styles.page}>
+      <View style={styles.brandCenter}>
+        <Text style={styles.brandBigChar}>岁</Text>
+        <Text style={styles.brandName}>岁吉</Text>
+        <Text style={styles.brandSub}>顺时而行 · 从容而生</Text>
+      </View>
+    </View>
+  );
+}
+
+// ── 第 2 页：核心价值 ─────────────────────────────
+
+function PageValue() {
+  const values = [
+    { color: Colors.vermilion, text: '千年智慧，现代语言' },
+    { color: Colors.celadon,   text: '不预测未来，照亮当下' },
+    { color: Colors.amber,     text: '每一天的节奏，为你而设' },
+  ];
+
+  return (
+    <View style={styles.page}>
+      <View style={styles.valueCenter}>
+        {/* 装饰圆 */}
+        <View style={styles.decorCircle}>
+          <Text style={styles.decorText}>干支</Text>
+        </View>
+
+        <Text style={styles.valueTitle}>读懂你的时间</Text>
+
+        <View style={styles.valueList}>
+          {values.map((v, i) => (
+            <View key={i} style={styles.valueRow}>
+              <View style={[styles.valueDot, { backgroundColor: v.color }]} />
+              <Text style={styles.valueText}>{v.text}</Text>
+            </View>
+          ))}
+        </View>
+      </View>
+    </View>
+  );
+}
+
+// ── 第 3 页：开始 ─────────────────────────────────
+
+function PageStart({ onStart }: { onStart: () => void }) {
+  const scale = useSharedValue(1);
+
+  const animStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  const handlePressIn = () => {
+    scale.value = withSpring(0.95, Motion.quick);
+  };
+  const handlePressOut = () => {
+    scale.value = withSpring(1, Motion.quick);
+  };
+
+  return (
+    <View style={styles.page}>
+      <View style={styles.startCenter}>
+        <Text style={styles.startTitle}>准备好了吗？</Text>
+        <Text style={styles.startSub}>输入你的生辰{'\n'}开启专属命盘</Text>
+
+        <AnimatedPressable
+          style={[styles.startBtn, Shadow.md, animStyle]}
+          onPress={onStart}
+          onPressIn={handlePressIn}
+          onPressOut={handlePressOut}
+        >
+          <Text style={styles.startBtnText}>开始</Text>
+        </AnimatedPressable>
+      </View>
+    </View>
+  );
+}
+
+// ── Styles ────────────────────────────────────────
 
 const styles = StyleSheet.create({
   container: {
@@ -142,103 +184,156 @@ const styles = StyleSheet.create({
   // 跳过
   skipBtn: {
     position: 'absolute',
-    top: Platform.OS === 'ios' ? 60 : 40,
+    top: 60,
     right: Space.lg,
     zIndex: 10,
-    paddingVertical: Space.sm,
-    paddingHorizontal: Space.md,
+    padding: Space.sm,
   },
   skipText: {
-    ...Type.caption,
-    color: Colors.inkHint,
-    letterSpacing: 2,
+    ...Type.bodySmall,
+    color: Colors.inkTertiary,
   },
 
-  // 分页器
-  pager: {
-    flex: 1,
-  },
+  // 页面
   page: {
-    width: SCREEN_W,
-    height: SCREEN_H,
+    width: SW,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: Space.xl,
+    paddingHorizontal: Space['3xl'],
   },
 
-  // 大字 — 视觉锚点
-  bigChar: {
-    fontSize: 160,
-    color: Colors.ink,
-    fontWeight: '100',
-    opacity: 0.08,
-    position: 'absolute',
-    top: SCREEN_H * 0.15,
-  },
-
-  // 内容
-  content: {
+  // 品牌页
+  brandCenter: {
     alignItems: 'center',
-    paddingHorizontal: Space.lg,
   },
-  title: {
-    fontSize: 28,
+  brandBigChar: {
+    fontFamily: 'Georgia',
+    fontSize: 120,
     color: Colors.ink,
     fontWeight: '300',
-    letterSpacing: 6,
-    marginBottom: Space.lg,
-    textAlign: 'center',
+    marginBottom: Space.sm,
   },
-  body: {
+  brandName: {
+    fontFamily: 'Georgia',
+    fontSize: 24,
+    color: Colors.ink,
+    fontWeight: '400',
+    letterSpacing: 12,
+    marginBottom: Space.md,
+  },
+  brandSub: {
+    ...Type.caption,
+    color: Colors.inkTertiary,
+    letterSpacing: 4,
+  },
+
+  // 价值页
+  valueCenter: {
+    alignItems: 'center',
+    width: '100%',
+  },
+  decorCircle: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: Colors.brandBg,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: Space['2xl'],
+  },
+  decorText: {
+    fontFamily: 'Georgia',
+    fontSize: 18,
+    color: Colors.vermilion,
+    fontWeight: '400',
+  },
+  valueTitle: {
+    ...Type.title,
+    color: Colors.ink,
+    marginBottom: Space['2xl'],
+  },
+  valueList: {
+    gap: Space.lg,
+    width: '100%',
+    paddingHorizontal: Space.lg,
+  },
+  valueRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Space.md,
+  },
+  valueDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+  },
+  valueText: {
     ...Type.body,
     color: Colors.inkSecondary,
-    textAlign: 'center',
-    lineHeight: 28,
-    letterSpacing: 1,
   },
-  footnote: {
-    ...Type.caption,
-    color: Colors.inkHint,
-    marginTop: Space.xl,
-    letterSpacing: 6,
+
+  // 开始页
+  startCenter: {
+    alignItems: 'center',
+  },
+  startTitle: {
+    ...Type.title,
+    color: Colors.ink,
+    marginBottom: Space.lg,
+  },
+  startSub: {
+    ...Type.body,
+    color: Colors.inkTertiary,
+    textAlign: 'center',
+    lineHeight: 26,
+    marginBottom: Space['3xl'],
+  },
+  startBtn: {
+    backgroundColor: Colors.vermilion,
+    borderRadius: Radius.full,
+    paddingVertical: Space.base,
+    paddingHorizontal: Space['4xl'],
+    height: Size.buttonLg,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  startBtnText: {
+    ...Type.body,
+    color: '#FFFFFF',
+    fontWeight: '600',
+    letterSpacing: 4,
   },
 
   // 底部
   footer: {
-    paddingBottom: Platform.OS === 'ios' ? 50 : 32,
-    paddingHorizontal: Space.xl,
     alignItems: 'center',
     gap: Space.xl,
+    paddingTop: Space.lg,
   },
-
-  // 进度点
   dots: {
     flexDirection: 'row',
-    gap: Space.md,
+    gap: Space.sm,
+    alignItems: 'center',
   },
   dot: {
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: Colors.inkHint + '40',
+    backgroundColor: Colors.border,
   },
   dotActive: {
-    backgroundColor: Colors.ink,
     width: 24,
+    backgroundColor: Colors.vermilion,
+    borderRadius: 3,
   },
-
-  // 按钮
   nextBtn: {
-    paddingVertical: Space.md + 2,
+    paddingVertical: Space.md,
     paddingHorizontal: Space['2xl'],
-    borderWidth: 1,
-    borderColor: Colors.ink,
-    borderRadius: 2,
   },
   nextText: {
     ...Type.body,
-    color: Colors.ink,
-    fontWeight: '400',
-    letterSpacing: 8,
+    color: Colors.vermilion,
+    fontWeight: '500',
   },
 });
