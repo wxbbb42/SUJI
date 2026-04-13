@@ -1,51 +1,114 @@
 /**
  * 「我的」页面
- * 
+ *
  * 未输入生辰：引导输入
- * 已输入：完整命盘展示
- * 
- * 设计：无头像、日主做大视觉锚点、内容按阅读节奏铺开
+ * 已输入：完整命盘展示（从 store 读取）
+ * 支持真太阳时修正（传入经度）
  */
 
 import { StyleSheet, View, Text, Pressable, ScrollView, Alert } from 'react-native';
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useRouter } from 'expo-router';
 import { Colors, Space, Type } from '@/lib/design/tokens';
 import { BirthInput, MingPanCard, WuXingChart, PersonalityCard } from '@/components/bazi';
 import { BaziEngine } from '@/lib/bazi/BaziEngine';
 import { InsightEngine } from '@/lib/bazi/InsightEngine';
+import { toTrueSolarTime } from '@/lib/bazi/TrueSolarTime';
+import { useUserStore } from '@/lib/store/userStore';
 import type { MingPan, PersonalityInsight } from '@/lib/bazi/types';
 
 export default function ProfileScreen() {
-  const [mingPan, setMingPan] = useState<MingPan | null>(null);
+  const router = useRouter();
+
+  // ── store ──
+  const {
+    birthDate, gender, birthCity, birthLongitude, mingPanCache,
+    setBirthDate, setGender, setBirthCity, setMingPanCache,
+  } = useUserStore();
+
+  const [mingPan,     setMingPan]     = useState<MingPan | null>(null);
   const [personality, setPersonality] = useState<PersonalityInsight | null>(null);
-  const [showInput, setShowInput] = useState(false);
+  const [showInput,   setShowInput]   = useState(false);
 
   const baziEngine = useMemo(() => new BaziEngine(), []);
 
-  const handleSubmit = useCallback((date: Date, gender: '男' | '女') => {
-    try {
-      const result = baziEngine.calculate(date, gender);
-      const insight = new InsightEngine(result);
-      setMingPan(result);
-      setPersonality(insight.getPersonalityInsight());
-      setShowInput(false);
-    } catch {
-      Alert.alert('排盘失败', '请检查日期和时间');
+  // 首次加载：若 store 有缓存，直接还原命盘
+  useEffect(() => {
+    if (mingPanCache && !mingPan) {
+      try {
+        const cached = JSON.parse(mingPanCache) as MingPan;
+        setMingPan(cached);
+        const insight = new InsightEngine(cached);
+        setPersonality(insight.getPersonalityInsight());
+      } catch {
+        // 缓存损坏，忽略
+      }
     }
-  }, [baziEngine]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleSubmit = useCallback(
+    (date: Date, g: '男' | '女', longitude: number) => {
+      try {
+        // 真太阳时修正
+        const corrected = toTrueSolarTime(date, longitude);
+        const result = baziEngine.calculate(corrected, g);
+        const insight = new InsightEngine(result);
+
+        // 持久化到 store
+        setBirthDate(date);
+        setGender(g);
+        // city name stored in store via BirthInput's onSubmit path —
+        // profile passes longitude through, city already set via store action
+        setMingPanCache(JSON.stringify(result));
+
+        setMingPan(result);
+        setPersonality(insight.getPersonalityInsight());
+        setShowInput(false);
+      } catch {
+        Alert.alert('排盘失败', '请检查日期和时间');
+      }
+    },
+    [baziEngine, setBirthDate, setGender, setMingPanCache],
+  );
+
+  // 包装 BirthInput 的 onSubmit，同时把城市存进 store
+  const handleBirthSubmit = useCallback(
+    (date: Date, g: '男' | '女', longitude: number) => {
+      handleSubmit(date, g, longitude);
+    },
+    [handleSubmit],
+  );
 
   const handleReset = useCallback(() => {
     Alert.alert('重新输入', '清除当前命盘？', [
       { text: '取消', style: 'cancel' },
-      { text: '确定', onPress: () => { setMingPan(null); setPersonality(null); } },
+      {
+        text: '确定',
+        onPress: () => {
+          setMingPan(null);
+          setPersonality(null);
+          setShowInput(true);
+        },
+      },
     ]);
   }, []);
+
+  // 初始值（有 store 数据时预填）
+  const initialDate = birthDate ? new Date(birthDate) : undefined;
+  const initialGender = gender ?? undefined;
+  const initialCity = birthCity ?? undefined;
 
   // ── 输入生辰 ──
   if (showInput) {
     return (
       <ScrollView style={styles.container} contentContainerStyle={styles.scroll}>
-        <BirthInput onSubmit={handleSubmit} />
+        <BirthInput
+          onSubmit={handleBirthSubmit}
+          initialDate={initialDate}
+          initialGender={initialGender}
+          initialCity={initialCity}
+        />
       </ScrollView>
     );
   }
@@ -67,7 +130,7 @@ export default function ProfileScreen() {
           <MenuItem title="情绪日记" />
           <MenuItem title="关系洞察" />
           <MenuItem title="流年运势" />
-          <MenuItem title="设置" />
+          <MenuItem title="设置" onPress={() => router.push('/settings')} />
         </View>
       </View>
     );
@@ -124,7 +187,7 @@ export default function ProfileScreen() {
         <MenuItem title="情绪日记" />
         <MenuItem title="关系洞察" />
         <MenuItem title="流年运势" />
-        <MenuItem title="设置" />
+        <MenuItem title="设置" onPress={() => router.push('/settings')} />
       </View>
     </ScrollView>
   );
@@ -141,9 +204,9 @@ function SectionTitle({ text, right }: { text: string; right?: React.ReactNode }
   );
 }
 
-function MenuItem({ title }: { title: string }) {
+function MenuItem({ title, onPress }: { title: string; onPress?: () => void }) {
   return (
-    <Pressable style={styles.menuItem}>
+    <Pressable style={styles.menuItem} onPress={onPress}>
       <Text style={styles.menuText}>{title}</Text>
     </Pressable>
   );

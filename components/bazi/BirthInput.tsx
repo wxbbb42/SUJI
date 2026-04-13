@@ -1,9 +1,12 @@
 /**
  * BirthInput — 生辰输入组件（重设计版）
- * 12宫格时辰点选 · 文字性别切换 · 文字提交按钮
+ * 12宫格时辰点选 · 文字性别切换 · 城市选择 · 文字提交按钮
  */
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import {
+  View, Text, StyleSheet, Pressable, ScrollView, Modal,
+} from 'react-native';
+import { CITY_LONGITUDES } from '@/lib/bazi/TrueSolarTime';
 
 const SHICHEN = [
   { label: '子', range: '23–01', hour: 0 },
@@ -22,6 +25,9 @@ const SHICHEN = [
 
 const DAYS_IN_MONTH = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
+// 城市列表（排序：直辖市优先，再按拼音）
+const CITY_LIST = Object.keys(CITY_LONGITUDES);
+
 // ── 色彩系统 ───────────────────────────────────────────────────────────
 const C = {
   bg:      '#F5EDE0',
@@ -34,15 +40,33 @@ const C = {
 };
 
 interface BirthInputProps {
-  onSubmit: (date: Date, gender: '男' | '女') => void;
+  onSubmit: (date: Date, gender: '男' | '女', longitude: number) => void;
+  initialDate?: Date;
+  initialGender?: '男' | '女';
+  initialCity?: string;
 }
 
-export default function BirthInput({ onSubmit }: BirthInputProps) {
-  const [year,       setYear]       = useState(1990);
-  const [month,      setMonth]      = useState(6);
-  const [day,        setDay]        = useState(15);
-  const [shichenIdx, setShichenIdx] = useState(4);   // 寅时默认
-  const [gender,     setGender]     = useState<'男' | '女'>('男');
+export default function BirthInput({
+  onSubmit,
+  initialDate,
+  initialGender,
+  initialCity,
+}: BirthInputProps) {
+  const initD = initialDate ?? new Date(1990, 5, 15, 4, 0, 0);
+
+  const [year,       setYear]       = useState(initD.getFullYear());
+  const [month,      setMonth]      = useState(initD.getMonth() + 1);
+  const [day,        setDay]        = useState(initD.getDate());
+  const [shichenIdx, setShichenIdx] = useState(() => {
+    // 根据小时反推时辰
+    const h = initD.getHours();
+    return SHICHEN.findIndex(s => s.hour === Math.floor(h / 2) * 2) || 4;
+  });
+  const [gender,     setGender]     = useState<'男' | '女'>(initialGender ?? '男');
+  const [city,       setCity]       = useState<string>(
+    initialCity ?? (CITY_LIST[0] ?? '北京')
+  );
+  const [showCityPicker, setShowCityPicker] = useState(false);
   const [error,      setError]      = useState('');
 
   const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
@@ -60,7 +84,8 @@ export default function BirthInput({ onSubmit }: BirthInputProps) {
     setError('');
     try {
       const { hour } = SHICHEN[shichenIdx];
-      onSubmit(new Date(year, month - 1, day, hour, 0, 0), gender);
+      const longitude = CITY_LONGITUDES[city] ?? 116.4;
+      onSubmit(new Date(year, month - 1, day, hour, 0, 0), gender, longitude);
     } catch {
       setError('日期有误，请重新检查');
     }
@@ -108,12 +133,52 @@ export default function BirthInput({ onSubmit }: BirthInputProps) {
         ))}
       </View>
 
+      {/* 出生城市 */}
+      <Text style={[styles.fieldLabel, { marginTop: 0 }]}>出生地</Text>
+      <Pressable style={styles.cityButton} onPress={() => setShowCityPicker(true)}>
+        <Text style={styles.cityValue}>{city}</Text>
+        <Text style={styles.cityMeta}>
+          {CITY_LONGITUDES[city] != null ? `东经 ${CITY_LONGITUDES[city]}°` : ''}
+        </Text>
+        <Text style={styles.cityChevron}>›</Text>
+      </Pressable>
+
       {error ? <Text style={styles.error}>{error}</Text> : null}
 
       {/* 文字提交 */}
       <Pressable style={styles.submit} onPress={handleSubmit}>
         <Text style={styles.submitText}>推算命盘</Text>
       </Pressable>
+
+      {/* 城市选择器 Modal */}
+      <Modal
+        visible={showCityPicker}
+        animationType="slide"
+        transparent
+        onRequestClose={() => setShowCityPicker(false)}
+      >
+        <Pressable style={styles.modalOverlay} onPress={() => setShowCityPicker(false)}>
+          <View style={styles.modalSheet}>
+            <Text style={styles.modalTitle}>选择出生地</Text>
+            <ScrollView style={styles.cityList} showsVerticalScrollIndicator={false}>
+              {CITY_LIST.map(c => (
+                <Pressable
+                  key={c}
+                  style={[styles.cityItem, c === city && styles.cityItemOn]}
+                  onPress={() => { setCity(c); setShowCityPicker(false); }}
+                >
+                  <Text style={[styles.cityItemText, c === city && styles.cityItemTextOn]}>
+                    {c}
+                  </Text>
+                  <Text style={styles.cityItemLong}>
+                    {CITY_LONGITUDES[c]}°
+                  </Text>
+                </Pressable>
+              ))}
+            </ScrollView>
+          </View>
+        </Pressable>
+      </Modal>
     </View>
   );
 }
@@ -228,7 +293,7 @@ const styles = StyleSheet.create({
   genderRow: {
     flexDirection: 'row',
     gap: 32,
-    marginBottom: 40,
+    marginBottom: 32,
   },
   genderOpt: {
     alignItems: 'center',
@@ -248,6 +313,30 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: C.brand,
   },
+  // 城市
+  cityButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    marginBottom: 32,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: C.faint + '60',
+  },
+  cityValue: {
+    fontSize: 16,
+    color: C.deep,
+    fontWeight: '300',
+    flex: 1,
+  },
+  cityMeta: {
+    fontSize: 12,
+    color: C.faint,
+    marginRight: 8,
+  },
+  cityChevron: {
+    fontSize: 18,
+    color: C.faint,
+  },
   // 错误
   error: {
     fontSize: 13,
@@ -265,5 +354,52 @@ const styles = StyleSheet.create({
     color: C.brand,
     letterSpacing: 6,
     fontWeight: '400',
+  },
+  // 城市 Modal
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(44,24,16,0.3)',
+    justifyContent: 'flex-end',
+  },
+  modalSheet: {
+    backgroundColor: C.surface,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    paddingTop: 20,
+    paddingHorizontal: 24,
+    maxHeight: '70%',
+  },
+  modalTitle: {
+    fontSize: 15,
+    color: C.deep,
+    fontWeight: '500',
+    letterSpacing: 3,
+    marginBottom: 16,
+  },
+  cityList: {
+    marginBottom: 32,
+  },
+  cityItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 14,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: C.faint + '40',
+  },
+  cityItemOn: {
+    // 选中状态用左侧文字颜色区分，无多余装饰
+  },
+  cityItemText: {
+    fontSize: 15,
+    color: C.mid,
+    flex: 1,
+  },
+  cityItemTextOn: {
+    color: C.brand,
+    fontWeight: '500',
+  },
+  cityItemLong: {
+    fontSize: 12,
+    color: C.faint,
   },
 });
