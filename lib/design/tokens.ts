@@ -1,78 +1,255 @@
 /**
- * 岁吉 · 设计系统
- * 
- * 审美方向：侘寂 × 宋代美学 × 现代极简
- * 核心：文字即界面、留白呼吸、克制装饰
+ * 岁吉设计系统 Tokens
+ *
+ * Neo-Tactile Warmth — 新触感温暖
+ *
+ * 参考：Airbnb（大圆角+呼吸感）· 小宇宙（温暖触感）·
+ *       Notion（排版优雅）· Teenager Engineer（碰撞色+拟物）
+ *
+ * iOS HIG 对齐：8pt grid · SF Pro · 标准导航模式
  */
 
-// ═══════════════════════════════════
-// 色彩系统
-// ═══════════════════════════════════
-// 所有灰色微偏暖（向品牌色 #8B4513 倾斜）
+import { Platform } from 'react-native';
+
+// ═══════════════════════════════════════════════════
+// § 颜色 — 暖中性色系 + 碰撞色点缀
+// ═══════════════════════════════════════════════════
 
 export const Colors = {
-  // 三层底面系统
-  bg: '#F5EDE0',        // 底层 — 宣纸
-  surface: '#FFFBF5',   // 面层 — 卡纸
-  float: '#FFFFFF',      // 浮层 — 白
+  // 表面色（暖纸张底色，不是冷灰白）
+  bg:          '#FAF7F2',       // 宣纸色
+  bgSecondary: '#F3EDE4',       // 稍深的暖底
+  surface:     '#FFFFFF',       // 纯白卡片（和暖底形成对比）
+  surfaceHover:'#F8F4EE',       // 卡片 hover/pressed
 
-  // 品牌色
-  brand: '#8B4513',      // 檀木棕
-  brandLight: '#A0623A', // 品牌浅
-  brandMuted: '#C4A078', // 品牌哑光
+  // 墨色系（暖灰，不是纯黑灰）
+  ink:           '#2C1810',     // 主文字（深棕墨）
+  inkSecondary:  '#5C4A3E',     // 次要文字
+  inkTertiary:   '#8C7B6E',     // 三级文字
+  inkHint:       '#B8A99A',     // 提示/占位符
 
-  // 文字层次
-  ink: '#2C1810',        // 墨 — 正文
-  inkSecondary: '#6B5C52', // 次墨 — 辅助文字
-  inkTertiary: '#9E9089',  // 淡墨 — 三级文字
-  inkHint: '#C4B8AE',      // 痕 — placeholder / hint
+  // 碰撞色（点缀用，不铺满）
+  vermilion:   '#D94F3A',       // 朱砂红 — 主强调
+  celadon:     '#5BA68A',       // 青瓷绿 — 辅助强调
+  amber:       '#E8A838',       // 琥珀黄 — 警示/高亮
+  indigo:      '#4A6FA5',       // 靛蓝 — 信息/链接
+  plum:        '#8B5E8B',       // 梅紫 — 特殊状态
 
-  // 五行色
-  wuxing: {
-    jin: '#B8964A',   // 金 — 暗金
-    mu: '#5B8C5A',    // 木 — 苍绿
-    shui: '#4A7B8C',  // 水 — 深青
-    huo: '#C25B3A',   // 火 — 赭红
-    tu: '#8B7355',    // 土 — 赭黄
-  },
+  // 功能色
+  brand:       '#D94F3A',       // 主品牌色 = 朱砂红
+  brandMuted:  '#E8A89E',       // 品牌淡色
+  brandBg:     '#FDF5F3',       // 品牌色背景
+  success:     '#5BA68A',       // 成功 = 青瓷绿
+  warn:        '#E8A838',       // 警告 = 琥珀黄
+  error:       '#C83C2C',       // 错误
 
-  // 语义色
-  good: '#5B8C5A',
-  caution: '#B8964A',
-  warn: '#C25B3A',
+  // 分割线
+  border:      '#E8E0D6',       // 普通分割线
+  borderLight: '#F0EBE3',       // 轻分割线
+
+  // overlay
+  overlay:     'rgba(44, 24, 16, 0.4)',   // 遮罩
+  overlayLight:'rgba(44, 24, 16, 0.15)',  // 轻遮罩
 } as const;
 
-// ═══════════════════════════════════
-// 间距系统 (4pt base)
-// ═══════════════════════════════════
+// ═══════════════════════════════════════════════════
+// § 间距 — 8pt grid（带 4pt 微调）
+// ═══════════════════════════════════════════════════
 
 export const Space = {
-  xs: 4,
-  sm: 8,
-  md: 12,
-  base: 16,
-  lg: 24,
-  xl: 32,
-  '2xl': 48,
-  '3xl': 64,
-  '4xl': 96,
+  /** 2px — 极微间距 */  '2xs': 2,
+  /** 4px — 微间距 */    xs:    4,
+  /** 8px — 紧凑 */      sm:    8,
+  /** 12px — 过渡 */     md:    12,
+  /** 16px — 标准 */     base:  16,
+  /** 20px — 舒适 */     lg:    20,
+  /** 24px — 宽松 */     xl:    24,
+  /** 32px — 段落间 */   '2xl': 32,
+  /** 40px — 区块间 */   '3xl': 40,
+  /** 48px — 大区块 */   '4xl': 48,
+  /** 64px — 页面间 */   '5xl': 64,
+  /** 80px — 特殊 */     '6xl': 80,
 } as const;
 
-// ═══════════════════════════════════
-// 字号系统 (modular scale ~1.33)
-// ═══════════════════════════════════
+// ═══════════════════════════════════════════════════
+// § 圆角 — iOS 风格大圆角
+// ═══════════════════════════════════════════════════
+
+export const Radius = {
+  /** 4px — 微圆角（标签、小按钮） */  xs:   4,
+  /** 8px — 紧凑圆角（输入框） */      sm:   8,
+  /** 12px — 标准圆角（卡片） */       md:   12,
+  /** 16px — iOS 标准（大卡片） */     lg:   16,
+  /** 20px — 突出圆角（弹窗） */       xl:   20,
+  /** 24px — 大圆角（底部 sheet） */   '2xl': 24,
+  /** 9999 — 全圆（按钮胶囊） */       full: 9999,
+} as const;
+
+// ═══════════════════════════════════════════════════
+// § 字体 — SF Pro + Noto Serif CJK 混排
+// ═══════════════════════════════════════════════════
+
+const fontFamily = Platform.select({
+  ios: 'System',                         // SF Pro
+  android: 'Roboto',
+  default: 'System',
+});
+
+const serifFamily = Platform.select({
+  ios: 'Georgia',                        // iOS 内置衬线，替代 Noto Serif
+  android: 'serif',
+  default: 'Georgia',
+});
 
 export const Type = {
-  // 展示
-  display: { fontSize: 36, lineHeight: 44, letterSpacing: 2 },
-  // 标题
-  title: { fontSize: 24, lineHeight: 32, letterSpacing: 1.5 },
-  // 子标题
-  subtitle: { fontSize: 18, lineHeight: 26, letterSpacing: 1 },
+  // 大标题 — 衬线体，文化感
+  heroDisplay: {
+    fontFamily: serifFamily,
+    fontSize: 56,
+    lineHeight: 64,
+    fontWeight: '300' as const,
+    letterSpacing: -0.5,
+  },
+  // 页面标题
+  title: {
+    fontFamily: serifFamily,
+    fontSize: 28,
+    lineHeight: 36,
+    fontWeight: '400' as const,
+    letterSpacing: 0.2,
+  },
+  // 区块标题
+  subtitle: {
+    fontFamily: fontFamily,
+    fontSize: 20,
+    lineHeight: 28,
+    fontWeight: '600' as const,
+    letterSpacing: 0.15,
+  },
   // 正文
-  body: { fontSize: 15, lineHeight: 24, letterSpacing: 0.3 },
-  // 辅助
-  caption: { fontSize: 13, lineHeight: 20, letterSpacing: 0.2 },
-  // 标注
-  label: { fontSize: 11, lineHeight: 16, letterSpacing: 0.5 },
+  body: {
+    fontFamily: fontFamily,
+    fontSize: 16,
+    lineHeight: 24,
+    fontWeight: '400' as const,
+    letterSpacing: 0.1,
+  },
+  // 正文小号
+  bodySmall: {
+    fontFamily: fontFamily,
+    fontSize: 14,
+    lineHeight: 20,
+    fontWeight: '400' as const,
+    letterSpacing: 0.1,
+  },
+  // 标签 — 大写间距
+  label: {
+    fontFamily: fontFamily,
+    fontSize: 12,
+    lineHeight: 16,
+    fontWeight: '500' as const,
+    letterSpacing: 0.8,
+  },
+  // 说明文字
+  caption: {
+    fontFamily: fontFamily,
+    fontSize: 13,
+    lineHeight: 18,
+    fontWeight: '400' as const,
+    letterSpacing: 0.2,
+  },
+  // 数字 — tabular figures
+  number: {
+    fontFamily: fontFamily,
+    fontSize: 16,
+    lineHeight: 24,
+    fontWeight: '500' as const,
+    letterSpacing: 0,
+    fontVariant: ['tabular-nums' as const],
+  },
+} as const;
+
+// ═══════════════════════════════════════════════════
+// § 阴影 — 微妙的 elevation，不是生硬 drop shadow
+// ═══════════════════════════════════════════════════
+
+export const Shadow = {
+  // 轻微抬起（卡片默认）
+  sm: Platform.select({
+    ios: {
+      shadowColor: '#2C1810',
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: 0.06,
+      shadowRadius: 3,
+    },
+    android: { elevation: 1 },
+    default: {},
+  }),
+  // 中等抬起（悬浮卡片、按压态）
+  md: Platform.select({
+    ios: {
+      shadowColor: '#2C1810',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.08,
+      shadowRadius: 12,
+    },
+    android: { elevation: 3 },
+    default: {},
+  }),
+  // 高抬起（弹窗、底部 sheet）
+  lg: Platform.select({
+    ios: {
+      shadowColor: '#2C1810',
+      shadowOffset: { width: 0, height: 8 },
+      shadowOpacity: 0.12,
+      shadowRadius: 24,
+    },
+    android: { elevation: 8 },
+    default: {},
+  }),
+} as const;
+
+// ═══════════════════════════════════════════════════
+// § 动画 — Spring-based，不是 linear
+// ═══════════════════════════════════════════════════
+
+export const Motion = {
+  // 快速反馈（按钮 press）
+  quick: { damping: 20, stiffness: 300, mass: 0.8 },
+  // 标准过渡（页面切换）
+  standard: { damping: 20, stiffness: 200, mass: 1 },
+  // 柔和展开（展开/收起）
+  gentle: { damping: 25, stiffness: 120, mass: 1 },
+  // 弹性（有趣的弹跳）
+  bouncy: { damping: 12, stiffness: 180, mass: 0.8 },
+
+  // 时长参考（非 spring 场景）
+  durationFast: 150,
+  durationNormal: 250,
+  durationSlow: 400,
+} as const;
+
+// ═══════════════════════════════════════════════════
+// § 尺寸常量
+// ═══════════════════════════════════════════════════
+
+export const Size = {
+  // 按钮高度
+  buttonSm: 36,
+  buttonMd: 44,       // iOS 最小触控区域
+  buttonLg: 52,
+
+  // 图标
+  iconSm: 16,
+  iconMd: 20,
+  iconLg: 24,
+
+  // Tab bar
+  tabBarHeight: 83,   // iOS 标准（含 safe area）
+
+  // Header
+  headerHeight: 44,
+
+  // 最大内容宽度
+  maxContentWidth: 500,
 } as const;
