@@ -1,133 +1,92 @@
 /**
  * 问道页面
  *
- * AI 对话界面 — 流式输出、命盘注入、BYOM
+ * AI 对话界面 — BYOM（Bring Your Own Model）
  */
 
-import React, {
-  useState, useRef, useCallback, useEffect,
-} from 'react';
 import {
   StyleSheet, View, Text, TextInput, ScrollView, Pressable,
   KeyboardAvoidingView, Platform, ActivityIndicator,
 } from 'react-native';
+import { useState, useRef, useCallback } from 'react';
 import { useRouter } from 'expo-router';
 import { Colors, Space, Type } from '@/lib/design/tokens';
 import { useUserStore } from '@/lib/store/userStore';
-import { streamChat, type Message, type ChatConfig } from '@/lib/ai/chat';
-
-// ── 欢迎语 ──────────────────────────────────────────────────────────────
-const WELCOME = '有什么想聊的？可以跟我说说你现在的心情，或者问问关于你自己的事。';
+import { getChatConfig, sendChat } from '@/lib/ai/chat';
+import type { ChatMessage } from '@/lib/ai';
 
 export default function InsightScreen() {
   const router = useRouter();
-
-  const { apiProvider, apiKey, apiModel, apiBaseUrl, mingPanCache } = useUserStore();
-
-  const [messages,  setMessages]  = useState<Message[]>([]);
-  const [input,     setInput]     = useState('');
-  const [streaming, setStreaming] = useState(false);
-
+  const store = useUserStore();
   const scrollRef = useRef<ScrollView>(null);
 
-  // 滚到底部
-  useEffect(() => {
-    setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 80);
-  }, [messages]);
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [streamingText, setStreamingText] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const hasApiConfig = !!(apiProvider && apiKey);
-
-  // 命盘摘要：从 cache 提取关键字段
-  const mingPanSummary = (() => {
-    if (!mingPanCache) return undefined;
-    try {
-      const p = JSON.parse(mingPanCache);
-      const siZhu = p.siZhu as Array<{ gan: string; zhi: string }>;
-      const cols = siZhu
-        ?.map((z: { gan: string; zhi: string }) => `${z.gan}${z.zhi}`)
-        .join(' ');
-      return [
-        cols && `四柱：${cols}`,
-        p.riZhu && `日主：${p.riZhu.gan}（${p.riZhu.yinYang}${p.riZhu.wuXing}）`,
-        p.geJu?.name && `格局：${p.geJu.name}`,
-        p.wuXingStrength?.yongShen && `用神：${p.wuXingStrength.yongShen}`,
-      ]
-        .filter(Boolean)
-        .join('，');
-    } catch {
-      return undefined;
-    }
-  })();
-
-  const getConfig = useCallback((): ChatConfig | null => {
-    if (!apiProvider || !apiKey) return null;
-    return {
-      provider: apiProvider,
-      apiKey,
-      model: apiModel ?? '',
-      baseUrl: apiBaseUrl ?? undefined,
-      mingPanSummary,
-    };
-  }, [apiProvider, apiKey, apiModel, apiBaseUrl, mingPanSummary]);
+  const config = getChatConfig(store);
+  const hasApiKey = !!config;
 
   const handleSend = useCallback(async () => {
-    const text = input.trim();
-    if (!text || streaming) return;
+    const text = message.trim();
+    if (!text || !config || loading) return;
 
-    const config = getConfig();
-    if (!config) return;
-
-    const newHistory: Message[] = [
-      ...messages,
-      { role: 'user', content: text },
-    ];
-
-    setMessages(newHistory);
-    setInput('');
-    setStreaming(true);
-
-    // 先插入一条空的 assistant 消息，后续填充
-    setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
+    const userMsg: ChatMessage = { role: 'user', content: text, timestamp: Date.now() };
+    const newMessages = [...messages, userMsg];
+    setMessages(newMessages);
+    setMessage('');
+    setLoading(true);
+    setStreamingText('');
 
     try {
-      let accumulated = '';
-      for await (const token of streamChat(newHistory, config)) {
-        accumulated += token;
-        const final = accumulated;
-        setMessages(prev => {
-          const updated = [...prev];
-          updated[updated.length - 1] = { role: 'assistant', content: final };
-          return updated;
-        });
-      }
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : '未知错误';
-      setMessages(prev => {
-        const updated = [...prev];
-        updated[updated.length - 1] = {
-          role: 'assistant',
-          content: `⚠️ 出错了：${msg}`,
-        };
-        return updated;
-      });
-    } finally {
-      setStreaming(false);
-    }
-  }, [input, streaming, messages, getConfig]);
+      const fullText = await sendChat(
+        newMessages,
+        config,
+        store.mingPanCache,
+        (partial) => {
+          setStreamingText(partial);
+          setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 50);
+        },
+      );
 
-  // ── 无 API 配置时的引导 ──
-  if (!hasApiConfig) {
+      const assistantMsg: ChatMessage = {
+        role: 'assistant',
+        content: fullText,
+        timestamp: Date.now(),
+      };
+      setMessages(prev => [...prev, assistantMsg]);
+      setStreamingText('');
+    } catch (err: any) {
+      const errorMsg: ChatMessage = {
+        role: 'assistant',
+        content: `抱歉，请求失败：${err.message || '未知错误'}。请检查设置中的 API 配置。`,
+        timestamp: Date.now(),
+      };
+      setMessages(prev => [...prev, errorMsg]);
+      setStreamingText('');
+    } finally {
+      setLoading(false);
+    }
+  }, [message, messages, config, loading, store.mingPanCache]);
+
+  // ── 未配置 API ──
+  if (!hasApiKey) {
     return (
       <View style={styles.container}>
-        <View style={styles.guideCenter}>
-          <Text style={styles.guideTitle}>问道</Text>
-          <Text style={styles.guideSub}>配置 AI 密钥，开启深度对话</Text>
-          <Text style={styles.guideBody}>
-            岁吉支持 OpenAI、DeepSeek、Anthropic 及自定义接口。
-            {'\n'}带上你的密钥，AI 将基于你的命盘与你深度交谈。
+        <View style={styles.emptyCenter}>
+          <Text style={styles.emptyTitle}>问道</Text>
+          <Text style={styles.emptySub}>
+            配置你的 AI 模型，开启智慧对话
           </Text>
-          <Pressable style={styles.guideBtn} onPress={() => router.push('/settings')}>
-            <Text style={styles.guideBtnText}>前往配置</Text>
+          <Text style={styles.emptyDetail}>
+            支持 OpenAI · DeepSeek · Anthropic{'\n'}以及任何 OpenAI 兼容 API
+          </Text>
+          <Pressable
+            style={styles.setupBtn}
+            onPress={() => router.push('/settings')}
+          >
+            <Text style={styles.setupBtnText}>前往设置</Text>
           </Pressable>
         </View>
       </View>
@@ -145,42 +104,48 @@ export default function InsightScreen() {
         ref={scrollRef}
         style={styles.chatArea}
         contentContainerStyle={styles.chatContent}
-        showsVerticalScrollIndicator={false}
+        onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: true })}
       >
-        {/* 欢迎气泡 */}
-        <View style={styles.aiBubble}>
-          <Text style={styles.aiLabel}>岁吉</Text>
-          <Text style={styles.aiText}>{WELCOME}</Text>
-        </View>
-
-        {/* 消息列表 */}
-        {messages.map((m, i) =>
-          m.role === 'user' ? (
-            <View key={i} style={styles.userBubble}>
-              <Text style={styles.userText}>{m.content}</Text>
-            </View>
-          ) : (
-            <View key={i} style={styles.aiBubble}>
-              <Text style={styles.aiLabel}>岁吉</Text>
-              <Text style={styles.aiText}>
-                {m.content}
-                {streaming && i === messages.length - 1 ? (
-                  <Text style={styles.cursor}>▌</Text>
-                ) : null}
-              </Text>
-            </View>
-          ),
-        )}
-
-        {/* 流式加载指示 */}
-        {streaming && messages[messages.length - 1]?.content === '' && (
+        {/* 欢迎消息 */}
+        {messages.length === 0 && !streamingText && (
           <View style={styles.aiBubble}>
             <Text style={styles.aiLabel}>岁吉</Text>
-            <ActivityIndicator
-              size="small"
-              color={Colors.brand}
-              style={{ alignSelf: 'flex-start', marginTop: Space.xs }}
-            />
+            <Text style={styles.aiText}>
+              {store.mingPanCache
+                ? '你的命盘已就绪。有什么想聊的？可以跟我说说你现在的心情，或者问问关于你自己的事。'
+                : '有什么想聊的？输入生辰后，我可以结合你的命盘给出更个性化的建议。'}
+            </Text>
+          </View>
+        )}
+
+        {/* 对话历史 */}
+        {messages.map((msg, i) => (
+          <View
+            key={i}
+            style={msg.role === 'user' ? styles.userBubble : styles.aiBubble}
+          >
+            {msg.role === 'assistant' && (
+              <Text style={styles.aiLabel}>岁吉</Text>
+            )}
+            <Text style={msg.role === 'user' ? styles.userText : styles.aiText}>
+              {msg.content}
+            </Text>
+          </View>
+        ))}
+
+        {/* 流式输出中 */}
+        {streamingText ? (
+          <View style={styles.aiBubble}>
+            <Text style={styles.aiLabel}>岁吉</Text>
+            <Text style={styles.aiText}>{streamingText}</Text>
+          </View>
+        ) : null}
+
+        {/* Loading */}
+        {loading && !streamingText && (
+          <View style={styles.loadingRow}>
+            <ActivityIndicator size="small" color={Colors.inkHint} />
+            <Text style={styles.loadingText}>思考中…</Text>
           </View>
         )}
       </ScrollView>
@@ -191,18 +156,22 @@ export default function InsightScreen() {
           style={styles.input}
           placeholder="说说你的心情…"
           placeholderTextColor={Colors.inkHint}
-          value={input}
-          onChangeText={setInput}
+          value={message}
+          onChangeText={setMessage}
           multiline
-          editable={!streaming}
+          editable={!loading}
           onSubmitEditing={handleSend}
+          blurOnSubmit={false}
         />
         <Pressable
-          style={[styles.sendBtn, (!input.trim() || streaming) && styles.sendBtnDisabled]}
-          disabled={!input.trim() || streaming}
+          style={[styles.sendBtn, (!message.trim() || loading) && styles.sendBtnDisabled]}
+          disabled={!message.trim() || loading}
           onPress={handleSend}
         >
-          <Text style={[styles.sendText, (!input.trim() || streaming) && styles.sendTextDisabled]}>
+          <Text style={[
+            styles.sendText,
+            (!message.trim() || loading) && styles.sendTextDisabled,
+          ]}>
             发送
           </Text>
         </Pressable>
@@ -217,46 +186,46 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bg,
   },
 
-  // 引导页
-  guideCenter: {
+  // 空状态
+  emptyCenter: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: Space['2xl'],
+    paddingHorizontal: Space.xl,
   },
-  guideTitle: {
+  emptyTitle: {
     ...Type.title,
     color: Colors.ink,
-    fontWeight: '200',
-    letterSpacing: 8,
-    marginBottom: Space.sm,
+    fontWeight: '300',
+    marginBottom: Space.md,
   },
-  guideSub: {
-    ...Type.caption,
-    color: Colors.inkTertiary,
-    marginBottom: Space.xl,
-  },
-  guideBody: {
+  emptySub: {
     ...Type.body,
     color: Colors.inkSecondary,
     textAlign: 'center',
-    marginBottom: Space['2xl'],
-    lineHeight: 24,
+    marginBottom: Space.sm,
   },
-  guideBtn: {
+  emptyDetail: {
+    ...Type.caption,
+    color: Colors.inkHint,
+    textAlign: 'center',
+    lineHeight: 20,
+    marginBottom: Space.xl,
+  },
+  setupBtn: {
     paddingVertical: Space.md,
     paddingHorizontal: Space.xl,
     borderWidth: 1,
     borderColor: Colors.brand,
     borderRadius: 2,
   },
-  guideBtnText: {
+  setupBtnText: {
     ...Type.body,
     color: Colors.brand,
     fontWeight: '500',
   },
 
-  // 聊天区
+  // 对话区
   chatArea: {
     flex: 1,
   },
@@ -264,7 +233,7 @@ const styles = StyleSheet.create({
     padding: Space.lg,
     paddingTop: Space.xl,
     paddingBottom: Space['2xl'],
-    gap: Space.base,
+    gap: Space.lg,
   },
 
   // AI 气泡
@@ -273,37 +242,42 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     padding: Space.lg,
     maxWidth: '88%',
-    alignSelf: 'flex-start',
   },
   aiLabel: {
     ...Type.label,
     color: Colors.brand,
     fontWeight: '600',
     marginBottom: Space.sm,
-    letterSpacing: 1,
+    textTransform: 'uppercase',
   },
   aiText: {
     ...Type.body,
     color: Colors.ink,
-  },
-  cursor: {
-    color: Colors.brand,
-    opacity: 0.8,
+    lineHeight: 24,
   },
 
   // 用户气泡
   userBubble: {
-    backgroundColor: Colors.bg,
-    borderRadius: 4,
-    padding: Space.lg,
-    maxWidth: '88%',
     alignSelf: 'flex-end',
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: Colors.inkHint + '60',
+    maxWidth: '80%',
+    padding: Space.lg,
   },
   userText: {
     ...Type.body,
-    color: Colors.ink,
+    color: Colors.inkSecondary,
+    textAlign: 'right',
+  },
+
+  // Loading
+  loadingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Space.sm,
+    paddingVertical: Space.sm,
+  },
+  loadingText: {
+    ...Type.caption,
+    color: Colors.inkHint,
   },
 
   // 输入区

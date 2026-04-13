@@ -1,378 +1,296 @@
 /**
  * 设置页面
  *
- * - BYOM 配置：Provider / API Key / 模型名 / 自定义 Base URL
- * - 个人信息：查看当前生辰/出生地，可重新输入
- * - 清除全部数据
+ * BYOM 模型配置 + 个人信息管理
  */
 
-import React, { useState } from 'react';
-import {
-  View, Text, StyleSheet, Pressable, TextInput, ScrollView,
-  Alert, Switch,
-} from 'react-native';
+import { StyleSheet, View, Text, TextInput, Pressable, ScrollView, Alert } from 'react-native';
+import { useState, useCallback } from 'react';
 import { useRouter } from 'expo-router';
 import { Colors, Space, Type } from '@/lib/design/tokens';
 import { useUserStore } from '@/lib/store/userStore';
 
-type Provider = 'openai' | 'deepseek' | 'anthropic' | 'custom';
-
-const PROVIDERS: { id: Provider; label: string }[] = [
-  { id: 'openai',    label: 'OpenAI' },
-  { id: 'deepseek',  label: 'DeepSeek' },
-  { id: 'anthropic', label: 'Anthropic' },
-  { id: 'custom',    label: '自定义' },
-];
-
-const DEFAULT_MODELS: Record<Provider, string> = {
-  openai:    'gpt-4o',
-  deepseek:  'deepseek-chat',
-  anthropic: 'claude-sonnet-4-20250514',
-  custom:    '',
-};
+const PROVIDERS = [
+  { id: 'openai',    label: 'OpenAI',     defaultModel: 'gpt-4o' },
+  { id: 'deepseek',  label: 'DeepSeek',   defaultModel: 'deepseek-chat' },
+  { id: 'anthropic', label: 'Anthropic',  defaultModel: 'claude-sonnet-4-20250514' },
+  { id: 'custom',    label: '自定义',     defaultModel: '' },
+] as const;
 
 export default function SettingsScreen() {
   const router = useRouter();
+  const store = useUserStore();
 
-  const {
-    birthDate, gender, birthCity, birthLongitude,
-    apiProvider, apiKey, apiModel, apiBaseUrl,
-    setApiProvider, setApiKey, setApiModel, setApiBaseUrl,
-    reset,
-  } = useUserStore();
+  const [provider, setProvider] = useState(store.apiProvider ?? 'openai');
+  const [apiKey, setApiKey] = useState(store.apiKey ?? '');
+  const [model, setModel] = useState(store.apiModel ?? '');
+  const [baseUrl, setBaseUrl] = useState(store.apiBaseUrl ?? '');
 
-  // 本地编辑态（保存时写入 store）
-  const [provider, setProvider] = useState<Provider>(apiProvider ?? 'openai');
-  const [key,      setKey]      = useState(apiKey ?? '');
-  const [model,    setModel]    = useState(
-    apiModel ?? DEFAULT_MODELS[apiProvider ?? 'openai']
-  );
-  const [baseUrl,  setBaseUrl]  = useState(apiBaseUrl ?? '');
-  const [showKey,  setShowKey]  = useState(false);
+  const defaultModel = PROVIDERS.find(p => p.id === provider)?.defaultModel ?? '';
 
-  const handleProviderChange = (p: Provider) => {
-    setProvider(p);
-    // 自动填充默认模型名
-    if (!model || model === DEFAULT_MODELS[provider]) {
-      setModel(DEFAULT_MODELS[p]);
+  const handleSave = useCallback(() => {
+    store.setApiProvider(provider as any);
+    store.setApiKey(apiKey.trim());
+    store.setApiModel(model.trim() || defaultModel);
+    if (provider === 'custom' && baseUrl.trim()) {
+      store.setApiBaseUrl(baseUrl.trim());
     }
-  };
+    Alert.alert('已保存', 'AI 配置已更新');
+  }, [provider, apiKey, model, baseUrl, defaultModel, store]);
 
-  const handleSaveApi = () => {
-    setApiProvider(provider);
-    setApiKey(key.trim());
-    setApiModel(model.trim() || DEFAULT_MODELS[provider]);
-    if (provider === 'custom') setApiBaseUrl(baseUrl.trim());
-    Alert.alert('已保存', 'API 配置已更新');
-  };
-
-  const handleClearAll = () => {
-    Alert.alert(
-      '清除所有数据',
-      '将清除命盘、生辰信息和 API 配置。此操作不可撤销。',
-      [
-        { text: '取消', style: 'cancel' },
-        {
-          text: '确定清除',
-          style: 'destructive',
-          onPress: () => {
-            reset();
-            router.back();
-          },
+  const handleReset = useCallback(() => {
+    Alert.alert('清除所有数据', '将清除生辰、命盘、AI 配置等所有数据', [
+      { text: '取消', style: 'cancel' },
+      {
+        text: '确定',
+        style: 'destructive',
+        onPress: () => {
+          store.reset();
+          router.back();
         },
-      ],
-    );
-  };
-
-  // 格式化生辰
-  const birthInfo = (() => {
-    if (!birthDate) return null;
-    const d = new Date(birthDate);
-    return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日  ${gender ?? ''}`;
-  })();
+      },
+    ]);
+  }, [store, router]);
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={styles.content}
-      keyboardShouldPersistTaps="handled"
-    >
-      {/* ── 标题行 ── */}
-      <View style={styles.header}>
-        <Pressable onPress={() => router.back()} hitSlop={12}>
-          <Text style={styles.backText}>‹ 返回</Text>
-        </Pressable>
-        <Text style={styles.pageTitle}>设置</Text>
-        <View style={{ width: 48 }} />
-      </View>
+    <ScrollView style={styles.container} contentContainerStyle={styles.scroll}>
+      <Pressable onPress={() => router.back()} style={styles.backBtn}>
+        <Text style={styles.backText}>← 返回</Text>
+      </Pressable>
 
-      {/* ══ 个人信息 ══ */}
-      <SectionHead title="个人信息" />
+      <Text style={styles.heading}>设置</Text>
 
-      {birthInfo ? (
-        <View style={styles.infoBlock}>
-          <Row label="生辰" value={birthInfo} />
-          {birthCity ? (
-            <Row
-              label="出生地"
-              value={`${birthCity}  东经 ${birthLongitude}°`}
-            />
-          ) : null}
-        </View>
-      ) : (
-        <Text style={styles.emptyHint}>尚未输入生辰，请前往「我」页面输入。</Text>
-      )}
-
-      {/* ══ AI 配置 ══ */}
-      <SectionHead title="AI 配置（BYOM）" />
-      <Text style={styles.sectionDesc}>
-        带上自己的模型密钥，岁吉将基于你的命盘与你深度对话。
-      </Text>
+      {/* ── AI 模型配置 ── */}
+      <Text style={styles.sectionTitle}>AI 模型</Text>
+      <Text style={styles.sectionSub}>配置你的 AI 服务，用于问道对话</Text>
 
       {/* Provider 选择 */}
-      <Text style={styles.fieldLabel}>服务商</Text>
       <View style={styles.providerRow}>
         {PROVIDERS.map(p => (
           <Pressable
             key={p.id}
-            style={[styles.providerBtn, provider === p.id && styles.providerBtnOn]}
-            onPress={() => handleProviderChange(p.id)}
+            style={styles.providerBtn}
+            onPress={() => {
+              setProvider(p.id);
+              setModel('');
+            }}
           >
-            <Text style={[styles.providerText, provider === p.id && styles.providerTextOn]}>
+            <Text style={[
+              styles.providerText,
+              provider === p.id && styles.providerTextOn,
+            ]}>
               {p.label}
             </Text>
+            {provider === p.id && <View style={styles.providerLine} />}
           </Pressable>
         ))}
       </View>
 
       {/* API Key */}
-      <Text style={[styles.fieldLabel, { marginTop: Space.base }]}>API Key</Text>
-      <View style={styles.keyRow}>
-        <TextInput
-          style={[styles.input, { flex: 1 }]}
-          value={key}
-          onChangeText={setKey}
-          placeholder="sk-..."
-          placeholderTextColor={Colors.inkHint}
-          secureTextEntry={!showKey}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-        <Pressable style={styles.eyeBtn} onPress={() => setShowKey(v => !v)}>
-          <Text style={styles.eyeText}>{showKey ? '隐藏' : '显示'}</Text>
-        </Pressable>
-      </View>
+      <Text style={styles.inputLabel}>API Key</Text>
+      <TextInput
+        style={styles.input}
+        value={apiKey}
+        onChangeText={setApiKey}
+        placeholder="sk-..."
+        placeholderTextColor={Colors.inkHint}
+        secureTextEntry
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
 
-      {/* 模型名 */}
-      <Text style={[styles.fieldLabel, { marginTop: Space.base }]}>模型名称</Text>
+      {/* Model */}
+      <Text style={styles.inputLabel}>模型</Text>
       <TextInput
         style={styles.input}
         value={model}
         onChangeText={setModel}
-        placeholder={DEFAULT_MODELS[provider]}
+        placeholder={defaultModel || '模型名称'}
         placeholderTextColor={Colors.inkHint}
         autoCapitalize="none"
         autoCorrect={false}
       />
 
-      {/* 自定义 Base URL（仅 custom） */}
+      {/* Custom Base URL */}
       {provider === 'custom' && (
         <>
-          <Text style={[styles.fieldLabel, { marginTop: Space.base }]}>Base URL</Text>
+          <Text style={styles.inputLabel}>Base URL</Text>
           <TextInput
             style={styles.input}
             value={baseUrl}
             onChangeText={setBaseUrl}
-            placeholder="https://your-api-endpoint.com/v1"
+            placeholder="https://api.example.com/v1"
             placeholderTextColor={Colors.inkHint}
             autoCapitalize="none"
             autoCorrect={false}
-            keyboardType="url"
           />
         </>
       )}
 
-      {/* 保存按钮 */}
-      <Pressable style={styles.saveBtn} onPress={handleSaveApi}>
+      <Pressable style={styles.saveBtn} onPress={handleSave}>
         <Text style={styles.saveBtnText}>保存配置</Text>
       </Pressable>
 
-      {/* ══ 危险区域 ══ */}
-      <SectionHead title="数据" />
-      <Pressable style={styles.dangerBtn} onPress={handleClearAll}>
-        <Text style={styles.dangerText}>清除所有数据</Text>
-      </Pressable>
+      {/* ── 个人信息 ── */}
+      <Text style={[styles.sectionTitle, { marginTop: Space['2xl'] }]}>个人信息</Text>
 
-      <View style={{ height: Space['4xl'] }} />
+      {store.birthDate ? (
+        <View style={styles.infoBlock}>
+          <InfoRow label="生辰" value={new Date(store.birthDate).toLocaleString('zh-CN')} />
+          <InfoRow label="性别" value={store.gender ?? '未设置'} />
+          <InfoRow label="出生地" value={store.birthCity ?? '未设置'} />
+          <InfoRow
+            label="经度"
+            value={store.birthLongitude ? `${store.birthLongitude}°` : '未设置'}
+          />
+        </View>
+      ) : (
+        <Text style={styles.noInfo}>尚未输入生辰信息</Text>
+      )}
+
+      {/* ── 危险区 ── */}
+      <View style={styles.dangerZone}>
+        <Pressable onPress={handleReset}>
+          <Text style={styles.dangerText}>清除所有数据</Text>
+        </Pressable>
+      </View>
     </ScrollView>
   );
 }
 
-// ── 小组件 ──
-
-function SectionHead({ title }: { title: string }) {
+function InfoRow({ label, value }: { label: string; value: string }) {
   return (
-    <View style={styles.sectionHead}>
-      <Text style={styles.sectionTitle}>{title}</Text>
+    <View style={styles.infoRow}>
+      <Text style={styles.infoLabel}>{label}</Text>
+      <Text style={styles.infoValue}>{value}</Text>
     </View>
   );
 }
-
-function Row({ label, value }: { label: string; value: string }) {
-  return (
-    <View style={styles.row}>
-      <Text style={styles.rowLabel}>{label}</Text>
-      <Text style={styles.rowValue}>{value}</Text>
-    </View>
-  );
-}
-
-// ── Styles ──
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.bg,
   },
-  content: {
+  scroll: {
     paddingHorizontal: Space.lg,
     paddingBottom: Space['3xl'],
   },
 
-  // 标题行
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+  backBtn: {
     paddingTop: Space.xl,
-    paddingBottom: Space.lg,
+    paddingBottom: Space.md,
   },
   backText: {
     ...Type.body,
     color: Colors.brand,
-    width: 48,
   },
-  pageTitle: {
+
+  heading: {
+    fontSize: 32,
+    color: Colors.ink,
+    fontWeight: '200',
+    letterSpacing: 8,
+    marginBottom: Space.xl,
+  },
+
+  sectionTitle: {
     ...Type.subtitle,
     color: Colors.ink,
-    fontWeight: '300',
-    letterSpacing: 4,
+    fontWeight: '400',
+    marginBottom: Space.xs,
   },
-
-  // 分区
-  sectionHead: {
-    paddingTop: Space['2xl'],
-    paddingBottom: Space.md,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: Colors.inkHint + '40',
-    marginBottom: Space.base,
-  },
-  sectionTitle: {
-    ...Type.label,
-    color: Colors.inkTertiary,
-    letterSpacing: 3,
-    textTransform: 'uppercase',
-  },
-  sectionDesc: {
+  sectionSub: {
     ...Type.caption,
-    color: Colors.inkTertiary,
-    marginBottom: Space.base,
+    color: Colors.inkHint,
+    marginBottom: Space.lg,
   },
 
-  // 个人信息
-  infoBlock: {
-    gap: Space.sm,
-    marginBottom: Space.sm,
-  },
-  row: {
+  // Provider
+  providerRow: {
     flexDirection: 'row',
-    paddingVertical: Space.sm,
+    gap: Space.lg,
+    marginBottom: Space.xl,
   },
-  rowLabel: {
-    ...Type.body,
-    color: Colors.inkTertiary,
-    width: 56,
+  providerBtn: {
+    alignItems: 'center',
+    paddingBottom: Space.xs,
   },
-  rowValue: {
+  providerText: {
     ...Type.body,
+    color: Colors.inkHint,
+  },
+  providerTextOn: {
     color: Colors.ink,
-    flex: 1,
+    fontWeight: '500',
   },
-  emptyHint: {
-    ...Type.caption,
-    color: Colors.inkTertiary,
-    marginBottom: Space.base,
+  providerLine: {
+    marginTop: Space.xs,
+    height: 1,
+    width: '100%',
+    backgroundColor: Colors.brand,
   },
 
-  // 表单
-  fieldLabel: {
+  // Input
+  inputLabel: {
     ...Type.label,
     color: Colors.inkTertiary,
-    letterSpacing: 2,
     marginBottom: Space.sm,
   },
   input: {
-    backgroundColor: Colors.surface,
-    borderRadius: 4,
-    paddingHorizontal: Space.base,
-    paddingVertical: Space.md,
     ...Type.body,
     color: Colors.ink,
-  },
-  keyRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: Space.sm,
-  },
-  eyeBtn: {
-    paddingHorizontal: Space.md,
-    paddingVertical: Space.md,
-  },
-  eyeText: {
-    ...Type.caption,
-    color: Colors.brand,
-  },
-
-  // Provider 选择
-  providerRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: Space.sm,
-  },
-  providerBtn: {
-    paddingVertical: Space.sm,
-    paddingHorizontal: Space.base,
-    borderRadius: 4,
     backgroundColor: Colors.surface,
-  },
-  providerBtnOn: {
-    backgroundColor: Colors.brand,
-  },
-  providerText: {
-    ...Type.caption,
-    color: Colors.inkSecondary,
-  },
-  providerTextOn: {
-    color: Colors.float,
-    fontWeight: '600',
+    borderRadius: 2,
+    paddingHorizontal: Space.base,
+    paddingVertical: Space.md,
+    marginBottom: Space.lg,
   },
 
-  // 保存
+  // Save
   saveBtn: {
-    marginTop: Space.xl,
     alignSelf: 'flex-start',
-    paddingVertical: Space.sm,
+    paddingVertical: Space.md,
+    paddingHorizontal: Space.xl,
+    borderWidth: 1,
+    borderColor: Colors.brand,
+    borderRadius: 2,
   },
   saveBtnText: {
     ...Type.body,
     color: Colors.brand,
-    letterSpacing: 4,
     fontWeight: '500',
   },
 
-  // 危险
-  dangerBtn: {
-    paddingVertical: Space.base,
+  // Info
+  infoBlock: {
+    gap: Space.md,
+    marginTop: Space.sm,
+  },
+  infoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  infoLabel: {
+    ...Type.caption,
+    color: Colors.inkTertiary,
+  },
+  infoValue: {
+    ...Type.body,
+    color: Colors.inkSecondary,
+  },
+  noInfo: {
+    ...Type.body,
+    color: Colors.inkHint,
+    marginTop: Space.sm,
+  },
+
+  // Danger
+  dangerZone: {
+    marginTop: Space['3xl'],
+    paddingTop: Space.xl,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: Colors.inkHint + '30',
   },
   dangerText: {
     ...Type.body,

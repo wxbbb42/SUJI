@@ -1,5 +1,5 @@
 /**
- * 用户数据 Store
+ * 用户 Store
  * zustand + AsyncStorage persist
  */
 
@@ -8,22 +8,22 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface UserState {
-  // ── 生辰 ──
-  birthDate: string | null;        // ISO string（Date序列化）
+  // 生辰信息
+  birthDate: string | null;        // ISO string
   gender: '男' | '女' | null;
   birthCity: string | null;
   birthLongitude: number | null;
 
-  // ── API 配置 ──
+  // API 配置
   apiProvider: 'openai' | 'deepseek' | 'anthropic' | 'custom' | null;
   apiKey: string | null;
   apiModel: string | null;
   apiBaseUrl: string | null;
 
-  // ── 命盘缓存 ──
+  // 命盘缓存
   mingPanCache: string | null;     // JSON.stringify(MingPan)
 
-  // ── Actions ──
+  // Actions
   setBirthDate: (date: Date) => void;
   setGender: (gender: '男' | '女') => void;
   setBirthCity: (city: string, longitude: number) => void;
