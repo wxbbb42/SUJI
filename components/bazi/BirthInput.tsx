@@ -7,6 +7,7 @@ import {
   View, Text, StyleSheet, Pressable, ScrollView, Modal,
 } from 'react-native';
 import { CITY_LONGITUDES } from '@/lib/bazi/TrueSolarTime';
+import { Colors, Space, Type } from '@/lib/design/tokens';
 
 const SHICHEN = [
   { label: '子', range: '23–01', hour: 0 },
@@ -28,19 +29,8 @@ const DAYS_IN_MONTH = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 // 城市列表（排序：直辖市优先，再按拼音）
 const CITY_LIST = Object.keys(CITY_LONGITUDES);
 
-// ── 色彩系统 ───────────────────────────────────────────────────────────
-const C = {
-  bg:      '#F5EDE0',
-  surface: '#FFFBF5',
-  deep:    '#2C1810',
-  mid:     '#6B5040',
-  mute:    '#8B7355',
-  faint:   '#B8A898',
-  brand:   '#8B4513',
-};
-
 interface BirthInputProps {
-  onSubmit: (date: Date, gender: '男' | '女', longitude: number) => void;
+  onSubmit: (date: Date, gender: '男' | '女', longitude?: number) => void;
   initialDate?: Date;
   initialGender?: '男' | '女';
   initialCity?: string;
@@ -58,7 +48,6 @@ export default function BirthInput({
   const [month,      setMonth]      = useState(initD.getMonth() + 1);
   const [day,        setDay]        = useState(initD.getDate());
   const [shichenIdx, setShichenIdx] = useState(() => {
-    // 根据小时反推时辰
     const h = initD.getHours();
     return SHICHEN.findIndex(s => s.hour === Math.floor(h / 2) * 2) || 4;
   });
@@ -123,7 +112,7 @@ export default function BirthInput({
       </View>
 
       {/* 性别 */}
-      <Text style={[styles.fieldLabel, { marginTop: 24 }]}>性别</Text>
+      <Text style={[styles.fieldLabel, { marginTop: Space.lg }]}>性别</Text>
       <View style={styles.genderRow}>
         {(['男', '女'] as const).map(g => (
           <Pressable key={g} style={styles.genderOpt} onPress={() => setGender(g)}>
@@ -134,7 +123,7 @@ export default function BirthInput({
       </View>
 
       {/* 出生城市 */}
-      <Text style={[styles.fieldLabel, { marginTop: 0 }]}>出生地</Text>
+      <Text style={styles.fieldLabel}>出生地</Text>
       <Pressable style={styles.cityButton} onPress={() => setShowCityPicker(true)}>
         <Text style={styles.cityValue}>{city}</Text>
         <Text style={styles.cityMeta}>
@@ -204,47 +193,47 @@ function SpinField({
 // ── Styles ────────────────────────────────────────────────────────────
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 32,
-    paddingHorizontal: 24,
+    paddingVertical: Space.xl,
+    paddingHorizontal: Space.lg,
   },
   heading: {
     fontSize: 32,
-    color: C.deep,
+    color: Colors.ink,
     fontWeight: '200',
     letterSpacing: 12,
-    marginBottom: 6,
+    marginBottom: Space.xs + 2,
   },
   sub: {
-    fontSize: 13,
-    color: C.faint,
+    ...Type.caption,
+    color: Colors.inkHint,
     letterSpacing: 2,
-    marginBottom: 32,
+    marginBottom: Space.xl,
   },
   // 年月日
   dateRow: {
     flexDirection: 'row',
-    gap: 12,
-    marginBottom: 32,
+    gap: Space.md,
+    marginBottom: Space.xl,
   },
   spinField: {
     flex: 1,
     alignItems: 'center',
-    gap: 8,
+    gap: Space.sm,
   },
   spinLabel: {
-    fontSize: 11,
-    color: C.faint,
+    ...Type.label,
+    color: Colors.inkHint,
     letterSpacing: 3,
   },
   spinBtn: {
     fontSize: 22,
-    color: C.mute,
+    color: Colors.inkTertiary,
     lineHeight: 28,
-    paddingHorizontal: 4,
+    paddingHorizontal: Space.xs,
   },
   spinVal: {
-    fontSize: 18,
-    color: C.deep,
+    ...Type.subtitle,
+    color: Colors.ink,
     fontWeight: '300',
     letterSpacing: 1,
     minWidth: 56,
@@ -252,106 +241,104 @@ const styles = StyleSheet.create({
   },
   // 时辰
   fieldLabel: {
-    fontSize: 11,
-    color: C.faint,
+    ...Type.label,
+    color: Colors.inkHint,
     letterSpacing: 3,
-    marginBottom: 12,
+    marginBottom: Space.md,
   },
   shichenGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 4,
+    gap: Space.xs,
   },
   shichenCell: {
     width: '24%',
-    paddingVertical: 10,
+    paddingVertical: Space.sm + 2,
     alignItems: 'center',
     borderRadius: 4,
   },
   shichenCellOn: {
-    backgroundColor: C.surface,
+    backgroundColor: Colors.surface,
   },
   shichenChi: {
     fontSize: 17,
-    color: C.mid,
+    color: Colors.inkSecondary,
     fontWeight: '300',
   },
   shichenChiOn: {
-    color: C.brand,
+    color: Colors.brand,
     fontWeight: '500',
   },
   shichenRange: {
     fontSize: 9,
-    color: C.faint,
+    color: Colors.inkHint,
     marginTop: 2,
     letterSpacing: 0.5,
   },
   shichenRangeOn: {
-    color: C.mute,
+    color: Colors.inkTertiary,
   },
   // 性别
   genderRow: {
     flexDirection: 'row',
-    gap: 32,
-    marginBottom: 32,
+    gap: Space.xl,
+    marginBottom: Space.xl,
   },
   genderOpt: {
     alignItems: 'center',
-    paddingBottom: 4,
+    paddingBottom: Space.xs,
   },
   genderChi: {
-    fontSize: 16,
-    color: C.faint,
+    ...Type.body,
+    color: Colors.inkHint,
     letterSpacing: 4,
   },
   genderChiOn: {
-    color: C.deep,
+    color: Colors.ink,
   },
   genderLine: {
-    marginTop: 4,
+    marginTop: Space.xs,
     height: 1,
     width: '100%',
-    backgroundColor: C.brand,
+    backgroundColor: Colors.brand,
   },
   // 城市
   cityButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 12,
-    marginBottom: 32,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: C.faint + '60',
+    paddingVertical: Space.md,
+    marginBottom: Space.xl,
   },
   cityValue: {
-    fontSize: 16,
-    color: C.deep,
+    ...Type.body,
+    color: Colors.ink,
     fontWeight: '300',
     flex: 1,
   },
   cityMeta: {
-    fontSize: 12,
-    color: C.faint,
-    marginRight: 8,
+    ...Type.caption,
+    color: Colors.inkHint,
+    marginRight: Space.sm,
   },
   cityChevron: {
     fontSize: 18,
-    color: C.faint,
+    color: Colors.inkHint,
   },
   // 错误
   error: {
-    fontSize: 13,
-    color: '#C0392B',
-    marginBottom: 16,
+    ...Type.caption,
+    color: Colors.warn,
+    marginBottom: Space.base,
     letterSpacing: 1,
   },
   // 提交
   submit: {
     alignSelf: 'flex-start',
-    paddingVertical: 4,
+    paddingVertical: Space.xs,
   },
   submitText: {
-    fontSize: 15,
-    color: C.brand,
+    ...Type.body,
+    color: Colors.brand,
     letterSpacing: 6,
     fontWeight: '400',
   },
@@ -362,44 +349,42 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalSheet: {
-    backgroundColor: C.surface,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    paddingTop: 20,
-    paddingHorizontal: 24,
+    backgroundColor: Colors.surface,
+    borderTopLeftRadius: Space.base,
+    borderTopRightRadius: Space.base,
+    paddingTop: Space.lg,
+    paddingHorizontal: Space.lg,
     maxHeight: '70%',
   },
   modalTitle: {
-    fontSize: 15,
-    color: C.deep,
+    ...Type.body,
+    color: Colors.ink,
     fontWeight: '500',
     letterSpacing: 3,
-    marginBottom: 16,
+    marginBottom: Space.base,
   },
   cityList: {
-    marginBottom: 32,
+    marginBottom: Space.xl,
   },
   cityItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 14,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: C.faint + '40',
+    paddingVertical: Space.md + 2,
   },
   cityItemOn: {
-    // 选中状态用左侧文字颜色区分，无多余装饰
+    // 选中状态用文字颜色区分，无多余装饰
   },
   cityItemText: {
-    fontSize: 15,
-    color: C.mid,
+    ...Type.body,
+    color: Colors.inkSecondary,
     flex: 1,
   },
   cityItemTextOn: {
-    color: C.brand,
+    color: Colors.brand,
     fontWeight: '500',
   },
   cityItemLong: {
-    fontSize: 12,
-    color: C.faint,
+    ...Type.caption,
+    color: Colors.inkHint,
   },
 });

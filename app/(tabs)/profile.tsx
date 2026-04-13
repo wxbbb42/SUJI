@@ -48,10 +48,10 @@ export default function ProfileScreen() {
   }, []);
 
   const handleSubmit = useCallback(
-    (date: Date, g: '男' | '女', longitude: number) => {
+    (date: Date, g: '男' | '女', longitude?: number) => {
       try {
-        // 真太阳时修正
-        const corrected = toTrueSolarTime(date, longitude);
+        // 真太阳时修正（无城市时默认北京经度）
+        const corrected = toTrueSolarTime(date, longitude ?? 116.4);
         const result = baziEngine.calculate(corrected, g);
         const insight = new InsightEngine(result);
 
@@ -74,7 +74,7 @@ export default function ProfileScreen() {
 
   // 包装 BirthInput 的 onSubmit，同时把城市存进 store
   const handleBirthSubmit = useCallback(
-    (date: Date, g: '男' | '女', longitude: number) => {
+    (date: Date, g: '男' | '女', longitude?: number) => {
       handleSubmit(date, g, longitude);
     },
     [handleSubmit],
