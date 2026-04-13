@@ -1,26 +1,33 @@
 /**
- * 问道页面
+ * 问道页面 — AI 对话
  *
- * AI 对话界面 — BYOM（Bring Your Own Model）
+ * Neo-Tactile Warmth 设计
+ * 气泡有圆角和微妙阴影，输入区有触感
  */
 
+import React, { useState, useRef, useCallback } from 'react';
 import {
   StyleSheet, View, Text, TextInput, ScrollView, Pressable,
   KeyboardAvoidingView, Platform, ActivityIndicator,
 } from 'react-native';
-import { useState, useRef, useCallback } from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Animated, {
+  useSharedValue, useAnimatedStyle, withSpring,
+} from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
-import { Colors, Space, Type } from '@/lib/design/tokens';
+import { Colors, Space, Radius, Type, Shadow, Motion, Size } from '@/lib/design/tokens';
 import { useUserStore } from '@/lib/store/userStore';
 import { useChatStore } from '@/lib/store/chatStore';
 import { getChatConfig, sendChat } from '@/lib/ai/chat';
 import type { ChatMessage } from '@/lib/ai';
 
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
 export default function InsightScreen() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const store = useUserStore();
   const scrollRef = useRef<ScrollView>(null);
-
   const { messages: savedMessages, addMessage, clearMessages } = useChatStore();
 
   const [message, setMessage] = useState('');
@@ -29,8 +36,8 @@ export default function InsightScreen() {
   const [loading, setLoading] = useState(false);
 
   const config = getChatConfig(store);
-  const hasApiKey = !!config;
 
+  // 发送
   const handleSend = useCallback(async () => {
     const text = message.trim();
     if (!text || !config || loading) return;
@@ -45,27 +52,20 @@ export default function InsightScreen() {
 
     try {
       const fullText = await sendChat(
-        newMessages,
-        config,
-        store.mingPanCache,
+        newMessages, config, store.mingPanCache,
         (partial) => {
           setStreamingText(partial);
           setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 50);
         },
       );
-
-      const assistantMsg: ChatMessage = {
-        role: 'assistant',
-        content: fullText,
-        timestamp: Date.now(),
-      };
+      const assistantMsg: ChatMessage = { role: 'assistant', content: fullText, timestamp: Date.now() };
       setMessages(prev => [...prev, assistantMsg]);
       addMessage(assistantMsg);
       setStreamingText('');
     } catch (err: any) {
       const errorMsg: ChatMessage = {
         role: 'assistant',
-        content: `抱歉，请求失败：${err.message || '未知错误'}。请检查设置中的 API 配置。`,
+        content: `请求失败：${err.message || '未知错误'}`,
         timestamp: Date.now(),
       };
       setMessages(prev => [...prev, errorMsg]);
@@ -73,22 +73,25 @@ export default function InsightScreen() {
     } finally {
       setLoading(false);
     }
-  }, [message, messages, config, loading, store.mingPanCache]);
+  }, [message, messages, config, loading, store.mingPanCache, addMessage]);
 
-  // ── 未配置 API ──
-  if (!hasApiKey) {
+  // 未配置
+  if (!config) {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { paddingTop: insets.top }]}>
         <View style={styles.emptyCenter}>
+          <View style={styles.emptyIcon}>
+            <Text style={styles.emptyIconText}>问</Text>
+          </View>
           <Text style={styles.emptyTitle}>问道</Text>
           <Text style={styles.emptySub}>
-            配置你的 AI 模型，开启智慧对话
+            配置你的 AI 模型{'\n'}开启智慧对话
           </Text>
-          <Text style={styles.emptyDetail}>
-            支持 OpenAI · DeepSeek · Anthropic{'\n'}以及任何 OpenAI 兼容 API
+          <Text style={styles.emptyProviders}>
+            支持 OpenAI · DeepSeek · Anthropic
           </Text>
           <Pressable
-            style={styles.setupBtn}
+            style={[styles.setupBtn, Shadow.sm]}
             onPress={() => router.push('/settings')}
           >
             <Text style={styles.setupBtnText}>前往设置</Text>
@@ -98,18 +101,18 @@ export default function InsightScreen() {
     );
   }
 
-  // ── 对话界面 ──
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={[styles.container, { paddingTop: insets.top }]}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      keyboardVerticalOffset={90}
+      keyboardVerticalOffset={insets.top + Size.headerHeight}
     >
       <ScrollView
         ref={scrollRef}
         style={styles.chatArea}
         contentContainerStyle={styles.chatContent}
         onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: true })}
+        showsVerticalScrollIndicator={false}
       >
         {/* 清除对话 */}
         {messages.length > 0 && (
@@ -117,148 +120,167 @@ export default function InsightScreen() {
             style={styles.clearBtn}
             onPress={() => { clearMessages(); setMessages([]); }}
           >
-            <Text style={styles.clearBtnText}>清除对话</Text>
+            <Text style={styles.clearText}>清除对话</Text>
           </Pressable>
         )}
 
-        {/* 欢迎消息 */}
+        {/* 欢迎 */}
         {messages.length === 0 && !streamingText && (
-          <View style={styles.aiBubble}>
-            <Text style={styles.aiLabel}>岁吉</Text>
+          <View style={[styles.aiBubble, Shadow.sm]}>
+            <Text style={styles.aiName}>岁吉</Text>
             <Text style={styles.aiText}>
               {store.mingPanCache
-                ? '你的命盘已就绪。有什么想聊的？可以跟我说说你现在的心情，或者问问关于你自己的事。'
-                : '有什么想聊的？输入生辰后，我可以结合你的命盘给出更个性化的建议。'}
+                ? '你的命盘已就绪。有什么想聊的？\n可以跟我说说你现在的心情。'
+                : '有什么想聊的？\n输入生辰后，对话会更贴合你。'}
             </Text>
           </View>
         )}
 
-        {/* 对话历史 */}
+        {/* 消息列表 */}
         {messages.map((msg, i) => (
-          <View
-            key={i}
-            style={msg.role === 'user' ? styles.userBubble : styles.aiBubble}
-          >
-            {msg.role === 'assistant' && (
-              <Text style={styles.aiLabel}>岁吉</Text>
-            )}
-            <Text style={msg.role === 'user' ? styles.userText : styles.aiText}>
-              {msg.content}
-            </Text>
-          </View>
+          msg.role === 'user' ? (
+            <View key={i} style={styles.userRow}>
+              <View style={[styles.userBubble, Shadow.sm]}>
+                <Text style={styles.userText}>{msg.content}</Text>
+              </View>
+            </View>
+          ) : (
+            <View key={i} style={[styles.aiBubble, Shadow.sm]}>
+              <Text style={styles.aiName}>岁吉</Text>
+              <Text style={styles.aiText}>{msg.content}</Text>
+            </View>
+          )
         ))}
 
-        {/* 流式输出中 */}
+        {/* 流式 */}
         {streamingText ? (
-          <View style={styles.aiBubble}>
-            <Text style={styles.aiLabel}>岁吉</Text>
+          <View style={[styles.aiBubble, Shadow.sm]}>
+            <Text style={styles.aiName}>岁吉</Text>
             <Text style={styles.aiText}>{streamingText}</Text>
           </View>
         ) : null}
 
-        {/* Loading */}
         {loading && !streamingText && (
           <View style={styles.loadingRow}>
-            <ActivityIndicator size="small" color={Colors.inkHint} />
-            <Text style={styles.loadingText}>思考中…</Text>
+            <View style={styles.loadingDots}>
+              <View style={[styles.loadingDot, { opacity: 0.4 }]} />
+              <View style={[styles.loadingDot, { opacity: 0.6 }]} />
+              <View style={[styles.loadingDot, { opacity: 0.8 }]} />
+            </View>
           </View>
         )}
       </ScrollView>
 
       {/* 输入区 */}
-      <View style={styles.inputArea}>
-        <TextInput
-          style={styles.input}
-          placeholder="说说你的心情…"
-          placeholderTextColor={Colors.inkHint}
-          value={message}
-          onChangeText={setMessage}
-          multiline
-          editable={!loading}
-          onSubmitEditing={handleSend}
-          blurOnSubmit={false}
-        />
-        <Pressable
-          style={[styles.sendBtn, (!message.trim() || loading) && styles.sendBtnDisabled]}
-          disabled={!message.trim() || loading}
-          onPress={handleSend}
-        >
-          <Text style={[
-            styles.sendText,
-            (!message.trim() || loading) && styles.sendTextDisabled,
-          ]}>
-            发送
-          </Text>
-        </Pressable>
+      <View style={[styles.inputArea, { paddingBottom: insets.bottom + Space.sm }]}>
+        <View style={[styles.inputCard, Shadow.sm]}>
+          <TextInput
+            style={styles.input}
+            placeholder="说说你的心情…"
+            placeholderTextColor={Colors.inkHint}
+            value={message}
+            onChangeText={setMessage}
+            multiline
+            editable={!loading}
+            blurOnSubmit={false}
+          />
+          <SendButton
+            disabled={!message.trim() || loading}
+            onPress={handleSend}
+          />
+        </View>
       </View>
     </KeyboardAvoidingView>
   );
 }
 
+function SendButton({ disabled, onPress }: { disabled: boolean; onPress: () => void }) {
+  const scale = useSharedValue(1);
+  const animStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  return (
+    <AnimatedPressable
+      style={[styles.sendBtn, disabled && styles.sendBtnDisabled, animStyle]}
+      disabled={disabled}
+      onPress={onPress}
+      onPressIn={() => { if (!disabled) scale.value = withSpring(0.9, Motion.quick); }}
+      onPressOut={() => { scale.value = withSpring(1, Motion.quick); }}
+    >
+      <Text style={[styles.sendIcon, disabled && styles.sendIconDisabled]}>↑</Text>
+    </AnimatedPressable>
+  );
+}
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.bg,
-  },
+  container: { flex: 1, backgroundColor: Colors.bg },
 
   // 空状态
   emptyCenter: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: Space.xl,
+    paddingHorizontal: Space['3xl'],
+  },
+  emptyIcon: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: Colors.brandBg,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: Space.xl,
+  },
+  emptyIconText: {
+    fontFamily: 'Georgia',
+    fontSize: 28,
+    color: Colors.vermilion,
   },
   emptyTitle: {
     ...Type.title,
     color: Colors.ink,
-    fontWeight: '300',
     marginBottom: Space.md,
   },
   emptySub: {
     ...Type.body,
     color: Colors.inkSecondary,
     textAlign: 'center',
-    marginBottom: Space.sm,
+    lineHeight: 24,
   },
-  emptyDetail: {
+  emptyProviders: {
     ...Type.caption,
     color: Colors.inkHint,
-    textAlign: 'center',
-    lineHeight: 20,
+    marginTop: Space.sm,
     marginBottom: Space.xl,
   },
   setupBtn: {
+    backgroundColor: Colors.surface,
+    borderRadius: Radius.lg,
     paddingVertical: Space.md,
-    paddingHorizontal: Space.xl,
-    borderWidth: 1,
-    borderColor: Colors.brand,
-    borderRadius: 2,
+    paddingHorizontal: Space['2xl'],
   },
   setupBtnText: {
     ...Type.body,
-    color: Colors.brand,
+    color: Colors.vermilion,
     fontWeight: '500',
   },
 
   // 对话区
-  chatArea: {
-    flex: 1,
-  },
+  chatArea: { flex: 1 },
   chatContent: {
     padding: Space.lg,
-    paddingTop: Space.xl,
-    paddingBottom: Space['2xl'],
-    gap: Space.lg,
+    gap: Space.md,
+    paddingBottom: Space.xl,
   },
 
-  // 清除对话
+  // 清除
   clearBtn: {
     alignSelf: 'center',
     paddingVertical: Space.xs,
     paddingHorizontal: Space.md,
-    marginBottom: Space.md,
   },
-  clearBtnText: {
+  clearText: {
     ...Type.caption,
     color: Colors.inkHint,
   },
@@ -266,16 +288,15 @@ const styles = StyleSheet.create({
   // AI 气泡
   aiBubble: {
     backgroundColor: Colors.surface,
-    borderRadius: 4,
-    padding: Space.lg,
-    maxWidth: '88%',
+    borderRadius: Radius.lg,
+    borderTopLeftRadius: Radius.xs,
+    padding: Space.base,
+    maxWidth: '85%',
   },
-  aiLabel: {
+  aiName: {
     ...Type.label,
-    color: Colors.brand,
-    fontWeight: '600',
-    marginBottom: Space.sm,
-    textTransform: 'uppercase',
+    color: Colors.vermilion,
+    marginBottom: Space.xs,
   },
   aiText: {
     ...Type.body,
@@ -284,61 +305,76 @@ const styles = StyleSheet.create({
   },
 
   // 用户气泡
+  userRow: {
+    alignItems: 'flex-end',
+  },
   userBubble: {
-    alignSelf: 'flex-end',
+    backgroundColor: Colors.ink,
+    borderRadius: Radius.lg,
+    borderTopRightRadius: Radius.xs,
+    padding: Space.base,
     maxWidth: '80%',
-    padding: Space.lg,
   },
   userText: {
     ...Type.body,
-    color: Colors.inkSecondary,
-    textAlign: 'right',
+    color: Colors.bg,
+    lineHeight: 24,
   },
 
   // Loading
   loadingRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: Space.sm,
     paddingVertical: Space.sm,
   },
-  loadingText: {
-    ...Type.caption,
-    color: Colors.inkHint,
+  loadingDots: {
+    flexDirection: 'row',
+    gap: Space.xs,
+  },
+  loadingDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: Colors.inkHint,
   },
 
   // 输入区
   inputArea: {
+    paddingHorizontal: Space.lg,
+    paddingTop: Space.sm,
+    backgroundColor: Colors.bg,
+  },
+  inputCard: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    padding: Space.base,
-    paddingBottom: Space.xl,
     backgroundColor: Colors.surface,
+    borderRadius: Radius.xl,
+    paddingLeft: Space.base,
+    paddingRight: Space.sm,
+    paddingVertical: Space.sm,
   },
   input: {
     flex: 1,
-    backgroundColor: Colors.bg,
-    borderRadius: 2,
-    paddingHorizontal: Space.base,
-    paddingVertical: Space.md,
     ...Type.body,
     color: Colors.ink,
     maxHeight: 100,
+    paddingVertical: Space.sm,
   },
   sendBtn: {
-    marginLeft: Space.md,
-    paddingHorizontal: Space.base,
-    paddingVertical: Space.md,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: Colors.vermilion,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   sendBtnDisabled: {
-    opacity: 0.3,
+    backgroundColor: Colors.bgSecondary,
   },
-  sendText: {
-    ...Type.body,
-    color: Colors.brand,
-    fontWeight: '600',
+  sendIcon: {
+    fontSize: 18,
+    color: '#FFFFFF',
+    fontWeight: '700',
   },
-  sendTextDisabled: {
+  sendIconDisabled: {
     color: Colors.inkHint,
   },
 });
