@@ -9,6 +9,9 @@ import { StyleSheet, View, Text, ScrollView } from 'react-native';
 import { TearCalendar } from '@/components/calendar';
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import { Colors, Space, Type } from '@/lib/design/tokens';
+import { useUserStore } from '@/lib/store/userStore';
+import { InsightEngine } from '@/lib/bazi/InsightEngine';
+import type { MingPan, DailyInsight } from '@/lib/bazi/types';
 import lunisolar from 'lunisolar';
 
 const SHICHEN = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'] as const;
@@ -37,6 +40,18 @@ export default function CalendarScreen() {
   const [info, setInfo] = useState({
     lunarDate: '', solarDate: '', ganZhi: '', wisdom: '',
   });
+  const { mingPanCache } = useUserStore();
+  const [dailyInsight, setDailyInsight] = useState<DailyInsight | null>(null);
+
+  // 解析命盘缓存
+  const mingPan = useMemo<MingPan | null>(() => {
+    if (!mingPanCache) return null;
+    try {
+      const p = JSON.parse(mingPanCache);
+      if (p.birthDateTime) p.birthDateTime = new Date(p.birthDateTime);
+      return p;
+    } catch { return null; }
+  }, [mingPanCache]);
 
   useEffect(() => {
     const now = new Date();
@@ -54,12 +69,34 @@ export default function CalendarScreen() {
       ganZhi: ls.format('cD'),
       wisdom: WISDOMS[dayOfYear % WISDOMS.length],
     });
-  }, []);
+
+    // 计算每日运势
+    if (mingPan) {
+      try {
+        const engine = new InsightEngine(mingPan);
+        setDailyInsight(engine.getDailyInsight(now));
+      } catch { /* 忽略 */ }
+    }
+  }, [mingPan]);
 
   const handleTearComplete = useCallback(() => setTornToday(true), []);
 
-  // 简单吉时标记（后续接 InsightEngine）
-  const goodHours = useMemo(() => new Set([2, 5, 7, 10]), []);
+  // 吉时标记：有命盘时从 InsightEngine 计算，否则无高亮
+  const goodHours = useMemo(() => {
+    if (!dailyInsight?.luckyHours) return new Set<number>();
+    // luckyHours 格式如 ['09:00\u201311:00', '15:00\u201317:00']
+    // 提取起始小时 → 对应时辰索引
+    const hourToIdx = (h: number) => {
+      if (h === 23 || h === 0) return 0;
+      return Math.floor((h + 1) / 2);
+    };
+    const indices = new Set<number>();
+    for (const range of dailyInsight.luckyHours) {
+      const match = range.match(/(\d+):00/);
+      if (match) indices.add(hourToIdx(parseInt(match[1])));
+    }
+    return indices;
+  }, [dailyInsight]);
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.scroll}>
@@ -78,6 +115,19 @@ export default function CalendarScreen() {
         <Text style={styles.wisdomText}>{info.wisdom}</Text>
         <Text style={styles.wisdomGanZhi}>{info.ganZhi}日</Text>
       </View>
+
+      {/* 每日运势（有命盘时显示） */}
+      {dailyInsight && (
+        <View style={styles.dailySection}>
+          <Text style={styles.sectionLabel}>今日运势</Text>
+          <Text style={styles.dailyEnergy}>
+            能量 {dailyInsight.overallEnergy === '高' ? '▲' : dailyInsight.overallEnergy === '低' ? '▼' : '●'} {dailyInsight.overallEnergy}
+          </Text>
+          <Text style={styles.dailyFocus}>宜·{dailyInsight.focusArea}</Text>
+          <Text style={styles.dailyAdvice}>{dailyInsight.advice}</Text>
+          <Text style={styles.dailyAffirmation}>{dailyInsight.affirmation}</Text>
+        </View>
+      )}
 
       {/* 时辰 */}
       <View style={styles.hoursSection}>
@@ -138,6 +188,34 @@ const styles = StyleSheet.create({
     color: Colors.inkTertiary,
     textTransform: 'uppercase',
     marginBottom: Space.base,
+  },
+
+  // 每日运势
+  dailySection: {
+    paddingHorizontal: Space.xl,
+    paddingTop: Space.lg,
+    paddingBottom: Space.xl,
+    gap: Space.sm,
+  },
+  dailyEnergy: {
+    ...Type.body,
+    color: Colors.brand,
+    fontWeight: '500',
+  },
+  dailyFocus: {
+    ...Type.body,
+    color: Colors.inkSecondary,
+  },
+  dailyAdvice: {
+    ...Type.body,
+    color: Colors.inkSecondary,
+    lineHeight: 22,
+  },
+  dailyAffirmation: {
+    ...Type.caption,
+    color: Colors.inkHint,
+    fontStyle: 'italic',
+    marginTop: Space.sm,
   },
   hoursGrid: {
     flexDirection: 'row',

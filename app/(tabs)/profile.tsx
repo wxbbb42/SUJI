@@ -129,7 +129,7 @@ export default function ProfileScreen() {
         <View style={styles.menuSection}>
           <MenuItem title="情绪日记" />
           <MenuItem title="关系洞察" />
-          <MenuItem title="流年运势" />
+          <MenuItem title="流年运势" onPress={() => router.push('/fortune')} />
           <MenuItem title="设置" onPress={() => router.push('/settings')} />
         </View>
       </View>
@@ -186,7 +186,7 @@ export default function ProfileScreen() {
       <View style={styles.menuSection}>
         <MenuItem title="情绪日记" />
         <MenuItem title="关系洞察" />
-        <MenuItem title="流年运势" />
+        <MenuItem title="流年运势" onPress={() => router.push('/fortune')} />
         <MenuItem title="设置" onPress={() => router.push('/settings')} />
       </View>
     </ScrollView>
