@@ -1,98 +1,55 @@
 /**
- * Onboarding 引导流程
+ * Onboarding — Neo-Tactile Warmth 引导流程
  *
  * 三页：品牌印象 → 核心价值 → 开始
- * Neo-Tactile Warmth 设计
+ * 动画：Reanimated ScrollHandler 驱动进度点插值 + 按钮 scale
  */
 
-import React, { useState, useRef, useCallback } from 'react';
+import React from 'react';
 import {
-  StyleSheet, View, Text, Pressable, Dimensions,
-  ScrollView, NativeSyntheticEvent, NativeScrollEvent,
+  StyleSheet, View, Text, Pressable, Dimensions, Platform,
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Animated, {
-  useSharedValue, useAnimatedStyle, withSpring,
+  SharedValue,
+  useSharedValue,
+  useAnimatedStyle,
+  useAnimatedScrollHandler,
+  withSpring,
+  interpolate,
+  interpolateColor,
+  Extrapolation,
 } from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
 import { Colors, Space, Radius, Type, Shadow, Motion, Size } from '@/lib/design/tokens';
 import { useUserStore } from '@/lib/store/userStore';
 
-const { width: SW } = Dimensions.get('window');
+const { width: SW, height: SH } = Dimensions.get('window');
 
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+const serifFamily = Platform.select({
+  ios: 'Georgia',
+  android: 'serif',
+  default: 'Georgia',
+});
 
-export default function OnboardingScreen() {
-  const router = useRouter();
-  const insets = useSafeAreaInsets();
-  const scrollRef = useRef<ScrollView>(null);
-  const [page, setPage] = useState(0);
-  const { birthDate } = useUserStore();
+// ─── Animated progress dot ────────────────────────────────────────────────────
 
-  const handleScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-    setPage(Math.round(e.nativeEvent.contentOffset.x / SW));
-  };
-
-  const goNext = useCallback(() => {
-    if (page < 2) {
-      scrollRef.current?.scrollTo({ x: (page + 1) * SW, animated: true });
-    } else {
-      useUserStore.getState().setHasOnboarded();
-      router.replace('/auth');
-    }
-  }, [page, router]);
-
-  const skip = useCallback(() => {
-    useUserStore.getState().setHasOnboarded();
-    router.replace(birthDate ? '/(tabs)' : '/auth');
-  }, [birthDate, router]);
-
-  return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
-      {/* 跳过 */}
-      <Pressable style={styles.skipBtn} onPress={skip} hitSlop={16}>
-        <Text style={styles.skipText}>跳过</Text>
-      </Pressable>
-
-      {/* 页面 */}
-      <ScrollView
-        ref={scrollRef}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        onMomentumScrollEnd={handleScroll}
-        scrollEventThrottle={16}
-      >
-        <PageBrand />
-        <PageValue />
-        <PageStart onStart={goNext} />
-      </ScrollView>
-
-      {/* 底部导航 */}
-      <View style={[styles.footer, { paddingBottom: insets.bottom + Space.lg }]}>
-        <View style={styles.dots}>
-          {[0, 1, 2].map(i => (
-            <View
-              key={i}
-              style={[
-                styles.dot,
-                page === i && styles.dotActive,
-              ]}
-            />
-          ))}
-        </View>
-
-        {page < 2 && (
-          <Pressable style={styles.nextBtn} onPress={goNext} hitSlop={12}>
-            <Text style={styles.nextText}>继续</Text>
-          </Pressable>
-        )}
-      </View>
-    </View>
-  );
+function ProgressDot({ index, scrollX }: { index: number; scrollX: SharedValue<number> }) {
+  const dotStyle = useAnimatedStyle(() => {
+    const range = [(index - 1) * SW, index * SW, (index + 1) * SW];
+    return {
+      width: interpolate(scrollX.value, range, [6, 24, 6], Extrapolation.CLAMP),
+      backgroundColor: interpolateColor(
+        scrollX.value,
+        range,
+        [Colors.border, Colors.vermilion, Colors.border],
+      ) as string,
+    };
+  });
+  return <Animated.View style={[styles.dot, dotStyle]} />;
 }
 
-// ── 第 1 页：品牌印象 ─────────────────────────────
+// ─── Page 1: 品牌印象 ─────────────────────────────────────────────────────────
 
 function PageBrand() {
   return (
@@ -106,30 +63,27 @@ function PageBrand() {
   );
 }
 
-// ── 第 2 页：核心价值 ─────────────────────────────
+// ─── Page 2: 核心价值 ─────────────────────────────────────────────────────────
+
+const VALUE_ITEMS = [
+  { accent: Colors.vermilion, text: '千年智慧，现代语言' },
+  { accent: Colors.celadon,   text: '不预测未来，照亮当下' },
+  { accent: Colors.amber,     text: '每一天的节奏，为你而设' },
+] as const;
 
 function PageValue() {
-  const values = [
-    { color: Colors.vermilion, text: '千年智慧，现代语言' },
-    { color: Colors.celadon,   text: '不预测未来，照亮当下' },
-    { color: Colors.amber,     text: '每一天的节奏，为你而设' },
-  ];
-
   return (
     <View style={styles.page}>
       <View style={styles.valueCenter}>
-        {/* 装饰圆 */}
-        <View style={styles.decorCircle}>
-          <Text style={styles.decorText}>干支</Text>
+        <View style={[styles.decorCircle, Shadow.sm]}>
+          <Text style={styles.decorGlyph}>子</Text>
         </View>
-
         <Text style={styles.valueTitle}>读懂你的时间</Text>
-
         <View style={styles.valueList}>
-          {values.map((v, i) => (
-            <View key={i} style={styles.valueRow}>
-              <View style={[styles.valueDot, { backgroundColor: v.color }]} />
-              <Text style={styles.valueText}>{v.text}</Text>
+          {VALUE_ITEMS.map(({ accent, text }) => (
+            <View key={text} style={styles.valueRow}>
+              <View style={[styles.valueDot, { backgroundColor: accent }]} />
+              <Text style={styles.valueText}>{text}</Text>
             </View>
           ))}
         </View>
@@ -138,42 +92,89 @@ function PageValue() {
   );
 }
 
-// ── 第 3 页：开始 ─────────────────────────────────
+// ─── Page 3: 开始 ─────────────────────────────────────────────────────────────
 
 function PageStart({ onStart }: { onStart: () => void }) {
   const scale = useSharedValue(1);
-
   const animStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
   }));
-
-  const handlePressIn = () => {
-    scale.value = withSpring(0.95, Motion.quick);
-  };
-  const handlePressOut = () => {
-    scale.value = withSpring(1, Motion.quick);
-  };
 
   return (
     <View style={styles.page}>
       <View style={styles.startCenter}>
         <Text style={styles.startTitle}>准备好了吗？</Text>
-        <Text style={styles.startSub}>输入你的生辰{'\n'}开启专属命盘</Text>
-
-        <AnimatedPressable
-          style={[styles.startBtn, Shadow.md, animStyle]}
-          onPress={onStart}
-          onPressIn={handlePressIn}
-          onPressOut={handlePressOut}
-        >
-          <Text style={styles.startBtnText}>开始</Text>
-        </AnimatedPressable>
+        <Text style={styles.startSub}>输入你的生辰，开启专属命盘</Text>
+        <Animated.View style={[styles.startBtnWrap, Shadow.md, animStyle]}>
+          <Pressable
+            style={styles.startBtn}
+            onPress={onStart}
+            onPressIn={() => { scale.value = withSpring(0.96, Motion.quick); }}
+            onPressOut={() => { scale.value = withSpring(1, Motion.quick); }}
+          >
+            <Text style={styles.startBtnText}>开始</Text>
+          </Pressable>
+        </Animated.View>
       </View>
     </View>
   );
 }
 
-// ── Styles ────────────────────────────────────────
+// ─── Screen ───────────────────────────────────────────────────────────────────
+
+export default function OnboardingScreen() {
+  const router = useRouter();
+  const { birthDate } = useUserStore();
+  const scrollX = useSharedValue(0);
+
+  const scrollHandler = useAnimatedScrollHandler((event) => {
+    scrollX.value = event.contentOffset.x;
+  });
+
+  const handleStart = () => {
+    useUserStore.getState().setHasOnboarded();
+    router.replace('/auth');
+  };
+
+  const skip = () => {
+    useUserStore.getState().setHasOnboarded();
+    router.replace(birthDate ? '/(tabs)' : '/auth');
+  };
+
+  return (
+    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+      {/* 跳过 */}
+      <Pressable style={styles.skipBtn} onPress={skip} hitSlop={16}>
+        <Text style={styles.skipText}>跳过</Text>
+      </Pressable>
+
+      {/* 三页 */}
+      <Animated.ScrollView
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        onScroll={scrollHandler}
+        scrollEventThrottle={16}
+        style={styles.pager}
+      >
+        <PageBrand />
+        <PageValue />
+        <PageStart onStart={handleStart} />
+      </Animated.ScrollView>
+
+      {/* 进度点 */}
+      <View style={styles.footer}>
+        <View style={styles.dots}>
+          {[0, 1, 2].map((i) => (
+            <ProgressDot key={i} index={i} scrollX={scrollX} />
+          ))}
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+// ─── Styles ───────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
   container: {
@@ -184,43 +185,47 @@ const styles = StyleSheet.create({
   // 跳过
   skipBtn: {
     position: 'absolute',
-    top: 60,
+    top: 0,
     right: Space.lg,
     zIndex: 10,
     padding: Space.sm,
   },
   skipText: {
-    ...Type.bodySmall,
+    ...Type.caption,
     color: Colors.inkTertiary,
   },
 
-  // 页面
+  // Pager
+  pager: {
+    flex: 1,
+  },
   page: {
     width: SW,
-    flex: 1,
-    justifyContent: 'center',
+    height: SH,
     alignItems: 'center',
-    paddingHorizontal: Space['3xl'],
+    justifyContent: 'center',
+    paddingHorizontal: Space['2xl'],
   },
 
-  // 品牌页
+  // ── 品牌页 ──
   brandCenter: {
     alignItems: 'center',
+    gap: Space.lg,
   },
   brandBigChar: {
-    fontFamily: 'Georgia',
+    fontFamily: serifFamily,
     fontSize: 120,
+    lineHeight: 132,
     color: Colors.ink,
-    fontWeight: '300',
-    marginBottom: Space.sm,
+    fontWeight: '400',
   },
   brandName: {
-    fontFamily: 'Georgia',
-    fontSize: 24,
+    fontFamily: serifFamily,
+    fontSize: 28,
+    lineHeight: 36,
     color: Colors.ink,
     fontWeight: '400',
     letterSpacing: 12,
-    marginBottom: Space.md,
   },
   brandSub: {
     ...Type.caption,
@@ -228,7 +233,7 @@ const styles = StyleSheet.create({
     letterSpacing: 4,
   },
 
-  // 价值页
+  // ── 价值页 ──
   valueCenter: {
     alignItems: 'center',
     width: '100%',
@@ -242,9 +247,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: Space['2xl'],
   },
-  decorText: {
-    fontFamily: 'Georgia',
-    fontSize: 18,
+  decorGlyph: {
+    fontFamily: serifFamily,
+    fontSize: 32,
     color: Colors.vermilion,
     fontWeight: '400',
   },
@@ -254,7 +259,7 @@ const styles = StyleSheet.create({
     marginBottom: Space['2xl'],
   },
   valueList: {
-    gap: Space.lg,
+    gap: Space.xl,
     width: '100%',
     paddingHorizontal: Space.lg,
   },
@@ -267,73 +272,65 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
+    flexShrink: 0,
   },
   valueText: {
-    ...Type.body,
+    ...Type.bodySmall,
     color: Colors.inkSecondary,
+    lineHeight: 26,
   },
 
-  // 开始页
+  // ── 开始页 ──
   startCenter: {
     alignItems: 'center',
+    gap: Space['2xl'],
+    width: '100%',
   },
   startTitle: {
-    ...Type.title,
+    fontFamily: serifFamily,
+    fontSize: 32,
+    lineHeight: 44,
     color: Colors.ink,
-    marginBottom: Space.lg,
+    fontWeight: '400',
+    letterSpacing: 1,
+    textAlign: 'center',
   },
   startSub: {
     ...Type.body,
-    color: Colors.inkTertiary,
+    color: Colors.inkSecondary,
     textAlign: 'center',
-    lineHeight: 26,
-    marginBottom: Space['3xl'],
+  },
+  startBtnWrap: {
+    width: SW - Space['2xl'] * 2,
+    borderRadius: Radius.full,
   },
   startBtn: {
-    backgroundColor: Colors.vermilion,
-    borderRadius: Radius.full,
-    paddingVertical: Space.base,
-    paddingHorizontal: Space['4xl'],
     height: Size.buttonLg,
-    justifyContent: 'center',
+    borderRadius: Radius.full,
+    backgroundColor: Colors.vermilion,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   startBtnText: {
-    ...Type.body,
-    color: '#FFFFFF',
-    fontWeight: '600',
-    letterSpacing: 4,
+    color: Colors.surface,
+    fontFamily: serifFamily,
+    fontSize: 17,
+    fontWeight: '400',
+    letterSpacing: 6,
   },
 
-  // 底部
+  // ── Footer ──
   footer: {
+    paddingVertical: Space.xl,
     alignItems: 'center',
-    gap: Space.xl,
-    paddingTop: Space.lg,
   },
   dots: {
     flexDirection: 'row',
-    gap: Space.sm,
+    gap: Space.md,
     alignItems: 'center',
   },
   dot: {
-    width: 6,
     height: 6,
-    borderRadius: 3,
-    backgroundColor: Colors.border,
-  },
-  dotActive: {
-    width: 24,
-    backgroundColor: Colors.vermilion,
-    borderRadius: 3,
-  },
-  nextBtn: {
-    paddingVertical: Space.md,
-    paddingHorizontal: Space['2xl'],
-  },
-  nextText: {
-    ...Type.body,
-    color: Colors.vermilion,
-    fontWeight: '500',
+    borderRadius: Radius.full,
   },
 });

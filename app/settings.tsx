@@ -1,25 +1,35 @@
 /**
  * 设置页面
  *
- * BYOM 模型配置 + 个人信息管理
+ * 分组卡片式布局（iOS Settings 风格）
+ * Neo-Tactile Warmth 设计
  */
 
-import { StyleSheet, View, Text, TextInput, Pressable, ScrollView, Alert } from 'react-native';
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
+import {
+  StyleSheet, View, Text, TextInput, Pressable, ScrollView, Alert,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Animated, {
+  useSharedValue, useAnimatedStyle, withSpring,
+} from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
-import { Colors, Space, Type } from '@/lib/design/tokens';
+import { Colors, Space, Radius, Type, Shadow, Motion, Size } from '@/lib/design/tokens';
 import { useUserStore } from '@/lib/store/userStore';
 import { useAuthStore } from '@/lib/store/authStore';
 
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
 const PROVIDERS = [
-  { id: 'openai',    label: 'OpenAI',     defaultModel: 'gpt-4o' },
-  { id: 'deepseek',  label: 'DeepSeek',   defaultModel: 'deepseek-chat' },
-  { id: 'anthropic', label: 'Anthropic',  defaultModel: 'claude-sonnet-4-20250514' },
-  { id: 'custom',    label: '自定义',     defaultModel: '' },
+  { id: 'openai',    label: 'OpenAI',    model: 'gpt-4o' },
+  { id: 'deepseek',  label: 'DeepSeek',  model: 'deepseek-chat' },
+  { id: 'anthropic', label: 'Anthropic', model: 'claude-sonnet-4-20250514' },
+  { id: 'custom',    label: '自定义',     model: '' },
 ] as const;
 
 export default function SettingsScreen() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const store = useUserStore();
   const { user, signOut } = useAuthStore();
 
@@ -28,7 +38,7 @@ export default function SettingsScreen() {
   const [model, setModel] = useState(store.apiModel ?? '');
   const [baseUrl, setBaseUrl] = useState(store.apiBaseUrl ?? '');
 
-  const defaultModel = PROVIDERS.find(p => p.id === provider)?.defaultModel ?? '';
+  const defaultModel = PROVIDERS.find(p => p.id === provider)?.model ?? '';
 
   const handleSave = useCallback(() => {
     store.setApiProvider(provider as any);
@@ -41,279 +51,270 @@ export default function SettingsScreen() {
   }, [provider, apiKey, model, baseUrl, defaultModel, store]);
 
   const handleReset = useCallback(() => {
-    Alert.alert('清除所有数据', '将清除生辰、命盘、AI 配置等所有数据', [
+    Alert.alert('清除所有数据', '将清除生辰、命盘、AI 配置等全部数据', [
       { text: '取消', style: 'cancel' },
-      {
-        text: '确定',
-        style: 'destructive',
-        onPress: () => {
-          store.reset();
-          router.back();
-        },
-      },
+      { text: '确定清除', style: 'destructive', onPress: () => { store.reset(); router.back(); } },
     ]);
   }, [store, router]);
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.scroll}>
-      <Pressable onPress={() => router.back()} style={styles.backBtn}>
-        <Text style={styles.backText}>← 返回</Text>
+    <ScrollView
+      style={[styles.container, { paddingTop: insets.top }]}
+      contentContainerStyle={[styles.scroll, { paddingBottom: insets.bottom + Space['3xl'] }]}
+      showsVerticalScrollIndicator={false}
+    >
+      {/* 导航 */}
+      <Pressable onPress={() => router.back()} style={styles.navBtn} hitSlop={12}>
+        <Text style={styles.navText}>← 返回</Text>
       </Pressable>
 
       <Text style={styles.heading}>设置</Text>
 
-      {/* ── AI 模型配置 ── */}
-      <Text style={styles.sectionTitle}>AI 模型</Text>
-      <Text style={styles.sectionSub}>配置你的 AI 服务，用于问道对话</Text>
-
-      {/* Provider 选择 */}
-      <View style={styles.providerRow}>
-        {PROVIDERS.map(p => (
-          <Pressable
-            key={p.id}
-            style={styles.providerBtn}
-            onPress={() => {
-              setProvider(p.id);
-              setModel('');
-            }}
-          >
-            <Text style={[
-              styles.providerText,
-              provider === p.id && styles.providerTextOn,
-            ]}>
-              {p.label}
-            </Text>
-            {provider === p.id && <View style={styles.providerLine} />}
+      {/* ── 账户 ── */}
+      <Text style={styles.groupTitle}>账户</Text>
+      <View style={[styles.group, Shadow.sm]}>
+        {user ? (
+          <>
+            <Row label="邮箱" value={user.email ?? '未设置'} />
+            <View style={styles.rowDivider} />
+            <Pressable style={styles.row} onPress={() => signOut()}>
+              <Text style={[styles.rowLabel, { color: Colors.error }]}>退出登录</Text>
+            </Pressable>
+          </>
+        ) : (
+          <Pressable style={styles.row} onPress={() => router.push('/auth')}>
+            <Text style={[styles.rowLabel, { color: Colors.vermilion }]}>登录 / 注册</Text>
+            <Text style={styles.rowChevron}>›</Text>
           </Pressable>
-        ))}
+        )}
       </View>
 
-      {/* API Key */}
-      <Text style={styles.inputLabel}>API Key</Text>
-      <TextInput
-        style={styles.input}
-        value={apiKey}
-        onChangeText={setApiKey}
-        placeholder="sk-..."
-        placeholderTextColor={Colors.inkHint}
-        secureTextEntry
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
+      {/* ── AI 模型 ── */}
+      <Text style={styles.groupTitle}>AI 模型</Text>
+      <View style={[styles.group, Shadow.sm]}>
+        {/* Provider 选择 */}
+        <View style={styles.providerRow}>
+          {PROVIDERS.map(p => (
+            <Pressable
+              key={p.id}
+              style={[styles.providerChip, provider === p.id && styles.providerChipActive]}
+              onPress={() => { setProvider(p.id); setModel(''); }}
+            >
+              <Text style={[styles.providerText, provider === p.id && styles.providerTextActive]}>
+                {p.label}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
 
-      {/* Model */}
-      <Text style={styles.inputLabel}>模型</Text>
-      <TextInput
-        style={styles.input}
-        value={model}
-        onChangeText={setModel}
-        placeholder={defaultModel || '模型名称'}
-        placeholderTextColor={Colors.inkHint}
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
+        <View style={styles.rowDivider} />
 
-      {/* Custom Base URL */}
-      {provider === 'custom' && (
-        <>
-          <Text style={styles.inputLabel}>Base URL</Text>
+        {/* API Key */}
+        <View style={styles.inputRow}>
+          <Text style={styles.inputLabel}>API Key</Text>
           <TextInput
-            style={styles.input}
-            value={baseUrl}
-            onChangeText={setBaseUrl}
-            placeholder="https://api.example.com/v1"
+            style={styles.inputField}
+            value={apiKey}
+            onChangeText={setApiKey}
+            placeholder="sk-..."
+            placeholderTextColor={Colors.inkHint}
+            secureTextEntry
+            autoCapitalize="none"
+          />
+        </View>
+
+        <View style={styles.rowDivider} />
+
+        {/* Model */}
+        <View style={styles.inputRow}>
+          <Text style={styles.inputLabel}>模型</Text>
+          <TextInput
+            style={styles.inputField}
+            value={model}
+            onChangeText={setModel}
+            placeholder={defaultModel}
             placeholderTextColor={Colors.inkHint}
             autoCapitalize="none"
-            autoCorrect={false}
-          />
-        </>
-      )}
-
-      <Pressable style={styles.saveBtn} onPress={handleSave}>
-        <Text style={styles.saveBtnText}>保存配置</Text>
-      </Pressable>
-
-      {/* ── 账户 ── */}
-      <Text style={[styles.sectionTitle, { marginTop: Space['2xl'] }]}>账户</Text>
-      {user ? (
-        <View style={styles.infoBlock}>
-          <InfoRow label="邮箱" value={user.email ?? '未设置'} />
-          <Pressable style={{ marginTop: Space.md }} onPress={() => signOut()}>
-            <Text style={styles.dangerText}>退出登录</Text>
-          </Pressable>
-        </View>
-      ) : (
-        <Pressable
-          style={styles.saveBtn}
-          onPress={() => router.push('/auth')}
-        >
-          <Text style={styles.saveBtnText}>登录 / 注册</Text>
-        </Pressable>
-      )}
-
-      {/* ── 个人信息 ── */}
-      <Text style={[styles.sectionTitle, { marginTop: Space['2xl'] }]}>个人信息</Text>
-
-      {store.birthDate ? (
-        <View style={styles.infoBlock}>
-          <InfoRow label="生辰" value={new Date(store.birthDate).toLocaleString('zh-CN')} />
-          <InfoRow label="性别" value={store.gender ?? '未设置'} />
-          <InfoRow label="出生地" value={store.birthCity ?? '未设置'} />
-          <InfoRow
-            label="经度"
-            value={store.birthLongitude ? `${store.birthLongitude}°` : '未设置'}
           />
         </View>
-      ) : (
-        <Text style={styles.noInfo}>尚未输入生辰信息</Text>
-      )}
 
-      {/* ── 危险区 ── */}
-      <View style={styles.dangerZone}>
-        <Pressable onPress={handleReset}>
-          <Text style={styles.dangerText}>清除所有数据</Text>
+        {provider === 'custom' && (
+          <>
+            <View style={styles.rowDivider} />
+            <View style={styles.inputRow}>
+              <Text style={styles.inputLabel}>Base URL</Text>
+              <TextInput
+                style={styles.inputField}
+                value={baseUrl}
+                onChangeText={setBaseUrl}
+                placeholder="https://api.example.com/v1"
+                placeholderTextColor={Colors.inkHint}
+                autoCapitalize="none"
+              />
+            </View>
+          </>
+        )}
+
+        <View style={styles.rowDivider} />
+
+        <Pressable style={styles.row} onPress={handleSave}>
+          <Text style={[styles.rowLabel, { color: Colors.vermilion, fontWeight: '500' }]}>
+            保存配置
+          </Text>
         </Pressable>
       </View>
+
+      {/* ── 个人信息 ── */}
+      <Text style={styles.groupTitle}>个人信息</Text>
+      <View style={[styles.group, Shadow.sm]}>
+        {store.birthDate ? (
+          <>
+            <Row label="生辰" value={new Date(store.birthDate).toLocaleString('zh-CN')} />
+            <View style={styles.rowDivider} />
+            <Row label="性别" value={store.gender ?? '未设置'} />
+            <View style={styles.rowDivider} />
+            <Row label="出生地" value={store.birthCity ?? '未设置'} />
+          </>
+        ) : (
+          <View style={styles.row}>
+            <Text style={styles.rowValue}>尚未输入生辰</Text>
+          </View>
+        )}
+      </View>
+
+      {/* ── 危险操作 ── */}
+      <Text style={styles.groupTitle}> </Text>
+      <View style={[styles.group, Shadow.sm]}>
+        <Pressable style={styles.row} onPress={handleReset}>
+          <Text style={[styles.rowLabel, { color: Colors.error }]}>清除所有数据</Text>
+        </Pressable>
+      </View>
+
+      <Text style={styles.version}>岁吉 v1.0.0</Text>
     </ScrollView>
   );
 }
 
-function InfoRow({ label, value }: { label: string; value: string }) {
+function Row({ label, value }: { label: string; value: string }) {
   return (
-    <View style={styles.infoRow}>
-      <Text style={styles.infoLabel}>{label}</Text>
-      <Text style={styles.infoValue}>{value}</Text>
+    <View style={styles.row}>
+      <Text style={styles.rowLabel}>{label}</Text>
+      <Text style={styles.rowValue}>{value}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.bg,
-  },
-  scroll: {
-    paddingHorizontal: Space.lg,
-    paddingBottom: Space['3xl'],
-  },
+  container: { flex: 1, backgroundColor: Colors.bg },
+  scroll: { paddingHorizontal: Space.lg },
 
-  backBtn: {
-    paddingTop: Space.xl,
-    paddingBottom: Space.md,
-  },
-  backText: {
-    ...Type.body,
-    color: Colors.brand,
-  },
+  navBtn: { paddingVertical: Space.md },
+  navText: { ...Type.body, color: Colors.vermilion },
 
   heading: {
+    fontFamily: 'Georgia',
     fontSize: 32,
     color: Colors.ink,
-    fontWeight: '200',
-    letterSpacing: 8,
-    marginBottom: Space.xl,
-  },
-
-  sectionTitle: {
-    ...Type.subtitle,
-    color: Colors.ink,
     fontWeight: '400',
-    marginBottom: Space.xs,
-  },
-  sectionSub: {
-    ...Type.caption,
-    color: Colors.inkHint,
-    marginBottom: Space.lg,
-  },
-
-  // Provider
-  providerRow: {
-    flexDirection: 'row',
-    gap: Space.lg,
     marginBottom: Space.xl,
   },
-  providerBtn: {
-    alignItems: 'center',
-    paddingBottom: Space.xs,
-  },
-  providerText: {
-    ...Type.body,
-    color: Colors.inkHint,
-  },
-  providerTextOn: {
-    color: Colors.ink,
-    fontWeight: '500',
-  },
-  providerLine: {
-    marginTop: Space.xs,
-    height: 1,
-    width: '100%',
-    backgroundColor: Colors.brand,
-  },
 
-  // Input
-  inputLabel: {
+  // 分组
+  groupTitle: {
     ...Type.label,
     color: Colors.inkTertiary,
+    letterSpacing: 2,
+    marginTop: Space.xl,
     marginBottom: Space.sm,
+    paddingLeft: Space.sm,
   },
-  input: {
-    ...Type.body,
-    color: Colors.ink,
+  group: {
     backgroundColor: Colors.surface,
-    borderRadius: 2,
-    paddingHorizontal: Space.base,
-    paddingVertical: Space.md,
-    marginBottom: Space.lg,
+    borderRadius: Radius.lg,
+    overflow: 'hidden',
   },
 
-  // Save
-  saveBtn: {
-    alignSelf: 'flex-start',
-    paddingVertical: Space.md,
-    paddingHorizontal: Space.xl,
-    borderWidth: 1,
-    borderColor: Colors.brand,
-    borderRadius: 2,
-  },
-  saveBtnText: {
-    ...Type.body,
-    color: Colors.brand,
-    fontWeight: '500',
-  },
-
-  // Info
-  infoBlock: {
-    gap: Space.md,
-    marginTop: Space.sm,
-  },
-  infoRow: {
+  // 行
+  row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: Space.md + 2,
+    paddingHorizontal: Space.base,
+    minHeight: Size.buttonMd,
   },
-  infoLabel: {
-    ...Type.caption,
+  rowLabel: {
+    ...Type.body,
+    color: Colors.ink,
+  },
+  rowValue: {
+    ...Type.body,
     color: Colors.inkTertiary,
+    textAlign: 'right',
+    flex: 1,
+    marginLeft: Space.lg,
   },
-  infoValue: {
-    ...Type.body,
-    color: Colors.inkSecondary,
-  },
-  noInfo: {
-    ...Type.body,
+  rowChevron: {
+    fontSize: 20,
     color: Colors.inkHint,
-    marginTop: Space.sm,
+    marginLeft: Space.sm,
+  },
+  rowDivider: {
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: Colors.borderLight,
+    marginLeft: Space.base,
   },
 
-  // Danger
-  dangerZone: {
-    marginTop: Space['3xl'],
-    paddingTop: Space.xl,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: Colors.inkHint + '30',
+  // Provider chips
+  providerRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: Space.sm,
+    padding: Space.base,
   },
-  dangerText: {
+  providerChip: {
+    paddingVertical: Space.sm,
+    paddingHorizontal: Space.md,
+    borderRadius: Radius.full,
+    backgroundColor: Colors.bgSecondary,
+  },
+  providerChipActive: {
+    backgroundColor: Colors.vermilion,
+  },
+  providerText: {
+    ...Type.bodySmall,
+    color: Colors.inkSecondary,
+    fontWeight: '500',
+  },
+  providerTextActive: {
+    color: '#FFFFFF',
+  },
+
+  // 输入行
+  inputRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: Space.sm,
+    paddingHorizontal: Space.base,
+    minHeight: Size.buttonMd,
+  },
+  inputLabel: {
     ...Type.body,
-    color: Colors.warn,
+    color: Colors.ink,
+    width: 80,
+  },
+  inputField: {
+    flex: 1,
+    ...Type.body,
+    color: Colors.ink,
+    textAlign: 'right',
+  },
+
+  // 版本
+  version: {
+    ...Type.caption,
+    color: Colors.inkHint,
+    textAlign: 'center',
+    marginTop: Space['2xl'],
   },
 });
