@@ -253,12 +253,13 @@ const styles = StyleSheet.create({
   },
   shichenCell: {
     width: '24%',
-    paddingVertical: Space.sm + 2,
+    paddingVertical: Space.md,
     alignItems: 'center',
-    borderRadius: Radius.sm,
+    borderRadius: Radius.md,
+    backgroundColor: Colors.bgSecondary,
   },
   shichenCellOn: {
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors.brandBg,
   },
   shichenChi: {
     fontSize: 17,
@@ -333,14 +334,18 @@ const styles = StyleSheet.create({
   },
   // 提交
   submit: {
-    alignSelf: 'flex-start',
-    paddingVertical: Space.xs,
+    alignSelf: 'center',
+    backgroundColor: Colors.vermilion,
+    borderRadius: Radius.full,
+    paddingVertical: Space.md,
+    paddingHorizontal: Space['3xl'],
+    marginTop: Space.lg,
   },
   submitText: {
     ...Type.body,
-    color: Colors.brand,
-    letterSpacing: 6,
-    fontWeight: '400',
+    color: '#FFFFFF',
+    letterSpacing: 4,
+    fontWeight: '600',
   },
   // 城市 Modal
   modalOverlay: {
@@ -350,8 +355,8 @@ const styles = StyleSheet.create({
   },
   modalSheet: {
     backgroundColor: Colors.surface,
-    borderTopLeftRadius: Space.base,
-    borderTopRightRadius: Space.base,
+    borderTopLeftRadius: Radius['2xl'],
+    borderTopRightRadius: Radius['2xl'],
     paddingTop: Space.lg,
     paddingHorizontal: Space.lg,
     maxHeight: '70%',
