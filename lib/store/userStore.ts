@@ -23,6 +23,9 @@ export interface UserState {
   // 命盘缓存
   mingPanCache: string | null;     // JSON.stringify(MingPan)
 
+  // Onboarding
+  hasOnboarded: boolean;
+
   // Actions
   setBirthDate: (date: Date) => void;
   setGender: (gender: '男' | '女') => void;
@@ -32,6 +35,7 @@ export interface UserState {
   setApiModel: (model: string) => void;
   setApiBaseUrl: (url: string) => void;
   setMingPanCache: (json: string) => void;
+  setHasOnboarded: () => void;
   reset: () => void;
 }
 
@@ -45,6 +49,7 @@ const initialState = {
   apiModel: null,
   apiBaseUrl: null,
   mingPanCache: null,
+  hasOnboarded: false,
 } as const;
 
 export const useUserStore = create<UserState>()(
@@ -75,6 +80,9 @@ export const useUserStore = create<UserState>()(
 
       setMingPanCache: (json: string) =>
         set({ mingPanCache: json }),
+
+      setHasOnboarded: () =>
+        set({ hasOnboarded: true }),
 
       reset: () =>
         set({ ...initialState }),
