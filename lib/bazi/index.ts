@@ -23,6 +23,6 @@ export { DayunEngine } from './DayunEngine';
 export { toTrueSolarTime, getTrueSolarTimeInfo, CITY_LONGITUDES } from './TrueSolarTime';
 export { getSiLingSegments, getCurrentSiLing, getDefaultSiLing } from './SiLing';
 export type { SiLingSegment } from './SiLing';
-export { MarriageEngine } from './marriage/MarriageEngine';
+export { MarriageEngine } from '../marriage/MarriageEngine';
 export { InsightEngine } from './InsightEngine';
 export type * from './types';

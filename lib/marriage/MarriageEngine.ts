@@ -8,8 +8,8 @@
  * 🚀 提供匹配建议，支持流年婚姻预测
  */
 
-import { BaziEngine } from './BaziEngine';
-import type { MingPan, DiZhi, TianGan } from './types';
+import { BaziEngine } from '../bazi/BaziEngine';
+import type { MingPan, DiZhi, TianGan } from '../bazi/types';
 
 /** 八字婚姻匹配结果 */
 export interface MarriageMatch {
