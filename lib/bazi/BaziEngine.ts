@@ -12,9 +12,7 @@ import lunisolar from 'lunisolar';
 import { char8ex } from '@lunisolar/plugin-char8ex';
 import { theGods } from '@lunisolar/plugin-thegods';
 import { takeSound } from '@lunisolar/plugin-takesound';
-// fetalgod 使用 CommonJS export = 形式
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const fetalGod = require('@lunisolar/plugin-fetalgod') as lunisolar.PluginFunc;
+import { fetalGod } from '@lunisolar/plugin-fetalgod';
 
 import { toTrueSolarTime, getTrueSolarTimeInfo } from './TrueSolarTime';
 import type {

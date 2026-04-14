@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   // 跳过
   skipBtn: {
     position: 'absolute',
-    top: 0,
+    top: Space.md,
     right: Space.lg,
     zIndex: 10,
     padding: Space.sm,
