@@ -4,6 +4,7 @@
 
 import { create } from 'zustand';
 import { supabase } from '../supabase/client';
+import { pullProfile, startProfileAutoSync } from './profileSync';
 import type { User, Session } from '@supabase/supabase-js';
 
 export interface AuthState {
@@ -34,12 +35,19 @@ export const useAuthStore = create<AuthState>((set) => ({
         loading: false,
       });
 
-      // 监听认证状态变化
-      supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        try { await pullProfile(session.user.id); } catch {}
+      }
+      startProfileAutoSync();
+
+      supabase.auth.onAuthStateChange((event, session) => {
         set({
           session,
           user: session?.user ?? null,
         });
+        if (event === 'SIGNED_IN' && session?.user) {
+          pullProfile(session.user.id).catch(() => {});
+        }
       });
     } catch {
       set({ loading: false });

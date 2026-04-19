@@ -16,16 +16,17 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
 import * as AppleAuthentication from 'expo-apple-authentication';
-import * as AuthSession from 'expo-auth-session';
-import * as WebBrowser from 'expo-web-browser';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import { Colors, Space, Radius, Type, Shadow, Motion, Size } from '@/lib/design/tokens';
 import { useAuthStore } from '@/lib/store/authStore';
 import { supabase } from '@/lib/supabase/client';
 
-const GOOGLE_CLIENT_ID = process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID || '';
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-WebBrowser.maybeCompleteAuthSession();
+GoogleSignin.configure({
+  webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
+  iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID,
+});
 
 export default function AuthScreen() {
   const router = useRouter();
@@ -61,32 +62,24 @@ export default function AuthScreen() {
     }
   }, [router]);
 
-  // ── Google ──
-  const [gReq, , gPrompt] = AuthSession.useAuthRequest(
-    {
-      clientId: GOOGLE_CLIENT_ID,
-      redirectUri: AuthSession.makeRedirectUri({ scheme: 'suiji' }),
-      scopes: ['openid', 'profile', 'email'],
-      responseType: 'id_token',
-    },
-    { authorizationEndpoint: 'https://accounts.google.com/o/oauth2/v2/auth' },
-  );
-
+  // ── Google（原生 SDK：iOS Credential Manager → id_token → Supabase signInWithIdToken） ──
   const handleGoogle = useCallback(async () => {
     try {
-      const result = await gPrompt();
-      if (result.type === 'success' && result.params?.id_token) {
-        const { error } = await supabase.auth.signInWithIdToken({
-          provider: 'google',
-          token: result.params.id_token,
-        });
-        if (error) throw error;
-        router.replace('/(tabs)');
-      }
+      await GoogleSignin.hasPlayServices();
+      const response = await GoogleSignin.signIn();
+      const idToken = response.data?.idToken;
+      if (!idToken) throw new Error('未获取到 Google id_token');
+      const { error } = await supabase.auth.signInWithIdToken({
+        provider: 'google',
+        token: idToken,
+      });
+      if (error) throw error;
+      router.replace('/(tabs)');
     } catch (e: any) {
+      if (e.code === statusCodes.SIGN_IN_CANCELLED) return;
       Alert.alert('登录失败', e.message || '请重试');
     }
-  }, [gPrompt, router]);
+  }, [router]);
 
   // ── 邮箱 ──
   const handleEmail = useCallback(async () => {
@@ -124,20 +117,12 @@ export default function AuthScreen() {
 
         {/* 社交登录按钮 */}
         <View style={styles.socialArea}>
-          {Platform.OS === 'ios' && (
-            <SocialButton
-              icon="🍎"
-              label="通过 Apple 继续"
-              onPress={handleApple}
-              dark
-            />
-          )}
+          {/* Apple Sign In：需 Apple Developer 账号配置 entitlement + Supabase provider，暂隐藏 */}
 
           <SocialButton
             icon="G"
             label="通过 Google 继续"
             onPress={handleGoogle}
-            disabled={!gReq}
           />
 
           {!showEmail ? (
