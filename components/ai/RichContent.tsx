@@ -8,6 +8,16 @@ import Markdown from 'react-native-markdown-display';
 import { richStyles } from './richStyles';
 import { preprocessYiji } from './customRules/preprocessYiji';
 import { YiJiCard, splitYiji } from './customRules/YiJiCard';
+import { ClassicalQuote } from './customRules/ClassicalQuote';
+
+function extractText(node: any): string {
+  if (!node) return '';
+  if (typeof node.content === 'string') return node.content;
+  if (Array.isArray(node.children)) {
+    return node.children.map(extractText).join('');
+  }
+  return '';
+}
 
 type Props = { content: string };
 
@@ -18,6 +28,10 @@ export function RichContent({ content }: Props) {
     <Markdown
       style={richStyles}
       rules={{
+        blockquote: (node: any, children: any) => {
+          const raw = extractText(node);
+          return <ClassicalQuote key={node.key} rawText={raw} />;
+        },
         fence: (node: any) => {
           const lang = node.sourceInfo || node.info || '';
           if (lang === 'yiji') {
