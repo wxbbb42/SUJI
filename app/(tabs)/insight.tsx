@@ -30,10 +30,9 @@ export default function InsightScreen() {
   const insets = useSafeAreaInsets();
   const store = useUserStore();
   const scrollRef = useRef<ScrollView>(null);
-  const { messages: savedMessages, addMessage, clearMessages } = useChatStore();
+  const { messages, addMessage, clearMessages } = useChatStore();
 
   const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState<ChatMessage[]>(savedMessages);
   const [streamingText, setStreamingText] = useState('');
   const [loading, setLoading] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
@@ -47,7 +46,6 @@ export default function InsightScreen() {
 
     const userMsg: ChatMessage = { role: 'user', content: text, timestamp: Date.now() };
     const newMessages = [...messages, userMsg];
-    setMessages(newMessages);
     addMessage(userMsg);
     setMessage('');
     setLoading(true);
@@ -65,7 +63,6 @@ export default function InsightScreen() {
         abortController.signal,
       );
       const assistantMsg: ChatMessage = { role: 'assistant', content: fullText, timestamp: Date.now() };
-      setMessages(prev => [...prev, assistantMsg]);
       addMessage(assistantMsg);
       setStreamingText('');
     } catch (err: any) {
@@ -74,7 +71,7 @@ export default function InsightScreen() {
         content: `请求失败：${err.message || '未知错误'}`,
         timestamp: Date.now(),
       };
-      setMessages(prev => [...prev, errorMsg]);
+      addMessage(errorMsg);
       setStreamingText('');
     } finally {
       setLoading(false);
@@ -129,7 +126,7 @@ export default function InsightScreen() {
         {messages.length > 0 && (
           <Pressable
             style={styles.clearBtn}
-            onPress={() => { clearMessages(); setMessages([]); }}
+            onPress={clearMessages}
           >
             <Text style={styles.clearText}>清除对话</Text>
           </Pressable>
