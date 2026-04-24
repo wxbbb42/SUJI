@@ -397,7 +397,7 @@ export async function sendChat(
     }
     return fullText;
   } catch (streamErr: any) {
-    if (streamErr?.name === 'AbortError') {
+    if (signal?.aborted) {
       // 用户主动停止 —— 返回到目前为止累积的文本
       return fullText;
     }
