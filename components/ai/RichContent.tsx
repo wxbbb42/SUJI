@@ -9,6 +9,8 @@ import { richStyles } from './richStyles';
 import { preprocessYiji } from './customRules/preprocessYiji';
 import { YiJiCard, splitYiji } from './customRules/YiJiCard';
 import { ClassicalQuote } from './customRules/ClassicalQuote';
+import { splitIntoKeywordSegments } from './customRules/keywords';
+import { MingPanBadge } from './customRules/MingPanBadge';
 
 function extractText(node: any): string {
   if (!node) return '';
@@ -28,6 +30,19 @@ export function RichContent({ content }: Props) {
     <Markdown
       style={richStyles}
       rules={{
+        text: (node: any, _children: any, _parent: any, styles: any) => {
+          const raw = node.content as string;
+          const segments = splitIntoKeywordSegments(raw);
+          return (
+            <Text key={node.key} style={styles.text}>
+              {segments.map((seg, i) =>
+                seg.isKeyword
+                  ? <MingPanBadge key={i}>{seg.text}</MingPanBadge>
+                  : seg.text
+              )}
+            </Text>
+          );
+        },
         blockquote: (node: any, children: any) => {
           const raw = extractText(node);
           return <ClassicalQuote key={node.key} rawText={raw} />;
