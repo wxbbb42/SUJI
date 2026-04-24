@@ -15,7 +15,6 @@ import { useUserStore } from '@/lib/store/userStore';
 import { InsightEngine } from '@/lib/bazi/InsightEngine';
 import type { MingPan, DailyInsight } from '@/lib/bazi/types';
 import lunisolar from 'lunisolar';
-import { ShichenTimeline } from '@/components/calendar/ShichenTimeline';
 
 const WISDOMS = [
   '水流不争先\n争的是滔滔不绝',
@@ -134,8 +133,6 @@ export default function CalendarScreen() {
           )}
         </View>
       )}
-
-      <ShichenTimeline />
     </ScrollView>
   );
 }
