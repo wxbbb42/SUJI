@@ -86,6 +86,7 @@ async function* streamOpenAI(
   messages: ChatMessage[],
   systemPrompt: string,
   config: ChatConfig,
+  signal?: AbortSignal,
 ): AsyncGenerator<string> {
   const url = `${config.baseUrl}/chat/completions`;
 
@@ -105,6 +106,7 @@ async function* streamOpenAI(
       ...buildAuthHeaders(config),
     },
     body: JSON.stringify(body),
+    signal,
   });
 
   if (!response.ok) {
@@ -150,6 +152,7 @@ async function* streamResponsesAPI(
   messages: ChatMessage[],
   systemPrompt: string,
   config: ChatConfig,
+  signal?: AbortSignal,
 ): AsyncGenerator<string> {
   const url = config.baseUrl || '';
 
@@ -166,6 +169,7 @@ async function* streamResponsesAPI(
       ...buildAuthHeaders(config),
     },
     body: JSON.stringify(body),
+    signal,
   });
 
   if (!response.ok) {
@@ -231,6 +235,7 @@ async function* streamAnthropic(
   messages: ChatMessage[],
   systemPrompt: string,
   config: ChatConfig,
+  signal?: AbortSignal,
 ): AsyncGenerator<string> {
   const url = `${config.baseUrl}/v1/messages`;
 
@@ -250,6 +255,7 @@ async function* streamAnthropic(
       'anthropic-version': '2023-06-01',
     },
     body: JSON.stringify(body),
+    signal,
   });
 
   if (!response.ok) {
@@ -372,25 +378,30 @@ export async function sendChat(
   config: ChatConfig,
   mingPanJson: string | null,
   onChunk?: (chunk: string) => void,
+  signal?: AbortSignal,
 ): Promise<string> {
   const systemPrompt = buildSystemPrompt(mingPanJson);
 
   // 先尝试流式
+  let fullText = '';
   try {
     const stream = config.provider === 'anthropic'
-      ? streamAnthropic(messages, systemPrompt, config)
+      ? streamAnthropic(messages, systemPrompt, config, signal)
       : isResponsesAPI(config)
-        ? streamResponsesAPI(messages, systemPrompt, config)
-        : streamOpenAI(messages, systemPrompt, config);
+        ? streamResponsesAPI(messages, systemPrompt, config, signal)
+        : streamOpenAI(messages, systemPrompt, config, signal);
 
-    let fullText = '';
     for await (const chunk of stream) {
       fullText += chunk;
       onChunk?.(fullText);
     }
     return fullText;
-  } catch (streamErr) {
-    // 流式失败 fallback 到非流式
+  } catch (streamErr: any) {
+    if (streamErr?.name === 'AbortError') {
+      // 用户主动停止 —— 返回到目前为止累积的文本
+      return fullText;
+    }
+    // 其他错误 fallback 到非流式
     console.warn('流式请求失败，降级为非流式:', streamErr);
     const text = await fetchNonStream(messages, systemPrompt, config);
     onChunk?.(text);
