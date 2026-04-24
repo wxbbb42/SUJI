@@ -21,6 +21,7 @@ import { useChatStore } from '@/lib/store/chatStore';
 import { getChatConfig, sendChat } from '@/lib/ai/chat';
 import type { ChatMessage } from '@/lib/ai';
 import { StreamCursor } from '@/components/ai/StreamCursor';
+import { RichContent } from '@/components/ai/RichContent';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -137,11 +138,11 @@ export default function InsightScreen() {
         {messages.length === 0 && !streamingText && (
           <View style={[styles.aiBubble, Shadow.sm]}>
             <Text style={styles.aiName}>岁吉</Text>
-            <Text style={styles.aiText}>
-              {store.mingPanCache
+            <RichContent content={
+              store.mingPanCache
                 ? '你的命盘已就绪。有什么想聊的？\n可以跟我说说你现在的心情。'
-                : '有什么想聊的？\n输入生辰后，对话会更贴合你。'}
-            </Text>
+                : '有什么想聊的？\n输入生辰后，对话会更贴合你。'
+            } />
           </View>
         )}
 
@@ -156,7 +157,7 @@ export default function InsightScreen() {
           ) : (
             <View key={i} style={[styles.aiBubble, Shadow.sm]}>
               <Text style={styles.aiName}>岁吉</Text>
-              <Text style={styles.aiText}>{msg.content}</Text>
+              <RichContent content={msg.content} />
             </View>
           )
         ))}
@@ -165,10 +166,8 @@ export default function InsightScreen() {
         {streamingText ? (
           <View style={[styles.aiBubble, Shadow.sm]}>
             <Text style={styles.aiName}>岁吉</Text>
-            <Text style={styles.aiText}>
-              {streamingText}
-              <StreamCursor />
-            </Text>
+            <RichContent content={streamingText} />
+            <StreamCursor />
           </View>
         ) : null}
 
