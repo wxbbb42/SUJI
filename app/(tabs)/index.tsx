@@ -5,9 +5,9 @@
  * Neo-Tactile Warmth 设计
  */
 
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
-  StyleSheet, View, Text, ScrollView, Pressable,
+  StyleSheet, View, Text, ScrollView,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Space, Radius, Type, Shadow, Size } from '@/lib/design/tokens';
@@ -15,12 +15,7 @@ import { useUserStore } from '@/lib/store/userStore';
 import { InsightEngine } from '@/lib/bazi/InsightEngine';
 import type { MingPan, DailyInsight } from '@/lib/bazi/types';
 import lunisolar from 'lunisolar';
-
-const SHICHEN = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'] as const;
-const SHICHEN_TIME = [
-  '23–01','01–03','03–05','05–07','07–09','09–11',
-  '11–13','13–15','15–17','17–19','19–21','21–23',
-] as const;
+import { ShichenTimeline } from '@/components/calendar/ShichenTimeline';
 
 const WISDOMS = [
   '水流不争先\n争的是滔滔不绝',
@@ -82,16 +77,6 @@ export default function CalendarScreen() {
     }
   }, [mingPan]);
 
-  const goodHours = useMemo(() => {
-    if (!dailyInsight?.luckyHours) return new Set<number>();
-    const hourToIdx = (h: number) => h === 23 || h === 0 ? 0 : Math.floor((h + 1) / 2);
-    const indices = new Set<number>();
-    for (const range of dailyInsight.luckyHours) {
-      const match = range.match(/(\d+):00/);
-      if (match) indices.add(hourToIdx(parseInt(match[1])));
-    }
-    return indices;
-  }, [dailyInsight]);
 
   return (
     <ScrollView
@@ -150,28 +135,7 @@ export default function CalendarScreen() {
         </View>
       )}
 
-      {/* ── 十二时辰 ── */}
-      <View style={styles.hoursArea}>
-        <Text style={styles.sectionTitle}>十二时辰</Text>
-        <View style={styles.hoursGrid}>
-          {SHICHEN.map((zhi, i) => {
-            const isGood = goodHours.has(i);
-            return (
-              <View
-                key={zhi}
-                style={[styles.hourCell, isGood && styles.hourCellGood]}
-              >
-                <Text style={[styles.hourZhi, isGood && styles.hourZhiGood]}>
-                  {zhi}
-                </Text>
-                <Text style={[styles.hourTime, isGood && styles.hourTimeGood]}>
-                  {SHICHEN_TIME[i]}
-                </Text>
-              </View>
-            );
-          })}
-        </View>
-      </View>
+      <ShichenTimeline />
     </ScrollView>
   );
 }
@@ -314,48 +278,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  // ── 十二时辰 ──
-  hoursArea: {
-    marginTop: Space['2xl'],
-  },
-  sectionTitle: {
-    ...Type.label,
-    color: Colors.inkTertiary,
-    letterSpacing: 2,
-    marginBottom: Space.base,
-  },
-  hoursGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: Space.sm,
-  },
-  hourCell: {
-    width: '23%',
-    alignItems: 'center',
-    paddingVertical: Space.md,
-    borderRadius: Radius.md,
-    backgroundColor: Colors.surface,
-  },
-  hourCellGood: {
-    backgroundColor: Colors.brandBg,
-  },
-  hourZhi: {
-    fontFamily: 'Georgia',
-    fontSize: 18,
-    color: Colors.inkSecondary,
-    fontWeight: '400',
-  },
-  hourZhiGood: {
-    color: Colors.vermilion,
-    fontWeight: '600',
-  },
-  hourTime: {
-    ...Type.label,
-    color: Colors.inkHint,
-    marginTop: Space.xs,
-    fontSize: 10,
-  },
-  hourTimeGood: {
-    color: Colors.vermilion,
-  },
 });
