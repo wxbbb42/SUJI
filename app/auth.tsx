@@ -1,7 +1,7 @@
 /**
  * 登录/注册页面
  *
- * Apple + Google + 邮箱
+ * Google + 邮箱
  * Neo-Tactile Warmth 设计
  */
 
@@ -15,7 +15,6 @@ import Animated, {
   useSharedValue, useAnimatedStyle, withSpring, withTiming,
 } from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
-import * as AppleAuthentication from 'expo-apple-authentication';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import { Colors, Space, Radius, Type, Shadow, Motion, Size } from '@/lib/design/tokens';
 import { useAuthStore } from '@/lib/store/authStore';
@@ -37,30 +36,6 @@ export default function AuthScreen() {
   const [mode, setMode] = useState<'login' | 'signup'>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  // ── Apple ──
-  const handleApple = useCallback(async () => {
-    try {
-      const credential = await AppleAuthentication.signInAsync({
-        requestedScopes: [
-          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
-          AppleAuthentication.AppleAuthenticationScope.EMAIL,
-        ],
-      });
-      if (credential.identityToken) {
-        const { error } = await supabase.auth.signInWithIdToken({
-          provider: 'apple',
-          token: credential.identityToken,
-        });
-        if (error) throw error;
-        router.replace('/(tabs)');
-      }
-    } catch (e: any) {
-      if (e.code !== 'ERR_REQUEST_CANCELED') {
-        Alert.alert('登录失败', e.message || '请重试');
-      }
-    }
-  }, [router]);
 
   // ── Google（原生 SDK：iOS Credential Manager → id_token → Supabase signInWithIdToken） ──
   const handleGoogle = useCallback(async () => {
@@ -117,8 +92,6 @@ export default function AuthScreen() {
 
         {/* 社交登录按钮 */}
         <View style={styles.socialArea}>
-          {/* Apple Sign In：需 Apple Developer 账号配置 entitlement + Supabase provider，暂隐藏 */}
-
           <SocialButton
             icon="G"
             label="通过 Google 继续"
