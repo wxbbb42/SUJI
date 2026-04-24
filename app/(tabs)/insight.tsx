@@ -78,6 +78,7 @@ export default function InsightScreen() {
       setStreamingText('');
     } finally {
       setLoading(false);
+      abortRef.current = null;
     }
   }, [message, messages, config, loading, store.mingPanCache, addMessage]);
 
