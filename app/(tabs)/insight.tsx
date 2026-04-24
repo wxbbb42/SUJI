@@ -20,6 +20,7 @@ import { useUserStore } from '@/lib/store/userStore';
 import { useChatStore } from '@/lib/store/chatStore';
 import { getChatConfig, sendChat } from '@/lib/ai/chat';
 import type { ChatMessage } from '@/lib/ai';
+import { StreamCursor } from '@/components/ai/StreamCursor';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -34,6 +35,7 @@ export default function InsightScreen() {
   const [messages, setMessages] = useState<ChatMessage[]>(savedMessages);
   const [streamingText, setStreamingText] = useState('');
   const [loading, setLoading] = useState(false);
+  const abortRef = useRef<AbortController | null>(null);
 
   const config = getChatConfig(store);
 
@@ -49,6 +51,8 @@ export default function InsightScreen() {
     setMessage('');
     setLoading(true);
     setStreamingText('');
+    const abortController = new AbortController();
+    abortRef.current = abortController;
 
     try {
       const fullText = await sendChat(
@@ -57,6 +61,7 @@ export default function InsightScreen() {
           setStreamingText(partial);
           setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 50);
         },
+        abortController.signal,
       );
       const assistantMsg: ChatMessage = { role: 'assistant', content: fullText, timestamp: Date.now() };
       setMessages(prev => [...prev, assistantMsg]);
@@ -74,6 +79,10 @@ export default function InsightScreen() {
       setLoading(false);
     }
   }, [message, messages, config, loading, store.mingPanCache, addMessage]);
+
+  const handleStop = useCallback(() => {
+    abortRef.current?.abort();
+  }, []);
 
   // 未配置
   if (!config) {
@@ -156,7 +165,10 @@ export default function InsightScreen() {
         {streamingText ? (
           <View style={[styles.aiBubble, Shadow.sm]}>
             <Text style={styles.aiName}>岁吉</Text>
-            <Text style={styles.aiText}>{streamingText}</Text>
+            <Text style={styles.aiText}>
+              {streamingText}
+              <StreamCursor />
+            </Text>
           </View>
         ) : null}
 
@@ -184,9 +196,11 @@ export default function InsightScreen() {
             editable={!loading}
             blurOnSubmit={false}
           />
-          <SendButton
-            disabled={!message.trim() || loading}
-            onPress={handleSend}
+          <SendOrStopButton
+            disabled={!message.trim()}
+            streaming={loading}
+            onSend={handleSend}
+            onStop={handleStop}
           />
         </View>
       </View>
@@ -194,21 +208,39 @@ export default function InsightScreen() {
   );
 }
 
-function SendButton({ disabled, onPress }: { disabled: boolean; onPress: () => void }) {
+function SendOrStopButton({
+  disabled, streaming, onSend, onStop,
+}: {
+  disabled: boolean;
+  streaming: boolean;
+  onSend: () => void;
+  onStop: () => void;
+}) {
   const scale = useSharedValue(1);
   const animStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
   }));
 
+  const isStop = streaming;
+  const onPress = isStop ? onStop : onSend;
+  const isDisabled = !isStop && disabled;
+
   return (
     <AnimatedPressable
-      style={[styles.sendBtn, disabled && styles.sendBtnDisabled, animStyle]}
-      disabled={disabled}
+      style={[
+        styles.sendBtn,
+        isStop && styles.stopBtn,
+        isDisabled && styles.sendBtnDisabled,
+        animStyle,
+      ]}
+      disabled={isDisabled}
       onPress={onPress}
-      onPressIn={() => { if (!disabled) scale.value = withSpring(0.9, Motion.quick); }}
+      onPressIn={() => { if (!isDisabled) scale.value = withSpring(0.9, Motion.quick); }}
       onPressOut={() => { scale.value = withSpring(1, Motion.quick); }}
     >
-      <Text style={[styles.sendIcon, disabled && styles.sendIconDisabled]}>↑</Text>
+      <Text style={[styles.sendIcon, isDisabled && styles.sendIconDisabled]}>
+        {isStop ? '■' : '↑'}
+      </Text>
     </AnimatedPressable>
   );
 }
@@ -365,6 +397,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.vermilion,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  stopBtn: {
+    backgroundColor: Colors.ink,
   },
   sendBtnDisabled: {
     backgroundColor: Colors.bgSecondary,
