@@ -9,6 +9,7 @@
 
 import { SYSTEM_PROMPT, TONE_PROMPTS, type ToneStyle, type ChatMessage } from './index';
 import type { UserState } from '../store/userStore';
+import { fetch as expoFetch } from 'expo/fetch';
 
 /** API 配置 */
 interface ChatConfig {
@@ -97,7 +98,7 @@ async function* streamOpenAI(
     ],
   };
 
-  const response = await fetch(url, {
+  const response = await expoFetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -158,7 +159,7 @@ async function* streamResponsesAPI(
     input: toResponsesInput(messages, systemPrompt),
   };
 
-  const response = await fetch(url, {
+  const response = await expoFetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -241,7 +242,7 @@ async function* streamAnthropic(
     messages: messages.map(m => ({ role: m.role, content: m.content })),
   };
 
-  const response = await fetch(url, {
+  const response = await expoFetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
