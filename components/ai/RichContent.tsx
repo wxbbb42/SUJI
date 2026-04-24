@@ -30,11 +30,11 @@ export function RichContent({ content }: Props) {
     <Markdown
       style={richStyles}
       rules={{
-        text: (node: any, _children: any, _parent: any, styles: any) => {
+        text: (node: any, _children: any, _parent: any, styles: any, inheritedStyles: any = {}) => {
           const raw = node.content as string;
           const segments = splitIntoKeywordSegments(raw);
           return (
-            <Text key={node.key} style={styles.text}>
+            <Text key={node.key} style={[inheritedStyles, styles.text]}>
               {segments.map((seg, i) =>
                 seg.isKeyword
                   ? <MingPanBadge key={i}>{seg.text}</MingPanBadge>
@@ -43,6 +43,9 @@ export function RichContent({ content }: Props) {
             </Text>
           );
         },
+        bullet_list_icon: (node: any) => (
+          <Text key={node.key} style={richStyles.bullet_list_icon}>│</Text>
+        ),
         blockquote: (node: any, children: any) => {
           const raw = extractText(node);
           return <ClassicalQuote key={node.key} rawText={raw} />;
