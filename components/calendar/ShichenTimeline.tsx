@@ -23,13 +23,12 @@ export function ShichenTimeline() {
 
   const [detailIdx, setDetailIdx] = useState<number | null>(null);
   const listRef = useRef<FlatList<ShichenEntry>>(null);
-  const now = useMemo(() => new Date(), []);
+  const now = new Date();
   const currentIdx = currentShichenIndex(now);
 
-  const vibes = useMemo<ShichenVibe[] | null>(
-    () => mp ? SHICHEN_MAP.map(e => computeShichenVibe(e, mp, now)) : null,
-    [mp, now],
-  );
+  const vibes: ShichenVibe[] | null = mp
+    ? SHICHEN_MAP.map(e => computeShichenVibe(e, mp, now))
+    : null;
 
   useEffect(() => {
     if (!mp) return;
