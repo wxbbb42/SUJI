@@ -10,6 +10,8 @@
  *   真太阳日与平太阳日的偏差，全年在 -14~+16 分钟之间波动
  */
 
+import { dayOfYear } from '@/lib/utils/date';
+
 /**
  * 计算均时差（Equation of Time），单位：分钟
  *
@@ -18,11 +20,10 @@
  * @returns 均时差（分钟），正值表示真太阳时快于平太阳时
  */
 function equationOfTime(date: Date): number {
-  const start = new Date(date.getFullYear(), 0, 1);
-  const dayOfYear = Math.floor((date.getTime() - start.getTime()) / 86400000) + 1;
+  const doy = dayOfYear(date);
 
   // B = (360/365) * (dayOfYear - 81) 度
-  const B = ((2 * Math.PI) / 365) * (dayOfYear - 81);
+  const B = ((2 * Math.PI) / 365) * (doy - 81);
 
   // Spencer 公式（分钟）
   const eot =
