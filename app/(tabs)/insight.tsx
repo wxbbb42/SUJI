@@ -94,8 +94,8 @@ export default function InsightScreen() {
       // 没命盘 OR Anthropic provider → fallback 到旧 sendChat（无工具，无双段）
       // Responses API（Azure Foundry / GPT-5）已在编排器内支持，不再排除
       const useOrchestration =
-        store.mingPanCache !== null
-        && config.provider !== 'anthropic';
+        config.provider !== 'anthropic'
+        && (store.mingPanCache !== null || forceMode === 'liuyao');
 
       if (useOrchestration) {
         const result = await sendOrchestrated({
