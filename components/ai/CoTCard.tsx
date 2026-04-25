@@ -32,7 +32,6 @@ export function CoTCard({ toolCalls, thinkerText, isStreaming }: Props) {
       style={[styles.card, Shadow.sm]}
     >
       <View style={styles.headerRow}>
-        <Text style={styles.headerIcon}>🧠</Text>
         <Text style={styles.headerLabel}>
           {isStreaming ? '推演中…' : `${toolCalls.length} 步推演`}
         </Text>
@@ -45,7 +44,7 @@ export function CoTCard({ toolCalls, thinkerText, isStreaming }: Props) {
         <View style={styles.body}>
           {toolCalls.map((c, i) => (
             <Text key={i} style={styles.line}>
-              {c.narration ?? `📌 ${c.name}(${c.argSummary})${c.resultSummary ? ` → ${c.resultSummary}` : ''}`}
+              {c.narration ?? `${c.name}(${c.argSummary})${c.resultSummary ? ` → ${c.resultSummary}` : ''}`}
             </Text>
           ))}
           {thinkerText && (
@@ -81,7 +80,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 6,
   },
-  headerIcon: { fontSize: 14 },
   headerLabel: {
     ...Type.caption,
     color: Colors.inkSecondary,

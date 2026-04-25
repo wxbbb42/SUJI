@@ -59,7 +59,7 @@ export function FullReasoningSheet({
             <Section label="使用的数据">
               {toolCalls.map((c, i) => (
                 <Text key={i} style={styles.line}>
-                  📌 {c.name}({c.argSummary}){c.resultSummary ? ` → ${c.resultSummary}` : ''}
+                  {c.name}({c.argSummary}){c.resultSummary ? ` → ${c.resultSummary}` : ''}
                 </Text>
               ))}
             </Section>

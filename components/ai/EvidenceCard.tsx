@@ -20,7 +20,6 @@ export function EvidenceCard({ evidence, onTapFull }: Props) {
   return (
     <Pressable onPress={onTapFull} style={[styles.card, Shadow.sm]}>
       <View style={styles.headerRow}>
-        <Text style={styles.headerIcon}>🔍</Text>
         <Text style={styles.headerLabel}>推演依据</Text>
       </View>
       {visible.map((line, i) => (
@@ -49,7 +48,6 @@ const styles = StyleSheet.create({
     gap: 6,
     marginBottom: Space.xs,
   },
-  headerIcon: { fontSize: 14 },
   headerLabel: {
     ...Type.label,
     color: Colors.vermilion,
