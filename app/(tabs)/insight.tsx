@@ -73,11 +73,11 @@ export default function InsightScreen() {
     const localToolCalls: ToolCallTrace[] = [];
 
     try {
-      // 没命盘 OR 非 OpenAI 兼容 provider → fallback 到旧 sendChat（无工具，无双段）
+      // 没命盘 OR Anthropic provider → fallback 到旧 sendChat（无工具，无双段）
+      // Responses API（Azure Foundry / GPT-5）已在编排器内支持，不再排除
       const useOrchestration =
         store.mingPanCache !== null
-        && config.provider !== 'anthropic'
-        && !/\/responses\/?$/.test(config.baseUrl ?? '');
+        && config.provider !== 'anthropic';
 
       if (useOrchestration) {
         const result = await sendOrchestrated({
