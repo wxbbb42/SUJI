@@ -21,7 +21,7 @@ export class ZiweiEngine {
       : astro.bySolar(dateStr, hourIndex, input.gender, true, 'zh-CN');
 
     const palaces: Palace[] = astrolabe.palaces.map((p: any) => ({
-      name: p.name as PalaceName,
+      name: this.normalizePalaceName(p.name),
       position: p.earthlyBranch,
       ganZhi: `${p.heavenlyStem}${p.earthlyBranch}`,
       mainStars: p.majorStars.map((s: any) => this.normalizeStar(s, 'major')),
@@ -40,6 +40,15 @@ export class ZiweiEngine {
       shenGongPosition: astrolabe.earthlyBranchOfBodyPalace ?? (palaces.find(p => p.isShenGong)?.position ?? ''),
       fiveElementsClass: astrolabe.fiveElementsClass ?? '',
     };
+  }
+
+  /**
+   * iztro 的中文宫名不一致：'命宫'/'身宫' 带"宫"字，其余 12 主宫不带。
+   * 统一补全"宫"字，让消费方按 PalaceName 一致查询。
+   */
+  private normalizePalaceName(name: string): PalaceName {
+    if (!name) return name as PalaceName;
+    return (name.endsWith('宫') ? name : name + '宫') as PalaceName;
   }
 
   /** 24 小时制转 iztro 的 0-11 时辰索引 */

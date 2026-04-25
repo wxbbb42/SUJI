@@ -52,10 +52,27 @@ export default function ProfileScreen() {
     }
   }, []);
 
-  // 迁移：有八字没紫微 → 自动补一份紫微盘
+  // 迁移：有八字没紫微，或紫微宫名是旧格式（缺"宫"字） → 重新生成紫微盘
   useEffect(() => {
     const { ziweiPanCache } = useUserStore.getState();
-    if (mingPanCache && !ziweiPanCache && birthDate && gender) {
+    if (!mingPanCache || !birthDate || !gender) return;
+
+    let needsRegen = !ziweiPanCache;
+    if (ziweiPanCache && !needsRegen) {
+      try {
+        const cached = JSON.parse(ziweiPanCache);
+        // 旧格式：iztro 直接返回的 '子女'/'夫妻' 等无"宫"字宫名
+        // 新格式（normalizePalaceName 后）：所有 12 主宫都带"宫"字
+        const hasOldFormat = (cached.palaces ?? []).some(
+          (p: any) => p.name && !p.name.endsWith('宫'),
+        );
+        if (hasOldFormat) needsRegen = true;
+      } catch {
+        needsRegen = true;
+      }
+    }
+
+    if (needsRegen) {
       try {
         const d = new Date(birthDate);
         const ziweiPan = ziweiEngine.compute({
