@@ -229,6 +229,11 @@ ${opts.identity}
   }
   opts.onThinkerComplete?.(thinkerOutput);
 
+  // Phase A → B 之间检查 abort（节省一次 round trip）
+  if (opts.signal?.aborted) {
+    throw Object.assign(new Error('Aborted between phases'), { name: 'AbortError' });
+  }
+
   // ── Phase B：Call 2 interpreter（streaming）
   const interpMessages: LLMMessage[] = [
     { role: 'system', content: INTERPRETER_PROMPT },
