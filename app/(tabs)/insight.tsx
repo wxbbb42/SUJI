@@ -110,12 +110,15 @@ export default function InsightScreen() {
       setLiveToolCalls([]);
       setLiveThinker('');
     } catch (err: any) {
-      const errorMsg: ChatMessage = {
-        role: 'assistant',
-        content: `请求失败：${err.message || '未知错误'}`,
-        timestamp: Date.now(),
-      };
-      addMessage(errorMsg);
+      // 用户主动停止 → 已到达的 streamingText / 推演保留为空消息或丢弃，不显示错误
+      if (!abortController.signal.aborted) {
+        const errorMsg: ChatMessage = {
+          role: 'assistant',
+          content: `请求失败：${err.message || '未知错误'}`,
+          timestamp: Date.now(),
+        };
+        addMessage(errorMsg);
+      }
       setStreamingText('');
       setLiveToolCalls([]);
       setLiveThinker('');
