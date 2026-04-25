@@ -452,6 +452,15 @@ export async function sendOrchestrated(opts: SendOrchestratedOptions): Promise<O
   const mingPan = opts.mingPanJson ? safeParse(opts.mingPanJson) : null;
   const ziweiPan = opts.ziweiPanJson ? safeParse(opts.ziweiPanJson) : null;
 
+  // Rehydrate Date 字段：JSON.parse 后 birthDateTime 是字符串，
+  // DayunEngine 等内部要 .getFullYear() 之类的方法
+  if (mingPan && typeof mingPan.birthDateTime === 'string') {
+    mingPan.birthDateTime = new Date(mingPan.birthDateTime);
+  }
+  if (ziweiPan && typeof ziweiPan.birthDateTime === 'string') {
+    ziweiPan.birthDateTime = new Date(ziweiPan.birthDateTime);
+  }
+
   return runOrchestration({
     question: opts.question,
     identity: buildIdentityCard(mingPan, ziweiPan),
