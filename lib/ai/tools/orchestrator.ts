@@ -6,6 +6,8 @@
  */
 import { fetch as expoFetch } from 'expo/fetch';
 import type { ToolDefinition, ToolCall } from './types';
+import { ALL_TOOLS, ALL_HANDLERS, TOOL_STRATEGY } from './index';
+import { THINKER_PROMPT, INTERPRETER_PROMPT } from '../index';
 
 export interface ChatProviderConfig {
   provider: 'openai' | 'deepseek' | 'anthropic' | 'custom';
@@ -144,4 +146,107 @@ export async function callLLMStreaming(
 
 function safeJSON(s: string): Record<string, unknown> {
   try { return JSON.parse(s); } catch { return {}; }
+}
+
+// ── runOrchestration: multi-turn thinker loop + Phase B streaming ──
+
+const MAX_TOOL_ROUNDS = 5;
+
+export interface OrchestrationOptions {
+  question: string;
+  identity: string;        // 内联到 thinker 系统消息
+  mingPan: any;
+  ziweiPan: any;
+  config: ChatProviderConfig;
+  onToolCall?: (call: ToolCall, result: unknown) => void;
+  onThinkerComplete?: (text: string) => void;
+  onChunk?: (partialInterpretation: string) => void;
+  signal?: AbortSignal;
+}
+
+export interface OrchestrationResult {
+  thinker: string;
+  interpreter: string;
+  toolCalls: Array<{ call: ToolCall; result: unknown }>;
+}
+
+export async function runOrchestration(opts: OrchestrationOptions): Promise<OrchestrationResult> {
+  const ctx = { mingPan: opts.mingPan, ziweiPan: opts.ziweiPan, now: new Date() };
+  const toolCalls: Array<{ call: ToolCall; result: unknown }> = [];
+
+  // ── Phase A：Call 1 thinker（multi-turn）
+  const thinkerSystem = `${THINKER_PROMPT}
+
+# 命主信息
+${opts.identity}
+
+# ${TOOL_STRATEGY}`;
+
+  const messages: LLMMessage[] = [
+    { role: 'system', content: thinkerSystem },
+    { role: 'user', content: opts.question },
+  ];
+
+  let thinkerOutput = '';
+  for (let round = 0; round < MAX_TOOL_ROUNDS; round++) {
+    const resp = await callLLMWithTools(messages, opts.config, ALL_TOOLS, opts.signal);
+    if (resp.kind === 'text') {
+      thinkerOutput = resp.text;
+      break;
+    }
+    // tools branch
+    messages.push({
+      role: 'assistant',
+      content: null,
+      tool_calls: resp.calls.map(c => ({
+        id: c.id,
+        type: 'function',
+        function: { name: c.name, arguments: JSON.stringify(c.arguments) },
+      })),
+    });
+    for (const call of resp.calls) {
+      const handler = ALL_HANDLERS[call.name];
+      let result: unknown;
+      try {
+        result = handler
+          ? await handler(call.arguments, ctx)
+          : { error: `unknown_tool:${call.name}` };
+      } catch (e: any) {
+        result = { error: String(e?.message ?? e) };
+      }
+      toolCalls.push({ call, result });
+      opts.onToolCall?.(call, result);
+      messages.push({
+        role: 'tool',
+        tool_call_id: call.id,
+        content: JSON.stringify(result),
+      });
+    }
+  }
+
+  if (!thinkerOutput) {
+    thinkerOutput = '推演引擎未给出最终结论（达到工具调用上限）。';
+  }
+  opts.onThinkerComplete?.(thinkerOutput);
+
+  // ── Phase B：Call 2 interpreter（streaming）
+  const interpMessages: LLMMessage[] = [
+    { role: 'system', content: INTERPRETER_PROMPT },
+    {
+      role: 'user',
+      content: `用户问题：${opts.question}\n\n推演引擎输出：\n${thinkerOutput}`,
+    },
+  ];
+
+  const interpreterText = await callLLMStreaming(
+    interpMessages, opts.config,
+    (partial) => opts.onChunk?.(partial),
+    opts.signal,
+  );
+
+  return {
+    thinker: thinkerOutput,
+    interpreter: interpreterText,
+    toolCalls,
+  };
 }
