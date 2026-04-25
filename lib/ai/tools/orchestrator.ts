@@ -362,6 +362,8 @@ export interface OrchestrationOptions {
   mingPan: any;
   ziweiPan: any;
   config: ChatProviderConfig;
+  /** 用户强制模式：'liuyao' 强制起卦，'mingli' 强制走命理；不传则 AI 自动判断 */
+  forceMode?: 'liuyao' | 'mingli';
   onToolCall?: (call: ToolCall, result: unknown) => void;
   onThinkerComplete?: (text: string) => void;
   onChunk?: (partialInterpretation: string) => void;
@@ -388,7 +390,12 @@ ${opts.identity}
 
   const messages: LLMMessage[] = [
     { role: 'system', content: thinkerSystem },
-    { role: 'user', content: opts.question },
+    {
+      role: 'user',
+      content: opts.forceMode
+        ? `[user_force_mode=${opts.forceMode}]\n${opts.question}`
+        : opts.question,
+    },
   ];
 
   let thinkerOutput = '';

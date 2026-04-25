@@ -439,6 +439,8 @@ export interface SendOrchestratedOptions {
   config: ChatConfig;
   mingPanJson: string | null;
   ziweiPanJson: string | null;
+  /** 用户强制模式：'liuyao' 强制起卦，'mingli' 强制走命理；不传则 AI 自动判断 */
+  forceMode?: 'liuyao' | 'mingli';
   onToolCall?: (call: ToolCall, result: unknown) => void;
   onThinkerComplete?: (text: string) => void;
   onChunk?: (partial: string) => void;
@@ -471,6 +473,7 @@ export async function sendOrchestrated(opts: SendOrchestratedOptions): Promise<O
       model: opts.config.model,
       baseUrl: opts.config.baseUrl ?? '',
     },
+    forceMode: opts.forceMode,
     onToolCall: opts.onToolCall,
     onThinkerComplete: opts.onThinkerComplete,
     onChunk: opts.onChunk,
