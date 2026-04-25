@@ -12,7 +12,7 @@ import type { UserState } from '../store/userStore';
 import { fetch as expoFetch } from 'expo/fetch';
 
 /** API 配置 */
-interface ChatConfig {
+export interface ChatConfig {
   provider: 'openai' | 'deepseek' | 'anthropic' | 'custom';
   apiKey: string;
   model: string;
@@ -369,7 +369,7 @@ async function fetchNonStream(
 }
 
 /**
- * 主入口：发送对话并获取 AI 回复
+ * 旧主入口：发送对话并获取 AI 回复
  *
  * 优先尝试流式，fallback 到非流式
  */
@@ -408,3 +408,65 @@ export async function sendChat(
     return text;
   }
 }
+
+// ── sendOrchestrated：有命盘时走编排路径 ──────────────────────────────────
+
+import { runOrchestration, type OrchestrationResult } from './tools/orchestrator';
+import type { ToolCall } from './tools/types';
+
+/** 构建 thinker prompt 的命主身份段（150 tokens 以内） */
+function buildIdentityCard(mingPan: any, ziweiPan: any): string {
+  if (!mingPan) return '（未配置生辰，无法做命理推演）';
+  const ri = mingPan.riZhu;
+  const wuxing = mingPan.wuXingStrength;
+  const geju = mingPan.geJu;
+  const lines = [
+    `日主：${ri?.gan ?? ''}（${ri?.yinYang ?? ''}${ri?.wuXing ?? ''}）· ${geju?.name ?? ''}格`,
+    `用神：${wuxing?.yongShen ?? ''} · 喜神：${wuxing?.xiShen ?? ''} · 忌神：${wuxing?.jiShen ?? ''}`,
+  ];
+  if (ziweiPan?.palaces) {
+    const ming = ziweiPan.palaces.find((p: any) => p.name === '命宫');
+    if (ming) {
+      const stars = (ming.mainStars ?? []).map((s: any) => s.name).join('、');
+      lines.push(`紫微命宫主星：${stars || '（空宫）'}`);
+    }
+  }
+  return lines.join('\n');
+}
+
+export interface SendOrchestratedOptions {
+  question: string;
+  config: ChatConfig;
+  mingPanJson: string | null;
+  ziweiPanJson: string | null;
+  onToolCall?: (call: ToolCall, result: unknown) => void;
+  onThinkerComplete?: (text: string) => void;
+  onChunk?: (partial: string) => void;
+  signal?: AbortSignal;
+}
+
+/**
+ * 主入口：调用 runOrchestration，自动构建身份卡片和上下文
+ */
+export async function sendOrchestrated(opts: SendOrchestratedOptions): Promise<OrchestrationResult> {
+  const mingPan = opts.mingPanJson ? safeParse(opts.mingPanJson) : null;
+  const ziweiPan = opts.ziweiPanJson ? safeParse(opts.ziweiPanJson) : null;
+
+  return runOrchestration({
+    question: opts.question,
+    identity: buildIdentityCard(mingPan, ziweiPan),
+    mingPan, ziweiPan,
+    config: {
+      provider: opts.config.provider,
+      apiKey: opts.config.apiKey,
+      model: opts.config.model,
+      baseUrl: opts.config.baseUrl ?? '',
+    },
+    onToolCall: opts.onToolCall,
+    onThinkerComplete: opts.onThinkerComplete,
+    onChunk: opts.onChunk,
+    signal: opts.signal,
+  });
+}
+
+function safeParse(s: string): any { try { return JSON.parse(s); } catch { return null; } }
