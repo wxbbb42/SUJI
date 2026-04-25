@@ -7,7 +7,7 @@
 
 import React, { useState, useCallback } from 'react';
 import {
-  StyleSheet, View, Text, TextInput, Pressable, ScrollView, Alert,
+  StyleSheet, View, Text, TextInput, Pressable, ScrollView, Alert, Platform,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, {
@@ -142,15 +142,19 @@ export default function SettingsScreen() {
         {provider === 'custom' && (
           <>
             <View style={styles.rowDivider} />
-            <View style={styles.inputRow}>
-              <Text style={styles.inputLabel}>Base URL</Text>
+            <View style={styles.inputColumn}>
+              <Text style={styles.inputLabelTop}>Base URL</Text>
               <TextInput
-                style={styles.inputField}
+                style={styles.inputFieldMultiline}
                 value={baseUrl}
                 onChangeText={setBaseUrl}
                 placeholder="https://api.example.com/v1"
                 placeholderTextColor={Colors.inkHint}
                 autoCapitalize="none"
+                autoCorrect={false}
+                multiline
+                numberOfLines={3}
+                textAlignVertical="top"
               />
             </View>
           </>
@@ -312,6 +316,27 @@ const styles = StyleSheet.create({
     ...Type.body,
     color: Colors.ink,
     textAlign: 'right',
+  },
+  inputColumn: {
+    paddingVertical: Space.sm,
+    paddingHorizontal: Space.base,
+    gap: Space.xs,
+  },
+  inputLabelTop: {
+    ...Type.caption,
+    color: Colors.inkSecondary,
+    letterSpacing: 1,
+  },
+  inputFieldMultiline: {
+    ...Type.bodySmall,
+    color: Colors.ink,
+    backgroundColor: Colors.bgSecondary,
+    borderRadius: Radius.md,
+    paddingHorizontal: Space.sm,
+    paddingVertical: Space.sm,
+    minHeight: 80,
+    textAlign: 'left',
+    fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
   },
 
   // 版本
