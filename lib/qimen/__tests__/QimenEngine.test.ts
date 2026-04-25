@@ -61,3 +61,34 @@ describe('QimenEngine setup', () => {
     expect(a.yinYangDun).toBe(b.yinYangDun);
   });
 });
+
+describe('QimenEngine yongShen selection', () => {
+  const engine = new QimenEngine();
+
+  it('career questionType selects 庚 as primaryGan', () => {
+    const r = engine.setup({
+      question: '我会得到这个 offer 吗',
+      questionType: 'career',
+      setupTime: new Date('2026-04-25T15:32:00'),
+    });
+    expect(r.yongShen.type).toBe('庚');
+  });
+
+  it('yongShen has palaceId, state, summary', () => {
+    const r = engine.setup({
+      question: 'test', questionType: 'career',
+      setupTime: new Date('2026-04-25T15:32:00'),
+    });
+    expect(r.yongShen.palaceId).toBeGreaterThanOrEqual(1);
+    expect(r.yongShen.palaceId).toBeLessThanOrEqual(9);
+    expect(r.yongShen.summary).toBeTruthy();
+  });
+
+  it('returns 应期 description', () => {
+    const r = engine.setup({
+      question: 'test', questionType: 'career',
+      setupTime: new Date('2026-04-25T15:32:00'),
+    });
+    expect(r.yingQi.description).toBeTruthy();
+  });
+});

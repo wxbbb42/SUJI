@@ -17,12 +17,14 @@ import { toTrueSolarTime } from '@/lib/bazi/TrueSolarTime';
 import type {
   QimenChart, Palace, SetupOptions, YinYangDun, JuNumber, Yuan,
   TianGan, BamenName, BashenName, JiuxingName, GeJu,
+  QuestionType, YongShenAnalysis, YingQiAnalysis,
 } from './types';
 import { PALACES_BASE } from './data/palaces';
 import { BAMEN_ORDER } from './data/bamen';
 import { JIUXING_DI_PAN_FIXED } from './data/jiuxing';
 import { BASHEN_ORDER } from './data/bashen';
 import { findJieqiJu } from './data/jieqi-ju';
+import { YONGSHEN_RULES } from './data/yongshen-rules';
 
 const TIANGAN_LIST: TianGan[] = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
 
@@ -91,15 +93,9 @@ export class QimenEngine {
     // 6. 排八门 / 九星 / 八神
     const palaces = this.buildPalaces(diPan, tianPan, timeGan, yinYangDun);
 
-    // 7. 用神（MVP 占位，T5 替换）
-    const yongShenPalace = palaces.find(p => p.tianPanGan === timeGan);
-    const yongShen = {
-      type: timeGan,
-      palaceId: (yongShenPalace?.id ?? 1) as 1|2|3|4|5|6|7|8|9,
-      state: '相' as const,
-      summary: yongShenPalace ? `${timeGan}临${yongShenPalace.name}` : `${timeGan}不上卦`,
-      interactions: [],
-    };
+    // 7. 用神 + 应期（按 questionType 选用神，辅看门 / 神 / 星）
+    const yongShen = this.selectYongShen(opts.questionType, opts.gender, palaces, timeGan);
+    const yingQi = this.computeYingQi(yongShen);
 
     return {
       question: opts.question,
@@ -113,7 +109,73 @@ export class QimenEngine {
       palaces,
       yongShen,
       geJu: [] as GeJu[],
-      yingQi: { description: '', factors: [] },
+      yingQi,
+    };
+  }
+
+  /** 按 questionType 选用神，辅看 secondaryMen / Shen / Star 同宫加分 */
+  private selectYongShen(
+    qt: QuestionType,
+    gender: '男' | '女' | undefined,
+    palaces: Palace[],
+    timeGan: TianGan,
+  ): YongShenAnalysis {
+    const rule = YONGSHEN_RULES[qt];
+    let targetGan: string = rule.primaryGan === 'time' ? timeGan : rule.primaryGan;
+
+    // marriage 场景：男看妻、女看夫，简化都看庚（plan 已说明）
+    if (qt === 'marriage') {
+      targetGan = '庚';
+    }
+
+    // 找 targetGan 所在宫（先找天盘，找不到再找地盘）
+    const palace = palaces.find(p => p.tianPanGan === targetGan)
+                ?? palaces.find(p => p.diPanGan === targetGan);
+
+    if (!palace) {
+      return {
+        type: targetGan,
+        palaceId: 1 as 1,
+        state: '不上卦',
+        summary: `用神 ${targetGan} 不上卦（伏神）`,
+        interactions: ['用神不在 9 宫显现'],
+      };
+    }
+
+    // 检查辅看的门 / 神 / 星是否同宫（加分）
+    const interactions: string[] = [];
+    if (rule.secondaryMen && palace.bamen === rule.secondaryMen) {
+      interactions.push(`临${rule.secondaryMen}（吉门加分）`);
+    }
+    if (rule.secondaryShen && palace.bashen === rule.secondaryShen) {
+      interactions.push(`临${rule.secondaryShen}（神助）`);
+    }
+    if (rule.secondaryStar && palace.jiuxing === rule.secondaryStar) {
+      interactions.push(`临${rule.secondaryStar}星（星映）`);
+    }
+
+    return {
+      type: targetGan,
+      palaceId: palace.id,
+      state: '相',  // MVP 简化：默认相
+      summary: `${targetGan}临${palace.name}（${palace.bamen ?? '无门'} · ${palace.jiuxing} · ${palace.bashen ?? '无神'}）`,
+      interactions,
+    };
+  }
+
+  /** 应期推算（MVP 简化） */
+  private computeYingQi(yongShen: YongShenAnalysis): YingQiAnalysis {
+    if (yongShen.state === '不上卦') {
+      return {
+        description: '用神不上卦，应期难定',
+        factors: ['用神未在 9 宫显现'],
+      };
+    }
+
+    // MVP 简化：基于用神宫位 + 临门倾向
+    return {
+      description: '约 1-3 个月内见分晓',
+      factors: [`用神：${yongShen.summary}`],
     };
   }
 
