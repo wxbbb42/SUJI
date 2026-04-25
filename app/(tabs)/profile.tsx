@@ -17,6 +17,7 @@ import { useRouter } from 'expo-router';
 import { Colors, Space, Radius, Type, Shadow, Motion, Size } from '@/lib/design/tokens';
 import { BirthInput, MingPanCard, WuXingChart, PersonalityCard } from '@/components/bazi';
 import { BaziEngine } from '@/lib/bazi/BaziEngine';
+import { ZiweiEngine } from '@/lib/ziwei/ZiweiEngine';
 import { InsightEngine } from '@/lib/bazi/InsightEngine';
 import { toTrueSolarTime } from '@/lib/bazi/TrueSolarTime';
 import { useUserStore } from '@/lib/store/userStore';
@@ -29,7 +30,7 @@ export default function ProfileScreen() {
   const insets = useSafeAreaInsets();
   const {
     birthDate, gender, birthCity, birthLongitude, mingPanCache,
-    setBirthDate, setGender, setBirthCity, setMingPanCache,
+    setBirthDate, setGender, setBirthCity, setMingPanCache, setZiweiPanCache,
   } = useUserStore();
 
   const [mingPan, setMingPan] = useState<MingPan | null>(null);
@@ -38,6 +39,7 @@ export default function ProfileScreen() {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
 
   const baziEngine = useMemo(() => new BaziEngine(), []);
+  const ziweiEngine = useMemo(() => new ZiweiEngine(), []);
 
   // 从缓存恢复
   useEffect(() => {
@@ -61,11 +63,21 @@ export default function ProfileScreen() {
         setBirthDate(date);
         setGender(g);
         setMingPanCache(JSON.stringify(result));
+        const ziweiPan = ziweiEngine.compute({
+          year: date.getFullYear(),
+          month: date.getMonth() + 1,
+          day: date.getDate(),
+          hour: date.getHours(),
+          minute: date.getMinutes(),
+          gender: g as '男' | '女',
+          isLunar: false,
+        });
+        setZiweiPanCache(JSON.stringify(ziweiPan));
       } catch {
         Alert.alert('排盘失败', '请检查日期和时间');
       }
     },
-    [baziEngine, setBirthDate, setGender, setMingPanCache],
+    [baziEngine, ziweiEngine, setBirthDate, setGender, setMingPanCache, setZiweiPanCache],
   );
 
   const handleReset = useCallback(() => {
