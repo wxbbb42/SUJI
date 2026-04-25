@@ -9,6 +9,7 @@ export interface ToolCallTrace {
   name: string;
   argSummary: string;     // 简短的参数摘要，如 'domain=子女'
   resultSummary?: string; // 简短的结果摘要
+  narration?: string;     // CoT 卡里渲染的友好叙事（古风幽默）
 }
 
 type Props = {
@@ -44,7 +45,7 @@ export function CoTCard({ toolCalls, thinkerText, isStreaming }: Props) {
         <View style={styles.body}>
           {toolCalls.map((c, i) => (
             <Text key={i} style={styles.line}>
-              📌 {c.name}({c.argSummary}){c.resultSummary ? ` → ${c.resultSummary}` : ''}
+              {c.narration ?? `📌 ${c.name}(${c.argSummary})${c.resultSummary ? ` → ${c.resultSummary}` : ''}`}
             </Text>
           ))}
           {thinkerText && (

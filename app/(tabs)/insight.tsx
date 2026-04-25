@@ -90,6 +90,7 @@ export default function InsightScreen() {
               name: call.name,
               argSummary: summarizeArgs(call.arguments),
               resultSummary: summarizeResult(res),
+              narration: narrateTool(call.name, call.arguments, res),
             };
             localToolCalls.push(trace);
             setLiveToolCalls(prev => [...prev, trace]);
@@ -387,6 +388,93 @@ function summarizeResult(r: any): string {
   if (r.summary) return r.summary;
   if (r.error) return `error:${r.error}`;
   return JSON.stringify(r).slice(0, 30) + '…';
+}
+
+/**
+ * 把工具调用翻译成 CoT 卡里那种"我正在做什么"的诙谐古风叙事
+ * —— 这是 AI 性格外露的地方，故意留点戏感
+ */
+function narrateTool(
+  name: string,
+  args: Record<string, unknown>,
+  result: any,
+): string {
+  const ok = !result?.error;
+  const tail = ok ? ' · 心里有数了' : ` · ${describeError(result?.error)}`;
+
+  if (name === 'get_domain') {
+    const d = String(args.domain ?? '');
+    const map: Record<string, string> = {
+      子女: '🍃 翻一翻你与孩儿的缘分簿',
+      婚姻: '💞 看看你姻缘里的风云',
+      事业: '🪶 数一数你前路上的功名',
+      财富: '💰 摸一摸你的财库虚实',
+      健康: '🌿 听一听你身上气脉的动静',
+      父母: '🌳 寻一寻你父母星的位次',
+      兄弟: '🤝 望一望你兄弟星的远近',
+      迁移: '🐎 看看你的驿马起没起',
+      田宅: '🏠 数一数你田宅里几间屋',
+      福德: '🕯️ 照一照你福德宫的灯火',
+    };
+    return (map[d] ?? `🔍 看看「${d}」这一面`) + tail;
+  }
+
+  if (name === 'get_timing') {
+    const s = String(args.scope ?? '');
+    const map: Record<string, string> = {
+      current_dayun: '🌀 看看你眼下走的这一程大运',
+      all_dayun: '📜 把你这一辈子的运程铺开看一遍',
+      liunian: '📅 翻一翻这几年的流年簿',
+      liuyue: '🗓️ 数一数这一年里月相的起伏',
+    };
+    return (map[s] ?? '📜 看看时间这条线') + tail;
+  }
+
+  if (name === 'get_bazi_star') {
+    const p = String(args.person ?? '');
+    const map: Record<string, string> = {
+      配偶: '💞 找一找你的配偶星藏在哪一柱',
+      子女: '👶 探一探你的子女星在不在',
+      父母: '🌳 摸一摸你父母星的根脉',
+      兄弟: '🤝 看一看你兄弟星的远近',
+    };
+    return (map[p] ?? `🔍 找找「${p}」星的位置`) + tail;
+  }
+
+  if (name === 'get_ziwei_palace') {
+    const p = String(args.palace ?? '');
+    return `✨ 凝视紫微${p}` + tail;
+  }
+
+  if (name === 'list_shensha') {
+    const k = String(args.kind ?? 'all');
+    const map: Record<string, string> = {
+      桃花: '🌸 数一数你命里的桃花',
+      权贵: '👑 看看你命里有几位贵人',
+      文昌: '🖋️ 摸一摸你的文昌星',
+      驿马: '🐎 看你的驿马动了没',
+      吉: '🍀 翻翻命里的吉星',
+      凶: '⚠️ 看看命里有哪些煞',
+      中性: '🪶 数数中性的神煞',
+      all: '🪶 翻一翻你命里的神煞总图',
+    };
+    return (map[k] ?? '🪶 看看神煞里有什么') + tail;
+  }
+
+  if (name === 'get_today_context') {
+    return '🕯️ 翻一翻今日的黄历' + tail;
+  }
+
+  return `🔍 ${name}` + tail;
+}
+
+function describeError(err: string | undefined): string {
+  if (!err) return '没要到';
+  if (err.includes('palace_not_found')) return '此宫位没找到';
+  if (err.includes('no_ziwei_chart')) return '紫微盘还没排好';
+  if (err.includes('liunian_compute_failed')) return '流年算盘卡住了';
+  if (err.includes('unknown_domain')) return '此领域不识';
+  return '此处暂未取到';
 }
 
 const styles = StyleSheet.create({
