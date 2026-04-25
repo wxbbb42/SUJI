@@ -25,6 +25,7 @@ import { JIUXING_DI_PAN_FIXED } from './data/jiuxing';
 import { BASHEN_ORDER } from './data/bashen';
 import { findJieqiJu } from './data/jieqi-ju';
 import { YONGSHEN_RULES } from './data/yongshen-rules';
+import { detectGeJu } from './data/geju';
 
 const TIANGAN_LIST: TianGan[] = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
 
@@ -97,7 +98,8 @@ export class QimenEngine {
     const yongShen = this.selectYongShen(opts.questionType, opts.gender, palaces, timeGan);
     const yingQi = this.computeYingQi(yongShen);
 
-    return {
+    // 8. 格局识别（51 个 MVP）
+    const partialChart: QimenChart = {
       question: opts.question,
       questionType: opts.questionType,
       setupTime: setupTime.toISOString(),
@@ -111,6 +113,9 @@ export class QimenEngine {
       geJu: [] as GeJu[],
       yingQi,
     };
+    const geJu = detectGeJu(partialChart);
+
+    return { ...partialChart, geJu };
   }
 
   /** 按 questionType 选用神，辅看 secondaryMen / Shen / Star 同宫加分 */
