@@ -52,6 +52,26 @@ export default function ProfileScreen() {
     }
   }, []);
 
+  // 迁移：有八字没紫微 → 自动补一份紫微盘
+  useEffect(() => {
+    const { ziweiPanCache } = useUserStore.getState();
+    if (mingPanCache && !ziweiPanCache && birthDate && gender) {
+      try {
+        const d = new Date(birthDate);
+        const ziweiPan = ziweiEngine.compute({
+          year: d.getFullYear(),
+          month: d.getMonth() + 1,
+          day: d.getDate(),
+          hour: d.getHours(),
+          minute: d.getMinutes(),
+          gender: gender as '男' | '女',
+          isLunar: false,
+        });
+        setZiweiPanCache(JSON.stringify(ziweiPan));
+      } catch {}
+    }
+  }, [mingPanCache, birthDate, gender, ziweiEngine, setZiweiPanCache]);
+
   const handleSubmit = useCallback(
     (date: Date, g: '男' | '女', longitude?: number) => {
       try {
