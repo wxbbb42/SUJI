@@ -26,12 +26,12 @@ const FIX_ZW = {
 const CTX = { mingPan: FIX_MP, ziweiPan: FIX_ZW, now: new Date(2026, 3, 25) };
 
 describe('ALL_TOOLS', () => {
-  it('exposes 7 tools total', () => {
-    expect(ALL_TOOLS).toHaveLength(7);
+  it('exposes 8 tools total', () => {
+    expect(ALL_TOOLS).toHaveLength(8);
     const names = ALL_TOOLS.map(t => t.function.name).sort();
     expect(names).toEqual([
       'cast_liuyao', 'get_bazi_star', 'get_domain', 'get_timing',
-      'get_today_context', 'get_ziwei_palace', 'list_shensha',
+      'get_today_context', 'get_ziwei_palace', 'list_shensha', 'setup_qimen',
     ]);
   });
 });
