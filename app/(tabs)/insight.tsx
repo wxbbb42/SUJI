@@ -15,6 +15,7 @@ import Animated, {
   useSharedValue, useAnimatedStyle, withSpring,
 } from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import { Colors, Space, Radius, Type, Shadow, Motion, Size } from '@/lib/design/tokens';
 import { useUserStore } from '@/lib/store/userStore';
 import { useChatStore } from '@/lib/store/chatStore';
@@ -26,6 +27,11 @@ import { CoTCard, type ToolCallTrace } from '@/components/ai/CoTCard';
 import { EvidenceCard } from '@/components/ai/EvidenceCard';
 import { FullReasoningSheet } from '@/components/ai/FullReasoningSheet';
 import { splitOrchestrationOutput } from '@/components/ai/customRules/preprocessOrchestration';
+import { ModePicker, type ChatMode } from '@/components/chat/ModePicker';
+import { ModeChip } from '@/components/chat/ModeChip';
+import { HexagramAnimation } from '@/components/divination/HexagramAnimation';
+import { HexagramDisplay } from '@/components/divination/HexagramDisplay';
+import type { HexagramReading } from '@/lib/divination/types';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -40,6 +46,12 @@ export default function InsightScreen() {
   const [streamingText, setStreamingText] = useState('');
   const [loading, setLoading] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
+
+  const [chatMode, setChatMode] = useState<ChatMode>('auto');
+  const [modePickerVisible, setModePickerVisible] = useState(false);
+
+  // 当次发送的实时卦象（流式中的 cast 完成后填）
+  const [liveHexagram, setLiveHexagram] = useState<HexagramReading | null>(null);
 
   // 当次发送的"实时"流式状态
   const [liveToolCalls, setLiveToolCalls] = useState<ToolCallTrace[]>([]);
@@ -66,11 +78,17 @@ export default function InsightScreen() {
     setStreamingText('');
     setLiveToolCalls([]);
     setLiveThinker('');
+    setLiveHexagram(null);
     const abortController = new AbortController();
     abortRef.current = abortController;
 
     // 本地累计 tool calls（避免 React state 在 closure 里 stale）
     const localToolCalls: ToolCallTrace[] = [];
+
+    const forceMode = chatMode === 'liuyao' ? 'liuyao'
+                    : chatMode === 'mingli' ? 'mingli'
+                    : undefined;
+    let localHexagram: HexagramReading | null = null;
 
     try {
       // 没命盘 OR Anthropic provider → fallback 到旧 sendChat（无工具，无双段）
@@ -85,6 +103,7 @@ export default function InsightScreen() {
           config,
           mingPanJson: store.mingPanCache,
           ziweiPanJson: store.ziweiPanCache,
+          forceMode: forceMode,
           onToolCall: (call, res) => {
             const trace: ToolCallTrace = {
               name: call.name,
@@ -94,6 +113,12 @@ export default function InsightScreen() {
             };
             localToolCalls.push(trace);
             setLiveToolCalls(prev => [...prev, trace]);
+
+            // 卜卦工具：捕获卦象
+            if (call.name === 'cast_liuyao' && !(res as any)?.error) {
+              localHexagram = res as HexagramReading;
+              setLiveHexagram(localHexagram);
+            }
           },
           onThinkerComplete: (t) => setLiveThinker(t),
           onChunk: (partial) => {
@@ -111,6 +136,7 @@ export default function InsightScreen() {
             thinker: result.thinker,
             evidence: splitOrchestrationOutput(result.interpreter).evidence,
             toolCalls: localToolCalls,
+            hexagram: localHexagram,
           },
         };
         addMessage(assistantMsg);
@@ -137,6 +163,8 @@ export default function InsightScreen() {
       setStreamingText('');
       setLiveToolCalls([]);
       setLiveThinker('');
+      setLiveHexagram(null);
+      setChatMode('auto');
     } catch (err: any) {
       // 用户主动停止 → 已到达的 streamingText / 推演保留为空消息或丢弃，不显示错误
       if (!abortController.signal.aborted) {
@@ -150,11 +178,13 @@ export default function InsightScreen() {
       setStreamingText('');
       setLiveToolCalls([]);
       setLiveThinker('');
+      setLiveHexagram(null);
+      setChatMode('auto');
     } finally {
       setLoading(false);
       abortRef.current = null;
     }
-  }, [message, config, loading, store.mingPanCache, store.ziweiPanCache, addMessage]);
+  }, [message, config, loading, store.mingPanCache, store.ziweiPanCache, addMessage, chatMode]);
 
   const handleStop = useCallback(() => {
     abortRef.current?.abort();
@@ -241,6 +271,14 @@ export default function InsightScreen() {
                 />
               )}
 
+              {msg.orchestration?.hexagram && (
+                <HexagramDisplay
+                  benGua={msg.orchestration.hexagram.benGua}
+                  bianGua={msg.orchestration.hexagram.bianGua}
+                  changingYao={msg.orchestration.hexagram.changingYao}
+                />
+              )}
+
               <RichContent content={
                 msg.orchestration
                   ? splitOrchestrationOutput(msg.content).interpretation
@@ -271,6 +309,14 @@ export default function InsightScreen() {
               thinkerText={liveThinker}
               isStreaming={true}
             />
+
+            {liveHexagram && (
+              <HexagramAnimation
+                benGua={liveHexagram.benGua}
+                bianGua={liveHexagram.bianGua}
+                changingYao={liveHexagram.changingYao}
+              />
+            )}
 
             {streamingText && (
               <>
@@ -313,7 +359,7 @@ export default function InsightScreen() {
         <View style={[styles.inputCard, Shadow.sm]}>
           <TextInput
             style={styles.input}
-            placeholder="说说你的心情…"
+            placeholder="说说你的心情或想问的事…"
             placeholderTextColor={Colors.inkHint}
             value={message}
             onChangeText={setMessage}
@@ -321,12 +367,27 @@ export default function InsightScreen() {
             editable={!loading}
             blurOnSubmit={false}
           />
-          <SendOrStopButton
-            disabled={!message.trim()}
-            streaming={loading}
-            onSend={handleSend}
-            onStop={handleStop}
-          />
+          <View style={styles.inputBottomRow}>
+            <Pressable
+              style={styles.modeIconBtn}
+              onPress={() => setModePickerVisible(true)}
+              hitSlop={4}
+            >
+              <Ionicons
+                name="options-outline"
+                size={20}
+                color={Colors.inkSecondary}
+              />
+            </Pressable>
+            <ModeChip mode={chatMode} onClear={() => setChatMode('auto')} />
+            <View style={{ flex: 1 }} />
+            <SendOrStopButton
+              disabled={!message.trim()}
+              streaming={loading}
+              onSend={handleSend}
+              onStop={handleStop}
+            />
+          </View>
         </View>
       </View>
 
@@ -336,6 +397,13 @@ export default function InsightScreen() {
         thinkerText={sheetData?.thinker ?? ''}
         toolCalls={sheetData?.toolCalls ?? []}
         onClose={() => setSheetData(null)}
+      />
+
+      <ModePicker
+        visible={modePickerVisible}
+        current={chatMode}
+        onSelect={(m) => setChatMode(m)}
+        onClose={() => setModePickerVisible(false)}
       />
     </KeyboardAvoidingView>
   );
@@ -463,6 +531,10 @@ function narrateTool(
 
   if (name === 'get_today_context') {
     return '🕯️ 翻一翻今日的黄历' + tail;
+  }
+
+  if (name === 'cast_liuyao') {
+    return '三币六掷，为你起一卦' + tail;
   }
 
   return `🔍 ${name}` + tail;
@@ -607,20 +679,30 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bg,
   },
   inputCard: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
+    flexDirection: 'column',
+    alignItems: 'stretch',
     backgroundColor: Colors.surface,
     borderRadius: Radius.xl,
-    paddingLeft: Space.base,
-    paddingRight: Space.sm,
+    paddingHorizontal: Space.base,
     paddingVertical: Space.sm,
   },
   input: {
-    flex: 1,
     ...Type.body,
     color: Colors.ink,
     maxHeight: 100,
     paddingVertical: Space.sm,
+  },
+  inputBottomRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Space.sm,
+    marginTop: Space.xs,
+  },
+  modeIconBtn: {
+    width: 32,
+    height: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   sendBtn: {
     width: 36,
