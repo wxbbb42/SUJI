@@ -4,6 +4,7 @@
 import type { ToolDefinition, ToolHandler } from './types';
 import { baziTools, baziHandlers } from './bazi';
 import { ziweiTools, ziweiHandlers } from './ziwei';
+import { liuyaoTools, liuyaoHandlers } from './liuyao';
 
 const DOMAIN_TO_PALACE: Record<string, string> = {
   子女: '子女宫',
@@ -88,12 +89,14 @@ export const ALL_TOOLS: ToolDefinition[] = [
   ...aggregatedTools,
   ...baziTools,
   ...ziweiTools,
+  ...liuyaoTools,
 ];
 
 export const ALL_HANDLERS: Record<string, ToolHandler> = {
   ...aggregatedHandlers,
   ...baziHandlers,
   ...ziweiHandlers,
+  ...liuyaoHandlers,
 };
 
 /** 工具使用策略文本，注入 thinker prompt */
@@ -102,4 +105,7 @@ export const TOOL_STRATEGY = `工具使用策略：
 2. 用户问题涉及"何时" → 加 get_timing
 3. 跨领域复杂问题 → 用 get_bazi_star / get_ziwei_palace 精查
 4. "今日运势"类问题 → get_today_context
-5. 一次推演中工具调用 ≤ 4 次（避免无意义遍历）`;
+5. 一次推演中工具调用 ≤ 4 次（避免无意义遍历）
+6. 单一事件决策类问题（"该不该 X" / "会不会 Y" / "X 这件事的结果" / "她回我吗" / "明天面试结果"）→ 用 cast_liuyao
+7. 长期模式 / 时间节奏 / 性格画像 → 用命理工具（get_domain / get_timing 等）
+8. 收到 user_force_mode=liuyao 时强制走 cast_liuyao；收到 user_force_mode=mingli 时禁用 cast_liuyao`;
