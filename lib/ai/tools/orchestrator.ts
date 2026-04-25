@@ -1,8 +1,8 @@
 /**
  * AI 编排核心：单轮 LLM 调用 + 流式调用 helpers
  *
- * 当前只实现 OpenAI-compatible 协议（覆盖 OpenAI / DeepSeek / 多数自定义）。
- * Anthropic / Responses API 的 tool-use 适配后续 task 处理（如果需要）。
+ * 支持 OpenAI-compatible 协议 和 Responses API（Azure AI Foundry / GPT-5 系列）。
+ * Anthropic tool-use 适配后续 task 处理。
  */
 import { fetch as expoFetch } from 'expo/fetch';
 import type { ToolDefinition, ToolCall } from './types';
@@ -38,12 +38,67 @@ function buildAuthHeaders(config: ChatProviderConfig): Record<string, string> {
     : { Authorization: `Bearer ${config.apiKey}` };
 }
 
-/**
- * 单轮非流式调用：LLM 要么返回纯文本，要么返回 tool_calls
- *
- * 用于 thinker 阶段（multi-turn loop 的每一回合）
- */
-export async function callLLMWithTools(
+/** URL 以 /responses 结尾时走 Responses API */
+function isResponsesAPI(config: ChatProviderConfig): boolean {
+  return /\/responses\/?$/.test(config.baseUrl || '');
+}
+
+// ── Responses API 格式转换 ──────────────────────────────────────────────────
+
+/** OpenAI-shape ToolDefinition[] → Responses API flat tools format */
+function toResponsesTools(tools: ToolDefinition[]): any[] {
+  return tools.map(t => ({
+    type: 'function',
+    name: t.function.name,
+    description: t.function.description,
+    parameters: t.function.parameters,
+  }));
+}
+
+/** OpenAI-shape LLMMessage[] → Responses API input items */
+function toResponsesInput(messages: LLMMessage[]): any[] {
+  const out: any[] = [];
+  for (const m of messages) {
+    if (m.role === 'system' || m.role === 'user') {
+      out.push({
+        type: 'message',
+        role: m.role,
+        content: [{ type: 'input_text', text: m.content ?? '' }],
+      });
+    } else if (m.role === 'assistant') {
+      // 两种情况：纯文本 OR 含 tool_calls
+      if (m.tool_calls && m.tool_calls.length > 0) {
+        // 每个 tool_call 单独是一个 input item
+        for (const tc of m.tool_calls) {
+          out.push({
+            type: 'function_call',
+            call_id: tc.id,
+            name: tc.function.name,
+            arguments: tc.function.arguments,
+          });
+        }
+      }
+      if (m.content) {
+        out.push({
+          type: 'message',
+          role: 'assistant',
+          content: [{ type: 'output_text', text: m.content }],
+        });
+      }
+    } else if (m.role === 'tool') {
+      out.push({
+        type: 'function_call_output',
+        call_id: m.tool_call_id ?? '',
+        output: m.content ?? '',
+      });
+    }
+  }
+  return out;
+}
+
+// ── OpenAI-compatible 实现（file-local）──────────────────────────────────────
+
+async function callChatCompletionsWithTools(
   messages: LLMMessage[],
   config: ChatProviderConfig,
   tools: ToolDefinition[],
@@ -88,10 +143,7 @@ export async function callLLMWithTools(
   return { kind: 'text', text: msg.content ?? '' };
 }
 
-/**
- * 单轮流式调用（无工具），用于 interpreter 阶段
- */
-export async function callLLMStreaming(
+async function callChatCompletionsStreaming(
   messages: LLMMessage[],
   config: ChatProviderConfig,
   onChunk: (partial: string) => void,
@@ -142,6 +194,158 @@ export async function callLLMStreaming(
   }
 
   return full;
+}
+
+// ── Responses API 实现（file-local）─────────────────────────────────────────
+
+async function callResponsesAPIWithTools(
+  messages: LLMMessage[],
+  config: ChatProviderConfig,
+  tools: ToolDefinition[],
+  signal?: AbortSignal,
+): Promise<LLMResult> {
+  const url = config.baseUrl; // 直接用，已包含完整路径（以 /responses 结尾）
+  const body = {
+    model: config.model,
+    input: toResponsesInput(messages),
+    tools: toResponsesTools(tools),
+    tool_choice: 'auto',
+    stream: false,
+  };
+
+  const response = await expoFetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...buildAuthHeaders(config),
+    },
+    body: JSON.stringify(body),
+    signal,
+  });
+
+  if (!response.ok) {
+    throw new Error(`LLM error ${response.status}: ${await response.text()}`);
+  }
+
+  const data = await response.json();
+  const outputItems = data.output ?? [];
+
+  // 检查 function_call 项
+  const functionCalls = outputItems.filter((it: any) => it.type === 'function_call');
+  if (functionCalls.length > 0) {
+    return {
+      kind: 'tools',
+      calls: functionCalls.map((fc: any) => ({
+        id: fc.call_id,
+        name: fc.name,
+        arguments: safeJSON(fc.arguments),
+      })),
+    };
+  }
+
+  // 提取文本
+  let text = '';
+  for (const item of outputItems) {
+    if (item.type === 'message') {
+      for (const c of item.content ?? []) {
+        if (c.type === 'output_text' && typeof c.text === 'string') text += c.text;
+      }
+    }
+  }
+  return { kind: 'text', text };
+}
+
+async function callResponsesAPIStreaming(
+  messages: LLMMessage[],
+  config: ChatProviderConfig,
+  onChunk: (partial: string) => void,
+  signal?: AbortSignal,
+): Promise<string> {
+  const url = config.baseUrl;
+  const body = {
+    model: config.model,
+    input: toResponsesInput(messages),
+    stream: true,
+  };
+
+  const response = await expoFetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...buildAuthHeaders(config),
+    },
+    body: JSON.stringify(body),
+    signal,
+  });
+
+  if (!response.ok) {
+    throw new Error(`LLM error ${response.status}: ${await response.text()}`);
+  }
+
+  const reader = response.body?.getReader();
+  if (!reader) throw new Error('no body reader');
+
+  const decoder = new TextDecoder();
+  let full = '';
+  let buffer = '';
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split('\n');
+    buffer = lines.pop() ?? '';
+    for (const line of lines) {
+      const t = line.trim();
+      if (!t || !t.startsWith('data: ')) continue;
+      const dataStr = t.slice(6);
+      if (dataStr === '[DONE]') continue;
+      try {
+        const j = JSON.parse(dataStr);
+        // Responses API streaming 用 'response.output_text.delta'
+        if (j.type === 'response.output_text.delta' && typeof j.delta === 'string') {
+          full += j.delta;
+          onChunk(full);
+        }
+      } catch {}
+    }
+  }
+
+  return full;
+}
+
+// ── 公开入口：按 baseUrl 路由 ────────────────────────────────────────────────
+
+/**
+ * 单轮非流式调用：LLM 要么返回纯文本，要么返回 tool_calls
+ *
+ * 用于 thinker 阶段（multi-turn loop 的每一回合）
+ */
+export async function callLLMWithTools(
+  messages: LLMMessage[],
+  config: ChatProviderConfig,
+  tools: ToolDefinition[],
+  signal?: AbortSignal,
+): Promise<LLMResult> {
+  if (isResponsesAPI(config)) {
+    return callResponsesAPIWithTools(messages, config, tools, signal);
+  }
+  return callChatCompletionsWithTools(messages, config, tools, signal);
+}
+
+/**
+ * 单轮流式调用（无工具），用于 interpreter 阶段
+ */
+export async function callLLMStreaming(
+  messages: LLMMessage[],
+  config: ChatProviderConfig,
+  onChunk: (partial: string) => void,
+  signal?: AbortSignal,
+): Promise<string> {
+  if (isResponsesAPI(config)) {
+    return callResponsesAPIStreaming(messages, config, onChunk, signal);
+  }
+  return callChatCompletionsStreaming(messages, config, onChunk, signal);
 }
 
 function safeJSON(s: string): Record<string, unknown> {

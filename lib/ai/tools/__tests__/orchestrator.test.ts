@@ -75,3 +75,49 @@ describe('callLLMWithTools', () => {
     }
   });
 });
+
+describe('callLLMWithTools (Responses API path)', () => {
+  it('routes to Responses API when baseUrl ends with /responses, returns text', async () => {
+    (expoFetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        output: [
+          {
+            type: 'message',
+            role: 'assistant',
+            content: [{ type: 'output_text', text: 'hello from responses' }],
+          },
+        ],
+      }),
+    });
+    const r = await callLLMWithTools(
+      [{ role: 'user', content: 'hi' }],
+      { provider: 'custom', apiKey: 'k', model: 'gpt-5', baseUrl: 'https://x/responses' },
+      [],
+    );
+    expect(r.kind).toBe('text');
+    if (r.kind === 'text') expect(r.text).toBe('hello from responses');
+  });
+
+  it('routes to Responses API and returns toolCalls', async () => {
+    (expoFetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        output: [
+          { type: 'function_call', call_id: 'c1', name: 'echo', arguments: '{"x":1}' },
+        ],
+      }),
+    });
+    const r = await callLLMWithTools(
+      [{ role: 'user', content: 'hi' }],
+      { provider: 'custom', apiKey: 'k', model: 'gpt-5', baseUrl: 'https://x/responses' },
+      [{ type: 'function', function: { name: 'echo', description: '', parameters: { type: 'object', properties: {} } } }],
+    );
+    expect(r.kind).toBe('tools');
+    if (r.kind === 'tools') {
+      expect(r.calls).toHaveLength(1);
+      expect(r.calls[0].name).toBe('echo');
+      expect(r.calls[0].arguments).toEqual({ x: 1 });
+    }
+  });
+});
