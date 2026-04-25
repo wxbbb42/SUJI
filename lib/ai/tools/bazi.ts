@@ -4,6 +4,8 @@
  * 4 个工具：get_bazi_star, list_shensha, get_timing, get_today_context
  */
 import type { ToolDefinition, ToolHandler } from './types';
+import { DayunEngine } from '@/lib/bazi/DayunEngine';
+import type { MingPan } from '@/lib/bazi/types';
 
 export const baziTools: ToolDefinition[] = [
   {
@@ -142,21 +144,43 @@ export const baziHandlers: Record<string, ToolHandler> = {
     }
 
     if (scope === 'liunian') {
-      const [start, end] = (yearRange as number[] | undefined) ?? [now.getFullYear(), now.getFullYear() + 5];
-      const data = [];
-      for (let y = start; y <= end; y++) {
-        data.push({ year: y, ganZhi: yearToGanZhi(y) });
+      const [start, end] = (yearRange as number[] | undefined)
+        ?? [now.getFullYear(), now.getFullYear() + 5];
+      // 用 DayunEngine 算流年（含十神 + 与命盘的冲合刑害互动），而非简化干支轮转
+      try {
+        const engine = new DayunEngine(mingPan as MingPan);
+        const data = [];
+        for (let y = start; y <= end; y++) {
+          const ln = engine.getCurrentLiuNian(y);
+          data.push({
+            year: ln.year,
+            ganZhi: `${ln.ganZhi.gan}${ln.ganZhi.zhi}`,
+            shiShen: ln.shiShen,
+            interactions: ln.interactions,
+          });
+        }
+        return { scope, data };
+      } catch (e: any) {
+        return { scope, error: `liunian_compute_failed: ${e?.message ?? e}` };
       }
-      return { scope, data };
     }
 
     if (scope === 'liuyue') {
       const y = (year as number | undefined) ?? now.getFullYear();
-      const data = [];
-      for (let m = 1; m <= 12; m++) {
-        data.push({ month: m, ganZhi: monthToGanZhi(y, m) });
+      // 用 DayunEngine 算流月
+      try {
+        const engine = new DayunEngine(mingPan as MingPan);
+        const liuyueList = engine.getLiuYue(y);
+        const data = liuyueList.map(ly => ({
+          month: ly.month,
+          ganZhi: `${ly.ganZhi.gan}${ly.ganZhi.zhi}`,
+          shiShen: ly.shiShen,
+          zhiShiShen: ly.zhiShiShen,
+        }));
+        return { scope, year: y, data };
+      } catch (e: any) {
+        return { scope, year: y, error: `liuyue_compute_failed: ${e?.message ?? e}` };
       }
-      return { scope, year: y, data };
     }
 
     return { scope, error: 'unknown scope' };
