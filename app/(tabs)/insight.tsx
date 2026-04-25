@@ -18,10 +18,14 @@ import { useRouter } from 'expo-router';
 import { Colors, Space, Radius, Type, Shadow, Motion, Size } from '@/lib/design/tokens';
 import { useUserStore } from '@/lib/store/userStore';
 import { useChatStore } from '@/lib/store/chatStore';
-import { getChatConfig, sendChat } from '@/lib/ai/chat';
+import { getChatConfig, sendOrchestrated } from '@/lib/ai/chat';
 import type { ChatMessage } from '@/lib/ai';
 import { StreamCursor } from '@/components/ai/StreamCursor';
 import { RichContent } from '@/components/ai/RichContent';
+import { CoTCard, type ToolCallTrace } from '@/components/ai/CoTCard';
+import { EvidenceCard } from '@/components/ai/EvidenceCard';
+import { FullReasoningSheet } from '@/components/ai/FullReasoningSheet';
+import { splitOrchestrationOutput } from '@/components/ai/customRules/preprocessOrchestration';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -37,6 +41,17 @@ export default function InsightScreen() {
   const [loading, setLoading] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
 
+  // 当次发送的"实时"流式状态
+  const [liveToolCalls, setLiveToolCalls] = useState<ToolCallTrace[]>([]);
+  const [liveThinker, setLiveThinker] = useState('');
+
+  // 详情 BottomSheet 状态
+  const [sheetData, setSheetData] = useState<null | {
+    thinker: string;
+    evidence: string[];
+    toolCalls: ToolCallTrace[];
+  }>(null);
+
   const config = getChatConfig(store);
 
   // 发送
@@ -45,26 +60,55 @@ export default function InsightScreen() {
     if (!text || !config || loading) return;
 
     const userMsg: ChatMessage = { role: 'user', content: text, timestamp: Date.now() };
-    const newMessages = [...messages, userMsg];
     addMessage(userMsg);
     setMessage('');
     setLoading(true);
     setStreamingText('');
+    setLiveToolCalls([]);
+    setLiveThinker('');
     const abortController = new AbortController();
     abortRef.current = abortController;
 
+    // 本地累计 tool calls（避免 React state 在 closure 里 stale）
+    const localToolCalls: ToolCallTrace[] = [];
+
     try {
-      const fullText = await sendChat(
-        newMessages, config, store.mingPanCache,
-        (partial) => {
+      const result = await sendOrchestrated({
+        question: text,
+        config,
+        mingPanJson: store.mingPanCache,
+        ziweiPanJson: store.ziweiPanCache,
+        onToolCall: (call, res) => {
+          const trace: ToolCallTrace = {
+            name: call.name,
+            argSummary: summarizeArgs(call.arguments),
+            resultSummary: summarizeResult(res),
+          };
+          localToolCalls.push(trace);
+          setLiveToolCalls(prev => [...prev, trace]);
+        },
+        onThinkerComplete: (t) => setLiveThinker(t),
+        onChunk: (partial) => {
           setStreamingText(partial);
           setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 50);
         },
-        abortController.signal,
-      );
-      const assistantMsg: ChatMessage = { role: 'assistant', content: fullText, timestamp: Date.now() };
+        signal: abortController.signal,
+      });
+
+      const assistantMsg: ChatMessage = {
+        role: 'assistant',
+        content: result.interpreter,
+        timestamp: Date.now(),
+        orchestration: {
+          thinker: result.thinker,
+          evidence: splitOrchestrationOutput(result.interpreter).evidence,
+          toolCalls: localToolCalls,
+        },
+      };
       addMessage(assistantMsg);
       setStreamingText('');
+      setLiveToolCalls([]);
+      setLiveThinker('');
     } catch (err: any) {
       const errorMsg: ChatMessage = {
         role: 'assistant',
@@ -73,11 +117,13 @@ export default function InsightScreen() {
       };
       addMessage(errorMsg);
       setStreamingText('');
+      setLiveToolCalls([]);
+      setLiveThinker('');
     } finally {
       setLoading(false);
       abortRef.current = null;
     }
-  }, [message, messages, config, loading, store.mingPanCache, addMessage]);
+  }, [message, config, loading, store.mingPanCache, store.ziweiPanCache, addMessage]);
 
   const handleStop = useCallback(() => {
     abortRef.current?.abort();
@@ -148,28 +194,79 @@ export default function InsightScreen() {
         {messages.map((msg, i) => (
           msg.role === 'user' ? (
             <View key={i} style={styles.userRow}>
-              <View style={[styles.userBubble, Shadow.sm]}>
+              <View key={i} style={[styles.userBubble, Shadow.sm]}>
                 <Text style={styles.userText}>{msg.content}</Text>
               </View>
             </View>
           ) : (
             <View key={i} style={[styles.aiBubble, Shadow.sm]}>
               <Text style={styles.aiName}>岁吉</Text>
-              <RichContent content={msg.content} />
+
+              {msg.orchestration && (
+                <CoTCard
+                  toolCalls={msg.orchestration.toolCalls}
+                  thinkerText={msg.orchestration.thinker}
+                  isStreaming={false}
+                />
+              )}
+
+              <RichContent content={
+                msg.orchestration
+                  ? splitOrchestrationOutput(msg.content).interpretation
+                  : msg.content
+              } />
+
+              {msg.orchestration && msg.orchestration.evidence.length > 0 && (
+                <EvidenceCard
+                  evidence={msg.orchestration.evidence}
+                  onTapFull={() => setSheetData({
+                    thinker: msg.orchestration!.thinker,
+                    evidence: msg.orchestration!.evidence,
+                    toolCalls: msg.orchestration!.toolCalls,
+                  })}
+                />
+              )}
             </View>
           )
         ))}
 
         {/* 流式 */}
-        {streamingText ? (
+        {(streamingText || liveToolCalls.length > 0) ? (
           <View style={[styles.aiBubble, Shadow.sm]}>
             <Text style={styles.aiName}>岁吉</Text>
-            <RichContent content={streamingText} />
-            <StreamCursor />
+
+            <CoTCard
+              toolCalls={liveToolCalls}
+              thinkerText={liveThinker}
+              isStreaming={true}
+            />
+
+            {streamingText && (
+              <>
+                <RichContent content={
+                  splitOrchestrationOutput(streamingText).interpretation
+                } />
+                <StreamCursor />
+              </>
+            )}
+
+            {streamingText && (() => {
+              const evid = splitOrchestrationOutput(streamingText).evidence;
+              return evid.length > 0 ? (
+                <EvidenceCard
+                  evidence={evid}
+                  onTapFull={() => setSheetData({
+                    thinker: liveThinker,
+                    evidence: evid,
+                    toolCalls: liveToolCalls,
+                  })}
+                />
+              ) : null;
+            })()}
           </View>
         ) : null}
 
-        {loading && !streamingText && (
+        {loading && !streamingText && liveToolCalls.length === 0 && (
           <View style={styles.loadingRow}>
             <View style={styles.loadingDots}>
               <View style={[styles.loadingDot, { opacity: 0.4 }]} />
@@ -201,6 +298,14 @@ export default function InsightScreen() {
           />
         </View>
       </View>
+
+      <FullReasoningSheet
+        visible={sheetData !== null}
+        evidence={sheetData?.evidence ?? []}
+        thinkerText={sheetData?.thinker ?? ''}
+        toolCalls={sheetData?.toolCalls ?? []}
+        onClose={() => setSheetData(null)}
+      />
     </KeyboardAvoidingView>
   );
 }
@@ -240,6 +345,18 @@ function SendOrStopButton({
       </Text>
     </AnimatedPressable>
   );
+}
+
+function summarizeArgs(args: Record<string, unknown>): string {
+  return Object.entries(args).map(([k, v]) => `${k}=${v}`).join(', ');
+}
+
+function summarizeResult(r: any): string {
+  if (!r) return '';
+  if (typeof r === 'string') return r.length > 30 ? r.slice(0, 30) + '…' : r;
+  if (r.summary) return r.summary;
+  if (r.error) return `error:${r.error}`;
+  return JSON.stringify(r).slice(0, 30) + '…';
 }
 
 const styles = StyleSheet.create({

@@ -66,4 +66,14 @@ export interface ChatMessage {
   role: 'user' | 'assistant';
   content: string;
   timestamp: number;
+  /** 仅 assistant 消息：编排输出附带的数据 */
+  orchestration?: {
+    thinker: string;
+    evidence: string[];
+    toolCalls: Array<{
+      name: string;
+      argSummary: string;
+      resultSummary?: string;
+    }>;
+  };
 }
