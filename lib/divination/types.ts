@@ -51,7 +51,7 @@ export interface YongShenAnalysis {
   type: LiuQin;
   yaoIndex: number;         // 1-6
   wuXing: WuXing;
-  state: '旺' | '相' | '休' | '囚' | '死';
+  state: '旺' | '相' | '休' | '囚' | '死' | '不上卦';
   interactions: string[];
 }
 

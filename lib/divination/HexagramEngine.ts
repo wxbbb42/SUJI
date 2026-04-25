@@ -10,7 +10,7 @@ import type {
   YingQiAnalysis, QuestionType,
 } from './types';
 import { findGuaByYao } from './data/gua64';
-import { liuQinForGua, PALACE_YAO_WUXING } from './data/liuqin';
+import { liuQinForGua, yaoWuXingForGua } from './data/liuqin';
 
 export class HexagramEngine {
   cast(opts: CastOptions): HexagramReading {
@@ -88,15 +88,31 @@ export class HexagramEngine {
       default: target = '官鬼';
     }
 
-    let yaoIndex: 1|2|3|4|5|6 = 1;
-    for (let i = 1 as 1|2|3|4|5|6; i <= 6; i = (i + 1) as 1|2|3|4|5|6) {
-      if (liuQin[i] === target) { yaoIndex = i; break; }
+    // 在 6 爻里找用神
+    let yaoIndex: 1|2|3|4|5|6 | null = null;
+    for (let i = 1; i <= 6; i++) {
+      if (liuQin[i as 1|2|3|4|5|6] === target) {
+        yaoIndex = i as 1|2|3|4|5|6;
+        break;
+      }
     }
 
+    // 用神不上卦的处理
+    if (yaoIndex === null) {
+      return {
+        type: target,
+        yaoIndex: 0,            // 0 表示不上卦
+        wuXing: '土',           // 占位（实际不会用）
+        state: '不上卦',
+        interactions: ['用神不在卦中（伏神）'],
+      };
+    }
+
+    const yaoWuXing = yaoWuXingForGua(gua);
     return {
       type: target,
       yaoIndex,
-      wuXing: PALACE_YAO_WUXING[gua.palace][yaoIndex - 1],
+      wuXing: yaoWuXing[yaoIndex - 1],
       state: '相', // MVP 用相代默认；Phase 2.5 改为月令推算
       interactions: [],
     };
@@ -104,6 +120,13 @@ export class HexagramEngine {
 
   /** 应期：用神五行 → 对应地支 → 描述（MVP 用模糊语言） */
   private computeYingQi(yongShen: YongShenAnalysis, castTime: Date): YingQiAnalysis {
+    if (yongShen.state === '不上卦') {
+      return {
+        description: '用神不上卦，应期难定',
+        factors: [`用神 ${yongShen.type} 未在 6 爻中显现`],
+      };
+    }
+
     const wxToZhi: Record<string, string> = {
       金: '申酉日或申酉月',
       木: '寅卯日或寅卯月',
