@@ -14,6 +14,7 @@ import Animated, {
   useSharedValue, useAnimatedStyle, withSpring,
 } from 'react-native-reanimated';
 import { useRouter } from 'expo-router';
+import Constants from 'expo-constants';
 import { Colors, Space, Radius, Type, Shadow, Motion, Size } from '@/lib/design/tokens';
 import { useUserStore } from '@/lib/store/userStore';
 import { useAuthStore } from '@/lib/store/authStore';
@@ -190,7 +191,10 @@ export default function SettingsScreen() {
         </Pressable>
       </View>
 
-      <Text style={styles.version}>岁吉 v1.0.0</Text>
+      <Text style={styles.version}>
+        岁吉 v{Constants.expoConfig?.version ?? '?'}
+        {process.env.EXPO_PUBLIC_BUILD_SHA ? ` · ${process.env.EXPO_PUBLIC_BUILD_SHA}` : ' · dev'}
+      </Text>
     </ScrollView>
   );
 }
