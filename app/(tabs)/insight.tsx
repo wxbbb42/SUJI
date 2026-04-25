@@ -18,7 +18,7 @@ import { useRouter } from 'expo-router';
 import { Colors, Space, Radius, Type, Shadow, Motion, Size } from '@/lib/design/tokens';
 import { useUserStore } from '@/lib/store/userStore';
 import { useChatStore } from '@/lib/store/chatStore';
-import { getChatConfig, sendOrchestrated } from '@/lib/ai/chat';
+import { getChatConfig, sendOrchestrated, sendChat } from '@/lib/ai/chat';
 import type { ChatMessage } from '@/lib/ai';
 import { StreamCursor } from '@/components/ai/StreamCursor';
 import { RichContent } from '@/components/ai/RichContent';
@@ -73,39 +73,66 @@ export default function InsightScreen() {
     const localToolCalls: ToolCallTrace[] = [];
 
     try {
-      const result = await sendOrchestrated({
-        question: text,
-        config,
-        mingPanJson: store.mingPanCache,
-        ziweiPanJson: store.ziweiPanCache,
-        onToolCall: (call, res) => {
-          const trace: ToolCallTrace = {
-            name: call.name,
-            argSummary: summarizeArgs(call.arguments),
-            resultSummary: summarizeResult(res),
-          };
-          localToolCalls.push(trace);
-          setLiveToolCalls(prev => [...prev, trace]);
-        },
-        onThinkerComplete: (t) => setLiveThinker(t),
-        onChunk: (partial) => {
-          setStreamingText(partial);
-          setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 50);
-        },
-        signal: abortController.signal,
-      });
+      // 没命盘 OR 非 OpenAI 兼容 provider → fallback 到旧 sendChat（无工具，无双段）
+      const useOrchestration =
+        store.mingPanCache !== null
+        && config.provider !== 'anthropic'
+        && !/\/responses\/?$/.test(config.baseUrl ?? '');
 
-      const assistantMsg: ChatMessage = {
-        role: 'assistant',
-        content: result.interpreter,
-        timestamp: Date.now(),
-        orchestration: {
-          thinker: result.thinker,
-          evidence: splitOrchestrationOutput(result.interpreter).evidence,
-          toolCalls: localToolCalls,
-        },
-      };
-      addMessage(assistantMsg);
+      if (useOrchestration) {
+        const result = await sendOrchestrated({
+          question: text,
+          config,
+          mingPanJson: store.mingPanCache,
+          ziweiPanJson: store.ziweiPanCache,
+          onToolCall: (call, res) => {
+            const trace: ToolCallTrace = {
+              name: call.name,
+              argSummary: summarizeArgs(call.arguments),
+              resultSummary: summarizeResult(res),
+            };
+            localToolCalls.push(trace);
+            setLiveToolCalls(prev => [...prev, trace]);
+          },
+          onThinkerComplete: (t) => setLiveThinker(t),
+          onChunk: (partial) => {
+            setStreamingText(partial);
+            setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 50);
+          },
+          signal: abortController.signal,
+        });
+
+        const assistantMsg: ChatMessage = {
+          role: 'assistant',
+          content: result.interpreter,
+          timestamp: Date.now(),
+          orchestration: {
+            thinker: result.thinker,
+            evidence: splitOrchestrationOutput(result.interpreter).evidence,
+            toolCalls: localToolCalls,
+          },
+        };
+        addMessage(assistantMsg);
+      } else {
+        // Fallback：旧 sendChat 路径（流式但无工具、无双段输出）
+        const fullText = await sendChat(
+          [...messages, userMsg],
+          config,
+          store.mingPanCache,
+          (partial) => {
+            setStreamingText(partial);
+            setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 50);
+          },
+          abortController.signal,
+        );
+        const assistantMsg: ChatMessage = {
+          role: 'assistant',
+          content: fullText,
+          timestamp: Date.now(),
+        };
+        addMessage(assistantMsg);
+      }
+
       setStreamingText('');
       setLiveToolCalls([]);
       setLiveThinker('');
