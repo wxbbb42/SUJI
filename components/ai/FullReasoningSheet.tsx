@@ -8,17 +8,20 @@ import { Modal, View, Text, Pressable, ScrollView, StyleSheet } from 'react-nati
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Space, Radius, Type, Shadow } from '@/lib/design/tokens';
 import type { ToolCallTrace } from './CoTCard';
+import { FullChart9 } from '@/components/qimen/FullChart9';
+import type { QimenChart } from '@/lib/qimen/types';
 
 type Props = {
   visible: boolean;
   evidence: string[];
   thinkerText: string;
   toolCalls: ToolCallTrace[];
+  qimenChart?: QimenChart | null;
   onClose: () => void;
 };
 
 export function FullReasoningSheet({
-  visible, evidence, thinkerText, toolCalls, onClose,
+  visible, evidence, thinkerText, toolCalls, qimenChart, onClose,
 }: Props) {
   const insets = useSafeAreaInsets();
 
@@ -45,6 +48,22 @@ export function FullReasoningSheet({
             <Section label="你的命盘要点">
               {evidence.map((line, i) => (
                 <Text key={i} style={styles.line}>{line}</Text>
+              ))}
+            </Section>
+          )}
+
+          {qimenChart && (
+            <Section label="完整 9 宫盘">
+              <FullChart9 chart={qimenChart} />
+            </Section>
+          )}
+
+          {qimenChart && qimenChart.geJu.length > 0 && (
+            <Section label="格局">
+              {qimenChart.geJu.map((g, i) => (
+                <Text key={i} style={styles.line}>
+                  · {g.name}（{g.type}）—— {g.description}
+                </Text>
               ))}
             </Section>
           )}

@@ -32,6 +32,10 @@ import { ModeChip } from '@/components/chat/ModeChip';
 import { HexagramAnimation } from '@/components/divination/HexagramAnimation';
 import { HexagramDisplay } from '@/components/divination/HexagramDisplay';
 import type { HexagramReading } from '@/lib/divination/types';
+import { QimenSetupAnimation } from '@/components/qimen/QimenSetupAnimation';
+import { YongShenPalaceCard } from '@/components/qimen/YongShenPalaceCard';
+import { AdjacentPalaceTags } from '@/components/qimen/AdjacentPalaceTags';
+import type { QimenChart } from '@/lib/qimen/types';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -52,6 +56,8 @@ export default function InsightScreen() {
 
   // 当次发送的实时卦象（流式中的 cast 完成后填）
   const [liveHexagram, setLiveHexagram] = useState<HexagramReading | null>(null);
+  // 当次发送的实时奇门盘（setup_qimen 完成后填）
+  const [liveQimenChart, setLiveQimenChart] = useState<QimenChart | null>(null);
 
   // 当次发送的"实时"流式状态
   const [liveToolCalls, setLiveToolCalls] = useState<ToolCallTrace[]>([]);
@@ -62,6 +68,8 @@ export default function InsightScreen() {
     thinker: string;
     evidence: string[];
     toolCalls: ToolCallTrace[];
+    hexagram?: HexagramReading | null;
+    qimenChart?: QimenChart | null;
   }>(null);
 
   const config = getChatConfig(store);
@@ -79,6 +87,7 @@ export default function InsightScreen() {
     setLiveToolCalls([]);
     setLiveThinker('');
     setLiveHexagram(null);
+    setLiveQimenChart(null);
     const abortController = new AbortController();
     abortRef.current = abortController;
 
@@ -89,6 +98,7 @@ export default function InsightScreen() {
                     : chatMode === 'mingli' ? 'mingli'
                     : undefined;
     let localHexagram: HexagramReading | null = null;
+    let localQimenChart: QimenChart | null = null;
 
     try {
       // 没命盘 OR Anthropic provider → fallback 到旧 sendChat（无工具，无双段）
@@ -119,6 +129,12 @@ export default function InsightScreen() {
               localHexagram = res as HexagramReading;
               setLiveHexagram(localHexagram);
             }
+
+            // 起奇门盘工具：捕获奇门盘
+            if (call.name === 'setup_qimen' && !(res as any)?.error) {
+              localQimenChart = res as QimenChart;
+              setLiveQimenChart(localQimenChart);
+            }
           },
           onThinkerComplete: (t) => setLiveThinker(t),
           onChunk: (partial) => {
@@ -137,6 +153,7 @@ export default function InsightScreen() {
             evidence: splitOrchestrationOutput(result.interpreter).evidence,
             toolCalls: localToolCalls,
             hexagram: localHexagram,
+            qimenChart: localQimenChart,
           },
         };
         addMessage(assistantMsg);
@@ -164,6 +181,7 @@ export default function InsightScreen() {
       setLiveToolCalls([]);
       setLiveThinker('');
       setLiveHexagram(null);
+      setLiveQimenChart(null);
       setChatMode('auto');
     } catch (err: any) {
       // 用户主动停止 → 已到达的 streamingText / 推演保留为空消息或丢弃，不显示错误
@@ -179,6 +197,7 @@ export default function InsightScreen() {
       setLiveToolCalls([]);
       setLiveThinker('');
       setLiveHexagram(null);
+      setLiveQimenChart(null);
       setChatMode('auto');
     } finally {
       setLoading(false);
@@ -279,6 +298,16 @@ export default function InsightScreen() {
                 />
               )}
 
+              {msg.orchestration?.qimenChart && (
+                <>
+                  <YongShenPalaceCard
+                    palace={msg.orchestration.qimenChart.palaces[msg.orchestration.qimenChart.yongShen.palaceId - 1]}
+                    yongShen={msg.orchestration.qimenChart.yongShen}
+                  />
+                  <AdjacentPalaceTags chart={msg.orchestration.qimenChart} />
+                </>
+              )}
+
               <RichContent content={
                 msg.orchestration
                   ? splitOrchestrationOutput(msg.content).interpretation
@@ -292,6 +321,8 @@ export default function InsightScreen() {
                     thinker: msg.orchestration!.thinker,
                     evidence: msg.orchestration!.evidence,
                     toolCalls: msg.orchestration!.toolCalls,
+                    hexagram: msg.orchestration!.hexagram,
+                    qimenChart: msg.orchestration!.qimenChart,
                   })}
                 />
               )}
@@ -318,6 +349,17 @@ export default function InsightScreen() {
               />
             )}
 
+            {liveQimenChart && (
+              <>
+                <QimenSetupAnimation chart={liveQimenChart} />
+                <YongShenPalaceCard
+                  palace={liveQimenChart.palaces[liveQimenChart.yongShen.palaceId - 1]}
+                  yongShen={liveQimenChart.yongShen}
+                />
+                <AdjacentPalaceTags chart={liveQimenChart} />
+              </>
+            )}
+
             {streamingText && (
               <>
                 <RichContent content={
@@ -336,6 +378,8 @@ export default function InsightScreen() {
                     thinker: liveThinker,
                     evidence: evid,
                     toolCalls: liveToolCalls,
+                    hexagram: liveHexagram,
+                    qimenChart: liveQimenChart,
                   })}
                 />
               ) : null;
@@ -396,6 +440,7 @@ export default function InsightScreen() {
         evidence={sheetData?.evidence ?? []}
         thinkerText={sheetData?.thinker ?? ''}
         toolCalls={sheetData?.toolCalls ?? []}
+        qimenChart={sheetData?.qimenChart ?? null}
         onClose={() => setSheetData(null)}
       />
 
@@ -535,6 +580,10 @@ function narrateTool(
 
   if (name === 'cast_liuyao') {
     return '三币六掷，为你起一卦' + tail;
+  }
+
+  if (name === 'setup_qimen') {
+    return '布盘九宫，定准时辰' + tail;
   }
 
   return name + tail;
