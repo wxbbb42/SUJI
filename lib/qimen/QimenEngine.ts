@@ -4,13 +4,15 @@
  * - 真太阳时校正
  * - lunisolar 节气计算
  * - 阴/阳遁 + 上中下元定局
- * - 起 9 宫地盘 + 旋天盘 + 排八门 / 九星 / 八神
+ * - 起 9 宫地盘（自然数序流转）+ 真旋天盘 + 排八门 / 九星 / 八神
  *
- * MVP 简化（spec ADR-7）：
- * - 上中下元用日干索引近似（不查节气甲子日）
- * - 时干用 day+hour 近似（不严格五子遁）
- * - 天盘干 = 地盘干（不旋）
- * - 用神 / 应期 T5 任务替换为完整版本
+ * 关键修复（2026-04-26，原 ADR-7 关停项）：
+ *   C1：真旋天盘 — 见 helpers/tianPan.ts
+ *   C2：三奇六仪按自然数序流转（非后天八卦顺时针）— 见 helpers/diPan.ts
+ *
+ * 仍简化的项（标 TODO）：
+ *   - 上中下元用日干索引近似（未严格按"节气交接日的甲子日"算上元起点）
+ *   - 用神 / 应期为 MVP 简化
  */
 import lunisolar from 'lunisolar';
 import { toTrueSolarTime } from '@/lib/bazi/TrueSolarTime';
@@ -26,24 +28,9 @@ import { BASHEN_ORDER } from './data/bashen';
 import { findJieqiJu } from './data/jieqi-ju';
 import { YONGSHEN_RULES } from './data/yongshen-rules';
 import { detectGeJu } from './data/geju';
-
-const TIANGAN_LIST: TianGan[] = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
-
-/** 三奇六仪顺序（戊→己→庚→辛→壬→癸→丁→丙→乙） */
-const SAN_QI_LIU_YI_ORDER: TianGan[] = ['戊','己','庚','辛','壬','癸','丁','丙','乙'];
-
-/** 阳遁戊起宫位（局数 → 宫 ID） */
-const YANG_DUN_WU_QI_PALACE: Record<JuNumber, 1|2|3|4|5|6|7|8|9> = {
-  1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9,
-};
-
-/** 阴遁戊起宫位（局数 → 宫 ID）：阳遁的镜像 */
-const YIN_DUN_WU_QI_PALACE: Record<JuNumber, 1|2|3|4|5|6|7|8|9> = {
-  1: 9, 2: 8, 3: 7, 4: 6, 5: 5, 6: 4, 7: 3, 8: 2, 9: 1,
-};
-
-/** 9 宫顺时针排列（用于排八门 / 八神 旋转）：坎→艮→震→巽→离→坤→兑→乾（不含中宫） */
-const PALACE_CLOCKWISE: number[] = [1, 8, 3, 4, 9, 2, 7, 6];
+import { buildDiPan } from './helpers/diPan';
+import { rotateTianPan, computeXunShou, PALACE_CLOCKWISE_8 } from './helpers/tianPan';
+import { computeTimePillars } from './helpers/timeGanZhi';
 
 /** lunisolar 默认输出繁体字节气名 → JIEQI_JU 表使用的简体字 */
 const TRAD_TO_SIMP_JIEQI: Record<string, string> = {
@@ -84,21 +71,25 @@ export class QimenEngine {
                                 yuan === '中' ? jieqiJu.middle :
                                 jieqiJu.lower;
 
-    // 4. 起 9 宫地盘干（按局数 + 阴阳遁定戊起宫）
-    const diPan = this.buildDiPan(yinYangDun, juNumber);
+    // 4. 起 9 宫地盘干（自然数序流转）
+    const diPan = buildDiPan(yinYangDun, juNumber);
 
-    // 5. 旋天盘（MVP 简化：天盘 = 地盘）
-    const timeGan = this.computeTimeGan(trueSolar);
-    const tianPan = new Map(diPan);
+    // 5. 计算时干 / 旬首
+    const pillars = computeTimePillars(trueSolar);
+    const timeGan = pillars.hourGan;
+    const xunShou = computeXunShou(pillars.hourGan, pillars.hourZhi);
 
-    // 6. 排八门 / 九星 / 八神
-    const palaces = this.buildPalaces(diPan, tianPan, timeGan, yinYangDun);
+    // 6. 旋天盘
+    const { tianPan, tianJiuxing, zhiFuPalaceId } = rotateTianPan(diPan, xunShou, timeGan, yinYangDun);
 
-    // 7. 用神 + 应期（按 questionType 选用神，辅看门 / 神 / 星）
+    // 7. 排八门 / 九星 / 八神
+    const palaces = this.buildPalaces(diPan, tianPan, tianJiuxing, zhiFuPalaceId, yinYangDun);
+
+    // 8. 用神 + 应期
     const yongShen = this.selectYongShen(opts.questionType, opts.gender, palaces, timeGan);
     const yingQi = this.computeYingQi(yongShen);
 
-    // 8. 格局识别（51 个 MVP）
+    // 9. 格局识别
     const partialChart: QimenChart = {
       question: opts.question,
       questionType: opts.questionType,
@@ -176,8 +167,6 @@ export class QimenEngine {
         factors: ['用神未在 9 宫显现'],
       };
     }
-
-    // MVP 简化：基于用神宫位 + 临门倾向
     return {
       description: '约 1-3 个月内见分晓',
       factors: [`用神：${yongShen.summary}`],
@@ -210,11 +199,9 @@ export class QimenEngine {
           return TRAD_TO_SIMP_JIEQI[JIEQI_INDEX_ORDER[idx]] ?? JIEQI_INDEX_ORDER[idx];
         }
       } else {
-        // 当前回溯月：节气覆盖到月底，使用第二个节气
         const idx = ((month - 1) * 2 + 1) % 24;
         return TRAD_TO_SIMP_JIEQI[JIEQI_INDEX_ORDER[idx]] ?? JIEQI_INDEX_ORDER[idx];
       }
-      // 回溯一个月
       month--;
       if (month < 1) {
         month = 12;
@@ -233,89 +220,34 @@ export class QimenEngine {
     return '下';
   }
 
-  /** 计算时干（MVP 简化：用 day+hour 近似） */
-  private computeTimeGan(time: Date): TianGan {
-    const day = Math.floor(time.getTime() / 86400000);
-    const hour = time.getHours();
-    const idx = (((day * 12 + Math.floor((hour + 1) / 2)) % 10) + 10) % 10;
-    return TIANGAN_LIST[idx];
-  }
-
-  /** 起 9 宫地盘：戊起对应宫，三奇六仪顺序填入 */
-  private buildDiPan(dun: YinYangDun, ju: JuNumber): Map<number, TianGan> {
-    const startPalaceId = dun === '阳' ? YANG_DUN_WU_QI_PALACE[ju] : YIN_DUN_WU_QI_PALACE[ju];
-    const result = new Map<number, TianGan>();
-
-    // 顺时针 / 逆时针 sequence（中宫跳过）
-    const sequence: number[] = dun === '阳'
-      ? [...PALACE_CLOCKWISE]
-      : [...PALACE_CLOCKWISE].reverse();
-
-    const startIdx = sequence.indexOf(startPalaceId);
-    if (startIdx < 0) {
-      // 5 局：戊寄到中宫，剩余从坤/艮起
-      result.set(5, '戊');
-      const fallbackStart = dun === '阳' ? 2 : 8;
-      const fallbackIdx = sequence.indexOf(fallbackStart);
-      for (let i = 1; i < 8; i++) {
-        const pid = sequence[(fallbackIdx + i - 1) % 8];
-        result.set(pid, SAN_QI_LIU_YI_ORDER[i]);
-      }
-      // 最后乙寄回
-      result.set(sequence[(fallbackIdx + 7) % 8], SAN_QI_LIU_YI_ORDER[8]);
-      return result;
-    }
-
-    // 标准情况：戊起 startPalaceId，依次填三奇六仪
-    for (let i = 0; i < 8; i++) {
-      const pid = sequence[(startIdx + i) % 8];
-      result.set(pid, SAN_QI_LIU_YI_ORDER[i]);
-    }
-    // 中宫填 SAN_QI_LIU_YI_ORDER[8] = 乙
-    result.set(5, SAN_QI_LIU_YI_ORDER[8]);
-    return result;
-  }
-
   /** 排八门 / 九星 / 八神 */
   private buildPalaces(
     diPan: Map<number, TianGan>,
     tianPan: Map<number, TianGan>,
-    timeGan: TianGan,
+    tianJiuxing: Map<number, JiuxingName>,
+    zhiFuPalaceId: number,
     dun: YinYangDun,
   ): Palace[] {
-    // 直符宫 = 时干所在宫；若时干未上卦（如戊不在外宫），降级到坎宫
-    const zhiFuEntry = [...diPan.entries()].find(([pid, g]) => g === timeGan && pid !== 5);
-    let zhiFuPalaceId = zhiFuEntry?.[0] ?? 1;
-    if (!PALACE_CLOCKWISE.includes(zhiFuPalaceId)) {
-      zhiFuPalaceId = 1;
-    }
+    // 直符宫已由 rotateTianPan 算出（= 时干所在地盘宫）。
+    // 若直符宫落中 5（时干未上卦边缘场景），降级到坎宫。
+    let zhiFuOuter = PALACE_CLOCKWISE_8.includes(zhiFuPalaceId) ? zhiFuPalaceId : 1;
 
-    // 八门起点：开门起直符宫
-    const menSequence = dun === '阳' ? [...PALACE_CLOCKWISE] : [...PALACE_CLOCKWISE].reverse();
-    const zhiFuIdxInMen = menSequence.indexOf(zhiFuPalaceId);
+    // 八门起点：开门起直符宫，阳遁顺时针、阴遁逆时针
+    const menSequence = dun === '阳' ? [...PALACE_CLOCKWISE_8] : [...PALACE_CLOCKWISE_8].reverse();
+    const zhiFuIdxInMen = menSequence.indexOf(zhiFuOuter);
     const bamenMap = new Map<number, BamenName>();
-    if (zhiFuIdxInMen >= 0) {
-      for (let i = 0; i < 8; i++) {
-        const pid = menSequence[(zhiFuIdxInMen + i) % 8];
-        bamenMap.set(pid, BAMEN_ORDER[i]);
-      }
-    }
-
-    // 九星：地盘九星固定（spec §3.7.6）
-    const jiuxingMap = new Map<number, JiuxingName>();
-    for (let pid = 1; pid <= 9; pid++) {
-      jiuxingMap.set(pid, JIUXING_DI_PAN_FIXED[pid]);
+    for (let i = 0; i < 8; i++) {
+      const pid = menSequence[(zhiFuIdxInMen + i) % 8];
+      bamenMap.set(pid, BAMEN_ORDER[i]);
     }
 
     // 八神：值符神在直符宫，按 BASHEN_ORDER 顺/逆布
-    const shenSequence = dun === '阳' ? [...PALACE_CLOCKWISE] : [...PALACE_CLOCKWISE].reverse();
-    const zhiFuIdxInShen = shenSequence.indexOf(zhiFuPalaceId);
+    const shenSequence = dun === '阳' ? [...PALACE_CLOCKWISE_8] : [...PALACE_CLOCKWISE_8].reverse();
+    const zhiFuIdxInShen = shenSequence.indexOf(zhiFuOuter);
     const bashenMap = new Map<number, BashenName>();
-    if (zhiFuIdxInShen >= 0) {
-      for (let i = 0; i < 8; i++) {
-        const pid = shenSequence[(zhiFuIdxInShen + i) % 8];
-        bashenMap.set(pid, BASHEN_ORDER[i]);
-      }
+    for (let i = 0; i < 8; i++) {
+      const pid = shenSequence[(zhiFuIdxInShen + i) % 8];
+      bashenMap.set(pid, BASHEN_ORDER[i]);
     }
 
     return PALACES_BASE.map(base => ({
@@ -323,7 +255,8 @@ export class QimenEngine {
       diPanGan: diPan.get(base.id) ?? null,
       tianPanGan: tianPan.get(base.id) ?? null,
       bamen: base.id === 5 ? null : (bamenMap.get(base.id) ?? null),
-      jiuxing: jiuxingMap.get(base.id) ?? null,
+      // 天盘九星（旋后）；中 5 固定为天禽
+      jiuxing: tianJiuxing.get(base.id) ?? JIUXING_DI_PAN_FIXED[base.id],
       bashen: base.id === 5 ? null : (bashenMap.get(base.id) ?? null),
     }));
   }
