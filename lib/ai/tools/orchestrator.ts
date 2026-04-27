@@ -8,6 +8,7 @@ import { fetch as expoFetch } from 'expo/fetch';
 import type { ToolDefinition, ToolCall } from './types';
 import { ALL_TOOLS, ALL_HANDLERS, TOOL_STRATEGY } from './index';
 import { THINKER_PROMPT, INTERPRETER_PROMPT } from '../index';
+import { buildEvidenceFromToolCalls } from './evidence';
 
 export interface ChatProviderConfig {
   provider: 'openai' | 'deepseek' | 'anthropic' | 'custom';
@@ -373,6 +374,7 @@ export interface OrchestrationOptions {
 export interface OrchestrationResult {
   thinker: string;
   interpreter: string;
+  evidence: string[];
   toolCalls: Array<{ call: ToolCall; result: unknown }>;
 }
 
@@ -463,6 +465,7 @@ ${opts.identity}
   return {
     thinker: thinkerOutput,
     interpreter: interpreterText,
+    evidence: buildEvidenceFromToolCalls(toolCalls),
     toolCalls,
   };
 }

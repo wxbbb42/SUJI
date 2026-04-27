@@ -19,7 +19,7 @@ import { toTrueSolarTime } from '@/lib/bazi/TrueSolarTime';
 import type {
   QimenChart, Palace, SetupOptions, YinYangDun, JuNumber, Yuan,
   TianGan, BamenName, BashenName, JiuxingName, GeJu,
-  QuestionType, YongShenAnalysis, YingQiAnalysis,
+  QuestionType, YongShenAnalysis, YingQiAnalysis, QimenMethodMeta,
 } from './types';
 import { PALACES_BASE } from './data/palaces';
 import { BAMEN_ORDER } from './data/bamen';
@@ -48,6 +48,15 @@ const JIEQI_INDEX_ORDER: string[] = [
   '小暑', '大暑', '立秋', '处暑', '白露', '秋分',
   '寒露', '霜降', '立冬', '小雪', '大雪', '冬至',
 ];
+
+const QIMEN_METHOD: QimenMethodMeta = {
+  level: 'mvp',
+  caveats: [
+    '上中下元使用日序近似，尚未按节气交接后的甲子日严格起上元',
+    '用神选择与应期为产品 MVP 简化规则',
+    '格局识别只覆盖当前数据表可判定的常用格局',
+  ],
+};
 
 export class QimenEngine {
   setup(opts: SetupOptions): QimenChart {
@@ -103,6 +112,7 @@ export class QimenEngine {
       yongShen,
       geJu: [] as GeJu[],
       yingQi,
+      method: QIMEN_METHOD,
     };
     const geJu = detectGeJu(partialChart);
 

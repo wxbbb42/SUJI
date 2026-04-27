@@ -82,6 +82,12 @@ export interface YingQiAnalysis {
   factors: string[];
 }
 
+/** 当前奇门实现的算法可信度说明，供 AI 与 UI 避免过度断言 */
+export interface QimenMethodMeta {
+  level: 'mvp' | 'verified';
+  caveats: string[];
+}
+
 /** 起局选项 */
 export interface SetupOptions {
   setupTime?: Date;
@@ -105,4 +111,5 @@ export interface QimenChart {
   yongShen: YongShenAnalysis;
   geJu: GeJu[];
   yingQi: YingQiAnalysis;
+  method: QimenMethodMeta;
 }

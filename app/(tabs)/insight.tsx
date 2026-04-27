@@ -150,7 +150,7 @@ export default function InsightScreen() {
           timestamp: Date.now(),
           orchestration: {
             thinker: result.thinker,
-            evidence: splitOrchestrationOutput(result.interpreter).evidence,
+            evidence: mergeEvidence(result.evidence, splitOrchestrationOutput(result.interpreter).evidence),
             toolCalls: localToolCalls,
             hexagram: localHexagram,
             qimenChart: localQimenChart,
@@ -489,6 +489,16 @@ function SendOrStopButton({
       </Text>
     </AnimatedPressable>
   );
+}
+
+function mergeEvidence(primary: string[], fallback: string[]): string[] {
+  const out: string[] = [];
+  for (const item of [...primary, ...fallback]) {
+    const text = item.trim();
+    if (text && !out.includes(text)) out.push(text);
+    if (out.length >= 6) break;
+  }
+  return out;
 }
 
 function summarizeArgs(args: Record<string, unknown>): string {
