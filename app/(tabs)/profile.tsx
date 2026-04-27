@@ -16,6 +16,7 @@ import Animated, {
 import { useRouter } from 'expo-router';
 import { Colors, Space, Radius, Type, Shadow, Motion, Size } from '@/lib/design/tokens';
 import { BirthInput, MingPanCard, WuXingChart, PersonalityCard } from '@/components/bazi';
+import { CalibrationSheet } from '@/components/calibration/CalibrationSheet';
 import { BaziEngine } from '@/lib/bazi/BaziEngine';
 import { ZiweiEngine } from '@/lib/ziwei/ZiweiEngine';
 import { InsightEngine } from '@/lib/bazi/InsightEngine';
@@ -32,11 +33,13 @@ export default function ProfileScreen() {
     birthDate, gender, birthCity, birthLongitude, mingPanCache,
     setBirthDate, setGender, setBirthCity, setMingPanCache, setZiweiPanCache,
   } = useUserStore();
+  const apiKey = useUserStore(s => s.apiKey);
 
   const [mingPan, setMingPan] = useState<MingPan | null>(null);
   const [personality, setPersonality] = useState<PersonalityInsight | null>(null);
   const [showInput, setShowInput] = useState(false);
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
+  const [calibrationVisible, setCalibrationVisible] = useState(false);
 
   const baziEngine = useMemo(() => new BaziEngine(), []);
   const ziweiEngine = useMemo(() => new ZiweiEngine(), []);
@@ -179,6 +182,7 @@ export default function ProfileScreen() {
 
   // ── 已有命盘 ──
   return (
+    <>
     <ScrollView
       style={[styles.container, { paddingTop: insets.top }]}
       contentContainerStyle={[styles.scroll, { paddingBottom: insets.bottom + Size.tabBarHeight }]}
@@ -242,10 +246,26 @@ export default function ProfileScreen() {
 
       {/* 功能入口 */}
       <View style={styles.menuArea}>
+        <MenuCard
+          title="校准时辰"
+          subtitle={apiKey ? '过去事件回推，3-5 轮对话' : '先在设置里配置 AI'}
+          onPress={() => {
+            if (!apiKey) {
+              Alert.alert('需要 AI', '请先在"设置"里配置 AI 模型');
+              return;
+            }
+            setCalibrationVisible(true);
+          }}
+        />
         <MenuCard title="流年运势" subtitle="大运 · 流年 · 流月" onPress={() => router.push('/fortune')} />
         <MenuCard title="设置" subtitle="AI 模型 · 个人信息" onPress={() => router.push('/settings')} />
       </View>
     </ScrollView>
+    <CalibrationSheet
+      visible={calibrationVisible}
+      onClose={() => setCalibrationVisible(false)}
+    />
+    </>
   );
 }
 
