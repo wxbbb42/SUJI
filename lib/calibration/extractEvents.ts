@@ -46,6 +46,7 @@ export function extractEventsForCandidate(
   for (const dy of dayunList) {
     const transitionYear = birthYear + dy.startAge;
     if (transitionYear > currentYear) break;
+    // startAge=0 (出生即转大运) 退化为 birthYear，不视为"事件"
     if (transitionYear <= birthYear) continue;
     const eventType = SHISHEN_TO_DAYUN_EVENT[dy.shiShen];
     if (eventType) events[transitionYear] = eventType;

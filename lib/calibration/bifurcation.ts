@@ -9,11 +9,7 @@ import { extractEventsForCandidate } from './extractEvents';
  * - 1 → 三人完全相同（不构成 bifurcation）
  */
 function diversityOf(events: Record<CandidateId, EventType>): number {
-  const vals = [events.before, events.origin, events.after];
-  const uniq = new Set(vals);
-  if (uniq.size === 3) return 3;
-  if (uniq.size === 2) return 2;
-  return 1;
+  return new Set([events.before, events.origin, events.after]).size;
 }
 
 /**
@@ -25,7 +21,6 @@ function diversityOf(events: Record<CandidateId, EventType>): number {
  *
  * 过滤规则：
  *   - diversity < 2 的年份直接丢弃（三人一致，问也无法区分）
- *   - 三人都是 'none' 的年份丢弃（即使全 none 一致，diversity=1，但显式再 guard 一次）
  *
  * @param candidates [before, origin, after] 三选一候选盘
  * @param currentYear 当前公历年份
@@ -53,7 +48,6 @@ export function detectBifurcations(
     };
     const div = diversityOf(events);
     if (div < 2) continue;
-    if (events.before === 'none' && events.origin === 'none' && events.after === 'none') continue;
     result.push({
       year,
       ageAt: {
