@@ -43,11 +43,13 @@ export class CalibrationSession {
     const candidates = buildCandidates(opts.birthDate, opts.gender, opts.longitude);
     const bifurcations = detectBifurcations(candidates, new Date().getFullYear());
 
-    // 用户太年轻时三个候选盘 dayun/liunian 几乎一致，detectBifurcations 返回 []。
-    // 走到 personality 兜底模板会因 variants 全 irrelevant 触发连续 uncertain → gave_up，
-    // 体验比直接阻断更糟，因此提前终止。
+    // bifurcations 为空有两种原因：
+    // 1. 八字大运/流年不依赖时辰（年柱+月柱+性别决定）→ ±1 时辰候选盘事件序列完全相同
+    //    → 任何成年用户都会触发空 bifurcation（这是当前 MVP 的设计 gap，需要紫微大限补齐）
+    // 2. 用户太年轻（< 18 岁）→ 大运转入次数太少，本身就难鉴别
     if (bifurcations.length === 0) {
-      throw new Error('TOO_YOUNG');
+      const age = new Date().getFullYear() - opts.birthDate.getFullYear();
+      throw new Error(age < 18 ? 'TOO_YOUNG' : 'LOW_SIGNAL');
     }
 
     this.state = {

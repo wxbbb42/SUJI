@@ -108,15 +108,28 @@ describe('CalibrationSession', () => {
     expect(() => session.getState()).toThrow(/call start\(\) first/);
   });
 
-  it('throws TOO_YOUNG when no bifurcations available', async () => {
+  it('throws LOW_SIGNAL when adult user has no bifurcations available', async () => {
     const spy = jest.spyOn(BifurcationModule, 'detectBifurcations').mockReturnValueOnce([]);
     const session = new CalibrationSession({ runRound: mockAI.runRound });
     await expect(session.start({
       birthDate: new Date('1995-08-15T20:00:00+08:00'),
       gender: '男',
       longitude: 116.4,
-    })).rejects.toThrow('TOO_YOUNG');
+    })).rejects.toThrow('LOW_SIGNAL');
     expect(mockAI.runRound).not.toHaveBeenCalled();
+    spy.mockRestore();
+  });
+
+  it('throws TOO_YOUNG when minor user has no bifurcations available', async () => {
+    const spy = jest.spyOn(BifurcationModule, 'detectBifurcations').mockReturnValueOnce([]);
+    const session = new CalibrationSession({ runRound: mockAI.runRound });
+    const recentBirth = new Date();
+    recentBirth.setFullYear(recentBirth.getFullYear() - 10);
+    await expect(session.start({
+      birthDate: recentBirth,
+      gender: '男',
+      longitude: 116.4,
+    })).rejects.toThrow('TOO_YOUNG');
     spy.mockRestore();
   });
 

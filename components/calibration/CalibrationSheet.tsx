@@ -72,6 +72,8 @@ export function CalibrationSheet({ visible, onClose }: Props) {
       } catch (e) {
         if (e instanceof Error && e.message === 'TOO_YOUNG') {
           append({ role: 'ai', text: '你目前还不够大，过去事件回推暂时无法校准。再过几年可以再来。' });
+        } else if (e instanceof Error && e.message === 'LOW_SIGNAL') {
+          append({ role: 'ai', text: '校准引擎正在升级紫微大限信号，当前版本还无法精确鉴别你的时辰。下个版本会修复。' });
         } else if (e instanceof Error && e.message === 'NIGHT_ZISHI_UNSUPPORTED') {
           append({ role: 'ai', text: '23 点前后出生的时辰校准暂未支持，可以先按你填的时辰用，未来版本会加。' });
         } else {
