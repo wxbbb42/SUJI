@@ -12,7 +12,7 @@ import lunisolar from 'lunisolar';
 import { char8ex } from '@lunisolar/plugin-char8ex';
 import { theGods } from '@lunisolar/plugin-thegods';
 import { takeSound } from '@lunisolar/plugin-takesound';
-import { fetalGod } from '@lunisolar/plugin-fetalgod';
+import fetalGod = require('@lunisolar/plugin-fetalgod');
 
 import { toTrueSolarTime, getTrueSolarTimeInfo } from './TrueSolarTime';
 import type {
