@@ -13,7 +13,7 @@ export const qimenTools: ToolDefinition[] = [
     type: 'function',
     function: {
       name: 'setup_qimen',
-      description: '为战略级重大决策起一局奇门盘（"要不要换城市/移民/换行业/创业"等）。返回完整 9 宫盘 + 用神宫 + 格局列表 + 应期。',
+      description: '为战略级重大决策起一局奇门盘（"要不要换城市/移民/换行业/创业"等）。返回完整 9 宫盘 + 用神宫 + 格局列表 + 应期 + method 可信度说明；method.level=mvp 时解读必须保留余地。',
       parameters: {
         type: 'object',
         properties: {
@@ -37,12 +37,12 @@ export const qimenTools: ToolDefinition[] = [
 const engine = new QimenEngine();
 
 export const qimenHandlers: Record<string, ToolHandler> = {
-  setup_qimen: ({ question, questionType, gender }, _ctx) => {
+  setup_qimen: ({ question, questionType, gender }, ctx) => {
     const chart = engine.setup({
       question: String(question),
       questionType: (questionType as QuestionType | undefined) ?? 'general',
       gender: gender as '男' | '女' | undefined,
-      setupTime: new Date(),
+      setupTime: ctx.now,
     });
     return chart;
   },

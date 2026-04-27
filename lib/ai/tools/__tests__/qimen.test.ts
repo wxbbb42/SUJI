@@ -1,6 +1,6 @@
 import { qimenTools, qimenHandlers } from '../qimen';
 
-const CTX = { mingPan: null, ziweiPan: null, now: new Date() };
+const CTX = { mingPan: null, ziweiPan: null, now: new Date('2026-04-27T10:00:00+08:00') };
 
 describe('qimenTools', () => {
   it('exports setup_qimen', () => {
@@ -17,6 +17,8 @@ describe('setup_qimen handler', () => {
     expect(r.palaces).toHaveLength(9);
     expect(r.yongShen).toBeDefined();
     expect(r.geJu).toBeDefined();
+    expect(r.method).toEqual(expect.objectContaining({ level: 'mvp' }));
+    expect(r.method.caveats.length).toBeGreaterThan(0);
   });
 
   it('defaults questionType to general when missing', async () => {

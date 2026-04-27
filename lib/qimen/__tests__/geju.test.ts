@@ -42,6 +42,7 @@ function makeChart(palaceOverrides: Array<Partial<Palace>>): QimenChart {
     yongShen: { type: '', palaceId: 1, state: '相', summary: '', interactions: [] },
     geJu: [],
     yingQi: { description: '', factors: [] },
+    method: { level: 'mvp', caveats: [] },
   };
 }
 
