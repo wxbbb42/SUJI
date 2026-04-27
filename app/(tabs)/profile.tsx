@@ -93,7 +93,7 @@ export default function ProfileScreen() {
   }, [mingPanCache, birthDate, gender, ziweiEngine, setZiweiPanCache]);
 
   const handleSubmit = useCallback(
-    (date: Date, g: '男' | '女', longitude?: number) => {
+    (date: Date, g: '男' | '女', longitude?: number, city?: string) => {
       try {
         const corrected = toTrueSolarTime(date, longitude ?? 116.4);
         const result = baziEngine.calculate(corrected, g);
@@ -102,6 +102,9 @@ export default function ProfileScreen() {
         setShowInput(false);
         setBirthDate(date);
         setGender(g);
+        if (city && longitude != null) {
+          setBirthCity(city, longitude);
+        }
         setMingPanCache(JSON.stringify(result));
         const ziweiPan = ziweiEngine.compute({
           year: date.getFullYear(),
@@ -117,7 +120,7 @@ export default function ProfileScreen() {
         Alert.alert('排盘失败', '请检查日期和时间');
       }
     },
-    [baziEngine, ziweiEngine, setBirthDate, setGender, setMingPanCache, setZiweiPanCache],
+    [baziEngine, ziweiEngine, setBirthDate, setGender, setBirthCity, setMingPanCache, setZiweiPanCache],
   );
 
   const handleReset = useCallback(() => {

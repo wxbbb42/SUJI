@@ -30,7 +30,7 @@ const DAYS_IN_MONTH = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 const CITY_LIST = Object.keys(CITY_LONGITUDES);
 
 interface BirthInputProps {
-  onSubmit: (date: Date, gender: '男' | '女', longitude?: number) => void;
+  onSubmit: (date: Date, gender: '男' | '女', longitude?: number, city?: string) => void;
   initialDate?: Date;
   initialGender?: '男' | '女';
   initialCity?: string;
@@ -74,7 +74,7 @@ export default function BirthInput({
     try {
       const { hour } = SHICHEN[shichenIdx];
       const longitude = CITY_LONGITUDES[city] ?? 116.4;
-      onSubmit(new Date(year, month - 1, day, hour, 0, 0), gender, longitude);
+      onSubmit(new Date(year, month - 1, day, hour, 0, 0), gender, longitude, city);
     } catch {
       setError('日期有误，请重新检查');
     }
