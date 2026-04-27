@@ -179,3 +179,20 @@
 | **总计** | | **~52.5 天** |
 
 > 以上为 AI 辅助开发的估时，实际取决于 3D 效果打磨程度和 AI prompt 调优。
+
+---
+
+## 时辰校准（Feature 增量，2026-04）
+
+`docs/superpowers/specs/2026-04-26-time-calibration-design.md` + `docs/superpowers/plans/2026-04-26-time-calibration.md`
+
+- [x] 候选盘构造（±1 时辰）
+- [x] 事件向量提取 + bifurcation detector
+- [x] 模板库（大运 6 + 流年 4 + 兜底 2）
+- [x] scoring + 终止条件
+- [x] CalibrationSession 状态机
+- [x] CalibrationAI（JSON mode）
+- [x] ThinkingDots + CalibrationSheet UI
+- [x] profile 入口 + sheet 挂载
+- [x] 集成测试 + 文档
+- [ ] 真机手测（见 spec §9.4）

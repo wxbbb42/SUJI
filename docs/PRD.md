@@ -164,3 +164,17 @@
 - AI 对话加 disclaimer："仅供参考，如需专业帮助请咨询心理咨询师"
 - App Store 分类：Lifestyle / Health & Fitness
 - 隐私政策：生辰数据不上传/可删除
+
+---
+
+## 时辰校准 Feature（2026-04 加入）
+
+为解决用户输入出生时辰可能不准的问题，"我的"页面新增"校准时辰"入口。
+
+- 用户点击 → 弹出 chat 式 BottomSheet
+- 程序按 ±1 时辰排出 3 个候选盘，bifurcation detector 自动找出最分歧年份
+- AI 把事件模板改写成自然问句，用户回答后 AI 判类（yes/no/uncertain），程序累计分数
+- 终止：分差 ≥2 → lock，5 轮上限，连续 2 轮不知道 → gave_up
+- locked 时直接覆盖 `useUserStore.birthDate`，命盘 / AI 全自动跟进
+
+不与 PRD 既有 Phase 编号冲突，是 Phase 2/3 完成后的体验优化。
