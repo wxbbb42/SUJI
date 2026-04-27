@@ -27,12 +27,17 @@ export type NextStep =
   | { type: 'gave_up'; reason: string };
 
 export class CalibrationSession {
-  private state!: CalibrationSessionState;
+  private state: CalibrationSessionState | null = null;
   private pendingTemplate: QuestionTemplate | null = null;
   private pendingBifurcation: BifurcatedYear | null = null;
   private pendingAge = 0;
 
   constructor(private ai: AIRunner) {}
+
+  private requireState(): CalibrationSessionState {
+    if (!this.state) throw new Error('CalibrationSession: call start() first');
+    return this.state;
+  }
 
   async start(opts: StartOptions): Promise<{ firstQuestion: string; state: CalibrationSessionState }> {
     const candidates = buildCandidates(opts.birthDate, opts.gender, opts.longitude);
@@ -50,20 +55,21 @@ export class CalibrationSession {
     };
 
     const firstQuestion = await this.prepareNextQuestion();
-    return { firstQuestion, state: this.state };
+    return { firstQuestion, state: this.requireState() };
   }
 
   private pickNext(): { template: QuestionTemplate; bif: BifurcatedYear; age: number } | null {
-    for (const bif of this.state.bifurcations) {
+    const state = this.requireState();
+    for (const bif of state.bifurcations) {
       const tpl = findTemplate(bif);
       if (!tpl) continue;
       const key = `${tpl.id}:${bif.year}`;
-      if (this.state.consumedKeys.has(key)) continue;
+      if (state.consumedKeys.has(key)) continue;
       return { template: tpl, bif, age: bif.ageAt.origin };
     }
     // fallback: 性格模板（无年份）
     for (const tpl of PERSONALITY_TEMPLATES) {
-      if (this.state.consumedKeys.has(`${tpl.id}:0`)) continue;
+      if (state.consumedKeys.has(`${tpl.id}:0`)) continue;
       return {
         template: tpl,
         bif: { year: 0, ageAt: { before: 0, origin: 0, after: 0 }, events: { before: 'none', origin: 'none', after: 'none' }, diversity: 0 },
@@ -76,9 +82,10 @@ export class CalibrationSession {
   private async prepareNextQuestion(lastUserAnswer?: string): Promise<string> {
     const next = this.pickNext();
     if (!next) {
-      // 模板用尽——按当前 scores 强制 lock
-      const verdict = checkTermination({ ...this.state, round: 5 });
-      this.state = { ...this.state, status: verdict.status, lockedCandidate: verdict.lockedCandidate };
+      // 模板用尽——force 跳过 round 阈值，按当前 scores 直接 lock
+      const state = this.requireState();
+      const verdict = checkTermination(state, { force: true });
+      this.state = { ...state, status: verdict.status, lockedCandidate: verdict.lockedCandidate };
       return '';
     }
     this.pendingTemplate = next.template;
@@ -90,6 +97,7 @@ export class CalibrationSession {
   }
 
   async submitAnswer(userText: string): Promise<{ classified: 'yes'|'no'|'uncertain'; nextStep: NextStep }> {
+    this.requireState();
     if (!this.pendingTemplate || !this.pendingBifurcation) {
       throw new Error('CalibrationSession: no pending question');
     }
@@ -108,6 +116,7 @@ export class CalibrationSession {
     userText: string,
     forcedDelta: Record<CandidateId, number>,
   ): Promise<{ classified: 'yes'|'no'|'uncertain'; nextStep: NextStep }> {
+    this.requireState();
     if (!this.pendingTemplate || !this.pendingBifurcation) {
       throw new Error('CalibrationSession: no pending question');
     }
@@ -142,20 +151,23 @@ export class CalibrationSession {
       classified,
       delta,
     };
-    this.state = applyAnswer(this.state, q);
-    const verdict = checkTermination(this.state);
-    this.state = { ...this.state, status: verdict.status, lockedCandidate: verdict.lockedCandidate };
+    const prev = this.requireState();
+    let next = applyAnswer(prev, q);
+    const verdict = checkTermination(next);
+    next = { ...next, status: verdict.status, lockedCandidate: verdict.lockedCandidate };
+    this.state = next;
 
     if (verdict.status === 'locked') {
-      const winner = this.state.candidates.find(c => c.id === verdict.lockedCandidate)!;
+      const winner = next.candidates.find(c => c.id === verdict.lockedCandidate)!;
       return { classified, nextStep: { type: 'locked', correctedDate: winner.birthDate, candidateId: winner.id } };
     }
     if (verdict.status === 'gave_up') {
       return { classified, nextStep: { type: 'gave_up', reason: '连续 2 轮无法判断' } };
     }
     const question = nextQuestionText || (await this.prepareNextQuestion(userText));
-    if (this.state.status !== 'asking') {
-      const winner = this.state.candidates.find(c => c.id === this.state.lockedCandidate);
+    const after = this.requireState();
+    if (after.status !== 'asking') {
+      const winner = after.candidates.find(c => c.id === after.lockedCandidate);
       if (winner) return { classified, nextStep: { type: 'locked', correctedDate: winner.birthDate, candidateId: winner.id } };
       return { classified, nextStep: { type: 'gave_up', reason: '题库用尽' } };
     }
@@ -163,6 +175,6 @@ export class CalibrationSession {
   }
 
   getState(): CalibrationSessionState {
-    return this.state;
+    return this.requireState();
   }
 }

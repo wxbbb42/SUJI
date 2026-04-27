@@ -76,4 +76,17 @@ describe('checkTermination', () => {
     const r = checkTermination(s);
     expect(r.status).toBe('asking');
   });
+
+  it('locks immediately when force=true regardless of round', () => {
+    const s = makeSession({ scores: { before: 1, origin: 0, after: 0 }, round: 1 });
+    const r = checkTermination(s, { force: true });
+    expect(r.status).toBe('locked');
+    expect(r.lockedCandidate).toBe('before');
+  });
+
+  it('force=true still respects gave_up on consecutive uncertain', () => {
+    const s = makeSession({ consecutiveUncertain: 2, scores: { before: 1, origin: 0, after: 0 }, round: 1 });
+    const r = checkTermination(s, { force: true });
+    expect(r.status).toBe('gave_up');
+  });
 });

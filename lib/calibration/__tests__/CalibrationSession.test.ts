@@ -98,6 +98,15 @@ describe('CalibrationSession', () => {
     }
   });
 
+  it('throws a friendly error when methods are called before start()', async () => {
+    const session = new CalibrationSession({ runRound: mockAI.runRound });
+    await expect(session.submitAnswer('x')).rejects.toThrow(/call start\(\) first/);
+    await expect(
+      session.submitAnswerWithForcedDelta('x', { before: 0, origin: 0, after: 0 }),
+    ).rejects.toThrow(/call start\(\) first/);
+    expect(() => session.getState()).toThrow(/call start\(\) first/);
+  });
+
   it('gives up after 2 consecutive uncertain', async () => {
     mockAI.runRound
       .mockResolvedValueOnce({ question: 'Q1' })
