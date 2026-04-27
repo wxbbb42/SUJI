@@ -1,4 +1,4 @@
--- 岁吉 SUJI — profiles 表初始化
+-- 有时 SUJI — profiles 表初始化
 -- 在 Supabase Dashboard → SQL Editor 粘贴运行
 
 -- 1. profiles 表：每个用户一行，主键直接引用 auth.users

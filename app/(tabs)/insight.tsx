@@ -261,7 +261,7 @@ export default function InsightScreen() {
         {/* 欢迎 */}
         {messages.length === 0 && !streamingText && (
           <View style={[styles.aiBubble, Shadow.sm]}>
-            <Text style={styles.aiName}>岁吉</Text>
+            <Text style={styles.aiName}>有时</Text>
             <RichContent content={
               store.mingPanCache
                 ? '你的命盘已就绪。有什么想聊的？\n可以跟我说说你现在的心情。'
@@ -280,7 +280,7 @@ export default function InsightScreen() {
             </View>
           ) : (
             <View key={i} style={[styles.aiBubble, Shadow.sm]}>
-              <Text style={styles.aiName}>岁吉</Text>
+              <Text style={styles.aiName}>有时</Text>
 
               {msg.orchestration && (
                 <CoTCard
@@ -333,7 +333,7 @@ export default function InsightScreen() {
         {/* 流式 */}
         {(streamingText || liveToolCalls.length > 0) ? (
           <View style={[styles.aiBubble, Shadow.sm]}>
-            <Text style={styles.aiName}>岁吉</Text>
+            <Text style={styles.aiName}>有时</Text>
 
             <CoTCard
               toolCalls={liveToolCalls}
