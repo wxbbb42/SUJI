@@ -58,6 +58,7 @@ jest.mock('@/lib/bazi/DayunEngine', () => ({
 }));
 
 import { CalibrationSession } from '../CalibrationSession';
+import * as BifurcationModule from '../bifurcation';
 
 const mockAI = {
   runRound: jest.fn(),
@@ -105,6 +106,18 @@ describe('CalibrationSession', () => {
       session.submitAnswerWithForcedDelta('x', { before: 0, origin: 0, after: 0 }),
     ).rejects.toThrow(/call start\(\) first/);
     expect(() => session.getState()).toThrow(/call start\(\) first/);
+  });
+
+  it('throws TOO_YOUNG when no bifurcations available', async () => {
+    const spy = jest.spyOn(BifurcationModule, 'detectBifurcations').mockReturnValueOnce([]);
+    const session = new CalibrationSession({ runRound: mockAI.runRound });
+    await expect(session.start({
+      birthDate: new Date('1995-08-15T20:00:00+08:00'),
+      gender: '男',
+      longitude: 116.4,
+    })).rejects.toThrow('TOO_YOUNG');
+    expect(mockAI.runRound).not.toHaveBeenCalled();
+    spy.mockRestore();
   });
 
   it('gives up after 2 consecutive uncertain', async () => {

@@ -43,6 +43,13 @@ export class CalibrationSession {
     const candidates = buildCandidates(opts.birthDate, opts.gender, opts.longitude);
     const bifurcations = detectBifurcations(candidates, new Date().getFullYear());
 
+    // 用户太年轻时三个候选盘 dayun/liunian 几乎一致，detectBifurcations 返回 []。
+    // 走到 personality 兜底模板会因 variants 全 irrelevant 触发连续 uncertain → gave_up，
+    // 体验比直接阻断更糟，因此提前终止。
+    if (bifurcations.length === 0) {
+      throw new Error('TOO_YOUNG');
+    }
+
     this.state = {
       candidates,
       scores: { before: 0, origin: 0, after: 0 },

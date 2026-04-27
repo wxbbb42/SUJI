@@ -22,11 +22,15 @@ export function buildCandidates(
   gender: '男' | '女',
   longitude: number,
 ): [Candidate, Candidate, Candidate] {
+  // 23:00-23:59 出生（夜子时）的命盘日柱属次日，本期不在校准支持范围。
+  // 调用前已 throw NIGHT_ZISHI_UNSUPPORTED；hour === 0 的早子时仍走正常路径。
+  if (birthDate.getHours() === 23) {
+    throw new Error('NIGHT_ZISHI_UNSUPPORTED');
+  }
+
   const originShi = shichenOfHour(birthDate.getHours());
 
   // 以 originDate 的 anchor 时刻为基准，再 ±2h 用 ms math 让 Date 自动处理跨日。
-  // 注意：23:30 的子时 origin 会被 setHours(0) 倒回当日 0:00；
-  // known limitation: 23:30 子时 anchor 倒回当日 0:00（待真机命盘对齐后再处理）。
   const originAnchorDate = (() => {
     const d = new Date(birthDate);
     d.setHours(SHICHEN_ANCHORS[originShi], 0, 0, 0);

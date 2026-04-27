@@ -69,7 +69,13 @@ export function CalibrationSheet({ visible, onClose }: Props) {
         append({ role: 'ai', text: '我会问你 3-5 个过去发生过的事件，帮你校准出生时辰。' });
         append({ role: 'ai', text: firstQuestion });
       } catch (e) {
-        append({ role: 'ai', text: '启动校准时出错。可以稍后再试。' });
+        if (e instanceof Error && e.message === 'TOO_YOUNG') {
+          append({ role: 'ai', text: '你目前还不够大，过去事件回推暂时无法校准。再过几年可以再来。' });
+        } else if (e instanceof Error && e.message === 'NIGHT_ZISHI_UNSUPPORTED') {
+          append({ role: 'ai', text: '23 点前后出生的时辰校准暂未支持，可以先按你填的时辰用，未来版本会加。' });
+        } else {
+          append({ role: 'ai', text: '启动校准时出错。可以稍后再试。' });
+        }
         setDone(true);
       } finally {
         setThinking(false);

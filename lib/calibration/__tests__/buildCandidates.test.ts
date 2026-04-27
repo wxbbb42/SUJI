@@ -54,4 +54,9 @@ describe('buildCandidates', () => {
     // origin = 寅(4) of 8/15
     expect(result.every(c => c.birthDate.getDate() === 15)).toBe(true);
   });
+
+  it('throws NIGHT_ZISHI_UNSUPPORTED when hour is 23', () => {
+    expect(() => buildCandidates(new Date('1995-08-15T23:30:00+08:00'), '男', 116.4))
+      .toThrow('NIGHT_ZISHI_UNSUPPORTED');
+  });
 });
