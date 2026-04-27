@@ -48,14 +48,15 @@ export function CalibrationSheet({ visible, onClose }: Props) {
 
   useEffect(() => {
     if (!visible) return;
-    if (!u.birthDate || !u.gender || u.birthLongitude == null) {
-      append({ role: 'ai', text: '需要先在"我的"里填写生辰、性别和出生地。' });
+    if (!u.birthDate || !u.gender) {
+      append({ role: 'ai', text: '需要先在"我的"里填写生辰和性别。' });
       setDone(true);
       return;
     }
     setLines([]);
     setDone(false);
     setInput('');
+    const longitude = u.birthLongitude ?? 116.4; // 北京兜底；真太阳时差异 ≤±15 分钟，对 ±1 时辰校准影响可忽略
     const start = async () => {
       setThinking(true);
       const session = new CalibrationSession(calibrationAI);
@@ -64,7 +65,7 @@ export function CalibrationSheet({ visible, onClose }: Props) {
         const { firstQuestion } = await session.start({
           birthDate: new Date(u.birthDate!),
           gender: u.gender!,
-          longitude: u.birthLongitude!,
+          longitude,
         });
         append({ role: 'ai', text: '我会问你 3-5 个过去发生过的事件，帮你校准出生时辰。' });
         append({ role: 'ai', text: firstQuestion });
