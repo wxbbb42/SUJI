@@ -6,7 +6,7 @@ import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 
 /**
- * 岁吉 Tab 导航
+ * 有时 Tab 导航
  *
  * iOS 原生风格：毛玻璃 tab bar + SF Pro 文字图标
  * 四个字：历 · 问 · 静 · 我

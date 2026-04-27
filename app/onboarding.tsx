@@ -56,7 +56,7 @@ function PageBrand() {
     <View style={styles.page}>
       <View style={styles.brandCenter}>
         <Text style={styles.brandBigChar}>岁</Text>
-        <Text style={styles.brandName}>岁吉</Text>
+        <Text style={styles.brandName}>有时</Text>
         <Text style={styles.brandSub}>顺时而行 · 从容而生</Text>
       </View>
     </View>

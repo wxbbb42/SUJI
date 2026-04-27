@@ -196,7 +196,7 @@ export default function SettingsScreen() {
       </View>
 
       <Text style={styles.version}>
-        岁吉 v{Constants.expoConfig?.version ?? '?'}
+        有时 v{Constants.expoConfig?.version ?? '?'}
         {process.env.EXPO_PUBLIC_BUILD_SHA ? ` · ${process.env.EXPO_PUBLIC_BUILD_SHA}` : ' · dev'}
       </Text>
     </ScrollView>

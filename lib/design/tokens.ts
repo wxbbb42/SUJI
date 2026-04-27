@@ -1,5 +1,5 @@
 /**
- * 岁吉设计系统 Tokens
+ * 有时设计系统 Tokens
  *
  * Neo-Tactile Warmth — 新触感温暖
  *
