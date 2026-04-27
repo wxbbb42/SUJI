@@ -12,7 +12,8 @@ import lunisolar from 'lunisolar';
 import { char8ex } from '@lunisolar/plugin-char8ex';
 import { theGods } from '@lunisolar/plugin-thegods';
 import { takeSound } from '@lunisolar/plugin-takesound';
-import fetalGod from '@lunisolar/plugin-fetalgod';
+// @ts-expect-error 包的 .d.ts 写 `export = plugin`，实际运行时是命名导出 `fetalGod`（CJS module.exports.fetalGod / ESM `export { fetalGod }`）。命名导入是唯一同时通过 tsc / Metro / 运行时的写法。
+import { fetalGod } from '@lunisolar/plugin-fetalgod';
 
 import { toTrueSolarTime, getTrueSolarTimeInfo } from './TrueSolarTime';
 import type {
