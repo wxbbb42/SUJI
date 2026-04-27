@@ -10,20 +10,9 @@ export const SHICHEN_ANCHORS: Record<string, number> = {
 const ORDER = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'] as const;
 
 function shichenOfHour(hour: number): typeof ORDER[number] {
+  // 子时跨日: 23-1 都归子。hour===23 必须前置拦截，否则会落到 ORDER[12] 越界。
   if (hour === 23 || hour === 0) return '子';
   return ORDER[Math.floor((hour + 1) / 2)];
-}
-
-function adjacent(shi: typeof ORDER[number], offset: number): typeof ORDER[number] {
-  const idx = ORDER.indexOf(shi);
-  const next = (idx + offset + 12) % 12;
-  return ORDER[next];
-}
-
-function buildAt(originDate: Date, anchorHour: number): Date {
-  const d = new Date(originDate);
-  d.setHours(anchorHour, 0, 0, 0);
-  return d;
 }
 
 const engine = new BaziEngine();
@@ -34,17 +23,28 @@ export function buildCandidates(
   longitude: number,
 ): [Candidate, Candidate, Candidate] {
   const originShi = shichenOfHour(birthDate.getHours());
-  const beforeShi = adjacent(originShi, -1);
-  const afterShi = adjacent(originShi, +1);
 
-  const make = (id: CandidateId, shi: typeof ORDER[number]): Candidate => {
-    const date = buildAt(birthDate, SHICHEN_ANCHORS[shi]);
-    return { id, birthDate: date, mingPan: engine.calculate(date, gender, longitude) };
-  };
+  // 以 originDate 的 anchor 时刻为基准，再 ±2h 用 ms math 让 Date 自动处理跨日。
+  // 注意：23:30 的子时 origin 会被 setHours(0) 倒回当日 0:00；
+  // known limitation: 23:30 子时 anchor 倒回当日 0:00（待真机命盘对齐后再处理）。
+  const originAnchorDate = (() => {
+    const d = new Date(birthDate);
+    d.setHours(SHICHEN_ANCHORS[originShi], 0, 0, 0);
+    return d;
+  })();
+
+  const beforeDate = new Date(originAnchorDate.getTime() - 2 * 3600 * 1000);
+  const afterDate = new Date(originAnchorDate.getTime() + 2 * 3600 * 1000);
+
+  const make = (id: CandidateId, date: Date): Candidate => ({
+    id,
+    birthDate: date,
+    mingPan: engine.calculate(date, gender, longitude),
+  });
 
   return [
-    make('before', beforeShi),
-    make('origin', originShi),
-    make('after', afterShi),
+    make('before', beforeDate),
+    make('origin', originAnchorDate),
+    make('after', afterDate),
   ];
 }

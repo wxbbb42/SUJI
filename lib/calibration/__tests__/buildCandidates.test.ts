@@ -29,4 +29,29 @@ describe('buildCandidates', () => {
     expect(Object.keys(SHICHEN_ANCHORS)).toHaveLength(12);
     expect(SHICHEN_ANCHORS['戌']).toBe(20);
   });
+
+  it('uses next day for after when origin is 亥 and after is 子', () => {
+    const birth = new Date('1995-08-15T22:30:00+08:00');
+    const result = buildCandidates(birth, '男', 116.4);
+    // origin = 亥(22) of 8/15, after = 子(0) of 8/16
+    expect(result[2].id).toBe('after');
+    expect(result[2].birthDate.getDate()).toBe(16);
+    expect(result[2].birthDate.getHours()).toBe(0);
+  });
+
+  it('uses previous day for before when origin is 子 (early hours) and before is 亥', () => {
+    const birth = new Date('1995-08-15T00:30:00+08:00');
+    const result = buildCandidates(birth, '男', 116.4);
+    // origin = 子(0) of 8/15, before = 亥(22) of 8/14
+    expect(result[0].id).toBe('before');
+    expect(result[0].birthDate.getDate()).toBe(14);
+    expect(result[0].birthDate.getHours()).toBe(22);
+  });
+
+  it('keeps same day when origin is 寅 (no boundary)', () => {
+    const birth = new Date('1995-08-15T04:30:00+08:00');
+    const result = buildCandidates(birth, '男', 116.4);
+    // origin = 寅(4) of 8/15
+    expect(result.every(c => c.birthDate.getDate() === 15)).toBe(true);
+  });
 });
