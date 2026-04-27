@@ -123,18 +123,8 @@ export default function ProfileScreen() {
     [baziEngine, ziweiEngine, setBirthDate, setGender, setBirthCity, setMingPanCache, setZiweiPanCache],
   );
 
-  const handleReset = useCallback(() => {
-    Alert.alert('重新排盘', '将清除当前命盘数据', [
-      { text: '取消', style: 'cancel' },
-      {
-        text: '确定', style: 'destructive',
-        onPress: () => {
-          setMingPan(null);
-          setPersonality(null);
-          setShowInput(true);
-        },
-      },
-    ]);
+  const handleEdit = useCallback(() => {
+    setShowInput(true);
   }, []);
 
   const toggleSection = (key: string) => {
@@ -198,10 +188,21 @@ export default function ProfileScreen() {
           {mingPan.riZhu.yinYang}{mingPan.riZhu.wuXing} · {mingPan.lunarDate}
         </Text>
         <Text style={styles.heroDesc}>{mingPan.riZhu.description}</Text>
+      </View>
 
-        <Pressable onPress={handleReset} hitSlop={12}>
-          <Text style={styles.resetText}>重新排盘</Text>
-        </Pressable>
+      {/* 出生信息 */}
+      <View style={[styles.card, Shadow.sm]}>
+        <View style={styles.cardHeader}>
+          <Text style={styles.cardLabel}>出生信息</Text>
+          <Pressable onPress={handleEdit} hitSlop={8}>
+            <Text style={styles.editLink}>编辑</Text>
+          </Pressable>
+        </View>
+        <View style={styles.cardContent}>
+          <BirthInfoRow label="生日" value={formatBirthDate(birthDate)} />
+          <BirthInfoRow label="性别" value={gender ?? '—'} />
+          <BirthInfoRow label="出生地" value={birthCity ?? '未填（按北京估算）'} />
+        </View>
       </View>
 
       {/* 四柱卡片 */}
@@ -270,6 +271,28 @@ export default function ProfileScreen() {
     />
     </>
   );
+}
+
+// ── 出生信息一行 ──────────────────────────────────
+
+function BirthInfoRow({ label, value }: { label: string; value: string }) {
+  return (
+    <View style={styles.birthRow}>
+      <Text style={styles.birthLabel}>{label}</Text>
+      <Text style={styles.birthValue} numberOfLines={1}>{value}</Text>
+    </View>
+  );
+}
+
+function formatBirthDate(iso: string | null): string {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  const hh = String(d.getHours()).padStart(2, '0');
+  const mm = String(d.getMinutes()).padStart(2, '0');
+  return `${y}-${m}-${day} ${hh}:${mm}`;
 }
 
 // ── 可展开的区块卡片 ──────────────────────────────
@@ -406,10 +429,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: Space.xl,
     lineHeight: 24,
   },
-  resetText: {
-    ...Type.caption,
-    color: Colors.inkHint,
-    marginTop: Space.lg,
+  editLink: {
+    ...Type.bodySmall,
+    color: Colors.vermilion,
+    fontWeight: '500',
+  },
+  birthRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: Space.sm,
+  },
+  birthLabel: {
+    ...Type.bodySmall,
+    color: Colors.inkSecondary,
+    width: 64,
+  },
+  birthValue: {
+    ...Type.body,
+    color: Colors.ink,
+    flex: 1,
   },
 
   // 卡片
