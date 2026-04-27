@@ -209,6 +209,8 @@ async function* streamResponsesAPI(
   }
 }
 
+type ResponsesTextContentType = 'input_text' | 'output_text';
+
 /** Responses API 输入格式：每项需 type='message'，content 为分片数组 */
 function toResponsesInput(messages: ChatMessage[], systemPrompt: string) {
   return [
@@ -217,14 +219,17 @@ function toResponsesInput(messages: ChatMessage[], systemPrompt: string) {
       role: 'system' as const,
       content: [{ type: 'input_text' as const, text: systemPrompt }],
     },
-    ...messages.map(m => ({
-      type: 'message' as const,
-      role: m.role,
-      content: [{
-        type: (m.role === 'assistant' ? 'output_text' : 'input_text') as const,
-        text: m.content,
-      }],
-    })),
+    ...messages.map(m => {
+      const textType: ResponsesTextContentType = m.role === 'assistant' ? 'output_text' : 'input_text';
+      return {
+        type: 'message' as const,
+        role: m.role,
+        content: [{
+          type: textType,
+          text: m.content,
+        }],
+      };
+    }),
   ];
 }
 

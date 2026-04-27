@@ -1,7 +1,11 @@
 /**
- * 农历/干支/节气 工具
- * TODO: 集成 paipan 库
+ * 农历/干支/节气工具
+ *
+ * 该模块只提供通用日期信息，不负责个人命盘推演。
+ * 命盘相关逻辑请使用 lib/bazi / lib/qimen 等专门引擎。
  */
+
+import lunisolar from 'lunisolar';
 
 // 天干
 export const TIAN_GAN = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'] as const;
@@ -11,6 +15,8 @@ export const DI_ZHI = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '
 
 // 五行
 export const WU_XING = ['金', '木', '水', '火', '土'] as const;
+
+const WUXING_KEYS = ['金', '木', '水', '火', '土'] as const;
 
 // 天干对应五行
 export const GAN_WUXING: Record<string, string> = {
@@ -47,16 +53,31 @@ export interface DailyInfo {
 }
 
 /**
- * 获取今日信息（占位实现）
- * TODO: 接入 paipan 库的真实算法
+ * 获取指定日期的通用历法信息。
+ *
+ * 说明：五行分布仅统计年月日三柱的天干地支，不等同于个人八字强弱。
  */
-export function getTodayInfo(): DailyInfo {
+export function getTodayInfo(date: Date = new Date()): DailyInfo {
+  const lsr = lunisolar(date);
+  const lunar = lsr.lunar;
+  const yearGanZhi = lsr.format('cY');
+  const monthGanZhi = lsr.format('cM');
+  const ganZhi = lsr.format('cD');
+  const lunarDate = `${lunar.getMonthName()}${lunar.getDayName()}`;
+
+  const wuxingBalance = Object.fromEntries(WUXING_KEYS.map(k => [k, 0])) as Record<string, number>;
+  for (const char of `${yearGanZhi}${monthGanZhi}${ganZhi}`) {
+    const wx = GAN_WUXING[char] ?? ZHI_WUXING[char];
+    if (wx) wuxingBalance[wx] = (wuxingBalance[wx] ?? 0) + 1;
+  }
+
   return {
-    solarDate: new Date().toLocaleDateString('zh-CN'),
-    lunarDate: '三月十四',  // TODO: 真实农历转换
-    ganZhi: '辛巳',         // TODO: 真实日干支
-    yearGanZhi: '乙巳',
-    monthGanZhi: '庚辰',
-    wuxingBalance: { '金': 2, '木': 1, '水': 1, '火': 3, '土': 1 },
+    solarDate: date.toLocaleDateString('zh-CN'),
+    lunarDate,
+    ganZhi,
+    yearGanZhi,
+    monthGanZhi,
+    solarTerm: lsr.solarTerm?.toString(),
+    wuxingBalance,
   };
 }
