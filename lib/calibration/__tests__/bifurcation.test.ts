@@ -7,6 +7,8 @@ jest.mock('@/lib/bazi/BaziEngine', () => ({
     calculate: (birthDate: Date, gender: '男' | '女') => ({
       birthDate,
       gender,
+      // 紫微 extractor 需要 riZhu.gan 来计算大限十神
+      riZhu: { gan: '甲' },
       __stub: true,
     }),
   })),
@@ -43,8 +45,8 @@ const DAYUN_BY_HOUR: Record<number, Array<{ startAge: number; endAge: number; sh
 // 让三个 candidate 的流年也有些差异：根据 hour 偏移 cycle 索引
 const HOUR_OFFSET: Record<number, number> = { 18: 0, 20: 3, 22: 7 };
 
-jest.mock('@/lib/bazi/DayunEngine', () => ({
-  DayunEngine: jest.fn().mockImplementation((mingPan: { birthDate: Date }) => {
+jest.mock('@/lib/bazi/DayunEngine', () => {
+  const ctor: any = jest.fn().mockImplementation((mingPan: { birthDate: Date }) => {
     const hour = mingPan.birthDate.getHours();
     const dayuns = DAYUN_BY_HOUR[hour] ?? DAYUN_BY_HOUR[20];
     const offset = HOUR_OFFSET[hour] ?? 0;
@@ -55,8 +57,11 @@ jest.mock('@/lib/bazi/DayunEngine', () => ({
         shiShen: SHISHEN_CYCLE[(((year + offset) % 10) + 10) % 10],
       }),
     };
-  }),
-}));
+  });
+  // 紫微大限 extractor 用到 static computeShiShen
+  ctor.computeShiShen = jest.fn().mockReturnValue('比肩');
+  return { DayunEngine: ctor };
+});
 
 import { detectBifurcations } from '../bifurcation';
 import { buildCandidates } from '../buildCandidates';

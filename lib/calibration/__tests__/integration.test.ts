@@ -11,7 +11,8 @@ jest.mock('@/lib/bazi/BaziEngine', () => {
         gender,
         // 最小占位，DayunEngine 会读这些字段（占位即可，DayunEngine 也被 mock）
         siZhu: {} as any,
-        riZhu: {} as any,
+        // riZhu.gan 提供给紫微大限 extractor 用以推十神（mock 模式下值不影响断言）
+        riZhu: { gan: '甲' } as any,
         wuXingStrength: {} as any,
         branchRelations: [],
         stemRelations: [],
@@ -50,20 +51,21 @@ const DAYUN_BY_HOUR: Record<number, Array<{ startAge: number; endAge: number; sh
 };
 
 jest.mock('@/lib/bazi/DayunEngine', () => {
-  return {
-    DayunEngine: jest.fn().mockImplementation((mingPan: any) => {
-      const hour = mingPan.birthDateTime.getHours();
-      return {
-        getDaYunList: () => DAYUN_BY_HOUR[hour] ?? [],
-        getCurrentLiuNian: (year: number) => ({
-          year,
-          ganZhi: { gan: '甲', zhi: '子' },
-          shiShen: 'none',  // 流年路径不参与本测试
-          interactions: [],
-        }),
-      };
-    }),
-  };
+  const ctor: any = jest.fn().mockImplementation((mingPan: any) => {
+    const hour = mingPan.birthDateTime.getHours();
+    return {
+      getDaYunList: () => DAYUN_BY_HOUR[hour] ?? [],
+      getCurrentLiuNian: (year: number) => ({
+        year,
+        ganZhi: { gan: '甲', zhi: '子' },
+        shiShen: 'none',  // 流年路径不参与本测试
+        interactions: [],
+      }),
+    };
+  });
+  // 紫微大限 extractor 用到 static computeShiShen，给 deterministic stub
+  ctor.computeShiShen = jest.fn().mockReturnValue('比肩');
+  return { DayunEngine: ctor };
 });
 
 describe('CalibrationSession integration with deterministic engines', () => {

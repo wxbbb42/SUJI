@@ -1,4 +1,5 @@
 import { BaziEngine } from '@/lib/bazi/BaziEngine';
+import { ZiweiEngine } from '@/lib/ziwei/ZiweiEngine';
 import type { Candidate, CandidateId } from './types';
 
 export const SHICHEN_ANCHORS: Record<string, number> = {
@@ -16,6 +17,7 @@ function shichenOfHour(hour: number): typeof ORDER[number] {
 }
 
 const engine = new BaziEngine();
+const ziweiEngine = new ZiweiEngine();
 
 export function buildCandidates(
   birthDate: Date,
@@ -40,11 +42,23 @@ export function buildCandidates(
   const beforeDate = new Date(originAnchorDate.getTime() - 2 * 3600 * 1000);
   const afterDate = new Date(originAnchorDate.getTime() + 2 * 3600 * 1000);
 
-  const make = (id: CandidateId, date: Date): Candidate => ({
-    id,
-    birthDate: date,
-    mingPan: engine.calculate(date, gender, longitude),
-  });
+  const make = (id: CandidateId, date: Date): Candidate => {
+    const { pan, astrolabe } = ziweiEngine.computeWithAstrolabe({
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      day: date.getDate(),
+      hour: date.getHours(),
+      minute: date.getMinutes(),
+      gender,
+    });
+    return {
+      id,
+      birthDate: date,
+      mingPan: engine.calculate(date, gender, longitude),
+      ziweiPan: pan,
+      astrolabe,
+    };
+  };
 
   return [
     make('before', beforeDate),
