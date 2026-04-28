@@ -1,5 +1,6 @@
 import type { BifurcatedYear, Candidate, CandidateId, EventType } from './types';
 import { extractEventsForCandidate } from './extractEvents';
+import { extractZiweiEventsForCandidate } from './extractZiweiEvents';
 
 /**
  * 计算事件三元组的"分歧度"
@@ -10,6 +11,27 @@ import { extractEventsForCandidate } from './extractEvents';
  */
 function diversityOf(events: Record<CandidateId, EventType>): number {
   return new Set([events.before, events.origin, events.after]).size;
+}
+
+/**
+ * 合并八字 + 紫微两个事件源到单个 candidate 的年份向量
+ *
+ * 设计：紫微大限是真正能区分时辰的信号（八字大运由年柱+月柱决定，与时辰无关），
+ * 因此 ziwei 事件优先；若紫微在该年没有转入事件，则回退到八字大运/流年。
+ */
+function mergeEventsForCandidate(
+  candidate: Candidate,
+  currentYear: number,
+): Record<number, EventType> {
+  const baziEv = extractEventsForCandidate(candidate, currentYear);
+  const ziweiEv = extractZiweiEventsForCandidate(candidate, currentYear);
+  const merged: Record<number, EventType> = { ...baziEv };
+  for (const [yearStr, ev] of Object.entries(ziweiEv)) {
+    if (ev && ev !== 'none') {
+      merged[Number(yearStr)] = ev;
+    }
+  }
+  return merged;
 }
 
 /**
@@ -30,9 +52,9 @@ export function detectBifurcations(
   candidates: [Candidate, Candidate, Candidate],
   currentYear: number,
 ): BifurcatedYear[] {
-  const evb = extractEventsForCandidate(candidates[0], currentYear);
-  const evo = extractEventsForCandidate(candidates[1], currentYear);
-  const eva = extractEventsForCandidate(candidates[2], currentYear);
+  const evb = mergeEventsForCandidate(candidates[0], currentYear);
+  const evo = mergeEventsForCandidate(candidates[1], currentYear);
+  const eva = mergeEventsForCandidate(candidates[2], currentYear);
 
   const years = new Set<number>();
   for (const y of Object.keys(evb)) years.add(Number(y));
