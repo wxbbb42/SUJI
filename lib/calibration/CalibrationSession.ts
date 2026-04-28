@@ -1,18 +1,50 @@
 import { buildCandidates } from './buildCandidates';
-import { detectBifurcations } from './bifurcation';
-import { findTemplate, fillTemplate, deltaFromAnswer } from './templates';
-import { PERSONALITY_TEMPLATES } from './templates/personality';
-import { applyAnswer, checkTermination } from './scoring';
-import type {
-  CalibrationSessionState, CandidateId, AskedQuestion, BifurcatedYear,
-} from './types';
-import type { QuestionTemplate } from './templates/types';
+import { extractEventsForCandidate } from './extractEvents';
+import { extractZiweiEventsForCandidate } from './extractZiweiEvents';
+import type { Candidate, CandidateId, EventType, NextStep } from './types';
+
+export type { NextStep } from './types';
+
+/**
+ * 信号表：每个候选盘在某年应该发生什么类型的事件。
+ * LLM 只读，由 session 程序化生成。
+ *
+ * byCandidate[candidateId][year] = EventType
+ *   - 紫微大限信号优先（更具判别力，因为依赖时辰）
+ *   - 其余年份 fall through 到八字大运 / 流年
+ *   - 'none' 表示该年份没有显著事件信号
+ */
+export interface SignalTable {
+  byCandidate: Record<CandidateId, Record<number, EventType>>;
+  candidatesMeta: Array<{
+    id: CandidateId;
+    /** ISO 串便于 LLM 在 prompt 里直接引用 */
+    birthDate: string;
+    /** 例如 "戌时(19-21)"——给 LLM 也方便后端 lock 后写日志 */
+    birthHourLabel: string;
+  }>;
+  /** 当前公历年份，用于 LLM 算"X 年前" framing */
+  currentYear: number;
+}
 
 export interface AIRunner {
   runRound(input: {
-    templateRaw: string;
-    lastUserAnswer?: string;
-  }): Promise<{ lastClassification?: 'yes' | 'no' | 'uncertain'; question: string }>;
+    /** 候选盘信号表（程序生成，LLM 只读） */
+    signalTable: SignalTable;
+    /** 完整 chat history（含用户答案 + AI 之前问句） */
+    history: Array<{ role: 'ai' | 'user'; text: string }>;
+    /** 第几轮（1-indexed），AI 决定何时收口 */
+    round: number;
+    /** 用户当前年龄，用于过滤"年龄不可达"事件 */
+    userAge: number;
+  }): Promise<{
+    /** 'asking' 继续问；'locked' 锁定某候选；'gave_up' 放弃 */
+    decision: 'asking' | 'locked' | 'gave_up';
+    /** 当 decision='asking' 时的下一题；'locked'/'gave_up' 时的总结语 */
+    text: string;
+    /** 当 decision='locked' 时必填，AI 选哪个候选 */
+    lockedCandidate?: CandidateId;
+  }>;
 }
 
 export interface StartOptions {
@@ -21,169 +53,110 @@ export interface StartOptions {
   longitude: number;
 }
 
-export type NextStep =
-  | { type: 'next_question'; question: string }
-  | { type: 'locked'; correctedDate: Date; candidateId: CandidateId }
-  | { type: 'gave_up'; reason: string };
-
 export class CalibrationSession {
-  private state: CalibrationSessionState | null = null;
-  private pendingTemplate: QuestionTemplate | null = null;
-  private pendingBifurcation: BifurcatedYear | null = null;
-  private pendingAge = 0;
+  private signalTable: SignalTable | null = null;
+  private candidates: Candidate[] | null = null;
+  private history: Array<{ role: 'ai' | 'user'; text: string }> = [];
+  private round = 0;
+  private userAge = 0;
 
   constructor(private ai: AIRunner) {}
 
-  private requireState(): CalibrationSessionState {
-    if (!this.state) throw new Error('CalibrationSession: call start() first');
-    return this.state;
-  }
-
-  async start(opts: StartOptions): Promise<{ firstQuestion: string; state: CalibrationSessionState }> {
+  async start(opts: StartOptions): Promise<{ firstQuestion: string }> {
     const candidates = buildCandidates(opts.birthDate, opts.gender, opts.longitude);
-    const bifurcations = detectBifurcations(candidates, new Date().getFullYear());
+    const currentYear = new Date().getFullYear();
+    this.candidates = candidates;
+    this.userAge = currentYear - opts.birthDate.getFullYear();
+    this.signalTable = buildSignalTable(candidates, currentYear);
 
-    // bifurcations 为空有两种原因：
-    // 1. 八字大运/流年不依赖时辰（年柱+月柱+性别决定）→ ±1 时辰候选盘事件序列完全相同
-    //    → 任何成年用户都会触发空 bifurcation（这是当前 MVP 的设计 gap，需要紫微大限补齐）
-    // 2. 用户太年轻（< 18 岁）→ 大运转入次数太少，本身就难鉴别
-    if (bifurcations.length === 0) {
-      const age = new Date().getFullYear() - opts.birthDate.getFullYear();
-      throw new Error(age < 18 ? 'TOO_YOUNG' : 'LOW_SIGNAL');
+    // 信号空 → 三盘事件向量在 [birthYear+1, currentYear] 全为 'none'。
+    // 未成年用户大限/大运转入次数太少；其余情况说明引擎信号还不够，统一抛 LOW_SIGNAL。
+    const hasSignal = Object.values(this.signalTable.byCandidate).some(
+      m => Object.values(m).some(e => e !== 'none'),
+    );
+    if (!hasSignal) {
+      throw new Error(this.userAge < 18 ? 'TOO_YOUNG' : 'LOW_SIGNAL');
     }
 
-    this.state = {
-      candidates,
-      scores: { before: 0, origin: 0, after: 0 },
+    this.round = 1;
+    const out = await this.ai.runRound({
+      signalTable: this.signalTable,
       history: [],
-      bifurcations,
-      consumedKeys: new Set(),
-      round: 0,
-      consecutiveUncertain: 0,
-      status: 'asking',
-    };
-
-    const firstQuestion = await this.prepareNextQuestion();
-    return { firstQuestion, state: this.requireState() };
+      round: 1,
+      userAge: this.userAge,
+    });
+    if (out.decision !== 'asking') {
+      throw new Error('AI 首轮不应该直接 lock/give_up');
+    }
+    this.history.push({ role: 'ai', text: out.text });
+    return { firstQuestion: out.text };
   }
 
-  private pickNext(): { template: QuestionTemplate; bif: BifurcatedYear; age: number } | null {
-    const state = this.requireState();
-    for (const bif of state.bifurcations) {
-      const tpl = findTemplate(bif);
-      if (!tpl) continue;
-      const key = `${tpl.id}:${bif.year}`;
-      if (state.consumedKeys.has(key)) continue;
-      return { template: tpl, bif, age: bif.ageAt.origin };
+  async submitAnswer(userText: string): Promise<{ nextStep: NextStep }> {
+    if (!this.signalTable || !this.candidates) {
+      throw new Error('CalibrationSession: call start() first');
     }
-    // fallback: 性格模板（无年份）
-    for (const tpl of PERSONALITY_TEMPLATES) {
-      if (state.consumedKeys.has(`${tpl.id}:0`)) continue;
+    this.history.push({ role: 'user', text: userText });
+    this.round += 1;
+    const out = await this.ai.runRound({
+      signalTable: this.signalTable,
+      history: this.history,
+      round: this.round,
+      userAge: this.userAge,
+    });
+    this.history.push({ role: 'ai', text: out.text });
+
+    if (out.decision === 'locked') {
+      if (!out.lockedCandidate) {
+        throw new Error('AI 说 locked 但没给 candidateId');
+      }
+      const cand = this.candidates.find(c => c.id === out.lockedCandidate);
+      if (!cand) throw new Error('未知 candidateId');
       return {
-        template: tpl,
-        bif: { year: 0, ageAt: { before: 0, origin: 0, after: 0 }, events: { before: 'none', origin: 'none', after: 'none' }, diversity: 0 },
-        age: 0,
+        nextStep: {
+          type: 'locked',
+          correctedDate: cand.birthDate,
+          candidateId: cand.id,
+          summary: out.text,
+        },
       };
     }
-    return null;
-  }
-
-  private async prepareNextQuestion(lastUserAnswer?: string): Promise<string> {
-    const next = this.pickNext();
-    if (!next) {
-      // 模板用尽——force 跳过 round 阈值，按当前 scores 直接 lock
-      const state = this.requireState();
-      const verdict = checkTermination(state, { force: true });
-      this.state = { ...state, status: verdict.status, lockedCandidate: verdict.lockedCandidate };
-      return '';
+    if (out.decision === 'gave_up') {
+      return { nextStep: { type: 'gave_up', reason: out.text } };
     }
-    this.pendingTemplate = next.template;
-    this.pendingBifurcation = next.bif;
-    this.pendingAge = next.age;
-    const raw = fillTemplate(next.template, next.bif.year, next.age);
-    const aiOut = await this.ai.runRound({ templateRaw: raw, lastUserAnswer });
-    return aiOut.question;
+    return { nextStep: { type: 'next_question', question: out.text } };
+  }
+}
+
+function buildSignalTable(candidates: Candidate[], currentYear: number): SignalTable {
+  // 把每个候选的 baziEvents + ziweiEvents 合并成 year → eventType 字典。
+  // 紫微优先（更具判别力 → 后写覆盖前写）。
+  const byCandidate = {
+    before: {} as Record<number, EventType>,
+    origin: {} as Record<number, EventType>,
+    after: {} as Record<number, EventType>,
+  } satisfies Record<CandidateId, Record<number, EventType>>;
+
+  for (const c of candidates) {
+    const bazi = extractEventsForCandidate(c, currentYear);
+    const ziwei = extractZiweiEventsForCandidate(c, currentYear);
+    byCandidate[c.id] = { ...bazi, ...ziwei };
   }
 
-  async submitAnswer(userText: string): Promise<{ classified: 'yes'|'no'|'uncertain'; nextStep: NextStep }> {
-    this.requireState();
-    if (!this.pendingTemplate || !this.pendingBifurcation) {
-      throw new Error('CalibrationSession: no pending question');
-    }
-    const tpl = this.pendingTemplate;
-    const bif = this.pendingBifurcation;
+  const candidatesMeta = candidates.map(c => ({
+    id: c.id,
+    birthDate: c.birthDate.toISOString(),
+    birthHourLabel: shichenLabel(c.birthDate.getHours()),
+  }));
 
-    const raw = fillTemplate(tpl, bif.year, this.pendingAge);
-    const aiOut = await this.ai.runRound({ templateRaw: raw, lastUserAnswer: userText });
-    const classified = aiOut.lastClassification ?? 'uncertain';
+  return { byCandidate, candidatesMeta, currentYear };
+}
 
-    return this.consume(classified, userText, aiOut.question);
-  }
-
-  /** 测试专用：跳过 AI 直接注入分类 + delta */
-  async submitAnswerWithForcedDelta(
-    userText: string,
-    forcedDelta: Record<CandidateId, number>,
-  ): Promise<{ classified: 'yes'|'no'|'uncertain'; nextStep: NextStep }> {
-    this.requireState();
-    if (!this.pendingTemplate || !this.pendingBifurcation) {
-      throw new Error('CalibrationSession: no pending question');
-    }
-    // 任一候选有非零 delta 就视为有效分类（yes/no 都会动 score）；
-    // 三者全 0 才算 uncertain。这里不区分 yes/no，统一记 'yes'，因为真正的判定来自 delta 本身。
-    const allZero = forcedDelta.before === 0 && forcedDelta.origin === 0 && forcedDelta.after === 0;
-    const classified: 'yes'|'no'|'uncertain' = allZero ? 'uncertain' : 'yes';
-    return this.consumeWithDelta(classified, userText, forcedDelta, '');
-  }
-
-  private async consume(classified: 'yes'|'no'|'uncertain', userText: string, nextQuestionText: string): Promise<{ classified: typeof classified; nextStep: NextStep }> {
-    const tpl = this.pendingTemplate!;
-    const bif = this.pendingBifurcation!;
-    const delta = deltaFromAnswer(tpl, bif.events, classified);
-    return this.consumeWithDelta(classified, userText, delta, nextQuestionText);
-  }
-
-  private async consumeWithDelta(
-    classified: 'yes'|'no'|'uncertain',
-    userText: string,
-    delta: Record<CandidateId, number>,
-    nextQuestionText: string,
-  ): Promise<{ classified: typeof classified; nextStep: NextStep }> {
-    const tpl = this.pendingTemplate!;
-    const bif = this.pendingBifurcation!;
-    const q: AskedQuestion = {
-      templateId: tpl.id,
-      year: bif.year,
-      ageThen: this.pendingAge,
-      questionText: fillTemplate(tpl, bif.year, this.pendingAge),
-      userAnswer: userText,
-      classified,
-      delta,
-    };
-    const prev = this.requireState();
-    let next = applyAnswer(prev, q);
-    const verdict = checkTermination(next);
-    next = { ...next, status: verdict.status, lockedCandidate: verdict.lockedCandidate };
-    this.state = next;
-
-    if (verdict.status === 'locked') {
-      const winner = next.candidates.find(c => c.id === verdict.lockedCandidate)!;
-      return { classified, nextStep: { type: 'locked', correctedDate: winner.birthDate, candidateId: winner.id } };
-    }
-    if (verdict.status === 'gave_up') {
-      return { classified, nextStep: { type: 'gave_up', reason: '连续 2 轮无法判断' } };
-    }
-    const question = nextQuestionText || (await this.prepareNextQuestion(userText));
-    const after = this.requireState();
-    if (after.status !== 'asking') {
-      const winner = after.candidates.find(c => c.id === after.lockedCandidate);
-      if (winner) return { classified, nextStep: { type: 'locked', correctedDate: winner.birthDate, candidateId: winner.id } };
-      return { classified, nextStep: { type: 'gave_up', reason: '题库用尽' } };
-    }
-    return { classified, nextStep: { type: 'next_question', question } };
-  }
-
-  getState(): CalibrationSessionState {
-    return this.requireState();
-  }
+function shichenLabel(hour: number): string {
+  const map: Record<number, string> = {
+    0: '子时(23-01)', 2: '丑时(01-03)', 4: '寅时(03-05)', 6: '卯时(05-07)',
+    8: '辰时(07-09)', 10: '巳时(09-11)', 12: '午时(11-13)', 14: '未时(13-15)',
+    16: '申时(15-17)', 18: '酉时(17-19)', 20: '戌时(19-21)', 22: '亥时(21-23)',
+  };
+  return map[hour] ?? `${hour}时`;
 }

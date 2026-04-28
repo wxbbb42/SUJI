@@ -1,51 +1,47 @@
-import { CalibrationSession } from '../CalibrationSession';
+// LLM-driven session 端到端测试（使用 deterministic engine mocks）：
+// 验证从 start() 到 locked / gave_up 的完整状态流转，
+// 配合 mock AI 模拟"先问 N 轮再 lock"和"中途 give_up"两条主线。
 
-// 沿用其它 calibration 测试同款 mock 模式（看 buildCandidates.test.ts、bifurcation.test.ts）
-// 让 BaziEngine + DayunEngine 返回 deterministic fixture，使 detectBifurcations 可控
+import type { ShiShen } from '@/lib/bazi/types';
 
-jest.mock('@/lib/bazi/BaziEngine', () => {
-  return {
-    BaziEngine: jest.fn().mockImplementation(() => ({
-      calculate: (date: Date, gender: '男'|'女', _lon?: number) => ({
-        birthDateTime: date,
-        gender,
-        // 最小占位，DayunEngine 会读这些字段（占位即可，DayunEngine 也被 mock）
-        siZhu: {} as any,
-        // riZhu.gan 提供给紫微大限 extractor 用以推十神（mock 模式下值不影响断言）
-        riZhu: { gan: '甲' } as any,
-        wuXingStrength: {} as any,
-        branchRelations: [],
-        stemRelations: [],
-        geJu: {} as any,
-        shenSha: [],
-        daYunDirection: '顺行' as const,
-        daYunStartAge: 3,
-        daYunList: [],
-        lunarDate: '',
-        yearNaYin: '',
-        kongWang: [],
-        taiYuan: {} as any,
-        mingGong: {} as any,
-      }),
-    })),
-  };
-});
+jest.mock('@/lib/bazi/BaziEngine', () => ({
+  BaziEngine: jest.fn().mockImplementation(() => ({
+    calculate: (date: Date, gender: '男' | '女') => ({
+      birthDateTime: date,
+      gender,
+      siZhu: {} as any,
+      riZhu: { gan: '甲' } as any,
+      wuXingStrength: {} as any,
+      branchRelations: [],
+      stemRelations: [],
+      geJu: {} as any,
+      shenSha: [],
+      daYunDirection: '顺行' as const,
+      daYunStartAge: 3,
+      daYunList: [],
+      lunarDate: '',
+      yearNaYin: '',
+      kongWang: [],
+      taiYuan: {} as any,
+      mingGong: {} as any,
+    }),
+  })),
+}));
 
-const HOUR_OFFSET: Record<number, number> = { 18: -2, 20: 0, 22: 2 };
-const DAYUN_BY_HOUR: Record<number, Array<{ startAge: number; endAge: number; shiShen: string }>> = {
+const DAYUN_BY_HOUR: Record<number, Array<{ startAge: number; endAge: number; shiShen: ShiShen }>> = {
   18: [
     { startAge: 3, endAge: 12, shiShen: '比肩' },
-    { startAge: 13, endAge: 22, shiShen: '七杀' },   // 2008
+    { startAge: 13, endAge: 22, shiShen: '七杀' },
     { startAge: 23, endAge: 32, shiShen: '正官' },
   ],
   20: [
     { startAge: 3, endAge: 12, shiShen: '比肩' },
-    { startAge: 13, endAge: 22, shiShen: '正官' },   // 2008
+    { startAge: 13, endAge: 22, shiShen: '正官' },
     { startAge: 23, endAge: 32, shiShen: '伤官' },
   ],
   22: [
     { startAge: 3, endAge: 12, shiShen: '比肩' },
-    { startAge: 13, endAge: 22, shiShen: '比肩' },   // 2008（与 origin 不同 → 三盘 diversity ≥ 2）
+    { startAge: 13, endAge: 22, shiShen: '比肩' },
     { startAge: 23, endAge: 32, shiShen: '正印' },
   ],
 };
@@ -55,47 +51,72 @@ jest.mock('@/lib/bazi/DayunEngine', () => {
     const hour = mingPan.birthDateTime.getHours();
     return {
       getDaYunList: () => DAYUN_BY_HOUR[hour] ?? [],
-      getCurrentLiuNian: (year: number) => ({
-        year,
-        ganZhi: { gan: '甲', zhi: '子' },
-        shiShen: 'none',  // 流年路径不参与本测试
-        interactions: [],
-      }),
+      getCurrentLiuNian: (year: number) => ({ year, shiShen: 'none' }),
     };
   });
-  // 紫微大限 extractor 用到 static computeShiShen，给 deterministic stub
   ctor.computeShiShen = jest.fn().mockReturnValue('比肩');
   return { DayunEngine: ctor };
 });
 
-describe('CalibrationSession integration with deterministic engines', () => {
-  it('runs to locked status with forced deltas pointing to before', async () => {
-    const ai = { runRound: jest.fn().mockResolvedValue({ question: 'mock-q' }) };
+import { CalibrationSession } from '../CalibrationSession';
+
+const COMMON_OPTS = {
+  birthDate: new Date('1995-08-15T20:00:00+08:00'),
+  gender: '男' as const,
+  longitude: 116.4,
+};
+
+describe('CalibrationSession integration (LLM-driven)', () => {
+  it('runs full ask → lock cycle: AI sees signal table and chooses a candidate', async () => {
+    const ai = {
+      runRound: jest.fn()
+        .mockResolvedValueOnce({ decision: 'asking', text: 'Q1' })
+        .mockResolvedValueOnce({ decision: 'asking', text: 'Q2' })
+        .mockResolvedValueOnce({ decision: 'asking', text: 'Q3' })
+        .mockResolvedValueOnce({
+          decision: 'locked',
+          text: '看起来你出生在亥时(21-23)。',
+          lockedCandidate: 'after',
+        }),
+    };
     const session = new CalibrationSession(ai);
-    await session.start({
-      birthDate: new Date('1995-08-15T20:00:00+08:00'),
-      gender: '男',
-      longitude: 116.4,
-    });
-    const r1 = await session.submitAnswerWithForcedDelta('a', { before: 1, origin: 0, after: 0 });
+    const { firstQuestion } = await session.start(COMMON_OPTS);
+    expect(firstQuestion).toBe('Q1');
+
+    // session 把 signalTable 传给 AI——验证内容包含 3 个候选 metadata
+    const firstCall = ai.runRound.mock.calls[0][0];
+    expect(firstCall.signalTable.candidatesMeta.map((c: any) => c.id)).toEqual([
+      'before', 'origin', 'after',
+    ]);
+
+    const r1 = await session.submitAnswer('a');
     expect(r1.nextStep.type).toBe('next_question');
-    const r2 = await session.submitAnswerWithForcedDelta('b', { before: 1, origin: 0, after: 0 });
-    expect(r2.nextStep.type).toBe('locked');
-    if (r2.nextStep.type === 'locked') {
-      expect(r2.nextStep.candidateId).toBe('before');
+    const r2 = await session.submitAnswer('b');
+    expect(r2.nextStep.type).toBe('next_question');
+    const r3 = await session.submitAnswer('c');
+    expect(r3.nextStep.type).toBe('locked');
+    if (r3.nextStep.type === 'locked') {
+      expect(r3.nextStep.candidateId).toBe('after');
+      // after = 戌+1 = 亥(22)
+      expect(r3.nextStep.correctedDate.getHours()).toBe(22);
+      expect(r3.nextStep.summary).toContain('亥时');
     }
   });
 
-  it('reaches gave_up after 2 consecutive uncertain (zero deltas)', async () => {
-    const ai = { runRound: jest.fn().mockResolvedValue({ question: 'q' }) };
+  it('runs ask → give_up cycle when AI gives up', async () => {
+    const ai = {
+      runRound: jest.fn()
+        .mockResolvedValueOnce({ decision: 'asking', text: 'Q1' })
+        .mockResolvedValueOnce({ decision: 'asking', text: 'Q2' })
+        .mockResolvedValueOnce({ decision: 'gave_up', text: '信号不足。' }),
+    };
     const session = new CalibrationSession(ai);
-    await session.start({
-      birthDate: new Date('1995-08-15T20:00:00+08:00'),
-      gender: '男',
-      longitude: 116.4,
-    });
-    await session.submitAnswerWithForcedDelta('a0', { before: 0, origin: 0, after: 0 });
-    const last = await session.submitAnswerWithForcedDelta('a1', { before: 0, origin: 0, after: 0 });
+    await session.start(COMMON_OPTS);
+    await session.submitAnswer('不记得');
+    const last = await session.submitAnswer('也不记得');
     expect(last.nextStep.type).toBe('gave_up');
+    if (last.nextStep.type === 'gave_up') {
+      expect(last.nextStep.reason).toContain('信号不足');
+    }
   });
 });

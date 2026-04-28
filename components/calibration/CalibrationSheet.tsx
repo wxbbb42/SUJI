@@ -95,10 +95,12 @@ export function CalibrationSheet({ visible, onClose }: Props) {
       const hour = step.correctedDate.getHours();
       const label = SHICHEN_LABEL[hour] ?? { name: '?时', range: '' };
       setBirthDate(step.correctedDate);
+      // AI 给的总结语优先（更自然），后面追一行系统级反馈说"命盘已更新"
+      append({ role: 'ai', text: step.summary });
       append({ role: 'ai', text: `已校准为${label.name}（${label.range}），命盘已更新。` });
       setDone(true);
     } else {
-      append({ role: 'ai', text: '信息不够，无法确定时辰。可换个时间再试。' });
+      append({ role: 'ai', text: step.reason || '信息不够，无法确定时辰。可换个时间再试。' });
       setDone(true);
     }
   };
