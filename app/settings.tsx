@@ -47,6 +47,8 @@ export default function SettingsScreen() {
     store.setApiModel(model.trim() || defaultModel);
     if (provider === 'custom' && baseUrl.trim()) {
       store.setApiBaseUrl(baseUrl.trim());
+    } else {
+      store.setApiBaseUrl('');
     }
     Alert.alert('已保存', 'AI 配置已更新');
   }, [provider, apiKey, model, baseUrl, defaultModel, store]);

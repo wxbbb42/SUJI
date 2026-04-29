@@ -1,4 +1,5 @@
 import {
+  calibrationAI,
   parseAIResponse,
   CALIBRATION_SYSTEM_PROMPT,
   renderSignalTable,
@@ -6,6 +7,12 @@ import {
   buildUserMessage,
 } from '../CalibrationAI';
 import type { SignalTable } from '../CalibrationSession';
+
+jest.mock('@/lib/store/userStore', () => ({
+  useUserStore: {
+    getState: jest.fn(),
+  },
+}));
 
 describe('parseAIResponse', () => {
   it('parses well-formed asking response', () => {
@@ -118,5 +125,77 @@ describe('buildUserMessage', () => {
     expect(out).toContain('用户当前年龄：31');
     expect(out).toContain('AI: Q1');
     expect(out).toContain('第 2 轮');
+  });
+});
+
+function mockUserStoreState(state: {
+  apiProvider: 'openai' | 'deepseek' | 'anthropic' | 'custom';
+  apiKey: string;
+  apiModel?: string | null;
+  apiBaseUrl?: string | null;
+}) {
+  const { useUserStore } = jest.requireMock('@/lib/store/userStore') as {
+    useUserStore: { getState: jest.Mock };
+  };
+  useUserStore.getState.mockReturnValue(state);
+}
+
+function mockResponse(data: unknown, ok = true, status = 200): Response {
+  return {
+    ok,
+    status,
+    json: async () => data,
+    text: async () => JSON.stringify(data),
+  } as Response;
+}
+
+describe('calibrationAI provider calls', () => {
+  beforeEach(() => {
+    global.fetch = jest.fn();
+  });
+
+  it('routes Anthropic config to /v1/messages instead of /chat/completions', async () => {
+    mockUserStoreState({
+      apiProvider: 'anthropic',
+      apiKey: 'test-key',
+      apiModel: 'claude-sonnet-test',
+      apiBaseUrl: 'https://stale-custom.example/v1',
+    });
+    (global.fetch as jest.Mock).mockResolvedValueOnce(
+      mockResponse({ content: [{ type: 'text', text: '{"decision":"asking","text":"Q1"}' }] }),
+    );
+
+    const out = await calibrationAI.runRound({
+      signalTable: FAKE_TABLE,
+      history: [],
+      round: 1,
+      userAge: 31,
+    });
+
+    expect(global.fetch).toHaveBeenCalledWith(
+      'https://api.anthropic.com/v1/messages',
+      expect.objectContaining({ method: 'POST' }),
+    );
+    expect(out).toEqual({ decision: 'asking', text: 'Q1' });
+  });
+
+  it('keeps first round startable when provider request fails', async () => {
+    mockUserStoreState({
+      apiProvider: 'openai',
+      apiKey: 'test-key',
+      apiModel: 'gpt-test',
+      apiBaseUrl: null,
+    });
+    (global.fetch as jest.Mock).mockResolvedValue(mockResponse({ error: 'boom' }, false, 500));
+
+    const out = await calibrationAI.runRound({
+      signalTable: FAKE_TABLE,
+      history: [],
+      round: 1,
+      userAge: 31,
+    });
+
+    expect(out.decision).toBe('asking');
+    expect(out.text).toContain('印象很深');
   });
 });

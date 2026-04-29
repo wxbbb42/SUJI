@@ -9,7 +9,6 @@
 
 import { SYSTEM_PROMPT, TONE_PROMPTS, type ToneStyle, type ChatMessage } from './index';
 import type { UserState } from '../store/userStore';
-import { fetch as expoFetch } from 'expo/fetch';
 
 /** API 配置 */
 export interface ChatConfig {
@@ -35,7 +34,7 @@ export function getChatConfig(state: UserState): ChatConfig | null {
     provider: state.apiProvider,
     apiKey: state.apiKey,
     model: state.apiModel || d.model,
-    baseUrl: state.apiBaseUrl || d.baseUrl,
+    baseUrl: state.apiProvider === 'custom' ? (state.apiBaseUrl || d.baseUrl) : d.baseUrl,
   };
 }
 
@@ -78,6 +77,11 @@ function buildAuthHeaders(config: ChatConfig): Record<string, string> {
     : { 'Authorization': `Bearer ${config.apiKey}` };
 }
 
+async function getExpoFetch(): Promise<typeof fetch> {
+  const mod = await import('expo/fetch');
+  return mod.fetch as typeof fetch;
+}
+
 /**
  * 流式对话（OpenAI 兼容 API）
  * 适用于 openai / deepseek / custom
@@ -89,6 +93,7 @@ async function* streamOpenAI(
   signal?: AbortSignal,
 ): AsyncGenerator<string> {
   const url = `${config.baseUrl}/chat/completions`;
+  const expoFetch = await getExpoFetch();
 
   const body = {
     model: config.model,
@@ -155,6 +160,7 @@ async function* streamResponsesAPI(
   signal?: AbortSignal,
 ): AsyncGenerator<string> {
   const url = config.baseUrl || '';
+  const expoFetch = await getExpoFetch();
 
   const body = {
     model: config.model,
@@ -243,6 +249,7 @@ async function* streamAnthropic(
   signal?: AbortSignal,
 ): AsyncGenerator<string> {
   const url = `${config.baseUrl}/v1/messages`;
+  const expoFetch = await getExpoFetch();
 
   const body = {
     model: config.model,
@@ -301,13 +308,27 @@ async function* streamAnthropic(
 /**
  * 非流式 fallback（React Native 某些环境不支持 ReadableStream）
  */
-async function fetchNonStream(
+export interface SendChatNonStreamOptions {
+  maxTokens?: number;
+  temperature?: number;
+  responseFormat?: { type: 'json_object' };
+}
+
+export async function sendChatNonStream(
   messages: ChatMessage[],
   systemPrompt: string,
   config: ChatConfig,
+  options: SendChatNonStreamOptions = {},
 ): Promise<string> {
   if (config.provider === 'anthropic') {
     const url = `${config.baseUrl}/v1/messages`;
+    const body = {
+      model: config.model,
+      max_tokens: options.maxTokens ?? 2048,
+      system: systemPrompt,
+      messages: messages.map(m => ({ role: m.role, content: m.content })),
+      ...(options.temperature != null ? { temperature: options.temperature } : {}),
+    };
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -315,30 +336,27 @@ async function fetchNonStream(
         'x-api-key': config.apiKey,
         'anthropic-version': '2023-06-01',
       },
-      body: JSON.stringify({
-        model: config.model,
-        max_tokens: 2048,
-        system: systemPrompt,
-        messages: messages.map(m => ({ role: m.role, content: m.content })),
-      }),
+      body: JSON.stringify(body),
     });
-    if (!response.ok) throw new Error(`API 错误 (${response.status})`);
+    if (!response.ok) throw new Error(`API 错误 (${response.status}): ${await response.text()}`);
     const data = await response.json();
     return data.content?.[0]?.text ?? '';
   }
 
   // Responses API（含 Azure AI Foundry / GPT-5 系列）
   if (isResponsesAPI(config)) {
+    const body = {
+      model: config.model,
+      input: toResponsesInput(messages, systemPrompt),
+      ...(options.temperature != null ? { temperature: options.temperature } : {}),
+    };
     const response = await fetch(config.baseUrl || '', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         ...buildAuthHeaders(config),
       },
-      body: JSON.stringify({
-        model: config.model,
-        input: toResponsesInput(messages, systemPrompt),
-      }),
+      body: JSON.stringify(body),
     });
     if (!response.ok) throw new Error(`API 错误 (${response.status}): ${await response.text()}`);
     const data = await response.json();
@@ -354,21 +372,24 @@ async function fetchNonStream(
 
   // OpenAI 兼容
   const url = `${config.baseUrl}/chat/completions`;
+  const body = {
+    model: config.model,
+    messages: [
+      { role: 'system', content: systemPrompt },
+      ...messages.map(m => ({ role: m.role, content: m.content })),
+    ],
+    ...(options.temperature != null ? { temperature: options.temperature } : {}),
+    ...(options.responseFormat ? { response_format: options.responseFormat } : {}),
+  };
   const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       ...buildAuthHeaders(config),
     },
-    body: JSON.stringify({
-      model: config.model,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        ...messages.map(m => ({ role: m.role, content: m.content })),
-      ],
-    }),
+    body: JSON.stringify(body),
   });
-  if (!response.ok) throw new Error(`API 错误 (${response.status})`);
+  if (!response.ok) throw new Error(`API 错误 (${response.status}): ${await response.text()}`);
   const data = await response.json();
   return data.choices?.[0]?.message?.content ?? '';
 }
@@ -408,7 +429,7 @@ export async function sendChat(
     }
     // 其他错误 fallback 到非流式
     console.warn('流式请求失败，降级为非流式:', streamErr);
-    const text = await fetchNonStream(messages, systemPrompt, config);
+    const text = await sendChatNonStream(messages, systemPrompt, config);
     onChunk?.(text);
     return text;
   }
@@ -416,7 +437,7 @@ export async function sendChat(
 
 // ── sendOrchestrated：有命盘时走编排路径 ──────────────────────────────────
 
-import { runOrchestration, type OrchestrationResult } from './tools/orchestrator';
+import type { OrchestrationResult } from './tools/orchestrator';
 import type { ToolCall } from './tools/types';
 
 /** 构建 thinker prompt 的命主身份段（150 tokens 以内） */
@@ -456,6 +477,7 @@ export interface SendOrchestratedOptions {
  * 主入口：调用 runOrchestration，自动构建身份卡片和上下文
  */
 export async function sendOrchestrated(opts: SendOrchestratedOptions): Promise<OrchestrationResult> {
+  const { runOrchestration } = await import('./tools/orchestrator');
   const mingPan = opts.mingPanJson ? safeParse(opts.mingPanJson) : null;
   const ziweiPan = opts.ziweiPanJson ? safeParse(opts.ziweiPanJson) : null;
 

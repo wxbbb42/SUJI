@@ -1,5 +1,6 @@
 import type { AIRunner, SignalTable } from './CalibrationSession';
 import type { CandidateId, EventType } from './types';
+import { getChatConfig, sendChatNonStream, type ChatConfig } from '@/lib/ai/chat';
 
 /**
  * LLM-driven calibration prompt.
@@ -120,59 +121,20 @@ export function buildUserMessage(input: {
   ].join('\n');
 }
 
-interface ProviderConfig {
-  provider: 'openai' | 'deepseek' | 'anthropic' | 'custom';
-  baseUrl: string;
-  apiKey: string;
-  model: string;
-}
-
-function defaultBaseUrl(p: ProviderConfig['provider']): string {
-  switch (p) {
-    case 'openai': return 'https://api.openai.com/v1';
-    case 'deepseek': return 'https://api.deepseek.com/v1';
-    case 'anthropic': return 'https://api.anthropic.com/v1';
-    case 'custom': return '';
-  }
-}
-
-function readProviderConfig(): ProviderConfig | null {
+function readProviderConfig(): ChatConfig | null {
   // 懒加载 userStore：模块加载需要 RN 的 AsyncStorage，jest 单测不进入 runRound 即不触发
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { useUserStore } = require('@/lib/store/userStore') as typeof import('@/lib/store/userStore');
-  const u = useUserStore.getState();
-  if (!u.apiProvider || !u.apiKey || !u.apiModel) return null;
-  const baseUrl = u.apiBaseUrl ?? defaultBaseUrl(u.apiProvider);
-  return {
-    provider: u.apiProvider,
-    baseUrl,
-    apiKey: u.apiKey,
-    model: u.apiModel,
-  };
+  return getChatConfig(useUserStore.getState());
 }
 
-async function callOnce(cfg: ProviderConfig, userMsg: string): Promise<string> {
-  // 懒加载 expo/fetch：模块加载需要 RN 运行时
-  const { fetch: expoFetch } = await import('expo/fetch');
-  const url = `${cfg.baseUrl.replace(/\/$/, '')}/chat/completions`;
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${cfg.apiKey}`,
-  };
-  const body = {
-    model: cfg.model,
-    messages: [
-      { role: 'system', content: CALIBRATION_SYSTEM_PROMPT },
-      { role: 'user', content: userMsg },
-    ],
-    response_format: { type: 'json_object' },
-    stream: false,
-    temperature: 0.3,
-  };
-  const res = await expoFetch(url, { method: 'POST', headers, body: JSON.stringify(body) });
-  if (!res.ok) throw new Error(`AI HTTP ${res.status}`);
-  const data = await res.json();
-  return data.choices?.[0]?.message?.content ?? '';
+async function callOnce(cfg: ChatConfig, userMsg: string): Promise<string> {
+  return sendChatNonStream(
+    [{ role: 'user', content: userMsg, timestamp: Date.now() }],
+    CALIBRATION_SYSTEM_PROMPT,
+    cfg,
+    { maxTokens: 1024, temperature: 0.3, responseFormat: { type: 'json_object' } },
+  );
 }
 
 /** AI 不可用时的兜底问句——尽量自然、不暴露兜底状态。 */
@@ -202,6 +164,9 @@ export const calibrationAI: AIRunner = {
       }
     }
     console.warn('[CalibrationAI] all retries failed:', lastErr);
+    if (input.round < 4) {
+      return { decision: 'asking', text: fallbackQuestion(input.round) };
+    }
     return { decision: 'gave_up', text: '网络异常，校准被中断。可稍后再试。' };
   },
 };
