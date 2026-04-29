@@ -1,0 +1,450 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-04-29T15:06:51.545Z",
+  "sourceCount": 17,
+  "claimCount": 6,
+  "domains": {
+    "academic": [
+      {
+        "id": "journal-zhouyi-research",
+        "title": "周易研究",
+        "tier": "B",
+        "type": "academic_journal",
+        "priority": "P3",
+        "status": "bibliography_only",
+        "usage": [
+          "易学研究",
+          "传统术数的学术语境",
+          "产品合规表达"
+        ]
+      }
+    ],
+    "bazi": [
+      {
+        "id": "bazi-ditiansui",
+        "title": "滴天髓",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P0",
+        "status": "seed_metadata",
+        "usage": [
+          "五行生克精义",
+          "日主强弱",
+          "用神取法",
+          "格局清浊",
+          "运程综合判断"
+        ]
+      },
+      {
+        "id": "bazi-qiongtong-baojian",
+        "title": "穷通宝鉴",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P0",
+        "status": "seed_metadata",
+        "usage": [
+          "调候用神",
+          "季节性分析",
+          "月令气候对日主的影响"
+        ]
+      },
+      {
+        "id": "bazi-sanming-tonghui",
+        "title": "三命通会",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P0",
+        "status": "seed_metadata",
+        "usage": [
+          "神煞体系",
+          "纳音系统",
+          "地支藏干",
+          "十二长生",
+          "六合/六害/六破",
+          "三会方局",
+          "人元司令",
+          "月令旺相休囚死"
+        ]
+      },
+      {
+        "id": "bazi-yuanhai-ziping",
+        "title": "渊海子平",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P0",
+        "status": "seed_metadata",
+        "usage": [
+          "四柱框架",
+          "十神体系",
+          "格局判定",
+          "天干五合",
+          "地支六冲/相刑",
+          "大运流年基础"
+        ]
+      },
+      {
+        "id": "academic-mingli-history-lu",
+        "title": "中国命理学史论",
+        "tier": "B",
+        "type": "modern_academic_book",
+        "priority": "P1",
+        "status": "bibliography_only",
+        "usage": [
+          "命理学历史演变",
+          "社会功能",
+          "产品定位的文化语境"
+        ]
+      },
+      {
+        "id": "academic-bazi-chinese-wisdom-liu",
+        "title": "八字与中国智慧",
+        "tier": "B",
+        "type": "modern_academic_book",
+        "priority": "P2",
+        "status": "bibliography_only",
+        "usage": [
+          "易学与命理哲学基础",
+          "传统概念现代转译"
+        ]
+      },
+      {
+        "id": "academic-mingli-philosophy-zhang",
+        "title": "命理哲学研究",
+        "tier": "B",
+        "type": "modern_academic_book",
+        "priority": "P2",
+        "status": "bibliography_only",
+        "usage": [
+          "命理体系哲学分析",
+          "术语现代化解释"
+        ]
+      }
+    ],
+    "culture": [
+      {
+        "id": "academic-mingli-history-lu",
+        "title": "中国命理学史论",
+        "tier": "B",
+        "type": "modern_academic_book",
+        "priority": "P1",
+        "status": "bibliography_only",
+        "usage": [
+          "命理学历史演变",
+          "社会功能",
+          "产品定位的文化语境"
+        ]
+      },
+      {
+        "id": "academic-bazi-chinese-wisdom-liu",
+        "title": "八字与中国智慧",
+        "tier": "B",
+        "type": "modern_academic_book",
+        "priority": "P2",
+        "status": "bibliography_only",
+        "usage": [
+          "易学与命理哲学基础",
+          "传统概念现代转译"
+        ]
+      },
+      {
+        "id": "academic-mingli-philosophy-zhang",
+        "title": "命理哲学研究",
+        "tier": "B",
+        "type": "modern_academic_book",
+        "priority": "P2",
+        "status": "bibliography_only",
+        "usage": [
+          "命理体系哲学分析",
+          "术语现代化解释"
+        ]
+      },
+      {
+        "id": "journal-zhouyi-research",
+        "title": "周易研究",
+        "tier": "B",
+        "type": "academic_journal",
+        "priority": "P3",
+        "status": "bibliography_only",
+        "usage": [
+          "易学研究",
+          "传统术数的学术语境",
+          "产品合规表达"
+        ]
+      }
+    ],
+    "liuyao": [
+      {
+        "id": "yijing-zhouyi-received",
+        "title": "周易（通行本）",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P0",
+        "status": "seed_metadata",
+        "usage": [
+          "六十四卦卦名",
+          "卦辞",
+          "爻辞",
+          "卦象基础"
+        ]
+      },
+      {
+        "id": "liuyao-huojulin",
+        "title": "火珠林",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "待 ingest：纳甲",
+          "六亲",
+          "世应",
+          "动变",
+          "用神取法"
+        ]
+      }
+    ],
+    "product-framing": [
+      {
+        "id": "academic-mingli-history-lu",
+        "title": "中国命理学史论",
+        "tier": "B",
+        "type": "modern_academic_book",
+        "priority": "P1",
+        "status": "bibliography_only",
+        "usage": [
+          "命理学历史演变",
+          "社会功能",
+          "产品定位的文化语境"
+        ]
+      },
+      {
+        "id": "academic-bazi-chinese-wisdom-liu",
+        "title": "八字与中国智慧",
+        "tier": "B",
+        "type": "modern_academic_book",
+        "priority": "P2",
+        "status": "bibliography_only",
+        "usage": [
+          "易学与命理哲学基础",
+          "传统概念现代转译"
+        ]
+      },
+      {
+        "id": "academic-mingli-philosophy-zhang",
+        "title": "命理哲学研究",
+        "tier": "B",
+        "type": "modern_academic_book",
+        "priority": "P2",
+        "status": "bibliography_only",
+        "usage": [
+          "命理体系哲学分析",
+          "术语现代化解释"
+        ]
+      }
+    ],
+    "qimen": [
+      {
+        "id": "qimen-quanshu",
+        "title": "奇门遁甲全书",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P0",
+        "status": "seed_metadata",
+        "usage": [
+          "奇门起局",
+          "地盘/天盘",
+          "八门",
+          "九星",
+          "八神",
+          "格局",
+          "寄宫规则"
+        ]
+      },
+      {
+        "id": "qimen-qimendunjia-net",
+        "title": "qimendunjia.net 奇门资料/排盘",
+        "tier": "C",
+        "type": "website",
+        "priority": "P2",
+        "status": "candidate",
+        "usage": [
+          "奇门规则交叉验证",
+          "排盘结果对照"
+        ]
+      },
+      {
+        "id": "qimen-ziwei-pro",
+        "title": "ziwei.pro 奇门/命理资料",
+        "tier": "C",
+        "type": "website",
+        "priority": "P2",
+        "status": "candidate",
+        "usage": [
+          "奇门规则交叉验证",
+          "排盘结果对照"
+        ]
+      }
+    ],
+    "yijing": [
+      {
+        "id": "yijing-zhouyi-received",
+        "title": "周易（通行本）",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P0",
+        "status": "seed_metadata",
+        "usage": [
+          "六十四卦卦名",
+          "卦辞",
+          "爻辞",
+          "卦象基础"
+        ]
+      },
+      {
+        "id": "journal-zhouyi-research",
+        "title": "周易研究",
+        "tier": "B",
+        "type": "academic_journal",
+        "priority": "P3",
+        "status": "bibliography_only",
+        "usage": [
+          "易学研究",
+          "传统术数的学术语境",
+          "产品合规表达"
+        ]
+      }
+    ],
+    "ziwei": [
+      {
+        "id": "ziwei-doushu-quanshu",
+        "title": "紫微斗数全书",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P0",
+        "status": "candidate",
+        "usage": [
+          "待 ingest：十二宫",
+          "十四主星",
+          "安星法",
+          "诸星赋性",
+          "格局/组合"
+        ]
+      },
+      {
+        "id": "ziwei-iztro",
+        "title": "iztro",
+        "tier": "C",
+        "type": "software_library",
+        "priority": "P0",
+        "status": "active_dependency",
+        "usage": [
+          "紫微排盘",
+          "十二宫",
+          "主星/辅星",
+          "四化",
+          "大限/流年基础数据"
+        ]
+      },
+      {
+        "id": "ziwei-doushu-quanji",
+        "title": "紫微斗数全集",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "待 ingest：星曜性质",
+          "宫位断法",
+          "四化与限运参考"
+        ]
+      },
+      {
+        "id": "ziwei-18-feixing",
+        "title": "十八飞星策天紫微斗数全集",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P2",
+        "status": "candidate",
+        "usage": [
+          "待 ingest：飞星体系",
+          "星曜组合",
+          "限运参考"
+        ]
+      },
+      {
+        "id": "qimen-ziwei-pro",
+        "title": "ziwei.pro 奇门/命理资料",
+        "tier": "C",
+        "type": "website",
+        "priority": "P2",
+        "status": "candidate",
+        "usage": [
+          "奇门规则交叉验证",
+          "排盘结果对照"
+        ]
+      }
+    ]
+  },
+  "claims": [
+    {
+      "id": "bazi.adjusting-climate.yongshen",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-qiongtong-baojian",
+        "bazi-ditiansui"
+      ],
+      "status": "implemented_needs_text_citation",
+      "confidence": "medium"
+    },
+    {
+      "id": "bazi.hidden-stems.table",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-sanming-tonghui"
+      ],
+      "status": "implemented_needs_text_citation",
+      "confidence": "medium"
+    },
+    {
+      "id": "bazi.ten-gods.core",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-yuanhai-ziping"
+      ],
+      "status": "implemented_needs_text_citation",
+      "confidence": "medium"
+    },
+    {
+      "id": "product.no-absolute-fortune-claims",
+      "domain": "product-framing",
+      "sourceIds": [
+        "academic-mingli-history-lu",
+        "journal-zhouyi-research"
+      ],
+      "status": "active_policy",
+      "confidence": "high_as_product_policy"
+    },
+    {
+      "id": "qimen.require-three-source-verification",
+      "domain": "qimen",
+      "sourceIds": [
+        "qimen-quanshu",
+        "qimen-ziwei-pro",
+        "qimen-qimendunjia-net"
+      ],
+      "status": "active_policy",
+      "confidence": "high_as_process_policy"
+    },
+    {
+      "id": "ziwei.use-library-for-charting",
+      "domain": "ziwei",
+      "sourceIds": [
+        "ziwei-iztro",
+        "ziwei-doushu-quanshu",
+        "ziwei-doushu-quanji"
+      ],
+      "status": "active_policy",
+      "confidence": "high_for_engineering_low_for_theory"
+    }
+  ]
+}

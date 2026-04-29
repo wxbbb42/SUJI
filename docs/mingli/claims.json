@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-04-29",
+  "claims": [
+    {
+      "id": "bazi.ten-gods.core",
+      "domain": "bazi",
+      "claim": "十神以日主为中心，按天干五行生克与阴阳关系推导，用于描述人与资源、表达、规则、支持、同侪之间的结构关系。",
+      "sourceIds": ["bazi-yuanhai-ziping"],
+      "repoRefs": ["lib/bazi/BaziEngine.ts"],
+      "confidence": "medium",
+      "status": "implemented_needs_text_citation"
+    },
+    {
+      "id": "bazi.hidden-stems.table",
+      "domain": "bazi",
+      "claim": "地支藏干表是八字五行力量、十神透藏、格局判断的重要基础表。",
+      "sourceIds": ["bazi-sanming-tonghui"],
+      "repoRefs": ["lib/bazi/BaziEngine.ts"],
+      "confidence": "medium",
+      "status": "implemented_needs_text_citation"
+    },
+    {
+      "id": "bazi.adjusting-climate.yongshen",
+      "domain": "bazi",
+      "claim": "调候用神强调出生月令/季节气候对日主状态的影响，不能只按五行数量机械判断。",
+      "sourceIds": ["bazi-qiongtong-baojian", "bazi-ditiansui"],
+      "repoRefs": ["lib/bazi/BaziEngine.ts"],
+      "confidence": "medium",
+      "status": "implemented_needs_text_citation"
+    },
+    {
+      "id": "ziwei.use-library-for-charting",
+      "domain": "ziwei",
+      "claim": "紫微排盘工程实现阶段使用 iztro 生成星盘；解释层必须回链紫微古籍/门派 sources，不能只引用软件库。",
+      "sourceIds": ["ziwei-iztro", "ziwei-doushu-quanshu", "ziwei-doushu-quanji"],
+      "repoRefs": ["lib/ziwei/ZiweiEngine.ts", "docs/superpowers/specs/2026-04-25-ai-orchestration-and-divination-systems-design.md"],
+      "confidence": "high_for_engineering_low_for_theory",
+      "status": "active_policy"
+    },
+    {
+      "id": "qimen.require-three-source-verification",
+      "domain": "qimen",
+      "claim": "奇门规则表进入代码前至少用一个经典文本和两个独立排盘/资料源交叉验证；分歧条目标记为 contested，不 silently choose。",
+      "sourceIds": ["qimen-quanshu", "qimen-ziwei-pro", "qimen-qimendunjia-net"],
+      "repoRefs": ["docs/superpowers/specs/2026-04-25-qimen-divination-design.md"],
+      "confidence": "high_as_process_policy",
+      "status": "active_policy"
+    },
+    {
+      "id": "product.no-absolute-fortune-claims",
+      "domain": "product-framing",
+      "claim": "有时的输出应以传统文化框架 + 现代自我观察语言表达，避免绝对预测、恐吓式断语和医学/财务/法律确定性建议。",
+      "sourceIds": ["academic-mingli-history-lu", "journal-zhouyi-research"],
+      "repoRefs": ["lib/ai/index.ts", "docs/superpowers/specs/2026-04-25-ai-orchestration-and-divination-systems-design.md"],
+      "confidence": "high_as_product_policy",
+      "status": "active_policy"
+    }
+  ]
+}

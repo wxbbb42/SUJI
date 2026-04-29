@@ -154,6 +154,7 @@ describe('CalibrationSession (LLM-driven)', () => {
     try {
       const recentBirth = new Date();
       recentBirth.setFullYear(recentBirth.getFullYear() - 10);
+      recentBirth.setHours(12, 0, 0, 0);
       const session = new CalibrationSession({ runRound: jest.fn() });
       await expect(
         session.start({ birthDate: recentBirth, gender: '男', longitude: 116.4 }),
