@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-04-29T15:06:51.545Z",
-  "sourceCount": 17,
-  "claimCount": 6,
+  "generatedAt": "2026-04-30T02:31:30.137Z",
+  "sourceCount": 48,
+  "claimCount": 20,
   "domains": {
     "academic": [
       {
@@ -16,6 +16,35 @@
           "易学研究",
           "传统术数的学术语境",
           "产品合规表达"
+        ]
+      }
+    ],
+    "almanac": [
+      {
+        "id": "calendar-xieji-bianfang-shu",
+        "title": "协纪辨方书",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "黄历宜忌源流",
+          "择日术语",
+          "节气/神煞与日课背景",
+          "每日仪式安全转译"
+        ]
+      },
+      {
+        "id": "calendar-yuzuan-xiangji-tongshu",
+        "title": "御纂象吉通书",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P2",
+        "status": "candidate",
+        "usage": [
+          "择日规则互校",
+          "黄历术语源流",
+          "宜忌表版本对照"
         ]
       }
     ],
@@ -83,6 +112,75 @@
         ]
       },
       {
+        "id": "bazi-ziping-zhenquan",
+        "title": "子平真诠",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P0",
+        "status": "candidate",
+        "usage": [
+          "格局取法",
+          "月令为纲",
+          "用神/相神",
+          "成格破格",
+          "八字解释框架"
+        ]
+      },
+      {
+        "id": "bazi-mingli-yueyan",
+        "title": "命理约言",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "子平原则整理",
+          "格局/用神",
+          "岁运判断"
+        ]
+      },
+      {
+        "id": "bazi-shenfeng-tongkao",
+        "title": "神峰通考",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "病药说",
+          "格局与喜忌",
+          "日主强弱",
+          "子平案例校验"
+        ]
+      },
+      {
+        "id": "bazi-wuxing-jingji",
+        "title": "五行精纪",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "纳音",
+          "神煞源流",
+          "早期禄命法",
+          "五行术语历史"
+        ]
+      },
+      {
+        "id": "bazi-yujing-aojue",
+        "title": "玉井奥诀",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "人元司事版本对照",
+          "格局/用神资料",
+          "三命通会引文互校"
+        ]
+      },
+      {
         "id": "academic-mingli-history-lu",
         "title": "中国命理学史论",
         "tier": "B",
@@ -93,6 +191,45 @@
           "命理学历史演变",
           "社会功能",
           "产品定位的文化语境"
+        ]
+      },
+      {
+        "id": "bazi-lantai-miaoxuan",
+        "title": "兰台妙选",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P2",
+        "status": "candidate",
+        "usage": [
+          "纳音格局",
+          "禄命法参考",
+          "传统格局名词源流"
+        ]
+      },
+      {
+        "id": "bazi-luoluzi-sanming-xiaoxi-fu",
+        "title": "珞琭子三命消息赋",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P2",
+        "status": "candidate",
+        "usage": [
+          "三命术源流",
+          "纳音/禄命原则",
+          "命理历史语境"
+        ]
+      },
+      {
+        "id": "bazi-xingping-huihai",
+        "title": "星平会海",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P2",
+        "status": "candidate",
+        "usage": [
+          "星命与子平资料汇编",
+          "神煞/格局交叉参考",
+          "传统术语索引"
         ]
       },
       {
@@ -117,11 +254,66 @@
         "usage": [
           "命理体系哲学分析",
           "术语现代化解释"
+        ]
+      },
+      {
+        "id": "bazi-ziping-cuiyan",
+        "title": "子平粹言",
+        "tier": "D",
+        "type": "modern_practice_book",
+        "priority": "P3",
+        "status": "candidate",
+        "usage": [
+          "近现代子平解释",
+          "格局评注参考",
+          "术语白话转译参考"
+        ]
+      }
+    ],
+    "calendar": [
+      {
+        "id": "calendar-xieji-bianfang-shu",
+        "title": "协纪辨方书",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "黄历宜忌源流",
+          "择日术语",
+          "节气/神煞与日课背景",
+          "每日仪式安全转译"
+        ]
+      },
+      {
+        "id": "calendar-yuzuan-xiangji-tongshu",
+        "title": "御纂象吉通书",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P2",
+        "status": "candidate",
+        "usage": [
+          "择日规则互校",
+          "黄历术语源流",
+          "宜忌表版本对照"
         ]
       }
     ],
     "culture": [
       {
+        "id": "yijing-zhouyi-zhengyi",
+        "title": "周易正义",
+        "tier": "A",
+        "type": "classic_commentary",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "卦爻辞义理注释",
+          "易学术语解释",
+          "传统解释语境"
+        ]
+      },
+      {
         "id": "academic-mingli-history-lu",
         "title": "中国命理学史论",
         "tier": "B",
@@ -132,6 +324,19 @@
           "命理学历史演变",
           "社会功能",
           "产品定位的文化语境"
+        ]
+      },
+      {
+        "id": "yijing-zhouyi-benyi",
+        "title": "周易本义",
+        "tier": "A",
+        "type": "classic_commentary",
+        "priority": "P2",
+        "status": "candidate",
+        "usage": [
+          "卦爻辞解释",
+          "象数/义理折中参考",
+          "产品文案的文化语境"
         ]
       },
       {
@@ -147,6 +352,19 @@
         ]
       },
       {
+        "id": "academic-chinese-divination-smith",
+        "title": "Fortune-tellers and Philosophers: Divination in Traditional Chinese Society",
+        "tier": "B",
+        "type": "modern_academic_book",
+        "priority": "P2",
+        "status": "bibliography_only",
+        "usage": [
+          "中国占卜社会史",
+          "产品 framing",
+          "避免伪科学包装"
+        ]
+      },
+      {
         "id": "academic-mingli-philosophy-zhang",
         "title": "命理哲学研究",
         "tier": "B",
@@ -156,6 +374,32 @@
         "usage": [
           "命理体系哲学分析",
           "术语现代化解释"
+        ]
+      },
+      {
+        "id": "yijing-zhouyi-jijie",
+        "title": "周易集解",
+        "tier": "A",
+        "type": "classic_commentary",
+        "priority": "P3",
+        "status": "candidate",
+        "usage": [
+          "历代易注互校",
+          "卦爻辞多义性",
+          "解释层避免单一断语"
+        ]
+      },
+      {
+        "id": "academic-way-of-heaven-smith",
+        "title": "The I Ching: A Biography / 易经相关现代学术研究（Richard J. Smith）",
+        "tier": "B",
+        "type": "modern_academic_book",
+        "priority": "P3",
+        "status": "bibliography_only",
+        "usage": [
+          "易经传播史",
+          "现代语境解释",
+          "产品文化 framing"
         ]
       },
       {
@@ -172,7 +416,51 @@
         ]
       }
     ],
+    "divination": [
+      {
+        "id": "meihua-yishu",
+        "title": "梅花易数",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P3",
+        "status": "candidate",
+        "usage": [
+          "象数占法边界",
+          "起卦方式候选",
+          "与六爻纳甲区分"
+        ]
+      }
+    ],
     "liuyao": [
+      {
+        "id": "liuyao-bushi-zhengzong",
+        "title": "卜筮正宗",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P0",
+        "status": "candidate",
+        "usage": [
+          "六爻基础法则",
+          "用神/原神/忌神/仇神",
+          "动变与断法",
+          "分类占例"
+        ]
+      },
+      {
+        "id": "liuyao-zengshan-buyi",
+        "title": "增删卜易",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P0",
+        "status": "candidate",
+        "usage": [
+          "用神取法",
+          "旺衰生克",
+          "动变",
+          "分类占例",
+          "现代六爻实务核心参考"
+        ]
+      },
       {
         "id": "yijing-zhouyi-received",
         "title": "周易（通行本）",
@@ -185,6 +473,19 @@
           "卦辞",
           "爻辞",
           "卦象基础"
+        ]
+      },
+      {
+        "id": "liuyao-huangjin-ce",
+        "title": "黄金策",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "分类占断",
+          "用神与占事映射",
+          "断语风险审查"
         ]
       },
       {
@@ -201,9 +502,105 @@
           "动变",
           "用神取法"
         ]
+      },
+      {
+        "id": "liuyao-yiyin",
+        "title": "易隐",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "纳甲体系",
+          "六亲世应",
+          "分类占法",
+          "六爻规则互校"
+        ]
+      },
+      {
+        "id": "yijing-zhouyi-zhengyi",
+        "title": "周易正义",
+        "tier": "A",
+        "type": "classic_commentary",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "卦爻辞义理注释",
+          "易学术语解释",
+          "传统解释语境"
+        ]
+      },
+      {
+        "id": "liuyao-duanyi-tianji",
+        "title": "断易天机",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P2",
+        "status": "candidate",
+        "usage": [
+          "分类占断",
+          "六爻术语与例法",
+          "断语安全改写样本"
+        ]
+      }
+    ],
+    "nayin": [
+      {
+        "id": "bazi-wuxing-jingji",
+        "title": "五行精纪",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "纳音",
+          "神煞源流",
+          "早期禄命法",
+          "五行术语历史"
+        ]
+      },
+      {
+        "id": "bazi-lantai-miaoxuan",
+        "title": "兰台妙选",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P2",
+        "status": "candidate",
+        "usage": [
+          "纳音格局",
+          "禄命法参考",
+          "传统格局名词源流"
+        ]
+      },
+      {
+        "id": "bazi-luoluzi-sanming-xiaoxi-fu",
+        "title": "珞琭子三命消息赋",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P2",
+        "status": "candidate",
+        "usage": [
+          "三命术源流",
+          "纳音/禄命原则",
+          "命理历史语境"
+        ]
       }
     ],
     "product-framing": [
+      {
+        "id": "calendar-xieji-bianfang-shu",
+        "title": "协纪辨方书",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "黄历宜忌源流",
+          "择日术语",
+          "节气/神煞与日课背景",
+          "每日仪式安全转译"
+        ]
+      },
       {
         "id": "academic-mingli-history-lu",
         "title": "中国命理学史论",
@@ -230,6 +627,19 @@
         ]
       },
       {
+        "id": "academic-chinese-divination-smith",
+        "title": "Fortune-tellers and Philosophers: Divination in Traditional Chinese Society",
+        "tier": "B",
+        "type": "modern_academic_book",
+        "priority": "P2",
+        "status": "bibliography_only",
+        "usage": [
+          "中国占卜社会史",
+          "产品 framing",
+          "避免伪科学包装"
+        ]
+      },
+      {
         "id": "academic-mingli-philosophy-zhang",
         "title": "命理哲学研究",
         "tier": "B",
@@ -239,6 +649,19 @@
         "usage": [
           "命理体系哲学分析",
           "术语现代化解释"
+        ]
+      },
+      {
+        "id": "academic-way-of-heaven-smith",
+        "title": "The I Ching: A Biography / 易经相关现代学术研究（Richard J. Smith）",
+        "tier": "B",
+        "type": "modern_academic_book",
+        "priority": "P3",
+        "status": "bibliography_only",
+        "usage": [
+          "易经传播史",
+          "现代语境解释",
+          "产品文化 framing"
         ]
       }
     ],
@@ -258,6 +681,84 @@
           "八神",
           "格局",
           "寄宫规则"
+        ]
+      },
+      {
+        "id": "qimen-yanbo-diaosou-ge",
+        "title": "烟波钓叟歌",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P0",
+        "status": "candidate",
+        "usage": [
+          "奇门总诀",
+          "起局/格局口诀",
+          "传统术语源流"
+        ]
+      },
+      {
+        "id": "qimen-yuding-baojian",
+        "title": "御定奇门宝鉴",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P0",
+        "status": "candidate",
+        "usage": [
+          "起局规则",
+          "三奇六仪",
+          "八门九星八神",
+          "格局与占法"
+        ]
+      },
+      {
+        "id": "qimen-faqiao",
+        "title": "奇门法窍",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "奇门占法",
+          "用神/格局解释",
+          "实务规则互校"
+        ]
+      },
+      {
+        "id": "qimen-tongzong-daquan",
+        "title": "奇门遁甲统宗大全",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "奇门规则汇编",
+          "格局互校",
+          "占法分类"
+        ]
+      },
+      {
+        "id": "qimen-jingyou-fuying-jing",
+        "title": "景祐遁甲符应经",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P2",
+        "status": "candidate",
+        "usage": [
+          "早期遁甲源流",
+          "符应体系",
+          "奇门历史与规则源头"
+        ]
+      },
+      {
+        "id": "qimen-zhi-gui",
+        "title": "奇门旨归",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P2",
+        "status": "candidate",
+        "usage": [
+          "奇门原则",
+          "占法与格局互校"
         ]
       },
       {
@@ -285,6 +786,63 @@
         ]
       }
     ],
+    "shensha": [
+      {
+        "id": "bazi-wuxing-jingji",
+        "title": "五行精纪",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "纳音",
+          "神煞源流",
+          "早期禄命法",
+          "五行术语历史"
+        ]
+      },
+      {
+        "id": "bazi-luoluzi-sanming-xiaoxi-fu",
+        "title": "珞琭子三命消息赋",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P2",
+        "status": "candidate",
+        "usage": [
+          "三命术源流",
+          "纳音/禄命原则",
+          "命理历史语境"
+        ]
+      }
+    ],
+    "xingming": [
+      {
+        "id": "bazi-xingping-huihai",
+        "title": "星平会海",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P2",
+        "status": "candidate",
+        "usage": [
+          "星命与子平资料汇编",
+          "神煞/格局交叉参考",
+          "传统术语索引"
+        ]
+      },
+      {
+        "id": "ziwei-guojulao-xingzong",
+        "title": "果老星宗",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P3",
+        "status": "candidate",
+        "usage": [
+          "星命历史语境",
+          "传统星曜解释对照",
+          "避免紫微/星命概念混用"
+        ]
+      }
+    ],
     "yijing": [
       {
         "id": "yijing-zhouyi-received",
@@ -298,6 +856,84 @@
           "卦辞",
           "爻辞",
           "卦象基础"
+        ]
+      },
+      {
+        "id": "yijing-zhouyi-zhengyi",
+        "title": "周易正义",
+        "tier": "A",
+        "type": "classic_commentary",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "卦爻辞义理注释",
+          "易学术语解释",
+          "传统解释语境"
+        ]
+      },
+      {
+        "id": "yijing-zhouyi-benyi",
+        "title": "周易本义",
+        "tier": "A",
+        "type": "classic_commentary",
+        "priority": "P2",
+        "status": "candidate",
+        "usage": [
+          "卦爻辞解释",
+          "象数/义理折中参考",
+          "产品文案的文化语境"
+        ]
+      },
+      {
+        "id": "academic-chinese-divination-smith",
+        "title": "Fortune-tellers and Philosophers: Divination in Traditional Chinese Society",
+        "tier": "B",
+        "type": "modern_academic_book",
+        "priority": "P2",
+        "status": "bibliography_only",
+        "usage": [
+          "中国占卜社会史",
+          "产品 framing",
+          "避免伪科学包装"
+        ]
+      },
+      {
+        "id": "meihua-yishu",
+        "title": "梅花易数",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P3",
+        "status": "candidate",
+        "usage": [
+          "象数占法边界",
+          "起卦方式候选",
+          "与六爻纳甲区分"
+        ]
+      },
+      {
+        "id": "yijing-zhouyi-jijie",
+        "title": "周易集解",
+        "tier": "A",
+        "type": "classic_commentary",
+        "priority": "P3",
+        "status": "candidate",
+        "usage": [
+          "历代易注互校",
+          "卦爻辞多义性",
+          "解释层避免单一断语"
+        ]
+      },
+      {
+        "id": "academic-way-of-heaven-smith",
+        "title": "The I Ching: A Biography / 易经相关现代学术研究（Richard J. Smith）",
+        "tier": "B",
+        "type": "modern_academic_book",
+        "priority": "P3",
+        "status": "bibliography_only",
+        "usage": [
+          "易经传播史",
+          "现代语境解释",
+          "产品文化 framing"
         ]
       },
       {
@@ -359,6 +995,19 @@
         ]
       },
       {
+        "id": "ziwei-taixuanshu",
+        "title": "紫微斗数太玄赋 / 太微赋相关传本",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P1",
+        "status": "candidate",
+        "usage": [
+          "星曜总论",
+          "身命/宫位解释原则",
+          "解释层语气与上下文要求"
+        ]
+      },
+      {
         "id": "ziwei-18-feixing",
         "title": "十八飞星策天紫微斗数全集",
         "tier": "A",
@@ -382,6 +1031,31 @@
           "奇门规则交叉验证",
           "排盘结果对照"
         ]
+      },
+      {
+        "id": "ziwei-guojulao-xingzong",
+        "title": "果老星宗",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P3",
+        "status": "candidate",
+        "usage": [
+          "星命历史语境",
+          "传统星曜解释对照",
+          "避免紫微/星命概念混用"
+        ]
+      },
+      {
+        "id": "ziwei-feixing-zicai",
+        "title": "紫微斗数飞星体系现代资料（待定具体书名）",
+        "tier": "D",
+        "type": "modern_practice_book",
+        "priority": "P3",
+        "status": "candidate",
+        "usage": [
+          "飞星派术语候选",
+          "门派差异记录"
+        ]
       }
     ]
   },
@@ -397,13 +1071,65 @@
       "confidence": "medium"
     },
     {
+      "id": "bazi.branch-relations.not-absolute-omens",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-sanming-tonghui",
+        "academic-mingli-history-lu"
+      ],
+      "status": "active_product_interpretation_policy",
+      "confidence": "medium_high"
+    },
+    {
+      "id": "bazi.day-master.month-command.core",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-yuanhai-ziping",
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "text_cited_needs_algorithm_review",
+      "confidence": "medium_high"
+    },
+    {
+      "id": "bazi.dayun.requires-tongbian",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-yuanhai-ziping",
+        "bazi-ziping-zhenquan",
+        "bazi-ditiansui"
+      ],
+      "status": "text_cited_policy_needs_copy_audit",
+      "confidence": "medium_high"
+    },
+    {
+      "id": "bazi.geju.mvp-simplified",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-yuanhai-ziping",
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "mvp_simplified_needs_classical_audit",
+      "confidence": "high_for_repo_assessment_medium_for_classical_scope"
+    },
+    {
       "id": "bazi.hidden-stems.table",
       "domain": "bazi",
       "sourceIds": [
+        "bazi-yuanhai-ziping",
         "bazi-sanming-tonghui"
       ],
-      "status": "implemented_needs_text_citation",
-      "confidence": "medium"
+      "status": "text_cited_needs_version_fixture",
+      "confidence": "medium_high_for_common_table_medium_for_version"
+    },
+    {
+      "id": "bazi.siling.table.contested",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-sanming-tonghui",
+        "bazi-yuanhai-ziping"
+      ],
+      "status": "contested",
+      "confidence": "high_for_disagreement_low_for_single_table"
     },
     {
       "id": "bazi.ten-gods.core",
@@ -411,8 +1137,62 @@
       "sourceIds": [
         "bazi-yuanhai-ziping"
       ],
-      "status": "implemented_needs_text_citation",
-      "confidence": "medium"
+      "status": "text_cited_needs_fixture",
+      "confidence": "medium_high_for_rule_low_for_full_interpretation"
+    },
+    {
+      "id": "bazi.wuxing.seasonal-prosperity.requires-tongbian",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-sanming-tonghui"
+      ],
+      "status": "text_cited_needs_algorithm_review",
+      "confidence": "medium_high"
+    },
+    {
+      "id": "bazi.ziping-zhenquan.geju-chengbai-jiuying",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "new_claim_needs_algorithm_design",
+      "confidence": "medium_high_for_first_pass_text_low_for_edition"
+    },
+    {
+      "id": "bazi.ziping-zhenquan.month-command-yongshen",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "text_cited_needs_better_edition_fixture",
+      "confidence": "medium_high_for_first_pass_text_low_for_edition"
+    },
+    {
+      "id": "bazi.ziping-zhenquan.stars-do-not-decide-geju",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "active_product_interpretation_policy",
+      "confidence": "medium_high_for_first_pass_text_low_for_edition"
+    },
+    {
+      "id": "bazi.ziping-zhenquan.xiangshen-critical",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "new_claim_needs_algorithm_design",
+      "confidence": "medium_high_for_first_pass_text_low_for_edition"
+    },
+    {
+      "id": "bazi.ziping-zhenquan.yongshen-variation",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "new_claim_needs_algorithm_design",
+      "confidence": "medium_high_for_first_pass_text_low_for_edition"
     },
     {
       "id": "product.no-absolute-fortune-claims",
@@ -434,6 +1214,35 @@
       ],
       "status": "active_policy",
       "confidence": "high_as_process_policy"
+    },
+    {
+      "id": "ziwei.four-transformations.by-year-stem",
+      "domain": "ziwei",
+      "sourceIds": [
+        "ziwei-doushu-quanshu",
+        "ziwei-iztro"
+      ],
+      "status": "text_cited_needs_fixture",
+      "confidence": "medium"
+    },
+    {
+      "id": "ziwei.interpretation.requires-context",
+      "domain": "ziwei",
+      "sourceIds": [
+        "ziwei-doushu-quanshu"
+      ],
+      "status": "text_cited_policy",
+      "confidence": "medium"
+    },
+    {
+      "id": "ziwei.ming-shen-placement.rule",
+      "domain": "ziwei",
+      "sourceIds": [
+        "ziwei-doushu-quanshu",
+        "ziwei-iztro"
+      ],
+      "status": "text_cited_needs_fixture",
+      "confidence": "medium"
     },
     {
       "id": "ziwei.use-library-for-charting",

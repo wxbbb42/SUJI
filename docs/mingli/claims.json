@@ -1,31 +1,49 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-04-29",
+  "updatedAt": "2026-04-30",
   "claims": [
     {
       "id": "bazi.ten-gods.core",
       "domain": "bazi",
-      "claim": "十神以日主为中心，按天干五行生克与阴阳关系推导，用于描述人与资源、表达、规则、支持、同侪之间的结构关系。",
-      "sourceIds": ["bazi-yuanhai-ziping"],
-      "repoRefs": ["lib/bazi/BaziEngine.ts"],
-      "confidence": "medium",
-      "status": "implemented_needs_text_citation"
+      "claim": "十神以日主为中心，按目标天干与日主之间的五行生克和阴阳同异推导，形成官杀、财、印枭、食伤、比劫五类/十神关系；产品解释应将其转译为结构关系，而非固定天干标签或绝对性格断语。",
+      "sourceIds": [
+        "bazi-yuanhai-ziping"
+      ],
+      "repoRefs": [
+        "lib/bazi/BaziEngine.ts",
+        "lib/bazi/DayunEngine.ts",
+        "docs/mingli/reading-notes/2026-04-30-yuanhai-ziping-first-pass.md"
+      ],
+      "confidence": "medium_high_for_rule_low_for_full_interpretation",
+      "status": "text_cited_needs_fixture"
     },
     {
       "id": "bazi.hidden-stems.table",
       "domain": "bazi",
-      "claim": "地支藏干表是八字五行力量、十神透藏、格局判断的重要基础表。",
-      "sourceIds": ["bazi-sanming-tonghui"],
-      "repoRefs": ["lib/bazi/BaziEngine.ts"],
-      "confidence": "medium",
-      "status": "implemented_needs_text_citation"
+      "claim": "地支藏干表是八字五行力量、十神透藏、格局判断的重要基础表；《渊海子平》藏遁歌与《三命通会》可互校，代码表需明确采用版本。",
+      "sourceIds": [
+        "bazi-yuanhai-ziping",
+        "bazi-sanming-tonghui"
+      ],
+      "repoRefs": [
+        "lib/bazi/BaziEngine.ts",
+        "docs/mingli/reading-notes/2026-04-30-yuanhai-ziping-first-pass.md",
+        "docs/mingli/reading-notes/2026-04-29-reading-log.md"
+      ],
+      "confidence": "medium_high_for_common_table_medium_for_version",
+      "status": "text_cited_needs_version_fixture"
     },
     {
       "id": "bazi.adjusting-climate.yongshen",
       "domain": "bazi",
       "claim": "调候用神强调出生月令/季节气候对日主状态的影响，不能只按五行数量机械判断。",
-      "sourceIds": ["bazi-qiongtong-baojian", "bazi-ditiansui"],
-      "repoRefs": ["lib/bazi/BaziEngine.ts"],
+      "sourceIds": [
+        "bazi-qiongtong-baojian",
+        "bazi-ditiansui"
+      ],
+      "repoRefs": [
+        "lib/bazi/BaziEngine.ts"
+      ],
       "confidence": "medium",
       "status": "implemented_needs_text_citation"
     },
@@ -33,8 +51,15 @@
       "id": "ziwei.use-library-for-charting",
       "domain": "ziwei",
       "claim": "紫微排盘工程实现阶段使用 iztro 生成星盘；解释层必须回链紫微古籍/门派 sources，不能只引用软件库。",
-      "sourceIds": ["ziwei-iztro", "ziwei-doushu-quanshu", "ziwei-doushu-quanji"],
-      "repoRefs": ["lib/ziwei/ZiweiEngine.ts", "docs/superpowers/specs/2026-04-25-ai-orchestration-and-divination-systems-design.md"],
+      "sourceIds": [
+        "ziwei-iztro",
+        "ziwei-doushu-quanshu",
+        "ziwei-doushu-quanji"
+      ],
+      "repoRefs": [
+        "lib/ziwei/ZiweiEngine.ts",
+        "docs/superpowers/specs/2026-04-25-ai-orchestration-and-divination-systems-design.md"
+      ],
       "confidence": "high_for_engineering_low_for_theory",
       "status": "active_policy"
     },
@@ -42,8 +67,14 @@
       "id": "qimen.require-three-source-verification",
       "domain": "qimen",
       "claim": "奇门规则表进入代码前至少用一个经典文本和两个独立排盘/资料源交叉验证；分歧条目标记为 contested，不 silently choose。",
-      "sourceIds": ["qimen-quanshu", "qimen-ziwei-pro", "qimen-qimendunjia-net"],
-      "repoRefs": ["docs/superpowers/specs/2026-04-25-qimen-divination-design.md"],
+      "sourceIds": [
+        "qimen-quanshu",
+        "qimen-ziwei-pro",
+        "qimen-qimendunjia-net"
+      ],
+      "repoRefs": [
+        "docs/superpowers/specs/2026-04-25-qimen-divination-design.md"
+      ],
       "confidence": "high_as_process_policy",
       "status": "active_policy"
     },
@@ -51,10 +82,224 @@
       "id": "product.no-absolute-fortune-claims",
       "domain": "product-framing",
       "claim": "有时的输出应以传统文化框架 + 现代自我观察语言表达，避免绝对预测、恐吓式断语和医学/财务/法律确定性建议。",
-      "sourceIds": ["academic-mingli-history-lu", "journal-zhouyi-research"],
-      "repoRefs": ["lib/ai/index.ts", "docs/superpowers/specs/2026-04-25-ai-orchestration-and-divination-systems-design.md"],
+      "sourceIds": [
+        "academic-mingli-history-lu",
+        "journal-zhouyi-research"
+      ],
+      "repoRefs": [
+        "lib/ai/index.ts",
+        "docs/superpowers/specs/2026-04-25-ai-orchestration-and-divination-systems-design.md"
+      ],
       "confidence": "high_as_product_policy",
       "status": "active_policy"
+    },
+    {
+      "id": "bazi.siling.table.contested",
+      "domain": "bazi",
+      "claim": "月令人元司事/司令表用于描述节气后不同藏干当值，但《三命通会》卷二同页正文、玉井引表与当前代码表存在天数差异；进入算法解释时必须标明采用版本，不能把当前表默认为唯一古籍定本。",
+      "sourceIds": [
+        "bazi-sanming-tonghui",
+        "bazi-yuanhai-ziping"
+      ],
+      "repoRefs": [
+        "lib/bazi/SiLing.ts",
+        "docs/mingli/reading-notes/2026-04-29-reading-log.md",
+        "docs/mingli/reading-notes/2026-04-30-yuanhai-ziping-first-pass.md"
+      ],
+      "confidence": "high_for_disagreement_low_for_single_table",
+      "status": "contested"
+    },
+    {
+      "id": "bazi.wuxing.seasonal-prosperity.requires-tongbian",
+      "domain": "bazi",
+      "claim": "五行旺相休囚死说明五行随四时得令/失令，但原文同时强调生旺未必吉、休囚死绝未必凶，必须结合制化、生扶与通变判断。",
+      "sourceIds": [
+        "bazi-sanming-tonghui"
+      ],
+      "repoRefs": [
+        "lib/bazi/BaziEngine.ts",
+        "docs/mingli/reading-notes/2026-04-29-reading-log.md"
+      ],
+      "confidence": "medium_high",
+      "status": "text_cited_needs_algorithm_review"
+    },
+    {
+      "id": "bazi.branch-relations.not-absolute-omens",
+      "domain": "bazi",
+      "claim": "六合、三合、六害、三刑在古籍中均有象数/生旺/死绝/格局语境，不应在产品中被机械表达为绝对吉凶或恐吓式断语。",
+      "sourceIds": [
+        "bazi-sanming-tonghui",
+        "academic-mingli-history-lu"
+      ],
+      "repoRefs": [
+        "lib/bazi/BaziEngine.ts",
+        "lib/bazi/DayunEngine.ts",
+        "docs/mingli/reading-notes/2026-04-29-reading-log.md"
+      ],
+      "confidence": "medium_high",
+      "status": "active_product_interpretation_policy"
+    },
+    {
+      "id": "ziwei.ming-shen-placement.rule",
+      "domain": "ziwei",
+      "claim": "紫微命宫从寅上起正月顺数至生月，再从生月起子时逆数至生时；身宫从生月起子时顺数至生时。闰月处理需另做版本/实现核对。",
+      "sourceIds": [
+        "ziwei-doushu-quanshu",
+        "ziwei-iztro"
+      ],
+      "repoRefs": [
+        "lib/ziwei/ZiweiEngine.ts",
+        "docs/mingli/reading-notes/2026-04-29-reading-log.md"
+      ],
+      "confidence": "medium",
+      "status": "text_cited_needs_fixture"
+    },
+    {
+      "id": "ziwei.four-transformations.by-year-stem",
+      "domain": "ziwei",
+      "claim": "紫微四化（禄、权、科、忌）按生年天干取星，例如《紫微斗数全书》卷二给出“甲廉破武阳”等口诀；工程实现需与 iztro 输出和至少一处独立排盘源对照。",
+      "sourceIds": [
+        "ziwei-doushu-quanshu",
+        "ziwei-iztro"
+      ],
+      "repoRefs": [
+        "lib/ziwei/ZiweiEngine.ts",
+        "docs/mingli/reading-notes/2026-04-29-reading-log.md"
+      ],
+      "confidence": "medium",
+      "status": "text_cited_needs_fixture"
+    },
+    {
+      "id": "ziwei.interpretation.requires-context",
+      "domain": "ziwei",
+      "claim": "紫微解释需要结合星曜分野、十二宫、庙陷/失度、身命与照合语境，不能只按单颗星曜输出孤立断语。",
+      "sourceIds": [
+        "ziwei-doushu-quanshu"
+      ],
+      "repoRefs": [
+        "lib/ai/tools/ziwei.ts",
+        "docs/mingli/reading-notes/2026-04-29-reading-log.md"
+      ],
+      "confidence": "medium",
+      "status": "text_cited_policy"
+    },
+    {
+      "id": "bazi.day-master.month-command.core",
+      "domain": "bazi",
+      "claim": "子平格局法以日干配月令为取用/取格核心；月令是判断旺衰、格局和格局用神的重要入口，但仍需结合透干、藏干、会合、四柱损益与岁运通变，不能把月支主气机械等同完整格局。",
+      "sourceIds": [
+        "bazi-yuanhai-ziping",
+        "bazi-ziping-zhenquan"
+      ],
+      "repoRefs": [
+        "lib/bazi/BaziEngine.ts",
+        "docs/mingli/reading-notes/2026-04-30-yuanhai-ziping-first-pass.md",
+        "docs/mingli/reading-notes/2026-04-30-ziping-zhenquan-first-pass.md"
+      ],
+      "confidence": "medium_high",
+      "status": "text_cited_needs_algorithm_review"
+    },
+    {
+      "id": "bazi.geju.mvp-simplified",
+      "domain": "bazi",
+      "claim": "当前 BaziEngine.determineGeJu 以从格/专旺/化气粗筛后，直接用月支主气十神命名正格，并用五行用忌粗分上中下；对照《子平真诠》，它缺少月令藏干透出取舍、会合变化、相神、成败救应、星辰降权与行运通变，只能作为 MVP heuristic。",
+      "sourceIds": [
+        "bazi-yuanhai-ziping",
+        "bazi-ziping-zhenquan"
+      ],
+      "repoRefs": [
+        "lib/bazi/BaziEngine.ts",
+        "docs/mingli/reading-notes/2026-04-30-yuanhai-ziping-first-pass.md",
+        "docs/mingli/reading-notes/2026-04-30-ziping-zhenquan-first-pass.md"
+      ],
+      "confidence": "high_for_repo_assessment_medium_for_classical_scope",
+      "status": "mvp_simplified_needs_classical_audit"
+    },
+    {
+      "id": "bazi.dayun.requires-tongbian",
+      "domain": "bazi",
+      "claim": "大运/岁运不能按单一干支、五行或神煞死法直断；需把运干/运支配回原局月令喜忌、格局成败与相神救应统观，并注意似喜实忌、似忌实喜、干支不同用、冲合缓急轻重等通变。",
+      "sourceIds": [
+        "bazi-yuanhai-ziping",
+        "bazi-ziping-zhenquan",
+        "bazi-ditiansui"
+      ],
+      "repoRefs": [
+        "lib/bazi/DayunEngine.ts",
+        "docs/mingli/reading-notes/2026-04-30-yuanhai-ziping-first-pass.md",
+        "docs/mingli/reading-notes/2026-04-30-ziping-zhenquan-first-pass.md"
+      ],
+      "confidence": "medium_high",
+      "status": "text_cited_policy_needs_copy_audit"
+    },
+    {
+      "id": "bazi.ziping-zhenquan.month-command-yongshen",
+      "domain": "bazi",
+      "claim": "《子平真诠》的格局用神“专求月令”，以日干配月令地支定财官印食、杀伤劫刃等格局主轴；但月令无可用之物或藏干不一时，仍须看透干、会支与四柱配合另取，不等于只读月支主气。",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "repoRefs": [
+        "lib/bazi/BaziEngine.ts",
+        "docs/mingli/reading-notes/2026-04-30-ziping-zhenquan-first-pass.md"
+      ],
+      "confidence": "medium_high_for_first_pass_text_low_for_edition",
+      "status": "text_cited_needs_better_edition_fixture"
+    },
+    {
+      "id": "bazi.ziping-zhenquan.xiangshen-critical",
+      "domain": "bazi",
+      "claim": "《子平真诠》称“凡全局之格，赖此一字而成者，均谓之相”；相神是辅助月令用神成格的关键字，相神受伤可立败其格，因此格局解释需要记录相神及其是否受破。",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "repoRefs": [
+        "docs/mingli/reading-notes/2026-04-30-ziping-zhenquan-first-pass.md"
+      ],
+      "confidence": "medium_high_for_first_pass_text_low_for_edition",
+      "status": "new_claim_needs_algorithm_design"
+    },
+    {
+      "id": "bazi.ziping-zhenquan.geju-chengbai-jiuying",
+      "domain": "bazi",
+      "claim": "格局名称不是判断结论；《子平真诠》要求以四柱配月令用神判断成格、败格、带忌与救应，破格也可能因合、印、食、财、会合等救应而复成。",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "repoRefs": [
+        "lib/bazi/BaziEngine.ts",
+        "docs/mingli/reading-notes/2026-04-30-ziping-zhenquan-first-pass.md"
+      ],
+      "confidence": "medium_high_for_first_pass_text_low_for_edition",
+      "status": "new_claim_needs_algorithm_design"
+    },
+    {
+      "id": "bazi.ziping-zhenquan.stars-do-not-decide-geju",
+      "domain": "bazi",
+      "claim": "《子平真诠》“论星辰无关格局”明确神煞/星辰不能操格局成败之权；产品可把神煞作为辅助文化标签，但不能用天德贵人、孤辰等覆盖月令格局、生克与成败判断。",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "repoRefs": [
+        "lib/bazi/BaziEngine.ts",
+        "docs/mingli/reading-notes/2026-04-30-ziping-zhenquan-first-pass.md"
+      ],
+      "confidence": "medium_high_for_first_pass_text_low_for_edition",
+      "status": "active_product_interpretation_policy"
+    },
+    {
+      "id": "bazi.ziping-zhenquan.yongshen-variation",
+      "domain": "bazi",
+      "claim": "《子平真诠》“用神变化”指出月令藏干透出、三合/会局等会使命局由本格变化为财、官、印、杀、食伤等不同格局；算法若不处理透干与会合变化，只能称为简化取格。",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "repoRefs": [
+        "lib/bazi/BaziEngine.ts",
+        "docs/mingli/reading-notes/2026-04-30-ziping-zhenquan-first-pass.md"
+      ],
+      "confidence": "medium_high_for_first_pass_text_low_for_edition",
+      "status": "new_claim_needs_algorithm_design"
     }
   ]
 }
