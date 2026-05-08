@@ -19,7 +19,7 @@ export type WuXing = '金' | '木' | '水' | '火' | '土';
 export type YinYang = '阴' | '阳';
 
 /** 十神 */
-export type ShiShen = 
+export type ShiShen =
   | '比肩' | '劫财'     // 同我
   | '食神' | '伤官'     // 我生
   | '偏财' | '正财'     // 我克
@@ -27,8 +27,8 @@ export type ShiShen =
   | '偏印' | '正印';    // 生我
 
 /** 十二长生 */
-export type ShiErChangSheng = 
-  | '长生' | '沐浴' | '冠带' | '临官' | '帝旺' 
+export type ShiErChangSheng =
+  | '长生' | '沐浴' | '冠带' | '临官' | '帝旺'
   | '衰' | '病' | '死' | '墓' | '绝' | '胎' | '养';
 
 /** 六亲 */
@@ -78,18 +78,8 @@ export interface CangGanItem {
 // 五行分析
 // ========================
 
-/** 五行力量分布 */
-export interface WuXingBalance {
-  jin: number;   // 金
-  mu: number;    // 木
-  shui: number;  // 水
-  huo: number;   // 火
-  tu: number;    // 土
-}
-
 /** 五行强弱判断 */
 export interface WuXingStrength {
-  balance: WuXingBalance;
   strongest: WuXing;
   weakest: WuXing;
   riZhuStrong: boolean;     // 日主是否身强
@@ -103,7 +93,7 @@ export interface WuXingStrength {
 // ========================
 
 /** 地支关系类型 */
-export type BranchRelationType = 
+export type BranchRelationType =
   | '六合' | '三合' | '三会'
   | '六冲' | '六害' | '六破'
   | '相刑';
@@ -206,10 +196,10 @@ export interface MingPan {
   // 基本信息
   birthDateTime: Date;
   gender: '男' | '女';
-  
+
   // 四柱
   siZhu: SiZhu;
-  
+
   // 日主信息
   riZhu: {
     gan: TianGan;
@@ -217,38 +207,44 @@ export interface MingPan {
     yinYang: YinYang;
     description: string;  // 日主性格特征描述
   };
-  
+
   // 五行分析
   wuXingStrength: WuXingStrength;
-  
+
+  // 日主结构（得令/通根/坐刃/清浊/寒暖燥湿/五档强弱）
+  riZhuStructure?: RiZhuStructure;
+
   // 关系网络
   branchRelations: BranchRelation[];
   stemRelations: StemRelation[];
-  
-  // 格局
+
+  // 格局（legacy stub，下游逐步迁移到 geJuV2）
   geJu: GeJu;
-  
+
+  // 格局 V2（《子平真诠》成败救应 + 相神 + 高低）
+  geJuV2?: GeJuV2;
+
   // 神煞
   shenSha: ShenSha[];
-  
+
   // 大运
   daYunDirection: DaYunDirection;
   daYunStartAge: number;
   daYunList: DaYun[];
-  
+
   // 农历信息
   lunarDate: string;
   solarTerm?: string;    // 出生时的节气
-  
+
   // 纳音
   yearNaYin: string;
-  
+
   // 空亡
   kongWang: DiZhi[];       // 六甲空亡地支
-  
+
   // 真太阳时
   trueSolarTimeDesc?: string;  // 真太阳时校正描述
-  
+
   // 胎元 & 命宫
   taiYuan: GanZhi;        // 胎元
   mingGong: GanZhi;       // 命宫
@@ -293,4 +289,170 @@ export interface DailyInsight {
   avoidance: string;              // 今日宜避免
   luckyHours: string[];           // 吉时
   affirmation: string;            // 今日肯定语
+}
+
+// ========================
+// 结构化格局类型
+// 借鉴 bazi-life-curves (MIT, XiaoChu-1208)：
+//   _phase_registry.py / _bazi_core.compute_dayuan_root_strength /
+//   multi_school_vote.py
+// ========================
+
+/** 藏干层级（《三命通会》藏干主气论） */
+export type RootTier = 'ben' | 'zhong' | 'yu';  // 本气 / 中气 / 余气
+
+/** 通根档位（5 档语义化标签） */
+export type RootStrengthLabel = '无根' | '微根' | '弱根' | '中根' | '强根';
+
+/** 单条通根细节 */
+export interface RootDetail {
+  zhi: DiZhi;
+  position: '年' | '月' | '日' | '时';
+  hiddenGan: TianGan;
+  tier: RootTier;
+  weight: number;              // 本气 1.0 / 中气 0.5 / 余气 0.2
+  kind: 'bijie' | 'yin';       // 同党根 / 印根
+}
+
+/** 通根强度评估 */
+export interface RootStrength {
+  bijieRoot: number;           // 同党根（含日主同五行）总和
+  yinRoot: number;             // 印根（生日主）总和
+  totalRoot: number;
+  label: RootStrengthLabel;
+  details: RootDetail[];
+}
+
+/** 月令旺相休囚死（《子平真诠》论十干得时不旺失时不弱）*/
+export type YueLingState = '旺' | '相' | '休' | '囚' | '死';
+
+/** 清浊（《滴天髓·清浊论》）*/
+export type QingZhuo = 'qing' | 'banqing' | 'zhuo';
+
+/** 寒暖燥湿（《滴天髓·寒暖燥湿》）*/
+export interface HanNuanZaoShi {
+  han: boolean;   // 寒（冬月 + 水金多）
+  nuan: boolean;  // 暖（夏月 + 火木多）
+  zao: boolean;   // 燥（火土多 + 无水润）
+  shi: boolean;   // 湿（水土多 + 无火暖）
+}
+
+/** 日主五档强弱（《子平真诠》论用神 + 任注《滴天髓·体用》）*/
+export type RiZhuStrengthLabel = 'taiwang' | 'wang' | 'zhonghe' | 'ruo' | 'tairuo';
+
+/** 日主结构（得令/通根/坐刃/清浊/寒暖燥湿/五档强弱） */
+export interface RiZhuStructure {
+  deLing: boolean;             // 得月令（月支主气为比劫/印）
+  shiLing: boolean;            // 失月令（月支主气为财/官杀）
+  yueLingState: YueLingState;  // 月令五态（旺相休囚死）
+  rootStrength: RootStrength;
+  zuoRen: boolean;             // 坐刃（日支为日主羊刃）
+  zuoGen: boolean;             // 坐根（日支藏干含同党或印）
+  qingZhuo: QingZhuo;          // 清浊
+  hanNuanZaoShi: HanNuanZaoShi;
+  strength: RiZhuStrengthLabel;
+}
+
+/** 流派 */
+export type SchoolName = 'ziping' | 'tiaohou' | 'geju' | 'mangpai';
+
+/** 格局维度 */
+export type PhaseDimension =
+  | 'power'    // 扶抑
+  | 'zuogong'  // 做功（盲派）
+  | 'cong'     // 从格
+  | 'climate'  // 调候
+  | 'huaqi'    // 化气
+  | 'special'; // 杂格
+
+/** 反向规则极性 */
+export type ReversalPolarity = 'positive' | 'neutral' | 'negative';
+
+/** 格局元数据（注册表条目）*/
+export interface PhaseMeta {
+  /** 稳定标识，跨版本不可改 */
+  id: string;
+  /** 中文展示名 */
+  nameCn: string;
+  school: SchoolName;
+  dimension: PhaseDimension;
+  /** 古籍出处（PhaseRegistry 强制非空） */
+  source: string;
+  /** 成立条件（人类可读，未来可结构化） */
+  requires?: Record<string, string>;
+  /** 做功应期支 */
+  zuogongTriggerBranches?: DiZhi[];
+  /** 盲派事件反向规则覆盖：事件 id → 极性 */
+  reversalOverrides?: Record<string, ReversalPolarity>;
+}
+
+/** 相神 */
+export interface XiangShenInfo {
+  wuXing: WuXing;
+  shiShen: ShiShen;
+  role: string;                // "财生官" / "印护官" / "食制杀" 等
+}
+
+/** 救应路径 */
+export interface JiuYingInfo {
+  trigger: string;             // 触发破格的条件
+  remedy: string;              // 救应字
+  path?: 'qu-qing' | 'shi-zhi' | 'yin-hua' | 'he-sha' | 'other';
+  source: string;              // 古籍出处
+}
+
+/** 格局成败状态 */
+export type ChengBaiStatus = 'cheng' | 'po' | 'jiuying';
+
+/** 格局高低 */
+export type GeJuRank = 'shang' | 'zhong' | 'xia';
+
+/** 结构化格局（《子平真诠》成败救应 + 相神 + 高低）*/
+export interface GeJuV2 {
+  phaseId: string;             // 引用 PhaseRegistry
+  name: string;
+  category: 'zhengge' | 'conge' | 'zhuanwang' | 'huaqi';
+  yongShen: WuXing;
+  xiangShen: XiangShenInfo | null;
+  chengBai: ChengBaiStatus;
+  jiuYing: JiuYingInfo[] | null;
+  jibie: GeJuRank;
+  evidence: string[];          // 引 claims.json 的 claim id
+}
+
+// --- 多派投票骨架 ---
+
+/** 单派候选 */
+export interface SchoolCandidate {
+  phaseId: string;
+  confidence: number;          // 0–1
+  source: string;              // 古籍出处
+  reasoning?: string;
+}
+
+/** 单派投票输出 */
+export interface SchoolVote {
+  school: SchoolName;
+  weight: number;
+  candidates: SchoolCandidate[];
+}
+
+/** 聚合后候选 */
+export interface AggregatedCandidate {
+  phaseId: string;
+  posterior: number;
+  contributingSchools: SchoolName[];
+}
+
+/** 决策状态 */
+export type PhaseDecisionStatus = 'decided' | 'open_phase';
+
+/** 决策输出 */
+export interface PhaseDecision {
+  status: PhaseDecisionStatus;
+  /** decided 时填充；open_phase 时为 null */
+  phaseId: string | null;
+  confidence: number;
+  topCandidates: AggregatedCandidate[];
+  reason: 'low_top1' | 'narrow_gap' | null;
 }

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-04-30T02:31:30.137Z",
-  "sourceCount": 48,
-  "claimCount": 20,
+  "generatedAt": "2026-05-07T06:41:02.566Z",
+  "sourceCount": 49,
+  "claimCount": 36,
   "domains": {
     "academic": [
       {
@@ -124,6 +124,21 @@
           "用神/相神",
           "成格破格",
           "八字解释框架"
+        ]
+      },
+      {
+        "id": "opensource-bazi-life-curves",
+        "title": "bazi-life-curves (XiaoChu-1208, MIT)",
+        "tier": "C",
+        "type": "open_source_repo",
+        "priority": "P0",
+        "status": "actively_borrowed",
+        "usage": [
+          "通根度本气/中气/余气 三级权重借用",
+          "5 档通根 label 阈值借用",
+          "多派加权投票框架（扶抑/调候/格局）借用",
+          "open_phase 逃逸阀阈值借用",
+          "PhaseRegistry 注册表设计模式参考"
         ]
       },
       {
@@ -1102,6 +1117,26 @@
       "confidence": "medium_high"
     },
     {
+      "id": "bazi.geju-thresholds.engineering",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-yuanhai-ziping",
+        "bazi-ziping-zhenquan",
+        "bazi-sanming-tonghui"
+      ],
+      "status": "engineering_threshold_no_classical_basis",
+      "confidence": "high_for_engineering_choice_no_classical_basis"
+    },
+    {
+      "id": "bazi.geju.cai.chengbai",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "new_claim_needs_algorithm_design",
+      "confidence": "medium_high_for_online_text_pending_print_verification"
+    },
+    {
       "id": "bazi.geju.mvp-simplified",
       "domain": "bazi",
       "sourceIds": [
@@ -1112,6 +1147,69 @@
       "confidence": "high_for_repo_assessment_medium_for_classical_scope"
     },
     {
+      "id": "bazi.geju.qisha.chengbai",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "new_claim_needs_algorithm_design",
+      "confidence": "medium_high_for_online_text_pending_print_verification"
+    },
+    {
+      "id": "bazi.geju.qisha.shi-zhi-priority",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "new_claim_needs_algorithm_design",
+      "confidence": "medium_high_for_online_text_pending_print_verification"
+    },
+    {
+      "id": "bazi.geju.qisha.yin-hua-condition",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "new_claim_needs_algorithm_design",
+      "confidence": "medium_high_for_online_text_pending_print_verification"
+    },
+    {
+      "id": "bazi.geju.qu-qing-jiuying",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "new_claim_needs_algorithm_design",
+      "confidence": "medium_high_for_online_text_pending_print_verification"
+    },
+    {
+      "id": "bazi.geju.xiangshen-required",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "new_claim_needs_algorithm_design",
+      "confidence": "medium_high_for_online_text_pending_print_verification"
+    },
+    {
+      "id": "bazi.geju.yinshou.chengbai",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "new_claim_needs_algorithm_design",
+      "confidence": "medium_high_for_online_text_pending_print_verification"
+    },
+    {
+      "id": "bazi.geju.zhengguan.chengbai",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "new_claim_needs_algorithm_design",
+      "confidence": "medium_high_for_online_text_pending_print_verification"
+    },
+    {
       "id": "bazi.hidden-stems.table",
       "domain": "bazi",
       "sourceIds": [
@@ -1120,6 +1218,37 @@
       ],
       "status": "text_cited_needs_version_fixture",
       "confidence": "medium_high_for_common_table_medium_for_version"
+    },
+    {
+      "id": "bazi.open-phase.thresholds-borrowed",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan",
+        "opensource-bazi-life-curves"
+      ],
+      "status": "engineering_threshold_borrowed_from_open_source",
+      "confidence": "high_for_engineering_choice_no_classical_basis"
+    },
+    {
+      "id": "bazi.phase-registry.source-enforcement",
+      "domain": "bazi",
+      "sourceIds": [
+        "opensource-bazi-life-curves"
+      ],
+      "status": "design_pattern_borrowed_from_open_source",
+      "confidence": "high_for_design_pattern"
+    },
+    {
+      "id": "bazi.school-vote.weights-borrowed",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan",
+        "bazi-qiongtong-baojian",
+        "bazi-ditiansui",
+        "opensource-bazi-life-curves"
+      ],
+      "status": "engineering_threshold_borrowed_from_open_source",
+      "confidence": "high_for_engineering_choice_no_classical_basis"
     },
     {
       "id": "bazi.siling.table.contested",
@@ -1141,6 +1270,37 @@
       "confidence": "medium_high_for_rule_low_for_full_interpretation"
     },
     {
+      "id": "bazi.tonggen.label-thresholds-borrowed",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ditiansui",
+        "opensource-bazi-life-curves"
+      ],
+      "status": "engineering_threshold_borrowed_from_open_source",
+      "confidence": "high_for_engineering_choice_no_classical_basis"
+    },
+    {
+      "id": "bazi.tonggen.tier-weights-borrowed",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-sanming-tonghui",
+        "opensource-bazi-life-curves"
+      ],
+      "status": "engineering_threshold_borrowed_from_open_source",
+      "confidence": "high_for_engineering_choice_no_classical_basis"
+    },
+    {
+      "id": "bazi.wuxing-strength.scoring-coefficients-engineering",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ditiansui",
+        "bazi-sanming-tonghui",
+        "bazi-yuanhai-ziping"
+      ],
+      "status": "engineering_threshold_no_classical_basis",
+      "confidence": "high_for_engineering_choice_no_classical_basis"
+    },
+    {
       "id": "bazi.wuxing.seasonal-prosperity.requires-tongbian",
       "domain": "bazi",
       "sourceIds": [
@@ -1148,6 +1308,17 @@
       ],
       "status": "text_cited_needs_algorithm_review",
       "confidence": "medium_high"
+    },
+    {
+      "id": "bazi.yongshen-priority.product-decision",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-qiongtong-baojian",
+        "bazi-ditiansui",
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "engineering_priority_choice_needs_copy_audit",
+      "confidence": "high_for_product_decision_low_for_classical_alignment"
     },
     {
       "id": "bazi.ziping-zhenquan.geju-chengbai-jiuying",

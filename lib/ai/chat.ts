@@ -7,8 +7,8 @@
  * 流式输出
  */
 
-import { SYSTEM_PROMPT, TONE_PROMPTS, type ToneStyle, type ChatMessage } from './index';
 import type { UserState } from '../store/userStore';
+import { SYSTEM_PROMPT, TONE_PROMPTS, type ChatMessage, type ToneStyle } from './index';
 
 /** API 配置 */
 export interface ChatConfig {
@@ -23,10 +23,10 @@ export function getChatConfig(state: UserState): ChatConfig | null {
   if (!state.apiProvider || !state.apiKey) return null;
 
   const defaults: Record<string, { model: string; baseUrl: string }> = {
-    openai:    { model: 'gpt-4o',            baseUrl: 'https://api.openai.com/v1' },
-    deepseek:  { model: 'deepseek-chat',     baseUrl: 'https://api.deepseek.com/v1' },
+    openai: { model: 'gpt-4o', baseUrl: 'https://api.openai.com/v1' },
+    deepseek: { model: 'deepseek-chat', baseUrl: 'https://api.deepseek.com/v1' },
     anthropic: { model: 'claude-sonnet-4-20250514', baseUrl: 'https://api.anthropic.com' },
-    custom:    { model: 'gpt-4o',            baseUrl: '' },
+    custom: { model: 'gpt-4o', baseUrl: '' },
   };
 
   const d = defaults[state.apiProvider];
@@ -45,14 +45,20 @@ function buildSystemPrompt(mingPanJson: string | null, tone: ToneStyle = 'warm')
   if (mingPanJson) {
     try {
       const pan = JSON.parse(mingPanJson);
+      const g2 = pan.geJuV2;
+      const rs = pan.riZhuStructure;
       const summary = [
         `用户命盘摘要：`,
         `日主：${pan.riZhu?.gan}${pan.riZhu?.zhi}（${pan.riZhu?.yinYang}${pan.riZhu?.wuXing}）`,
         `四柱：${pan.siZhu?.year?.ganZhi?.gan}${pan.siZhu?.year?.ganZhi?.zhi} ${pan.siZhu?.month?.ganZhi?.gan}${pan.siZhu?.month?.ganZhi?.zhi} ${pan.siZhu?.day?.ganZhi?.gan}${pan.siZhu?.day?.ganZhi?.zhi} ${pan.siZhu?.hour?.ganZhi?.gan}${pan.siZhu?.hour?.ganZhi?.zhi}`,
-        `格局：${pan.geJu?.name}（${pan.geJu?.category}·${pan.geJu?.strength}）`,
-        `用神：${pan.wuXingStrength?.yongShen}，喜神：${pan.wuXingStrength?.xiShen}，忌神：${pan.wuXingStrength?.jiShen}`,
+        g2
+          ? `格局：${g2.name}（${g2.chengBai === 'cheng' ? '成格' : g2.chengBai === 'po' ? '破格' : '救应'}·${g2.jibie === 'shang' ? '上格' : g2.jibie === 'zhong' ? '中格' : '下格'}）`
+          : `格局：${pan.geJu?.name}`,
+        g2?.xiangShen
+          ? `用神：${g2.yongShen}，相神：${g2.xiangShen.wuXing}（${g2.xiangShen.role}）`
+          : `用神：${pan.wuXingStrength?.yongShen}，喜神：${pan.wuXingStrength?.xiShen}，忌神：${pan.wuXingStrength?.jiShen}`,
+        rs ? `日主强弱：${rs.strength}（${rs.deLing ? '得令' : '失令'}·${rs.rootStrength?.label ?? ''}）` : '',
         pan.riZhu?.description ? `日主特质：${pan.riZhu.description}` : '',
-        pan.geJu?.modernMeaning ? `格局含义：${pan.geJu.modernMeaning}` : '',
       ].filter(Boolean).join('\n');
       prompt += '\n\n' + summary;
       prompt += '\n\n请根据以上命盘信息，用现代心理学语言回应用户。不要直接展示命盘数据，而是自然地融入对话。';
@@ -445,11 +451,17 @@ function buildIdentityCard(mingPan: any, ziweiPan: any): string {
   if (!mingPan) return '（未配置生辰，无法做命理推演）';
   const ri = mingPan.riZhu;
   const wuxing = mingPan.wuXingStrength;
-  const geju = mingPan.geJu;
+  const g2 = mingPan.geJuV2;
+  const rs = mingPan.riZhuStructure;
   const lines = [
-    `日主：${ri?.gan ?? ''}（${ri?.yinYang ?? ''}${ri?.wuXing ?? ''}）· ${geju?.name ?? ''}格`,
-    `用神：${wuxing?.yongShen ?? ''} · 喜神：${wuxing?.xiShen ?? ''} · 忌神：${wuxing?.jiShen ?? ''}`,
-  ];
+    g2
+      ? `日主：${ri?.gan ?? ''}（${ri?.yinYang ?? ''}${ri?.wuXing ?? ''}）· ${g2.name}（${g2.chengBai === 'cheng' ? '成格' : g2.chengBai === 'po' ? '破格' : '救应'}·${g2.jibie === 'shang' ? '上' : g2.jibie === 'zhong' ? '中' : '下'}格）`
+      : `日主：${ri?.gan ?? ''}（${ri?.yinYang ?? ''}${ri?.wuXing ?? ''}）· ${mingPan.geJu?.name ?? ''}格`,
+    g2?.xiangShen
+      ? `用神：${g2.yongShen} · 相神：${g2.xiangShen.wuXing}（${g2.xiangShen.role}）`
+      : `用神：${wuxing?.yongShen ?? ''} · 喜神：${wuxing?.xiShen ?? ''} · 忌神：${wuxing?.jiShen ?? ''}`,
+    rs ? `强弱：${rs.strength}（${rs.deLing ? '得令' : '失令'}·${rs.rootStrength?.label ?? ''}）` : '',
+  ].filter(Boolean);
   if (ziweiPan?.palaces) {
     const ming = ziweiPan.palaces.find((p: any) => p.name === '命宫');
     if (ming) {

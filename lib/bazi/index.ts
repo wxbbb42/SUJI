@@ -18,11 +18,38 @@
  * └─────────────────────────────────┘
  */
 
+export { MarriageEngine } from '../marriage/MarriageEngine';
 export { BaziEngine } from './BaziEngine';
 export { DayunEngine } from './DayunEngine';
-export { toTrueSolarTime, getTrueSolarTimeInfo, CITY_LONGITUDES } from './TrueSolarTime';
-export { getSiLingSegments, getCurrentSiLing, getDefaultSiLing } from './SiLing';
-export type { SiLingSegment } from './SiLing';
-export { MarriageEngine } from '../marriage/MarriageEngine';
 export { InsightEngine } from './InsightEngine';
+export { getCurrentSiLing, getDefaultSiLing, getSiLingSegments } from './SiLing';
+export type { SiLingSegment } from './SiLing';
+export { CITY_LONGITUDES, getTrueSolarTimeInfo, toTrueSolarTime } from './TrueSolarTime';
+
+// 结构化命理原语（通根、得令、清浊、寒暖燥湿、五档强弱、格局判定）
+export {
+    aggregate as aggregateSchoolVotes,
+    decidePhase,
+    DEFAULT_SCHOOL_WEIGHTS,
+    OPEN_PHASE_THRESHOLDS
+} from './multiSchoolVote';
+export { defaultPhaseRegistry, PhaseRegistry } from './phaseRegistry';
+export {
+    computeDeLing,
+    computeGeJuV2,
+    computeHanNuanZaoShi,
+    computeQingZhuo,
+    computeRiZhuStrength,
+    computeRiZhuStructure,
+    computeRootStrength,
+    computeYueLingState,
+    computeZuoGen,
+    computeZuoRen,
+    detectCongGe,
+    detectHuaQi,
+    detectZhuanWang,
+    ROOT_TIER_WEIGHT,
+    selectYongShen,
+} from './structural';
+
 export type * from './types';
