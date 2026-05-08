@@ -1228,6 +1228,35 @@
         "避免紫微/星命概念混用"
       ],
       "notes": "不是紫微斗数默认算法 source；用于星命传统的边界澄清。"
+    },
+    {
+      "id": "opensource-bazi-life-curves",
+      "title": "bazi-life-curves (XiaoChu-1208, MIT)",
+      "domain": [
+        "bazi"
+      ],
+      "tradition": "开源命理算法实现（多派加权投票 + 古籍引文 + 结构化保护机制）",
+      "tier": "C",
+      "sourceType": "open_source_repo",
+      "author": "XiaoChu-1208 and contributors",
+      "period": "2026 (commit ad8fdeceac3d74b9682ce1df362e7a497dc91d2c, 2026-04-28)",
+      "currentUsage": [
+        "通根度本气/中气/余气 三级权重借用",
+        "5 档通根 label 阈值借用",
+        "多派加权投票框架（扶抑/调候/格局）借用",
+        "open_phase 逃逸阀阈值借用",
+        "PhaseRegistry 注册表设计模式参考"
+      ],
+      "repoRefs": [
+        "lib/bazi/structural.ts",
+        "lib/bazi/phaseRegistry.ts",
+        "lib/bazi/multiSchoolVote.ts",
+        "docs/mingli/research/2026-05-07-bazi-life-curves-leverage.md"
+      ],
+      "ingestStatus": "actively_borrowed",
+      "ingestPriority": "P0",
+      "licenseNote": "MIT — 借鉴 snippet 必须在 SUJI 代码注释里注明 'adapted from bazi-life-curves (MIT) by XiaoChu-1208' + 仓库 URL。",
+      "notes": "C tier — 不可单独作为权威；其经验值（tier 权重、5 档阈值、3 派权重 25/40/30、open_phase 阈值 0.55/0.10）来自 5 人 15 事件回测，仍属工程经验非古籍数；标 engineering_threshold_borrowed_from_open_source。"
     }
   ]
 }

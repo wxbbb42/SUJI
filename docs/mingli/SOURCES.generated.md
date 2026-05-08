@@ -131,6 +131,20 @@ Updated: 2026-04-30
 - License note: 古籍文本需优先选公共领域/可引用版本；记录版本、卷次、页码/章节，不 ingest 现代版权全文。
 - Notes: 格局法核心 source；需区分原文与徐乐吾等近现代评注。
 
+#### opensource-bazi-life-curves
+
+- Title: bazi-life-curves (XiaoChu-1208, MIT)
+- Author: XiaoChu-1208 and contributors
+- Period: 2026 (commit ad8fdeceac3d74b9682ce1df362e7a497dc91d2c, 2026-04-28)
+- Tier: C
+- Type: open_source_repo
+- Status: actively_borrowed
+- Priority: P0
+- Current usage: 通根度本气/中气/余气 三级权重借用；5 档通根 label 阈值借用；多派加权投票框架（扶抑/调候/格局）借用；open_phase 逃逸阀阈值借用；PhaseRegistry 注册表设计模式参考
+- Repo refs: `lib/bazi/structural.ts`, `lib/bazi/phaseRegistry.ts`, `lib/bazi/multiSchoolVote.ts`, `docs/mingli/research/2026-05-07-bazi-life-curves-leverage.md`
+- License note: MIT — 借鉴 snippet 必须在 SUJI 代码注释里注明 'adapted from bazi-life-curves (MIT) by XiaoChu-1208' + 仓库 URL。
+- Notes: C tier — 不可单独作为权威；其经验值（tier 权重、5 档阈值、3 派权重 25/40/30、open_phase 阈值 0.55/0.10）来自 5 人 15 事件回测，仍属工程经验非古籍数；标 engineering_threshold_borrowed_from_open_source。
+
 #### bazi-mingli-yueyan
 
 - Title: 命理约言
@@ -1156,6 +1170,24 @@ Updated: 2026-04-30
 - Confidence: medium_high
 - Status: text_cited_policy_needs_copy_audit
 
+### bazi.geju-thresholds.engineering
+
+- Domain: bazi
+- Claim: BaziEngine.determineGeJu 与天干合化判定使用四个比例阈值：从格 riForce/total < 0.12（lib/bazi/BaziEngine.ts:1095）、专旺格 > 0.40（lib/bazi/BaziEngine.ts:1102）、化气格化神比例 > 0.35（lib/bazi/BaziEngine.ts:1197）、天干合化化神比例 > 0.25（lib/bazi/BaziEngine.ts:1039）。古籍论从格、专旺、化气、合化的成立条件以定性结构语言为主——四柱无根/独旺/化神得月令/天透地藏/不被冲克——见《渊海子平》专旺格论与《子平真诠》论用神变化、论用神成败救应。古籍未给出任何百分比阈值。这四个数字是工程门槛，同一组八字阈值变动可能直接改变最终格局判定。
+- Sources: `bazi-yuanhai-ziping`, `bazi-ziping-zhenquan`, `bazi-sanming-tonghui`
+- Repo refs: `lib/bazi/BaziEngine.ts`, `docs/mingli/audit/2026-04-30-bazi-engine-grounding.md`
+- Confidence: high_for_engineering_choice_no_classical_basis
+- Status: engineering_threshold_no_classical_basis
+
+### bazi.geju.cai.chengbai
+
+- Domain: bazi
+- Claim: 《子平真诠》论财：成格条件为月令本气透干为财 + 财根深透一位 + 身能任财 + 不混七煞 + 身强时不透伤官；相神首选食神生财（最纯）、伤官生财（次）、印帮身（身弱时）；破格条件为比劫夺财（无食伤化、无官杀制）、贪财破印（财克印致身无依）、孤财无生；救应路径包括食神化比劫生财、官星制比劫、合煞或制煞（财带七煞时）；身弱配合必须佩印帮身且印不可被财破。
+- Sources: `bazi-ziping-zhenquan`
+- Repo refs: `lib/bazi/BaziEngine.ts`, `docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md`
+- Confidence: medium_high_for_online_text_pending_print_verification
+- Status: new_claim_needs_algorithm_design
+
 ### bazi.geju.mvp-simplified
 
 - Domain: bazi
@@ -1165,6 +1197,69 @@ Updated: 2026-04-30
 - Confidence: high_for_repo_assessment_medium_for_classical_scope
 - Status: mvp_simplified_needs_classical_audit
 
+### bazi.geju.qisha.chengbai
+
+- Domain: bazi
+- Claim: 《子平真诠》论偏官（七杀）：取格为月令本气透干=七杀；处理分三路径——食神制杀（上格）、印化杀（印有情贵）、阳刃合杀（杀刃相济）；路径选择依身杀强弱：煞旺身健→食制，煞重身轻→印化（不可强用食制因身不能当），阳干日主→阳刃合杀；破格包括食制路径下露财（财转食生煞）或透印（印去食护煞）、官煞混杂；救应路径包括去官留煞或去煞留官（取清）、财去印（食制被印破时）。当前 getCongGe 处理从杀格但与正格七杀的成败判定路径不同，正格要身有根、要制化合，从杀要四柱无根、纯杀势力。
+- Sources: `bazi-ziping-zhenquan`
+- Repo refs: `lib/bazi/BaziEngine.ts`, `docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md`
+- Confidence: medium_high_for_online_text_pending_print_verification
+- Status: new_claim_needs_algorithm_design
+
+### bazi.geju.qisha.shi-zhi-priority
+
+- Domain: bazi
+- Claim: 《子平真诠》论偏官："煞用食制者，上也，煞旺食强而身健，极为贵格"——七杀格食神制杀路径为上格，但忌露财透印——"财能转食生煞，印能去食护煞"，故食制路径成立须无财不透印。这是 chengBaiPath='shi-zhi' 子状态的具体破格条件。
+- Sources: `bazi-ziping-zhenquan`
+- Repo refs: `lib/bazi/BaziEngine.ts`, `docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md`
+- Confidence: medium_high_for_online_text_pending_print_verification
+- Status: new_claim_needs_algorithm_design
+
+### bazi.geju.qisha.yin-hua-condition
+
+- Domain: bazi
+- Claim: 《子平真诠》论偏官："煞重身轻，用食则身不能当，不若转而就印"——七杀格在身弱杀重场景必须从食制路径转用印化路径，不可机械套用"食制为上格"。这说明用神/相神选择必须以日主与煞之相对力量为前置判断，是"强弱判断 ↔ 用神选择"强耦合的典例，反对单一阈值二元化。
+- Sources: `bazi-ziping-zhenquan`
+- Repo refs: `lib/bazi/BaziEngine.ts`, `docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md`
+- Confidence: medium_high_for_online_text_pending_print_verification
+- Status: new_claim_needs_algorithm_design
+
+### bazi.geju.qu-qing-jiuying
+
+- Domain: bazi
+- Claim: 《子平真诠》论偏官："或去官，或去煞，取清则贵"——官煞混杂场景下，去官留煞或去煞留煞即为"取清"，是一种通用救应路径，不限于七杀格。算法上 JiuYingInfo.path 应支持 'qu-qing' 枚举，表示通过合去/克去其中一者使另一者清纯成格。
+- Sources: `bazi-ziping-zhenquan`
+- Repo refs: `lib/bazi/BaziEngine.ts`, `docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md`
+- Confidence: medium_high_for_online_text_pending_print_verification
+- Status: new_claim_needs_algorithm_design
+
+### bazi.geju.xiangshen-required
+
+- Domain: bazi
+- Claim: 深化 bazi.ziping-zhenquan.xiangshen-critical：在 4 个常见格局（正官/财/印/七杀）逐条验证，每个格局都有 specific 相神函数——正官格相神为财生官+印护官、财格相神为食神生财或印帮身、印格相神为官生印或食伤泄秀、七杀格相神为食神/印/阳刃（依路径）。算法上 GeJu 类型必须包含 xiangShen 字段（携带 shenName/position/function/intact），相神受伤甚于用神受伤——这是 "格局成败" 与 "格局高低" 的分水岭。
+- Sources: `bazi-ziping-zhenquan`
+- Repo refs: `lib/bazi/BaziEngine.ts`, `docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md`
+- Confidence: medium_high_for_online_text_pending_print_verification
+- Status: new_claim_needs_algorithm_design
+
+### bazi.geju.yinshou.chengbai
+
+- Domain: bazi
+- Claim: 《子平真诠》论印绶：成格条件为月令本气透干为印 + 印生身 + 官护印（清纯无杂）/ 杀印相生（杀得制）/ 印重时透食伤泄秀 / 印重时透财权用；破格条件为财破印（印轻财重无劫救）、伤官见官（虽印护官但易受伤）、印过重身浮；救应路径包括劫财夺财存印（财破印场景）、食伤泄秀（印重身浮场景）、官杀生印（印缺场景）；含反规则"印重透财"——要求根深+身强+权用三条件齐全。
+- Sources: `bazi-ziping-zhenquan`
+- Repo refs: `lib/bazi/BaziEngine.ts`, `docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md`
+- Confidence: medium_high_for_online_text_pending_print_verification
+- Status: new_claim_needs_algorithm_design
+
+### bazi.geju.zhengguan.chengbai
+
+- Domain: bazi
+- Claim: 《子平真诠》论正官：成格条件为月令本气透干为正官 + 财印齐透不相碍 + 身能任官 + 官星清纯不杂煞；破格条件为合官（贪合忘官）、官杂七煞、重官、刑冲破害月令官星；救应路径包括合煞留官（杂煞被合去取清）、合去重官存一（重官被合去其一取清）、伤官见印护官。算法上 determineGeJu 仅以月支主气=正官即定格是必要而不充分条件，必须追加 chengBai/xiangShen/jiuYing 判断。
+- Sources: `bazi-ziping-zhenquan`
+- Repo refs: `lib/bazi/BaziEngine.ts`, `docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md`
+- Confidence: medium_high_for_online_text_pending_print_verification
+- Status: new_claim_needs_algorithm_design
+
 ### bazi.hidden-stems.table
 
 - Domain: bazi
@@ -1173,6 +1268,33 @@ Updated: 2026-04-30
 - Repo refs: `lib/bazi/BaziEngine.ts`, `docs/mingli/reading-notes/2026-04-30-yuanhai-ziping-first-pass.md`, `docs/mingli/reading-notes/2026-04-29-reading-log.md`
 - Confidence: medium_high_for_common_table_medium_for_version
 - Status: text_cited_needs_version_fixture
+
+### bazi.open-phase.thresholds-borrowed
+
+- Domain: bazi
+- Claim: lib/bazi/multiSchoolVote.ts 的 open_phase 触发阈值 minTop1 0.55 / minGap 0.10，借自 bazi-life-curves `phase_posterior.py:80–120` (MIT, XiaoChu-1208)。设计学理：top1 后验信心不足或 top1/top2 接近时，主动落 open_phase（坦白说'不知道'），不强行独断。这一'诚实设计'与 SUJI 产品政策 product.no-absolute-fortune-claims 及《子平真诠》'相从'观念吻合，是 Phase 2 必接的机制。具体 0.55 / 0.10 是经验值。
+- Sources: `bazi-ziping-zhenquan`, `opensource-bazi-life-curves`
+- Repo refs: `lib/bazi/multiSchoolVote.ts`
+- Confidence: high_for_engineering_choice_no_classical_basis
+- Status: engineering_threshold_borrowed_from_open_source
+
+### bazi.phase-registry.source-enforcement
+
+- Domain: bazi
+- Claim: lib/bazi/phaseRegistry.ts 在注册时强制 PhaseMeta.source 非空且不含'自创/原创'字样，违规抛错。设计学理：每条格局规则必须能溯源至古籍出处，杜绝散落代码的 hardcoded 业务规则。这是借鉴 bazi-life-curves `_phase_registry.py:94–104` 的 source 强制校验设计 (MIT, XiaoChu-1208)；目的是为 Phase 2 的 14 个 core phase + 反向规则统一管理打基础。
+- Sources: `opensource-bazi-life-curves`
+- Repo refs: `lib/bazi/phaseRegistry.ts`
+- Confidence: high_for_design_pattern
+- Status: design_pattern_borrowed_from_open_source
+
+### bazi.school-vote.weights-borrowed
+
+- Domain: bazi
+- Claim: lib/bazi/multiSchoolVote.ts 的默认派权重 ziping 0.25 / tiaohou 0.40 / geju 0.30 / mangpai 0，借自 bazi-life-curves `_school_registry.py:157–194` (MIT, XiaoChu-1208)。该比值由 bazi-life-curves 的 calibration/dataset.yaml 5 人 15 事件回测调出；古籍未给出派别权重。注意：与 SUJI《子平真诠》deepread 暗示的'格局应优先'有张力——前者把调候权重设为最高。Phase 2 接管 BaziEngine.determineGeJu 时需做用户 A/B 验证。
+- Sources: `bazi-ziping-zhenquan`, `bazi-qiongtong-baojian`, `bazi-ditiansui`, `opensource-bazi-life-curves`
+- Repo refs: `lib/bazi/multiSchoolVote.ts`, `docs/mingli/research/2026-05-07-bazi-life-curves-leverage.md`
+- Confidence: high_for_engineering_choice_no_classical_basis
+- Status: engineering_threshold_borrowed_from_open_source
 
 ### bazi.siling.table.contested
 
@@ -1192,6 +1314,33 @@ Updated: 2026-04-30
 - Confidence: medium_high_for_rule_low_for_full_interpretation
 - Status: text_cited_needs_fixture
 
+### bazi.tonggen.label-thresholds-borrowed
+
+- Domain: bazi
+- Claim: lib/bazi/structural.ts 的 5 档通根 label 切分阈值 0.30 / 0.70 / 1.50 / 2.50（无根/微根/弱根/中根/强根），借自 bazi-life-curves `_bazi_core.classify_root_strength` (MIT, XiaoChu-1208)。古籍只有定性描述（如《滴天髓》'有根则不畏制'），无具体数字阈值。这 4 个阈值是工程切分点；其优势在于：(a) 输出 label 比 raw 数字更易转化为格局逻辑判断，(b) 比 BaziEngine 当前 9 个数字门槛少 5 个。
+- Sources: `bazi-ditiansui`, `opensource-bazi-life-curves`
+- Repo refs: `lib/bazi/structural.ts`
+- Confidence: high_for_engineering_choice_no_classical_basis
+- Status: engineering_threshold_borrowed_from_open_source
+
+### bazi.tonggen.tier-weights-borrowed
+
+- Domain: bazi
+- Claim: lib/bazi/structural.ts 的 ROOT_TIER_WEIGHT 取本气 1.0 / 中气 0.5 / 余气 0.2，借自 bazi-life-curves `_bazi_core.py:210` `ROOT_TIER_WEIGHT` (MIT, XiaoChu-1208)。学理依据为《三命通会》藏干主气论（本气>中气>余气），但具体 1.0/0.5/0.2 比值是开源工程选择，不是古籍数。SUJI 当前未启用此权重做格局判定，仅在 Phase 0.5 骨架中可调用；Phase 2 启用后需在 release notes 标 attribution。
+- Sources: `bazi-sanming-tonghui`, `opensource-bazi-life-curves`
+- Repo refs: `lib/bazi/structural.ts`, `docs/mingli/research/2026-05-07-bazi-life-curves-leverage.md`
+- Confidence: high_for_engineering_choice_no_classical_basis
+- Status: engineering_threshold_borrowed_from_open_source
+
+### bazi.wuxing-strength.scoring-coefficients-engineering
+
+- Domain: bazi
+- Claim: BaziEngine.computeWuXingStrength 中的五行强度评分由一组工程化数值系数共同决定：天干 1.0 / 地支 ZHI_BASE 0.6（lib/bazi/BaziEngine.ts:369）；地支藏干权重 1.0 / 0.7 / 0.6 / 0.3 / 0.2（CANG_GAN, lib/bazi/BaziEngine.ts:119）；旺相休囚死乘子 2.0 / 1.5 / 1.0 / 0.7 / 0.5（lib/bazi/BaziEngine.ts:788）；通根加成 +0.3（lib/bazi/BaziEngine.ts:819）；六合/三合加成 +0.5（lib/bazi/BaziEngine.ts:828, 833）。古籍论五行强弱与得令、通根、坐刃、会合等结构概念在《滴天髓》《三命通会》中有定性论述，但未给出任何具体百分比或乘子。这些常数是工程实现选择，不是古籍结论；调整其中任何一个都可能改变 riZhuStrong 二元判断与最终用神/格局结果。
+- Sources: `bazi-ditiansui`, `bazi-sanming-tonghui`, `bazi-yuanhai-ziping`
+- Repo refs: `lib/bazi/BaziEngine.ts`, `docs/mingli/audit/2026-04-30-bazi-engine-grounding.md`
+- Confidence: high_for_engineering_choice_no_classical_basis
+- Status: engineering_threshold_no_classical_basis
+
 ### bazi.wuxing.seasonal-prosperity.requires-tongbian
 
 - Domain: bazi
@@ -1200,6 +1349,15 @@ Updated: 2026-04-30
 - Repo refs: `lib/bazi/BaziEngine.ts`, `docs/mingli/reading-notes/2026-04-29-reading-log.md`
 - Confidence: medium_high
 - Status: text_cited_needs_algorithm_review
+
+### bazi.yongshen-priority.product-decision
+
+- Domain: bazi
+- Claim: BaziEngine.computeWuXingStrength 中的用神选择采用三段优先级：先查《穷通宝鉴》调候表，若无条目则按身强用克泄、身弱用生扶（lib/bazi/BaziEngine.ts:854-879）。古籍提供调候、扶抑、通关、病药、专旺等多种取用思路，何者为主取决于格局成败、月令喜忌与四柱配合（《滴天髓》体用清浊、《子平真诠》论用神成败救应），并非固定 "调候 > 扶抑" 的优先级。当前实现的优先级是产品决策，不是古籍规则；解释层不能把输出的 yongShen 当作经典子平用神，而需标注这是简化算法选择。
+- Sources: `bazi-qiongtong-baojian`, `bazi-ditiansui`, `bazi-ziping-zhenquan`
+- Repo refs: `lib/bazi/BaziEngine.ts`, `docs/mingli/audit/2026-04-30-bazi-engine-grounding.md`
+- Confidence: high_for_product_decision_low_for_classical_alignment
+- Status: engineering_priority_choice_needs_copy_audit
 
 ### bazi.ziping-zhenquan.geju-chengbai-jiuying
 

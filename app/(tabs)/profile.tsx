@@ -5,24 +5,30 @@
  * Neo-Tactile Warmth 设计
  */
 
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
-import {
-  StyleSheet, View, Text, Pressable, ScrollView, Alert,
-} from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Animated, {
-  useSharedValue, useAnimatedStyle, withSpring, withTiming,
-} from 'react-native-reanimated';
-import { useRouter } from 'expo-router';
-import { Colors, Space, Radius, Type, Shadow, Motion, Size } from '@/lib/design/tokens';
-import { BirthInput, MingPanCard, WuXingChart, PersonalityCard } from '@/components/bazi';
+import { BirthInput, MingPanCard, PersonalityCard, WuXingChart } from '@/components/bazi';
 import { CalibrationSheet } from '@/components/calibration/CalibrationSheet';
 import { BaziEngine } from '@/lib/bazi/BaziEngine';
-import { ZiweiEngine } from '@/lib/ziwei/ZiweiEngine';
 import { InsightEngine } from '@/lib/bazi/InsightEngine';
 import { toTrueSolarTime } from '@/lib/bazi/TrueSolarTime';
-import { useUserStore } from '@/lib/store/userStore';
 import type { MingPan, PersonalityInsight } from '@/lib/bazi/types';
+import { Colors, Motion, Radius, Shadow, Size, Space, Type } from '@/lib/design/tokens';
+import { useUserStore } from '@/lib/store/userStore';
+import { ZiweiEngine } from '@/lib/ziwei/ZiweiEngine';
+import { useRouter } from 'expo-router';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  Alert,
+  Pressable, ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring
+} from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -51,7 +57,7 @@ export default function ProfileScreen() {
         const cached = JSON.parse(mingPanCache) as MingPan;
         setMingPan(cached);
         setPersonality(new InsightEngine(cached).getPersonalityInsight());
-      } catch {}
+      } catch { }
     }
   }, []);
 
@@ -88,7 +94,7 @@ export default function ProfileScreen() {
           isLunar: false,
         });
         setZiweiPanCache(JSON.stringify(ziweiPan));
-      } catch {}
+      } catch { }
     }
   }, [mingPanCache, birthDate, gender, ziweiEngine, setZiweiPanCache]);
 
@@ -176,99 +182,99 @@ export default function ProfileScreen() {
   // ── 已有命盘 ──
   return (
     <>
-    <ScrollView
-      style={[styles.container, { paddingTop: insets.top }]}
-      contentContainerStyle={[styles.scroll, { paddingBottom: insets.bottom + Size.tabBarHeight }]}
-      showsVerticalScrollIndicator={false}
-    >
-      {/* 日主 Hero */}
-      <View style={styles.heroArea}>
-        <Text style={styles.heroGan}>{mingPan.riZhu.gan}</Text>
-        <Text style={styles.heroMeta}>
-          {mingPan.riZhu.yinYang}{mingPan.riZhu.wuXing} · {mingPan.lunarDate}
-        </Text>
-        <Text style={styles.heroDesc}>{mingPan.riZhu.description}</Text>
-      </View>
-
-      {/* 出生信息 */}
-      <View style={[styles.card, Shadow.sm]}>
-        <View style={styles.cardHeader}>
-          <Text style={styles.cardLabel}>出生信息</Text>
-          <Pressable onPress={handleEdit} hitSlop={8}>
-            <Text style={styles.editLink}>编辑</Text>
-          </Pressable>
-        </View>
-        <View style={styles.cardContent}>
-          <BirthInfoRow label="生日" value={formatBirthDate(birthDate)} />
-          <BirthInfoRow label="性别" value={gender ?? '—'} />
-          <BirthInfoRow label="出生地" value={birthCity ?? '未填（按北京估算）'} />
-        </View>
-      </View>
-
-      {/* 四柱卡片 */}
-      <SectionCard
-        title="四柱命盘"
-        expanded={expandedSection === 'sizhu'}
-        onToggle={() => toggleSection('sizhu')}
+      <ScrollView
+        style={[styles.container, { paddingTop: insets.top }]}
+        contentContainerStyle={[styles.scroll, { paddingBottom: insets.bottom + Size.tabBarHeight }]}
+        showsVerticalScrollIndicator={false}
       >
-        <MingPanCard mingPan={mingPan} />
-      </SectionCard>
+        {/* 日主 Hero */}
+        <View style={styles.heroArea}>
+          <Text style={styles.heroGan}>{mingPan.riZhu.gan}</Text>
+          <Text style={styles.heroMeta}>
+            {mingPan.riZhu.yinYang}{mingPan.riZhu.wuXing} · {mingPan.lunarDate}
+          </Text>
+          <Text style={styles.heroDesc}>{mingPan.riZhu.description}</Text>
+        </View>
 
-      {/* 五行分布 */}
-      <SectionCard
-        title="五行分布"
-        expanded={expandedSection === 'wuxing'}
-        onToggle={() => toggleSection('wuxing')}
-      >
-        <WuXingChart
-          balance={mingPan.wuXingStrength.balance}
-          yongShen={mingPan.wuXingStrength.yongShen}
-          xiShen={mingPan.wuXingStrength.xiShen}
-        />
-      </SectionCard>
+        {/* 出生信息 */}
+        <View style={[styles.card, Shadow.sm]}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.cardLabel}>出生信息</Text>
+            <Pressable onPress={handleEdit} hitSlop={8}>
+              <Text style={styles.editLink}>编辑</Text>
+            </Pressable>
+          </View>
+          <View style={styles.cardContent}>
+            <BirthInfoRow label="生日" value={formatBirthDate(birthDate)} />
+            <BirthInfoRow label="性别" value={gender ?? '—'} />
+            <BirthInfoRow label="出生地" value={birthCity ?? '未填（按北京估算）'} />
+          </View>
+        </View>
 
-      {/* 格局 */}
-      <View style={[styles.card, Shadow.sm]}>
-        <Text style={styles.cardLabel}>格局</Text>
-        <Text style={styles.geJuName}>{mingPan.geJu.name}</Text>
-        <Text style={styles.geJuMeta}>
-          {mingPan.geJu.category} · {mingPan.geJu.strength}等
-        </Text>
-        <Text style={styles.geJuDesc}>{mingPan.geJu.modernMeaning}</Text>
-      </View>
-
-      {/* 人格洞察 */}
-      {personality && (
+        {/* 四柱卡片 */}
         <SectionCard
-          title="人格洞察"
-          expanded={expandedSection === 'personality'}
-          onToggle={() => toggleSection('personality')}
+          title="四柱命盘"
+          expanded={expandedSection === 'sizhu'}
+          onToggle={() => toggleSection('sizhu')}
         >
-          <PersonalityCard insight={personality} />
+          <MingPanCard mingPan={mingPan} />
         </SectionCard>
-      )}
 
-      {/* 功能入口 */}
-      <View style={styles.menuArea}>
-        <MenuCard
-          title="校准时辰"
-          subtitle={apiKey ? '过去事件回推，3-5 轮对话' : '先在设置里配置 AI'}
-          onPress={() => {
-            if (!apiKey) {
-              Alert.alert('需要 AI', '请先在"设置"里配置 AI 模型');
-              return;
-            }
-            setCalibrationVisible(true);
-          }}
-        />
-        <MenuCard title="流年运势" subtitle="大运 · 流年 · 流月" onPress={() => router.push('/fortune')} />
-        <MenuCard title="设置" subtitle="AI 模型 · 个人信息" onPress={() => router.push('/settings')} />
-      </View>
-    </ScrollView>
-    <CalibrationSheet
-      visible={calibrationVisible}
-      onClose={() => setCalibrationVisible(false)}
-    />
+        {/* 五行分布 */}
+        <SectionCard
+          title="五行分布"
+          expanded={expandedSection === 'wuxing'}
+          onToggle={() => toggleSection('wuxing')}
+        >
+          <WuXingChart
+            siZhu={mingPan.siZhu}
+            yongShen={mingPan.wuXingStrength.yongShen}
+            xiShen={mingPan.wuXingStrength.xiShen}
+          />
+        </SectionCard>
+
+        {/* 格局 */}
+        <View style={[styles.card, Shadow.sm]}>
+          <Text style={styles.cardLabel}>格局</Text>
+          <Text style={styles.geJuName}>{mingPan.geJu.name}</Text>
+          <Text style={styles.geJuMeta}>
+            {mingPan.geJu.category} · {mingPan.geJu.strength}等
+          </Text>
+          <Text style={styles.geJuDesc}>{mingPan.geJu.modernMeaning}</Text>
+        </View>
+
+        {/* 人格洞察 */}
+        {personality && (
+          <SectionCard
+            title="人格洞察"
+            expanded={expandedSection === 'personality'}
+            onToggle={() => toggleSection('personality')}
+          >
+            <PersonalityCard insight={personality} />
+          </SectionCard>
+        )}
+
+        {/* 功能入口 */}
+        <View style={styles.menuArea}>
+          <MenuCard
+            title="校准时辰"
+            subtitle={apiKey ? '过去事件回推，3-5 轮对话' : '先在设置里配置 AI'}
+            onPress={() => {
+              if (!apiKey) {
+                Alert.alert('需要 AI', '请先在"设置"里配置 AI 模型');
+                return;
+              }
+              setCalibrationVisible(true);
+            }}
+          />
+          <MenuCard title="流年运势" subtitle="大运 · 流年 · 流月" onPress={() => router.push('/fortune')} />
+          <MenuCard title="设置" subtitle="AI 模型 · 个人信息" onPress={() => router.push('/settings')} />
+        </View>
+      </ScrollView>
+      <CalibrationSheet
+        visible={calibrationVisible}
+        onClose={() => setCalibrationVisible(false)}
+      />
     </>
   );
 }

@@ -1,53 +1,62 @@
 /**
- * 五行力量图 — 竖条式
- * 
- * 设计：不用传统柱状图，用竖条+文字
- * 用神/喜神以品牌色下划线标记
+ * 五行结构图 — 竖条式
+ *
+ * Phase 3 重写：移除 balance 数字，改为原始计数（天干出现次数 + 地支本气出现次数）。
+ * 高度 = 该五行在八字中出现的干支总数，最大为 8（4干+4支）。
+ * 用神/喜神以品牌色标记；无数字显示。
  */
 
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import type { SiZhu, WuXing } from '@/lib/bazi/types';
 import { Colors, Space, Type } from '@/lib/design/tokens';
-import type { WuXingBalance, WuXing } from '@/lib/bazi/types';
+import { StyleSheet, Text, View } from 'react-native';
 
 interface WuXingChartProps {
-  balance: WuXingBalance;
+  siZhu: SiZhu;
   yongShen?: WuXing;
   xiShen?: WuXing;
 }
 
-const ELEMENTS: { key: keyof WuXingBalance; label: string; color: string }[] = [
-  { key: 'jin',  label: '金', color: Colors.wuxing.金 },
-  { key: 'mu',   label: '木', color: Colors.wuxing.木 },
-  { key: 'shui', label: '水', color: Colors.wuxing.水 },
-  { key: 'huo',  label: '火', color: Colors.wuxing.火 },
-  { key: 'tu',   label: '土', color: Colors.wuxing.土 },
+const ELEMENTS: { wx: WuXing; color: string }[] = [
+  { wx: '金', color: Colors.wuxing.金 },
+  { wx: '木', color: Colors.wuxing.木 },
+  { wx: '水', color: Colors.wuxing.水 },
+  { wx: '火', color: Colors.wuxing.火 },
+  { wx: '土', color: Colors.wuxing.土 },
 ];
 
-export function WuXingChart({ balance, yongShen, xiShen }: WuXingChartProps) {
-  const values = ELEMENTS.map(e => balance[e.key]);
-  const max = Math.max(...values, 1);
+function countWuXing(siZhu: SiZhu): Record<WuXing, number> {
+  const counts: Record<WuXing, number> = { 金: 0, 木: 0, 水: 0, 火: 0, 土: 0 };
+  for (const pillar of [siZhu.year, siZhu.month, siZhu.day, siZhu.hour]) {
+    counts[pillar.ganZhi.ganWuXing]++;
+    counts[pillar.ganZhi.zhiWuXing]++;
+  }
+  return counts;
+}
+
+export function WuXingChart({ siZhu, yongShen, xiShen }: WuXingChartProps) {
+  const counts = countWuXing(siZhu);
+  const max = Math.max(...Object.values(counts), 1);
 
   return (
     <View style={styles.container}>
       <View style={styles.barsRow}>
-        {ELEMENTS.map((el) => {
-          const val = balance[el.key];
-          const pct = (val / max) * 100;
-          const isYong = yongShen === el.label;
-          const isXi = xiShen === el.label;
+        {ELEMENTS.map(({ wx, color }) => {
+          const count = counts[wx];
+          const pct = (count / max) * 100;
+          const isYong = yongShen === wx;
+          const isXi = xiShen === wx;
 
           return (
-            <View key={el.key} style={styles.barCol}>
-              {/* 数值 */}
-              <Text style={styles.barValue}>{val.toFixed(1)}</Text>
+            <View key={wx} style={styles.barCol}>
+              {/* 计数（整数，无系数） */}
+              <Text style={styles.barValue}>{count}</Text>
 
               {/* 条 */}
               <View style={styles.barTrack}>
                 <View
                   style={[
                     styles.barFill,
-                    { height: `${Math.max(pct, 4)}%`, backgroundColor: el.color },
+                    { height: `${Math.max(pct, 4)}%`, backgroundColor: color },
                   ]}
                 />
               </View>
@@ -55,10 +64,10 @@ export function WuXingChart({ balance, yongShen, xiShen }: WuXingChartProps) {
               {/* 五行字 */}
               <Text style={[
                 styles.barLabel,
-                { color: el.color },
+                { color },
                 (isYong || isXi) && styles.barLabelHighlight,
               ]}>
-                {el.label}
+                {wx}
               </Text>
 
               {/* 用神/喜神标记 */}
