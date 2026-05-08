@@ -47,9 +47,11 @@ function buildSystemPrompt(mingPanJson: string | null, tone: ToneStyle = 'warm')
       const pan = JSON.parse(mingPanJson);
       const g2 = pan.geJuV2;
       const rs = pan.riZhuStructure;
+      const dayGanZhi = pan.siZhu?.day?.ganZhi;
+      const riZhuLabel = `${pan.riZhu?.gan ?? dayGanZhi?.gan ?? ''}${dayGanZhi?.zhi ?? ''}`;
       const summary = [
         `用户命盘摘要：`,
-        `日主：${pan.riZhu?.gan}${pan.riZhu?.zhi}（${pan.riZhu?.yinYang}${pan.riZhu?.wuXing}）`,
+        `日主：${riZhuLabel}（${pan.riZhu?.yinYang}${pan.riZhu?.wuXing}）`,
         `四柱：${pan.siZhu?.year?.ganZhi?.gan}${pan.siZhu?.year?.ganZhi?.zhi} ${pan.siZhu?.month?.ganZhi?.gan}${pan.siZhu?.month?.ganZhi?.zhi} ${pan.siZhu?.day?.ganZhi?.gan}${pan.siZhu?.day?.ganZhi?.zhi} ${pan.siZhu?.hour?.ganZhi?.gan}${pan.siZhu?.hour?.ganZhi?.zhi}`,
         g2
           ? `格局：${g2.name}（${g2.chengBai === 'cheng' ? '成格' : g2.chengBai === 'po' ? '破格' : '救应'}·${g2.jibie === 'shang' ? '上格' : g2.jibie === 'zhong' ? '中格' : '下格'}）`
