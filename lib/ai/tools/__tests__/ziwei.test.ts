@@ -39,7 +39,15 @@ describe('get_ziwei_palace handler', () => {
     expect(r.mainStars).toContain('紫微');
   });
 
-  it('returns 夫妻宫 with sihua when withFlying=true', async () => {
+  it('returns 夫妻宫 with sihua when withSihua=true', async () => {
+    const r = await ziweiHandlers.get_ziwei_palace(
+      { palace: '夫妻宫', withSihua: true }, CTX
+    ) as any;
+    expect(r.sihua).toBeDefined();
+    expect(r.sihua).toContain('武曲化忌');
+  });
+
+  it('keeps withFlying as a backward-compatible alias for sihua', async () => {
     const r = await ziweiHandlers.get_ziwei_palace(
       { palace: '夫妻宫', withFlying: true }, CTX
     ) as any;

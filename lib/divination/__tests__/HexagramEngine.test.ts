@@ -47,6 +47,10 @@ describe('HexagramEngine cast', () => {
 });
 
 describe('HexagramEngine 五行 / 用神 correctness', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('每个卦都能在六亲分布里找到所有 5 类（除非同 trigram 重复）', () => {
     // sample test：检查 几个 known 卦
     const eng = new HexagramEngine();
@@ -66,5 +70,24 @@ describe('HexagramEngine 五行 / 用神 correctness', () => {
     }
     // 大部分情况应该上卦
     expect(validCount).toBeGreaterThan(50);
+  });
+
+  it('uses month command instead of a hardcoded default for yongshen state', () => {
+    const eng = new HexagramEngine();
+    const sequence = Array.from({ length: 18 }, (_, idx) => idx % 3 === 2 ? 0.6 : 0.4);
+    jest.spyOn(Math, 'random').mockImplementation(() => sequence.shift() ?? 0.6);
+
+    const r = eng.cast({
+      question: '事业走势如何',
+      questionType: 'career',
+      castTime: new Date('2026-04-15T12:00:00+08:00'),
+    });
+
+    expect(r.benGua.name).toBe('乾为天');
+    expect(r.yongShen.type).toBe('官鬼');
+    expect(r.yongShen.yaoIndex).toBe(4);
+    expect(r.yongShen.wuXing).toBe('火');
+    expect(r.yongShen.state).toBe('旺');
+    expect(r.yongShen.interactions).toContain('月令五行判旺');
   });
 });

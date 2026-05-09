@@ -9,9 +9,14 @@ import { BirthInput, MingPanCard, PersonalityCard, WuXingChart } from '@/compone
 import { CalibrationSheet } from '@/components/calibration/CalibrationSheet';
 import { BaziEngine } from '@/lib/bazi/BaziEngine';
 import { InsightEngine } from '@/lib/bazi/InsightEngine';
-import { toTrueSolarTime } from '@/lib/bazi/TrueSolarTime';
 import type { MingPan, PersonalityInsight } from '@/lib/bazi/types';
 import { Colors, Motion, Radius, Shadow, Size, Space, Type } from '@/lib/design/tokens';
+import {
+  deserializeMingPanCache,
+  deserializeZiweiPanCache,
+  serializeMingPanCache,
+  serializeZiweiPanCache,
+} from '@/lib/mingli/cache';
 import { useUserStore } from '@/lib/store/userStore';
 import { ZiweiEngine } from '@/lib/ziwei/ZiweiEngine';
 import { useRouter } from 'expo-router';
@@ -53,32 +58,24 @@ export default function ProfileScreen() {
   // 从缓存恢复
   useEffect(() => {
     if (mingPanCache && !mingPan) {
-      try {
-        const cached = JSON.parse(mingPanCache) as MingPan;
+      const { value: cached, migrated } = deserializeMingPanCache(mingPanCache);
+      if (cached) {
         setMingPan(cached);
         setPersonality(new InsightEngine(cached).getPersonalityInsight());
-      } catch { }
+        if (migrated) setMingPanCache(serializeMingPanCache(cached));
+      }
     }
-  }, []);
+  }, [mingPan, mingPanCache, setMingPanCache]);
 
   // 迁移：有八字没紫微，或紫微宫名是旧格式（缺"宫"字） → 重新生成紫微盘
   useEffect(() => {
     const { ziweiPanCache } = useUserStore.getState();
     if (!mingPanCache || !birthDate || !gender) return;
 
-    let needsRegen = !ziweiPanCache;
-    if (ziweiPanCache && !needsRegen) {
-      try {
-        const cached = JSON.parse(ziweiPanCache);
-        // 旧格式：iztro 直接返回的 '子女'/'夫妻' 等无"宫"字宫名
-        // 新格式（normalizePalaceName 后）：所有 12 主宫都带"宫"字
-        const hasOldFormat = (cached.palaces ?? []).some(
-          (p: any) => p.name && !p.name.endsWith('宫'),
-        );
-        if (hasOldFormat) needsRegen = true;
-      } catch {
-        needsRegen = true;
-      }
+    const cachedZiwei = deserializeZiweiPanCache(ziweiPanCache);
+    let needsRegen = !cachedZiwei.value;
+    if (cachedZiwei.value && cachedZiwei.migrated) {
+      setZiweiPanCache(serializeZiweiPanCache(cachedZiwei.value));
     }
 
     if (needsRegen) {
@@ -93,7 +90,7 @@ export default function ProfileScreen() {
           gender: gender as '男' | '女',
           isLunar: false,
         });
-        setZiweiPanCache(JSON.stringify(ziweiPan));
+        setZiweiPanCache(serializeZiweiPanCache(ziweiPan));
       } catch { }
     }
   }, [mingPanCache, birthDate, gender, ziweiEngine, setZiweiPanCache]);
@@ -101,8 +98,8 @@ export default function ProfileScreen() {
   const handleSubmit = useCallback(
     (date: Date, g: '男' | '女', longitude?: number, city?: string) => {
       try {
-        const corrected = toTrueSolarTime(date, longitude ?? 116.4);
-        const result = baziEngine.calculate(corrected, g);
+        const actualLongitude = longitude ?? 116.4;
+        const result = baziEngine.calculate(date, g, actualLongitude);
         setMingPan(result);
         setPersonality(new InsightEngine(result).getPersonalityInsight());
         setShowInput(false);
@@ -111,7 +108,7 @@ export default function ProfileScreen() {
         if (city && longitude != null) {
           setBirthCity(city, longitude);
         }
-        setMingPanCache(JSON.stringify(result));
+        setMingPanCache(serializeMingPanCache(result));
         const ziweiPan = ziweiEngine.compute({
           year: date.getFullYear(),
           month: date.getMonth() + 1,
@@ -121,7 +118,7 @@ export default function ProfileScreen() {
           gender: g as '男' | '女',
           isLunar: false,
         });
-        setZiweiPanCache(JSON.stringify(ziweiPan));
+        setZiweiPanCache(serializeZiweiPanCache(ziweiPan));
       } catch {
         Alert.alert('排盘失败', '请检查日期和时间');
       }

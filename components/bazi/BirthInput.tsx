@@ -29,6 +29,12 @@ const DAYS_IN_MONTH = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 // 城市列表（排序：直辖市优先，再按拼音）
 const CITY_LIST = Object.keys(CITY_LONGITUDES);
 
+export function getShichenIndexForDate(date: Date): number {
+  const h = date.getHours();
+  const idx = Math.floor(((h + 1) % 24) / 2);
+  return idx >= 0 ? idx : 4;
+}
+
 interface BirthInputProps {
   onSubmit: (date: Date, gender: '男' | '女', longitude?: number, city?: string) => void;
   initialDate?: Date;
@@ -48,8 +54,7 @@ export default function BirthInput({
   const [month,      setMonth]      = useState(initD.getMonth() + 1);
   const [day,        setDay]        = useState(initD.getDate());
   const [shichenIdx, setShichenIdx] = useState(() => {
-    const h = initD.getHours();
-    return SHICHEN.findIndex(s => s.hour === Math.floor(h / 2) * 2) || 4;
+    return getShichenIndexForDate(initD);
   });
   const [gender,     setGender]     = useState<'男' | '女'>(initialGender ?? '男');
   const [city,       setCity]       = useState<string>(

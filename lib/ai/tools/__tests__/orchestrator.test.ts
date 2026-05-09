@@ -1,4 +1,4 @@
-import { callLLMWithTools } from '../orchestrator';
+import { callLLMWithTools, selectToolsForMode } from '../orchestrator';
 import type { ToolDefinition } from '../types';
 
 // Mock expo/fetch — the orchestrator imports `fetch` from 'expo/fetch'
@@ -119,5 +119,18 @@ describe('callLLMWithTools (Responses API path)', () => {
       expect(r.calls[0].name).toBe('echo');
       expect(r.calls[0].arguments).toEqual({ x: 1 });
     }
+  });
+});
+
+describe('selectToolsForMode', () => {
+  it('disables liuyao when user forces mingli mode', () => {
+    const tools = selectToolsForMode('mingli').map(t => t.function.name);
+    expect(tools).not.toContain('cast_liuyao');
+    expect(tools).toContain('get_domain');
+  });
+
+  it('only exposes liuyao when user forces liuyao mode', () => {
+    const tools = selectToolsForMode('liuyao').map(t => t.function.name);
+    expect(tools).toEqual(['cast_liuyao']);
   });
 });

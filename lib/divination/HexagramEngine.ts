@@ -6,7 +6,7 @@
  * - 用神选择 + 应期推算（基础规则）
  */
 import type {
-  CastOptions, HexagramReading, Yao, GuaInfo, LiuQin, YongShenAnalysis,
+  CastOptions, HexagramReading, Yao, GuaInfo, LiuQin, YongShenAnalysis, WuXing,
   YingQiAnalysis, QuestionType,
 } from './types';
 import { findGuaByYao } from './data/gua64';
@@ -37,7 +37,7 @@ export class HexagramEngine {
     const liuQin = liuQinForGua(benGua);
 
     // ── 4. 用神 + 应期
-    const yongShen = this.selectYongShen(opts.questionType ?? 'general', opts.gender, liuQin, benGua);
+    const yongShen = this.selectYongShen(opts.questionType ?? 'general', opts.gender, liuQin, benGua, castTime);
     const yingQi = this.computeYingQi(yongShen, castTime);
     const castGanZhi = this.castTimeToGanZhi(castTime);
 
@@ -76,6 +76,7 @@ export class HexagramEngine {
     gender: '男' | '女' | undefined,
     liuQin: Record<1|2|3|4|5|6, LiuQin>,
     gua: GuaInfo,
+    castTime: Date,
   ): YongShenAnalysis {
     let target: LiuQin;
     switch (qt) {
@@ -109,12 +110,14 @@ export class HexagramEngine {
     }
 
     const yaoWuXing = yaoWuXingForGua(gua);
+    const wuXing = yaoWuXing[yaoIndex - 1];
+    const state = yongShenStateByMonth(wuXing, castTime);
     return {
       type: target,
       yaoIndex,
-      wuXing: yaoWuXing[yaoIndex - 1],
-      state: '相', // MVP 用相代默认；Phase 2.5 改为月令推算
-      interactions: [],
+      wuXing,
+      state,
+      interactions: [`月令五行判${state}`],
     };
   }
 
@@ -156,6 +159,37 @@ export class HexagramEngine {
 const TIANGAN = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
 const DIZHI = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
 
+const SHENG: Record<WuXing, WuXing> = {
+  木: '火',
+  火: '土',
+  土: '金',
+  金: '水',
+  水: '木',
+};
+
+const KE: Record<WuXing, WuXing> = {
+  木: '土',
+  土: '水',
+  水: '火',
+  火: '金',
+  金: '木',
+};
+
+const ZHI_WUXING: Record<string, WuXing> = {
+  子: '水',
+  丑: '土',
+  寅: '木',
+  卯: '木',
+  辰: '土',
+  巳: '火',
+  午: '火',
+  未: '土',
+  申: '金',
+  酉: '金',
+  戌: '土',
+  亥: '水',
+};
+
 function dateToGanZhi(d: Date): string {
   const epoch = new Date(1900, 0, 1).getTime();
   const days = Math.floor((d.getTime() - epoch) / 86400000);
@@ -171,4 +205,14 @@ function monthToGanZhi(year: number, month: number): string {
   const gan = TIANGAN[(monthGanStart + month - 1) % 10];
   const zhi = DIZHI[(month + 1) % 12];
   return gan + zhi;
+}
+
+function yongShenStateByMonth(yongShenWuXing: WuXing, castTime: Date): YongShenAnalysis['state'] {
+  const monthPillar = monthToGanZhi(castTime.getFullYear(), castTime.getMonth() + 1);
+  const monthWuXing = ZHI_WUXING[monthPillar[1]];
+  if (monthWuXing === yongShenWuXing) return '旺';
+  if (SHENG[monthWuXing] === yongShenWuXing) return '相';
+  if (SHENG[yongShenWuXing] === monthWuXing) return '休';
+  if (KE[yongShenWuXing] === monthWuXing) return '囚';
+  return '死';
 }

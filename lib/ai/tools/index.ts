@@ -71,7 +71,7 @@ const aggregatedHandlers: Record<string, ToolHandler> = {
       ? await baziHandlers.get_bazi_star({ person }, ctx)
       : { domain, note: '此领域不直接对应六亲星位' };
     const ziweiPart = await ziweiHandlers.get_ziwei_palace(
-      { palace, withFlying: true }, ctx,
+      { palace, withSihua: true }, ctx,
     );
     const shenshaPart = await baziHandlers.list_shensha(
       { kind: shenshaKind }, ctx,

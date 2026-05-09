@@ -2,7 +2,6 @@
  * AI 编排核心：单轮 LLM 调用 + 流式调用 helpers
  *
  * 支持 OpenAI-compatible 协议 和 Responses API（Azure AI Foundry / GPT-5 系列）。
- * Anthropic tool-use 适配后续 task 处理。
  */
 import { fetch as expoFetch } from 'expo/fetch';
 import type { ToolDefinition, ToolCall } from './types';
@@ -11,7 +10,7 @@ import { THINKER_PROMPT, INTERPRETER_PROMPT } from '../index';
 import { buildEvidenceFromToolCalls } from './evidence';
 
 export interface ChatProviderConfig {
-  provider: 'openai' | 'deepseek' | 'anthropic' | 'custom';
+  provider: 'openai' | 'deepseek' | 'custom';
   apiKey: string;
   model: string;
   baseUrl: string;
@@ -381,6 +380,7 @@ export interface OrchestrationResult {
 export async function runOrchestration(opts: OrchestrationOptions): Promise<OrchestrationResult> {
   const ctx = { mingPan: opts.mingPan, ziweiPan: opts.ziweiPan, now: new Date() };
   const toolCalls: Array<{ call: ToolCall; result: unknown }> = [];
+  const availableTools = selectToolsForMode(opts.forceMode);
 
   // ── Phase A：Call 1 thinker（multi-turn）
   const thinkerSystem = `${THINKER_PROMPT}
@@ -402,7 +402,7 @@ ${opts.identity}
 
   let thinkerOutput = '';
   for (let round = 0; round < MAX_TOOL_ROUNDS; round++) {
-    const resp = await callLLMWithTools(messages, opts.config, ALL_TOOLS, opts.signal);
+    const resp = await callLLMWithTools(messages, opts.config, availableTools, opts.signal);
     if (resp.kind === 'text') {
       thinkerOutput = resp.text;
       break;
@@ -468,4 +468,10 @@ ${opts.identity}
     evidence: buildEvidenceFromToolCalls(toolCalls),
     toolCalls,
   };
+}
+
+export function selectToolsForMode(forceMode?: 'liuyao' | 'mingli'): ToolDefinition[] {
+  if (forceMode === 'liuyao') return ALL_TOOLS.filter(t => t.function.name === 'cast_liuyao');
+  if (forceMode === 'mingli') return ALL_TOOLS.filter(t => t.function.name !== 'cast_liuyao');
+  return ALL_TOOLS;
 }

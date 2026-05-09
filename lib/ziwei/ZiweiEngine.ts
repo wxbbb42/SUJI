@@ -27,17 +27,17 @@ export class ZiweiEngine {
     const hourIndex = this.hourToIndex(input.hour);
 
     const astrolabe: IFunctionalAstrolabe = input.isLunar
-      ? astro.byLunar(dateStr, hourIndex, input.gender, false, true, 'zh-CN')
+      ? astro.byLunar(dateStr, hourIndex, input.gender, input.isLeapMonth ?? false, true, 'zh-CN')
       : astro.bySolar(dateStr, hourIndex, input.gender, true, 'zh-CN');
 
     const palaces: Palace[] = astrolabe.palaces.map((p: any) => ({
       name: this.normalizePalaceName(p.name),
       position: p.earthlyBranch,
       ganZhi: `${p.heavenlyStem}${p.earthlyBranch}`,
-      mainStars: p.majorStars.map((s: any) => this.normalizeStar(s, 'major')),
+      mainStars: p.majorStars.map((s: any) => this.normalizeStar(s, 'major', 'major')),
       minorStars: [
-        ...p.minorStars.map((s: any) => this.normalizeStar(s, 'other')),
-        ...p.adjectiveStars.map((s: any) => this.normalizeStar(s, 'helper')),
+        ...p.minorStars.map((s: any) => this.normalizeStar(s, this.mapMinorStarType(s), 'minor')),
+        ...p.adjectiveStars.map((s: any) => this.normalizeStar(s, 'helper', 'adjective')),
       ],
       isShenGong: p.isBodyPalace ?? false,
     }));
@@ -68,13 +68,22 @@ export class ZiweiEngine {
     return Math.floor((hour + 1) / 2);
   }
 
-  private normalizeStar(s: any, defaultType: Star['type']): Star {
+  private normalizeStar(s: any, defaultType: Star['type'], source: Star['source']): Star {
     return {
       name: s.name,
       brightness: s.brightness as Star['brightness'],
       type: defaultType,
+      source,
       sihua: s.mutagen ? [s.mutagen as SiHua] : undefined,
     };
+  }
+
+  private mapMinorStarType(s: any): Star['type'] {
+    const type = String(s.type ?? '').toLowerCase();
+    if (['soft', 'tough', 'lucky', 'unlucky', 'flower', 'helper'].includes(type)) {
+      return type as Star['type'];
+    }
+    return 'other';
   }
 
   private findMingGongPosition(palaces: Palace[]): string {

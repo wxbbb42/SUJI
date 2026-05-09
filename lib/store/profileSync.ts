@@ -13,6 +13,12 @@ import { useAuthStore } from './authStore';
 let suppressPush = false;
 let autoSyncStarted = false;
 
+function normalizeApiProvider(provider: unknown): UserState['apiProvider'] {
+  return provider === 'openai' || provider === 'deepseek' || provider === 'custom'
+    ? provider
+    : null;
+}
+
 export async function pullProfile(userId: string): Promise<void> {
   const profile = await fetchProfile(userId);
   if (!profile) return;
@@ -24,7 +30,7 @@ export async function pullProfile(userId: string): Promise<void> {
       gender: profile.gender,
       birthCity: profile.birth_city,
       birthLongitude: profile.birth_longitude,
-      apiProvider: profile.api_provider,
+      apiProvider: normalizeApiProvider(profile.api_provider),
       apiModel: profile.api_model,
       apiBaseUrl: profile.api_base_url,
       hasOnboarded: profile.has_onboarded,
@@ -41,7 +47,7 @@ export async function pushProfile(userId: string): Promise<void> {
     gender: s.gender,
     birth_city: s.birthCity,
     birth_longitude: s.birthLongitude,
-    api_provider: s.apiProvider,
+    api_provider: normalizeApiProvider(s.apiProvider),
     api_model: s.apiModel,
     api_base_url: s.apiBaseUrl,
     has_onboarded: s.hasOnboarded,

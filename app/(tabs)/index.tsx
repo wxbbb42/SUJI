@@ -14,6 +14,7 @@ import { Colors, Space, Radius, Type, Shadow, Size } from '@/lib/design/tokens';
 import { useUserStore } from '@/lib/store/userStore';
 import { InsightEngine } from '@/lib/bazi/InsightEngine';
 import type { MingPan, DailyInsight } from '@/lib/bazi/types';
+import { deserializeMingPanCache } from '@/lib/mingli/cache';
 import lunisolar from 'lunisolar';
 
 const WISDOMS = [
@@ -42,12 +43,7 @@ export default function CalendarScreen() {
   const [dailyInsight, setDailyInsight] = useState<DailyInsight | null>(null);
 
   const mingPan = useMemo<MingPan | null>(() => {
-    if (!mingPanCache) return null;
-    try {
-      const p = JSON.parse(mingPanCache);
-      if (p.birthDateTime) p.birthDateTime = new Date(p.birthDateTime);
-      return p;
-    } catch { return null; }
+    return deserializeMingPanCache(mingPanCache).value;
   }, [mingPanCache]);
 
   useEffect(() => {

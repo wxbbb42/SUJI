@@ -11,7 +11,7 @@
 | 物理 | @react-three/cannon | 纸张撕裂物理 |
 | 状态管理 | Zustand | 轻量，TS 友好 |
 | 后端 | Supabase | Auth + PostgreSQL + Realtime |
-| AI | OpenAI / Anthropic API | 通过后端代理调用 |
+| AI | OpenAI / DeepSeek / custom OpenAI-compatible | 当前 BYOK 客户端直连；生产目标为后端代理 |
 | 八字 | hkargc/paipan (JS) | 排盘核心算法 |
 | 音频 | expo-av | 音效 + 白噪音 |
 | 支付 | expo-in-app-purchases / RevenueCat | iOS 订阅 |

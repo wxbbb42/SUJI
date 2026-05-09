@@ -30,7 +30,7 @@
 - **状态管理**：Zustand + AsyncStorage persist
 - **3D / 动效**：react-three-fiber + drei + expo-gl，Reanimated 4
 - **后端**：Supabase Auth + Postgres profiles
-- **AI**：OpenAI / DeepSeek / Anthropic / custom OpenAI-compatible；支持 Responses API / Azure AI Foundry URL
+- **AI**：OpenAI / DeepSeek / custom OpenAI-compatible；支持 Responses API / Azure AI Foundry URL
 - **命理引擎**：lunisolar、iztro、自研 bazi / qimen / liuyao
 - **测试**：jest + jest-expo + @testing-library/react-native
 

@@ -101,11 +101,9 @@ export default function InsightScreen() {
     let localQimenChart: QimenChart | null = null;
 
     try {
-      // 没命盘 OR Anthropic provider → fallback 到旧 sendChat（无工具，无双段）
-      // Responses API（Azure Foundry / GPT-5）已在编排器内支持，不再排除
+      // 没命盘时 fallback；Responses API（Azure Foundry / GPT-5）已在编排器内支持
       const useOrchestration =
-        config.provider !== 'anthropic'
-        && (store.mingPanCache !== null || forceMode === 'liuyao');
+        store.mingPanCache !== null || forceMode === 'liuyao';
 
       if (useOrchestration) {
         const result = await sendOrchestrated({
@@ -150,7 +148,7 @@ export default function InsightScreen() {
           timestamp: Date.now(),
           orchestration: {
             thinker: result.thinker,
-            evidence: mergeEvidence(result.evidence, splitOrchestrationOutput(result.interpreter).evidence),
+            evidence: result.evidence,
             toolCalls: localToolCalls,
             hexagram: localHexagram,
             qimenChart: localQimenChart,
@@ -222,7 +220,7 @@ export default function InsightScreen() {
             配置你的 AI 模型{'\n'}开启智慧对话
           </Text>
           <Text style={styles.emptyProviders}>
-            支持 OpenAI · DeepSeek · Anthropic
+            支持 OpenAI · DeepSeek · 自定义兼容端点
           </Text>
           <Pressable
             style={[styles.setupBtn, Shadow.sm]}
@@ -489,16 +487,6 @@ function SendOrStopButton({
       </Text>
     </AnimatedPressable>
   );
-}
-
-function mergeEvidence(primary: string[], fallback: string[]): string[] {
-  const out: string[] = [];
-  for (const item of [...primary, ...fallback]) {
-    const text = item.trim();
-    if (text && !out.includes(text)) out.push(text);
-    if (out.length >= 6) break;
-  }
-  return out;
 }
 
 function summarizeArgs(args: Record<string, unknown>): string {
