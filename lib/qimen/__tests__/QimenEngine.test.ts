@@ -81,6 +81,8 @@ describe('QimenEngine yongShen selection', () => {
     });
     expect(r.yongShen.palaceId).toBeGreaterThanOrEqual(1);
     expect(r.yongShen.palaceId).toBeLessThanOrEqual(9);
+    expect(['旺', '相', '休', '囚', '死', '不上卦']).toContain(r.yongShen.state);
+    expect(r.yongShen.interactions[0]).toMatch(/^宫位五行判/);
     expect(r.yongShen.summary).toBeTruthy();
   });
 

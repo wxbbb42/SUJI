@@ -9,7 +9,7 @@
 - **状态**：Zustand
 - **3D / 动效**：react-three-fiber + drei + expo-gl，Reanimated 4
 - **后端**：Supabase（Auth + Postgres + Realtime）
-- **AI**：当前为 BYOK 客户端直连 OpenAI / DeepSeek / Anthropic / custom；生产级后端代理仍是目标架构
+- **AI**：当前为 BYOK 客户端直连 OpenAI / DeepSeek / custom；生产级后端代理仍是目标架构
 - **命理引擎**：lunisolar（农历/干支/节气）+ iztro（紫微）+ 自研 bazi/qimen/liuyao
 - **测试**：jest + jest-expo + @testing-library/react-native
 

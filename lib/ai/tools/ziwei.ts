@@ -21,9 +21,13 @@ export const ziweiTools: ToolDefinition[] = [
               '官禄宫', '田宅宫', '福德宫', '父母宫',
             ],
           },
+          withSihua: {
+            type: 'boolean',
+            description: '是否返回本宫星曜四化标签',
+          },
           withFlying: {
             type: 'boolean',
-            description: '是否返回四化飞入飞出信息',
+            description: '旧参数名，兼容等同 withSihua；不包含飞入/飞出宫位关系',
           },
         },
         required: ['palace'],
@@ -33,7 +37,7 @@ export const ziweiTools: ToolDefinition[] = [
 ];
 
 export const ziweiHandlers: Record<string, ToolHandler> = {
-  get_ziwei_palace: ({ palace, withFlying }, { ziweiPan }) => {
+  get_ziwei_palace: ({ palace, withSihua, withFlying }, { ziweiPan }) => {
     if (!ziweiPan) {
       return { palace, error: 'no_ziwei_chart' };
     }
@@ -58,7 +62,7 @@ export const ziweiHandlers: Record<string, ToolHandler> = {
       isShenGong: target.isShenGong,
     };
 
-    if (withFlying) {
+    if (withSihua || withFlying) {
       const sihua: string[] = [];
       for (const s of [...(target.mainStars ?? []), ...(target.minorStars ?? [])]) {
         if (s.sihua && s.sihua.length > 0) {

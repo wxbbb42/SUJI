@@ -19,6 +19,7 @@ import { useUserStore } from '@/lib/store/userStore';
 import { DayunEngine } from '@/lib/bazi/DayunEngine';
 import { InsightEngine } from '@/lib/bazi/InsightEngine';
 import type { MingPan, DaYun, LiuNian } from '@/lib/bazi/types';
+import { deserializeMingPanCache } from '@/lib/mingli/cache';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -28,12 +29,7 @@ export default function FortunePage() {
   const { mingPanCache } = useUserStore();
 
   const mingPan = useMemo<MingPan | null>(() => {
-    if (!mingPanCache) return null;
-    try {
-      const p = JSON.parse(mingPanCache);
-      if (p.birthDateTime) p.birthDateTime = new Date(p.birthDateTime);
-      return p;
-    } catch { return null; }
+    return deserializeMingPanCache(mingPanCache).value;
   }, [mingPanCache]);
 
   if (!mingPan) {

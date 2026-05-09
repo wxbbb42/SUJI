@@ -129,7 +129,7 @@ describe('buildUserMessage', () => {
 });
 
 function mockUserStoreState(state: {
-  apiProvider: 'openai' | 'deepseek' | 'anthropic' | 'custom';
+  apiProvider: 'openai' | 'deepseek' | 'custom';
   apiKey: string;
   apiModel?: string | null;
   apiBaseUrl?: string | null;
@@ -152,31 +152,6 @@ function mockResponse(data: unknown, ok = true, status = 200): Response {
 describe('calibrationAI provider calls', () => {
   beforeEach(() => {
     global.fetch = jest.fn();
-  });
-
-  it('routes Anthropic config to /v1/messages instead of /chat/completions', async () => {
-    mockUserStoreState({
-      apiProvider: 'anthropic',
-      apiKey: 'test-key',
-      apiModel: 'claude-sonnet-test',
-      apiBaseUrl: 'https://stale-custom.example/v1',
-    });
-    (global.fetch as jest.Mock).mockResolvedValueOnce(
-      mockResponse({ content: [{ type: 'text', text: '{"decision":"asking","text":"Q1"}' }] }),
-    );
-
-    const out = await calibrationAI.runRound({
-      signalTable: FAKE_TABLE,
-      history: [],
-      round: 1,
-      userAge: 31,
-    });
-
-    expect(global.fetch).toHaveBeenCalledWith(
-      'https://api.anthropic.com/v1/messages',
-      expect.objectContaining({ method: 'POST' }),
-    );
-    expect(out).toEqual({ decision: 'asking', text: 'Q1' });
   });
 
   it('keeps first round startable when provider request fails', async () => {

@@ -14,6 +14,7 @@ export interface Star {
   name: string;
   brightness?: StarBrightness;
   type: 'major' | 'soft' | 'tough' | 'lucky' | 'unlucky' | 'flower' | 'helper' | 'other';
+  source?: 'major' | 'minor' | 'adjective';
   sihua?: SiHua[];
 }
 
@@ -43,4 +44,5 @@ export interface ZiweiBirthInput {
   minute?: number;    // 0-59
   gender: '男' | '女';
   isLunar?: boolean;  // 默认 false 阳历
+  isLeapMonth?: boolean; // 农历输入时是否闰月
 }

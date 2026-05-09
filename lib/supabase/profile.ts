@@ -11,7 +11,7 @@ export interface CloudProfile {
   gender: '男' | '女' | null;
   birth_city: string | null;
   birth_longitude: number | null;
-  api_provider: 'openai' | 'deepseek' | 'anthropic' | 'custom' | null;
+  api_provider: 'openai' | 'deepseek' | 'custom' | null;
   api_model: string | null;
   api_base_url: string | null;
   has_onboarded: boolean;

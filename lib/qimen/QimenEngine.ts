@@ -14,7 +14,6 @@
  *   - 上中下元用日干索引近似（未严格按"节气交接日的甲子日"算上元起点）
  *   - 用神 / 应期为 MVP 简化
  */
-import lunisolar from 'lunisolar';
 import { toTrueSolarTime } from '@/lib/bazi/TrueSolarTime';
 import type {
   QimenChart, Palace, SetupOptions, YinYangDun, JuNumber, Yuan,
@@ -31,23 +30,7 @@ import { detectGeJu } from './data/geju';
 import { buildDiPan } from './helpers/diPan';
 import { rotateTianPan, computeXunShou, PALACE_CLOCKWISE_8 } from './helpers/tianPan';
 import { computeTimePillars } from './helpers/timeGanZhi';
-
-/** lunisolar 默认输出繁体字节气名 → JIEQI_JU 表使用的简体字 */
-const TRAD_TO_SIMP_JIEQI: Record<string, string> = {
-  '驚蟄': '惊蛰',
-  '穀雨': '谷雨',
-  '小滿': '小满',
-  '芒種': '芒种',
-  '處暑': '处暑',
-};
-
-/** 24 节气名表（与 lunisolar getNames 顺序一致：小寒/大寒/立春/...） */
-const JIEQI_INDEX_ORDER: string[] = [
-  '小寒', '大寒', '立春', '雨水', '惊蛰', '春分',
-  '清明', '谷雨', '立夏', '小满', '芒种', '夏至',
-  '小暑', '大暑', '立秋', '处暑', '白露', '秋分',
-  '寒露', '霜降', '立冬', '小雪', '大雪', '冬至',
-];
+import { currentSolarTerm } from './helpers/solarTerms';
 
 const QIMEN_METHOD: QimenMethodMeta = {
   level: 'mvp',
@@ -56,6 +39,22 @@ const QIMEN_METHOD: QimenMethodMeta = {
     '用神选择与应期为产品 MVP 简化规则',
     '格局识别只覆盖当前数据表可判定的常用格局',
   ],
+};
+
+const GAN_WUXING: Record<TianGan, '金' | '木' | '水' | '火' | '土'> = {
+  甲: '木', 乙: '木',
+  丙: '火', 丁: '火',
+  戊: '土', 己: '土',
+  庚: '金', 辛: '金',
+  壬: '水', 癸: '水',
+};
+
+const SHENG: Record<'金' | '木' | '水' | '火' | '土', '金' | '木' | '水' | '火' | '土'> = {
+  木: '火', 火: '土', 土: '金', 金: '水', 水: '木',
+};
+
+const KE: Record<'金' | '木' | '水' | '火' | '土', '金' | '木' | '水' | '火' | '土'> = {
+  木: '土', 土: '水', 水: '火', 火: '金', 金: '木',
 };
 
 export class QimenEngine {
@@ -67,7 +66,7 @@ export class QimenEngine {
     const trueSolar = toTrueSolarTime(setupTime, longitude);
 
     // 2. 节气
-    const jieqi = this.findCurrentJieqi(trueSolar);
+    const jieqi = currentSolarTerm(trueSolar);
 
     // 3. 阴阳遁 + 局数 + 元
     const jieqiJu = findJieqiJu(jieqi);
@@ -159,14 +158,26 @@ export class QimenEngine {
     if (rule.secondaryStar && palace.jiuxing === rule.secondaryStar) {
       interactions.push(`临${rule.secondaryStar}星（星映）`);
     }
+    const state = this.computeYongShenState(targetGan as TianGan, palace);
+    interactions.unshift(`宫位五行判${state}`);
 
     return {
       type: targetGan,
       palaceId: palace.id,
-      state: '相',  // MVP 简化：默认相
-      summary: `${targetGan}临${palace.name}（${palace.bamen ?? '无门'} · ${palace.jiuxing} · ${palace.bashen ?? '无神'}）`,
+      state,
+      summary: `${targetGan}临${palace.name}，${state}（${palace.bamen ?? '无门'} · ${palace.jiuxing} · ${palace.bashen ?? '无神'}）`,
       interactions,
     };
+  }
+
+  private computeYongShenState(gan: TianGan, palace: Palace): YongShenAnalysis['state'] {
+    const ganWx = GAN_WUXING[gan];
+    const palaceWx = palace.wuXing;
+    if (palaceWx === ganWx) return '旺';
+    if (SHENG[palaceWx] === ganWx) return '相';
+    if (SHENG[ganWx] === palaceWx) return '休';
+    if (KE[ganWx] === palaceWx) return '囚';
+    return '死';
   }
 
   /** 应期推算（MVP 简化） */
@@ -181,44 +192,6 @@ export class QimenEngine {
       description: '约 1-3 个月内见分晓',
       factors: [`用神：${yongShen.summary}`],
     };
-  }
-
-  /**
-   * 查找给定时刻所在的节气
-   *
-   * lunisolar 的 `solarTerm` 访问器仅在节气交接日返回值，其它日期为 undefined；
-   * `SolarTerm.findNode` 又只返回每月首个 "节"（非完整 24 节气）。
-   * 因此我们用 `getMonthTerms(year, month)` 取每月两个节气日，向前回溯找到最近节气。
-   */
-  private findCurrentJieqi(date: Date): string {
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    const targetYear = year;
-    const targetMonth = month;
-    const targetDay = date.getDate();
-
-    for (let attempts = 0; attempts < 13; attempts++) {
-      const monthTerms = (lunisolar as any).SolarTerm.getMonthTerms(year, month) as [number, number];
-      if (year === targetYear && month === targetMonth) {
-        if (targetDay >= monthTerms[1]) {
-          const idx = ((month - 1) * 2 + 1) % 24;
-          return TRAD_TO_SIMP_JIEQI[JIEQI_INDEX_ORDER[idx]] ?? JIEQI_INDEX_ORDER[idx];
-        }
-        if (targetDay >= monthTerms[0]) {
-          const idx = ((month - 1) * 2) % 24;
-          return TRAD_TO_SIMP_JIEQI[JIEQI_INDEX_ORDER[idx]] ?? JIEQI_INDEX_ORDER[idx];
-        }
-      } else {
-        const idx = ((month - 1) * 2 + 1) % 24;
-        return TRAD_TO_SIMP_JIEQI[JIEQI_INDEX_ORDER[idx]] ?? JIEQI_INDEX_ORDER[idx];
-      }
-      month--;
-      if (month < 1) {
-        month = 12;
-        year--;
-      }
-    }
-    return '冬至';
   }
 
   /** 上中下元判定（MVP 简化：用日数 mod 10 近似） */

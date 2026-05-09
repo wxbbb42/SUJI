@@ -15,7 +15,7 @@ export interface UserState {
   birthLongitude: number | null;
 
   // API 配置
-  apiProvider: 'openai' | 'deepseek' | 'anthropic' | 'custom' | null;
+  apiProvider: 'openai' | 'deepseek' | 'custom' | null;
   apiKey: string | null;
   apiModel: string | null;
   apiBaseUrl: string | null;

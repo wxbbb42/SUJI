@@ -24,7 +24,6 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 const PROVIDERS = [
   { id: 'openai',    label: 'OpenAI',    model: 'gpt-4o' },
   { id: 'deepseek',  label: 'DeepSeek',  model: 'deepseek-chat' },
-  { id: 'anthropic', label: 'Anthropic', model: 'claude-sonnet-4-20250514' },
   { id: 'custom',    label: '自定义',     model: '' },
 ] as const;
 
@@ -34,7 +33,8 @@ export default function SettingsScreen() {
   const store = useUserStore();
   const { user, signOut } = useAuthStore();
 
-  const [provider, setProvider] = useState(store.apiProvider ?? 'openai');
+  const initialProvider = PROVIDERS.some(p => p.id === store.apiProvider) ? store.apiProvider : 'openai';
+  const [provider, setProvider] = useState(initialProvider);
   const [apiKey, setApiKey] = useState(store.apiKey ?? '');
   const [model, setModel] = useState(store.apiModel ?? '');
   const [baseUrl, setBaseUrl] = useState(store.apiBaseUrl ?? '');
@@ -42,7 +42,7 @@ export default function SettingsScreen() {
   const defaultModel = PROVIDERS.find(p => p.id === provider)?.model ?? '';
 
   const handleSave = useCallback(() => {
-    store.setApiProvider(provider as any);
+    store.setApiProvider(provider);
     store.setApiKey(apiKey.trim());
     store.setApiModel(model.trim() || defaultModel);
     if (provider === 'custom' && baseUrl.trim()) {

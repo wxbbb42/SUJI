@@ -50,4 +50,24 @@ describe('ZiweiEngine', () => {
     const b = engine.compute(input);
     expect(a.mingGongPosition).toBe(b.mingGongPosition);
   });
+
+  it('accepts lunar leap-month input explicitly', () => {
+    const pan = engine.compute({
+      year: 2025, month: 6, day: 1, hour: 0,
+      gender: '女',
+      isLunar: true,
+      isLeapMonth: true,
+    });
+    expect(pan.palaces).toHaveLength(12);
+  });
+
+  it('preserves star source semantics for minor and adjective stars', () => {
+    const pan = engine.compute({
+      year: 1990, month: 8, day: 16, hour: 14, minute: 30,
+      gender: '男',
+      isLunar: false,
+    });
+    const star = pan.palaces.flatMap(p => p.minorStars).find(s => s.source);
+    expect(star?.source).toMatch(/minor|adjective/);
+  });
 });
