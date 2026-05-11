@@ -142,13 +142,15 @@ export default function InsightScreen() {
           signal: abortController.signal,
         });
 
+        const parsedInterpreter = splitOrchestrationOutput(result.interpreter);
+        const evidence = result.evidence.length > 0 ? result.evidence : parsedInterpreter.evidence;
         const assistantMsg: ChatMessage = {
           role: 'assistant',
           content: result.interpreter,
           timestamp: Date.now(),
           orchestration: {
             thinker: result.thinker,
-            evidence: result.evidence,
+            evidence,
             toolCalls: localToolCalls,
             hexagram: localHexagram,
             qimenChart: localQimenChart,
@@ -312,9 +314,10 @@ export default function InsightScreen() {
                   : msg.content
               } />
 
-              {msg.orchestration && msg.orchestration.evidence.length > 0 && (
+              {msg.orchestration && hasOrchestrationDetails(msg.orchestration) && (
                 <EvidenceCard
                   evidence={msg.orchestration.evidence}
+                  hasDetails
                   onTapFull={() => setSheetData({
                     thinker: msg.orchestration!.thinker,
                     evidence: msg.orchestration!.evidence,
@@ -369,9 +372,12 @@ export default function InsightScreen() {
 
             {streamingText && (() => {
               const evid = splitOrchestrationOutput(streamingText).evidence;
-              return evid.length > 0 ? (
+              const hasDetails = evid.length > 0 || Boolean(liveThinker.trim())
+                || liveToolCalls.length > 0 || liveHexagram !== null || liveQimenChart !== null;
+              return hasDetails ? (
                 <EvidenceCard
                   evidence={evid}
+                  hasDetails
                   onTapFull={() => setSheetData({
                     thinker: liveThinker,
                     evidence: evid,
@@ -594,6 +600,14 @@ function describeError(err: string | undefined): string {
   if (err.includes('liunian_compute_failed')) return '流年算盘卡住了';
   if (err.includes('unknown_domain')) return '此领域不识';
   return '此处暂未取到';
+}
+
+function hasOrchestrationDetails(orchestration: NonNullable<ChatMessage['orchestration']>): boolean {
+  return orchestration.evidence.length > 0
+    || orchestration.toolCalls.length > 0
+    || Boolean(orchestration.thinker.trim())
+    || Boolean(orchestration.hexagram)
+    || Boolean(orchestration.qimenChart);
 }
 
 const styles = StyleSheet.create({

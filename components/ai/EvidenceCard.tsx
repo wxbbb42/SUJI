@@ -9,22 +9,26 @@ const PREVIEW_LINES = 4;
 
 type Props = {
   evidence: string[];
+  hasDetails?: boolean;
   onTapFull: () => void;
 };
 
-export function EvidenceCard({ evidence, onTapFull }: Props) {
-  if (evidence.length === 0) return null;
+export function EvidenceCard({ evidence, hasDetails = false, onTapFull }: Props) {
+  if (evidence.length === 0 && !hasDetails) return null;
   const visible = evidence.slice(0, PREVIEW_LINES);
   const hasMore = evidence.length > PREVIEW_LINES;
 
   return (
     <Pressable onPress={onTapFull} style={[styles.card, Shadow.sm]}>
       <View style={styles.headerRow}>
-        <Text style={styles.headerLabel}>推演依据</Text>
+        <Text style={styles.headerLabel}>{evidence.length > 0 ? '推演依据' : '完整推演'}</Text>
       </View>
-      {visible.map((line, i) => (
-        <Text key={i} style={styles.line} numberOfLines={1}>{line}</Text>
-      ))}
+      {visible.length > 0
+        ? visible.map((line, i) => (
+            <Text key={i} style={styles.line} numberOfLines={1}>{line}</Text>
+          ))
+        : <Text style={styles.line} numberOfLines={1}>本次可查看完整推演过程</Text>
+      }
       <View style={styles.footer}>
         <Text style={styles.footerText}>
           {hasMore ? '⌄ 查看完整推演' : '⌄ 展开完整推演'}

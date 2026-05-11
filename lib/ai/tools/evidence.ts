@@ -13,6 +13,18 @@ function getRecord(value: unknown): Record<string, any> | null {
   return value as Record<string, any>;
 }
 
+function compactGanZhi(value: unknown): string {
+  const r = getRecord(value);
+  if (!r) return compact(value);
+  const gan = r.gan ?? '';
+  const zhi = r.zhi ?? '';
+  return compact(`${gan}${zhi}`);
+}
+
+function firstArrayItem(value: unknown): any | null {
+  return Array.isArray(value) && value.length > 0 ? value[0] : null;
+}
+
 function uniqPush(lines: string[], line: string) {
   const normalized = line.trim();
   if (!normalized || lines.includes(normalized)) return;
@@ -26,9 +38,13 @@ function evidenceFromTool(call: ToolCall, result: unknown): string[] {
   switch (call.name) {
     case 'cast_liuyao': {
       const lines: string[] = [];
-      const mainName = r.mainHexagram?.name ?? r.hexagram?.name ?? r.name;
-      const changedName = r.changedHexagram?.name ?? r.changeHexagram?.name;
-      const moving = Array.isArray(r.movingLines) ? r.movingLines.join('/') : r.movingLine;
+      const mainName = r.benGua?.name ?? r.mainHexagram?.name ?? r.hexagram?.name ?? r.name;
+      const changedName = r.bianGua?.name ?? r.changedHexagram?.name ?? r.changeHexagram?.name;
+      const moving = Array.isArray(r.changingYao)
+        ? r.changingYao.join('/')
+        : Array.isArray(r.movingLines)
+          ? r.movingLines.join('/')
+          : r.movingLine;
       if (mainName) uniqPush(lines, `主卦 · ${compact(mainName)}`);
       if (changedName) uniqPush(lines, `变卦 · ${compact(changedName)}`);
       if (moving) uniqPush(lines, `动爻 · ${compact(moving)}`);
@@ -54,20 +70,32 @@ function evidenceFromTool(call: ToolCall, result: unknown): string[] {
       const lines: string[] = [];
       const domain = call.arguments.domain ?? r.domain;
       const palace = r.palace ?? r.ziwei?.palace ?? r.palaceName;
-      const summary = r.summary ?? r.modernMeaning;
+      const baziSummary = r.summary ?? r.bazi?.summary ?? r.modernMeaning;
+      const stars = Array.isArray(r.ziwei?.mainStars) ? r.ziwei.mainStars.slice(0, 3).join('/') : '';
+      const sihua = Array.isArray(r.ziwei?.sihua) ? r.ziwei.sihua.slice(0, 2).join('/') : '';
+      const shenshaList = Array.isArray(r.shensha?.list) ? r.shensha.list : [];
+      const shenshaNames = shenshaList.map((s: any) => s?.name ?? s).filter(Boolean).slice(0, 3).join('/');
       if (domain) uniqPush(lines, `领域 · ${compact(domain)}`);
       if (palace) uniqPush(lines, `宫位 · ${compact(palace)}`);
-      if (summary) uniqPush(lines, `依据 · ${compact(summary, 20)}`);
+      if (stars) uniqPush(lines, `主星 · ${compact(stars, 20)}`);
+      if (sihua) uniqPush(lines, `四化 · ${compact(sihua, 20)}`);
+      if (shenshaNames) uniqPush(lines, `神煞 · ${compact(shenshaNames, 20)}`);
+      if (baziSummary) uniqPush(lines, `依据 · ${compact(baziSummary, 20)}`);
       return lines;
     }
 
     case 'get_timing': {
       const lines: string[] = [];
       const scope = call.arguments.scope ?? r.scope;
-      const current = r.current ?? r.currentDayun ?? r.dayun ?? r.liunian;
+      const data = r.data;
+      const current = r.current ?? r.currentDayun ?? r.dayun ?? r.liunian
+        ?? (Array.isArray(data) ? firstArrayItem(data) : data);
       if (scope) uniqPush(lines, `时间 · ${compact(scope)}`);
-      if (current?.ganZhi) uniqPush(lines, `干支 · ${compact(current.ganZhi)}`);
-      if (current?.ageRange) uniqPush(lines, `阶段 · ${compact(current.ageRange)}`);
+      if (current?.year) uniqPush(lines, `年份 · ${compact(current.year)}`);
+      if (current?.month) uniqPush(lines, `月份 · ${compact(current.month)}`);
+      if (current?.ganZhi) uniqPush(lines, `干支 · ${compactGanZhi(current.ganZhi)}`);
+      if (current?.shiShen) uniqPush(lines, `十神 · ${compact(current.shiShen)}`);
+      if (current?.ageRange ?? current?.period) uniqPush(lines, `阶段 · ${compact(current.ageRange ?? current.period)}`);
       if (r.summary) uniqPush(lines, `依据 · ${compact(r.summary, 20)}`);
       return lines;
     }
@@ -75,8 +103,9 @@ function evidenceFromTool(call: ToolCall, result: unknown): string[] {
     case 'get_bazi_star': {
       const lines: string[] = [];
       const person = call.arguments.person ?? r.person;
-      const star = r.star ?? r.shiShen ?? r.name;
-      const position = r.position ?? r.pillar;
+      const star = r.star ?? r.shiShen ?? r.name
+        ?? (Array.isArray(r.relevantShiShen) ? r.relevantShiShen.join('/') : '');
+      const position = r.position ?? r.pillar ?? firstArrayItem(r.positionsInChart);
       if (person) uniqPush(lines, `${compact(person)} · ${compact(star || '星位')}`);
       if (position) uniqPush(lines, `位置 · ${compact(position)}`);
       if (r.summary) uniqPush(lines, `依据 · ${compact(r.summary, 20)}`);
@@ -98,7 +127,9 @@ function evidenceFromTool(call: ToolCall, result: unknown): string[] {
     case 'list_shensha': {
       const lines: string[] = [];
       const kind = call.arguments.kind ?? r.kind;
-      const items = Array.isArray(r.items) ? r.items : Array.isArray(r.shenSha) ? r.shenSha : [];
+      const items = Array.isArray(r.list) ? r.list
+        : Array.isArray(r.items) ? r.items
+          : Array.isArray(r.shenSha) ? r.shenSha : [];
       if (kind) uniqPush(lines, `神煞 · ${compact(kind)}`);
       if (items.length > 0) {
         const names = items.map((s: any) => s?.name ?? s).filter(Boolean).slice(0, 3).join('/');
@@ -109,8 +140,9 @@ function evidenceFromTool(call: ToolCall, result: unknown): string[] {
 
     case 'get_today_context': {
       const lines: string[] = [];
-      if (r.ganZhi) uniqPush(lines, `今日 · ${compact(r.ganZhi)}`);
+      if (r.todayGanZhi ?? r.ganZhi) uniqPush(lines, `今日 · ${compact(r.todayGanZhi ?? r.ganZhi)}`);
       if (r.solarTerm) uniqPush(lines, `节气 · ${compact(r.solarTerm)}`);
+      if (r.dayInteraction) uniqPush(lines, `互动 · ${compact(r.dayInteraction, 20)}`);
       return lines;
     }
 
