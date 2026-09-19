@@ -2,8 +2,8 @@ import XCTest
 @testable import SujiCore
 
 final class ReadingVerifierTests: XCTestCase {
-    private let accepted = #"{"accepted":true,"issues":[]}"#
-    private let rejected = #"{"accepted":false,"issues":["工具年柱是癸卯，候选误称甲辰"]}"#
+    private let accepted = #"{"protocolVersion":"suji-verification-2","accepted":true,"reviewedSentences":[1],"issues":[]}"#
+    private let rejected = #"{"protocolVersion":"suji-verification-2","accepted":false,"reviewedSentences":[1],"issues":[{"kind":"field_mismatch","candidateQuote":"年柱为甲辰","candidateValueQuote":"甲辰","factKey":"calendar.year","toolCallID":"a","pointer":"/yearGanZhi","actualValue":"癸卯","claimedValue":"甲辰","predicate":"equals"}]}"#
     private var history: [ChatMessage] {
         [ChatMessage(role: .system, content: "出生资料已提供"),
          ChatMessage(role: .assistant, content: "昨日不可信旧答案"),
@@ -19,7 +19,7 @@ final class ReadingVerifierTests: XCTestCase {
 
     func testIncorrectDraftMustBeRevisedAndRechecked() async throws {
         var calls = 0
-        let result = try await ReadingVerifier.verify(draft: "已经甲辰", history: history, question: "当前年柱") { messages in
+        let result = try await ReadingVerifier.verify(draft: "年柱为甲辰", history: history, question: "当前年柱") { messages in
             calls += 1
             if calls == 1 { return .text(self.rejected) }
             if calls == 2 {
@@ -36,9 +36,9 @@ final class ReadingVerifierTests: XCTestCase {
     func testRepeatedRejectionNeverReturnsOriginalOrRevisedDraft() async {
         var calls = 0
         do {
-            _ = try await ReadingVerifier.verify(draft: "甲辰", history: history, question: "当前年柱") { _ in
+            _ = try await ReadingVerifier.verify(draft: "年柱为甲辰", history: history, question: "当前年柱") { _ in
                 calls += 1
-                return .text(calls == 2 ? "还是甲辰" : self.rejected)
+                return .text(calls == 2 ? "年柱为甲辰" : self.rejected)
             }
             XCTFail("Rejected draft must not be displayed")
         } catch { XCTAssertTrue(error is ReadingVerifier.Rejected) }

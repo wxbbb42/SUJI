@@ -215,26 +215,7 @@ import SujiCore
 
     private func loadDefinitions(mode: String, question: String, birth: BirthProfile?, store: AppStore) async throws -> [ChatToolDefinition] {
         let definitions = try await store.request(["command": "tools"])
-        let selected = definitions.array.filter { definition in
-            let name = definition["function"]["name"].text
-            guard ToolOrchestrator.allowedToolNames.contains(name) else { return false }
-            if mode == "起卦" { return name == "cast_liuyao" }
-            if name == "setup_qimen" { return ReadingIntent.allowsQimen(question) }
-            // 命理 mode never substitutes a random cast for missing birth data.
-            return birth != nil && name != "cast_liuyao"
-        }
-        return try selected.map { value in
-            let function = value["function"]
-            let parameters = try JSONDecoder().decode(
-                JSONValue.self,
-                from: Data(function["parameters"].json.utf8)
-            )
-            return ChatToolDefinition(
-                name: function["name"].text,
-                description: function["description"].text,
-                parameters: parameters
-            )
-        }
+        return try ReadingIntent.definitions(from: Data(definitions.json.utf8), mode: mode, question: question, hasBirth: birth != nil)
     }
 
     private func persist(

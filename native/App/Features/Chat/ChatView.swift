@@ -111,7 +111,9 @@ struct ChatView: View {
                         ForEach(["倾诉", "命理", "起卦"], id: \.self) { Text($0).tag($0) }
                     }.pickerStyle(.segmented).disabled(session.working)
                     HStack(alignment: .bottom, spacing: 12) {
-                        TextField("写下此刻的心事…", text: $input, axis: .vertical).lineLimit(1...5).padding(14).background(SujiTheme.surface, in: RoundedRectangle(cornerRadius: 20)).focused($focused).accessibilityIdentifier("chat.input")
+                        TextField("写下此刻的心事…", text: $input, prompt: Text("写下此刻的心事…").foregroundStyle(SujiTheme.secondary), axis: .vertical)
+                            .lineLimit(1...5).padding(14).background(SujiTheme.surface, in: RoundedRectangle(cornerRadius: 20))
+                            .focused($focused).accessibilityLabel("写下此刻的心事").accessibilityIdentifier("chat.input")
                         Button { if session.working { session.stop() } else { let text = input; input = ""; focused = false; session.send(text, mode: mode, store: store) } } label: {
                             Image(systemName: session.working ? "stop.fill" : "arrow.up").font(.system(size: 20, weight: .semibold)).frame(width: 48, height: 48).background(SujiTheme.ink, in: Circle()).foregroundStyle(SujiTheme.paper)
                         }.disabled(!session.working && input.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty).accessibilityLabel(session.working ? "停止回答" : "发送")

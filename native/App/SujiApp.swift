@@ -23,11 +23,20 @@ import SujiCore
     var body: some Scene {
         WindowGroup {
             if let store {
-                RootView().environment(store)
+                launchView.environment(store)
                     .tint(SujiTheme.sage)
                     .preferredColorScheme(colorScheme(for: store))
             } else { ContentUnavailableView("暂时无法打开册页", systemImage: "book.closed", description: Text(launchError ?? "请重试")) }
         }
+    }
+    @ViewBuilder private var launchView: some View {
+#if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("--ui-testing") && ProcessInfo.processInfo.arguments.contains("--mingli-detail-fixtures") {
+            MingliDetailAuditView()
+        } else { RootView() }
+#else
+        RootView()
+#endif
     }
     private func colorScheme(for store: AppStore) -> ColorScheme? {
 #if DEBUG

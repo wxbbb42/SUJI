@@ -4,6 +4,16 @@ Date: 2026-09-19. Branch: `codex/swiftui-rebuild`; original Expo baseline: `0857
 
 This is a native implementation and simulator verification record, not an App Store release certificate. Screens run in SwiftUI, deterministic TypeScript code runs locally in JavaScriptCore, and native services own persistence, audio, credentials and networking.
 
+## Structured verification and actual native evaluation — 2026-09-19
+
+This checkpoint uses prompt `suji-grounded-reading-7` and verification protocol `suji-verification-2`. Field corrections require current source values, exact candidate text and locally supported binding; invalid reviewer opinions get one bounded recheck and are not forwarded as facts. Missing results, existing birth data and reusable charts have distinct recovery messages. The App and evaluator share tool-selection rules.
+
+- Final Core: **154 tests passed** under `America/Los_Angeles` (`/tmp/suji-mingli-core-v7-final.log`), including 32 independently authored adversarial protocol cases, six immutable real-output regressions and ten recovery-state tests.
+- Four **actual Swift** synthetic live rounds retain full batches, SSE counts, writer/verifier messages and receipts; 72 total provider requests. Auth/quota are locally mocked through the real backend handler, not deployed Supabase authentication. Fixed multi-moving coin input is evaluation-only, with a separate effective bundle hash.
+- These runs exposed and helped repair negative-health false rejection, UTC label errors and invented recovery state. They also show continuing false acceptance of established-pattern wording and five-element explanations. **The full interpretation-quality goal is not complete.** See [current protocol evidence](../docs/mingli/validation/native-verifier-validation.md) and the four independent reviews; accepted counts are not accuracy scores.
+- Engine source/bundle and backend are unchanged in this checkpoint. The existing 475 engine tests and 14 backend tests below remain earlier evidence. Native-only guard passed; no private backend credential matched the tracked/new nonignored files.
+- Signed App/Widget and **13 hosted tests passed** on the final v7 Core (`/tmp/suji-mingli-v7-final-hosted.xcresult`). **Five UI tests passed** on the preceding v6 build; UI sources are unchanged, and 20 screenshots/AX trees preserve their distinct build identity. Final UI/hosted evidence is recorded separately in [the detailed UI review](../docs/mingli/validation/detail-ui-accessibility-review.md), including each build hash. UI screenshots use visibly labelled synthetic records, not actual model replies.
+
 ## Mingli validation and SwiftUI-only follow-up — 2026-09-19
 
 Branch: `codex/mingli-validation`. Checkpoint `c89d93c` and its follow-up contain the native calendar, readings, UI and research changes. SwiftUI remains the only maintained client; CI rejects retired client paths and Expo / React Native dependencies. See [the validation plan](../docs/mingli/validation/PLAN.md) and [harness evidence and limits](../docs/mingli/validation/harness-final-validation.md).

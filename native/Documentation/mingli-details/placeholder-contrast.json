@@ -1,0 +1,56 @@
+{
+  "roiPixels": [
+    90,
+    2210,
+    700,
+    2310
+  ],
+  "screenPixels": [
+    1206,
+    2622
+  ],
+  "method": "sRGB relative luminance; modal solid glyph interior versus modal local background",
+  "scope": "Chat placeholder in four captured static states; not a whole-app accessibility certification",
+  "states": [
+    {
+      "state": "before-light",
+      "file": "mingli-improvements/10-chat-start.png",
+      "sha256": "7f33ee7131f0ac07f3fb895d4a01553df21f21f8fafd86c6b4f15a84393f7926",
+      "foreground": "#C5C3C2",
+      "background": "#FFFDF8",
+      "solidGlyphPixels": 2671,
+      "contrastRatio": 1.727,
+      "meetsNormalText4_5": false
+    },
+    {
+      "state": "after-light",
+      "file": "mingli-details/60-chat-placeholder-light.png",
+      "sha256": "7924d741296188fddfa2a0cbcb75ad528376dd4e2dc928338a7be17d23e58657",
+      "foreground": "#6C7165",
+      "background": "#FFFDF8",
+      "solidGlyphPixels": 2597,
+      "contrastRatio": 4.933,
+      "meetsNormalText4_5": true
+    },
+    {
+      "state": "before-dark",
+      "file": "mingli-improvements/24-dark-chat.png",
+      "sha256": "9c69fc3913bb445b6aa5c5275851a031f0caf47e69d312d2d02c211619cad81e",
+      "foreground": "#5F6462",
+      "background": "#242A24",
+      "solidGlyphPixels": 2671,
+      "contrastRatio": 2.435,
+      "meetsNormalText4_5": false
+    },
+    {
+      "state": "after-dark",
+      "file": "mingli-details/61-chat-placeholder-dark.png",
+      "sha256": "2af476f628e22f39a99ba94f5f715b6af6be1e305716dd626e1c0fcb753f1198",
+      "foreground": "#ADB4A7",
+      "background": "#242A24",
+      "solidGlyphPixels": 2597,
+      "contrastRatio": 6.889,
+      "meetsNormalText4_5": true
+    }
+  ]
+}

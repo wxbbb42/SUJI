@@ -100,3 +100,5 @@
 截图来自两次构建，不能写成同一个最终套件三项全通过：四 tab 与 XXXL 使用引擎 SHA `e0b3125b40c6f027534ef0a2d212dd00518995fd0aaf2c86bb60dba81f1d862d`；主流程复跑使用打包后核验的 SHA `708788aeb69fd9f0c4899dc8e02d17bb4db7d08068ef062646930d73451fade5`。每张截图的测试名、时间、结果包和 SHA 均记录在 [capture-manifest.json](../../../native/Documentation/mingli-improvements/capture-manifest.json)。后续引擎变更不自动继承这些截图的版本证明。
 
 完整编译包括原生 App、Widget、测试 target 和新增依据页面。没有关闭签名。仅有现存 NotificationRouting `@preconcurrency` 及 AppIntents 元数据提示，没有新 UI 编译错误。截图能证明此次设备与字号下的实际展示，不能替代真实登录后 AI 评测或跨账户竞态测试。
+
+后续针对六爻/奇门依据明细、旧整理分组和占位文字完成了定向检查，见 [detail-ui-accessibility-review.md](detail-ui-accessibility-review.md)。上文记录的占位文字偏淡已修复；新报告给出修前后截图像素对比度，并区分可访问树检查与真实 VoiceOver 验收。

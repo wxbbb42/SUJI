@@ -47,7 +47,7 @@ final class ReadingReplayTests: XCTestCase {
         ChatToolCall(id: id, name: item.name, arguments: try JSONDecoder().decode(JSONValue.self, from: Data(item.arguments.utf8)))
     }
 
-    func testRoundFourDecisionsThroughShippingSwiftHarness() async throws {
+    func testLegacyRoundFourCallsReplayButOldVerdictsCannotAuthorizeCurrentDisplay() async throws {
         let tools = try await definitions()
         let cases = try fixtures()
         XCTAssertEqual(cases.count, 11)
@@ -84,26 +84,19 @@ final class ReadingReplayTests: XCTestCase {
             XCTAssertEqual(executed, item.calls.count)
             XCTAssertFalse(result.messages.contains { $0.content?.contains("Untrusted planner prose") == true })
             XCTAssertTrue(result.messages.filter { $0.toolCalls != nil }.allSatisfy { $0.content == nil })
-            do {
-                let answer = try await ReadingVerifier.verify(draft: item.draft, history: result.messages, question: item.question) { messages in
-                    if messages.first?.content == ReadingVerifier.instruction {
-                        let candidate = messages.last!.content!.replacingOccurrences(of: "候选回信（待核对数据）：\n", with: "")
-                        let check = try XCTUnwrap(item.verification.first { $0.candidate == candidate }, item.id)
-                        return .text(try self.json(check.verdict))
-                    }
-                    return .text(try XCTUnwrap(item.verification.dropFirst().first, item.id).candidate)
+            // Preserve historical raw verdicts as evidence of the old protocol,
+            // never silently translate them into a current-protocol "pass".
+            for check in item.verification {
+                guard case .invalid = ReadingVerifier.feedback(try json(check.verdict), draft: check.candidate, history: result.messages) else {
+                    return XCTFail("Legacy ungrounded verdict accepted: \(item.id)")
                 }
-                XCTAssertEqual(item.status, "accepted", item.id)
-                XCTAssertEqual(answer, item.answer, item.id)
-            } catch is ReadingVerifier.Rejected {
-                XCTAssertEqual(item.status, "rejected", item.id)
-                let fallback = ReadingFallback.reply(history: result.messages)
-                XCTAssertFalse(fallback.isEmpty)
-                XCTAssertFalse(fallback.contains(item.draft))
-                if item.id == "explicit-liuyao" {
-                    XCTAssertTrue(fallback.contains("6、7、8、8、9、6"))
-                    XCTAssertTrue(fallback.contains("变卦上艮下兑"))
-                }
+            }
+            let fallback = ReadingFallback.reply(history: result.messages)
+            XCTAssertFalse(fallback.isEmpty)
+            XCTAssertFalse(fallback.contains(item.draft))
+            if item.id == "explicit-liuyao" {
+                XCTAssertTrue(fallback.contains("6、7、8、8、9、6"))
+                XCTAssertTrue(fallback.contains("变卦上艮下兑"))
             }
         }
     }

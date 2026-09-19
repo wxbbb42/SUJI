@@ -2,6 +2,10 @@ import Foundation
 import SujiCore
 
 // Synthetic, opt-in evaluation fixture. No app data or credentials are read.
+if CommandLine.arguments.contains("--live-native") {
+    try await NativeReadingEvaluation.run()
+    exit(0)
+}
 if CommandLine.arguments.contains("--guard") {
     let input = try JSONSerialization.jsonObject(with: FileHandle.standardInput.readDataToEndOfFile()) as! [String: String]
     let output: [String: Any] = ["issues": ReadingVerifier.deterministicIssues(in: input["draft"] ?? ""), "allowsQimen": ReadingIntent.allowsQimen(input["question"] ?? "")]

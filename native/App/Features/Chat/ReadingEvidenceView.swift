@@ -67,6 +67,7 @@ struct ReadingEvidenceView: View {
                     let relations = [line["monthClash"].number == 1 ? "月破" : "", line["dayClash"].number == 1 ? "日冲" : "", line["dayCombination"].number == 1 ? "日合" : ""].filter { !$0.isEmpty }
                     if !relations.isEmpty { Text(relations.joined(separator: " · ")).font(.footnote) }
                 }.padding(.vertical, 8).accessibilityElement(children: .combine)
+                    .accessibilityIdentifier("evidence.liuyao.line." + String(Int(line["position"].number)))
             }
         }
         Text(data["yingQi"]["description"].text).font(.footnote).foregroundStyle(SujiTheme.secondary)
@@ -83,11 +84,15 @@ struct ReadingEvidenceView: View {
                 VStack(alignment: .leading, spacing: 7) {
                     Text("\(palace["name"].text) · \(Int(palace["id"].number))宫 · \(palace["position"].text)").font(.subheadline.weight(.medium))
                     Text([palace["jiuxing"].text, palace["bamen"].text, palace["bashen"].text].filter { !$0.isEmpty }.joined(separator: " · ")).font(.subheadline)
+                    if Int(palace["id"].number) == 5 && palace["bamen"].text.isEmpty && palace["bashen"].text.isEmpty {
+                        Text("中宫不布八门与八神；天禽寄干见对应外宫。").font(.footnote).foregroundStyle(SujiTheme.secondary)
+                    }
                     Text("地盘 \(palace["diPanGan"].text) · 天盘 \(palace["tianPanGan"].text.isEmpty ? "无独立干" : palace["tianPanGan"].text)").font(.footnote)
                     if !palace["hostedTianPanGan"].text.isEmpty {
                         Text("天禽寄干 · " + palace["hostedTianPanGan"].text).font(.footnote)
                     }
                 }.padding(.vertical, 8).accessibilityElement(children: .combine)
+                    .accessibilityIdentifier("evidence.qimen.palace." + String(Int(palace["id"].number)))
             }
         }
         Text("取用初选 · " + data["yongShen"]["summary"].text).font(.footnote)

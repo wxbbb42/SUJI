@@ -1,6 +1,22 @@
 import Foundation
 
 public enum ReadingIntent {
+    public static func definitions(from data: Data, mode: String, question: String, hasBirth: Bool) throws -> [ChatToolDefinition] {
+        struct Definition: Decodable {
+            struct Function: Decodable { let name: String; let description: String; let parameters: JSONValue }
+            let function: Function
+        }
+        return try JSONDecoder().decode([Definition].self, from: data).compactMap { item in
+            let f = item.function
+            guard ToolOrchestrator.allowedToolNames.contains(f.name) else { return nil }
+            let allowed: Bool
+            if mode == "起卦" { allowed = f.name == "cast_liuyao" }
+            else if f.name == "setup_qimen" { allowed = allowsQimen(question) }
+            else { allowed = hasBirth && f.name != "cast_liuyao" }
+            return allowed ? ChatToolDefinition(name: f.name, description: f.description, parameters: f.parameters) : nil
+        }
+    }
+
     /// Conservative capability gate; merely discussing or rejecting a method does not authorize a chart.
     public static func allowsQimen(_ question: String) -> Bool {
         let text = question.filter { !$0.isWhitespace }

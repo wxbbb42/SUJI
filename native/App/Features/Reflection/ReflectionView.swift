@@ -75,10 +75,16 @@ struct ReflectionView: View {
                                             ForEach(archive.entries) { messageView($0) }
                                         }.padding(.top, 12)
                                     } label: {
-                                        if let date = archive.entries.first?.date {
-                                            Text(date, format: .dateTime.year().month().day().hour().minute())
-                                        }
+                                        VStack(alignment: .leading, spacing: 6) {
+                                            if let date = archive.entries.first?.date {
+                                                Text(date, format: .dateTime.year().month().day().hour().minute())
+                                            }
+                                            if let opening = archive.entries.first(where: { $0.role == "user" })?.text ?? archive.entries.first?.text {
+                                                Text(opening).font(.footnote).foregroundStyle(SujiTheme.secondary).lineLimit(2)
+                                            }
+                                        }.accessibilityElement(children: .combine)
                                     }
+                                    .accessibilityIdentifier("reflection.archive." + archive.id)
                                 }
                             }.padding(.top, 16)
                         }.font(.subheadline)
@@ -91,8 +97,9 @@ struct ReflectionView: View {
         .background(SujiTheme.paper).foregroundStyle(SujiTheme.ink).navigationTitle(title).navigationBarTitleDisplayMode(.inline)
         .safeAreaInset(edge: .bottom) {
             HStack(alignment: .bottom, spacing: 12) {
-                TextField("补充你的经历或想法…", text: $input, axis: .vertical).lineLimit(1...5).focused($focused)
+                TextField("补充你的经历或想法…", text: $input, prompt: Text("补充你的经历或想法…").foregroundStyle(SujiTheme.secondary), axis: .vertical).lineLimit(1...5).focused($focused)
                     .padding(14).background(SujiTheme.surface, in: RoundedRectangle(cornerRadius: 20))
+                    .accessibilityLabel("补充你的经历或想法").accessibilityIdentifier("reflection.input")
                 Button {
                     if session.working { session.stop() }
                     else { let text = input; input = ""; focused = false; send(text) }
