@@ -4,6 +4,16 @@ Date: 2026-09-19. Branch: `codex/swiftui-rebuild`; original Expo baseline: `0857
 
 This is a native implementation and simulator verification record, not an App Store release certificate. Screens run in SwiftUI, deterministic TypeScript code runs locally in JavaScriptCore, and native services own persistence, audio, credentials and networking.
 
+## Locally rendered Bazi framework claims — 2026-09-19
+
+Prompt `suji-grounded-reading-8`, claim protocol `suji-bazi-claims-1`. Explicit 扶抑 / 格局用神 comparisons now compile current-context receipts into complete qualified claims. The model may order closed IDs; local rendering preserves candidate/heuristic status and typed five-element directions. Other questions retain the existing writer/verifier path.
+
+- **178 Core tests passed**, including 23 independently authored claim-boundary/retry/cancellation tests and one actual-engine test across 12 birth months (`/tmp/suji-claims-core-final.log`, `America/Los_Angeles`).
+- Final signed App/Widget build and **13 hosted tests passed** (`/tmp/suji-claims-hosted-final.xcresult`). No new SwiftUI network E2E or screenshot/VoiceOver claim is made.
+- Actual native rounds **5/6 retain 6 synthetic cases and 15 provider requests**. Two successful comparisons in each round keep qualified source claims; round 5 additionally covers missing birth and a real injected tool failure. Final round-6 binary: `391ca87003fd602b782a5d5eac68a362a90a28d7469d06e6011c920f209d393e`. Auth/quota are mocked; the claim route uses completion for ordering and local rendering, not SSE writing/model verification.
+- The model's discarded planner prose still contains old errors. This is a representation boundary improvement for one path, not a general model-accuracy score or completion of the interpretation-quality goal. Current-entry retry caches and ordering transport failure are handled locally; cancellation and account/birth scope checks remain.
+- Engine/backend sources and engine bundle are unchanged. Details and independent reviews: [typed claims validation](../docs/mingli/validation/typed-claims-validation.md).
+
 ## Structured verification and actual native evaluation — 2026-09-19
 
 This checkpoint uses prompt `suji-grounded-reading-7` and verification protocol `suji-verification-2`. Field corrections require current source values, exact candidate text and locally supported binding; invalid reviewer opinions get one bounded recheck and are not forwarded as facts. Missing results, existing birth data and reusable charts have distinct recovery messages. The App and evaluator share tool-selection rules.

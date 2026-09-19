@@ -44,7 +44,8 @@ enum NativeReadingEvaluation {
         var records: [[String: Any]] = []
         let reportBase: [String: Any] = [
             "timestamp": ISO8601DateFormatter().string(from: Date()), "promptVersion": ReadingPrompt.version,
-            "scope": "Live synthetic Swift ChatClient/SSE, MingliBridge, ToolOrchestrator, ReadingVerifier and backend handler. Loopback auth/quota are mocked; not deployed Supabase authentication or SwiftUI integration.",
+            "claimProtocolVersion": BaziFrameworkReading.protocolVersion,
+            "scope": "Live synthetic Swift ChatClient, MingliBridge, ToolOrchestrator and backend handler. Framework comparisons use a local claim compiler plus model ordering; other cases use SSE writing and ReadingVerifier. Loopback auth/quota are mocked; not deployed Supabase authentication or SwiftUI integration.",
             "engine": metadata, "bundleSHA256": SHA256.hash(data: try Data(contentsOf: bundle)).map { String(format: "%02x", $0) }.joined(),
             "executableSHA256": SHA256.hash(data: try Data(contentsOf: URL(fileURLWithPath: CommandLine.arguments[0]))).map { String(format: "%02x", $0) }.joined(),
         ]
@@ -97,26 +98,44 @@ enum NativeReadingEvaluation {
                     let result = try JSONSerialization.jsonObject(with: raw) as! [String: Any]
                     return ToolExecutionResult(output: try json(result["result"]!), evidence: result["evidence"] as? [String] ?? [])
                 }, persistReceipt: { receipt in receipts.append(receipt) })
-                let result = try await orchestrator.run(history: [.init(role: .system, content: instruction + "\n" + ReadingPrompt.planner), .init(role: .user, content: item.question)], definitions: available, context: context)
+                let result = try await orchestrator.run(history: [.init(role: .system, content: instruction + "\n" + ReadingPrompt.plannerInstruction(question: item.question, mode: mode)), .init(role: .user, content: item.question)], definitions: available, context: context)
                 var history = result.messages
                 if result.reachedRoundLimit { history.append(.init(role: .user, content: "已达到工具轮次上限，请说明现有依据的限度，不要继续起盘。")) }
                 history[0].content = instruction + "\n" + ReadingPrompt.writer
                 if result.evidence.isEmpty { history[0].content! += "\n本次没有取得新的计算证据；只能提供一般建议，不能声称已完成命盘解读。" }
-                var draft = ""
-                var deltas = 0
-                for try await delta in client.streamText(messages: history) { draft += delta; deltas += 1 }
-                record["draft"] = draft
-                record["streamDeltas"] = deltas
                 record["writerHistory"] = try object(history)
-                do {
-                    record["answer"] = try await ReadingVerifier.verify(draft: draft, history: history, question: item.question) { messages in
-                        try await complete(messages, phase: messages.first?.content == ReadingVerifier.instruction ? "verifier" : "revision")
+                if BaziFrameworkReading.applies(question: item.question, mode: mode) {
+                    record["executionPath"] = "typed-claims"
+                    if let catalog = BaziFrameworkReading.catalog(receipts: result.receipts, context: context) {
+                        record["claimCatalog"] = try object(catalog)
+                        let answer = try await BaziFrameworkReading.compose(catalog: catalog, question: item.question) { messages in
+                            try await complete(messages, phase: "claim-selection")
+                        }
+                        record["claimAnswer"] = try object(answer)
+                        record["answer"] = answer.text
+                        record["status"] = "locally-rendered-claims"
+                    } else {
+                        record["answer"] = BaziFrameworkReading.unavailableReply(hasBirth: birth != nil)
+                        record["status"] = "claims-unavailable"
                     }
-                    record["status"] = "accepted"
-                } catch let error as ReadingVerifier.Rejected {
-                    record["status"] = "fact-fallback"
-                    record["rejectionReason"] = error.reason
-                    record["answer"] = ReadingFallback.reply(history: history)
+                } else {
+                    record["executionPath"] = "verified-prose"
+                    var draft = ""
+                    var deltas = 0
+                    for try await delta in client.streamText(messages: history) { draft += delta; deltas += 1 }
+                    record["draft"] = draft
+                    record["streamDeltas"] = deltas
+                    record["writerHistory"] = try object(history)
+                    do {
+                        record["answer"] = try await ReadingVerifier.verify(draft: draft, history: history, question: item.question) { messages in
+                            try await complete(messages, phase: messages.first?.content == ReadingVerifier.instruction ? "verifier" : "revision")
+                        }
+                        record["status"] = "accepted"
+                    } catch let error as ReadingVerifier.Rejected {
+                        record["status"] = "fact-fallback"
+                        record["rejectionReason"] = error.reason
+                        record["answer"] = ReadingFallback.reply(history: history)
+                    }
                 }
             } catch {
                 record["status"] = "error"

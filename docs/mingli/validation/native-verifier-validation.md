@@ -1,5 +1,7 @@
 # 原生核验协议、真实模型评测与恢复
 
+后续 v8 的类型化框架比较与真实 rounds 5/6 见 [本地条目验证](typed-claims-validation.md)。以下保留 v7 checkpoint 的验证范围及当时未完成项。
+
 日期：2026-09-19。接续 `3daca79`，当前提示版本 `suji-grounded-reading-7`、核验 JSON 协议 `suji-verification-2`。本报告区分可重现的代码行为、真实模型回答、界面验证；任何一项通过都不能替代其他项目。
 
 ## 核验意见也需要证据

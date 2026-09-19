@@ -93,6 +93,9 @@ import SujiCore
                     try store.saveThrowing()
                 }
                 let instruction = ReadingPrompt.instruction(tone: tone, mode: effectiveMode, referenceDate: referenceDate, hasBirth: birth != nil)
+                // These caches belong only to this user entry and passed the
+                // context checks above. A retry planner may need no new calls.
+                var frameworkReceipts = cachedReceipts
                 var history = [ChatMessage(role: .system, content: instruction)]
                 history.append(contentsOf: ReadingPrompt.history(from: historyEntries, currentUserID: userID, context: context))
 
@@ -101,7 +104,7 @@ import SujiCore
                     activity = "正在整理线索"
                     let definitions = try await loadDefinitions(mode: effectiveMode, question: originalQuestion, birth: birth, store: store)
                     try Self.checkScope(store, revision: revision, birth: birth)
-                    history[0].content = instruction + "\n" + ReadingPrompt.planner
+                    history[0].content = instruction + "\n" + ReadingPrompt.plannerInstruction(question: originalQuestion, mode: effectiveMode)
 
                     let orchestrator = ToolOrchestrator(
                         complete: { messages, tools in
@@ -148,6 +151,7 @@ import SujiCore
                         context: context
                     )
                     history = result.messages
+                    frameworkReceipts += result.receipts
                     evidence = result.evidence
                     if result.reachedRoundLimit {
                         history.append(ChatMessage(
@@ -160,34 +164,53 @@ import SujiCore
 
                 }
 
-                activity = "正在写回信"
-                var draft = ""
-                for try await delta in client.streamText(messages: history) {
-                    try Task.checkCancellation()
-                    try Self.checkScope(store, revision: revision, birth: birth)
-                    if effectiveMode == "倾诉" { partial += delta } else { draft += delta }
-                }
-                try Task.checkCancellation()
-                try Self.checkScope(store, revision: revision, birth: birth)
-                if effectiveMode != "倾诉" {
-                    activity = "正在核对盘面依据"
-                    do {
-                        let verified = try await ReadingVerifier.verify(draft: draft, history: history, question: originalQuestion) { messages in
+                if BaziFrameworkReading.applies(question: originalQuestion, mode: effectiveMode) {
+                    activity = "正在整理解释依据"
+                    if let catalog = BaziFrameworkReading.catalog(receipts: frameworkReceipts, context: context) {
+                        let answer = try await BaziFrameworkReading.compose(catalog: catalog, question: originalQuestion) { messages in
                             try Self.checkScope(store, revision: revision, birth: birth)
-                            let result = try await client.complete(messages: messages)
+                            let selected = try await client.complete(messages: messages)
                             try Self.checkScope(store, revision: revision, birth: birth)
-                            return result
+                            return selected
                         }
                         try Task.checkCancellation()
                         try Self.checkScope(store, revision: revision, birth: birth)
-                        partial = verified
-                    } catch let error as ReadingVerifier.Rejected {
+                        partial = answer.text
+                    } else {
+                        partial = BaziFrameworkReading.unavailableReply(hasBirth: birth != nil)
+                    }
+                } else {
+                    activity = "正在写回信"
+                    var draft = ""
+                    for try await delta in client.streamText(messages: history) {
                         try Task.checkCancellation()
                         try Self.checkScope(store, revision: revision, birth: birth)
-                        failure = error.localizedDescription
-                        partial = ReadingFallback.reply(history: history)
+                        if effectiveMode == "倾诉" { partial += delta } else { draft += delta }
+                    }
+                    try Task.checkCancellation()
+                    try Self.checkScope(store, revision: revision, birth: birth)
+                    if effectiveMode != "倾诉" {
+                        activity = "正在核对盘面依据"
+                        do {
+                            let verified = try await ReadingVerifier.verify(draft: draft, history: history, question: originalQuestion) { messages in
+                                try Self.checkScope(store, revision: revision, birth: birth)
+                                let result = try await client.complete(messages: messages)
+                                try Self.checkScope(store, revision: revision, birth: birth)
+                                return result
+                            }
+                            try Task.checkCancellation()
+                            try Self.checkScope(store, revision: revision, birth: birth)
+                            partial = verified
+                        } catch let error as ReadingVerifier.Rejected {
+                            try Task.checkCancellation()
+                            try Self.checkScope(store, revision: revision, birth: birth)
+                            failure = error.localizedDescription
+                            partial = ReadingFallback.reply(history: history)
+                        }
                     }
                 }
+                try Task.checkCancellation()
+                try Self.checkScope(store, revision: revision, birth: birth)
                 guard !partial.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
                     throw EngineError.execution("模型没有返回内容，请重试。")
                 }
