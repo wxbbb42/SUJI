@@ -11,24 +11,44 @@ struct ReflectionView: View {
     let privacy: String
     @State private var session = ReflectionSession()
     @State private var input = ""
+    @State private var sourceIdentity: String?
     @FocusState private var focused: Bool
+    private var effectiveKey: String {
+        ReflectionSession.effectiveKey(base: key, context: context, birth: store.state.birth, engineRevision: store.engineRevision)
+    }
+    private var currentContext: ToolContext? {
+        try? ToolContext(birth: store.state.birth, engineRevision: store.engineRevision, referenceDate: Date(), mode: "倾诉")
+    }
+    private func matchesCurrent(_ entry: ConversationEntry) -> Bool {
+        guard let expected = currentContext, let actual = entry.toolContext else { return false }
+        return actual.birthFingerprint == expected.birthFingerprint && actual.engineRevision == expected.engineRevision
+    }
+    private var messages: [ConversationEntry] { (store.state.reflections?[effectiveKey] ?? []).filter(matchesCurrent) }
+    private var olderMessages: [ConversationEntry] {
+        (store.state.reflections?[key] ?? []) + (store.state.reflections?[effectiveKey] ?? []).filter { !matchesCurrent($0) }
+    }
+    private var pendingReply: Bool { messages.last?.role == "user" }
+    private var viewIdentity: String { store.scopeRevision.uuidString + ":" + effectiveKey }
+    private var sourceChanged: Bool { sourceIdentity != nil && sourceIdentity != viewIdentity }
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     Text(title).font(SujiTheme.serif(30)).padding(.top, 12)
                     Text(privacy).font(.footnote).foregroundStyle(SujiTheme.secondary).lineSpacing(6)
-                    let messages = store.state.reflections?[key] ?? []
+                    if sourceChanged {
+                        Text("资料或账户已改变。请返回上一页，重新打开这段整理，以免沿用旧的盘面资料。").font(.subheadline).foregroundStyle(SujiTheme.secondary)
+                    }
+                    if !store.isSignedIn {
+                        Text("登录后即可开始 AI 整理，回信会保存在当前账户的册页。").font(.subheadline).foregroundStyle(SujiTheme.secondary)
+                        NavigationLink("账户与登录") { AccountView(session: store.accountSession) }.font(.subheadline)
+                    }
                     if messages.isEmpty {
                         Text(opening).font(.body).lineSpacing(8)
-                        Button("开始这段整理") { send(opening) }.buttonStyle(.borderedProminent).buttonBorderShape(.capsule)
+                        Button("开始这段整理") { send(opening) }.buttonStyle(.borderedProminent).buttonBorderShape(.capsule).disabled(!store.isSignedIn || sourceChanged)
                     }
                     ForEach(messages) { entry in
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text(entry.role == "user" ? "你" : "有时").font(.caption).foregroundStyle(SujiTheme.secondary)
-                            Text(.init(entry.text)).font(.body).lineSpacing(8).textSelection(.enabled)
-                        }.padding(entry.role == "user" ? 18 : 0).frame(maxWidth: .infinity, alignment: .leading)
-                            .background(entry.role == "user" ? SujiTheme.surface : Color.clear, in: RoundedRectangle(cornerRadius: 16))
+                        messageView(entry)
                     }
                     if session.working {
                         if session.partial.isEmpty { ProgressView("正在整理") }
@@ -36,17 +56,29 @@ struct ReflectionView: View {
                     }
                     if let failure = session.failure {
                         Text(failure).font(.footnote).foregroundStyle(SujiTheme.secondary)
-                        HStack {
-                            Button("继续整理") { send("请继续上一轮尚未完成的整理。") }
-                            NavigationLink("账户与登录") { AccountView(session: store.accountSession) }
+                    }
+                    if pendingReply && !session.working {
+                        Text("上一条补充还没有完成回信。重试会接着整理同一条内容。").font(.footnote).foregroundStyle(SujiTheme.secondary)
+                        if !session.partial.isEmpty {
+                            DisclosureGroup("尚未完成的回信") { Text(.init(session.partial)).font(.body).lineSpacing(8).textSelection(.enabled) }.font(.subheadline)
+                        }
+                        Button("重试这次整理") { if !sourceChanged { session.retry(key: key, context: context, instruction: instruction, store: store) } }
+                            .font(.subheadline).disabled(!store.isSignedIn || sourceChanged)
+                    }
+                    if !olderMessages.isEmpty {
+                        DisclosureGroup("较早的整理（只读）") {
+                            VStack(alignment: .leading, spacing: 22) {
+                                Text("这些记录没有当前资料与计算版本的依据，保留供你翻阅，不会用于本次 AI 整理。").font(.footnote).foregroundStyle(SujiTheme.secondary)
+                                ForEach(olderMessages) { messageView($0) }
+                            }.padding(.top, 16)
                         }.font(.subheadline)
                     }
                     Color.clear.frame(height: 1).id("reflection-bottom")
                 }.padding(24)
             }.scrollDismissesKeyboard(.interactively)
-                .onChange(of: store.state.reflections?[key]?.count) { _, _ in proxy.scrollTo("reflection-bottom", anchor: .bottom) }
+                .onChange(of: messages.count) { _, _ in proxy.scrollTo("reflection-bottom", anchor: .bottom) }
         }
-        .background(SujiTheme.paper).navigationTitle(title).navigationBarTitleDisplayMode(.inline)
+        .background(SujiTheme.paper).foregroundStyle(SujiTheme.ink).navigationTitle(title).navigationBarTitleDisplayMode(.inline)
         .safeAreaInset(edge: .bottom) {
             HStack(alignment: .bottom, spacing: 12) {
                 TextField("补充你的经历或想法…", text: $input, axis: .vertical).lineLimit(1...5).focused($focused)
@@ -56,14 +88,26 @@ struct ReflectionView: View {
                     else { let text = input; input = ""; focused = false; send(text) }
                 } label: {
                     Image(systemName: session.working ? "stop.fill" : "arrow.up").frame(width: 48, height: 48).background(SujiTheme.ink, in: Circle()).foregroundStyle(SujiTheme.paper)
-                }.disabled(!session.working && input.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                }.disabled(!session.working && (!store.isSignedIn || sourceChanged || pendingReply || input.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty))
                     .accessibilityLabel(session.working ? "停止整理" : "发送补充")
             }.padding(16).background(.regularMaterial)
         }
         .onDisappear { session.stop() }
-        .onChange(of: store.scopeRevision) { _, _ in session.stop() }
+        .onAppear { if sourceIdentity == nil { sourceIdentity = viewIdentity } }
+        .onChange(of: effectiveKey) { _, _ in session.stop(); session = ReflectionSession(); input = "" }
+        .onChange(of: store.scopeRevision) { _, _ in session.stop(); session = ReflectionSession(); input = "" }
     }
-    private func send(_ text: String) { session.send(text, key: key, context: context, instruction: instruction, store: store) }
+    private func messageView(_ entry: ConversationEntry) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(entry.role == "user" ? "你" : "有时").font(.caption).foregroundStyle(SujiTheme.secondary)
+            Text(.init(entry.text)).font(.body).lineSpacing(8).textSelection(.enabled)
+        }.padding(entry.role == "user" ? 18 : 0).frame(maxWidth: .infinity, alignment: .leading)
+            .background(entry.role == "user" ? SujiTheme.surface : Color.clear, in: RoundedRectangle(cornerRadius: 16))
+    }
+    private func send(_ text: String) {
+        guard !sourceChanged else { return }
+        session.send(text, key: key, context: context, instruction: instruction, store: store)
+    }
 }
 
 struct MonthlyReflectionView: View {

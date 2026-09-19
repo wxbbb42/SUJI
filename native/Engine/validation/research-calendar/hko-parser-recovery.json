@@ -1,0 +1,93 @@
+{
+  "initialParsedFiles": 192,
+  "initialFailures": [
+    {
+      "year": 1948,
+      "url": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/1948e.pdf",
+      "status": "failed",
+      "expectedDays": 366,
+      "bytes": 19709,
+      "pdfSha256": "6070d14e3bc8adaca5e19e914ebb755d5a2ac6ab1c53fa03fb6b81b1ee51f6dd",
+      "cached": false,
+      "textSha256": "8229bd830fe80532dd68a4b2254ea3c9d244070b9afac84d46132364e81790b8",
+      "error": "May: expected one row label, found 2"
+    },
+    {
+      "year": 1979,
+      "url": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/1979e.pdf",
+      "status": "failed",
+      "expectedDays": 365,
+      "bytes": 23485,
+      "pdfSha256": "ebfd0f10a16d3766b051f4290d948ba719c302bd7387fe9b31552b634ec45709",
+      "cached": false,
+      "textSha256": "acaa68fc3e81cf25e7734eb1798115c954c52171ed20dd67053d599ee6eda127",
+      "error": "May: expected one row label, found 2"
+    },
+    {
+      "year": 2023,
+      "url": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2023e.pdf",
+      "status": "failed",
+      "expectedDays": 365,
+      "bytes": 249351,
+      "pdfSha256": "57245f05e454de6d4b18d6f20d868e497b37c40a01b8d9890936a7c5e7911ac5",
+      "cached": true,
+      "textSha256": "33d27fb6e20198507fd94ce39d65e0b4da74f9f31ed09c8a54d3dcad7291d022",
+      "error": "12/13: ambiguous PDF cell ['11th', 'Luna', 'r']"
+    },
+    {
+      "year": 2028,
+      "url": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2028e.pdf",
+      "status": "failed",
+      "expectedDays": 366,
+      "bytes": 263325,
+      "pdfSha256": "9265ba7ed10df2292435da40865dfe3edd2475ab404844333586b6cf2cbbfc81",
+      "cached": false,
+      "textSha256": "acfda231e518589c57e469f8cb003e6895f488acc606bedf1398a2585bd01960",
+      "error": "6/23: ambiguous PDF cell ['Luna', 'r', '5th']"
+    },
+    {
+      "year": 2048,
+      "url": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2048e.pdf",
+      "status": "failed",
+      "expectedDays": 366,
+      "bytes": 477493,
+      "pdfSha256": "87541ecbb64e684e7d4d318fc54d503dde01dd1880d9e70ee9b617feb4ba4878",
+      "cached": false,
+      "error": "pdftotext: libc++abi: terminating due to uncaught exception of type std::out_of_range: basic_string"
+    },
+    {
+      "year": 2051,
+      "url": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2051e.pdf",
+      "status": "failed",
+      "expectedDays": 365,
+      "bytes": 257406,
+      "pdfSha256": "eed19b96bb54e066a0f60054d305878cf73d3546b9b918f09e683bfeaaf0fbb4",
+      "cached": false,
+      "textSha256": "4e9c06ae4f57dc1cec8bf3e516fe7bb79fa9ead13dd24e9d7fe2117e43348f16",
+      "error": "9/30: ambiguous PDF cell []"
+    },
+    {
+      "year": 2078,
+      "url": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2078e.pdf",
+      "status": "failed",
+      "expectedDays": 365,
+      "bytes": 236129,
+      "pdfSha256": "6912114e5b65cf7422729cc9ceab04b16806168d2d6242d9ac1b0da1698d72f2",
+      "cached": false,
+      "textSha256": "a9ec4631176fd86a9dbd1e49966582a7f46480851f2707bfb26ba124968a3f99",
+      "error": "1/14: ambiguous PDF cell ['12th', 'Luna', 'r']"
+    },
+    {
+      "year": 2096,
+      "url": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2096e.pdf",
+      "status": "failed",
+      "expectedDays": 366,
+      "bytes": 257743,
+      "pdfSha256": "fe66a90b43ae443b1e3fbe3513e42e57cb7682149215a821f44345dbec1e9a6f",
+      "cached": false,
+      "textSha256": "c7a063318437a1758a27dcfde3ab584ea473051e65bc24a8c3c81cb944b7cb0c",
+      "error": "5/22: ambiguous PDF cell ['Luna', 'r', '4th']"
+    }
+  ],
+  "resolution": "Filter month labels by the Jan label column; rejoin wrapped Luna/r tokens and accept the unique ordinal plus Lunar even where the official PDF omits Month."
+}

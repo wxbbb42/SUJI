@@ -17,7 +17,7 @@ describe('setup_qimen handler', () => {
     expect(r.palaces).toHaveLength(9);
     expect(r.yongShen).toBeDefined();
     expect(r.geJu).toBeDefined();
-    expect(r.method).toEqual(expect.objectContaining({ level: 'mvp' }));
+    expect(r.method).toEqual(expect.objectContaining({ level: 'standard' }));
     expect(r.method.caveats.length).toBeGreaterThan(0);
   });
 

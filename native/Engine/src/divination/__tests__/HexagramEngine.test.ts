@@ -1,93 +1,38 @@
-import { HexagramEngine } from '../HexagramEngine';
+import {HexagramEngine} from '../HexagramEngine';
+import {GUA_64} from '../data/gua64';
+import type {CastOptions} from '../types';
+const engine=new HexagramEngine();
+const castTime=new Date('2026-04-15T12:00:00+08:00');
 
-describe('HexagramEngine cast', () => {
-  it('returns a valid HexagramReading with required fields', () => {
-    const eng = new HexagramEngine();
-    const r = eng.cast({ question: '我会得到这个 offer 吗', questionType: 'career' });
-    expect(r.benGua).toBeDefined();
-    expect(r.benGua.yao).toHaveLength(6);
-    expect(r.bianGua).toBeDefined();
-    expect(r.bianGua.yao).toHaveLength(6);
-    expect(Array.isArray(r.changingYao)).toBe(true);
-    expect(r.liuQin).toBeDefined();
-    expect(Object.keys(r.liuQin)).toHaveLength(6);
+describe('HexagramEngine cast',()=>{
+  it('returns the complete reading shape',()=>{
+    const r=engine.cast({question:'我会得到这个 offer 吗',questionType:'career',castTime,lineValues:[7,7,7,7,7,7]});
+    expect(r.benGua.yao).toHaveLength(6);expect(r.bianGua.yao).toHaveLength(6);
+    expect(Object.keys(r.liuQin)).toHaveLength(6);expect(r.lines).toHaveLength(6);
   });
-
-  it('bianGua === benGua when no changing yao', () => {
-    const eng = new HexagramEngine();
-    for (let i = 0; i < 100; i++) {
-      const r = eng.cast({ question: 'test', questionType: 'general' });
-      if (r.changingYao.length === 0) {
-        expect(r.bianGua.code).toBe(r.benGua.code);
-        return;
-      }
-    }
-    // 概率 (3/4)^6 ≈ 18%，100 次必出
+  it('unchanging coin values retain the primary gua',()=>{
+    const r=engine.cast({question:'test',castTime,lineValues:[7,8,7,8,7,8]});
+    expect(r.changingYao).toEqual([]);expect(r.bianGua).toEqual(r.benGua);
   });
-
-  it('changing yaos flip yin↔yang in bianGua', () => {
-    const eng = new HexagramEngine();
-    for (let i = 0; i < 100; i++) {
-      const r = eng.cast({ question: 'test', questionType: 'general' });
-      if (r.changingYao.length > 0) {
-        for (const idx of r.changingYao) {
-          expect(r.bianGua.yao[idx - 1]).not.toBe(r.benGua.yao[idx - 1]);
-        }
-        return;
-      }
-    }
+  it('only old yin and old yang change',()=>{
+    const r=engine.cast({question:'test',castTime,lineValues:[6,7,8,9,7,8]});
+    expect(r.changingYao).toEqual([1,4]);expect(r.bianGua.yao).toEqual(['阳','阳','阴','阴','阳','阴']);
   });
-
-  it('uses fixed castTime when provided', () => {
-    const eng = new HexagramEngine();
-    const fixed = new Date('2026-04-25T12:00:00');
-    const r = eng.cast({ question: 'test', questionType: 'general', castTime: fixed });
-    expect(r.castTime).toBe(fixed.toISOString());
+  it('preserves fixed cast time',()=>{
+    expect(engine.cast({question:'test',castTime}).castTime).toBe(castTime.toISOString());
   });
-});
-
-describe('HexagramEngine 五行 / 用神 correctness', () => {
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
-
-  it('每个卦都能在六亲分布里找到所有 5 类（除非同 trigram 重复）', () => {
-    // sample test：检查 几个 known 卦
-    const eng = new HexagramEngine();
-    // 强行造一个固定卦象 —— 不容易，因为 cast 是 random
-    // 退而求其次：跑 100 次 cast，统计每次 yongShen 的 yaoIndex 是否 ≥ 1
-    let validCount = 0;
-    for (let i = 0; i < 100; i++) {
-      const r = eng.cast({ question: 'test', questionType: 'career' });
-      // career → target='官鬼'
-      // 验证：返回的 yongShen.type === '官鬼'
+  it('career selects only matching candidates across all 64 gua',()=>{
+    for(const gua of GUA_64){
+      const lineValues=gua.yao.map(v=>v==='阳'?7:8) as CastOptions['lineValues'];
+      const r=engine.cast({question:'test',questionType:'career',castTime,lineValues});
       expect(r.yongShen.type).toBe('官鬼');
-      // 如果 yaoIndex > 0，验证它对应的 liuQin 是 '官鬼'
-      if (r.yongShen.yaoIndex > 0) {
-        expect(r.liuQin[r.yongShen.yaoIndex as 1|2|3|4|5|6]).toBe('官鬼');
-        validCount++;
-      }
+      for(const index of r.yongShen.candidateYaoIndices??[])expect(r.liuQin[index as 1|2|3|4|5|6]).toBe('官鬼');
     }
-    // 大部分情况应该上卦
-    expect(validCount).toBeGreaterThan(50);
   });
-
-  it('uses month command instead of a hardcoded default for yongshen state', () => {
-    const eng = new HexagramEngine();
-    const sequence = Array.from({ length: 18 }, (_, idx) => idx % 3 === 2 ? 0.6 : 0.4);
-    jest.spyOn(Math, 'random').mockImplementation(() => sequence.shift() ?? 0.6);
-
-    const r = eng.cast({
-      question: '事业走势如何',
-      questionType: 'career',
-      castTime: new Date('2026-04-15T12:00:00+08:00'),
-    });
-
-    expect(r.benGua.name).toBe('乾为天');
-    expect(r.yongShen.type).toBe('官鬼');
-    expect(r.yongShen.yaoIndex).toBe(4);
-    expect(r.yongShen.wuXing).toBe('火');
-    expect(r.yongShen.state).toBe('旺');
-    expect(r.yongShen.interactions).toContain('月令五行判旺');
+  it('辰月 fire is resting in the month-element relation, not April-as-巳 fire 旺',()=>{
+    const r=engine.cast({question:'事业走势如何',questionType:'career',castTime,lineValues:[7,7,7,7,7,7]});
+    expect(r.benGua.name).toBe('乾为天');expect(r.yongShen.type).toBe('官鬼');expect(r.yongShen.yaoIndex).toBe(4);
+    expect(r.yongShen.wuXing).toBe('火');expect(r.yongShen.state).toBe('休');
+    expect(r.yongShen.interactions).toContain('月建壬辰五行关系：休（非综合旺衰）');
   });
 });

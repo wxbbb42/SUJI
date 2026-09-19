@@ -17,6 +17,7 @@ public struct ToolReceipt: Codable, Sendable, Equatable {
     public var output: String
     public var evidence: [String]
     public var createdAt: Date
+    public var context: ToolContext?
 
     public init(
         callID: String,
@@ -24,7 +25,8 @@ public struct ToolReceipt: Codable, Sendable, Equatable {
         arguments: JSONValue,
         output: String,
         evidence: [String] = [],
-        createdAt: Date = Date()
+        createdAt: Date = Date(),
+        context: ToolContext? = nil
     ) {
         self.callID = callID
         self.name = name
@@ -32,6 +34,7 @@ public struct ToolReceipt: Codable, Sendable, Equatable {
         self.output = output
         self.evidence = evidence
         self.createdAt = createdAt
+        self.context = context
     }
 
     public var call: ChatToolCall {
@@ -63,6 +66,8 @@ public enum ToolOrchestratorError: LocalizedError, Sendable, Equatable {
     case invalidArguments(tool: String, reason: String)
     case tooManyCalls(limit: Int)
     case emptyToolCallRound
+    case invalidCallID(String)
+    case staleContext
 
     public var errorDescription: String? {
         switch self {
@@ -74,6 +79,10 @@ public enum ToolOrchestratorError: LocalizedError, Sendable, Equatable {
             return "这次推演请求了过多工具（最多 \(limit) 次），请缩小问题后再试。"
         case .emptyToolCallRound:
             return "模型返回了空的工具请求。"
+        case .staleContext:
+            return "出生资料或排盘规则已更新。原来的盘已保留，请发起新提问以使用当前资料。"
+        case .invalidCallID:
+            return "模型返回了重复或无效的工具编号，请重试。"
         }
     }
 }
@@ -118,8 +127,12 @@ public struct ToolOrchestrator {
     public func run(
         history: [ChatMessage],
         definitions: [ChatToolDefinition],
-        cachedReceipts: [ToolReceipt] = []
+        cachedReceipts: [ToolReceipt] = [],
+        context: ToolContext? = nil
     ) async throws -> ToolOrchestrationResult {
+        if let context, cachedReceipts.contains(where: { $0.context != context }) {
+            throw ToolOrchestratorError.staleContext
+        }
         var definitionsByName: [String: ChatToolDefinition] = [:]
         for definition in definitions where Self.allowedToolNames.contains(definition.name) {
             definitionsByName[definition.name] = definition
@@ -128,16 +141,22 @@ public struct ToolOrchestrator {
 
         var messages = history
         var receipts: [ToolReceipt] = []
-        var evidence: [String] = []
+        var evidence: [String] = cachedReceipts.filter { receipt in history.contains { $0.role == .tool && $0.content == receipt.output } }.flatMap(\.evidence)
         var totalCalls = 0
-        var cachedCast = cachedReceipts.last { $0.name == "cast_liuyao" }
+        var outputBytes = history.filter { $0.role == .tool }.reduce(0) { $0 + ($1.content?.utf8.count ?? 0) }
+        var seenCallIDs = Set(history.flatMap { $0.toolCalls ?? [] }.map(\.id))
+        var cachedCharts: [String: ToolReceipt] = [:]
+        for receipt in cachedReceipts where Self.stableChartTools.contains(receipt.name) {
+            cachedCharts[receipt.name] = receipt
+        }
 
         for _ in 0 ..< maxRounds {
             try Task.checkCancellation()
             let completion = try await complete(messages, availableDefinitions)
             switch completion {
-            case let .text(text):
-                messages.append(ChatMessage(role: .assistant, content: text))
+            case .text:
+                // Planning prose is not calculation evidence. Only tool messages are
+                // passed to the final writer, so it cannot inherit an ungrounded draft.
                 return ToolOrchestrationResult(
                     messages: messages,
                     receipts: receipts,
@@ -150,64 +169,95 @@ public struct ToolOrchestrator {
                 guard totalCalls + calls.count <= maxCalls else {
                     throw ToolOrchestratorError.tooManyCalls(limit: maxCalls)
                 }
-                totalCalls += calls.count
-                messages.append(.assistantToolCalls(calls))
-
+                // Validate the whole batch before any cast or persistence. An invalid
+                // sibling call must not leave half of a user question executed.
+                var batchIDs = Set<String>()
                 for call in calls {
-                    try Task.checkCancellation()
+                    guard Self.validCallID(call.id), !seenCallIDs.contains(call.id),
+                          batchIDs.insert(call.id).inserted else {
+                        throw ToolOrchestratorError.invalidCallID(call.id)
+                    }
                     guard Self.allowedToolNames.contains(call.name),
                           let definition = definitionsByName[call.name] else {
                         throw ToolOrchestratorError.unknownTool(call.name)
                     }
                     do {
                         try Self.validate(call.arguments, against: definition.parameters, path: "arguments")
+                        try Self.validateToolSemantics(call)
                     } catch {
-                        throw ToolOrchestratorError.invalidArguments(
-                            tool: call.name,
-                            reason: error.localizedDescription
-                        )
+                        throw ToolOrchestratorError.invalidArguments(tool: call.name, reason: error.localizedDescription)
                     }
+                }
+                totalCalls += calls.count
+                seenCallIDs.formUnion(batchIDs)
+                // A retry references the original question and chart, not newly invented
+                // model arguments. This preserves the provenance attached to the receipt.
+                var chartArguments = cachedCharts.mapValues(\.arguments)
+                let effectiveCalls = calls.map { call in
+                    guard Self.stableChartTools.contains(call.name) else { return call }
+                    if let original = chartArguments[call.name] {
+                        return ChatToolCall(id: call.id, name: call.name, arguments: original)
+                    }
+                    chartArguments[call.name] = call.arguments
+                    return call
+                }
+                messages.append(.assistantToolCalls(effectiveCalls))
 
+                for call in effectiveCalls {
+                    try Task.checkCancellation()
                     let receipt: ToolReceipt
                     let shouldPersist: Bool
-                    if call.name == "cast_liuyao", let cachedCast {
+                    if let cachedChart = cachedCharts[call.name] {
                         receipt = ToolReceipt(
                             callID: call.id,
                             name: call.name,
                             arguments: call.arguments,
-                            output: cachedCast.output,
-                            evidence: cachedCast.evidence,
-                            createdAt: cachedCast.createdAt
+                            output: cachedChart.output,
+                            evidence: cachedChart.evidence,
+                            createdAt: cachedChart.createdAt,
+                            context: cachedChart.context
                         )
                         shouldPersist = false
                     } else {
                         do {
                             let result = try await execute(call)
+                            guard result.output.utf8.count <= 1_000_000 else {
+                                throw SchemaValidationError(reason: "工具结果过长，请缩小查询范围")
+                            }
+                            if Self.isFailureOutput(result.output) {
+                                try Self.appendFailureOutput(result.output, callID: call.id, messages: &messages, outputBytes: &outputBytes)
+                                continue
+                            }
                             receipt = ToolReceipt(
                                 callID: call.id,
                                 name: call.name,
                                 arguments: call.arguments,
                                 output: result.output,
-                                evidence: result.evidence
+                                evidence: result.evidence,
+                                context: context
                             )
                             shouldPersist = true
                         } catch is CancellationError {
                             throw CancellationError()
                         } catch {
-                            messages.append(.toolResult(ChatToolResult(
-                                callID: call.id,
-                                output: Self.errorOutput(error)
-                            )))
+                            try Self.appendFailureOutput(Self.errorOutput(error), callID: call.id, messages: &messages, outputBytes: &outputBytes)
                             continue
                         }
                     }
 
+                    // Save a completed calculation before applying MODEL context limits.
+                    // Otherwise a large chart could be lost and recast by a retry.
                     if shouldPersist {
                         try await persistReceipt(receipt)
-                        if receipt.name == "cast_liuyao" { cachedCast = receipt }
+                        if Self.stableChartTools.contains(receipt.name) { cachedCharts[receipt.name] = receipt }
                     }
                     receipts.append(receipt)
+                    guard receipt.output.utf16.count <= 32_000, outputBytes + receipt.output.utf8.count <= 60_000 else {
+                        try Self.appendFailureOutput(Self.errorOutput(SchemaValidationError(reason: "盘面已保存，但本次模型依据容量不足；不要重新起盘，也不要编造未读取的细节")), callID: call.id, messages: &messages, outputBytes: &outputBytes)
+                        continue
+                    }
                     evidence.append(contentsOf: receipt.evidence)
+                    outputBytes += receipt.output.utf8.count
                     messages.append(.toolResult(ChatToolResult(callID: call.id, output: receipt.output)))
                 }
             }
@@ -219,6 +269,62 @@ public struct ToolOrchestrator {
             evidence: Self.unique(evidence),
             reachedRoundLimit: true
         )
+    }
+
+    private static let stableChartTools: Set<String> = ["cast_liuyao", "setup_qimen"]
+
+    private static func validCallID(_ id: String) -> Bool {
+        !id.isEmpty && id.utf8.count <= 200 && id.utf8.allSatisfy {
+            (48...57).contains($0) || (65...90).contains($0) || (97...122).contains($0) || $0 == 45 || $0 == 95
+        }
+    }
+
+    private static func isFailureOutput(_ output: String) -> Bool {
+        guard let value = try? JSONDecoder().decode(JSONValue.self, from: Data(output.utf8)),
+              case let .object(object) = value, let error = object["error"] else { return false }
+        return error != .null
+    }
+
+    private static func appendFailureOutput(_ output: String, callID: String, messages: inout [ChatMessage], outputBytes: inout Int) throws {
+        let bounded = output.utf16.count <= 32_000 && outputBytes + output.utf8.count <= 60_000
+            ? output
+            : errorOutput(SchemaValidationError(reason: "工具错误信息过长或超出本次容量，未取得有效计算结果"))
+        guard outputBytes + bounded.utf8.count <= 60_000 else {
+            throw SchemaValidationError(reason: "本次工具输出已达到容量上限；已计算的盘面保留，请缩小问题后重试")
+        }
+        outputBytes += bounded.utf8.count
+        messages.append(.toolResult(ChatToolResult(callID: callID, output: bounded)))
+    }
+
+    private static func number(_ value: JSONValue?) -> Double? {
+        switch value {
+        case let .integer(value): return Double(value)
+        case let .double(value): return value
+        default: return nil
+        }
+    }
+
+    private static func validateToolSemantics(_ call: ChatToolCall) throws {
+        if case let .object(arguments) = call.arguments,
+           case let .string(question) = arguments["question"],
+           question.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            throw SchemaValidationError(reason: "问题不能为空")
+        }
+        guard call.name == "get_timing", case let .object(args) = call.arguments else { return }
+        if let yearRange = args["yearRange"] {
+            guard args["scope"] == .string("liunian"), case let .array(values) = yearRange,
+                  values.count == 2, let start = number(values.first), let end = number(values.last),
+                  start.isFinite, end.isFinite, start.rounded() == start, end.rounded() == end,
+                  start >= 1901, end <= 2100, start <= end, end - start <= 20 else {
+                throw SchemaValidationError(reason: "流年区间须为 1901–2100 年内由早到晚的两个整数年份，最多跨 20 年")
+            }
+        }
+        if let year = args["year"] {
+            guard args["scope"] == .string("liuyue"), let value = number(year), value.isFinite,
+                  value.rounded() == value, (1901...2100).contains(value) else {
+                throw SchemaValidationError(reason: "流月年份须为 1901–2100 年内的整数，且仅用于 liuyue")
+            }
+        }
     }
 
     private static func validate(_ value: JSONValue, against schema: JSONValue, path: String) throws {
@@ -234,7 +340,38 @@ public struct ToolOrchestrator {
             throw SchemaValidationError(reason: "\(path) 不在允许值中")
         }
 
+        if let numeric = number(value) {
+            guard numeric.isFinite else { throw SchemaValidationError(reason: "\(path) 必须为有限数值") }
+            if let minimum = number(schemaObject["minimum"]), numeric < minimum {
+                throw SchemaValidationError(reason: "\(path) 小于允许的最小值")
+            }
+            if let maximum = number(schemaObject["maximum"]), numeric > maximum {
+                throw SchemaValidationError(reason: "\(path) 大于允许的最大值")
+            }
+        }
+        if case let .string(text) = value {
+            let count = Double(text.unicodeScalars.count)
+            if let minimum = number(schemaObject["minLength"]), count < minimum {
+                throw SchemaValidationError(reason: "\(path) 文字过短")
+            }
+            if let maximum = number(schemaObject["maxLength"]), count > maximum {
+                throw SchemaValidationError(reason: "\(path) 文字过长")
+            }
+        }
+        if case let .array(items) = value {
+            if let minimum = number(schemaObject["minItems"]), Double(items.count) < minimum {
+                throw SchemaValidationError(reason: "\(path) 项目过少")
+            }
+            if let maximum = number(schemaObject["maxItems"]), Double(items.count) > maximum {
+                throw SchemaValidationError(reason: "\(path) 项目过多")
+            }
+        }
         if case let .object(object) = value {
+            if schemaObject["additionalProperties"] == .bool(false),
+               case let .object(properties) = schemaObject["properties"],
+               let unknown = object.keys.sorted().first(where: { properties[$0] == nil }) {
+                throw SchemaValidationError(reason: "不支持的参数 \(path).\(unknown)")
+            }
             if let requiredValue = schemaObject["required"], case let .array(required) = requiredValue {
                 for item in required {
                     guard case let .string(key) = item else { continue }

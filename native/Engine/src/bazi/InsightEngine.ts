@@ -2,9 +2,9 @@
  * 有时 · 洞察翻译层
  *
  * 将 BaziEngine / DayunEngine 产出的命理术语
- * 转化为用户可感知的现代心理学语言。
+ * 转化为自我观察提示。以下映射为产品编辑启发式，不是心理测量。
  *
- * 理论映射依据：REFERENCES.ts §3.2 心理学视角
+ * 文案参考：REFERENCES.ts §3.2；不构成心理学验证
  *   十神 ↔ Big Five 人格维度
  *   大运流年 ↔ Erikson/Levinson 生命周期理论
  */
@@ -20,6 +20,7 @@ import type {
   DiZhi,
 } from './types';
 import { DayunEngine } from './DayunEngine';
+import { getCalendarPillars, beijingDateParts } from '../calendar/precision';
 
 // ── 十神 → 现代语言特质映射（REFERENCES.ts §3.2 Big Five 映射）──────
 const SHISHEN_TRAITS: Record<
@@ -157,8 +158,6 @@ const ZHI_WUXING: Record<DiZhi, WuXing> = {
   午: '火', 未: '土', 申: '金', 酉: '金', 戌: '土', 亥: '水',
 };
 
-const DAY_REF_LOCAL = new Date(2000, 0, 1).getTime(); // 本地时间 2000-01-01
-const DAY_REF_CYCLE = 10;                             // 甲戌日
 
 /** 将日期转为日柱干支信息 */
 function dateToDayGanZhi(date: Date): {
@@ -167,12 +166,9 @@ function dateToDayGanZhi(date: Date): {
   zhiWx: WuXing;
   zhi: DiZhi;
 } {
-  // 取当天正午，规避夏令时边界问题
-  const noon  = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 12).getTime();
-  const days  = Math.round((noon - DAY_REF_LOCAL) / 86400000);
-  const cycle = ((days + DAY_REF_CYCLE) % 60 + 60) % 60;
-  const gan   = TIAN_GAN[cycle % 10];
-  const zhi   = DI_ZHI[cycle % 12];
+  const pillar = getCalendarPillars(date).day;
+  const gan = pillar[0] as TianGan;
+  const zhi = pillar[1] as DiZhi;
   return { ganZhiStr: `${gan}${zhi}`, ganWx: GAN_WUXING[gan], zhiWx: ZHI_WUXING[zhi], zhi };
 }
 
@@ -225,7 +221,7 @@ export class InsightEngine {
     const geJuDesc = GEJU_MODERN[geJu.name] ?? geJu.modernMeaning;
     if (geJuDesc) coreTraits.push(geJuDesc);
 
-    coreTraits.push(...monthInfo.traits.slice(0, 2).map(t => `天生具有${t}的特质`));
+    coreTraits.push(...monthInfo.traits.slice(0, 2).map(t => `可观察自己在${t}方面的倾向`));
 
     // — 优势 ————————————————————————————————————————————————————————
     const strengths: string[] = [...monthInfo.strengths];
@@ -263,10 +259,10 @@ export class InsightEngine {
   // 时运洞察
   // ──────────────────────────────────────────────────────────────────
 
-  getTimingInsight(year: number): TimingInsight {
-    const birthYear = this.mingPan.birthDateTime.getFullYear();
+  getTimingInsight(year: number, referenceDate?: Date): TimingInsight {
+    const birthYear = beijingDateParts(this.mingPan.birthDateTime).year;
     const age       = year - birthYear;
-    const forecast  = this.dayunEngine.getYearForecast(year);
+    const forecast  = this.dayunEngine.getYearForecast(year, referenceDate);
     const { liuNian, overallTrend } = forecast;
 
     const currentPhase  = this.currentPhaseDesc(age, overallTrend);

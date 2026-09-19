@@ -5,12 +5,28 @@
       "day": "2026-09-19"
     },
     "result": {
-      "solarDate": "2026/9/19",
+      "solarDate": "2026-09-19",
       "lunarDate": "八月初九",
       "ganZhi": "丙申",
       "yearGanZhi": "丙午",
       "monthGanZhi": "丁酉",
       "solarTerm": "白露",
+      "calculationPolicy": {
+        "version": "suji-calendar-2",
+        "provider": "lunar-javascript@1.7.7",
+        "timezone": "UTC+08:00",
+        "yearBoundary": "exact-lichun",
+        "monthBoundary": "exact-jie",
+        "dayBoundary": "zi-hour-23:00",
+        "lunarDayBoundary": "civil-midnight",
+        "solarTimeScope": "day-and-hour-only",
+        "yun": "year-polarity-gender; jie; three-days-per-year; sect-2-minute-conversion",
+        "supportedCivilYears": [
+          1901,
+          2100
+        ]
+      },
+      "warnings": [],
       "wuxingBalance": {
         "金": 2,
         "木": 0,
@@ -49,7 +65,7 @@
               "zhiWuXing": "水",
               "ganYinYang": "阴",
               "zhiYinYang": "阴",
-              "naYin": "山頭火",
+              "naYin": "山头火",
               "naYinWuXing": "火"
             },
             "shiShen": "正官",
@@ -77,7 +93,7 @@
               "zhiWuXing": "金",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "井泉水",
+              "naYin": "泉中水",
               "naYinWuXing": "水"
             },
             "shiShen": "七杀",
@@ -111,7 +127,7 @@
               "zhiWuXing": "木",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "城頭土",
+              "naYin": "城头土",
               "naYinWuXing": "土"
             },
             "shiShen": "比肩",
@@ -183,8 +199,33 @@
           "weakest": "火",
           "riZhuStrong": false,
           "yongShen": "火",
-          "xiShen": "水",
-          "jiShen": "水"
+          "xiShen": "土",
+          "jiShen": "木",
+          "suggestionBasis": "fuyi-heuristic",
+          "suggestionStatus": "not-empirically-validated",
+          "tiaohouApplied": false
+        },
+        "tiaoHou": {
+          "ruleId": "qiongtong.戊申",
+          "dayStem": "戊",
+          "monthBranch": "申",
+          "solarMonthOrdinal": 7,
+          "reviewStatus": "transcription-checked",
+          "candidateStems": [
+            "丙",
+            "癸",
+            "甲"
+          ],
+          "conditions": [
+            "七月阳入寒出通论",
+            "候选仅表示此转录本中的传统论述；全局条件与印刷底本尚未完全核验，不自动选定用神。"
+          ],
+          "sourceDocument": "docs/mingli/source-texts/bazi/qiongtong-baojian/wutu.md",
+          "sourceAnchor": "wutu.md:132",
+          "excerpt": "先丙后癸，甲木次之",
+          "sourceSha256": "d7cf630b217ed2286e313ee232a6f84def43dbcbbd5084fd337d83905b22aba9",
+          "editionStatus": "online-transcription-unverified-against-printed-edition",
+          "automatedSelection": false
         },
         "riZhuStructure": {
           "deLing": false,
@@ -259,10 +300,17 @@
             "result": "木",
             "positions": [
               "年支-日支"
-            ]
+            ],
+            "requiredBranches": [
+              "寅",
+              "亥"
+            ],
+            "missingBranches": [],
+            "completeness": "complete",
+            "outcomeEstablished": false
           },
           {
-            "type": "三合",
+            "type": "拱合候选",
             "branches": [
               "寅",
               "戌"
@@ -271,10 +319,20 @@
             "positions": [
               "日支",
               "时支"
-            ]
+            ],
+            "requiredBranches": [
+              "寅",
+              "午",
+              "戌"
+            ],
+            "missingBranches": [
+              "午"
+            ],
+            "completeness": "partial",
+            "outcomeEstablished": false
           },
           {
-            "type": "三会",
+            "type": "三会候选",
             "branches": [
               "申",
               "戌"
@@ -283,7 +341,17 @@
             "positions": [
               "月支",
               "时支"
-            ]
+            ],
+            "requiredBranches": [
+              "申",
+              "酉",
+              "戌"
+            ],
+            "missingBranches": [
+              "酉"
+            ],
+            "completeness": "partial",
+            "outcomeEstablished": false
           },
           {
             "type": "六冲",
@@ -327,6 +395,7 @@
           }
         ],
         "stemRelations": [],
+        "shiShenRelations": [],
         "geJu": {
           "name": "偏财格",
           "category": "正格",
@@ -352,13 +421,22 @@
             "bazi.xiangshen.definition",
             "bazi.yongshen.bianhua-trigger",
             "bazi.geju.rank-criteria"
-          ]
+          ],
+          "assessmentStatus": "heuristic-candidate",
+          "conditions": [
+            "成败与等级是当前结构规则的候选输出，不是完整古籍格局裁定",
+            "隔位五合不自动合去用神；相邻合一留一不自动判全格破败",
+            "月支逢冲，须复核根气与配置影响"
+          ],
+          "yongShenGan": "壬",
+          "yongShenShiShen": "偏财",
+          "selectionBasis": "yueling-zhongqi-tougan"
         },
         "kongWang": [
           "申",
           "酉"
         ],
-        "trueSolarTimeDesc": "经度 121.5°，真太阳时比北京时间快 1分42秒",
+        "trueSolarTimeDesc": "经度 121.5°，真太阳时比北京时间快 1分20秒",
         "shenSha": [
           {
             "name": "文昌贵人",
@@ -415,133 +493,16 @@
             "position": "年柱",
             "description": "传统神煞，归入\"外耗\"一类标签，常用于合作识人与签约细节的提醒；现代解读不作具体结论",
             "modernMeaning": "注意识别身边不可靠之人，合作时务必谨慎签约核查"
-          },
-          {
-            "name": "太陰",
-            "type": "凶",
-            "position": "year",
-            "description": "太陰：命理中的神煞标记",
-            "modernMeaning": "太陰对你的人生有特殊影响"
-          },
-          {
-            "name": "天官符",
-            "type": "吉",
-            "position": "year",
-            "description": "天官符：命理中的神煞标记",
-            "modernMeaning": "天官符对你的人生有特殊影响"
-          },
-          {
-            "name": "天德合",
-            "type": "吉",
-            "position": "month",
-            "description": "天德合：命理中的神煞标记",
-            "modernMeaning": "天德合对你的人生有特殊影响"
-          },
-          {
-            "name": "驛馬",
-            "type": "吉",
-            "position": "month",
-            "description": "驛馬：命理中的神煞标记",
-            "modernMeaning": "驛馬对你的人生有特殊影响"
-          },
-          {
-            "name": "月刑",
-            "type": "凶",
-            "position": "month",
-            "description": "月刑：命理中的神煞标记",
-            "modernMeaning": "月刑对你的人生有特殊影响"
-          },
-          {
-            "name": "月破",
-            "type": "凶",
-            "position": "month",
-            "description": "月破：命理中的神煞标记",
-            "modernMeaning": "月破对你的人生有特殊影响"
-          },
-          {
-            "name": "大耗",
-            "type": "凶",
-            "position": "month",
-            "description": "大耗：命理中的神煞标记",
-            "modernMeaning": "大耗对你的人生有特殊影响"
-          },
-          {
-            "name": "兵禁",
-            "type": "凶",
-            "position": "month",
-            "description": "兵禁：命理中的神煞标记",
-            "modernMeaning": "兵禁对你的人生有特殊影响"
-          },
-          {
-            "name": "聖心",
-            "type": "吉",
-            "position": "month",
-            "description": "聖心：命理中的神煞标记",
-            "modernMeaning": "聖心对你的人生有特殊影响"
-          },
-          {
-            "name": "解神",
-            "type": "吉",
-            "position": "month",
-            "description": "解神：命理中的神煞标记",
-            "modernMeaning": "解神对你的人生有特殊影响"
-          },
-          {
-            "name": "天后",
-            "type": "吉",
-            "position": "month",
-            "description": "天后：命理中的神煞标记",
-            "modernMeaning": "天后对你的人生有特殊影响"
-          },
-          {
-            "name": "五合",
-            "type": "吉",
-            "position": "day",
-            "description": "五合：命理中的神煞标记",
-            "modernMeaning": "五合对你的人生有特殊影响"
-          },
-          {
-            "name": "伐日",
-            "type": "凶",
-            "position": "day",
-            "description": "伐日：命理中的神煞标记",
-            "modernMeaning": "伐日对你的人生有特殊影响"
-          },
-          {
-            "name": "天刑",
-            "type": "凶",
-            "position": "day",
-            "description": "天刑：命理中的神煞标记",
-            "modernMeaning": "天刑对你的人生有特殊影响"
-          },
-          {
-            "name": "路空",
-            "type": "凶",
-            "position": "hour",
-            "description": "路空：命理中的神煞标记",
-            "modernMeaning": "路空对你的人生有特殊影响"
-          },
-          {
-            "name": "貴登天門",
-            "type": "吉",
-            "position": "hour",
-            "description": "貴登天門：命理中的神煞标记",
-            "modernMeaning": "貴登天門对你的人生有特殊影响"
-          },
-          {
-            "name": "司命",
-            "type": "吉",
-            "position": "hour",
-            "description": "司命：命理中的神煞标记",
-            "modernMeaning": "司命对你的人生有特殊影响"
           }
         ],
         "daYunDirection": "顺行",
-        "daYunStartAge": 1,
+        "daYunStartAge": 7,
         "daYunList": [
           {
-            "startAge": 1,
-            "endAge": 10,
+            "startAge": 7,
+            "endAge": 16,
+            "startDate": "2003-07-01T23:30:00.000Z",
+            "endDate": "2013-07-01T23:30:00.000Z",
             "ganZhi": {
               "gan": "乙",
               "zhi": "酉",
@@ -549,16 +510,18 @@
               "zhiWuXing": "金",
               "ganYinYang": "阴",
               "zhiYinYang": "阴",
-              "naYin": "井泉水",
+              "naYin": "泉中水",
               "naYinWuXing": "水"
             },
             "shiShen": "正官",
             "zhiShiShen": "伤官",
-            "period": "1–10岁"
+            "period": "7–16岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 11,
-            "endAge": 20,
+            "startAge": 17,
+            "endAge": 26,
+            "startDate": "2013-07-01T23:30:00.000Z",
+            "endDate": "2023-07-01T23:30:00.000Z",
             "ganZhi": {
               "gan": "丙",
               "zhi": "戌",
@@ -571,11 +534,13 @@
             },
             "shiShen": "偏印",
             "zhiShiShen": "比肩",
-            "period": "11–20岁"
+            "period": "17–26岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 21,
-            "endAge": 30,
+            "startAge": 27,
+            "endAge": 36,
+            "startDate": "2023-07-01T23:30:00.000Z",
+            "endDate": "2033-07-01T23:30:00.000Z",
             "ganZhi": {
               "gan": "丁",
               "zhi": "亥",
@@ -588,11 +553,13 @@
             },
             "shiShen": "正印",
             "zhiShiShen": "偏财",
-            "period": "21–30岁"
+            "period": "27–36岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 31,
-            "endAge": 40,
+            "startAge": 37,
+            "endAge": 46,
+            "startDate": "2033-07-01T23:30:00.000Z",
+            "endDate": "2043-07-01T23:30:00.000Z",
             "ganZhi": {
               "gan": "戊",
               "zhi": "子",
@@ -600,16 +567,18 @@
               "zhiWuXing": "水",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "霹靂火",
+              "naYin": "霹雳火",
               "naYinWuXing": "火"
             },
             "shiShen": "比肩",
             "zhiShiShen": "正财",
-            "period": "31–40岁"
+            "period": "37–46岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 41,
-            "endAge": 50,
+            "startAge": 47,
+            "endAge": 56,
+            "startDate": "2043-07-01T23:30:00.000Z",
+            "endDate": "2053-07-01T23:30:00.000Z",
             "ganZhi": {
               "gan": "己",
               "zhi": "丑",
@@ -617,16 +586,18 @@
               "zhiWuXing": "土",
               "ganYinYang": "阴",
               "zhiYinYang": "阴",
-              "naYin": "霹靂火",
+              "naYin": "霹雳火",
               "naYinWuXing": "火"
             },
             "shiShen": "劫财",
             "zhiShiShen": "劫财",
-            "period": "41–50岁"
+            "period": "47–56岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 51,
-            "endAge": 60,
+            "startAge": 57,
+            "endAge": 66,
+            "startDate": "2053-07-01T23:30:00.000Z",
+            "endDate": "2063-07-01T23:30:00.000Z",
             "ganZhi": {
               "gan": "庚",
               "zhi": "寅",
@@ -639,11 +610,13 @@
             },
             "shiShen": "食神",
             "zhiShiShen": "七杀",
-            "period": "51–60岁"
+            "period": "57–66岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 61,
-            "endAge": 70,
+            "startAge": 67,
+            "endAge": 76,
+            "startDate": "2063-07-01T23:30:00.000Z",
+            "endDate": "2073-07-01T23:30:00.000Z",
             "ganZhi": {
               "gan": "辛",
               "zhi": "卯",
@@ -656,11 +629,13 @@
             },
             "shiShen": "伤官",
             "zhiShiShen": "正官",
-            "period": "61–70岁"
+            "period": "67–76岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 71,
-            "endAge": 80,
+            "startAge": 77,
+            "endAge": 86,
+            "startDate": "2073-07-01T23:30:00.000Z",
+            "endDate": "2083-07-01T23:30:00.000Z",
             "ganZhi": {
               "gan": "壬",
               "zhi": "辰",
@@ -668,16 +643,18 @@
               "zhiWuXing": "土",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "長流水",
+              "naYin": "长流水",
               "naYinWuXing": "水"
             },
             "shiShen": "偏财",
             "zhiShiShen": "比肩",
-            "period": "71–80岁"
+            "period": "77–86岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 81,
-            "endAge": 90,
+            "startAge": 87,
+            "endAge": 96,
+            "startDate": "2083-07-01T23:30:00.000Z",
+            "endDate": "2093-07-01T23:30:00.000Z",
             "ganZhi": {
               "gan": "癸",
               "zhi": "巳",
@@ -685,16 +662,18 @@
               "zhiWuXing": "火",
               "ganYinYang": "阴",
               "zhiYinYang": "阴",
-              "naYin": "長流水",
+              "naYin": "长流水",
               "naYinWuXing": "水"
             },
             "shiShen": "正财",
             "zhiShiShen": "偏印",
-            "period": "81–90岁"
+            "period": "87–96岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 91,
-            "endAge": 100,
+            "startAge": 97,
+            "endAge": 106,
+            "startDate": "2093-07-01T23:30:00.000Z",
+            "endDate": "2103-07-01T23:30:00.000Z",
             "ganZhi": {
               "gan": "甲",
               "zhi": "午",
@@ -702,16 +681,52 @@
               "zhiWuXing": "火",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "砂中金",
+              "naYin": "沙中金",
               "naYinWuXing": "金"
             },
             "shiShen": "七杀",
             "zhiShiShen": "正印",
-            "period": "91–100岁"
+            "period": "97–106岁（整岁参考，以交运日期为准）"
           }
         ],
-        "lunarDate": "一九九五年七月月二十",
-        "yearNaYin": "山頭火",
+        "qiYun": {
+          "years": 7,
+          "months": 10,
+          "days": 16,
+          "hours": 12,
+          "startDate": "2003-07-01T23:30:00.000Z",
+          "termDate": "1995-09-08T02:48:34.000Z",
+          "termName": "白露",
+          "sect": 2
+        },
+        "calculationPolicy": {
+          "version": "suji-calendar-2",
+          "provider": "lunar-javascript@1.7.7",
+          "timezone": "UTC+08:00",
+          "yearBoundary": "exact-lichun",
+          "monthBoundary": "exact-jie",
+          "dayBoundary": "zi-hour-23:00",
+          "lunarDayBoundary": "civil-midnight",
+          "solarTimeScope": "day-and-hour-only",
+          "yun": "year-polarity-gender; jie; three-days-per-year; sect-2-minute-conversion",
+          "supportedCivilYears": [
+            1901,
+            2100
+          ],
+          "civilBirthTime": "1995-08-15T11:30:00.000Z",
+          "effectiveSolarTime": "1995-08-15T11:31:20.063Z",
+          "solarTimeApplied": true,
+          "longitude": 121.47,
+          "warnings": []
+        },
+        "interpretationPolicy": {
+          "strengthYongShen": "扶抑参考（工程启发式，调候另列来源候选）",
+          "structureYongShen": "月令格局用神（子平真诠口径）",
+          "status": "traditional-interpretation-not-empirical-prediction"
+        },
+        "lunarDate": "一九九五年七月二十",
+        "solarTerm": "立秋",
+        "yearNaYin": "山头火",
         "taiYuan": {
           "gan": "乙",
           "zhi": "亥",
@@ -719,7 +734,7 @@
           "zhiWuXing": "水",
           "ganYinYang": "阴",
           "zhiYinYang": "阴",
-          "naYin": "山頭火",
+          "naYin": "山头火",
           "naYinWuXing": "火"
         },
         "mingGong": {
@@ -839,7 +854,7 @@
                 "type": "major",
                 "source": "major",
                 "sihua": [
-                  "禄"
+                  "化禄"
                 ]
               },
               {
@@ -848,7 +863,7 @@
                 "type": "major",
                 "source": "major",
                 "sihua": [
-                  "权"
+                  "化权"
                 ]
               }
             ],
@@ -899,7 +914,7 @@
                 "type": "major",
                 "source": "major",
                 "sihua": [
-                  "科"
+                  "化科"
                 ]
               },
               {
@@ -1155,7 +1170,7 @@
                 "type": "major",
                 "source": "major",
                 "sihua": [
-                  "忌"
+                  "化忌"
                 ]
               }
             ],
@@ -1226,14 +1241,25 @@
         ],
         "mingGongPosition": "戌",
         "shenGongPosition": "午",
-        "fiveElementsClass": "土五局"
+        "fiveElementsClass": "土五局",
+        "method": {
+          "algorithm": "iztro-2.5.8-default",
+          "dayBoundary": "zi-hour",
+          "yearBoundary": "lunar-new-year",
+          "leapMonth": "split-at-day-15",
+          "caveats": [
+            "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
+            "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",
+            "排盘一致性不等于对现实事件的预测效度"
+          ]
+        }
       },
       "personality": {
         "coreTraits": [
           "你擅长在环境中找到自己的位置，适应力和感知力是你的天赋",
           "你对机会的嗅觉很灵敏，善于在流动变化中抓住资源",
-          "天生具有抗压能力强的特质",
-          "天生具有果断的特质"
+          "可观察自己在抗压能力强方面的倾向",
+          "可观察自己在果断方面的倾向"
         ],
         "strengths": [
           "天生在压力中成长",
@@ -1245,7 +1271,7 @@
         "challenges": [
           "高压状态下容易焦虑",
           "与权威关系容易紧张",
-          "思维过度活跃时容易焦虑，需要给自己一个锚点"
+          "有时会因为急于成长而忽略脚下的稳定"
         ],
         "communicationStyle": "你说话稳重踏实，让人感到可靠与安心",
         "emotionalPattern": "你重视安全感，在稳定的关系中才能充分放松和展示自己",
@@ -1260,29 +1286,29 @@
       },
       "daily": {
         "date": "2026年9月19日",
-        "ganZhi": "癸丑",
-        "overallEnergy": "中",
-        "focusArea": "直觉感知、思考与沟通",
-        "advice": "今天适合平稳推进，不必强求突破，保持节奏比速度更重要",
-        "avoidance": "避免今天做无把握的冒险，已有计划比新想法更值得优先执行",
+        "ganZhi": "丙申",
+        "overallEnergy": "高",
+        "focusArea": "创意、表达与人际连接",
+        "advice": "今天能量充沛，适合推进重要事项、做关键决定或启动新计划",
+        "avoidance": "避免因状态太好而冲动行事，决策前依然保持冷静判断",
         "luckyHours": [
           "09:00–11:00",
           "11:00–13:00",
-          "23:00–01:00"
+          "07:00–09:00"
         ],
-        "affirmation": "我的价值不在于快，而在于持续和可靠。"
+        "affirmation": "我稳稳承载着一切，这份力量让我值得信赖。"
       },
       "timing": {
         "currentPhase": "你目前处于建立基础与积累资源的阶段，整体能量顺畅，是主动出击的好时机。",
         "currentEnergy": "你现在的状态像是风帆满张，整体能量充沛，外部环境对你的行动有支撑作用",
         "opportunities": [
-          "职业发展有新的晋升或突破机会，值得积极争取",
-          "收入有增长空间，可考虑稳健的资产配置"
+          "事业稳步推进，维护好现有的合作关系",
+          "财运平稳，量入为出，做好长期规划"
         ],
         "watchouts": [
           "顺势期容易忽视风险，保持清醒的判断力"
         ],
-        "advice": "这是一个值得主动出击的阶段，心中有的目标可以大胆推进，别让犹豫错过窗口",
+        "advice": "传统用神对应被触发，当前规则标签为“顺”；可尝试一个可验证的小行动，重要决定仍需现实依据",
         "luckyElements": {
           "colors": [
             "红色",
@@ -1301,21 +1327,31 @@
       "forecast": {
         "year": 2026,
         "daYun": {
-          "startAge": 31,
-          "endAge": 40,
+          "startAge": 27,
+          "endAge": 36,
+          "startDate": "2023-07-01T23:30:00.000Z",
+          "endDate": "2033-07-01T23:30:00.000Z",
           "ganZhi": {
-            "gan": "戊",
-            "zhi": "子",
-            "ganWuXing": "土",
+            "gan": "丁",
+            "zhi": "亥",
+            "ganWuXing": "火",
             "zhiWuXing": "水",
-            "ganYinYang": "阳",
-            "zhiYinYang": "阳",
-            "naYin": "霹靂火",
-            "naYinWuXing": "火"
+            "ganYinYang": "阴",
+            "zhiYinYang": "阴",
+            "naYin": "屋上土",
+            "naYinWuXing": "土"
           },
-          "shiShen": "比肩",
-          "zhiShiShen": "正财",
-          "period": "31–40岁"
+          "shiShen": "正印",
+          "zhiShiShen": "偏财",
+          "period": "27–36岁（整岁参考，以交运日期为准）"
+        },
+        "daYunStatus": "active",
+        "referenceDate": "2026-09-19T04:00:00.000Z",
+        "luckyMonthsCalendar": "solar-term-ordinal",
+        "interpretationBasis": {
+          "kind": "engineering-heuristic",
+          "calibratedProbability": false,
+          "description": "顺／平／逆和月份建议来自五行喜忌的工程规则，不是古籍数值、事件概率或财务健康预测。"
         },
         "liuNian": {
           "year": 2026,
@@ -1331,23 +1367,33 @@
           },
           "shiShen": "偏印",
           "interactions": [
-            "流年丙与时柱壬天干相冲，易有突变与意志摩擦",
-            "流年午冲大运子（六冲），大运地支受冲，该步大运整体动荡感增强，需稳住心态",
-            "流年天干丙属火，逢用神之年，整体运势较顺，利于突破与发展"
+            "流年丙与时柱壬天干相冲；传统上用于讨论张力，不代表现实事件必然发生",
+            "流年天干丙属火，与当前扶抑参考的用神一致，属于规则内的对应关系"
           ]
         },
         "overallTrend": "顺",
-        "careerOutlook": "用神得力，事业推进顺畅，适合开展新项目或寻求突破",
-        "wealthOutlook": "财运平稳向好，正职收入有望增长",
-        "relationshipOutlook": "感情平稳，维系好现有关系，不宜强求大变化",
-        "healthOutlook": "健康状况良好，留意心脑相关保养，保持适度运动",
-        "keyAdvice": "运势顺畅，用神得助，把握机遇大胆推进重要决策，是发展的黄金时期",
+        "careerOutlook": "传统用神对应被触发；可将想推进的项目拆成可验证的小步骤，进展仍以现实反馈为准",
+        "wealthOutlook": "财务计划请依据实际收入、负债和目标制定，命盘不提供收益预测",
+        "relationshipOutlook": "关系发展仍取决于双方的现实互动，可从倾听与清楚表达期待开始",
+        "healthOutlook": "命理中的五行意象不能用于判断健康状况或疾病风险；日常保持规律作息与适度运动，身体不适时以医疗意见为准。",
+        "keyAdvice": "传统用神对应被触发，当前规则标签为“顺”；可尝试一个可验证的小行动，重要决定仍需现实依据",
         "luckyMonths": [
+          3,
           4,
           5,
-          10,
-          11
-        ]
+          6,
+          9,
+          12
+        ],
+        "annualCycle": {
+          "labelYear": 2026,
+          "startDate": "2026-02-03T20:02:08.000Z",
+          "endDate": "2027-02-04T01:46:18.000Z",
+          "isActiveAtReference": true,
+          "activeYearAtReference": 2026,
+          "activeYearGanZhi": "丙午"
+        },
+        "requestReferenceDate": "2026-09-19T04:00:00.000Z"
       }
     }
   },
@@ -1366,63 +1412,65 @@
         "question": "换个城市生活",
         "questionType": "career",
         "setupTime": "2026-09-19T04:00:00.000Z",
-        "trueSolarTime": "2026-09-19T03:52:34.756Z",
+        "trueSolarTime": "2026-09-19T03:51:40.608Z",
         "jieqi": "白露",
         "yinYangDun": "阴",
-        "juNumber": 3,
-        "yuan": "中",
+        "juNumber": 9,
+        "yuan": "上",
         "palaces": [
           {
             "id": 1,
             "name": "坎宫",
             "position": "北",
             "wuXing": "水",
-            "diPanGan": "丁",
-            "tianPanGan": "壬",
+            "diPanGan": "乙",
+            "tianPanGan": "乙",
             "bamen": "休门",
-            "jiuxing": "天冲",
-            "bashen": "腾蛇"
+            "jiuxing": "天蓬",
+            "bashen": "九天"
           },
           {
             "id": 2,
             "name": "坤宫",
             "position": "西南",
             "wuXing": "土",
-            "diPanGan": "癸",
-            "tianPanGan": "己",
-            "bamen": "杜门",
-            "jiuxing": "天心",
-            "bashen": "白虎"
+            "diPanGan": "丙",
+            "tianPanGan": "丙",
+            "bamen": "死门",
+            "jiuxing": "天芮",
+            "bashen": "太阴",
+            "hostsTianQin": true,
+            "hostedTianPanGan": "壬"
           },
           {
             "id": 3,
             "name": "震宫",
             "position": "东",
             "wuXing": "木",
-            "diPanGan": "壬",
-            "tianPanGan": "丙",
-            "bamen": "惊门",
-            "jiuxing": "天英",
-            "bashen": "九天"
+            "diPanGan": "丁",
+            "tianPanGan": "丁",
+            "bamen": "伤门",
+            "jiuxing": "天冲",
+            "bashen": "玄武"
           },
           {
             "id": 4,
             "name": "巽宫",
             "position": "东南",
             "wuXing": "木",
-            "diPanGan": "辛",
+            "diPanGan": "癸",
             "tianPanGan": "癸",
-            "bamen": "死门",
-            "jiuxing": "天芮",
-            "bashen": "九地"
+            "bamen": "杜门",
+            "jiuxing": "天辅",
+            "bashen": "白虎"
           },
           {
             "id": 5,
             "name": "中宫",
             "position": "中",
             "wuXing": "土",
-            "diPanGan": "庚",
-            "tianPanGan": "庚",
+            "diPanGan": "壬",
+            "tianPanGan": "壬",
             "bamen": null,
             "jiuxing": "天禽",
             "bashen": null
@@ -1432,62 +1480,99 @@
             "name": "乾宫",
             "position": "西北",
             "wuXing": "金",
-            "diPanGan": "己",
-            "tianPanGan": "乙",
-            "bamen": "生门",
-            "jiuxing": "天任",
-            "bashen": "太阴"
+            "diPanGan": "辛",
+            "tianPanGan": "辛",
+            "bamen": "开门",
+            "jiuxing": "天心",
+            "bashen": "值符"
           },
           {
             "id": 7,
             "name": "兑宫",
             "position": "西",
             "wuXing": "金",
-            "diPanGan": "戊",
-            "tianPanGan": "丁",
-            "bamen": "伤门",
-            "jiuxing": "天蓬",
-            "bashen": "六合"
+            "diPanGan": "庚",
+            "tianPanGan": "庚",
+            "bamen": "惊门",
+            "jiuxing": "天柱",
+            "bashen": "腾蛇"
           },
           {
             "id": 8,
             "name": "艮宫",
             "position": "东北",
             "wuXing": "土",
-            "diPanGan": "乙",
-            "tianPanGan": "辛",
-            "bamen": "开门",
-            "jiuxing": "天辅",
-            "bashen": "值符"
+            "diPanGan": "己",
+            "tianPanGan": "己",
+            "bamen": "生门",
+            "jiuxing": "天任",
+            "bashen": "九地"
           },
           {
             "id": 9,
             "name": "离宫",
             "position": "南",
             "wuXing": "火",
-            "diPanGan": "丙",
+            "diPanGan": "戊",
             "tianPanGan": "戊",
             "bamen": "景门",
-            "jiuxing": "天柱",
-            "bashen": "玄武"
+            "jiuxing": "天英",
+            "bashen": "六合"
           }
         ],
         "yongShen": {
-          "type": "庚",
-          "palaceId": 5,
-          "state": "相",
-          "summary": "庚临中宫，相（无门 · 天禽 · 无神）",
+          "type": "丙",
+          "palaceId": 2,
+          "state": "休",
+          "summary": "求问者（日干）丙临坤宫，休（死门 · 天芮 · 太阴）",
           "interactions": [
-            "宫位五行判相"
-          ]
+            "宫位五行判休",
+            "求问者日干与开门、值符作为事业参考点；不以庚固定代表官星",
+            "这些位置是取象参考点，不是最终用神裁定或吉凶结论"
+          ],
+          "references": [
+            {
+              "label": "求问者（日干丙）",
+              "palaceId": 2
+            },
+            {
+              "label": "所问之事（时干甲）",
+              "palaceId": 6
+            },
+            {
+              "label": "开门",
+              "palaceId": 6
+            },
+            {
+              "label": "值符",
+              "palaceId": 6
+            }
+          ],
+          "selectionStatus": "initial-reference"
         },
         "geJu": [
+          {
+            "name": "伏吟",
+            "type": "凶",
+            "description": "天地盘相同，事情停滞、忧愁不展",
+            "palaceIds": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ]
+          },
           {
             "name": "值符",
             "type": "吉",
             "description": "值符神所在宫得吉门，事易成",
             "palaceIds": [
-              8
+              6
             ]
           },
           {
@@ -1501,9 +1586,9 @@
             ]
           },
           {
-            "name": "白虎猖狂",
+            "name": "入墓",
             "type": "凶",
-            "description": "天盘辛加地盘乙，白虎横行、出入有惊、远行多灾",
+            "description": "干临墓宫（乙入坤、丙丁戊入乾、己庚入艮、辛壬入巽、癸入坤），抱负难申",
             "palaceIds": [
               8
             ]
@@ -1513,31 +1598,7 @@
             "type": "吉",
             "description": "乙奇临开/休/生三吉门，谋事大利",
             "palaceIds": [
-              6
-            ]
-          },
-          {
-            "name": "丁奇升殿",
-            "type": "吉",
-            "description": "丁奇临兑宫，奇得正位、大吉",
-            "palaceIds": [
-              7
-            ]
-          },
-          {
-            "name": "丁奇得使",
-            "type": "吉",
-            "description": "丁奇临旬首六仪所在宫，得使可用事（简化版）",
-            "palaceIds": [
-              7
-            ]
-          },
-          {
-            "name": "己击刑",
-            "type": "凶",
-            "description": "己临坤宫（2宫），地支相刑、诸事不顺",
-            "palaceIds": [
-              2
+              1
             ]
           },
           {
@@ -1549,44 +1610,74 @@
             ]
           },
           {
-            "name": "青龙返首",
+            "name": "龙遁",
             "type": "吉",
-            "description": "天盘戊（甲子）加地盘丙奇，大吉，求事必成",
+            "description": "乙奇 + 三吉门 + 坎宫（1 宫）或六癸，利祈雨、水运、架桥、凿井",
             "palaceIds": [
-              9
-            ]
-          },
-          {
-            "name": "云遁",
-            "type": "吉",
-            "description": "乙奇 + 三吉门 + 辛（六辛），利祈雨、安营、铸兵",
-            "palaceIds": [
-              8
+              1
             ]
           }
         ],
         "yingQi": {
-          "description": "约 1-3 个月内见分晓",
+          "description": "尚不能确定应期；需明确事件条件，并综合空亡、动静与应期规则",
           "factors": [
-            "用神：庚临中宫，相（无门 · 天禽 · 无神）"
+            "用神：求问者（日干）丙临坤宫，休（死门 · 天芮 · 太阴）",
+            "当前取用与宫位关系不足以推出具体期限"
           ]
         },
         "method": {
-          "level": "mvp",
+          "level": "standard",
+          "algorithm": "zhuanpan-qimen-chai-bu-v1",
+          "centerPolicy": "fixed-kun-2; tian-qin-follows-tian-rui",
+          "dayBoundary": "zi-hour on apparent-solar clock",
+          "solarTermClock": "physical-instant",
           "caveats": [
-            "上中下元使用日序近似，尚未按节气交接后的甲子日严格起上元",
-            "用神选择与应期为产品 MVP 简化规则",
+            "采用拆补法和中五固定寄坤二，不混用置闰法或阴阳分寄法",
+            "用神按问题类别初选；旺衰仅为宫位五行关系，应期证据不足时不报期限",
             "格局识别只覆盖当前数据表可判定的常用格局"
           ]
+        },
+        "fuTou": "甲午",
+        "dayGanZhi": "丙申",
+        "hourGanZhi": "甲午",
+        "zhiFuStar": "天心",
+        "zhiFuPalaceId": 6,
+        "zhiFuSourcePalaceId": 6,
+        "zhiShiMen": "开门",
+        "zhiShiPalaceId": 6,
+        "zhiShiRawPalaceId": 6,
+        "zhiShiSourcePalaceId": 6,
+        "tianQinPalaceId": 2,
+        "provenance": {
+          "engineRevision": "00683a35f434329459805f7182ec1f9a2d7cf9fe945bb4a341bd959161d6f8aa",
+          "referenceDate": "2026-09-19T04:00:00.000Z",
+          "calendarPolicy": {
+            "version": "suji-calendar-2",
+            "provider": "lunar-javascript@1.7.7",
+            "timezone": "UTC+08:00",
+            "yearBoundary": "exact-lichun",
+            "monthBoundary": "exact-jie",
+            "dayBoundary": "zi-hour-23:00",
+            "lunarDayBoundary": "civil-midnight",
+            "solarTimeScope": "day-and-hour-only",
+            "yun": "year-polarity-gender; jie; three-days-per-year; sect-2-minute-conversion",
+            "supportedCivilYears": [
+              1901,
+              2100
+            ]
+          },
+          "interpretation": "干支、星曜与盘面为规则计算；强弱评分、用神取舍及文字为指定流派或产品启发式，不是事件概率。"
         }
       },
       "evidence": [
+        "计算时刻 · 2026-09-19T04:00:00.000Z",
+        "历法 · 北京时间；精确交节；子初换日",
+        "方法 · zhuanpan-qimen-chai-bu-v1",
         "节气 · 白露",
-        "阴遁 · 3局",
-        "用神 · 庚临中宫，相（无门 · 天禽 · 无神）",
-        "格局 · 值符",
-        "格局 · 值使",
-        "应期 · 约 1-3 个月内见分晓"
+        "阴遁 · 9局",
+        "用神 · 求问者（日干）丙临坤宫，休（死门 · 天…",
+        "格局 · 伏吟",
+        "格局 · 值符"
       ]
     }
   },
@@ -1618,7 +1709,7 @@
           "zhiWuXing": "木",
           "ganYinYang": "阳",
           "zhiYinYang": "阳",
-          "naYin": "城頭土",
+          "naYin": "城头土",
           "naYinWuXing": "土"
         },
         "hourPillar": {
@@ -1632,38 +1723,45 @@
           "naYinWuXing": "木"
         },
         "mingGong": "亥",
-        "events": {
-          "1996": "大运转正官",
-          "1997": "none",
-          "1998": "none",
-          "1999": "none",
-          "2000": "紫微大限转正印",
-          "2001": "流年伤官见官",
-          "2002": "流年正财动",
-          "2003": "流年正财动",
-          "2004": "流年七杀临身",
-          "2005": "none",
-          "2006": "大运转偏印",
-          "2007": "none",
-          "2008": "none",
-          "2009": "none",
-          "2010": "紫微大限转比肩",
-          "2011": "流年伤官见官",
-          "2012": "流年正财动",
-          "2013": "流年正财动",
-          "2014": "流年七杀临身",
-          "2015": "none",
-          "2016": "大运转正印",
-          "2017": "none",
-          "2018": "none",
-          "2019": "none",
-          "2020": "紫微大限转劫财",
-          "2021": "流年伤官见官",
-          "2022": "流年正财动",
-          "2023": "流年正财动",
-          "2024": "流年七杀临身",
-          "2025": "none",
-          "2026": "大运转比肩"
+        "eventsBySystem": {
+          "bazi": {
+            "1996": "八字流年丙子（天干丙为偏印；立春换年）",
+            "1997": "八字流年丁丑（天干丁为正印；立春换年）",
+            "1998": "八字流年戊寅（天干戊为比肩；立春换年）",
+            "1999": "八字流年己卯（天干己为劫财；立春换年）",
+            "2000": "八字流年庚辰（天干庚为食神；立春换年）",
+            "2001": "八字流年辛巳（天干辛为伤官；立春换年）",
+            "2002": "八字流年壬午（天干壬为偏财；立春换年）",
+            "2003": "八字大运转入乙酉（天干乙为正官；2003-07-09 18:00交运，至2013-07-09 18:00前，北京时间）",
+            "2004": "八字流年甲申（天干甲为七杀；立春换年）",
+            "2005": "八字流年乙酉（天干乙为正官；立春换年）",
+            "2006": "八字流年丙戌（天干丙为偏印；立春换年）",
+            "2007": "八字流年丁亥（天干丁为正印；立春换年）",
+            "2008": "八字流年戊子（天干戊为比肩；立春换年）",
+            "2009": "八字流年己丑（天干己为劫财；立春换年）",
+            "2010": "八字流年庚寅（天干庚为食神；立春换年）",
+            "2011": "八字流年辛卯（天干辛为伤官；立春换年）",
+            "2012": "八字流年壬辰（天干壬为偏财；立春换年）",
+            "2013": "八字大运转入丙戌（天干丙为偏印；2013-07-09 18:00交运，至2023-07-09 18:00前，北京时间）",
+            "2014": "八字流年甲午（天干甲为七杀；立春换年）",
+            "2015": "八字流年乙未（天干乙为正官；立春换年）",
+            "2016": "八字流年丙申（天干丙为偏印；立春换年）",
+            "2017": "八字流年丁酉（天干丁为正印；立春换年）",
+            "2018": "八字流年戊戌（天干戊为比肩；立春换年）",
+            "2019": "八字流年己亥（天干己为劫财；立春换年）",
+            "2020": "八字流年庚子（天干庚为食神；立春换年）",
+            "2021": "八字流年辛丑（天干辛为伤官；立春换年）",
+            "2022": "八字流年壬寅（天干壬为偏财；立春换年）",
+            "2023": "八字大运转入丁亥（天干丁为正印；2023-07-09 18:00交运，至2033-07-09 18:00前，北京时间）",
+            "2024": "八字流年甲辰（天干甲为七杀；立春换年）",
+            "2025": "八字流年乙巳（天干乙为正官；立春换年）",
+            "2026": "八字流年丙午（天干丙为偏印；立春换年）"
+          },
+          "ziwei": {
+            "1999": "紫微大限转入本命命宫（丁亥；本命主星：天府；虚岁5–14，农历1999年起）",
+            "2009": "紫微大限转入本命父母宫（戊子；本命主星：天同、太阴；虚岁15–24，农历2009年起）",
+            "2019": "紫微大限转入本命福德宫（己丑；本命主星：武曲、贪狼；虚岁25–34，农历2019年起）"
+          }
         }
       },
       {
@@ -1677,7 +1775,7 @@
           "zhiWuXing": "木",
           "ganYinYang": "阳",
           "zhiYinYang": "阳",
-          "naYin": "城頭土",
+          "naYin": "城头土",
           "naYinWuXing": "土"
         },
         "hourPillar": {
@@ -1691,38 +1789,45 @@
           "naYinWuXing": "水"
         },
         "mingGong": "戌",
-        "events": {
-          "1996": "大运转正官",
-          "1997": "none",
-          "1998": "none",
-          "1999": "none",
-          "2000": "紫微大限转偏印",
-          "2001": "流年伤官见官",
-          "2002": "流年正财动",
-          "2003": "流年正财动",
-          "2004": "流年七杀临身",
-          "2005": "none",
-          "2006": "大运转偏印",
-          "2007": "none",
-          "2008": "none",
-          "2009": "none",
-          "2010": "紫微大限转正印",
-          "2011": "流年伤官见官",
-          "2012": "流年正财动",
-          "2013": "流年正财动",
-          "2014": "流年七杀临身",
-          "2015": "none",
-          "2016": "大运转正印",
-          "2017": "none",
-          "2018": "none",
-          "2019": "none",
-          "2020": "紫微大限转比肩",
-          "2021": "流年伤官见官",
-          "2022": "流年正财动",
-          "2023": "流年正财动",
-          "2024": "流年七杀临身",
-          "2025": "none",
-          "2026": "大运转比肩"
+        "eventsBySystem": {
+          "bazi": {
+            "1996": "八字流年丙子（天干丙为偏印；立春换年）",
+            "1997": "八字流年丁丑（天干丁为正印；立春换年）",
+            "1998": "八字流年戊寅（天干戊为比肩；立春换年）",
+            "1999": "八字流年己卯（天干己为劫财；立春换年）",
+            "2000": "八字流年庚辰（天干庚为食神；立春换年）",
+            "2001": "八字流年辛巳（天干辛为伤官；立春换年）",
+            "2002": "八字流年壬午（天干壬为偏财；立春换年）",
+            "2003": "八字大运转入乙酉（天干乙为正官；2003-06-29 20:00交运，至2013-06-29 20:00前，北京时间）",
+            "2004": "八字流年甲申（天干甲为七杀；立春换年）",
+            "2005": "八字流年乙酉（天干乙为正官；立春换年）",
+            "2006": "八字流年丙戌（天干丙为偏印；立春换年）",
+            "2007": "八字流年丁亥（天干丁为正印；立春换年）",
+            "2008": "八字流年戊子（天干戊为比肩；立春换年）",
+            "2009": "八字流年己丑（天干己为劫财；立春换年）",
+            "2010": "八字流年庚寅（天干庚为食神；立春换年）",
+            "2011": "八字流年辛卯（天干辛为伤官；立春换年）",
+            "2012": "八字流年壬辰（天干壬为偏财；立春换年）",
+            "2013": "八字大运转入丙戌（天干丙为偏印；2013-06-29 20:00交运，至2023-06-29 20:00前，北京时间）",
+            "2014": "八字流年甲午（天干甲为七杀；立春换年）",
+            "2015": "八字流年乙未（天干乙为正官；立春换年）",
+            "2016": "八字流年丙申（天干丙为偏印；立春换年）",
+            "2017": "八字流年丁酉（天干丁为正印；立春换年）",
+            "2018": "八字流年戊戌（天干戊为比肩；立春换年）",
+            "2019": "八字流年己亥（天干己为劫财；立春换年）",
+            "2020": "八字流年庚子（天干庚为食神；立春换年）",
+            "2021": "八字流年辛丑（天干辛为伤官；立春换年）",
+            "2022": "八字流年壬寅（天干壬为偏财；立春换年）",
+            "2023": "八字大运转入丁亥（天干丁为正印；2023-06-29 20:00交运，至2033-06-29 20:00前，北京时间）",
+            "2024": "八字流年甲辰（天干甲为七杀；立春换年）",
+            "2025": "八字流年乙巳（天干乙为正官；立春换年）",
+            "2026": "八字流年丙午（天干丙为偏印；立春换年）"
+          },
+          "ziwei": {
+            "1999": "紫微大限转入本命命宫（丙戌；本命主星：无主星；虚岁5–14，农历1999年起）",
+            "2009": "紫微大限转入本命父母宫（丁亥；本命主星：天府；虚岁15–24，农历2009年起）",
+            "2019": "紫微大限转入本命福德宫（戊子；本命主星：天同、太阴；虚岁25–34，农历2019年起）"
+          }
         }
       },
       {
@@ -1736,7 +1841,7 @@
           "zhiWuXing": "木",
           "ganYinYang": "阳",
           "zhiYinYang": "阳",
-          "naYin": "城頭土",
+          "naYin": "城头土",
           "naYinWuXing": "土"
         },
         "hourPillar": {
@@ -1750,38 +1855,46 @@
           "naYinWuXing": "水"
         },
         "mingGong": "酉",
-        "events": {
-          "1996": "大运转正官",
-          "1997": "紫微大限转正官",
-          "1998": "none",
-          "1999": "none",
-          "2000": "none",
-          "2001": "流年伤官见官",
-          "2002": "流年正财动",
-          "2003": "流年正财动",
-          "2004": "流年七杀临身",
-          "2005": "none",
-          "2006": "大运转偏印",
-          "2007": "紫微大限转偏印",
-          "2008": "none",
-          "2009": "none",
-          "2010": "none",
-          "2011": "流年伤官见官",
-          "2012": "流年正财动",
-          "2013": "流年正财动",
-          "2014": "流年七杀临身",
-          "2015": "none",
-          "2016": "大运转正印",
-          "2017": "紫微大限转正印",
-          "2018": "none",
-          "2019": "none",
-          "2020": "none",
-          "2021": "流年伤官见官",
-          "2022": "流年正财动",
-          "2023": "流年正财动",
-          "2024": "流年七杀临身",
-          "2025": "none",
-          "2026": "大运转比肩"
+        "eventsBySystem": {
+          "bazi": {
+            "1996": "八字流年丙子（天干丙为偏印；立春换年）",
+            "1997": "八字流年丁丑（天干丁为正印；立春换年）",
+            "1998": "八字流年戊寅（天干戊为比肩；立春换年）",
+            "1999": "八字流年己卯（天干己为劫财；立春换年）",
+            "2000": "八字流年庚辰（天干庚为食神；立春换年）",
+            "2001": "八字流年辛巳（天干辛为伤官；立春换年）",
+            "2002": "八字流年壬午（天干壬为偏财；立春换年）",
+            "2003": "八字大运转入乙酉（天干乙为正官；2003-06-19 22:00交运，至2013-06-19 22:00前，北京时间）",
+            "2004": "八字流年甲申（天干甲为七杀；立春换年）",
+            "2005": "八字流年乙酉（天干乙为正官；立春换年）",
+            "2006": "八字流年丙戌（天干丙为偏印；立春换年）",
+            "2007": "八字流年丁亥（天干丁为正印；立春换年）",
+            "2008": "八字流年戊子（天干戊为比肩；立春换年）",
+            "2009": "八字流年己丑（天干己为劫财；立春换年）",
+            "2010": "八字流年庚寅（天干庚为食神；立春换年）",
+            "2011": "八字流年辛卯（天干辛为伤官；立春换年）",
+            "2012": "八字流年壬辰（天干壬为偏财；立春换年）",
+            "2013": "八字大运转入丙戌（天干丙为偏印；2013-06-19 22:00交运，至2023-06-19 22:00前，北京时间）",
+            "2014": "八字流年甲午（天干甲为七杀；立春换年）",
+            "2015": "八字流年乙未（天干乙为正官；立春换年）",
+            "2016": "八字流年丙申（天干丙为偏印；立春换年）",
+            "2017": "八字流年丁酉（天干丁为正印；立春换年）",
+            "2018": "八字流年戊戌（天干戊为比肩；立春换年）",
+            "2019": "八字流年己亥（天干己为劫财；立春换年）",
+            "2020": "八字流年庚子（天干庚为食神；立春换年）",
+            "2021": "八字流年辛丑（天干辛为伤官；立春换年）",
+            "2022": "八字流年壬寅（天干壬为偏财；立春换年）",
+            "2023": "八字大运转入丁亥（天干丁为正印；2023-06-19 22:00交运，至2033-06-19 22:00前，北京时间）",
+            "2024": "八字流年甲辰（天干甲为七杀；立春换年）",
+            "2025": "八字流年乙巳（天干乙为正官；立春换年）",
+            "2026": "八字流年丙午（天干丙为偏印；立春换年）"
+          },
+          "ziwei": {
+            "1996": "紫微大限转入本命命宫（乙酉；本命主星：天相；虚岁2–11，农历1996年起）",
+            "2006": "紫微大限转入本命父母宫（丙戌；本命主星：天机、天梁；虚岁12–21，农历2006年起）",
+            "2016": "紫微大限转入本命福德宫（丁亥；本命主星：紫微、七杀；虚岁22–31，农历2016年起）",
+            "2026": "紫微大限转入本命田宅宫（戊子；本命主星：无主星；虚岁32–41，农历2026年起）"
+          }
         }
       }
     ]
@@ -1815,7 +1928,7 @@
               "zhiWuXing": "水",
               "ganYinYang": "阴",
               "zhiYinYang": "阴",
-              "naYin": "山頭火",
+              "naYin": "山头火",
               "naYinWuXing": "火"
             },
             "shiShen": "正官",
@@ -1843,7 +1956,7 @@
               "zhiWuXing": "金",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "井泉水",
+              "naYin": "泉中水",
               "naYinWuXing": "水"
             },
             "shiShen": "七杀",
@@ -1877,7 +1990,7 @@
               "zhiWuXing": "木",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "城頭土",
+              "naYin": "城头土",
               "naYinWuXing": "土"
             },
             "shiShen": "比肩",
@@ -1937,8 +2050,33 @@
           "weakest": "火",
           "riZhuStrong": false,
           "yongShen": "火",
-          "xiShen": "水",
-          "jiShen": "水"
+          "xiShen": "土",
+          "jiShen": "木",
+          "suggestionBasis": "fuyi-heuristic",
+          "suggestionStatus": "not-empirically-validated",
+          "tiaohouApplied": false
+        },
+        "tiaoHou": {
+          "ruleId": "qiongtong.戊申",
+          "dayStem": "戊",
+          "monthBranch": "申",
+          "solarMonthOrdinal": 7,
+          "reviewStatus": "transcription-checked",
+          "candidateStems": [
+            "丙",
+            "癸",
+            "甲"
+          ],
+          "conditions": [
+            "七月阳入寒出通论",
+            "候选仅表示此转录本中的传统论述；全局条件与印刷底本尚未完全核验，不自动选定用神。"
+          ],
+          "sourceDocument": "docs/mingli/source-texts/bazi/qiongtong-baojian/wutu.md",
+          "sourceAnchor": "wutu.md:132",
+          "excerpt": "先丙后癸，甲木次之",
+          "sourceSha256": "d7cf630b217ed2286e313ee232a6f84def43dbcbbd5084fd337d83905b22aba9",
+          "editionStatus": "online-transcription-unverified-against-printed-edition",
+          "automatedSelection": false
         },
         "riZhuStructure": {
           "deLing": false,
@@ -1997,10 +2135,17 @@
             "result": "木",
             "positions": [
               "年支-日支"
-            ]
+            ],
+            "requiredBranches": [
+              "寅",
+              "亥"
+            ],
+            "missingBranches": [],
+            "completeness": "complete",
+            "outcomeEstablished": false
           },
           {
-            "type": "三合",
+            "type": "半合候选",
             "branches": [
               "申",
               "子"
@@ -2009,10 +2154,20 @@
             "positions": [
               "月支",
               "时支"
-            ]
+            ],
+            "requiredBranches": [
+              "申",
+              "子",
+              "辰"
+            ],
+            "missingBranches": [
+              "辰"
+            ],
+            "completeness": "partial",
+            "outcomeEstablished": false
           },
           {
-            "type": "三会",
+            "type": "三会候选",
             "branches": [
               "亥",
               "子"
@@ -2021,7 +2176,17 @@
             "positions": [
               "年支",
               "时支"
-            ]
+            ],
+            "requiredBranches": [
+              "亥",
+              "子",
+              "丑"
+            ],
+            "missingBranches": [
+              "丑"
+            ],
+            "completeness": "partial",
+            "outcomeEstablished": false
           },
           {
             "type": "六冲",
@@ -2065,6 +2230,7 @@
           }
         ],
         "stemRelations": [],
+        "shiShenRelations": [],
         "geJu": {
           "name": "偏财格",
           "category": "正格",
@@ -2090,13 +2256,22 @@
             "bazi.xiangshen.definition",
             "bazi.yongshen.bianhua-trigger",
             "bazi.geju.rank-criteria"
-          ]
+          ],
+          "assessmentStatus": "heuristic-candidate",
+          "conditions": [
+            "成败与等级是当前结构规则的候选输出，不是完整古籍格局裁定",
+            "隔位五合不自动合去用神；相邻合一留一不自动判全格破败",
+            "月支逢冲，须复核根气与配置影响"
+          ],
+          "yongShenGan": "壬",
+          "yongShenShiShen": "偏财",
+          "selectionBasis": "yueling-zhongqi-tougan"
         },
         "kongWang": [
           "申",
           "酉"
         ],
-        "trueSolarTimeDesc": "经度 121.5°，真太阳时比北京时间快 1分42秒",
+        "trueSolarTimeDesc": "经度 121.5°，真太阳时比北京时间快 1分11秒",
         "shenSha": [
           {
             "name": "文昌贵人",
@@ -2146,126 +2321,16 @@
             "position": "时柱",
             "description": "传统神煞，归入\"突发/风险提醒\"一类标签，常用于出行与高风险情境的关注；现代解读不作具体结论",
             "modernMeaning": "提高安全意识，在高风险情境下保持多一份谨慎"
-          },
-          {
-            "name": "太陰",
-            "type": "凶",
-            "position": "year",
-            "description": "太陰：命理中的神煞标记",
-            "modernMeaning": "太陰对你的人生有特殊影响"
-          },
-          {
-            "name": "天官符",
-            "type": "吉",
-            "position": "year",
-            "description": "天官符：命理中的神煞标记",
-            "modernMeaning": "天官符对你的人生有特殊影响"
-          },
-          {
-            "name": "天德合",
-            "type": "吉",
-            "position": "month",
-            "description": "天德合：命理中的神煞标记",
-            "modernMeaning": "天德合对你的人生有特殊影响"
-          },
-          {
-            "name": "驛馬",
-            "type": "吉",
-            "position": "month",
-            "description": "驛馬：命理中的神煞标记",
-            "modernMeaning": "驛馬对你的人生有特殊影响"
-          },
-          {
-            "name": "月刑",
-            "type": "凶",
-            "position": "month",
-            "description": "月刑：命理中的神煞标记",
-            "modernMeaning": "月刑对你的人生有特殊影响"
-          },
-          {
-            "name": "月破",
-            "type": "凶",
-            "position": "month",
-            "description": "月破：命理中的神煞标记",
-            "modernMeaning": "月破对你的人生有特殊影响"
-          },
-          {
-            "name": "大耗",
-            "type": "凶",
-            "position": "month",
-            "description": "大耗：命理中的神煞标记",
-            "modernMeaning": "大耗对你的人生有特殊影响"
-          },
-          {
-            "name": "兵禁",
-            "type": "凶",
-            "position": "month",
-            "description": "兵禁：命理中的神煞标记",
-            "modernMeaning": "兵禁对你的人生有特殊影响"
-          },
-          {
-            "name": "聖心",
-            "type": "吉",
-            "position": "month",
-            "description": "聖心：命理中的神煞标记",
-            "modernMeaning": "聖心对你的人生有特殊影响"
-          },
-          {
-            "name": "解神",
-            "type": "吉",
-            "position": "month",
-            "description": "解神：命理中的神煞标记",
-            "modernMeaning": "解神对你的人生有特殊影响"
-          },
-          {
-            "name": "天后",
-            "type": "吉",
-            "position": "month",
-            "description": "天后：命理中的神煞标记",
-            "modernMeaning": "天后对你的人生有特殊影响"
-          },
-          {
-            "name": "五合",
-            "type": "吉",
-            "position": "day",
-            "description": "五合：命理中的神煞标记",
-            "modernMeaning": "五合对你的人生有特殊影响"
-          },
-          {
-            "name": "伐日",
-            "type": "凶",
-            "position": "day",
-            "description": "伐日：命理中的神煞标记",
-            "modernMeaning": "伐日对你的人生有特殊影响"
-          },
-          {
-            "name": "天刑",
-            "type": "凶",
-            "position": "day",
-            "description": "天刑：命理中的神煞标记",
-            "modernMeaning": "天刑对你的人生有特殊影响"
-          },
-          {
-            "name": "路空",
-            "type": "凶",
-            "position": "hour",
-            "description": "路空：命理中的神煞标记",
-            "modernMeaning": "路空对你的人生有特殊影响"
-          },
-          {
-            "name": "青龍",
-            "type": "吉",
-            "position": "hour",
-            "description": "青龍：命理中的神煞标记",
-            "modernMeaning": "青龍对你的人生有特殊影响"
           }
         ],
         "daYunDirection": "顺行",
-        "daYunStartAge": 1,
+        "daYunStartAge": 8,
         "daYunList": [
           {
-            "startAge": 1,
-            "endAge": 10,
+            "startAge": 8,
+            "endAge": 17,
+            "startDate": "2003-10-06T04:30:00.000Z",
+            "endDate": "2013-10-06T04:30:00.000Z",
             "ganZhi": {
               "gan": "乙",
               "zhi": "酉",
@@ -2273,16 +2338,18 @@
               "zhiWuXing": "金",
               "ganYinYang": "阴",
               "zhiYinYang": "阴",
-              "naYin": "井泉水",
+              "naYin": "泉中水",
               "naYinWuXing": "水"
             },
             "shiShen": "正官",
             "zhiShiShen": "伤官",
-            "period": "1–10岁"
+            "period": "8–17岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 11,
-            "endAge": 20,
+            "startAge": 18,
+            "endAge": 27,
+            "startDate": "2013-10-06T04:30:00.000Z",
+            "endDate": "2023-10-06T04:30:00.000Z",
             "ganZhi": {
               "gan": "丙",
               "zhi": "戌",
@@ -2295,11 +2362,13 @@
             },
             "shiShen": "偏印",
             "zhiShiShen": "比肩",
-            "period": "11–20岁"
+            "period": "18–27岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 21,
-            "endAge": 30,
+            "startAge": 28,
+            "endAge": 37,
+            "startDate": "2023-10-06T04:30:00.000Z",
+            "endDate": "2033-10-06T04:30:00.000Z",
             "ganZhi": {
               "gan": "丁",
               "zhi": "亥",
@@ -2312,11 +2381,13 @@
             },
             "shiShen": "正印",
             "zhiShiShen": "偏财",
-            "period": "21–30岁"
+            "period": "28–37岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 31,
-            "endAge": 40,
+            "startAge": 38,
+            "endAge": 47,
+            "startDate": "2033-10-06T04:30:00.000Z",
+            "endDate": "2043-10-06T04:30:00.000Z",
             "ganZhi": {
               "gan": "戊",
               "zhi": "子",
@@ -2324,16 +2395,18 @@
               "zhiWuXing": "水",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "霹靂火",
+              "naYin": "霹雳火",
               "naYinWuXing": "火"
             },
             "shiShen": "比肩",
             "zhiShiShen": "正财",
-            "period": "31–40岁"
+            "period": "38–47岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 41,
-            "endAge": 50,
+            "startAge": 48,
+            "endAge": 57,
+            "startDate": "2043-10-06T04:30:00.000Z",
+            "endDate": "2053-10-06T04:30:00.000Z",
             "ganZhi": {
               "gan": "己",
               "zhi": "丑",
@@ -2341,16 +2414,18 @@
               "zhiWuXing": "土",
               "ganYinYang": "阴",
               "zhiYinYang": "阴",
-              "naYin": "霹靂火",
+              "naYin": "霹雳火",
               "naYinWuXing": "火"
             },
             "shiShen": "劫财",
             "zhiShiShen": "劫财",
-            "period": "41–50岁"
+            "period": "48–57岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 51,
-            "endAge": 60,
+            "startAge": 58,
+            "endAge": 67,
+            "startDate": "2053-10-06T04:30:00.000Z",
+            "endDate": "2063-10-06T04:30:00.000Z",
             "ganZhi": {
               "gan": "庚",
               "zhi": "寅",
@@ -2363,11 +2438,13 @@
             },
             "shiShen": "食神",
             "zhiShiShen": "七杀",
-            "period": "51–60岁"
+            "period": "58–67岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 61,
-            "endAge": 70,
+            "startAge": 68,
+            "endAge": 77,
+            "startDate": "2063-10-06T04:30:00.000Z",
+            "endDate": "2073-10-06T04:30:00.000Z",
             "ganZhi": {
               "gan": "辛",
               "zhi": "卯",
@@ -2380,11 +2457,13 @@
             },
             "shiShen": "伤官",
             "zhiShiShen": "正官",
-            "period": "61–70岁"
+            "period": "68–77岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 71,
-            "endAge": 80,
+            "startAge": 78,
+            "endAge": 87,
+            "startDate": "2073-10-06T04:30:00.000Z",
+            "endDate": "2083-10-06T04:30:00.000Z",
             "ganZhi": {
               "gan": "壬",
               "zhi": "辰",
@@ -2392,16 +2471,18 @@
               "zhiWuXing": "土",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "長流水",
+              "naYin": "长流水",
               "naYinWuXing": "水"
             },
             "shiShen": "偏财",
             "zhiShiShen": "比肩",
-            "period": "71–80岁"
+            "period": "78–87岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 81,
-            "endAge": 90,
+            "startAge": 88,
+            "endAge": 97,
+            "startDate": "2083-10-06T04:30:00.000Z",
+            "endDate": "2093-10-06T04:30:00.000Z",
             "ganZhi": {
               "gan": "癸",
               "zhi": "巳",
@@ -2409,16 +2490,18 @@
               "zhiWuXing": "火",
               "ganYinYang": "阴",
               "zhiYinYang": "阴",
-              "naYin": "長流水",
+              "naYin": "长流水",
               "naYinWuXing": "水"
             },
             "shiShen": "正财",
             "zhiShiShen": "偏印",
-            "period": "81–90岁"
+            "period": "88–97岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 91,
-            "endAge": 100,
+            "startAge": 98,
+            "endAge": 107,
+            "startDate": "2093-10-06T04:30:00.000Z",
+            "endDate": "2103-10-06T04:30:00.000Z",
             "ganZhi": {
               "gan": "甲",
               "zhi": "午",
@@ -2426,16 +2509,52 @@
               "zhiWuXing": "火",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "砂中金",
+              "naYin": "沙中金",
               "naYinWuXing": "金"
             },
             "shiShen": "七杀",
             "zhiShiShen": "正印",
-            "period": "91–100岁"
+            "period": "98–107岁（整岁参考，以交运日期为准）"
           }
         ],
-        "lunarDate": "一九九五年七月月二十",
-        "yearNaYin": "山頭火",
+        "qiYun": {
+          "years": 8,
+          "months": 1,
+          "days": 21,
+          "hours": 12,
+          "startDate": "2003-10-06T04:30:00.000Z",
+          "termDate": "1995-09-08T02:48:34.000Z",
+          "termName": "白露",
+          "sect": 2
+        },
+        "calculationPolicy": {
+          "version": "suji-calendar-2",
+          "provider": "lunar-javascript@1.7.7",
+          "timezone": "UTC+08:00",
+          "yearBoundary": "exact-lichun",
+          "monthBoundary": "exact-jie",
+          "dayBoundary": "zi-hour-23:00",
+          "lunarDayBoundary": "civil-midnight",
+          "solarTimeScope": "day-and-hour-only",
+          "yun": "year-polarity-gender; jie; three-days-per-year; sect-2-minute-conversion",
+          "supportedCivilYears": [
+            1901,
+            2100
+          ],
+          "civilBirthTime": "1995-08-14T16:30:00.000Z",
+          "effectiveSolarTime": "1995-08-14T16:31:11.043Z",
+          "solarTimeApplied": true,
+          "longitude": 121.47,
+          "warnings": []
+        },
+        "interpretationPolicy": {
+          "strengthYongShen": "扶抑参考（工程启发式，调候另列来源候选）",
+          "structureYongShen": "月令格局用神（子平真诠口径）",
+          "status": "traditional-interpretation-not-empirical-prediction"
+        },
+        "lunarDate": "一九九五年七月二十",
+        "solarTerm": "立秋",
+        "yearNaYin": "山头火",
         "taiYuan": {
           "gan": "乙",
           "zhi": "亥",
@@ -2443,7 +2562,7 @@
           "zhiWuXing": "水",
           "ganYinYang": "阴",
           "zhiYinYang": "阴",
-          "naYin": "山頭火",
+          "naYin": "山头火",
           "naYinWuXing": "火"
         },
         "mingGong": {
@@ -2453,7 +2572,7 @@
           "zhiWuXing": "金",
           "ganYinYang": "阴",
           "zhiYinYang": "阴",
-          "naYin": "井泉水",
+          "naYin": "泉中水",
           "naYinWuXing": "水"
         }
       },
@@ -2640,7 +2759,7 @@
                 "type": "major",
                 "source": "major",
                 "sihua": [
-                  "忌"
+                  "化忌"
                 ]
               }
             ],
@@ -2801,7 +2920,7 @@
                 "type": "major",
                 "source": "major",
                 "sihua": [
-                  "禄"
+                  "化禄"
                 ]
               },
               {
@@ -2810,7 +2929,7 @@
                 "type": "major",
                 "source": "major",
                 "sihua": [
-                  "权"
+                  "化权"
                 ]
               }
             ],
@@ -2862,7 +2981,7 @@
                 "type": "major",
                 "source": "major",
                 "sihua": [
-                  "科"
+                  "化科"
                 ]
               },
               {
@@ -2950,14 +3069,25 @@
         ],
         "mingGongPosition": "申",
         "shenGongPosition": "申",
-        "fiveElementsClass": "水二局"
+        "fiveElementsClass": "水二局",
+        "method": {
+          "algorithm": "iztro-2.5.8-default",
+          "dayBoundary": "zi-hour",
+          "yearBoundary": "lunar-new-year",
+          "leapMonth": "split-at-day-15",
+          "caveats": [
+            "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
+            "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",
+            "排盘一致性不等于对现实事件的预测效度"
+          ]
+        }
       },
       "personality": {
         "coreTraits": [
           "你擅长在环境中找到自己的位置，适应力和感知力是你的天赋",
           "你对机会的嗅觉很灵敏，善于在流动变化中抓住资源",
-          "天生具有抗压能力强的特质",
-          "天生具有果断的特质"
+          "可观察自己在抗压能力强方面的倾向",
+          "可观察自己在果断方面的倾向"
         ],
         "strengths": [
           "天生在压力中成长",
@@ -2969,7 +3099,7 @@
         "challenges": [
           "高压状态下容易焦虑",
           "与权威关系容易紧张",
-          "思维过度活跃时容易焦虑，需要给自己一个锚点"
+          "有时会因为急于成长而忽略脚下的稳定"
         ],
         "communicationStyle": "你说话稳重踏实，让人感到可靠与安心",
         "emotionalPattern": "你重视安全感，在稳定的关系中才能充分放松和展示自己",
@@ -2984,29 +3114,29 @@
       },
       "daily": {
         "date": "2026年9月19日",
-        "ganZhi": "癸丑",
-        "overallEnergy": "中",
-        "focusArea": "直觉感知、思考与沟通",
-        "advice": "今天适合平稳推进，不必强求突破，保持节奏比速度更重要",
-        "avoidance": "避免今天做无把握的冒险，已有计划比新想法更值得优先执行",
+        "ganZhi": "丙申",
+        "overallEnergy": "高",
+        "focusArea": "创意、表达与人际连接",
+        "advice": "今天能量充沛，适合推进重要事项、做关键决定或启动新计划",
+        "avoidance": "避免因状态太好而冲动行事，决策前依然保持冷静判断",
         "luckyHours": [
           "09:00–11:00",
           "11:00–13:00",
-          "23:00–01:00"
+          "07:00–09:00"
         ],
-        "affirmation": "我的价值不在于快，而在于持续和可靠。"
+        "affirmation": "我稳稳承载着一切，这份力量让我值得信赖。"
       },
       "timing": {
         "currentPhase": "你目前处于建立基础与积累资源的阶段，整体能量顺畅，是主动出击的好时机。",
         "currentEnergy": "你现在的状态像是风帆满张，整体能量充沛，外部环境对你的行动有支撑作用",
         "opportunities": [
-          "职业发展有新的晋升或突破机会，值得积极争取",
-          "收入有增长空间，可考虑稳健的资产配置"
+          "事业稳步推进，维护好现有的合作关系",
+          "财运平稳，量入为出，做好长期规划"
         ],
         "watchouts": [
           "顺势期容易忽视风险，保持清醒的判断力"
         ],
-        "advice": "这是一个值得主动出击的阶段，心中有的目标可以大胆推进，别让犹豫错过窗口",
+        "advice": "传统用神对应被触发，当前规则标签为“顺”；可尝试一个可验证的小行动，重要决定仍需现实依据",
         "luckyElements": {
           "colors": [
             "红色",
@@ -3025,21 +3155,31 @@
       "forecast": {
         "year": 2026,
         "daYun": {
-          "startAge": 31,
-          "endAge": 40,
+          "startAge": 28,
+          "endAge": 37,
+          "startDate": "2023-10-06T04:30:00.000Z",
+          "endDate": "2033-10-06T04:30:00.000Z",
           "ganZhi": {
-            "gan": "戊",
-            "zhi": "子",
-            "ganWuXing": "土",
+            "gan": "丁",
+            "zhi": "亥",
+            "ganWuXing": "火",
             "zhiWuXing": "水",
-            "ganYinYang": "阳",
-            "zhiYinYang": "阳",
-            "naYin": "霹靂火",
-            "naYinWuXing": "火"
+            "ganYinYang": "阴",
+            "zhiYinYang": "阴",
+            "naYin": "屋上土",
+            "naYinWuXing": "土"
           },
-          "shiShen": "比肩",
-          "zhiShiShen": "正财",
-          "period": "31–40岁"
+          "shiShen": "正印",
+          "zhiShiShen": "偏财",
+          "period": "28–37岁（整岁参考，以交运日期为准）"
+        },
+        "daYunStatus": "active",
+        "referenceDate": "2026-09-19T04:00:00.000Z",
+        "luckyMonthsCalendar": "solar-term-ordinal",
+        "interpretationBasis": {
+          "kind": "engineering-heuristic",
+          "calibratedProbability": false,
+          "description": "顺／平／逆和月份建议来自五行喜忌的工程规则，不是古籍数值、事件概率或财务健康预测。"
         },
         "liuNian": {
           "year": 2026,
@@ -3055,24 +3195,34 @@
           },
           "shiShen": "偏印",
           "interactions": [
-            "流年丙与时柱壬天干相冲，易有突变与意志摩擦",
-            "流年午冲时柱子（六冲），时支受冲，子女或晚辈有变动，晚运需注意",
-            "流年午冲大运子（六冲），大运地支受冲，该步大运整体动荡感增强，需稳住心态",
-            "流年天干丙属火，逢用神之年，整体运势较顺，利于突破与发展"
+            "流年丙与时柱壬天干相冲；传统上用于讨论张力，不代表现实事件必然发生",
+            "流年午冲时柱子（六冲），传统解释常联系长期计划，不据此预测子女或晚年事件",
+            "流年天干丙属火，与当前扶抑参考的用神一致，属于规则内的对应关系"
           ]
         },
         "overallTrend": "顺",
-        "careerOutlook": "用神得力，事业推进顺畅，适合开展新项目或寻求突破",
-        "wealthOutlook": "财运平稳向好，正职收入有望增长",
-        "relationshipOutlook": "感情平稳，维系好现有关系，不宜强求大变化",
-        "healthOutlook": "健康状况良好，留意心脑相关保养，保持适度运动",
-        "keyAdvice": "运势顺畅，用神得助，把握机遇大胆推进重要决策，是发展的黄金时期",
+        "careerOutlook": "传统用神对应被触发；可将想推进的项目拆成可验证的小步骤，进展仍以现实反馈为准",
+        "wealthOutlook": "财务计划请依据实际收入、负债和目标制定，命盘不提供收益预测",
+        "relationshipOutlook": "关系发展仍取决于双方的现实互动，可从倾听与清楚表达期待开始",
+        "healthOutlook": "命理中的五行意象不能用于判断健康状况或疾病风险；日常保持规律作息与适度运动，身体不适时以医疗意见为准。",
+        "keyAdvice": "传统用神对应被触发，当前规则标签为“顺”；可尝试一个可验证的小行动，重要决定仍需现实依据",
         "luckyMonths": [
+          3,
           4,
           5,
-          10,
-          11
-        ]
+          6,
+          9,
+          12
+        ],
+        "annualCycle": {
+          "labelYear": 2026,
+          "startDate": "2026-02-03T20:02:08.000Z",
+          "endDate": "2027-02-04T01:46:18.000Z",
+          "isActiveAtReference": true,
+          "activeYearAtReference": 2026,
+          "activeYearGanZhi": "丙午"
+        },
+        "requestReferenceDate": "2026-09-19T04:00:00.000Z"
       }
     }
   },
@@ -3105,7 +3255,7 @@
               "zhiWuXing": "水",
               "ganYinYang": "阴",
               "zhiYinYang": "阴",
-              "naYin": "山頭火",
+              "naYin": "山头火",
               "naYinWuXing": "火"
             },
             "shiShen": "七杀",
@@ -3133,7 +3283,7 @@
               "zhiWuXing": "金",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "井泉水",
+              "naYin": "泉中水",
               "naYinWuXing": "水"
             },
             "shiShen": "正官",
@@ -3167,7 +3317,7 @@
               "zhiWuXing": "木",
               "ganYinYang": "阴",
               "zhiYinYang": "阴",
-              "naYin": "城頭土",
+              "naYin": "城头土",
               "naYinWuXing": "土"
             },
             "shiShen": "比肩",
@@ -3215,8 +3365,33 @@
           "weakest": "火",
           "riZhuStrong": false,
           "yongShen": "火",
-          "xiShen": "水",
-          "jiShen": "金"
+          "xiShen": "土",
+          "jiShen": "木",
+          "suggestionBasis": "fuyi-heuristic",
+          "suggestionStatus": "not-empirically-validated",
+          "tiaohouApplied": false
+        },
+        "tiaoHou": {
+          "ruleId": "qiongtong.己申",
+          "dayStem": "己",
+          "monthBranch": "申",
+          "solarMonthOrdinal": 7,
+          "reviewStatus": "transcription-checked",
+          "candidateStems": [
+            "癸",
+            "丙",
+            "辛"
+          ],
+          "conditions": [
+            "三秋共享段；有壬无丙及金局等不同条件未自动判断",
+            "候选仅表示此转录本中的传统论述；全局条件与印刷底本尚未完全核验，不自动选定用神。"
+          ],
+          "sourceDocument": "docs/mingli/source-texts/bazi/qiongtong-baojian/jitu.md",
+          "sourceAnchor": "jitu.md:134",
+          "excerpt": "三秋己土，先癸后丙，取辛辅癸",
+          "sourceSha256": "260627d8cd3d7351ff45c7c189d7a7b89d38162aba6b98115531b1a747bb7916",
+          "editionStatus": "online-transcription-unverified-against-printed-edition",
+          "automatedSelection": false
         },
         "riZhuStructure": {
           "deLing": false,
@@ -3251,7 +3426,7 @@
         },
         "branchRelations": [
           {
-            "type": "三合",
+            "type": "半合候选",
             "branches": [
               "申",
               "子"
@@ -3260,10 +3435,20 @@
             "positions": [
               "月支",
               "时支"
-            ]
+            ],
+            "requiredBranches": [
+              "申",
+              "子",
+              "辰"
+            ],
+            "missingBranches": [
+              "辰"
+            ],
+            "completeness": "partial",
+            "outcomeEstablished": false
           },
           {
-            "type": "三合",
+            "type": "半合候选",
             "branches": [
               "亥",
               "卯"
@@ -3272,10 +3457,20 @@
             "positions": [
               "年支",
               "日支"
-            ]
+            ],
+            "requiredBranches": [
+              "亥",
+              "卯",
+              "未"
+            ],
+            "missingBranches": [
+              "未"
+            ],
+            "completeness": "partial",
+            "outcomeEstablished": false
           },
           {
-            "type": "三会",
+            "type": "三会候选",
             "branches": [
               "亥",
               "子"
@@ -3284,7 +3479,17 @@
             "positions": [
               "年支",
               "时支"
-            ]
+            ],
+            "requiredBranches": [
+              "亥",
+              "子",
+              "丑"
+            ],
+            "missingBranches": [
+              "丑"
+            ],
+            "completeness": "partial",
+            "outcomeEstablished": false
           },
           {
             "type": "六害",
@@ -3329,35 +3534,83 @@
               "月干-日干",
               "日干-时干"
             ],
-            "heHua": false,
-            "heHuaDesc": "甲己合而不化：化神土未得令"
+            "heHuaDesc": "甲己五合，传统化神方向为土；成化未定。存在紧邻争合配对，不能自动选定一对成化；月令本气不属所列化神五行；五合方向不等于成化；根气、坐支及全局条件尚未完整求解",
+            "combinationAssessments": [
+              {
+                "positions": [
+                  1,
+                  2
+                ],
+                "adjacent": true,
+                "competingAdjacentPartner": true,
+                "monthSupportsTransformation": false,
+                "status": "unresolved",
+                "reasons": [
+                  "存在紧邻争合配对，不能自动选定一对成化",
+                  "月令本气不属所列化神五行",
+                  "五合方向不等于成化；根气、坐支及全局条件尚未完整求解"
+                ],
+                "transformationEstablished": false
+              },
+              {
+                "positions": [
+                  2,
+                  3
+                ],
+                "adjacent": true,
+                "competingAdjacentPartner": true,
+                "monthSupportsTransformation": false,
+                "status": "unresolved",
+                "reasons": [
+                  "存在紧邻争合配对，不能自动选定一对成化",
+                  "月令本气不属所列化神五行",
+                  "五合方向不等于成化；根气、坐支及全局条件尚未完整求解"
+                ],
+                "transformationEstablished": false
+              }
+            ]
           }
         ],
+        "shiShenRelations": [],
         "geJu": {
-          "name": "从官格",
-          "category": "特殊格",
-          "strength": "上",
-          "description": "从官格",
-          "modernMeaning": "从官格"
+          "name": "伤官格",
+          "category": "正格",
+          "strength": "下",
+          "description": "伤官格",
+          "modernMeaning": "伤官格"
         },
         "geJuV2": {
-          "phaseId": "cong-官-ge",
-          "name": "从官格",
-          "category": "conge",
-          "yongShen": "木",
-          "xiangShen": null,
-          "chengBai": "cheng",
+          "phaseId": "shangguan-ge",
+          "name": "伤官格",
+          "category": "zhengge",
+          "yongShen": "金",
+          "xiangShen": {
+            "wuXing": "水",
+            "shiShen": "正财",
+            "role": "伤官佩印 / 伤官生财"
+          },
+          "chengBai": "po",
           "jiuYing": null,
-          "jibie": "shang",
+          "jibie": "xia",
           "evidence": [
+            "bazi.yongshen.priority-chain",
+            "bazi.xiangshen.definition",
             "bazi.geju.rank-criteria"
-          ]
+          ],
+          "assessmentStatus": "heuristic-candidate",
+          "conditions": [
+            "成败与等级是当前结构规则的候选输出，不是完整古籍格局裁定",
+            "隔位五合不自动合去用神；相邻合一留一不自动判全格破败"
+          ],
+          "yongShenGan": "庚",
+          "yongShenShiShen": "伤官",
+          "selectionBasis": "jianlu-yueliu"
         },
         "kongWang": [
           "申",
           "酉"
         ],
-        "trueSolarTimeDesc": "经度 121.5°，真太阳时比北京时间快 1分42秒",
+        "trueSolarTimeDesc": "经度 121.5°，真太阳时比北京时间快 1分22秒",
         "shenSha": [
           {
             "name": "天乙贵人",
@@ -3407,126 +3660,16 @@
             "position": "月柱",
             "description": "传统神煞，归入\"外耗\"一类标签，常用于合作识人与签约细节的提醒；现代解读不作具体结论",
             "modernMeaning": "注意识别身边不可靠之人，合作时务必谨慎签约核查"
-          },
-          {
-            "name": "歲祿",
-            "type": "吉",
-            "position": "year",
-            "description": "歲祿：命理中的神煞标记",
-            "modernMeaning": "歲祿对你的人生有特殊影响"
-          },
-          {
-            "name": "官符",
-            "type": "吉",
-            "position": "year",
-            "description": "官符：命理中的神煞标记",
-            "modernMeaning": "官符对你的人生有特殊影响"
-          },
-          {
-            "name": "功曹",
-            "type": "吉",
-            "position": "year",
-            "description": "功曹：命理中的神煞标记",
-            "modernMeaning": "功曹对你的人生有特殊影响"
-          },
-          {
-            "name": "大煞",
-            "type": "凶",
-            "position": "year",
-            "description": "大煞：命理中的神煞标记",
-            "modernMeaning": "大煞对你的人生有特殊影响"
-          },
-          {
-            "name": "畜官",
-            "type": "吉",
-            "position": "year",
-            "description": "畜官：命理中的神煞标记",
-            "modernMeaning": "畜官对你的人生有特殊影响"
-          },
-          {
-            "name": "天吏",
-            "type": "凶",
-            "position": "month",
-            "description": "天吏：命理中的神煞标记",
-            "modernMeaning": "天吏对你的人生有特殊影响"
-          },
-          {
-            "name": "土符",
-            "type": "凶",
-            "position": "month",
-            "description": "土符：命理中的神煞标记",
-            "modernMeaning": "土符对你的人生有特殊影响"
-          },
-          {
-            "name": "致死",
-            "type": "凶",
-            "position": "month",
-            "description": "致死：命理中的神煞标记",
-            "modernMeaning": "致死对你的人生有特殊影响"
-          },
-          {
-            "name": "五虛",
-            "type": "凶",
-            "position": "month",
-            "description": "五虛：命理中的神煞标记",
-            "modernMeaning": "五虛对你的人生有特殊影响"
-          },
-          {
-            "name": "天恩",
-            "type": "吉",
-            "position": "day",
-            "description": "天恩：命理中的神煞标记",
-            "modernMeaning": "天恩对你的人生有特殊影响"
-          },
-          {
-            "name": "五合",
-            "type": "吉",
-            "position": "day",
-            "description": "五合：命理中的神煞标记",
-            "modernMeaning": "五合对你的人生有特殊影响"
-          },
-          {
-            "name": "伐日",
-            "type": "凶",
-            "position": "day",
-            "description": "伐日：命理中的神煞标记",
-            "modernMeaning": "伐日对你的人生有特殊影响"
-          },
-          {
-            "name": "朱雀",
-            "type": "凶",
-            "position": "day",
-            "description": "朱雀：命理中的神煞标记",
-            "modernMeaning": "朱雀对你的人生有特殊影响"
-          },
-          {
-            "name": "天乙貴人",
-            "type": "吉",
-            "position": "hour",
-            "description": "天乙貴人：命理中的神煞标记",
-            "modernMeaning": "天乙貴人对你的人生有特殊影响"
-          },
-          {
-            "name": "日刑",
-            "type": "凶",
-            "position": "hour",
-            "description": "日刑：命理中的神煞标记",
-            "modernMeaning": "日刑对你的人生有特殊影响"
-          },
-          {
-            "name": "司命",
-            "type": "吉",
-            "position": "hour",
-            "description": "司命：命理中的神煞标记",
-            "modernMeaning": "司命对你的人生有特殊影响"
           }
         ],
         "daYunDirection": "顺行",
-        "daYunStartAge": 1,
+        "daYunStartAge": 7,
         "daYunList": [
           {
-            "startAge": 1,
-            "endAge": 10,
+            "startAge": 7,
+            "endAge": 16,
+            "startDate": "2003-06-11T03:30:00.000Z",
+            "endDate": "2013-06-11T03:30:00.000Z",
             "ganZhi": {
               "gan": "乙",
               "zhi": "酉",
@@ -3534,16 +3677,18 @@
               "zhiWuXing": "金",
               "ganYinYang": "阴",
               "zhiYinYang": "阴",
-              "naYin": "井泉水",
+              "naYin": "泉中水",
               "naYinWuXing": "水"
             },
             "shiShen": "七杀",
             "zhiShiShen": "食神",
-            "period": "1–10岁"
+            "period": "7–16岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 11,
-            "endAge": 20,
+            "startAge": 17,
+            "endAge": 26,
+            "startDate": "2013-06-11T03:30:00.000Z",
+            "endDate": "2023-06-11T03:30:00.000Z",
             "ganZhi": {
               "gan": "丙",
               "zhi": "戌",
@@ -3556,11 +3701,13 @@
             },
             "shiShen": "正印",
             "zhiShiShen": "劫财",
-            "period": "11–20岁"
+            "period": "17–26岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 21,
-            "endAge": 30,
+            "startAge": 27,
+            "endAge": 36,
+            "startDate": "2023-06-11T03:30:00.000Z",
+            "endDate": "2033-06-11T03:30:00.000Z",
             "ganZhi": {
               "gan": "丁",
               "zhi": "亥",
@@ -3573,11 +3720,13 @@
             },
             "shiShen": "偏印",
             "zhiShiShen": "正财",
-            "period": "21–30岁"
+            "period": "27–36岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 31,
-            "endAge": 40,
+            "startAge": 37,
+            "endAge": 46,
+            "startDate": "2033-06-11T03:30:00.000Z",
+            "endDate": "2043-06-11T03:30:00.000Z",
             "ganZhi": {
               "gan": "戊",
               "zhi": "子",
@@ -3585,16 +3734,18 @@
               "zhiWuXing": "水",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "霹靂火",
+              "naYin": "霹雳火",
               "naYinWuXing": "火"
             },
             "shiShen": "劫财",
             "zhiShiShen": "偏财",
-            "period": "31–40岁"
+            "period": "37–46岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 41,
-            "endAge": 50,
+            "startAge": 47,
+            "endAge": 56,
+            "startDate": "2043-06-11T03:30:00.000Z",
+            "endDate": "2053-06-11T03:30:00.000Z",
             "ganZhi": {
               "gan": "己",
               "zhi": "丑",
@@ -3602,16 +3753,18 @@
               "zhiWuXing": "土",
               "ganYinYang": "阴",
               "zhiYinYang": "阴",
-              "naYin": "霹靂火",
+              "naYin": "霹雳火",
               "naYinWuXing": "火"
             },
             "shiShen": "比肩",
             "zhiShiShen": "比肩",
-            "period": "41–50岁"
+            "period": "47–56岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 51,
-            "endAge": 60,
+            "startAge": 57,
+            "endAge": 66,
+            "startDate": "2053-06-11T03:30:00.000Z",
+            "endDate": "2063-06-11T03:30:00.000Z",
             "ganZhi": {
               "gan": "庚",
               "zhi": "寅",
@@ -3624,11 +3777,13 @@
             },
             "shiShen": "伤官",
             "zhiShiShen": "正官",
-            "period": "51–60岁"
+            "period": "57–66岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 61,
-            "endAge": 70,
+            "startAge": 67,
+            "endAge": 76,
+            "startDate": "2063-06-11T03:30:00.000Z",
+            "endDate": "2073-06-11T03:30:00.000Z",
             "ganZhi": {
               "gan": "辛",
               "zhi": "卯",
@@ -3641,11 +3796,13 @@
             },
             "shiShen": "食神",
             "zhiShiShen": "七杀",
-            "period": "61–70岁"
+            "period": "67–76岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 71,
-            "endAge": 80,
+            "startAge": 77,
+            "endAge": 86,
+            "startDate": "2073-06-11T03:30:00.000Z",
+            "endDate": "2083-06-11T03:30:00.000Z",
             "ganZhi": {
               "gan": "壬",
               "zhi": "辰",
@@ -3653,16 +3810,18 @@
               "zhiWuXing": "土",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "長流水",
+              "naYin": "长流水",
               "naYinWuXing": "水"
             },
             "shiShen": "正财",
             "zhiShiShen": "劫财",
-            "period": "71–80岁"
+            "period": "77–86岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 81,
-            "endAge": 90,
+            "startAge": 87,
+            "endAge": 96,
+            "startDate": "2083-06-11T03:30:00.000Z",
+            "endDate": "2093-06-11T03:30:00.000Z",
             "ganZhi": {
               "gan": "癸",
               "zhi": "巳",
@@ -3670,16 +3829,18 @@
               "zhiWuXing": "火",
               "ganYinYang": "阴",
               "zhiYinYang": "阴",
-              "naYin": "長流水",
+              "naYin": "长流水",
               "naYinWuXing": "水"
             },
             "shiShen": "偏财",
             "zhiShiShen": "正印",
-            "period": "81–90岁"
+            "period": "87–96岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 91,
-            "endAge": 100,
+            "startAge": 97,
+            "endAge": 106,
+            "startDate": "2093-06-11T03:30:00.000Z",
+            "endDate": "2103-06-11T03:30:00.000Z",
             "ganZhi": {
               "gan": "甲",
               "zhi": "午",
@@ -3687,16 +3848,52 @@
               "zhiWuXing": "火",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "砂中金",
+              "naYin": "沙中金",
               "naYinWuXing": "金"
             },
             "shiShen": "正官",
             "zhiShiShen": "偏印",
-            "period": "91–100岁"
+            "period": "97–106岁（整岁参考，以交运日期为准）"
           }
         ],
-        "lunarDate": "一九九五年七月月廿一",
-        "yearNaYin": "山頭火",
+        "qiYun": {
+          "years": 7,
+          "months": 9,
+          "days": 26,
+          "hours": 12,
+          "startDate": "2003-06-11T03:30:00.000Z",
+          "termDate": "1995-09-08T02:48:34.000Z",
+          "termName": "白露",
+          "sect": 2
+        },
+        "calculationPolicy": {
+          "version": "suji-calendar-2",
+          "provider": "lunar-javascript@1.7.7",
+          "timezone": "UTC+08:00",
+          "yearBoundary": "exact-lichun",
+          "monthBoundary": "exact-jie",
+          "dayBoundary": "zi-hour-23:00",
+          "lunarDayBoundary": "civil-midnight",
+          "solarTimeScope": "day-and-hour-only",
+          "yun": "year-polarity-gender; jie; three-days-per-year; sect-2-minute-conversion",
+          "supportedCivilYears": [
+            1901,
+            2100
+          ],
+          "civilBirthTime": "1995-08-15T15:30:00.000Z",
+          "effectiveSolarTime": "1995-08-15T15:31:22.005Z",
+          "solarTimeApplied": true,
+          "longitude": 121.47,
+          "warnings": []
+        },
+        "interpretationPolicy": {
+          "strengthYongShen": "扶抑参考（工程启发式，调候另列来源候选）",
+          "structureYongShen": "月令格局用神（子平真诠口径）",
+          "status": "traditional-interpretation-not-empirical-prediction"
+        },
+        "lunarDate": "一九九五年七月二十",
+        "solarTerm": "立秋",
+        "yearNaYin": "山头火",
         "taiYuan": {
           "gan": "乙",
           "zhi": "亥",
@@ -3704,7 +3901,7 @@
           "zhiWuXing": "水",
           "ganYinYang": "阴",
           "zhiYinYang": "阴",
-          "naYin": "山頭火",
+          "naYin": "山头火",
           "naYinWuXing": "火"
         },
         "mingGong": {
@@ -3714,7 +3911,7 @@
           "zhiWuXing": "金",
           "ganYinYang": "阴",
           "zhiYinYang": "阴",
-          "naYin": "井泉水",
+          "naYin": "泉中水",
           "naYinWuXing": "水"
         }
       },
@@ -3835,11 +4032,6 @@
                 "source": "adjective"
               },
               {
-                "name": "恩光",
-                "type": "helper",
-                "source": "adjective"
-              },
-              {
                 "name": "天官",
                 "type": "helper",
                 "source": "adjective"
@@ -3872,7 +4064,7 @@
                 "source": "minor"
               },
               {
-                "name": "三台",
+                "name": "恩光",
                 "type": "helper",
                 "source": "adjective"
               },
@@ -3901,11 +4093,16 @@
                 "type": "major",
                 "source": "major",
                 "sihua": [
-                  "忌"
+                  "化忌"
                 ]
               }
             ],
             "minorStars": [
+              {
+                "name": "三台",
+                "type": "helper",
+                "source": "adjective"
+              },
               {
                 "name": "台辅",
                 "type": "helper",
@@ -4002,6 +4199,11 @@
                 "source": "minor"
               },
               {
+                "name": "八座",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
                 "name": "天福",
                 "type": "helper",
                 "source": "adjective"
@@ -4034,11 +4236,6 @@
                 "source": "minor"
               },
               {
-                "name": "八座",
-                "type": "helper",
-                "source": "adjective"
-              },
-              {
                 "name": "旬空",
                 "type": "helper",
                 "source": "adjective"
@@ -4062,7 +4259,7 @@
                 "type": "major",
                 "source": "major",
                 "sihua": [
-                  "禄"
+                  "化禄"
                 ]
               },
               {
@@ -4071,7 +4268,7 @@
                 "type": "major",
                 "source": "major",
                 "sihua": [
-                  "权"
+                  "化权"
                 ]
               }
             ],
@@ -4100,11 +4297,6 @@
                 "source": "adjective"
               },
               {
-                "name": "天贵",
-                "type": "helper",
-                "source": "adjective"
-              },
-              {
                 "name": "寡宿",
                 "type": "helper",
                 "source": "adjective"
@@ -4123,7 +4315,7 @@
                 "type": "major",
                 "source": "major",
                 "sihua": [
-                  "科"
+                  "化科"
                 ]
               },
               {
@@ -4145,6 +4337,11 @@
                 "brightness": "",
                 "type": "tough",
                 "source": "minor"
+              },
+              {
+                "name": "天贵",
+                "type": "helper",
+                "source": "adjective"
               },
               {
                 "name": "凤阁",
@@ -4211,14 +4408,25 @@
         ],
         "mingGongPosition": "申",
         "shenGongPosition": "申",
-        "fiveElementsClass": "水二局"
+        "fiveElementsClass": "水二局",
+        "method": {
+          "algorithm": "iztro-2.5.8-default",
+          "dayBoundary": "zi-hour",
+          "yearBoundary": "lunar-new-year",
+          "leapMonth": "split-at-day-15",
+          "caveats": [
+            "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
+            "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",
+            "排盘一致性不等于对现实事件的预测效度"
+          ]
+        }
       },
       "personality": {
         "coreTraits": [
           "你擅长在环境中找到自己的位置，适应力和感知力是你的天赋",
-          "从官格",
-          "天生具有秩序感强的特质",
-          "天生具有有责任心的特质"
+          "你内心有一种打破常规的冲动，适合在创新领域施展才华",
+          "可观察自己在秩序感强方面的倾向",
+          "可观察自己在有责任心方面的倾向"
         ],
         "strengths": [
           "可靠守信，在体制内发展好",
@@ -4230,11 +4438,15 @@
         "challenges": [
           "对不确定性的容忍度偏低",
           "变化快时容易感到不适",
-          "完美主义倾向有时会成为前进的阻力"
+          "对规则的抗拒有时会带来不必要的摩擦，需要找到创新与合作的平衡点",
+          "有时会因为急于成长而忽略脚下的稳定"
         ],
         "communicationStyle": "你说话稳重踏实，让人感到可靠与安心",
         "emotionalPattern": "你重视安全感，在稳定的关系中才能充分放松和展示自己",
         "careerAptitude": [
+          "创新与研发",
+          "艺术表演",
+          "咨询与顾问",
           "房地产与建筑",
           "农业与食品"
         ],
@@ -4242,29 +4454,29 @@
       },
       "daily": {
         "date": "2026年9月19日",
-        "ganZhi": "癸丑",
-        "overallEnergy": "中",
-        "focusArea": "直觉感知、思考与沟通",
-        "advice": "今天适合平稳推进，不必强求突破，保持节奏比速度更重要",
-        "avoidance": "避免今天做无把握的冒险，已有计划比新想法更值得优先执行",
+        "ganZhi": "丙申",
+        "overallEnergy": "高",
+        "focusArea": "创意、表达与人际连接",
+        "advice": "今天能量充沛，适合推进重要事项、做关键决定或启动新计划",
+        "avoidance": "避免因状态太好而冲动行事，决策前依然保持冷静判断",
         "luckyHours": [
           "09:00–11:00",
           "11:00–13:00",
-          "23:00–01:00"
+          "07:00–09:00"
         ],
-        "affirmation": "我的价值不在于快，而在于持续和可靠。"
+        "affirmation": "我稳稳承载着一切，这份力量让我值得信赖。"
       },
       "timing": {
         "currentPhase": "你目前处于建立基础与积累资源的阶段，整体能量顺畅，是主动出击的好时机。",
         "currentEnergy": "你现在的状态像是风帆满张，整体能量充沛，外部环境对你的行动有支撑作用",
         "opportunities": [
-          "职业发展有新的晋升或突破机会，值得积极争取",
-          "收入有增长空间，可考虑稳健的资产配置"
+          "事业稳步推进，维护好现有的合作关系",
+          "财运平稳，量入为出，做好长期规划"
         ],
         "watchouts": [
           "顺势期容易忽视风险，保持清醒的判断力"
         ],
-        "advice": "这是一个值得主动出击的阶段，心中有的目标可以大胆推进，别让犹豫错过窗口",
+        "advice": "传统用神对应被触发，当前规则标签为“顺”；可尝试一个可验证的小行动，重要决定仍需现实依据",
         "luckyElements": {
           "colors": [
             "红色",
@@ -4283,21 +4495,31 @@
       "forecast": {
         "year": 2026,
         "daYun": {
-          "startAge": 31,
-          "endAge": 40,
+          "startAge": 27,
+          "endAge": 36,
+          "startDate": "2023-06-11T03:30:00.000Z",
+          "endDate": "2033-06-11T03:30:00.000Z",
           "ganZhi": {
-            "gan": "戊",
-            "zhi": "子",
-            "ganWuXing": "土",
+            "gan": "丁",
+            "zhi": "亥",
+            "ganWuXing": "火",
             "zhiWuXing": "水",
-            "ganYinYang": "阳",
-            "zhiYinYang": "阳",
-            "naYin": "霹靂火",
-            "naYinWuXing": "火"
+            "ganYinYang": "阴",
+            "zhiYinYang": "阴",
+            "naYin": "屋上土",
+            "naYinWuXing": "土"
           },
-          "shiShen": "劫财",
-          "zhiShiShen": "偏财",
-          "period": "31–40岁"
+          "shiShen": "偏印",
+          "zhiShiShen": "正财",
+          "period": "27–36岁（整岁参考，以交运日期为准）"
+        },
+        "daYunStatus": "active",
+        "referenceDate": "2026-09-19T04:00:00.000Z",
+        "luckyMonthsCalendar": "solar-term-ordinal",
+        "interpretationBasis": {
+          "kind": "engineering-heuristic",
+          "calibratedProbability": false,
+          "description": "顺／平／逆和月份建议来自五行喜忌的工程规则，不是古籍数值、事件概率或财务健康预测。"
         },
         "liuNian": {
           "year": 2026,
@@ -4313,23 +4535,33 @@
           },
           "shiShen": "正印",
           "interactions": [
-            "流年午冲时柱子（六冲），时支受冲，子女或晚辈有变动，晚运需注意",
-            "流年午冲大运子（六冲），大运地支受冲，该步大运整体动荡感增强，需稳住心态",
-            "流年天干丙属火，逢用神之年，整体运势较顺，利于突破与发展"
+            "流年午冲时柱子（六冲），传统解释常联系长期计划，不据此预测子女或晚年事件",
+            "流年天干丙属火，与当前扶抑参考的用神一致，属于规则内的对应关系"
           ]
         },
         "overallTrend": "顺",
-        "careerOutlook": "用神得力，事业推进顺畅，适合开展新项目或寻求突破",
-        "wealthOutlook": "财运平稳向好，正职收入有望增长",
-        "relationshipOutlook": "感情平稳，维系好现有关系，不宜强求大变化",
-        "healthOutlook": "健康状况良好，留意心脑相关保养，保持适度运动",
-        "keyAdvice": "运势顺畅，用神得助，把握机遇大胆推进重要决策，是发展的黄金时期",
+        "careerOutlook": "传统用神对应被触发；可将想推进的项目拆成可验证的小步骤，进展仍以现实反馈为准",
+        "wealthOutlook": "财务计划请依据实际收入、负债和目标制定，命盘不提供收益预测",
+        "relationshipOutlook": "关系发展仍取决于双方的现实互动，可从倾听与清楚表达期待开始",
+        "healthOutlook": "命理中的五行意象不能用于判断健康状况或疾病风险；日常保持规律作息与适度运动，身体不适时以医疗意见为准。",
+        "keyAdvice": "传统用神对应被触发，当前规则标签为“顺”；可尝试一个可验证的小行动，重要决定仍需现实依据",
         "luckyMonths": [
+          3,
           4,
           5,
-          10,
-          11
-        ]
+          6,
+          9,
+          12
+        ],
+        "annualCycle": {
+          "labelYear": 2026,
+          "startDate": "2026-02-03T20:02:08.000Z",
+          "endDate": "2027-02-04T01:46:18.000Z",
+          "isActiveAtReference": true,
+          "activeYearAtReference": 2026,
+          "activeYearGanZhi": "丙午"
+        },
+        "requestReferenceDate": "2026-09-19T04:00:00.000Z"
       }
     }
   },
@@ -4362,7 +4594,7 @@
               "zhiWuXing": "土",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "白臘金",
+              "naYin": "白蜡金",
               "naYinWuXing": "金"
             },
             "shiShen": "偏财",
@@ -4396,7 +4628,7 @@
               "zhiWuXing": "木",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "城頭土",
+              "naYin": "城头土",
               "naYinWuXing": "土"
             },
             "shiShen": "食神",
@@ -4430,7 +4662,7 @@
               "zhiWuXing": "土",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "砂中土",
+              "naYin": "沙中土",
               "naYinWuXing": "土"
             },
             "shiShen": "比肩",
@@ -4495,9 +4727,33 @@
           "strongest": "土",
           "weakest": "金",
           "riZhuStrong": false,
-          "yongShen": "水",
-          "xiShen": "金",
-          "jiShen": "土"
+          "yongShen": "木",
+          "xiShen": "火",
+          "jiShen": "水",
+          "suggestionBasis": "fuyi-heuristic",
+          "suggestionStatus": "not-empirically-validated",
+          "tiaohouApplied": false
+        },
+        "tiaoHou": {
+          "ruleId": "qiongtong.丙寅",
+          "dayStem": "丙",
+          "monthBranch": "寅",
+          "solarMonthOrdinal": 1,
+          "reviewStatus": "transcription-checked",
+          "candidateStems": [
+            "壬",
+            "庚"
+          ],
+          "conditions": [
+            "通论候选；透藏与其他条件未自动判定",
+            "候选仅表示此转录本中的传统论述；全局条件与印刷底本尚未完全核验，不自动选定用神。"
+          ],
+          "sourceDocument": "docs/mingli/source-texts/bazi/qiongtong-baojian/binghuo.md",
+          "sourceAnchor": "binghuo.md:40",
+          "excerpt": "取壬为尊，庚金佐之",
+          "sourceSha256": "54cb3fdb1e90ce2d4c06695a8bb3eba6d810051ea66bc683cb1a39d49857fc77",
+          "editionStatus": "online-transcription-unverified-against-printed-edition",
+          "automatedSelection": false
         },
         "riZhuStructure": {
           "deLing": true,
@@ -4572,10 +4828,17 @@
             "result": "木",
             "positions": [
               "月支-时支"
-            ]
+            ],
+            "requiredBranches": [
+              "寅",
+              "亥"
+            ],
+            "missingBranches": [],
+            "completeness": "complete",
+            "outcomeEstablished": false
           },
           {
-            "type": "三会",
+            "type": "三会候选",
             "branches": [
               "寅",
               "辰"
@@ -4584,7 +4847,17 @@
             "positions": [
               "月支",
               "年支"
-            ]
+            ],
+            "requiredBranches": [
+              "寅",
+              "卯",
+              "辰"
+            ],
+            "missingBranches": [
+              "卯"
+            ],
+            "completeness": "partial",
+            "outcomeEstablished": false
           },
           {
             "type": "六破",
@@ -4608,16 +4881,17 @@
           }
         ],
         "stemRelations": [],
+        "shiShenRelations": [],
         "geJu": {
-          "name": "建禄格",
+          "name": "比肩结构（格局待辨）",
           "category": "正格",
           "strength": "中",
-          "description": "建禄格",
-          "modernMeaning": "建禄格"
+          "description": "比肩结构（格局待辨）",
+          "modernMeaning": "比肩结构（格局待辨）"
         },
         "geJuV2": {
-          "phaseId": "jianlu-ge",
-          "name": "建禄格",
+          "phaseId": "bijie-pending",
+          "name": "比肩结构（格局待辨）",
           "category": "zhengge",
           "yongShen": "火",
           "xiangShen": {
@@ -4632,13 +4906,21 @@
             "bazi.yongshen.priority-chain",
             "bazi.xiangshen.definition",
             "bazi.yongshen.bianhua-trigger"
-          ]
+          ],
+          "assessmentStatus": "heuristic-candidate",
+          "conditions": [
+            "成败与等级是当前结构规则的候选输出，不是完整古籍格局裁定",
+            "隔位五合不自动合去用神；相邻合一留一不自动判全格破败"
+          ],
+          "yongShenGan": "丙",
+          "yongShenShiShen": "比肩",
+          "selectionBasis": "yueling-zhongqi-tougan"
         },
         "kongWang": [
           "子",
           "丑"
         ],
-        "trueSolarTimeDesc": "经度 87.6°，真太阳时比北京时间慢 142分34秒（⚠️ 时辰已变）",
+        "trueSolarTimeDesc": "经度 87.6°，真太阳时比北京时间慢 142分9秒（⚠️ 时辰已变）",
         "shenSha": [
           {
             "name": "天乙贵人",
@@ -4688,189 +4970,16 @@
             "position": "时柱",
             "description": "婚姻感情之星，主感情顺遂，婚缘美满，易逢喜庆之事",
             "modernMeaning": "你的感情生活容易获得美好结果，婚姻运势较为顺遂"
-          },
-          {
-            "name": "金神",
-            "type": "凶",
-            "position": "year",
-            "description": "金神：命理中的神煞标记",
-            "modernMeaning": "金神对你的人生有特殊影响"
-          },
-          {
-            "name": "太歲",
-            "type": "凶",
-            "position": "year",
-            "description": "太歲：命理中的神煞标记",
-            "modernMeaning": "太歲对你的人生有特殊影响"
-          },
-          {
-            "name": "傳送",
-            "type": "吉",
-            "position": "year",
-            "description": "傳送：命理中的神煞标记",
-            "modernMeaning": "傳送对你的人生有特殊影响"
-          },
-          {
-            "name": "歲刑",
-            "type": "凶",
-            "position": "year",
-            "description": "歲刑：命理中的神煞标记",
-            "modernMeaning": "歲刑对你的人生有特殊影响"
-          },
-          {
-            "name": "伏兵",
-            "type": "凶",
-            "position": "year",
-            "description": "伏兵：命理中的神煞标记",
-            "modernMeaning": "伏兵对你的人生有特殊影响"
-          },
-          {
-            "name": "坐煞",
-            "type": "凶",
-            "position": "year",
-            "description": "坐煞：命理中的神煞标记",
-            "modernMeaning": "坐煞对你的人生有特殊影响"
-          },
-          {
-            "name": "黃幡",
-            "type": "凶",
-            "position": "year",
-            "description": "黃幡：命理中的神煞标记",
-            "modernMeaning": "黃幡对你的人生有特殊影响"
-          },
-          {
-            "name": "月德",
-            "type": "吉",
-            "position": "month",
-            "description": "月德：命理中的神煞标记",
-            "modernMeaning": "月德对你的人生有特殊影响"
-          },
-          {
-            "name": "九空",
-            "type": "凶",
-            "position": "month",
-            "description": "九空：命理中的神煞标记",
-            "modernMeaning": "九空对你的人生有特殊影响"
-          },
-          {
-            "name": "天巫",
-            "type": "吉",
-            "position": "month",
-            "description": "天巫：命理中的神煞标记",
-            "modernMeaning": "天巫对你的人生有特殊影响"
-          },
-          {
-            "name": "福德",
-            "type": "吉",
-            "position": "month",
-            "description": "福德：命理中的神煞标记",
-            "modernMeaning": "福德对你的人生有特殊影响"
-          },
-          {
-            "name": "九坎",
-            "type": "凶",
-            "position": "month",
-            "description": "九坎：命理中的神煞标记",
-            "modernMeaning": "九坎对你的人生有特殊影响"
-          },
-          {
-            "name": "金堂",
-            "type": "吉",
-            "position": "month",
-            "description": "金堂：命理中的神煞标记",
-            "modernMeaning": "金堂对你的人生有特殊影响"
-          },
-          {
-            "name": "月害",
-            "type": "凶",
-            "position": "month",
-            "description": "月害：命理中的神煞标记",
-            "modernMeaning": "月害对你的人生有特殊影响"
-          },
-          {
-            "name": "兵吉",
-            "type": "吉",
-            "position": "month",
-            "description": "兵吉：命理中的神煞标记",
-            "modernMeaning": "兵吉对你的人生有特殊影响"
-          },
-          {
-            "name": "月恩",
-            "type": "吉",
-            "position": "month",
-            "description": "月恩：命理中的神煞标记",
-            "modernMeaning": "月恩对你的人生有特殊影响"
-          },
-          {
-            "name": "九焦",
-            "type": "凶",
-            "position": "month",
-            "description": "九焦：命理中的神煞标记",
-            "modernMeaning": "九焦对你的人生有特殊影响"
-          },
-          {
-            "name": "四相",
-            "type": "吉",
-            "position": "month",
-            "description": "四相：命理中的神煞标记",
-            "modernMeaning": "四相对你的人生有特殊影响"
-          },
-          {
-            "name": "守日",
-            "type": "吉",
-            "position": "month",
-            "description": "守日：命理中的神煞标记",
-            "modernMeaning": "守日对你的人生有特殊影响"
-          },
-          {
-            "name": "天恩",
-            "type": "吉",
-            "position": "day",
-            "description": "天恩：命理中的神煞标记",
-            "modernMeaning": "天恩对你的人生有特殊影响"
-          },
-          {
-            "name": "寶日",
-            "type": "吉",
-            "position": "day",
-            "description": "寶日：命理中的神煞标记",
-            "modernMeaning": "寶日对你的人生有特殊影响"
-          },
-          {
-            "name": "金匱",
-            "type": "吉",
-            "position": "day",
-            "description": "金匱：命理中的神煞标记",
-            "modernMeaning": "金匱对你的人生有特殊影响"
-          },
-          {
-            "name": "天乙貴人",
-            "type": "吉",
-            "position": "hour",
-            "description": "天乙貴人：命理中的神煞标记",
-            "modernMeaning": "天乙貴人对你的人生有特殊影响"
-          },
-          {
-            "name": "貴登天門",
-            "type": "吉",
-            "position": "hour",
-            "description": "貴登天門：命理中的神煞标记",
-            "modernMeaning": "貴登天門对你的人生有特殊影响"
-          },
-          {
-            "name": "玉堂",
-            "type": "吉",
-            "position": "hour",
-            "description": "玉堂：命理中的神煞标记",
-            "modernMeaning": "玉堂对你的人生有特殊影响"
           }
         ],
         "daYunDirection": "逆行",
-        "daYunStartAge": 38,
+        "daYunStartAge": 8,
         "daYunList": [
           {
-            "startAge": 38,
-            "endAge": 47,
+            "startAge": 8,
+            "endAge": 17,
+            "startDate": "2008-03-22T05:10:00.000Z",
+            "endDate": "2018-03-22T05:10:00.000Z",
             "ganZhi": {
               "gan": "丁",
               "zhi": "丑",
@@ -4878,16 +4987,18 @@
               "zhiWuXing": "土",
               "ganYinYang": "阴",
               "zhiYinYang": "阴",
-              "naYin": "澗下水",
+              "naYin": "涧下水",
               "naYinWuXing": "水"
             },
             "shiShen": "劫财",
             "zhiShiShen": "伤官",
-            "period": "38–47岁"
+            "period": "8–17岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 48,
-            "endAge": 57,
+            "startAge": 18,
+            "endAge": 27,
+            "startDate": "2018-03-22T05:10:00.000Z",
+            "endDate": "2028-03-22T05:10:00.000Z",
             "ganZhi": {
               "gan": "丙",
               "zhi": "子",
@@ -4895,16 +5006,18 @@
               "zhiWuXing": "水",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "澗下水",
+              "naYin": "涧下水",
               "naYinWuXing": "水"
             },
             "shiShen": "比肩",
             "zhiShiShen": "正官",
-            "period": "48–57岁"
+            "period": "18–27岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 58,
-            "endAge": 67,
+            "startAge": 28,
+            "endAge": 37,
+            "startDate": "2028-03-22T05:10:00.000Z",
+            "endDate": "2038-03-22T05:10:00.000Z",
             "ganZhi": {
               "gan": "乙",
               "zhi": "亥",
@@ -4912,16 +5025,18 @@
               "zhiWuXing": "水",
               "ganYinYang": "阴",
               "zhiYinYang": "阴",
-              "naYin": "山頭火",
+              "naYin": "山头火",
               "naYinWuXing": "火"
             },
             "shiShen": "正印",
             "zhiShiShen": "七杀",
-            "period": "58–67岁"
+            "period": "28–37岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 68,
-            "endAge": 77,
+            "startAge": 38,
+            "endAge": 47,
+            "startDate": "2038-03-22T05:10:00.000Z",
+            "endDate": "2048-03-22T05:10:00.000Z",
             "ganZhi": {
               "gan": "甲",
               "zhi": "戌",
@@ -4929,16 +5044,18 @@
               "zhiWuXing": "土",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "山頭火",
+              "naYin": "山头火",
               "naYinWuXing": "火"
             },
             "shiShen": "偏印",
             "zhiShiShen": "食神",
-            "period": "68–77岁"
+            "period": "38–47岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 78,
-            "endAge": 87,
+            "startAge": 48,
+            "endAge": 57,
+            "startDate": "2048-03-22T05:10:00.000Z",
+            "endDate": "2058-03-22T05:10:00.000Z",
             "ganZhi": {
               "gan": "癸",
               "zhi": "酉",
@@ -4946,16 +5063,18 @@
               "zhiWuXing": "金",
               "ganYinYang": "阴",
               "zhiYinYang": "阴",
-              "naYin": "劍鋒金",
+              "naYin": "剑锋金",
               "naYinWuXing": "金"
             },
             "shiShen": "正官",
             "zhiShiShen": "正财",
-            "period": "78–87岁"
+            "period": "48–57岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 88,
-            "endAge": 97,
+            "startAge": 58,
+            "endAge": 67,
+            "startDate": "2058-03-22T05:10:00.000Z",
+            "endDate": "2068-03-22T05:10:00.000Z",
             "ganZhi": {
               "gan": "壬",
               "zhi": "申",
@@ -4963,16 +5082,18 @@
               "zhiWuXing": "金",
               "ganYinYang": "阳",
               "zhiYinYang": "阳",
-              "naYin": "劍鋒金",
+              "naYin": "剑锋金",
               "naYinWuXing": "金"
             },
             "shiShen": "七杀",
             "zhiShiShen": "偏财",
-            "period": "88–97岁"
+            "period": "58–67岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 98,
-            "endAge": 107,
+            "startAge": 68,
+            "endAge": 77,
+            "startDate": "2068-03-22T05:10:00.000Z",
+            "endDate": "2078-03-22T05:10:00.000Z",
             "ganZhi": {
               "gan": "辛",
               "zhi": "未",
@@ -4985,11 +5106,13 @@
             },
             "shiShen": "正财",
             "zhiShiShen": "伤官",
-            "period": "98–107岁"
+            "period": "68–77岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 108,
-            "endAge": 117,
+            "startAge": 78,
+            "endAge": 87,
+            "startDate": "2078-03-22T05:10:00.000Z",
+            "endDate": "2088-03-22T05:10:00.000Z",
             "ganZhi": {
               "gan": "庚",
               "zhi": "午",
@@ -5002,11 +5125,13 @@
             },
             "shiShen": "偏财",
             "zhiShiShen": "劫财",
-            "period": "108–117岁"
+            "period": "78–87岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 118,
-            "endAge": 127,
+            "startAge": 88,
+            "endAge": 97,
+            "startDate": "2088-03-22T05:10:00.000Z",
+            "endDate": "2098-03-22T05:10:00.000Z",
             "ganZhi": {
               "gan": "己",
               "zhi": "巳",
@@ -5019,11 +5144,13 @@
             },
             "shiShen": "伤官",
             "zhiShiShen": "比肩",
-            "period": "118–127岁"
+            "period": "88–97岁（整岁参考，以交运日期为准）"
           },
           {
-            "startAge": 128,
-            "endAge": 137,
+            "startAge": 98,
+            "endAge": 107,
+            "startDate": "2098-03-22T05:10:00.000Z",
+            "endDate": "2108-03-22T05:10:00.000Z",
             "ganZhi": {
               "gan": "戊",
               "zhi": "辰",
@@ -5036,11 +5163,47 @@
             },
             "shiShen": "食神",
             "zhiShiShen": "食神",
-            "period": "128–137岁"
+            "period": "98–107岁（整岁参考，以交运日期为准）"
           }
         ],
-        "lunarDate": "二〇〇〇年正月月廿四",
-        "yearNaYin": "白臘金",
+        "qiYun": {
+          "years": 8,
+          "months": 0,
+          "days": 22,
+          "hours": 12,
+          "startDate": "2008-03-22T05:10:00.000Z",
+          "termDate": "2000-02-04T12:40:24.000Z",
+          "termName": "立春",
+          "sect": 2
+        },
+        "calculationPolicy": {
+          "version": "suji-calendar-2",
+          "provider": "lunar-javascript@1.7.7",
+          "timezone": "UTC+08:00",
+          "yearBoundary": "exact-lichun",
+          "monthBoundary": "exact-jie",
+          "dayBoundary": "zi-hour-23:00",
+          "lunarDayBoundary": "civil-midnight",
+          "solarTimeScope": "day-and-hour-only",
+          "yun": "year-polarity-gender; jie; three-days-per-year; sect-2-minute-conversion",
+          "supportedCivilYears": [
+            1901,
+            2100
+          ],
+          "civilBirthTime": "2000-02-28T17:10:00.000Z",
+          "effectiveSolarTime": "2000-02-28T14:47:50.877Z",
+          "solarTimeApplied": true,
+          "longitude": 87.62,
+          "warnings": []
+        },
+        "interpretationPolicy": {
+          "strengthYongShen": "扶抑参考（工程启发式，调候另列来源候选）",
+          "structureYongShen": "月令格局用神（子平真诠口径）",
+          "status": "traditional-interpretation-not-empirical-prediction"
+        },
+        "lunarDate": "二〇〇〇年正月廿五",
+        "solarTerm": "雨水",
+        "yearNaYin": "白蜡金",
         "taiYuan": {
           "gan": "己",
           "zhi": "巳",
@@ -5058,7 +5221,7 @@
           "zhiWuXing": "土",
           "ganYinYang": "阳",
           "zhiYinYang": "阳",
-          "naYin": "白臘金",
+          "naYin": "白蜡金",
           "naYinWuXing": "金"
         }
       },
@@ -5134,7 +5297,7 @@
                 "type": "major",
                 "source": "major",
                 "sihua": [
-                  "科"
+                  "化科"
                 ]
               }
             ],
@@ -5316,7 +5479,7 @@
                 "type": "major",
                 "source": "major",
                 "sihua": [
-                  "忌"
+                  "化忌"
                 ]
               },
               {
@@ -5372,7 +5535,7 @@
                 "type": "major",
                 "source": "major",
                 "sihua": [
-                  "权"
+                  "化权"
                 ]
               },
               {
@@ -5424,7 +5587,7 @@
                 "type": "major",
                 "source": "major",
                 "sihua": [
-                  "禄"
+                  "化禄"
                 ]
               }
             ],
@@ -5557,14 +5720,25 @@
         ],
         "mingGongPosition": "丑",
         "shenGongPosition": "卯",
-        "fiveElementsClass": "火六局"
+        "fiveElementsClass": "火六局",
+        "method": {
+          "algorithm": "iztro-2.5.8-default",
+          "dayBoundary": "zi-hour",
+          "yearBoundary": "lunar-new-year",
+          "leapMonth": "split-at-day-15",
+          "caveats": [
+            "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
+            "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",
+            "排盘一致性不等于对现实事件的预测效度"
+          ]
+        }
       },
       "personality": {
         "coreTraits": [
           "你擅长在环境中找到自己的位置，适应力和感知力是你的天赋",
-          "建禄格",
-          "天生具有创造力丰富的特质",
-          "天生具有善于表达的特质"
+          "比肩结构（格局待辨）",
+          "可观察自己在创造力丰富方面的倾向",
+          "可观察自己在善于表达方面的倾向"
         ],
         "strengths": [
           "有艺术天赋",
@@ -5576,7 +5750,7 @@
         "challenges": [
           "有时过于随性，缺乏紧迫感",
           "容易沉浸舒适区",
-          "过于依赖稳定感，可能错过需要灵活变通的机会"
+          "思维过度活跃时容易焦虑，需要给自己一个锚点"
         ],
         "communicationStyle": "你充满热情，沟通富有感染力，容易带动他人情绪",
         "emotionalPattern": "你内心渴望与外在稳定之间常有张力，学会表达感受比压抑更健康",
@@ -5588,63 +5762,73 @@
       },
       "daily": {
         "date": "2026年9月19日",
-        "ganZhi": "癸丑",
+        "ganZhi": "丙申",
         "overallEnergy": "中",
-        "focusArea": "直觉感知、思考与沟通",
-        "advice": "今天有隐性助力，稳步推进日常事务，专注当下每一个小目标",
-        "avoidance": "注意今天外部环境有些阻力，避免强行推进已经卡住的事情",
+        "focusArea": "创意、表达与人际连接",
+        "advice": "今天适合平稳推进，不必强求突破，保持节奏比速度更重要",
+        "avoidance": "避免今天做无把握的冒险，已有计划比新想法更值得优先执行",
         "luckyHours": [
-          "23:00–01:00",
-          "21:00–23:00",
-          "15:00–17:00"
+          "03:00–05:00",
+          "05:00–07:00",
+          "09:00–11:00"
         ],
         "affirmation": "我的光芒不依赖外部条件，内心有一团稳定的火。"
       },
       "timing": {
-        "currentPhase": "你目前处于建立基础与积累资源的阶段，运势平稳，稳中求进是最佳策略。",
-        "currentEnergy": "目前能量处于平稳状态，日常推进问题不大，重大突破需要更多蓄力",
+        "currentPhase": "你目前处于建立基础与积累资源的阶段，整体能量顺畅，是主动出击的好时机。",
+        "currentEnergy": "你现在的状态像是风帆满张，整体能量充沛，外部环境对你的行动有支撑作用",
         "opportunities": [
           "事业稳步推进，维护好现有的合作关系",
-          "财务方面有良好机遇，可适度把握"
+          "财运平稳，量入为出，做好长期规划"
         ],
         "watchouts": [
-          "保持稳健，不要被短暂的机会冲昏头脑",
-          "重大变动前多做调研，不急于下结论"
+          "顺势期容易忽视风险，保持清醒的判断力"
         ],
-        "advice": "不必急于求成，把基础打好，机会会自然到来——持续比速度更重要",
+        "advice": "当前规则标签为“顺”；可尝试一个可验证的小行动，重要决定仍需现实依据",
         "luckyElements": {
           "colors": [
-            "黑色",
-            "深蓝",
-            "灰色"
+            "绿色",
+            "青色",
+            "翠绿"
           ],
           "directions": [
-            "北方"
+            "东方",
+            "东南"
           ],
           "numbers": [
-            1,
-            6
+            3,
+            8
           ]
         }
       },
       "forecast": {
         "year": 2026,
         "daYun": {
-          "startAge": 38,
-          "endAge": 47,
+          "startAge": 18,
+          "endAge": 27,
+          "startDate": "2018-03-22T05:10:00.000Z",
+          "endDate": "2028-03-22T05:10:00.000Z",
           "ganZhi": {
-            "gan": "丁",
-            "zhi": "丑",
+            "gan": "丙",
+            "zhi": "子",
             "ganWuXing": "火",
-            "zhiWuXing": "土",
-            "ganYinYang": "阴",
-            "zhiYinYang": "阴",
-            "naYin": "澗下水",
+            "zhiWuXing": "水",
+            "ganYinYang": "阳",
+            "zhiYinYang": "阳",
+            "naYin": "涧下水",
             "naYinWuXing": "水"
           },
-          "shiShen": "劫财",
-          "zhiShiShen": "伤官",
-          "period": "38–47岁"
+          "shiShen": "比肩",
+          "zhiShiShen": "正官",
+          "period": "18–27岁（整岁参考，以交运日期为准）"
+        },
+        "daYunStatus": "active",
+        "referenceDate": "2026-09-19T04:00:00.000Z",
+        "luckyMonthsCalendar": "solar-term-ordinal",
+        "interpretationBasis": {
+          "kind": "engineering-heuristic",
+          "calibratedProbability": false,
+          "description": "顺／平／逆和月份建议来自五行喜忌的工程规则，不是古籍数值、事件概率或财务健康预测。"
         },
         "liuNian": {
           "year": 2026,
@@ -5660,21 +5844,31 @@
           },
           "shiShen": "比肩",
           "interactions": [
-            "流年午害大运丑（六害），注意人际摩擦与暗中阻碍"
+            "流年午冲大运子（六冲），当前规则中出现大运与流年冲的组合，可复盘已有计划是否需要调整",
+            "流年天干丙属火，与当前扶抑参考的喜神一致，不代表机会一定出现"
           ]
         },
-        "overallTrend": "平",
-        "careerOutlook": "事业平淡，宜守不宜攻，做好基础积累为主",
-        "wealthOutlook": "财运普通，避免高风险投资，保守理财为宜",
-        "relationshipOutlook": "感情平稳，维系好现有关系，不宜强求大变化",
-        "healthOutlook": "健康状况良好，留意心脑相关保养，保持适度运动",
-        "keyAdvice": "运势平稳，稳中求进，夯实基础积累资源，为下一个运程做好准备",
+        "overallTrend": "顺",
+        "careerOutlook": "可回顾既有计划的进展，依据资源和现实反馈安排下一步",
+        "wealthOutlook": "财务计划请依据实际收入、负债和目标制定，命盘不提供收益预测",
+        "relationshipOutlook": "关系发展仍取决于双方的现实互动，可从倾听与清楚表达期待开始",
+        "healthOutlook": "命理中的五行意象不能用于判断健康状况或疾病风险；日常保持规律作息与适度运动，身体不适时以医疗意见为准。",
+        "keyAdvice": "当前规则标签为“顺”；可尝试一个可验证的小行动，重要决定仍需现实依据",
         "luckyMonths": [
-          7,
-          8,
-          10,
-          11
-        ]
+          1,
+          2,
+          4,
+          5
+        ],
+        "annualCycle": {
+          "labelYear": 2026,
+          "startDate": "2026-02-03T20:02:08.000Z",
+          "endDate": "2027-02-04T01:46:18.000Z",
+          "isActiveAtReference": true,
+          "activeYearAtReference": 2026,
+          "activeYearGanZhi": "丙午"
+        },
+        "requestReferenceDate": "2026-09-19T04:00:00.000Z"
       }
     }
   },
@@ -5684,12 +5878,28 @@
       "day": "2026-02-03"
     },
     "result": {
-      "solarDate": "2026/2/3",
-      "lunarDate": "十二月十六",
+      "solarDate": "2026-02-03",
+      "lunarDate": "腊月十六",
       "ganZhi": "戊申",
       "yearGanZhi": "乙巳",
       "monthGanZhi": "己丑",
       "solarTerm": "大寒",
+      "calculationPolicy": {
+        "version": "suji-calendar-2",
+        "provider": "lunar-javascript@1.7.7",
+        "timezone": "UTC+08:00",
+        "yearBoundary": "exact-lichun",
+        "monthBoundary": "exact-jie",
+        "dayBoundary": "zi-hour-23:00",
+        "lunarDayBoundary": "civil-midnight",
+        "solarTimeScope": "day-and-hour-only",
+        "yun": "year-polarity-gender; jie; three-days-per-year; sect-2-minute-conversion",
+        "supportedCivilYears": [
+          1901,
+          2100
+        ]
+      },
+      "warnings": [],
       "wuxingBalance": {
         "金": 1,
         "木": 1,
@@ -5705,12 +5915,28 @@
       "day": "2026-02-05"
     },
     "result": {
-      "solarDate": "2026/2/5",
-      "lunarDate": "十二月十八",
+      "solarDate": "2026-02-05",
+      "lunarDate": "腊月十八",
       "ganZhi": "庚戌",
       "yearGanZhi": "丙午",
       "monthGanZhi": "庚寅",
       "solarTerm": "立春",
+      "calculationPolicy": {
+        "version": "suji-calendar-2",
+        "provider": "lunar-javascript@1.7.7",
+        "timezone": "UTC+08:00",
+        "yearBoundary": "exact-lichun",
+        "monthBoundary": "exact-jie",
+        "dayBoundary": "zi-hour-23:00",
+        "lunarDayBoundary": "civil-midnight",
+        "solarTimeScope": "day-and-hour-only",
+        "yun": "year-polarity-gender; jie; three-days-per-year; sect-2-minute-conversion",
+        "supportedCivilYears": [
+          1901,
+          2100
+        ]
+      },
+      "warnings": [],
       "wuxingBalance": {
         "金": 2,
         "木": 1,
@@ -5745,7 +5971,325 @@
         "domain": "事业",
         "bazi": {
           "domain": "事业",
-          "note": "此领域不直接对应六亲星位"
+          "note": "此领域不直接对应六亲星位",
+          "pillars": {
+            "year": {
+              "ganZhi": {
+                "gan": "乙",
+                "zhi": "亥",
+                "ganWuXing": "木",
+                "zhiWuXing": "水",
+                "ganYinYang": "阴",
+                "zhiYinYang": "阴",
+                "naYin": "山头火",
+                "naYinWuXing": "火"
+              },
+              "shiShen": "正官",
+              "cangGan": [
+                {
+                  "gan": "壬",
+                  "wuXing": "水",
+                  "shiShen": "偏财",
+                  "weight": 0.7
+                },
+                {
+                  "gan": "甲",
+                  "wuXing": "木",
+                  "shiShen": "七杀",
+                  "weight": 0.3
+                }
+              ],
+              "changSheng": "绝"
+            },
+            "month": {
+              "ganZhi": {
+                "gan": "甲",
+                "zhi": "申",
+                "ganWuXing": "木",
+                "zhiWuXing": "金",
+                "ganYinYang": "阳",
+                "zhiYinYang": "阳",
+                "naYin": "泉中水",
+                "naYinWuXing": "水"
+              },
+              "shiShen": "七杀",
+              "cangGan": [
+                {
+                  "gan": "庚",
+                  "wuXing": "金",
+                  "shiShen": "食神",
+                  "weight": 0.6
+                },
+                {
+                  "gan": "壬",
+                  "wuXing": "水",
+                  "shiShen": "偏财",
+                  "weight": 0.2
+                },
+                {
+                  "gan": "戊",
+                  "wuXing": "土",
+                  "shiShen": "比肩",
+                  "weight": 0.2
+                }
+              ],
+              "changSheng": "病"
+            },
+            "day": {
+              "ganZhi": {
+                "gan": "戊",
+                "zhi": "寅",
+                "ganWuXing": "土",
+                "zhiWuXing": "木",
+                "ganYinYang": "阳",
+                "zhiYinYang": "阳",
+                "naYin": "城头土",
+                "naYinWuXing": "土"
+              },
+              "shiShen": "比肩",
+              "cangGan": [
+                {
+                  "gan": "甲",
+                  "wuXing": "木",
+                  "shiShen": "七杀",
+                  "weight": 0.6
+                },
+                {
+                  "gan": "丙",
+                  "wuXing": "火",
+                  "shiShen": "偏印",
+                  "weight": 0.2
+                },
+                {
+                  "gan": "戊",
+                  "wuXing": "土",
+                  "shiShen": "比肩",
+                  "weight": 0.2
+                }
+              ],
+              "changSheng": "长生"
+            },
+            "hour": {
+              "ganZhi": {
+                "gan": "壬",
+                "zhi": "戌",
+                "ganWuXing": "水",
+                "zhiWuXing": "土",
+                "ganYinYang": "阳",
+                "zhiYinYang": "阳",
+                "naYin": "大海水",
+                "naYinWuXing": "水"
+              },
+              "shiShen": "偏财",
+              "cangGan": [
+                {
+                  "gan": "戊",
+                  "wuXing": "土",
+                  "shiShen": "比肩",
+                  "weight": 0.6
+                },
+                {
+                  "gan": "辛",
+                  "wuXing": "金",
+                  "shiShen": "伤官",
+                  "weight": 0.2
+                },
+                {
+                  "gan": "丁",
+                  "wuXing": "火",
+                  "shiShen": "正印",
+                  "weight": 0.2
+                }
+              ],
+              "changSheng": "墓"
+            }
+          },
+          "dayMaster": {
+            "gan": "戊",
+            "wuXing": "土",
+            "yinYang": "阳",
+            "description": "大山之土，稳重可靠，宽厚包容，务实踏实"
+          },
+          "tenGodRelationships": [],
+          "pattern": {
+            "name": "偏财格",
+            "category": "正格",
+            "strength": "上",
+            "description": "偏财格",
+            "modernMeaning": "偏财格"
+          },
+          "patternAnalysis": {
+            "phaseId": "piancai-ge",
+            "name": "偏财格",
+            "category": "zhengge",
+            "yongShen": "水",
+            "xiangShen": {
+              "wuXing": "金",
+              "shiShen": "食神",
+              "role": "食生财 / 杀护财"
+            },
+            "chengBai": "cheng",
+            "jiuYing": null,
+            "jibie": "shang",
+            "evidence": [
+              "bazi.yongshen.priority-chain",
+              "bazi.xiangshen.definition",
+              "bazi.yongshen.bianhua-trigger",
+              "bazi.geju.rank-criteria"
+            ],
+            "assessmentStatus": "heuristic-candidate",
+            "conditions": [
+              "成败与等级是当前结构规则的候选输出，不是完整古籍格局裁定",
+              "隔位五合不自动合去用神；相邻合一留一不自动判全格破败",
+              "月支逢冲，须复核根气与配置影响"
+            ],
+            "yongShenGan": "壬",
+            "yongShenShiShen": "偏财",
+            "selectionBasis": "yueling-zhongqi-tougan"
+          },
+          "strengthReference": {
+            "strongest": "木",
+            "weakest": "火",
+            "riZhuStrong": false,
+            "yongShen": "火",
+            "xiShen": "土",
+            "jiShen": "木",
+            "suggestionBasis": "fuyi-heuristic",
+            "suggestionStatus": "not-empirically-validated",
+            "tiaohouApplied": false
+          },
+          "interpretationPolicy": {
+            "strengthYongShen": "扶抑参考（工程启发式，调候另列来源候选）",
+            "structureYongShen": "月令格局用神（子平真诠口径）",
+            "status": "traditional-interpretation-not-empirical-prediction"
+          },
+          "tiaoHou": {
+            "ruleId": "qiongtong.戊申",
+            "dayStem": "戊",
+            "monthBranch": "申",
+            "solarMonthOrdinal": 7,
+            "reviewStatus": "transcription-checked",
+            "candidateStems": [
+              "丙",
+              "癸",
+              "甲"
+            ],
+            "conditions": [
+              "七月阳入寒出通论",
+              "候选仅表示此转录本中的传统论述；全局条件与印刷底本尚未完全核验，不自动选定用神。"
+            ],
+            "sourceDocument": "docs/mingli/source-texts/bazi/qiongtong-baojian/wutu.md",
+            "sourceAnchor": "wutu.md:132",
+            "excerpt": "先丙后癸，甲木次之",
+            "sourceSha256": "d7cf630b217ed2286e313ee232a6f84def43dbcbbd5084fd337d83905b22aba9",
+            "editionStatus": "online-transcription-unverified-against-printed-edition",
+            "automatedSelection": false
+          },
+          "branchRelations": [
+            {
+              "type": "六合",
+              "branches": [
+                "寅",
+                "亥"
+              ],
+              "result": "木",
+              "positions": [
+                "年支-日支"
+              ],
+              "requiredBranches": [
+                "寅",
+                "亥"
+              ],
+              "missingBranches": [],
+              "completeness": "complete",
+              "outcomeEstablished": false
+            },
+            {
+              "type": "拱合候选",
+              "branches": [
+                "寅",
+                "戌"
+              ],
+              "result": "火",
+              "positions": [
+                "日支",
+                "时支"
+              ],
+              "requiredBranches": [
+                "寅",
+                "午",
+                "戌"
+              ],
+              "missingBranches": [
+                "午"
+              ],
+              "completeness": "partial",
+              "outcomeEstablished": false
+            },
+            {
+              "type": "三会候选",
+              "branches": [
+                "申",
+                "戌"
+              ],
+              "result": "金",
+              "positions": [
+                "月支",
+                "时支"
+              ],
+              "requiredBranches": [
+                "申",
+                "酉",
+                "戌"
+              ],
+              "missingBranches": [
+                "酉"
+              ],
+              "completeness": "partial",
+              "outcomeEstablished": false
+            },
+            {
+              "type": "六冲",
+              "branches": [
+                "寅",
+                "申"
+              ],
+              "positions": [
+                "月支-日支"
+              ]
+            },
+            {
+              "type": "六害",
+              "branches": [
+                "申",
+                "亥"
+              ],
+              "positions": [
+                "年支-月支"
+              ]
+            },
+            {
+              "type": "六破",
+              "branches": [
+                "寅",
+                "亥"
+              ],
+              "positions": [
+                "年支-日支"
+              ]
+            },
+            {
+              "type": "相刑",
+              "branches": [
+                "申",
+                "寅"
+              ],
+              "positions": [
+                "月支-日支"
+              ]
+            }
+          ],
+          "stemRelations": []
         },
         "ziwei": {
           "palace": "官禄宫",
@@ -5768,17 +6312,76 @@
             "阴煞"
           ],
           "isShenGong": false,
+          "method": {
+            "algorithm": "iztro-2.5.8-default",
+            "dayBoundary": "zi-hour",
+            "yearBoundary": "lunar-new-year",
+            "leapMonth": "split-at-day-15",
+            "caveats": [
+              "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
+              "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",
+              "排盘一致性不等于对现实事件的预测效度"
+            ]
+          },
+          "emptyMainPalace": false,
           "sihua": []
         },
         "shensha": {
           "kind": "权贵",
-          "list": []
+          "list": [
+            {
+              "name": "月德贵人",
+              "type": "吉",
+              "position": "时柱"
+            }
+          ],
+          "note": "神煞为辅助传统符号，不能独立断吉凶或健康。"
+        },
+        "readingBoundary": "两种体系分别解释，不能把相似意象当作相互验证。",
+        "provenance": {
+          "engineRevision": "00683a35f434329459805f7182ec1f9a2d7cf9fe945bb4a341bd959161d6f8aa",
+          "referenceDate": "2026-09-19T04:00:00.000Z",
+          "calendarPolicy": {
+            "version": "suji-calendar-2",
+            "provider": "lunar-javascript@1.7.7",
+            "timezone": "UTC+08:00",
+            "yearBoundary": "exact-lichun",
+            "monthBoundary": "exact-jie",
+            "dayBoundary": "zi-hour-23:00",
+            "lunarDayBoundary": "civil-midnight",
+            "solarTimeScope": "day-and-hour-only",
+            "yun": "year-polarity-gender; jie; three-days-per-year; sect-2-minute-conversion",
+            "supportedCivilYears": [
+              1901,
+              2100
+            ]
+          },
+          "interpretation": "干支、星曜与盘面为规则计算；强弱评分、用神取舍及文字为指定流派或产品启发式，不是事件概率。",
+          "baziPolicy": {
+            "strengthYongShen": "扶抑参考（工程启发式，调候另列来源候选）",
+            "structureYongShen": "月令格局用神（子平真诠口径）",
+            "status": "traditional-interpretation-not-empirical-prediction"
+          },
+          "ziweiPolicy": {
+            "algorithm": "iztro-2.5.8-default",
+            "dayBoundary": "zi-hour",
+            "yearBoundary": "lunar-new-year",
+            "leapMonth": "split-at-day-15",
+            "caveats": [
+              "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
+              "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",
+              "排盘一致性不等于对现实事件的预测效度"
+            ]
+          }
         }
       },
       "evidence": [
+        "计算时刻 · 2026-09-19T04:00:00.000Z",
+        "历法 · 北京时间；精确交节；子初换日",
         "领域 · 事业",
         "宫位 · 官禄宫",
-        "主星 · 太阳/巨门"
+        "主星 · 太阳/巨门",
+        "神煞 · 月德贵人"
       ]
     }
   },
@@ -5796,20 +6399,21 @@
         "longitude": 121.47,
         "timeZoneID": "Asia/Shanghai"
       },
-      "year": 2027
+      "year": 2027,
+      "now": "2026-09-19T04:00:00Z"
     },
     "result": {
       "timing": {
         "currentPhase": "你目前处于建立基础与积累资源的阶段，整体能量顺畅，是主动出击的好时机。",
         "currentEnergy": "你现在的状态像是风帆满张，整体能量充沛，外部环境对你的行动有支撑作用",
         "opportunities": [
-          "职业发展有新的晋升或突破机会，值得积极争取",
-          "收入有增长空间，可考虑稳健的资产配置"
+          "事业稳步推进，维护好现有的合作关系",
+          "财运平稳，量入为出，做好长期规划"
         ],
         "watchouts": [
           "顺势期容易忽视风险，保持清醒的判断力"
         ],
-        "advice": "这是一个值得主动出击的阶段，心中有的目标可以大胆推进，别让犹豫错过窗口",
+        "advice": "传统用神对应被触发，当前规则标签为“顺”；可尝试一个可验证的小行动，重要决定仍需现实依据",
         "luckyElements": {
           "colors": [
             "红色",
@@ -5828,21 +6432,31 @@
       "forecast": {
         "year": 2027,
         "daYun": {
-          "startAge": 31,
-          "endAge": 40,
+          "startAge": 27,
+          "endAge": 36,
+          "startDate": "2023-07-01T23:30:00.000Z",
+          "endDate": "2033-07-01T23:30:00.000Z",
           "ganZhi": {
-            "gan": "戊",
-            "zhi": "子",
-            "ganWuXing": "土",
+            "gan": "丁",
+            "zhi": "亥",
+            "ganWuXing": "火",
             "zhiWuXing": "水",
-            "ganYinYang": "阳",
-            "zhiYinYang": "阳",
-            "naYin": "霹靂火",
-            "naYinWuXing": "火"
+            "ganYinYang": "阴",
+            "zhiYinYang": "阴",
+            "naYin": "屋上土",
+            "naYinWuXing": "土"
           },
-          "shiShen": "比肩",
-          "zhiShiShen": "正财",
-          "period": "31–40岁"
+          "shiShen": "正印",
+          "zhiShiShen": "偏财",
+          "period": "27–36岁（整岁参考，以交运日期为准）"
+        },
+        "daYunStatus": "active",
+        "referenceDate": "2027-07-01T04:00:00.000Z",
+        "luckyMonthsCalendar": "solar-term-ordinal",
+        "interpretationBasis": {
+          "kind": "engineering-heuristic",
+          "calibratedProbability": false,
+          "description": "顺／平／逆和月份建议来自五行喜忌的工程规则，不是古籍数值、事件概率或财务健康预测。"
         },
         "liuNian": {
           "year": 2027,
@@ -5858,24 +6472,34 @@
           },
           "shiShen": "正印",
           "interactions": [
-            "流年丁与时柱壬天干相合（化木），利于合作与成事",
-            "流年未刑时柱戌（相刑），需防官非、健康或关系紧张",
-            "流年未害大运子（六害），注意人际摩擦与暗中阻碍",
-            "流年天干丁属火，逢用神之年，整体运势较顺，利于突破与发展"
+            "流年丁与时柱壬天干相合（传统合化方向为木，此处未判成化）",
+            "流年未刑时柱戌（相刑）；单一关系不足以推断官非、健康或感情事件",
+            "流年天干丁属火，与当前扶抑参考的用神一致，属于规则内的对应关系"
           ]
         },
         "overallTrend": "顺",
-        "careerOutlook": "用神得力，事业推进顺畅，适合开展新项目或寻求突破",
-        "wealthOutlook": "财运平稳向好，正职收入有望增长",
-        "relationshipOutlook": "感情平稳，维系好现有关系，不宜强求大变化",
-        "healthOutlook": "健康状况良好，留意脾胃相关保养，保持适度运动",
-        "keyAdvice": "运势顺畅，用神得助，把握机遇大胆推进重要决策，是发展的黄金时期",
+        "careerOutlook": "传统用神对应被触发；可将想推进的项目拆成可验证的小步骤，进展仍以现实反馈为准",
+        "wealthOutlook": "财务计划请依据实际收入、负债和目标制定，命盘不提供收益预测",
+        "relationshipOutlook": "关系发展仍取决于双方的现实互动，可从倾听与清楚表达期待开始",
+        "healthOutlook": "命理中的五行意象不能用于判断健康状况或疾病风险；日常保持规律作息与适度运动，身体不适时以医疗意见为准。",
+        "keyAdvice": "传统用神对应被触发，当前规则标签为“顺”；可尝试一个可验证的小行动，重要决定仍需现实依据",
         "luckyMonths": [
+          3,
           4,
           5,
-          10,
-          11
-        ]
+          6,
+          9,
+          12
+        ],
+        "annualCycle": {
+          "labelYear": 2027,
+          "startDate": "2027-02-04T01:46:18.000Z",
+          "endDate": "2028-02-04T07:31:13.000Z",
+          "isActiveAtReference": false,
+          "activeYearAtReference": 2026,
+          "activeYearGanZhi": "丙午"
+        },
+        "requestReferenceDate": "2026-09-19T04:00:00.000Z"
       }
     }
   }

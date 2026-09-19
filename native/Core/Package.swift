@@ -7,6 +7,7 @@ let package = Package(
     products: [.library(name: "SujiCore", targets: ["SujiCore"])],
     targets: [
         .target(name: "SujiCore"),
+        .executableTarget(name: "ReadingEvalFixtures", dependencies: ["SujiCore"], path: "Tools/ReadingEvalFixtures"),
         .testTarget(name: "SujiCoreTests", dependencies: ["SujiCore"])
     ]
 )

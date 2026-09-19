@@ -45,6 +45,8 @@ export interface CastOptions {
   questionType?: QuestionType;
   gender?: '男' | '女';      // marriage 时区分用神
   castTime?: Date;            // 默认 now
+  /** 初爻到上爻，保存后可重放同一卦；6老阴/7少阳/8少阴/9老阳。 */
+  lineValues?: (6 | 7 | 8 | 9)[];
 }
 
 export interface YongShenAnalysis {
@@ -53,6 +55,7 @@ export interface YongShenAnalysis {
   wuXing: WuXing;
   state: '旺' | '相' | '休' | '囚' | '死' | '不上卦';
   interactions: string[];
+  candidateYaoIndices?: number[];
 }
 
 export interface YingQiAnalysis {
@@ -75,4 +78,28 @@ export interface HexagramReading {
   yongShen: YongShenAnalysis;
   yingQi: YingQiAnalysis;
   liuQin: Record<1 | 2 | 3 | 4 | 5 | 6, LiuQin>;
+  lineValues: (6 | 7 | 8 | 9)[];
+  shiYao: number;
+  yingYao: number;
+  xunKong: string[];
+  lines: HexagramLine[];
+  method: { algorithm: string; calendar: string; dayBoundary: string; caveats: string[] };
+}
+
+export interface HexagramLine {
+  position: number;
+  value: 6 | 7 | 8 | 9;
+  ganZhi: string;
+  wuXing: WuXing;
+  liuQin: LiuQin;
+  liuShen: string;
+  isShi: boolean;
+  isYing: boolean;
+  isChanging: boolean;
+  isVoid: boolean;
+  monthClash: boolean;
+  dayClash: boolean;
+  dayCombination: boolean;
+  changed?: { ganZhi: string; wuXing: WuXing; liuQin: LiuQin };
+  hidden?: { ganZhi: string; wuXing: WuXing; liuQin: LiuQin };
 }

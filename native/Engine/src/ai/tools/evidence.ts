@@ -1,6 +1,6 @@
 import type { ToolCall } from './types';
 
-const MAX_EVIDENCE_LINES = 6;
+const MAX_EVIDENCE_LINES = 8;
 
 function compact(value: unknown, max = 18): string {
   if (value === null || value === undefined || value === '') return '';
@@ -45,6 +45,7 @@ function evidenceFromTool(call: ToolCall, result: unknown): string[] {
         : Array.isArray(r.movingLines)
           ? r.movingLines.join('/')
           : r.movingLine;
+      if (r.method?.algorithm) uniqPush(lines, `方法 · ${compact(r.method.algorithm, 48)}`);
       if (mainName) uniqPush(lines, `主卦 · ${compact(mainName)}`);
       if (changedName) uniqPush(lines, `变卦 · ${compact(changedName)}`);
       if (moving) uniqPush(lines, `动爻 · ${compact(moving)}`);
@@ -53,6 +54,7 @@ function evidenceFromTool(call: ToolCall, result: unknown): string[] {
 
     case 'setup_qimen': {
       const lines: string[] = [];
+      if (r.method?.algorithm) uniqPush(lines, `方法 · ${compact(r.method.algorithm, 48)}`);
       if (r.jieqi) uniqPush(lines, `节气 · ${compact(r.jieqi)}`);
       if (r.yinYangDun && r.juNumber) uniqPush(lines, `${r.yinYangDun}遁 · ${r.juNumber}局`);
       if (r.yongShen?.summary) uniqPush(lines, `用神 · ${compact(r.yongShen.summary, 20)}`);
@@ -92,7 +94,8 @@ function evidenceFromTool(call: ToolCall, result: unknown): string[] {
         ?? (Array.isArray(data) ? firstArrayItem(data) : data);
       if (scope) uniqPush(lines, `时间 · ${compact(scope)}`);
       if (current?.year) uniqPush(lines, `年份 · ${compact(current.year)}`);
-      if (current?.month) uniqPush(lines, `月份 · ${compact(current.month)}`);
+      if (current?.month) uniqPush(lines, `节气月序 · ${compact(current.month)}`);
+      if (r.status) uniqPush(lines, `交运状态 · ${{"before-start":"未起运","before-birth":"尚未出生","active":"已起运","out-of-range":"超出已排大运","missing-exact-dates":"缺少交运日期"}[r.status as string] ?? r.status}`);
       if (current?.ganZhi) uniqPush(lines, `干支 · ${compactGanZhi(current.ganZhi)}`);
       if (current?.shiShen) uniqPush(lines, `十神 · ${compact(current.shiShen)}`);
       if (current?.ageRange ?? current?.period) uniqPush(lines, `阶段 · ${compact(current.ageRange ?? current.period)}`);
@@ -161,6 +164,11 @@ export function buildEvidenceFromToolCalls(
 ): string[] {
   const lines: string[] = [];
   for (const entry of toolCalls) {
+    const result = getRecord(entry.result);
+    if (result && !result.error && result.provenance?.referenceDate) {
+      uniqPush(lines, `计算时刻 · ${compact(result.provenance.referenceDate, 32)}`);
+      uniqPush(lines, '历法 · 北京时间；精确交节；子初换日');
+    }
     for (const line of evidenceFromTool(entry.call, entry.result)) {
       uniqPush(lines, line);
       if (lines.length >= limit) return lines;

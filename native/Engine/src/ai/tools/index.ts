@@ -36,7 +36,7 @@ const DOMAIN_TO_PERSON: Record<string, string | null> = {
 const DOMAIN_TO_SHENSHA_KIND: Record<string, string> = {
   婚姻: '桃花',
   事业: '权贵',
-  健康: '凶',
+
 };
 
 const aggregatedTools: ToolDefinition[] = [
@@ -47,6 +47,7 @@ const aggregatedTools: ToolDefinition[] = [
       description: '一次获取某领域的命盘相关数据：八字星位 + 紫微对应宫位 + 相关神煞。最常用工具。',
       parameters: {
         type: 'object',
+        additionalProperties: false,
         properties: {
           domain: {
             type: 'string',
@@ -79,9 +80,22 @@ const aggregatedHandlers: Record<string, ToolHandler> = {
 
     return {
       domain,
-      bazi: baziPart,
+      bazi: {
+        ...baziPart as object,
+        pillars: ctx.mingPan?.siZhu,
+        dayMaster: ctx.mingPan?.riZhu,
+        tenGodRelationships: ctx.mingPan?.shiShenRelations,
+        pattern: ctx.mingPan?.geJu,
+        patternAnalysis: ctx.mingPan?.geJuV2,
+        strengthReference: ctx.mingPan?.wuXingStrength,
+        interpretationPolicy: ctx.mingPan?.interpretationPolicy,
+        tiaoHou: ctx.mingPan?.tiaoHou,
+        branchRelations: ctx.mingPan?.branchRelations,
+        stemRelations: ctx.mingPan?.stemRelations,
+      },
       ziwei: ziweiPart,
       shensha: shenshaPart,
+      readingBoundary: domain === "健康" ? "疾厄宫及神煞不能用于识别疾病、预测健康风险或诊断；只讨论传统意象及现实自我照顾。" : "两种体系分别解释，不能把相似意象当作相互验证。",
     };
   },
 };

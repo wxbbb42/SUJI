@@ -1,218 +1,96 @@
-/**
- * 六爻起卦引擎
- *
- * - 三币法：每爻 3 枚硬币（正面=2，反面=3），sum 6/7/8/9 → 老阴/少阳/少阴/老阳
- * - 主卦 + 变卦推导
- * - 用神选择 + 应期推算（基础规则）
- */
-import type {
-  CastOptions, HexagramReading, Yao, GuaInfo, LiuQin, YongShenAnalysis, WuXing,
-  YingQiAnalysis, QuestionType,
-} from './types';
-import { findGuaByYao } from './data/gua64';
-import { liuQinForGua, yaoWuXingForGua } from './data/liuqin';
+/** 京房八宫纳甲。规则与校勘边界见 docs/mingli/validation/divination-research.md。 */
+import type { CastOptions, HexagramReading, HexagramLine, Yao, GuaInfo, LiuQin, YongShenAnalysis, WuXing, QuestionType } from './types';
+import { findGuaByYao, GUA_64 } from './data/gua64';
+import { ganZhiForGua, liuQinForGua, yaoWuXingForGua, relationToMe } from './data/liuqin';
+import { TRIGRAMS } from './data/trigrams';
+import { getCalendarPillars } from '@engine/calendar/precision';
+
+const BRANCHES = [...'子丑寅卯辰巳午未申酉戌亥'];
+const STEMS = [...'甲乙丙丁戊己庚辛壬癸'];
+const SIX_SPIRITS = ['青龙', '朱雀', '勾陈', '腾蛇', '白虎', '玄武'];
+const SHENG: Record<WuXing, WuXing> = { 木:'火', 火:'土', 土:'金', 金:'水', 水:'木' };
+const KE: Record<WuXing, WuXing> = { 木:'土', 土:'水', 水:'火', 火:'金', 金:'木' };
+const BRANCH_ELEMENTS: WuXing[] = ['水','土','木','木','土','火','火','土','金','金','土','水'];
 
 export class HexagramEngine {
   cast(opts: CastOptions): HexagramReading {
     const castTime = opts.castTime ?? new Date();
-
-    // ── 1. 起 6 爻
-    const benYao: Yao[] = [];
-    const bianYao: Yao[] = [];
-    const changingYao: number[] = [];
-    for (let i = 0; i < 6; i++) {
-      const result = this.castSingleYao();
-      benYao.push(result.value);
-      bianYao.push(result.changing
-        ? (result.value === '阴' ? '阳' : '阴')
-        : result.value);
-      if (result.changing) changingYao.push(i + 1);
-    }
-
-    // ── 2. 主/变 卦查表
+    if (!Number.isFinite(castTime.getTime())) throw new Error('invalid castTime');
+    const lineValues = opts.lineValues ? [...opts.lineValues] : Array.from({ length: 6 }, () => this.castSingleYao());
+    if (lineValues.length !== 6 || lineValues.some(v => ![6,7,8,9].includes(v))) throw new Error('lineValues must contain six integers from 6 to 9, bottom to top');
+    const benYao: Yao[] = lineValues.map(v => v % 2 ? '阳' : '阴');
+    const bianYao: Yao[] = lineValues.map(v => v === 6 || v === 7 ? '阳' : '阴');
+    const changingYao = lineValues.flatMap((v, i) => v === 6 || v === 9 ? [i+1] : []);
     const benGua = findGuaByYao(benYao);
-    const bianGua = changingYao.length > 0 ? findGuaByYao(bianYao) : benGua;
-
-    // ── 3. 六亲分配
+    const bianGua = changingYao.length ? findGuaByYao(bianYao) : benGua;
     const liuQin = liuQinForGua(benGua);
-
-    // ── 4. 用神 + 应期
-    const yongShen = this.selectYongShen(opts.questionType ?? 'general', opts.gender, liuQin, benGua, castTime);
-    const yingQi = this.computeYingQi(yongShen, castTime);
-    const castGanZhi = this.castTimeToGanZhi(castTime);
-
-    return {
-      question: opts.question,
-      questionType: opts.questionType ?? 'general',
-      castTime: castTime.toISOString(),
-      castGanZhi,
-      benGua,
-      bianGua,
-      changingYao,
-      yongShen,
-      yingQi,
-      liuQin,
-    };
-  }
-
-  /** 单爻起卦：三币法 */
-  private castSingleYao(): { value: Yao; changing: boolean } {
-    let sum = 0;
-    for (let i = 0; i < 3; i++) {
-      sum += Math.random() < 0.5 ? 2 : 3;
-    }
-    switch (sum) {
-      case 6: return { value: '阴', changing: true };
-      case 7: return { value: '阳', changing: false };
-      case 8: return { value: '阴', changing: false };
-      case 9: return { value: '阳', changing: true };
-      default: throw new Error('unreachable');
-    }
-  }
-
-  /** 用神选择规则 */
-  private selectYongShen(
-    qt: QuestionType,
-    gender: '男' | '女' | undefined,
-    liuQin: Record<1|2|3|4|5|6, LiuQin>,
-    gua: GuaInfo,
-    castTime: Date,
-  ): YongShenAnalysis {
-    let target: LiuQin;
-    switch (qt) {
-      case 'career': target = '官鬼'; break;
-      case 'wealth': target = '妻财'; break;
-      case 'marriage': target = gender === '男' ? '妻财' : '官鬼'; break;
-      case 'kids': target = '子孙'; break;
-      case 'parents': target = '父母'; break;
-      case 'health': target = '子孙'; break;
-      default: target = '官鬼';
-    }
-
-    // 在 6 爻里找用神
-    let yaoIndex: 1|2|3|4|5|6 | null = null;
-    for (let i = 1; i <= 6; i++) {
-      if (liuQin[i as 1|2|3|4|5|6] === target) {
-        yaoIndex = i as 1|2|3|4|5|6;
-        break;
-      }
-    }
-
-    // 用神不上卦的处理
-    if (yaoIndex === null) {
+    const pillars = getCalendarPillars(castTime);
+    const castGanZhi = { day: pillars.day, month: pillars.month, hour: pillars.hour };
+    const palaceSequence = GUA_64.filter(g => g.palace === benGua.palace);
+    const stage = palaceSequence.findIndex(g => g.name === benGua.name);
+    // 本宫、初世、二世、三世、四世、五世、游魂、归魂；应爻隔三位。
+    const shiYao = [6,1,2,3,4,5,4,3][stage];
+    const yingYao = (shiYao + 2) % 6 + 1;
+    const dayStem = STEMS.indexOf(pillars.day[0]);
+    const dayBranch = BRANCHES.indexOf(pillars.day[1]);
+    const monthBranch = BRANCHES.indexOf(pillars.month[1]);
+    const xunStartBranch = (dayBranch - dayStem + 12) % 12;
+    const xunKong = [BRANCHES[(xunStartBranch+10)%12], BRANCHES[(xunStartBranch+11)%12]];
+    const spiritStart = [0,0,1,1,2,3,4,4,5,5][dayStem];
+    const gzs = ganZhiForGua(benGua), wxs = yaoWuXingForGua(benGua);
+    const changedGzs = ganZhiForGua(bianGua), changedWxs = yaoWuXingForGua(bianGua);
+    const pure = palaceSequence[0], pureGzs = ganZhiForGua(pure), pureWxs = yaoWuXingForGua(pure), pureQin = liuQinForGua(pure);
+    const palaceElement = TRIGRAMS[benGua.palace].wuXing;
+    const presentQin = new Set(Object.values(liuQin));
+    const lines: HexagramLine[] = lineValues.map((value, i) => {
+      const position = i+1, branch = BRANCHES.indexOf(gzs[i][1]);
+      const qin = liuQin[position as 1|2|3|4|5|6], hiddenQin = pureQin[position as 1|2|3|4|5|6];
       return {
-        type: target,
-        yaoIndex: 0,            // 0 表示不上卦
-        wuXing: '土',           // 占位（实际不会用）
-        state: '不上卦',
-        interactions: ['用神不在卦中（伏神）'],
+        position, value, ganZhi:gzs[i], wuXing:wxs[i], liuQin:qin,
+        liuShen:SIX_SPIRITS[(spiritStart+i)%6], isShi:position===shiYao, isYing:position===yingYao,
+        isChanging:changingYao.includes(position), isVoid:xunKong.includes(gzs[i][1]),
+        monthClash:(branch-monthBranch+12)%12===6,
+        dayClash:(branch-dayBranch+12)%12===6,
+        dayCombination:(branch+dayBranch)%12===1,
+        // 变爻六亲仍以本卦宫五行为我，不改用变卦宫。
+        ...(changingYao.includes(position) ? {changed:{ganZhi:changedGzs[i],wuXing:changedWxs[i],liuQin:relationToMe(palaceElement,changedWxs[i])}} : {}),
+        ...(!presentQin.has(hiddenQin) ? {hidden:{ganZhi:pureGzs[i],wuXing:pureWxs[i],liuQin:hiddenQin}} : {}),
       };
+    });
+    const yongShen = this.selectYongShen(opts.questionType ?? 'general', opts.gender, liuQin, benGua, pillars.month, shiYao, lines);
+    return {
+      question:opts.question, questionType:opts.questionType ?? 'general', castTime:castTime.toISOString(), castGanZhi,
+      benGua,bianGua,changingYao,liuQin,yongShen,lineValues,shiYao,yingYao,xunKong,lines,
+      yingQi:{description:'未推定应期；月日、动变与用神条件不足以给出可靠的具体日期',factors:['不使用固定周数或月份作为预测期限']},
+      method:{algorithm:'jingfang-najia-v1',calendar:'Beijing civil time; exact solar-term month',dayBoundary:'zi-hour',caveats:[
+        '旺相休囚死仅表示月建五行关系，不等于综合旺衰或事件结果',
+        '用神按提问类别初选；多个候选爻全部保留，需结合具体所问再判断',
+        '旬空、月破、日冲和伏神是排盘事实，不自动判定吉凶或应期',
+      ]},
+    };
+  }
+
+  private castSingleYao(): 6|7|8|9 {
+    return (Array.from({length:3}, () => Math.random() < 0.5 ? 2 : 3).reduce<number>((a,b)=>a+b,0)) as 6|7|8|9;
+  }
+
+  private selectYongShen(qt:QuestionType, gender:'男'|'女'|undefined, liuQin:Record<1|2|3|4|5|6,LiuQin>, gua:GuaInfo, month:string, shiYao:number, lines:HexagramLine[]):YongShenAnalysis {
+    const byCategory:Partial<Record<QuestionType,LiuQin>> = {career:'官鬼',wealth:'妻财',kids:'子孙',parents:'父母'};
+    const target = qt==='marriage' && gender ? (gender==='男' ? '妻财' : '官鬼') : byCategory[qt];
+    const type = target ?? liuQin[shiYao as 1|2|3|4|5|6];
+    const candidates = target ? lines.filter(l=>l.liuQin===target) : lines.filter(l=>l.isShi);
+    const chosen = candidates[0];
+    if (!chosen) {
+      const hidden = lines.find(l=>l.hidden?.liuQin===type)?.hidden;
+      return {type,yaoIndex:0,wuXing:hidden?.wuXing ?? TRIGRAMS[gua.palace].wuXing,state:'不上卦',candidateYaoIndices:[],interactions:[hidden ? `用神伏藏：${hidden.ganZhi}，需结合飞伏生克判断` : '未找到用神，暂不判定']};
     }
-
-    const yaoWuXing = yaoWuXingForGua(gua);
-    const wuXing = yaoWuXing[yaoIndex - 1];
-    const state = yongShenStateByMonth(wuXing, castTime);
-    return {
-      type: target,
-      yaoIndex,
-      wuXing,
-      state,
-      interactions: [`月令五行判${state}`],
-    };
+    const monthWx=BRANCH_ELEMENTS[BRANCHES.indexOf(month[1])], wx=chosen.wuXing;
+    const state=monthWx===wx?'旺':SHENG[monthWx]===wx?'相':SHENG[wx]===monthWx?'休':KE[wx]===monthWx?'囚':'死';
+    return {type,yaoIndex:chosen.position,wuXing:wx,state,candidateYaoIndices:candidates.map(l=>l.position),interactions:[
+      target ? `按问题类别初选${target}` : '以世爻代表求问者；具体用神仍需明确所问对象',
+      `月建${month}五行关系：${state}（非综合旺衰）`,
+      ...(candidates.length>1 ? ['多个用神候选，当前列出初爻起首项，不代表最终取用'] : []),
+      ...(chosen.isVoid?['临旬空']:[]),...(chosen.monthClash?['临月破']:[]),...(chosen.dayClash?['日冲']:[]),...(chosen.dayCombination?['日合']:[]),
+    ]};
   }
-
-  /** 应期：用神五行 → 对应地支 → 描述（MVP 用模糊语言） */
-  private computeYingQi(yongShen: YongShenAnalysis, castTime: Date): YingQiAnalysis {
-    if (yongShen.state === '不上卦') {
-      return {
-        description: '用神不上卦，应期难定',
-        factors: [`用神 ${yongShen.type} 未在 6 爻中显现`],
-      };
-    }
-
-    const wxToZhi: Record<string, string> = {
-      金: '申酉日或申酉月',
-      木: '寅卯日或寅卯月',
-      水: '亥子日或亥子月',
-      火: '巳午日或巳午月',
-      土: '辰戌丑未日或同月',
-    };
-    return {
-      description: `约 1-2 周内，应于${wxToZhi[yongShen.wuXing]}`,
-      factors: [`用神五行：${yongShen.wuXing}`, `临爻：${yongShen.yaoIndex}`],
-    };
-  }
-
-  private castTimeToGanZhi(d: Date): { day: string; month: string; hour: string } {
-    return {
-      day: dateToGanZhi(d),
-      month: monthToGanZhi(d.getFullYear(), d.getMonth() + 1),
-      hour: '未',  // MVP 简化
-    };
-  }
-}
-
-// ────────────────────────────────────────────────────────
-// 内部 helpers（与 lib/ai/tools/bazi.ts 简化版本一致）
-// ────────────────────────────────────────────────────────
-
-const TIANGAN = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
-const DIZHI = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
-
-const SHENG: Record<WuXing, WuXing> = {
-  木: '火',
-  火: '土',
-  土: '金',
-  金: '水',
-  水: '木',
-};
-
-const KE: Record<WuXing, WuXing> = {
-  木: '土',
-  土: '水',
-  水: '火',
-  火: '金',
-  金: '木',
-};
-
-const ZHI_WUXING: Record<string, WuXing> = {
-  子: '水',
-  丑: '土',
-  寅: '木',
-  卯: '木',
-  辰: '土',
-  巳: '火',
-  午: '火',
-  未: '土',
-  申: '金',
-  酉: '金',
-  戌: '土',
-  亥: '水',
-};
-
-function dateToGanZhi(d: Date): string {
-  const epoch = new Date(1900, 0, 1).getTime();
-  const days = Math.floor((d.getTime() - epoch) / 86400000);
-  const offset = (10 + days) % 60;
-  const adj = offset < 0 ? offset + 60 : offset;
-  return TIANGAN[adj % 10] + DIZHI[adj % 12];
-}
-
-function monthToGanZhi(year: number, month: number): string {
-  const yearOffset = ((year - 1984) % 60 + 60) % 60;
-  const yearGan = yearOffset % 10;
-  const monthGanStart = (yearGan % 5) * 2 + 2;
-  const gan = TIANGAN[(monthGanStart + month - 1) % 10];
-  const zhi = DIZHI[(month + 1) % 12];
-  return gan + zhi;
-}
-
-function yongShenStateByMonth(yongShenWuXing: WuXing, castTime: Date): YongShenAnalysis['state'] {
-  const monthPillar = monthToGanZhi(castTime.getFullYear(), castTime.getMonth() + 1);
-  const monthWuXing = ZHI_WUXING[monthPillar[1]];
-  if (monthWuXing === yongShenWuXing) return '旺';
-  if (SHENG[monthWuXing] === yongShenWuXing) return '相';
-  if (SHENG[yongShenWuXing] === monthWuXing) return '休';
-  if (KE[yongShenWuXing] === monthWuXing) return '囚';
-  return '死';
 }

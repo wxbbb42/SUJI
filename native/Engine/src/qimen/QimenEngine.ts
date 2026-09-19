@@ -2,7 +2,7 @@
  * 奇门遁甲起局引擎
  *
  * - 真太阳时校正
- * - lunisolar 节气计算
+ * - 精确物理时刻节气与日时干支计算
  * - 阴/阳遁 + 上中下元定局
  * - 起 9 宫地盘（自然数序流转）+ 真旋天盘 + 排八门 / 九星 / 八神
  *
@@ -10,18 +10,18 @@
  *   C1：真旋天盘 — 见 helpers/tianPan.ts
  *   C2：三奇六仪按自然数序流转（非后天八卦顺时针）— 见 helpers/diPan.ts
  *
- * 仍简化的项（标 TODO）：
- *   - 上中下元用日干索引近似（未严格按"节气交接日的甲子日"算上元起点）
- *   - 用神 / 应期为 MVP 简化
+ * 拆补法：五日符头定元，值使门按旬内时数沿九宫飞数。
+ * 用神仅为分类初选；不从不充分规则生成固定应期。
  */
 import { toTrueSolarTime } from '@engine/bazi/TrueSolarTime';
 import type {
-  QimenChart, Palace, SetupOptions, YinYangDun, JuNumber, Yuan,
+  QimenChart, Palace, SetupOptions, YinYangDun, JuNumber,
   TianGan, BamenName, BashenName, JiuxingName, GeJu,
   QuestionType, YongShenAnalysis, YingQiAnalysis, QimenMethodMeta,
 } from './types';
 import { PALACES_BASE } from './data/palaces';
-import { BAMEN_ORDER } from './data/bamen';
+import { rotateBamen } from './helpers/bamen';
+import { computeYuanFromDay } from './helpers/yuan';
 import { JIUXING_DI_PAN_FIXED } from './data/jiuxing';
 import { BASHEN_ORDER } from './data/bashen';
 import { findJieqiJu } from './data/jieqi-ju';
@@ -33,10 +33,14 @@ import { computeTimePillars } from './helpers/timeGanZhi';
 import { currentSolarTerm } from './helpers/solarTerms';
 
 const QIMEN_METHOD: QimenMethodMeta = {
-  level: 'mvp',
+  level: 'standard',
+  algorithm: 'zhuanpan-qimen-chai-bu-v1',
+  centerPolicy: 'fixed-kun-2; tian-qin-follows-tian-rui',
+  dayBoundary: 'zi-hour on apparent-solar clock',
+  solarTermClock: 'physical-instant',
   caveats: [
-    '上中下元使用日序近似，尚未按节气交接后的甲子日严格起上元',
-    '用神选择与应期为产品 MVP 简化规则',
+    '采用拆补法和中五固定寄坤二，不混用置闰法或阴阳分寄法',
+    '用神按问题类别初选；旺衰仅为宫位五行关系，应期证据不足时不报期限',
     '格局识别只覆盖当前数据表可判定的常用格局',
   ],
 };
@@ -62,11 +66,14 @@ export class QimenEngine {
     const setupTime = opts.setupTime ?? new Date();
     const longitude = opts.longitude ?? 116.4;
 
+    if (!Number.isFinite(setupTime.getTime())) throw new Error('invalid setupTime');
+    if (!Number.isFinite(longitude) || longitude < -180 || longitude > 180) throw new Error('invalid longitude');
+
     // 1. 真太阳时
     const trueSolar = toTrueSolarTime(setupTime, longitude);
 
     // 2. 节气
-    const jieqi = currentSolarTerm(trueSolar);
+    const jieqi = currentSolarTerm(setupTime);
 
     // 3. 阴阳遁 + 局数 + 元
     const jieqiJu = findJieqiJu(jieqi);
@@ -74,7 +81,8 @@ export class QimenEngine {
       throw new Error(`unknown jieqi: ${jieqi}`);
     }
     const yinYangDun: YinYangDun = jieqiJu.dun;
-    const yuan: Yuan = this.computeYuan(trueSolar);
+    const pillars = computeTimePillars(trueSolar);
+    const {yuan,fuTou} = computeYuanFromDay(pillars.dayGan+pillars.dayZhi);
     const juNumber: JuNumber = yuan === '上' ? jieqiJu.upper :
                                 yuan === '中' ? jieqiJu.middle :
                                 jieqiJu.lower;
@@ -83,18 +91,19 @@ export class QimenEngine {
     const diPan = buildDiPan(yinYangDun, juNumber);
 
     // 5. 计算时干 / 旬首
-    const pillars = computeTimePillars(trueSolar);
     const timeGan = pillars.hourGan;
     const xunShou = computeXunShou(pillars.hourGan, pillars.hourZhi);
 
     // 6. 旋天盘
-    const { tianPan, tianJiuxing, zhiFuPalaceId } = rotateTianPan(diPan, xunShou, timeGan, yinYangDun);
+    const rotation = rotateTianPan(diPan, xunShou, timeGan, yinYangDun);
+    const { tianPan, tianJiuxing, zhiFuPalaceId } = rotation;
+    const doors = rotateBamen(diPan,xunShou,timeGan,yinYangDun);
 
     // 7. 排八门 / 九星 / 八神
-    const palaces = this.buildPalaces(diPan, tianPan, tianJiuxing, zhiFuPalaceId, yinYangDun);
+    const palaces = this.buildPalaces(diPan, tianPan, tianJiuxing, zhiFuPalaceId, yinYangDun, doors.bamen).map(p => ({...p, ...(p.id===rotation.tianQinPalaceId ? {hostsTianQin:true,hostedTianPanGan:rotation.hostedTianPanGan} : {})}));
 
     // 8. 用神 + 应期
-    const yongShen = this.selectYongShen(opts.questionType, opts.gender, palaces, timeGan);
+    const yongShen = this.selectYongShen(opts.questionType, palaces, timeGan, pillars.dayGan, xunShou, computeXunShou(pillars.dayGan,pillars.dayZhi));
     const yingQi = this.computeYingQi(yongShen);
 
     // 9. 格局识别
@@ -112,51 +121,57 @@ export class QimenEngine {
       geJu: [] as GeJu[],
       yingQi,
       method: QIMEN_METHOD,
+      fuTou, dayGanZhi:pillars.dayGan+pillars.dayZhi, hourGanZhi:pillars.hourGan+pillars.hourZhi,
+      zhiFuStar:rotation.zhiFuStar,zhiFuPalaceId,zhiFuSourcePalaceId:rotation.zhiFuSourcePalaceId,
+      zhiShiMen:doors.zhiShiMen,zhiShiPalaceId:doors.zhiShiPalaceId,zhiShiRawPalaceId:doors.zhiShiRawPalaceId,zhiShiSourcePalaceId:doors.zhiShiSourcePalaceId,
+      tianQinPalaceId:rotation.tianQinPalaceId,
     };
     const geJu = detectGeJu(partialChart);
 
     return { ...partialChart, geJu };
   }
 
-  /** 按 questionType 选用神，辅看 secondaryMen / Shen / Star 同宫加分 */
+  /** 按问题类别列出初始参考点，不能据单一同宫关系断吉凶。 */
   private selectYongShen(
     qt: QuestionType,
-    gender: '男' | '女' | undefined,
     palaces: Palace[],
     timeGan: TianGan,
+    dayGan: TianGan,
+    hourXunShou: TianGan,
+    dayXunShou: TianGan,
   ): YongShenAnalysis {
     const rule = YONGSHEN_RULES[qt];
-    let targetGan: string = rule.primaryGan === 'time' ? timeGan : rule.primaryGan;
-
-    // marriage 场景：男看妻、女看夫，简化都看庚（plan 已说明）
-    if (qt === 'marriage') {
-      targetGan = '庚';
+    const targetGan = rule.primaryGan==='day' ? dayGan : timeGan;
+    const role = rule.primaryGan==='day' ? '求问者（日干）' : '所问之事（时干）';
+    const locateStem = (gan:TianGan,xun:TianGan) => {
+      const visible = gan==='甲' ? xun : gan;
+      return palaces.find(p=>p.id!==5&&(p.tianPanGan===visible||p.hostedTianPanGan===visible));
+    };
+    const palace=locateStem(targetGan,rule.primaryGan==='day'?dayXunShou:hourXunShou);
+    const references: NonNullable<YongShenAnalysis['references']> = [];
+    const dayPalace=locateStem(dayGan,dayXunShou),hourPalace=locateStem(timeGan,hourXunShou);
+    if(dayPalace) references.push({label:`求问者（日干${dayGan}）`,palaceId:dayPalace.id});
+    if(hourPalace) references.push({label:`所问之事（时干${timeGan}）`,palaceId:hourPalace.id});
+    for(const p of palaces){
+      if(rule.secondaryMen&&p.bamen===rule.secondaryMen)references.push({label:rule.secondaryMen,palaceId:p.id});
+      if(rule.secondaryShen&&p.bashen===rule.secondaryShen)references.push({label:rule.secondaryShen,palaceId:p.id});
+      if(rule.secondaryStar&&p.jiuxing===rule.secondaryStar)references.push({label:rule.secondaryStar,palaceId:p.id});
     }
-
-    // 找 targetGan 所在宫（先找天盘，找不到再找地盘）
-    const palace = palaces.find(p => p.tianPanGan === targetGan)
-                ?? palaces.find(p => p.diPanGan === targetGan);
 
     if (!palace) {
-      return {
-        type: targetGan,
-        palaceId: 1 as 1,
-        state: '不上卦',
-        summary: `用神 ${targetGan} 不上卦（伏神）`,
-        interactions: ['用神不在 9 宫显现'],
-      };
+      throw new Error(`reference stem ${targetGan} missing from outer and hosted plates`);
     }
 
-    // 检查辅看的门 / 神 / 星是否同宫（加分）
-    const interactions: string[] = [];
+    // 记录门 / 神 / 星是否同宫，不计算虚构的分数。
+    const interactions: string[] = [rule.description,'这些位置是取象参考点，不是最终用神裁定或吉凶结论'];
     if (rule.secondaryMen && palace.bamen === rule.secondaryMen) {
-      interactions.push(`临${rule.secondaryMen}（吉门加分）`);
+      interactions.push(`临${rule.secondaryMen}（同宫参考）`);
     }
     if (rule.secondaryShen && palace.bashen === rule.secondaryShen) {
-      interactions.push(`临${rule.secondaryShen}（神助）`);
+      interactions.push(`临${rule.secondaryShen}（同宫参考）`);
     }
     if (rule.secondaryStar && palace.jiuxing === rule.secondaryStar) {
-      interactions.push(`临${rule.secondaryStar}星（星映）`);
+      interactions.push(`临${rule.secondaryStar}星（同宫参考）`);
     }
     const state = this.computeYongShenState(targetGan as TianGan, palace);
     interactions.unshift(`宫位五行判${state}`);
@@ -165,8 +180,10 @@ export class QimenEngine {
       type: targetGan,
       palaceId: palace.id,
       state,
-      summary: `${targetGan}临${palace.name}，${state}（${palace.bamen ?? '无门'} · ${palace.jiuxing} · ${palace.bashen ?? '无神'}）`,
+      summary: `${role}${targetGan}临${palace.name}，${state}（${palace.bamen ?? '无门'} · ${palace.jiuxing} · ${palace.bashen ?? '无神'}）`,
       interactions,
+      references,
+      selectionStatus: 'initial-reference',
     };
   }
 
@@ -189,18 +206,9 @@ export class QimenEngine {
       };
     }
     return {
-      description: '约 1-3 个月内见分晓',
-      factors: [`用神：${yongShen.summary}`],
+      description: '尚不能确定应期；需明确事件条件，并综合空亡、动静与应期规则',
+      factors: [`用神：${yongShen.summary}`, '当前取用与宫位关系不足以推出具体期限'],
     };
-  }
-
-  /** 上中下元判定（MVP 简化：用日数 mod 10 近似） */
-  private computeYuan(time: Date): Yuan {
-    const day = Math.floor(time.getTime() / 86400000);
-    const ganIdx = ((day % 10) + 10) % 10;
-    if (ganIdx <= 3) return '上';
-    if (ganIdx <= 6) return '中';
-    return '下';
   }
 
   /** 排八门 / 九星 / 八神 */
@@ -210,19 +218,11 @@ export class QimenEngine {
     tianJiuxing: Map<number, JiuxingName>,
     zhiFuPalaceId: number,
     dun: YinYangDun,
+    bamenMap: Map<number,BamenName>,
   ): Palace[] {
     // 直符宫已由 rotateTianPan 算出（= 时干所在地盘宫）。
     // 若直符宫落中 5（时干未上卦边缘场景），降级到坎宫。
     let zhiFuOuter = PALACE_CLOCKWISE_8.includes(zhiFuPalaceId) ? zhiFuPalaceId : 1;
-
-    // 八门起点：开门起直符宫，阳遁顺时针、阴遁逆时针
-    const menSequence = dun === '阳' ? [...PALACE_CLOCKWISE_8] : [...PALACE_CLOCKWISE_8].reverse();
-    const zhiFuIdxInMen = menSequence.indexOf(zhiFuOuter);
-    const bamenMap = new Map<number, BamenName>();
-    for (let i = 0; i < 8; i++) {
-      const pid = menSequence[(zhiFuIdxInMen + i) % 8];
-      bamenMap.set(pid, BAMEN_ORDER[i]);
-    }
 
     // 八神：值符神在直符宫，按 BASHEN_ORDER 顺/逆布
     const shenSequence = dun === '阳' ? [...PALACE_CLOCKWISE_8] : [...PALACE_CLOCKWISE_8].reverse();

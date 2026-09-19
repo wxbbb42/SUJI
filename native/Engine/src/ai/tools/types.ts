@@ -12,15 +12,22 @@ export interface ToolDefinition {
       type: 'object';
       properties: Record<string, ParameterSchema>;
       required?: string[];
+      additionalProperties?: boolean;
     };
   };
 }
 
 export interface ParameterSchema {
-  type: 'string' | 'number' | 'boolean' | 'array' | 'object';
+  type: 'string' | 'number' | 'integer' | 'boolean' | 'array' | 'object';
   description?: string;
   enum?: string[];
   items?: ParameterSchema;
+  minimum?: number;
+  maximum?: number;
+  minLength?: number;
+  maxLength?: number;
+  minItems?: number;
+  maxItems?: number;
 }
 
 /** LLM 返回的工具调用请求 */

@@ -1,18 +1,34 @@
+import './licenses.mjs';
 import { build } from 'esbuild';
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import vm from 'node:vm';
+import { createHash } from 'node:crypto';
 const native = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 await mkdir(path.join(native,'Resources'), { recursive:true });
+async function sourceFiles(directory) {
+  const entries=await readdir(directory,{withFileTypes:true});
+  const nested=await Promise.all(entries.sort((a,b)=>a.name.localeCompare(b.name)).map(async entry=>{
+    const full=path.join(directory,entry.name);
+    if(entry.isDirectory()) return entry.name==='__tests__'?[]:sourceFiles(full);
+    return /\.(ts|json)$/.test(entry.name)?[full]:[];
+  }));
+  return nested.flat();
+}
+const inputs=[...await sourceFiles(path.join(native,'Engine/src')), ...['bridge.ts','timezone.js','package-lock.json','build.mjs'].map(p=>path.join(native,'Engine',p))].sort();
+const hash=createHash('sha256');
+for(const file of inputs) hash.update(path.relative(native,file)).update('\0').update(await readFile(file)).update('\0');
+const revision=hash.digest('hex');
 const result = await build({
   entryPoints:[path.join(native,'Engine/bridge.ts')], bundle:true, write:false,
   format:'iife', globalName:'SujiNative', target:'es2020', platform:'browser',
   tsconfig:path.join(native,'Engine/tsconfig.json'), minify:true,
+  define:{__ENGINE_REVISION__:JSON.stringify(revision)},
 });
 const code = await readFile(path.join(native,'Engine/timezone.js'),'utf8') + '\n' + result.outputFiles[0].text;
 await writeFile(path.join(native,'Resources/mingli.js'),code);
-// Baseline uses original engine + actual Beijing process time, not the native shim.
+// Runtime parity fixtures only: generated output is NOT an independent correctness oracle.
 process.env.TZ = 'Asia/Shanghai';
 const context=vm.createContext({ console }); vm.runInContext(result.outputFiles[0].text,context);
 const birth={year:1995,month:8,day:15,hour:19,minute:30,gender:'女',city:'上海',longitude:121.47,timeZoneID:'Asia/Shanghai'};
@@ -26,7 +42,7 @@ const requests = [
   {command:'calendar',day:'2026-02-03'},
   {command:'calendar',day:'2026-02-05'},
   {command:'tool',name:'get_domain',birth,arguments:{domain:'事业'},now:'2026-09-19T04:00:00Z'},
-  {command:'forecast',birth,year:2027},
+  {command:'forecast',birth,year:2027,now:'2026-09-19T04:00:00Z'},
 ];
 const fixtures=[];
 for(const request of requests) fixtures.push({request,result:await context.SujiNative.dispatch(request)});

@@ -1,0 +1,3012 @@
+{
+  "purpose": "Parameter sensitivity, NOT empirical accuracy or prediction validation",
+  "structuralSourceSha256": "034909fe9c5472351ac8e7f804aaa01bce339128041271d27105c808607532fb",
+  "sample": {
+    "count": 1152,
+    "years": "1990…2025 in 5-year steps",
+    "months": "all 12",
+    "days": [
+      1,
+      15,
+      28
+    ],
+    "hoursCST": [
+      0,
+      6,
+      12,
+      18
+    ],
+    "solarTimeCorrection": false,
+    "fixedPillarsAcrossVariants": true
+  },
+  "results": [
+    {
+      "id": "baseline",
+      "description": "Current declared engineering parameters",
+      "anyChanged": 0,
+      "changedFields": {
+        "rootLabel": 0,
+        "strength": 0,
+        "qingZhuo": 0,
+        "configuration": 0,
+        "category": 0,
+        "chengBai": 0,
+        "rank": 0,
+        "usefulElement": 0
+      },
+      "examples": []
+    },
+    {
+      "id": "root-label-thresholds-minus20pct",
+      "description": "Only root-label cutoffs ×0.8, both day and useful-element roots",
+      "anyChanged": 267,
+      "changedFields": {
+        "rootLabel": 259,
+        "strength": 82,
+        "qingZhuo": 0,
+        "configuration": 0,
+        "category": 0,
+        "chengBai": 0,
+        "rank": 11,
+        "usefulElement": 0
+      },
+      "examples": [
+        {
+          "date": "1990-01-27T16:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丁丑",
+            "癸巳",
+            "壬子"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-01-28T10:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丁丑",
+            "癸巳",
+            "辛酉"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-01-31T22:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丁丑",
+            "丁酉",
+            "癸卯"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-02-01T04:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丁丑",
+            "丁酉",
+            "丙午"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-02-28T04:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "戊寅",
+            "甲子",
+            "庚午"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "建禄格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "taiwang",
+            "qingZhuo": "banqing",
+            "configuration": "建禄格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "1990-02-28T10:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "戊寅",
+            "甲子",
+            "癸酉"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "建禄格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "taiwang",
+            "qingZhuo": "banqing",
+            "configuration": "建禄格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "1990-03-31T16:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "己卯",
+            "丙申",
+            "戊子"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "1990-04-01T10:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "己卯",
+            "丙申",
+            "丁酉"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "1990-04-27T16:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "庚辰",
+            "癸亥",
+            "壬子"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "比肩结构（格局待辨）",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "水"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "比肩结构（格局待辨）",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "水"
+          }
+        },
+        {
+          "date": "1990-04-28T10:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "庚辰",
+            "癸亥",
+            "辛酉"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "比肩结构（格局待辨）",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "水"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "比肩结构（格局待辨）",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "水"
+          }
+        },
+        {
+          "date": "1990-05-14T16:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "辛巳",
+            "庚辰",
+            "丙子"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "火"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "火"
+          }
+        },
+        {
+          "date": "1990-05-14T22:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "辛巳",
+            "庚辰",
+            "己卯"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "比肩结构（格局待辨）",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "金"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "比肩结构（格局待辨）",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "金"
+          }
+        }
+      ]
+    },
+    {
+      "id": "root-label-thresholds-plus20pct",
+      "description": "Only root-label cutoffs ×1.2, both day and useful-element roots",
+      "anyChanged": 424,
+      "changedFields": {
+        "rootLabel": 352,
+        "strength": 189,
+        "qingZhuo": 0,
+        "configuration": 0,
+        "category": 0,
+        "chengBai": 0,
+        "rank": 126,
+        "usefulElement": 0
+      },
+      "examples": [
+        {
+          "date": "1989-12-31T16:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丙子",
+            "丙寅",
+            "戊子"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "水"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "水"
+          }
+        },
+        {
+          "date": "1990-01-01T10:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丙子",
+            "丙寅",
+            "丁酉"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "水"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "水"
+          }
+        },
+        {
+          "date": "1990-01-14T16:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丁丑",
+            "庚辰",
+            "丙子"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "taiwang",
+            "qingZhuo": "banqing",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-01-14T22:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丁丑",
+            "庚辰",
+            "己卯"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "taiwang",
+            "qingZhuo": "banqing",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-01-31T16:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丁丑",
+            "丁酉",
+            "庚子"
+          ],
+          "changedFields": [
+            "rank"
+          ],
+          "baseline": {
+            "rootLabel": "弱根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "弱根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-01-31T22:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丁丑",
+            "丁酉",
+            "癸卯"
+          ],
+          "changedFields": [
+            "rank"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-02-01T10:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丁丑",
+            "丁酉",
+            "己酉"
+          ],
+          "changedFields": [
+            "rank"
+          ],
+          "baseline": {
+            "rootLabel": "弱根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "弱根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-02-14T16:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "戊寅",
+            "辛亥",
+            "戊子"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "弱根",
+            "strength": "ruo",
+            "qingZhuo": "zhuo",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "微根",
+            "strength": "tairuo",
+            "qingZhuo": "zhuo",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-02-14T22:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "戊寅",
+            "辛亥",
+            "辛卯"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "弱根",
+            "strength": "ruo",
+            "qingZhuo": "zhuo",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "微根",
+            "strength": "tairuo",
+            "qingZhuo": "zhuo",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-02-15T10:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "戊寅",
+            "辛亥",
+            "丁酉"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "弱根",
+            "strength": "ruo",
+            "qingZhuo": "zhuo",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-02-28T16:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "戊寅",
+            "乙丑",
+            "丙子"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "taiwang",
+            "qingZhuo": "banqing",
+            "configuration": "伤官格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "火"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "伤官格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "火"
+          }
+        },
+        {
+          "date": "1990-02-28T22:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "戊寅",
+            "乙丑",
+            "己卯"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength",
+            "rank"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "taiwang",
+            "qingZhuo": "banqing",
+            "configuration": "正财格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "正财格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          }
+        }
+      ]
+    },
+    {
+      "id": "secondary-roots-minus0.1",
+      "description": "Middle/remaining hidden-stem weights 0.5/0.2 → 0.4/0.1",
+      "anyChanged": 321,
+      "changedFields": {
+        "rootLabel": 237,
+        "strength": 129,
+        "qingZhuo": 30,
+        "configuration": 0,
+        "category": 0,
+        "chengBai": 0,
+        "rank": 87,
+        "usefulElement": 0
+      },
+      "examples": [
+        {
+          "date": "1989-12-31T16:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丙子",
+            "丙寅",
+            "戊子"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "水"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "水"
+          }
+        },
+        {
+          "date": "1990-01-01T10:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丙子",
+            "丙寅",
+            "丁酉"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "水"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "水"
+          }
+        },
+        {
+          "date": "1990-01-31T16:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丁丑",
+            "丁酉",
+            "庚子"
+          ],
+          "changedFields": [
+            "rank"
+          ],
+          "baseline": {
+            "rootLabel": "弱根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "弱根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-01-31T22:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丁丑",
+            "丁酉",
+            "癸卯"
+          ],
+          "changedFields": [
+            "rank"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-02-01T10:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丁丑",
+            "丁酉",
+            "己酉"
+          ],
+          "changedFields": [
+            "rank"
+          ],
+          "baseline": {
+            "rootLabel": "弱根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "弱根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-02-14T16:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "戊寅",
+            "辛亥",
+            "戊子"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "弱根",
+            "strength": "ruo",
+            "qingZhuo": "zhuo",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "微根",
+            "strength": "tairuo",
+            "qingZhuo": "zhuo",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-02-14T22:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "戊寅",
+            "辛亥",
+            "辛卯"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "弱根",
+            "strength": "ruo",
+            "qingZhuo": "zhuo",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "微根",
+            "strength": "tairuo",
+            "qingZhuo": "zhuo",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-02-28T16:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "戊寅",
+            "乙丑",
+            "丙子"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "taiwang",
+            "qingZhuo": "banqing",
+            "configuration": "伤官格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "火"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "伤官格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "火"
+          }
+        },
+        {
+          "date": "1990-02-28T22:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "戊寅",
+            "乙丑",
+            "己卯"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "taiwang",
+            "qingZhuo": "banqing",
+            "configuration": "正财格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "正财格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-03-01T04:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "戊寅",
+            "乙丑",
+            "壬午"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "zhuo",
+            "configuration": "正财格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "弱根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "正财格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-03-01T10:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "戊寅",
+            "乙丑",
+            "乙酉"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "zhuo",
+            "configuration": "正财格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "弱根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "正财格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-03-14T16:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "己卯",
+            "己卯",
+            "甲子"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "弱根",
+            "strength": "ruo",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "木"
+          }
+        }
+      ]
+    },
+    {
+      "id": "secondary-roots-plus0.1",
+      "description": "Middle/remaining hidden-stem weights 0.5/0.2 → 0.6/0.3",
+      "anyChanged": 175,
+      "changedFields": {
+        "rootLabel": 152,
+        "strength": 60,
+        "qingZhuo": 15,
+        "configuration": 0,
+        "category": 0,
+        "chengBai": 0,
+        "rank": 15,
+        "usefulElement": 0
+      },
+      "examples": [
+        {
+          "date": "1990-01-27T16:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丁丑",
+            "癸巳",
+            "壬子"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-01-27T22:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丁丑",
+            "癸巳",
+            "乙卯"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "弱根",
+            "strength": "ruo",
+            "qingZhuo": "zhuo",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-01-28T04:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丁丑",
+            "癸巳",
+            "戊午"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "弱根",
+            "strength": "ruo",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-01-28T10:00:00.000Z",
+          "pillars": [
+            "己巳",
+            "丁丑",
+            "癸巳",
+            "辛酉"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-02-15T04:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "戊寅",
+            "辛亥",
+            "甲午"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "弱根",
+            "strength": "ruo",
+            "qingZhuo": "zhuo",
+            "configuration": "正财格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "正财格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "1990-02-15T10:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "戊寅",
+            "辛亥",
+            "丁酉"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-03-27T22:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "己卯",
+            "壬辰",
+            "癸卯"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "无根",
+            "strength": "ruo",
+            "qingZhuo": "zhuo",
+            "configuration": "伤官格",
+            "category": "zhengge",
+            "chengBai": "jiuying",
+            "rank": "zhong",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "微根",
+            "strength": "ruo",
+            "qingZhuo": "zhuo",
+            "configuration": "伤官格",
+            "category": "zhengge",
+            "chengBai": "jiuying",
+            "rank": "zhong",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "1990-03-28T04:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "己卯",
+            "壬辰",
+            "丙午"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "无根",
+            "strength": "ruo",
+            "qingZhuo": "zhuo",
+            "configuration": "伤官格",
+            "category": "zhengge",
+            "chengBai": "jiuying",
+            "rank": "zhong",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "微根",
+            "strength": "ruo",
+            "qingZhuo": "zhuo",
+            "configuration": "伤官格",
+            "category": "zhengge",
+            "chengBai": "jiuying",
+            "rank": "zhong",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "1990-05-14T16:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "辛巳",
+            "庚辰",
+            "丙子"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "火"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "火"
+          }
+        },
+        {
+          "date": "1990-05-14T22:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "辛巳",
+            "庚辰",
+            "己卯"
+          ],
+          "changedFields": [
+            "rootLabel"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "比肩结构（格局待辨）",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "金"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "比肩结构（格局待辨）",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "金"
+          }
+        },
+        {
+          "date": "1990-05-27T16:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "辛巳",
+            "癸巳",
+            "壬子"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength"
+          ],
+          "baseline": {
+            "rootLabel": "弱根",
+            "strength": "ruo",
+            "qingZhuo": "banqing",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "金"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "金"
+          }
+        },
+        {
+          "date": "1990-05-28T10:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "辛巳",
+            "癸巳",
+            "辛酉"
+          ],
+          "changedFields": [
+            "rootLabel",
+            "strength",
+            "rank"
+          ],
+          "baseline": {
+            "rootLabel": "弱根",
+            "strength": "ruo",
+            "qingZhuo": "banqing",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "金"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "金"
+          }
+        }
+      ]
+    },
+    {
+      "id": "qing-share-minus0.05",
+      "description": "Clean/mixed root-share cutoffs 0.6/0.3 → 0.55/0.25",
+      "anyChanged": 92,
+      "changedFields": {
+        "rootLabel": 0,
+        "strength": 0,
+        "qingZhuo": 92,
+        "configuration": 0,
+        "category": 0,
+        "chengBai": 0,
+        "rank": 0,
+        "usefulElement": 0
+      },
+      "examples": [
+        {
+          "date": "1990-02-15T10:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "戊寅",
+            "辛亥",
+            "丁酉"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正印格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-03-01T10:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "戊寅",
+            "乙丑",
+            "乙酉"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "zhuo",
+            "configuration": "正财格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "正财格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1990-06-15T04:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "壬午",
+            "辛亥",
+            "甲午"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "火"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "火"
+          }
+        },
+        {
+          "date": "1995-01-01T04:00:00.000Z",
+          "pillars": [
+            "甲戌",
+            "丙子",
+            "壬辰",
+            "丙午"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "zhuo",
+            "configuration": "月刃格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "水"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "月刃格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "水"
+          }
+        },
+        {
+          "date": "1995-03-31T22:00:00.000Z",
+          "pillars": [
+            "乙亥",
+            "己卯",
+            "壬戌",
+            "癸卯"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "伤官格",
+            "category": "zhengge",
+            "chengBai": "jiuying",
+            "rank": "zhong",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "伤官格",
+            "category": "zhengge",
+            "chengBai": "jiuying",
+            "rank": "zhong",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "1995-04-01T04:00:00.000Z",
+          "pillars": [
+            "乙亥",
+            "己卯",
+            "壬戌",
+            "丙午"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "伤官格",
+            "category": "zhengge",
+            "chengBai": "jiuying",
+            "rank": "zhong",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "伤官格",
+            "category": "zhengge",
+            "chengBai": "jiuying",
+            "rank": "zhong",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "1995-06-14T16:00:00.000Z",
+          "pillars": [
+            "乙亥",
+            "壬午",
+            "丁丑",
+            "庚子"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "zhuo",
+            "configuration": "建禄格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "火"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "建禄格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "火"
+          }
+        },
+        {
+          "date": "1995-06-15T10:00:00.000Z",
+          "pillars": [
+            "乙亥",
+            "壬午",
+            "丁丑",
+            "己酉"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "zhuo",
+            "configuration": "建禄格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "火"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "建禄格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "火"
+          }
+        },
+        {
+          "date": "1995-06-28T10:00:00.000Z",
+          "pillars": [
+            "乙亥",
+            "壬午",
+            "庚寅",
+            "乙酉"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "火"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "火"
+          }
+        },
+        {
+          "date": "1995-08-28T04:00:00.000Z",
+          "pillars": [
+            "乙亥",
+            "甲申",
+            "辛卯",
+            "甲午"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "zhuo",
+            "configuration": "月劫格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "金"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "月劫格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "金"
+          }
+        },
+        {
+          "date": "1995-10-27T22:00:00.000Z",
+          "pillars": [
+            "乙亥",
+            "丙戌",
+            "壬辰",
+            "癸卯"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          }
+        },
+        {
+          "date": "1995-10-28T04:00:00.000Z",
+          "pillars": [
+            "乙亥",
+            "丙戌",
+            "壬辰",
+            "丙午"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          }
+        }
+      ]
+    },
+    {
+      "id": "qing-share-plus0.05",
+      "description": "Clean/mixed root-share cutoffs 0.6/0.3 → 0.65/0.35",
+      "anyChanged": 82,
+      "changedFields": {
+        "rootLabel": 0,
+        "strength": 0,
+        "qingZhuo": 82,
+        "configuration": 0,
+        "category": 0,
+        "chengBai": 0,
+        "rank": 0,
+        "usefulElement": 0
+      },
+      "examples": [
+        {
+          "date": "1990-03-14T16:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "己卯",
+            "己卯",
+            "甲子"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "1990-03-15T10:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "己卯",
+            "己卯",
+            "癸酉"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "1990-08-27T16:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "甲申",
+            "乙丑",
+            "丙子"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "金"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "金"
+          }
+        },
+        {
+          "date": "1990-08-27T22:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "甲申",
+            "乙丑",
+            "己卯"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "金"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "金"
+          }
+        },
+        {
+          "date": "1990-09-30T16:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "乙酉",
+            "己亥",
+            "甲子"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "金"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "金"
+          }
+        },
+        {
+          "date": "1990-09-30T22:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "乙酉",
+            "己亥",
+            "丁卯"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "金"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "金"
+          }
+        },
+        {
+          "date": "1990-10-01T10:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "乙酉",
+            "己亥",
+            "癸酉"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "金"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "金"
+          }
+        },
+        {
+          "date": "1990-11-15T04:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "丁亥",
+            "甲申",
+            "庚午"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "比肩结构（格局待辨）",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "zhuo",
+            "configuration": "比肩结构（格局待辨）",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "1990-11-27T16:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "丁亥",
+            "丁酉",
+            "庚子"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "水"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "水"
+          }
+        },
+        {
+          "date": "1990-11-28T10:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "丁亥",
+            "丁酉",
+            "己酉"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "水"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "水"
+          }
+        },
+        {
+          "date": "1990-12-01T10:00:00.000Z",
+          "pillars": [
+            "庚午",
+            "丁亥",
+            "庚子",
+            "乙酉"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "水"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "zhuo",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "水"
+          }
+        },
+        {
+          "date": "1994-12-31T22:00:00.000Z",
+          "pillars": [
+            "甲戌",
+            "丙子",
+            "壬辰",
+            "癸卯"
+          ],
+          "changedFields": [
+            "qingZhuo"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "月刃格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "水"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "zhuo",
+            "configuration": "月刃格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "水"
+          }
+        }
+      ]
+    },
+    {
+      "id": "special-party-counts-minus1",
+      "description": "Following/dominant configuration count gates each relaxed by one",
+      "anyChanged": 29,
+      "changedFields": {
+        "rootLabel": 0,
+        "strength": 0,
+        "qingZhuo": 0,
+        "configuration": 29,
+        "category": 29,
+        "chengBai": 4,
+        "rank": 14,
+        "usefulElement": 14
+      },
+      "examples": [
+        {
+          "date": "1995-03-14T22:00:00.000Z",
+          "pillars": [
+            "乙亥",
+            "己卯",
+            "乙巳",
+            "己卯"
+          ],
+          "changedFields": [
+            "configuration",
+            "category"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "建禄格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "曲直格",
+            "category": "zhuanwang",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "1995-07-31T22:00:00.000Z",
+          "pillars": [
+            "乙亥",
+            "癸未",
+            "甲子",
+            "丁卯"
+          ],
+          "changedFields": [
+            "configuration",
+            "category",
+            "rank",
+            "usefulElement"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "伤官格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "火"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "曲直格",
+            "category": "zhuanwang",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "1995-08-01T10:00:00.000Z",
+          "pillars": [
+            "乙亥",
+            "癸未",
+            "甲子",
+            "癸酉"
+          ],
+          "changedFields": [
+            "configuration",
+            "category",
+            "rank"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "劫财透干（格局待辨）",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "曲直格",
+            "category": "zhuanwang",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "1995-08-31T22:00:00.000Z",
+          "pillars": [
+            "乙亥",
+            "甲申",
+            "乙未",
+            "己卯"
+          ],
+          "changedFields": [
+            "configuration",
+            "category",
+            "rank",
+            "usefulElement"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正官格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "金"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "曲直格",
+            "category": "zhuanwang",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "1995-09-30T22:00:00.000Z",
+          "pillars": [
+            "乙亥",
+            "乙酉",
+            "乙丑",
+            "己卯"
+          ],
+          "changedFields": [
+            "configuration",
+            "category",
+            "rank",
+            "usefulElement"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "七杀格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "金"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "曲直格",
+            "category": "zhuanwang",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "2000-03-27T22:00:00.000Z",
+          "pillars": [
+            "庚辰",
+            "己卯",
+            "乙酉",
+            "己卯"
+          ],
+          "changedFields": [
+            "configuration",
+            "category"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "建禄格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "曲直格",
+            "category": "zhuanwang",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "2000-06-14T16:00:00.000Z",
+          "pillars": [
+            "庚辰",
+            "壬午",
+            "甲辰",
+            "甲子"
+          ],
+          "changedFields": [
+            "configuration",
+            "category",
+            "rank",
+            "usefulElement"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "伤官格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "火"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "曲直格",
+            "category": "zhuanwang",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "2005-03-31T16:00:00.000Z",
+          "pillars": [
+            "乙酉",
+            "己卯",
+            "乙卯",
+            "丙子"
+          ],
+          "changedFields": [
+            "configuration",
+            "category"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "taiwang",
+            "qingZhuo": "banqing",
+            "configuration": "建禄格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "taiwang",
+            "qingZhuo": "banqing",
+            "configuration": "曲直格",
+            "category": "zhuanwang",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "2005-04-01T04:00:00.000Z",
+          "pillars": [
+            "乙酉",
+            "己卯",
+            "乙卯",
+            "壬午"
+          ],
+          "changedFields": [
+            "configuration",
+            "category"
+          ],
+          "baseline": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "建禄格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "中根",
+            "strength": "wang",
+            "qingZhuo": "banqing",
+            "configuration": "曲直格",
+            "category": "zhuanwang",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "2005-08-14T22:00:00.000Z",
+          "pillars": [
+            "乙酉",
+            "甲申",
+            "辛未",
+            "辛卯"
+          ],
+          "changedFields": [
+            "configuration",
+            "category"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "taiwang",
+            "qingZhuo": "banqing",
+            "configuration": "月劫格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "金"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "taiwang",
+            "qingZhuo": "banqing",
+            "configuration": "从革格",
+            "category": "zhuanwang",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "金"
+          }
+        },
+        {
+          "date": "2005-12-14T16:00:00.000Z",
+          "pillars": [
+            "乙酉",
+            "戊子",
+            "癸酉",
+            "壬子"
+          ],
+          "changedFields": [
+            "configuration",
+            "category"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "taiwang",
+            "qingZhuo": "banqing",
+            "configuration": "建禄格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "水"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "taiwang",
+            "qingZhuo": "banqing",
+            "configuration": "润下格",
+            "category": "zhuanwang",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "水"
+          }
+        },
+        {
+          "date": "2010-03-14T16:00:00.000Z",
+          "pillars": [
+            "庚寅",
+            "己卯",
+            "甲子",
+            "甲子"
+          ],
+          "changedFields": [
+            "configuration",
+            "category"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "taiwang",
+            "qingZhuo": "banqing",
+            "configuration": "月刃格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "taiwang",
+            "qingZhuo": "banqing",
+            "configuration": "曲直格",
+            "category": "zhuanwang",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          }
+        }
+      ]
+    },
+    {
+      "id": "special-party-counts-plus1",
+      "description": "Following/dominant configuration count gates each tightened by one",
+      "anyChanged": 3,
+      "changedFields": {
+        "rootLabel": 0,
+        "strength": 0,
+        "qingZhuo": 0,
+        "configuration": 3,
+        "category": 3,
+        "chengBai": 1,
+        "rank": 2,
+        "usefulElement": 2
+      },
+      "examples": [
+        {
+          "date": "1995-07-31T16:00:00.000Z",
+          "pillars": [
+            "乙亥",
+            "癸未",
+            "甲子",
+            "甲子"
+          ],
+          "changedFields": [
+            "configuration",
+            "category",
+            "rank"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "曲直格",
+            "category": "zhuanwang",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "劫财透干（格局待辨）",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "zhong",
+            "usefulElement": "木"
+          }
+        },
+        {
+          "date": "1995-09-14T16:00:00.000Z",
+          "pillars": [
+            "乙亥",
+            "乙酉",
+            "己酉",
+            "甲子"
+          ],
+          "changedFields": [
+            "configuration",
+            "category",
+            "usefulElement"
+          ],
+          "baseline": {
+            "rootLabel": "无根",
+            "strength": "ruo",
+            "qingZhuo": "banqing",
+            "configuration": "从官格",
+            "category": "conge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "木"
+          },
+          "variant": {
+            "rootLabel": "无根",
+            "strength": "ruo",
+            "qingZhuo": "banqing",
+            "configuration": "食神格",
+            "category": "zhengge",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "金"
+          }
+        },
+        {
+          "date": "2000-01-01T04:00:00.000Z",
+          "pillars": [
+            "己卯",
+            "丙子",
+            "戊午",
+            "戊午"
+          ],
+          "changedFields": [
+            "configuration",
+            "category",
+            "chengBai",
+            "rank",
+            "usefulElement"
+          ],
+          "baseline": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "稼穑格",
+            "category": "zhuanwang",
+            "chengBai": "cheng",
+            "rank": "shang",
+            "usefulElement": "土"
+          },
+          "variant": {
+            "rootLabel": "强根",
+            "strength": "zhonghe",
+            "qingZhuo": "banqing",
+            "configuration": "正财格",
+            "category": "zhengge",
+            "chengBai": "po",
+            "rank": "xia",
+            "usefulElement": "水"
+          }
+        }
+      ]
+    }
+  ]
+}

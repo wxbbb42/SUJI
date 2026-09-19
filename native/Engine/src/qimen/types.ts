@@ -31,11 +31,13 @@ export interface Palace {
   name: string;
   position: string;            // 北/西南/东/...
   wuXing: WuXing;
-  diPanGan: TianGan | null;    // 中宫为 null（戊寄宫）
+  diPanGan: TianGan | null;    // 中宫保留本宫仪，实际寄干另列
   tianPanGan: TianGan | null;
   bamen: BamenName | null;     // 中宫无门
   jiuxing: JiuxingName | null;
   bashen: BashenName | null;
+  hostedTianPanGan?: TianGan;
+  hostsTianQin?: boolean;
 }
 
 export interface BamenInfo {
@@ -66,6 +68,8 @@ export interface YongShenAnalysis {
   state: '旺' | '相' | '休' | '囚' | '死' | '不上卦';
   summary: string;           // '庚临艮宫，得生门 + 天任 + 九地'
   interactions: string[];
+  references?: {label:string;palaceId:number}[];
+  selectionStatus?: 'initial-reference';
 }
 
 /** 格局 */
@@ -84,7 +88,11 @@ export interface YingQiAnalysis {
 
 /** 当前奇门实现的算法可信度说明，供 AI 与 UI 避免过度断言 */
 export interface QimenMethodMeta {
-  level: 'mvp' | 'verified';
+  level: 'mvp' | 'standard' | 'verified';
+  algorithm?: string;
+  centerPolicy?: string;
+  dayBoundary?: string;
+  solarTermClock?: string;
   caveats: string[];
 }
 
@@ -112,4 +120,15 @@ export interface QimenChart {
   geJu: GeJu[];
   yingQi: YingQiAnalysis;
   method: QimenMethodMeta;
+  fuTou?: string;
+  zhiFuStar?: JiuxingName;
+  zhiFuPalaceId?: number;
+  zhiFuSourcePalaceId?: number;
+  zhiShiMen?: BamenName;
+  zhiShiPalaceId?: number;
+  zhiShiRawPalaceId?: number;
+  zhiShiSourcePalaceId?: number;
+  tianQinPalaceId?: number;
+  dayGanZhi?: string;
+  hourGanZhi?: string;
 }

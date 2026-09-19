@@ -166,14 +166,8 @@ struct CalmView: View {
 
     private var soundMixer: some View {
         VStack(alignment: .leading, spacing: 18) {
-            HStack {
-                Text("合成音景")
-                    .font(.headline)
-                Spacer()
-                Text("原创程序合成")
-                    .font(.caption)
-                    .foregroundStyle(SujiTheme.secondary)
-            }
+            Text("节气音景")
+                .font(.headline)
 
             HStack(spacing: 12) {
                 Menu {
@@ -291,6 +285,16 @@ struct CalmView: View {
                     .foregroundStyle(SujiTheme.secondary)
                     .accessibilityHidden(true)
             }
+
+            DisclosureGroup("关于这些声音") {
+                Text("雨、水流、风与炉火由有时实时合成，并非自然环境录音。节气预设将四层声音组合成不同的氛围；你也可以分别调节，留下此刻喜欢的声音。")
+                    .font(.footnote)
+                    .foregroundStyle(SujiTheme.secondary)
+                    .lineSpacing(5)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 10)
+            }
+            .font(.footnote)
 
             if let error = audio.lastError {
                 Text(error)

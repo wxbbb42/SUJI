@@ -78,9 +78,16 @@ const GUA_ROWS: GuaRow[] = [
   ['水地比','坎','坤','坤'],
 ];
 
+// 《周易》通行卦序。GUA_ROWS 按京房八宫排列，数组下标不是文王卦序。
+const KING_WEN_NUMBERS = [
+  1,44,33,12,20,23,35,14, 58,47,45,31,39,15,62,54,
+  30,56,50,64,4,59,6,13, 51,16,40,32,46,48,28,17,
+  57,9,37,42,25,21,27,18, 29,60,3,63,49,55,36,7,
+  52,22,26,41,38,10,61,53, 2,24,19,11,34,43,5,8,
+];
 export const GUA_64: GuaInfo[] = GUA_ROWS.map(([name, upper, lower, palace], i) => ({
   name,
-  code: i + 1,
+  code: KING_WEN_NUMBERS[i],
   upper,
   lower,
   palace,

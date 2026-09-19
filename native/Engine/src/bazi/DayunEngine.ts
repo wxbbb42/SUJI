@@ -8,6 +8,7 @@
  * - 《黄帝内经》—— 五行对应脏腑（健康分析）
  */
 
+import { getCalendarPillars, sexagenaryIndex, beijingDateParts, fromBeijingParts, getSolarTerms } from '../calendar/precision';
 import type {
   TianGan, DiZhi, WuXing, YinYang, ShiShen,
   GanZhi, DaYun, LiuNian, LiuYue, LiuRi, MingPan,
@@ -156,36 +157,33 @@ export class DayunEngine {
    * @param daYun 大运对象
    */
   getLiuNian(daYun: DaYun): LiuNian[] {
-    const birthYear = this.mingPan.birthDateTime.getFullYear();
+    const birthYear = beijingDateParts(this.mingPan.birthDateTime).year;
     const list: LiuNian[] = [];
     for (let i = 0; i < 10; i++) {
-      const year = birthYear + daYun.startAge + i;
+      const year = (daYun.startDate ? beijingDateParts(new Date(daYun.startDate)).year : birthYear + daYun.startAge) + i;
       list.push(this.getCurrentLiuNian(year));
     }
     return list;
   }
 
-  /**
-   * 获取指定虚岁所处的大运步
-   *
-   * @param currentAge 当前虚岁（周岁 + 1）
-   * @returns 对应的 DaYun；未起运时返回第一步，超出排盘范围返回最后一步
-   */
-  getCurrentDaYun(currentAge: number): DaYun {
-    const { daYunList, daYunStartAge } = this.mingPan;
+  /** Compatibility for whole-age displays only. Use getCurrentDaYunAt for actual transitions. */
+  getCurrentDaYun(currentAge: number): DaYun | null {
+    if (!Number.isFinite(currentAge) || currentAge < 0) return null;
+    return this.mingPan.daYunList.find(dy => currentAge >= dy.startAge && currentAge < dy.endAge + 1) ?? null;
+  }
 
-    if (currentAge < daYunStartAge) {
-      // 尚未起运，返回第一步大运作为参考
-      return daYunList[0];
-    }
+  getDaYunStatusAt(date: Date): { status: 'before-birth' | 'before-start' | 'active' | 'out-of-range' | 'missing-exact-dates'; daYun: DaYun | null } {
+    if (!Number.isFinite(date.getTime())) throw new RangeError('日期无效');
+    if (date.getTime() < this.mingPan.birthDateTime.getTime()) return {status:'before-birth', daYun:null};
+    const list = this.mingPan.daYunList;
+    if (!list.length || list.some(dy => !dy.startDate || !dy.endDate)) return {status:'missing-exact-dates', daYun:null};
+    if (date.getTime() < Date.parse(list[0].startDate!)) return {status:'before-start', daYun:null};
+    const daYun = list.find(dy => date.getTime() >= Date.parse(dy.startDate!) && date.getTime() < Date.parse(dy.endDate!)) ?? null;
+    return {status:daYun ? 'active' : 'out-of-range', daYun};
+  }
 
-    for (const dy of daYunList) {
-      if (currentAge >= dy.startAge && currentAge <= dy.endAge) {
-        return dy;
-      }
-    }
-
-    return daYunList[daYunList.length - 1];
+  getCurrentDaYunAt(date: Date): DaYun | null {
+    return this.getDaYunStatusAt(date).daYun;
   }
 
   /**
@@ -194,13 +192,13 @@ export class DayunEngine {
    * @param year 公历年份（如 2026）
    * @returns 包含干支、十神及与命盘互动关系的 LiuNian
    */
-  getCurrentLiuNian(year: number): LiuNian {
+  getCurrentLiuNian(year: number, referenceDate: Date = fromBeijingParts(year, 7, 1, 12)): LiuNian {
     const ganZhi  = this.yearToGanZhi(year);
     const riGan   = this.mingPan.riZhu.gan;
     const shiShen = DayunEngine.computeShiShen(riGan, ganZhi.gan);
     // 先构造无互动的占位对象，再分析互动
     const base: LiuNian = { year, ganZhi, shiShen, interactions: [] };
-    const interactions = this.analyzeInteractions(base);
+    const interactions = this.analyzeInteractions(base, referenceDate);
 
     return { ...base, interactions };
   }
@@ -216,7 +214,7 @@ export class DayunEngine {
    * @param liuNian 流年（interactions 字段可为空，本方法重新生成）
    * @returns 互动关系中文描述列表
    */
-  analyzeInteractions(liuNian: LiuNian): string[] {
+  analyzeInteractions(liuNian: LiuNian, referenceDate: Date = fromBeijingParts(liuNian.year, 7, 1, 12)): string[] {
     const results: string[] = [];
     const { siZhu } = this.mingPan;
     const lyGan = liuNian.ganZhi.gan;
@@ -230,12 +228,10 @@ export class DayunEngine {
     ];
 
     // 将当步大运也纳入互动分析
-    const birthYear = this.mingPan.birthDateTime.getFullYear();
-    const age = liuNian.year - birthYear;
-    const daYun = this.getCurrentDaYun(age);
+    const daYun = this.getCurrentDaYunAt(referenceDate);
     const allTargets = [
       ...pillars,
-      { label: '大运', gan: daYun.ganZhi.gan, zhi: daYun.ganZhi.zhi },
+      ...(daYun ? [{ label: '大运', gan: daYun.ganZhi.gan, zhi: daYun.ganZhi.zhi }] : []),
     ];
 
     for (const { label, gan, zhi } of allTargets) {
@@ -243,7 +239,7 @@ export class DayunEngine {
       for (const [a, b, huaWx] of DayunEngine.GAN_HE) {
         if ((lyGan === a && gan === b) || (lyGan === b && gan === a)) {
           results.push(
-            `流年${lyGan}与${label}${gan}天干相合（化${huaWx}），利于合作与成事`,
+            `流年${lyGan}与${label}${gan}天干相合（传统合化方向为${huaWx}，此处未判成化）`,
           );
         }
       }
@@ -252,7 +248,7 @@ export class DayunEngine {
       for (const [a, b] of DayunEngine.GAN_CHONG) {
         if ((lyGan === a && gan === b) || (lyGan === b && gan === a)) {
           results.push(
-            `流年${lyGan}与${label}${gan}天干相冲，易有突变与意志摩擦`,
+            `流年${lyGan}与${label}${gan}天干相冲；传统上用于讨论张力，不代表现实事件必然发生`,
           );
         }
       }
@@ -270,7 +266,7 @@ export class DayunEngine {
       for (const [a, b, huaWx] of DayunEngine.ZHI_LIU_HE) {
         if ((lyZhi === a && zhi === b) || (lyZhi === b && zhi === a)) {
           results.push(
-            `流年${lyZhi}合${label}${zhi}（六合化${huaWx}），有利缘分与合作机遇`,
+            `流年${lyZhi}合${label}${zhi}（六合，传统合化方向为${huaWx}，未判成化）`,
           );
         }
       }
@@ -279,7 +275,7 @@ export class DayunEngine {
       for (const [a, b] of DayunEngine.ZHI_LIU_HAI) {
         if ((lyZhi === a && zhi === b) || (lyZhi === b && zhi === a)) {
           results.push(
-            `流年${lyZhi}害${label}${zhi}（六害），注意人际摩擦与暗中阻碍`,
+            `流年${lyZhi}害${label}${zhi}（六害）；这是传统关系标签，不推断他人的动机`,
           );
         }
       }
@@ -289,11 +285,11 @@ export class DayunEngine {
         if (a === b) {
           // 自刑：流年地支 = 命盘地支，且为自刑地支
           if (lyZhi === a && zhi === b) {
-            results.push(`流年${lyZhi}自刑${label}，内耗较重，宜内省调整`);
+            results.push(`流年${lyZhi}自刑${label}；可作为自我复盘的传统意象`);
           }
         } else if ((lyZhi === a && zhi === b) || (lyZhi === b && zhi === a)) {
           results.push(
-            `流年${lyZhi}刑${label}${zhi}（相刑），需防官非、健康或关系紧张`,
+            `流年${lyZhi}刑${label}${zhi}（相刑）；单一关系不足以推断官非、健康或感情事件`,
           );
         }
       }
@@ -305,25 +301,25 @@ export class DayunEngine {
 
     if (lyWx === yongShen) {
       results.push(
-        `流年天干${lyGan}属${lyWx}，逢用神之年，整体运势较顺，利于突破与发展`,
+        `流年天干${lyGan}属${lyWx}，与当前扶抑参考的用神一致，属于规则内的对应关系`,
       );
     } else if (lyWx === xiShen) {
       results.push(
-        `流年天干${lyGan}属${lyWx}，逢喜神之年，平顺中有助力，可稳步把握机会`,
+        `流年天干${lyGan}属${lyWx}，与当前扶抑参考的喜神一致，不代表机会一定出现`,
       );
     } else if (lyWx === jiShen) {
       results.push(
-        `流年天干${lyGan}属${lyWx}，逢忌神之年，宜谨慎行事，避免冒进与重大变动`,
+        `流年天干${lyGan}属${lyWx}，与当前扶抑参考的忌神一致，不据此否定现实选择`,
       );
     }
 
-    return results;
+    return [...new Set(results)];
   }
 
   /**
    * 综合大运 + 流年全年预测
    *
-   * 评分规则（《滴天髓》用神喜忌论）：
+   * 工程启发式标签（借用传统喜忌术语；数值不是《滴天髓》原文，也未校准为现实预测）：
    *   - 流年/大运天干五行 = 用神 → +2
    *   - 流年/大运天干五行 = 喜神 → +1
    *   - 流年/大运天干五行 = 忌神 → -2
@@ -331,9 +327,13 @@ export class DayunEngine {
    *
    * @param year 公历年份
    */
-  getYearForecast(year: number): {
+  getYearForecast(year: number, referenceDate: Date = fromBeijingParts(year, 7, 1, 12)): {
     year: number;
-    daYun: DaYun;
+    daYun: DaYun | null;
+    daYunStatus: ReturnType<DayunEngine['getDaYunStatusAt']>['status'];
+    referenceDate: string;
+    luckyMonthsCalendar: 'solar-term-ordinal';
+    interpretationBasis: { kind: 'engineering-heuristic'; calibratedProbability: false; description: string };
     liuNian: LiuNian;
     overallTrend: '顺' | '平' | '逆';
     careerOutlook: string;
@@ -343,19 +343,17 @@ export class DayunEngine {
     keyAdvice: string;
     luckyMonths: number[];
   } {
-    const birthYear = this.mingPan.birthDateTime.getFullYear();
-    const age = year - birthYear;
-    const daYun   = this.getCurrentDaYun(age);
-    const liuNian = this.getCurrentLiuNian(year);
+    const { daYun, status: daYunStatus } = this.getDaYunStatusAt(referenceDate);
+    const liuNian = this.getCurrentLiuNian(year, referenceDate);
 
     const { yongShen, xiShen, jiShen } = this.mingPan.wuXingStrength;
     const lyWx = DayunEngine.GAN_WUXING[liuNian.ganZhi.gan];
-    const dyWx = DayunEngine.GAN_WUXING[daYun.ganZhi.gan];
+    const dyWx = daYun ? DayunEngine.GAN_WUXING[daYun.ganZhi.gan] : undefined;
 
     const scoreWx = (wx: WuXing): number =>
       wx === yongShen ? 2 : wx === xiShen ? 1 : wx === jiShen ? -2 : 0;
 
-    const totalScore    = scoreWx(lyWx) + scoreWx(dyWx);
+    const totalScore    = scoreWx(lyWx) + (dyWx ? scoreWx(dyWx) : 0);
     const overallTrend: '顺' | '平' | '逆' =
       totalScore >= 2 ? '顺' : totalScore <= -2 ? '逆' : '平';
 
@@ -366,6 +364,10 @@ export class DayunEngine {
     return {
       year,
       daYun,
+      daYunStatus,
+      referenceDate: referenceDate.toISOString(),
+      luckyMonthsCalendar: 'solar-term-ordinal',
+      interpretationBasis: { kind: 'engineering-heuristic', calibratedProbability: false, description: '顺／平／逆和月份建议来自五行喜忌的工程规则，不是古籍数值、事件概率或财务健康预测。' },
       liuNian,
       overallTrend,
       careerOutlook:       this.careerOutlook(lyWx, dyWx, guanFx, yongShen, overallTrend),
@@ -462,80 +464,72 @@ export class DayunEngine {
   /** 六冲含义（按被冲柱位分类） */
   private chongMeaning(label: string): string {
     switch (label) {
-      case '日柱': return '日支受冲，婚姻家庭易有动荡，注意情感关系稳定性';
-      case '月柱': return '月支受冲，职场与财运有波动，防事业变动';
-      case '年柱': return '年支受冲，与长辈或故土有变故，祖业易动摇';
-      case '时柱': return '时支受冲，子女或晚辈有变动，晚运需注意';
-      case '大运': return '大运地支受冲，该步大运整体动荡感增强，需稳住心态';
-      default:     return '相关宫位易有变动与波折';
+      case '日柱': return '传统解释常联系亲密关系议题，可据实际经历检查沟通与边界';
+      case '月柱': return '传统解释常联系工作与成长环境，可整理近期目标和变化';
+      case '年柱': return '传统解释常联系成长背景与长辈，可按实际需要安排交流';
+      case '时柱': return '传统解释常联系长期计划，不据此预测子女或晚年事件';
+      case '大运': return '当前规则中出现大运与流年冲的组合，可复盘已有计划是否需要调整';
+      default:     return '存在传统冲的关系，具体含义需要结合语境';
     }
   }
 
   private careerOutlook(
     lyWx: WuXing,
-    dyWx: WuXing,
+    dyWx: WuXing | undefined,
     guanFx: WuXing,
     yongShen: WuXing,
     trend: '顺' | '平' | '逆',
   ): string {
     if (lyWx === guanFx || dyWx === guanFx) {
       return trend === '逆'
-        ? '官星虽现，但逢忌运，职场竞争激烈，防小人与权力摩擦'
-        : '官星入运，事业有晋升或重要转机，适合积极拓展影响力';
+        ? '传统官杀意象与当前喜忌标签并存；可检查职责边界与沟通方式，不据此判断同事动机'
+        : '传统官杀意象常涉及职责与规范；可用实际绩效、岗位机会和资源评估职业计划';
     }
     if (lyWx === yongShen || dyWx === yongShen) {
-      return '用神得力，事业推进顺畅，适合开展新项目或寻求突破';
+      return '传统用神对应被触发；可将想推进的项目拆成可验证的小步骤，进展仍以现实反馈为准';
     }
     return trend === '顺'
-      ? '整体稳健，可稳步推进既有计划，不宜大幅变动'
-      : '事业平淡，宜守不宜攻，做好基础积累为主';
+      ? '可回顾既有计划的进展，依据资源和现实反馈安排下一步'
+      : '可梳理技能与工作目标；是否行动应由实际条件决定';
   }
 
   private wealthOutlook(
     lyWx: WuXing,
-    dyWx: WuXing,
+    dyWx: WuXing | undefined,
     caiFx: WuXing,
     trend: '顺' | '平' | '逆',
   ): string {
     if (lyWx === caiFx || dyWx === caiFx) {
       return trend === '逆'
-        ? '财星入运但大势不顺，有收入机会亦有损耗，量力而行'
-        : '财星旺相，是增加收入和资产积累的有利时机，可适度投资';
+        ? '传统财星意象与当前喜忌标签并存；可整理预算、现金流与承受范围，不能据此预测收益'
+        : '传统财星意象出现；可借此复盘收入结构与支出习惯，不构成投资时机或收益判断';
     }
     return trend === '顺'
-      ? '财运平稳向好，正职收入有望增长'
-      : '财运普通，避免高风险投资，保守理财为宜';
+      ? '财务计划请依据实际收入、负债和目标制定，命盘不提供收益预测'
+      : '可检查财务目标与预算的差距；具体资产决策应依据风险和可靠的财务信息';
   }
 
-  private relationshipOutlook(liuNian: LiuNian, daYun: DaYun): string {
+  private relationshipOutlook(liuNian: LiuNian, daYun: DaYun | null): string {
     const gender = this.mingPan.gender;
     // 男命：财星（正财/偏财）为配偶星；女命：官星（正官/七杀）为配偶星
     const peiouStar: ShiShen[] = gender === '男'
       ? ['正财', '偏财']
       : ['正官', '七杀'];
 
-    if (peiouStar.includes(liuNian.shiShen) || peiouStar.includes(daYun.shiShen)) {
-      return '桃花运旺，有缘分机会，单身者易遇良缘，已婚者感情可进一步深化';
+    if (peiouStar.includes(liuNian.shiShen) || (daYun !== null && peiouStar.includes(daYun.shiShen))) {
+      return '按传统配偶星口径出现关系意象；可关注真实互动中的期待、尊重与沟通，不推断缘分必然到来';
     }
     const hasDayChong = liuNian.interactions.some(
       s => s.includes('冲') && s.includes('日柱'),
     );
     if (hasDayChong) {
-      return '日支被冲，感情婚姻易出现摩擦或变动，需多沟通包容';
+      return '日支存在冲的传统关系；可用它提出沟通问题，不据此断定分离、背叛或婚姻变化';
     }
-    return '感情平稳，维系好现有关系，不宜强求大变化';
+    return '关系发展仍取决于双方的现实互动，可从倾听与清楚表达期待开始';
   }
 
-  private healthOutlook(liuNian: LiuNian, trend: '顺' | '平' | '逆'): string {
-    const zhiWx = DayunEngine.ZHI_WUXING[liuNian.ganZhi.zhi];
-    // 五行对应脏腑（《黄帝内经》五脏五行）
-    const wxOrgan: Record<WuXing, string> = {
-      木: '肝胆', 火: '心脑', 土: '脾胃', 金: '肺气管', 水: '肾泌尿',
-    };
-    const organ = wxOrgan[zhiWx];
-    return trend === '逆'
-      ? `整体精力偏低，${organ}系统需多加注意，建议定期体检，规律作息`
-      : `健康状况良好，留意${organ}相关保养，保持适度运动`;
+  private healthOutlook(_liuNian: LiuNian, _trend: '顺' | '平' | '逆'): string {
+    return '命理中的五行意象不能用于判断健康状况或疾病风险；日常保持规律作息与适度运动，身体不适时以医疗意见为准。';
   }
 
   private keyAdvice(
@@ -543,21 +537,21 @@ export class DayunEngine {
     lyWx: WuXing,
     yongShen: WuXing,
   ): string {
-    const extra = lyWx === yongShen ? '用神得助，' : '';
+    const extra = lyWx === yongShen ? '传统用神对应被触发，' : '';
     switch (trend) {
       case '顺':
-        return `运势顺畅，${extra}把握机遇大胆推进重要决策，是发展的黄金时期`;
+        return `${extra}当前规则标签为“顺”；可尝试一个可验证的小行动，重要决定仍需现实依据`;
       case '平':
-        return `运势平稳，稳中求进，夯实基础积累资源，为下一个运程做好准备`;
+        return `当前规则标签为“平”；可整理目标与资源，用实际反馈调整安排`;
       case '逆':
-        return `运势偏弱，以守为主，减少冒进，注重健康与人际关系，化解阻力而非强行突破`;
+        return `当前规则标签为“逆”；可以复盘计划的难点，但不必因此放弃有现实依据的机会`;
     }
   }
 
   /**
    * 推算吉利月份
    *
-   * 地支月支对应关系（节气月，简化为阳历月）：
+   * 地支月支对应关系（节气月序号，不是公历月份）：
    *   子→11月，丑→12月，寅→1月，卯→2月，…，亥→10月
    * 月支五行逢用神或喜神者为吉月。
    */
@@ -602,6 +596,9 @@ export class DayunEngine {
     const monthGanStart = ((yearGanIdx % 5) * 2 + 2) % 10;
 
     // 流月地支从寅开始（正月=寅，二月=卯，...，十一月=子，十二月=丑）
+    const jie = [...getSolarTerms(year), ...getSolarTerms(year + 1)].filter(t => ['立春','惊蛰','清明','立夏','芒种','小暑','立秋','白露','寒露','立冬','大雪','小寒'].includes(t.name));
+    const first = jie.findIndex(t => t.name === '立春');
+    const monthTerms = jie.slice(first, first + 13);
     const months: LiuYue[] = [];
     for (let m = 1; m <= 12; m++) {
       const ganIdx = (monthGanStart + m - 1) % 10;
@@ -626,7 +623,7 @@ export class DayunEngine {
       const zhiMainGan = this.zhiCangGanMain(zhi);
       const zhiShiShen = DayunEngine.computeShiShen(riGan, zhiMainGan);
 
-      months.push({ month: m, ganZhi, shiShen, zhiShiShen });
+      months.push({ month: m, ganZhi, shiShen, zhiShiShen, startDate: monthTerms[m-1].instant.toISOString(), endDate: monthTerms[m].instant.toISOString(), solarTerm: monthTerms[m-1].name });
     }
     return months;
   }
@@ -639,19 +636,14 @@ export class DayunEngine {
    * 获取某一天的流日干支
    *
    * 流日干支基于六十甲子循环。
-   * 基准日：1900-01-01 为甲子日（六十甲子序号 0）
+   * 统一使用历法 facade，默认北京时间子初 23:00 换日。
    *
    * @param date 公历日期
    */
   getLiuRi(date: Date): LiuRi {
     const riGan = this.mingPan.riZhu.gan;
 
-    // 基准：1900-01-01 = 甲子日
-    const base = new Date(1900, 0, 1);
-    const diffDays = Math.floor((date.getTime() - base.getTime()) / 86400000);
-    const cycle60 = ((diffDays % 60) + 60) % 60;
-
-    const ganZhi = DayunEngine.indexToGanZhi(cycle60);
+    const ganZhi = DayunEngine.indexToGanZhi(sexagenaryIndex(getCalendarPillars(date).day));
     const shiShen = DayunEngine.computeShiShen(riGan, ganZhi.gan);
 
     return { date, ganZhi, shiShen };
@@ -664,9 +656,9 @@ export class DayunEngine {
    */
   getLiuRiList(year: number, month: number): LiuRi[] {
     const days: LiuRi[] = [];
-    const daysInMonth = new Date(year, month, 0).getDate();
+    const daysInMonth = new Date(Date.UTC(year, month, 0)).getUTCDate();
     for (let d = 1; d <= daysInMonth; d++) {
-      days.push(this.getLiuRi(new Date(year, month - 1, d)));
+      days.push(this.getLiuRi(fromBeijingParts(year, month, d, 12)));
     }
     return days;
   }

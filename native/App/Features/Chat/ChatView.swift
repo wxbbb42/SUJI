@@ -53,6 +53,12 @@ struct ChatView: View {
                                     DisclosureGroup("参照的线索") { VStack(alignment: .leading, spacing: 12) { ForEach(entry.evidence, id: \.self) { Text($0).font(.footnote).foregroundStyle(SujiTheme.secondary) } }.frame(maxWidth: .infinity, alignment: .leading).padding(.top, 12) }.font(.footnote)
                                 }
                                 toolResults(replyTools(for: entry))
+                                let receipts = replyReceipts(for: entry)
+                                if !receipts.isEmpty {
+                                    NavigationLink(destination: ReadingEvidenceView(receipts: receipts)) {
+                                        Label("查看完整计算依据", systemImage: "text.book.closed").font(.footnote)
+                                    }
+                                }
                             }.padding(entry.role == "user" ? 20 : 0).background(entry.role == "user" ? SujiTheme.surface : Color.clear, in: RoundedRectangle(cornerRadius: 20)).id(entry.id)
                         }
                         if session.working {
@@ -88,6 +94,19 @@ struct ChatView: View {
             .navigationTitle("问道").navigationBarTitleDisplayMode(.inline)
             .safeAreaInset(edge: .bottom) {
                 VStack(spacing: 12) {
+                    if !store.isSignedIn {
+                        HStack {
+                            Text("登录后，AI 才能为你写回信。").font(.caption).foregroundStyle(SujiTheme.secondary)
+                            Spacer(minLength: 8)
+                            NavigationLink("去登录") { AccountView(session: store.accountSession) }.font(.caption.weight(.medium))
+                        }
+                    } else if mode == "命理" && store.state.birth == nil {
+                        HStack {
+                            Text("个性化排盘需要出生资料。").font(.caption).foregroundStyle(SujiTheme.secondary)
+                            Spacer(minLength: 8)
+                            Button("去填写") { store.selectedTab = 3 }.font(.caption.weight(.medium))
+                        }
+                    }
                     Picker("对话方式", selection: $mode) {
                         ForEach(["倾诉", "命理", "起卦"], id: \.self) { Text($0).tag($0) }
                     }.pickerStyle(.segmented).disabled(session.working)
@@ -102,6 +121,7 @@ struct ChatView: View {
             .toolbar { ToolbarItem(placement: .topBarTrailing) { Menu { NavigationLink("设置", destination: SettingsView()); Button("清空对话", role: .destructive) { clearConfirmation = true }.disabled(session.working) } label: { Image(systemName: "ellipsis") } } }
             .confirmationDialog("清空本机的全部对话？", isPresented: $clearConfirmation, titleVisibility: .visible) { Button("清空对话", role: .destructive) { store.state.conversations = []; store.save() } }
             .onChange(of: store.scopeRevision) { _, _ in session.stop(); input = "" }
+            .onChange(of: store.state.birth) { _, _ in if session.working { session.stop() } }
         }
     }
 
@@ -114,6 +134,11 @@ struct ChatView: View {
             values += store.state.conversations[index - 1].toolData
         }
         return values.reduce(into: []) { if !$0.contains($1) { $0.append($1) } }
+    }
+    private func replyReceipts(for entry: ConversationEntry) -> [ToolReceipt] {
+        guard entry.role == "assistant", let index = store.state.conversations.firstIndex(where: { $0.id == entry.id }), index > 0,
+              store.state.conversations[index - 1].role == "user" else { return [] }
+        return store.state.conversations[index - 1].toolReceipts ?? []
     }
     private var unansweredToolEntries: [ConversationEntry] {
         let entries = store.state.conversations

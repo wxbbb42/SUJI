@@ -1,0 +1,30 @@
+name: Validate native engine and core
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  engine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: native/Engine/package-lock.json
+      - run: npm ci --prefix native/Engine
+      - run: npm run typecheck --prefix native/Engine
+      - run: npm test --prefix native/Engine
+      - run: npm run build --prefix native/Engine
+      - name: Bundled resources and notices are current
+        run: git diff --exit-code -- native/Resources/mingli.js native/Resources/engine-fixtures.json native/Resources/ThirdPartyNotices.txt
+      - run: npm ci --prefix supabase
+      - run: npm test --prefix supabase
+  swift-core:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Core, boundary contracts, and JavaScriptCore parity outside Beijing
+        run: TZ=America/Los_Angeles swift test --package-path native/Core

@@ -10,28 +10,32 @@
  *   真太阳日与平太阳日的偏差，全年在 -14~+16 分钟之间波动
  */
 
-import { dayOfYear } from '@engine/utils/date';
+import { beijingDateParts } from '../calendar/precision';
 
 /**
- * 计算均时差（Equation of Time），单位：分钟
- *
- * 使用 Spencer(1971) 近似公式，精度约 ±30秒
- * @param date 日期
- * @returns 均时差（分钟），正值表示真太阳时快于平太阳时
+ * NOAA solar-calculator / Meeus equation of time, minutes (apparent minus mean).
+ * Julian centuries use the unshifted UTC instant. This is an astronomical model,
+ * not an accuracy guarantee about an imprecise recorded birth time.
+ * https://gml.noaa.gov/grad/solcalc/calcdetails.html
  */
-function equationOfTime(date: Date): number {
-  const doy = dayOfYear(date);
+export function equationOfTime(date: Date): number {
+  if (!Number.isFinite(date.getTime())) throw new RangeError('日期无效');
+  const t = (date.getTime() / 86400000 + 2440587.5 - 2451545.0) / 36525;
+  const rad = Math.PI / 180;
+  const l0 = ((280.46646 + t * (36000.76983 + t * 0.0003032)) % 360 + 360) % 360;
+  const m = 357.52911 + t * (35999.05029 - 0.0001537 * t);
+  const e = 0.016708634 - t * (0.000042037 + 0.0000001267 * t);
+  const seconds = 21.448 - t * (46.815 + t * (0.00059 - t * 0.001813));
+  const epsilon = 23 + (26 + seconds / 60) / 60 + 0.00256 * Math.cos((125.04 - 1934.136 * t) * rad);
+  const y = Math.tan(epsilon * rad / 2) ** 2;
+  const value = y * Math.sin(2 * l0 * rad) - 2 * e * Math.sin(m * rad)
+    + 4 * e * y * Math.sin(m * rad) * Math.cos(2 * l0 * rad)
+    - 0.5 * y * y * Math.sin(4 * l0 * rad) - 1.25 * e * e * Math.sin(2 * m * rad);
+  return value / rad * 4;
+}
 
-  // B = (360/365) * (dayOfYear - 81) 度
-  const B = ((2 * Math.PI) / 365) * (doy - 81);
-
-  // Spencer 公式（分钟）
-  const eot =
-    9.87 * Math.sin(2 * B) -
-    7.53 * Math.cos(B) -
-    1.5 * Math.sin(B);
-
-  return eot;
+function validateLongitude(longitude: number): void {
+  if (!Number.isFinite(longitude) || longitude < -180 || longitude > 180) throw new RangeError('经度须在 -180 至 180 度之间');
 }
 
 /**
@@ -50,6 +54,7 @@ function equationOfTime(date: Date): number {
  */
 export function toTrueSolarTime(date: Date, longitude: number): Date {
   // 1. 经度时差（分钟）：每度差4分钟，东八区中心经线120°
+  validateLongitude(longitude);
   const longitudeCorrection = (longitude - 120) * 4;
 
   // 2. 均时差（分钟）
@@ -87,19 +92,21 @@ export function getTrueSolarTimeInfo(date: Date, longitude: number): {
   /** 描述文字 */
   description: string;
 } {
+  validateLongitude(longitude);
   const longitudeCorrection = (longitude - 120) * 4;
   const eot = equationOfTime(date);
   const totalCorrection = longitudeCorrection + eot;
   const trueSolarTime = new Date(date.getTime() + totalCorrection * 60 * 1000);
 
   // 判断是否跨时辰（每个时辰2小时）
-  const getShiChen = (d: Date): number => Math.floor(((d.getHours() + 1) % 24) / 2);
+  const getShiChen = (d: Date): number => Math.floor(((beijingDateParts(d).hour + 1) % 24) / 2);
   const shiChenChanged = getShiChen(date) !== getShiChen(trueSolarTime);
 
   const sign = totalCorrection >= 0 ? '快' : '慢';
   const absMin = Math.abs(totalCorrection);
-  const min = Math.floor(absMin);
-  const sec = Math.round((absMin - min) * 60);
+  const seconds = Math.round(absMin * 60);
+  const min = Math.floor(seconds / 60);
+  const sec = seconds % 60;
 
   let description = `经度 ${longitude.toFixed(1)}°`;
   description += `，真太阳时比北京时间${sign} ${min}分${sec}秒`;

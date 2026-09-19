@@ -2,7 +2,7 @@ import type { LiuQin, TrigramName, WuXing } from '../types';
 import { TRIGRAMS } from './trigrams';
 import type { GuaInfo } from '../types';
 
-function relationToMe(myWuXing: WuXing, targetWuXing: WuXing): LiuQin {
+export function relationToMe(myWuXing: WuXing, targetWuXing: WuXing): LiuQin {
   if (myWuXing === targetWuXing) return '兄弟';
   const wo_sheng: Record<WuXing, WuXing> = { 金:'水', 水:'木', 木:'火', 火:'土', 土:'金' };
   if (wo_sheng[myWuXing] === targetWuXing) return '子孙';
@@ -11,6 +11,22 @@ function relationToMe(myWuXing: WuXing, targetWuXing: WuXing): LiuQin {
   const sheng_wo: Record<WuXing, WuXing> = { 金:'土', 水:'金', 木:'水', 火:'木', 土:'火' };
   if (sheng_wo[myWuXing] === targetWuXing) return '父母';
   return '官鬼';
+}
+
+/** 京房纳甲；《增删卜易》浑天甲子章与 bopo/najia 全表互校。顺序始终为初爻到上爻。 */
+const NAJIA: Record<TrigramName, readonly [string, string, string, string, string, string]> = {
+  乾: ['甲子','甲寅','甲辰','壬午','壬申','壬戌'],
+  坤: ['乙未','乙巳','乙卯','癸丑','癸亥','癸酉'],
+  震: ['庚子','庚寅','庚辰','庚午','庚申','庚戌'],
+  巽: ['辛丑','辛亥','辛酉','辛未','辛巳','辛卯'],
+  坎: ['戊寅','戊辰','戊午','戊申','戊戌','戊子'],
+  离: ['己卯','己丑','己亥','己酉','己未','己巳'],
+  艮: ['丙辰','丙午','丙申','丙戌','丙子','丙寅'],
+  兑: ['丁巳','丁卯','丁丑','丁亥','丁酉','丁未'],
+};
+
+export function ganZhiForGua(gua: Pick<GuaInfo, 'lower' | 'upper'>): string[] {
+  return [...NAJIA[gua.lower].slice(0, 3), ...NAJIA[gua.upper].slice(3)];
 }
 
 /**

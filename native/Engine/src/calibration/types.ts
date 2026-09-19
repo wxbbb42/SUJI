@@ -5,13 +5,9 @@ import type { IFunctionalAstrolabe } from 'iztro/lib/astro/FunctionalAstrolabe';
 export type CandidateId = 'before' | 'origin' | 'after';
 
 export type EventType =
-  | '大运转七杀' | '大运转正官' | '大运转伤官' | '大运转食神'
-  | '大运转比肩' | '大运转劫财' | '大运转正印' | '大运转偏印'
-  | '大运转正财' | '大运转偏财'
-  | '紫微大限转七杀' | '紫微大限转正官' | '紫微大限转伤官' | '紫微大限转食神'
-  | '紫微大限转比肩' | '紫微大限转劫财' | '紫微大限转正印' | '紫微大限转偏印'
-  | '紫微大限转正财' | '紫微大限转偏财'
-  | '流年七杀临身' | '流年伤官见官' | '流年正财动' | '流年子女星动'
+  | `八字大运转入${string}`
+  | `八字流年${string}`
+  | `紫微大限转入${string}`
   | 'none';
 
 export interface Candidate {

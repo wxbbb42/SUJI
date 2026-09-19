@@ -5,7 +5,7 @@
  * 命盘相关逻辑请使用 lib/bazi / lib/qimen 等专门引擎。
  */
 
-import lunisolar from 'lunisolar';
+import { toSolar, getCalendarPillars, beijingDateString, lunarCalendarWarnings, CALENDAR_POLICY } from './precision';
 
 // 天干
 export const TIAN_GAN = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'] as const;
@@ -50,6 +50,8 @@ export interface DailyInfo {
   monthGanZhi: string;    // 月干支
   solarTerm?: string;     // 节气（如有）
   wuxingBalance: Record<string, number>;  // 五行分布
+  calculationPolicy?: typeof CALENDAR_POLICY;
+  warnings?: string[];
 }
 
 /**
@@ -58,12 +60,12 @@ export interface DailyInfo {
  * 说明：五行分布仅统计年月日三柱的天干地支，不等同于个人八字强弱。
  */
 export function getTodayInfo(date: Date = new Date()): DailyInfo {
-  const lsr = lunisolar(date);
-  const lunar = lsr.lunar;
-  const yearGanZhi = lsr.format('cY');
-  const monthGanZhi = lsr.format('cM');
-  const ganZhi = lsr.format('cD');
-  const lunarDate = `${lunar.getMonthName()}${lunar.getDayName()}`;
+  const lunar = toSolar(date).getLunar();
+  const pillars = getCalendarPillars(date);
+  const yearGanZhi = pillars.year;
+  const monthGanZhi = pillars.month;
+  const ganZhi = pillars.day;
+  const lunarDate = `${lunar.getMonthInChinese()}月${lunar.getDayInChinese()}`;
 
   const wuxingBalance = Object.fromEntries(WUXING_KEYS.map(k => [k, 0])) as Record<string, number>;
   for (const char of `${yearGanZhi}${monthGanZhi}${ganZhi}`) {
@@ -72,12 +74,14 @@ export function getTodayInfo(date: Date = new Date()): DailyInfo {
   }
 
   return {
-    solarDate: date.toLocaleDateString('zh-CN'),
+    solarDate: beijingDateString(date),
     lunarDate,
     ganZhi,
     yearGanZhi,
     monthGanZhi,
-    solarTerm: lsr.solarTerm?.toString(),
+    solarTerm: lunar.getJieQi() || undefined,
+    calculationPolicy: CALENDAR_POLICY,
+    warnings: lunarCalendarWarnings(date),
     wuxingBalance,
   };
 }

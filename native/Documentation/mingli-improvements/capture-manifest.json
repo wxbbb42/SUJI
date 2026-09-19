@@ -1,0 +1,174 @@
+{
+  "fixture": "1995-01-01 12:00 female Shanghai longitude 121.47; ephemeral notebook",
+  "device": "iPhone 17 Pro, iOS 26.5",
+  "screenshots": [
+    {
+      "file": "01-birth-editor.png",
+      "capturedAt": 1789802028.849,
+      "test": "MingliAuditUITests/testCaptureMingliJourney()",
+      "engineSha256": "708788aeb69fd9f0c4899dc8e02d17bb4db7d08068ef062646930d73451fade5",
+      "resultBundle": "/tmp/suji-mingli-design-journey-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "04-chart-interpretation.png",
+      "capturedAt": 1789802037.385,
+      "test": "MingliAuditUITests/testCaptureMingliJourney()",
+      "engineSha256": "708788aeb69fd9f0c4899dc8e02d17bb4db7d08068ef062646930d73451fade5",
+      "resultBundle": "/tmp/suji-mingli-design-journey-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "06-annual-decadal.png",
+      "capturedAt": 1789802059.505,
+      "test": "MingliAuditUITests/testCaptureMingliJourney()",
+      "engineSha256": "708788aeb69fd9f0c4899dc8e02d17bb4db7d08068ef062646930d73451fade5",
+      "resultBundle": "/tmp/suji-mingli-design-journey-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "07-calibration-candidates.png",
+      "capturedAt": 1789802066.979,
+      "test": "MingliAuditUITests/testCaptureMingliJourney()",
+      "engineSha256": "708788aeb69fd9f0c4899dc8e02d17bb4db7d08068ef062646930d73451fade5",
+      "resultBundle": "/tmp/suji-mingli-design-journey-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "08-calibration-events.png",
+      "capturedAt": 1789802072.993,
+      "test": "MingliAuditUITests/testCaptureMingliJourney()",
+      "engineSha256": "708788aeb69fd9f0c4899dc8e02d17bb4db7d08068ef062646930d73451fade5",
+      "resultBundle": "/tmp/suji-mingli-design-journey-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "09-relationship.png",
+      "capturedAt": 1789802082.039,
+      "test": "MingliAuditUITests/testCaptureMingliJourney()",
+      "engineSha256": "708788aeb69fd9f0c4899dc8e02d17bb4db7d08068ef062646930d73451fade5",
+      "resultBundle": "/tmp/suji-mingli-design-journey-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "10-chat-start.png",
+      "capturedAt": 1789802085.075,
+      "test": "MingliAuditUITests/testCaptureMingliJourney()",
+      "engineSha256": "708788aeb69fd9f0c4899dc8e02d17bb4db7d08068ef062646930d73451fade5",
+      "resultBundle": "/tmp/suji-mingli-design-journey-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "13-large-text-elements.png",
+      "capturedAt": 1789801514.13,
+      "test": "MingliAuditUITests/testCaptureLargeTextChart()",
+      "engineSha256": "e0b3125b40c6f027534ef0a2d212dd00518995fd0aaf2c86bb60dba81f1d862d",
+      "resultBundle": "/tmp/suji-mingli-design-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "14-ziwei-palace-detail.png",
+      "capturedAt": 1789802053.983,
+      "test": "MingliAuditUITests/testCaptureMingliJourney()",
+      "engineSha256": "708788aeb69fd9f0c4899dc8e02d17bb4db7d08068ef062646930d73451fade5",
+      "resultBundle": "/tmp/suji-mingli-design-journey-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "15-qiyun-method.png",
+      "capturedAt": 1789802062.22,
+      "test": "MingliAuditUITests/testCaptureMingliJourney()",
+      "engineSha256": "708788aeb69fd9f0c4899dc8e02d17bb4db7d08068ef062646930d73451fade5",
+      "resultBundle": "/tmp/suji-mingli-design-journey-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "16-tiaohou-source.png",
+      "capturedAt": 1789802039.396,
+      "test": "MingliAuditUITests/testCaptureMingliJourney()",
+      "engineSha256": "708788aeb69fd9f0c4899dc8e02d17bb4db7d08068ef062646930d73451fade5",
+      "resultBundle": "/tmp/suji-mingli-design-journey-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "17-calculation-policy.png",
+      "capturedAt": 1789802041.514,
+      "test": "MingliAuditUITests/testCaptureMingliJourney()",
+      "engineSha256": "708788aeb69fd9f0c4899dc8e02d17bb4db7d08068ef062646930d73451fade5",
+      "resultBundle": "/tmp/suji-mingli-design-journey-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "18-reflection-login.png",
+      "capturedAt": 1789802069.035,
+      "test": "MingliAuditUITests/testCaptureMingliJourney()",
+      "engineSha256": "708788aeb69fd9f0c4899dc8e02d17bb4db7d08068ef062646930d73451fade5",
+      "resultBundle": "/tmp/suji-mingli-design-journey-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "20-light-today.png",
+      "capturedAt": 1789801462.294,
+      "test": "MingliAuditUITests/testCaptureFourTabsAndDarkPalaces()",
+      "engineSha256": "e0b3125b40c6f027534ef0a2d212dd00518995fd0aaf2c86bb60dba81f1d862d",
+      "resultBundle": "/tmp/suji-mingli-design-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "21-light-calm.png",
+      "capturedAt": 1789801464.467,
+      "test": "MingliAuditUITests/testCaptureFourTabsAndDarkPalaces()",
+      "engineSha256": "e0b3125b40c6f027534ef0a2d212dd00518995fd0aaf2c86bb60dba81f1d862d",
+      "resultBundle": "/tmp/suji-mingli-design-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "22-dark-today.png",
+      "capturedAt": 1789801478.912,
+      "test": "MingliAuditUITests/testCaptureFourTabsAndDarkPalaces()",
+      "engineSha256": "e0b3125b40c6f027534ef0a2d212dd00518995fd0aaf2c86bb60dba81f1d862d",
+      "resultBundle": "/tmp/suji-mingli-design-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "23-dark-calm.png",
+      "capturedAt": 1789801480.671,
+      "test": "MingliAuditUITests/testCaptureFourTabsAndDarkPalaces()",
+      "engineSha256": "e0b3125b40c6f027534ef0a2d212dd00518995fd0aaf2c86bb60dba81f1d862d",
+      "resultBundle": "/tmp/suji-mingli-design-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "24-dark-chat.png",
+      "capturedAt": 1789801482.768,
+      "test": "MingliAuditUITests/testCaptureFourTabsAndDarkPalaces()",
+      "engineSha256": "e0b3125b40c6f027534ef0a2d212dd00518995fd0aaf2c86bb60dba81f1d862d",
+      "resultBundle": "/tmp/suji-mingli-design-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "25-dark-profile.png",
+      "capturedAt": 1789801489.001,
+      "test": "MingliAuditUITests/testCaptureFourTabsAndDarkPalaces()",
+      "engineSha256": "e0b3125b40c6f027534ef0a2d212dd00518995fd0aaf2c86bb60dba81f1d862d",
+      "resultBundle": "/tmp/suji-mingli-design-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "26-dark-ziwei.png",
+      "capturedAt": 1789801491.498,
+      "test": "MingliAuditUITests/testCaptureFourTabsAndDarkPalaces()",
+      "engineSha256": "e0b3125b40c6f027534ef0a2d212dd00518995fd0aaf2c86bb60dba81f1d862d",
+      "resultBundle": "/tmp/suji-mingli-design-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "27-calm-sound-source.png",
+      "capturedAt": 1789801467.259,
+      "test": "MingliAuditUITests/testCaptureFourTabsAndDarkPalaces()",
+      "engineSha256": "e0b3125b40c6f027534ef0a2d212dd00518995fd0aaf2c86bb60dba81f1d862d",
+      "resultBundle": "/tmp/suji-mingli-design-final.xcresult",
+      "testPassed": true
+    }
+  ]
+}

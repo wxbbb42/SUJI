@@ -46,6 +46,91 @@ final class ArchiveCodecTests: XCTestCase {
         XCTAssertThrowsError(try ArchiveCodec.decode(Data(repeating: 0x20, count: ArchiveCodec.maximumByteCount + 1)))
     }
 
+    func testExternalImportKeepsReadableReceiptsButRemovesCalculationTrust() throws {
+        let (state, context) = try stateWithReceipts()
+        var archive = try XCTUnwrap(JSONSerialization.jsonObject(with: ArchiveCodec.encode(state)) as? [String: Any])
+        var conversations = try XCTUnwrap(archive["conversations"] as? [[String: Any]])
+        var receipts = try XCTUnwrap(conversations[0]["toolReceipts"] as? [[String: Any]])
+        // Editing a real exported receipt must not let arbitrary content enter a tool role.
+        let editedOutput = #"{"benGua":{"name":"externally-edited"}}"#
+        receipts[0]["output"] = editedOutput
+        conversations[0]["toolReceipts"] = receipts
+        archive["conversations"] = conversations
+
+        let imported = try ArchiveCodec.decode(JSONSerialization.data(withJSONObject: archive))
+        let current = try XCTUnwrap(imported.conversations.first)
+        let receipt = try XCTUnwrap(current.toolReceipts?.first)
+        XCTAssertNil(current.toolContext)
+        XCTAssertNil(receipt.context)
+        XCTAssertEqual(current.id, state.conversations[0].id)
+        XCTAssertNil(current.analysisMode)
+        XCTAssertEqual(current.date, state.conversations[0].date)
+        XCTAssertEqual(current.toolData, state.conversations[0].toolData)
+        XCTAssertEqual(receipt.output, editedOutput)
+        XCTAssertEqual(receipt.arguments, state.conversations[0].toolReceipts?[0].arguments)
+        XCTAssertEqual(receipt.evidence, state.conversations[0].toolReceipts?[0].evidence)
+        XCTAssertEqual(receipt.createdAt, state.conversations[0].toolReceipts?[0].createdAt)
+        let reflection = try XCTUnwrap(imported.reflections?["calibration:example"]?.first)
+        XCTAssertNil(reflection.toolContext)
+        XCTAssertNil(reflection.analysisMode)
+        XCTAssertNil(reflection.toolReceipts?.first?.context)
+        XCTAssertEqual(reflection.toolReceipts?.first?.output, state.reflections?["calibration:example"]?.first?.toolReceipts?.first?.output)
+
+        let history = ReadingPrompt.history(from: imported.conversations, currentUserID: current.id, context: context)
+        XCTAssertEqual(history.map(\.role), [.user])
+        XCTAssertFalse(history.contains { $0.role == .tool || $0.toolCalls != nil })
+    }
+
+    func testImportedReceiptsBlockRetryBeforeAnyModelCallOrRecast() async throws {
+        let (state, context) = try stateWithReceipts()
+        let imported = try ArchiveCodec.decode(ArchiveCodec.encode(state))
+        let receipts = try XCTUnwrap(imported.conversations.first?.toolReceipts)
+        let orchestrator = ToolOrchestrator(
+            complete: { _, _ in XCTFail("Imported receipts cannot reach the model"); return .text("") },
+            execute: { _ in XCTFail("Imported history must not be recast on retry"); return .init(output: "{}") }
+        )
+        do {
+            _ = try await orchestrator.run(history: [], definitions: [], cachedReceipts: receipts, context: context)
+            XCTFail("Expected untrusted imported context to fail")
+        } catch {
+            XCTAssertEqual(error as? ToolOrchestratorError, .staleContext)
+        }
+    }
+
+    func testLocalPersistenceKeepsContextsAndReexportCannotRestoreImportedTrust() throws {
+        let (state, context) = try stateWithReceipts()
+        // AppStore's local SavedState path is deliberately distinct from file import.
+        let local = try JSONDecoder().decode(AppState.self, from: JSONEncoder().encode(state))
+        XCTAssertEqual(local.conversations.first?.toolContext, context)
+        XCTAssertEqual(local.conversations.first?.analysisMode, "起卦")
+        XCTAssertEqual(local.conversations.first?.toolReceipts?.first?.context, context)
+        XCTAssertEqual(local.reflections?["calibration:example"]?.first?.toolContext, context)
+        let current = try XCTUnwrap(local.conversations.first)
+        XCTAssertTrue(ReadingPrompt.history(from: local.conversations, currentUserID: current.id, context: context).contains { $0.role == .tool })
+
+        let imported = try ArchiveCodec.decode(ArchiveCodec.encode(state))
+        let reloaded = try JSONDecoder().decode(AppState.self, from: ArchiveCodec.encode(imported))
+        XCTAssertNil(reloaded.conversations.first?.toolContext)
+        XCTAssertNil(reloaded.conversations.first?.analysisMode)
+        XCTAssertNil(reloaded.conversations.first?.toolReceipts?.first?.context)
+    }
+
+    private func stateWithReceipts() throws -> (AppState, ToolContext) {
+        var question = ConversationEntry(role: "user", text: "这个计划如何准备")
+        question.date = Date(timeIntervalSince1970: 1_789_792_000)
+        let context = try ToolContext(birth: nil, engineRevision: String(repeating: "a", count: 64), referenceDate: question.date, mode: "起卦")
+        question.toolContext = context
+        question.analysisMode = "起卦"
+        question.toolData = [#"{"benGua":{"name":"谦"}}"#]
+        question.toolReceipts = [.init(callID: "original-cast", name: "cast_liuyao", arguments: ["question": .string(question.text)], output: question.toolData[0], evidence: ["主卦 · 谦"], createdAt: question.date, context: context)]
+        var reflection = question
+        reflection.id = UUID()
+        var state = AppState()
+        state.conversations = [question]
+        state.reflections = ["calibration:example": [reflection]]
+        return (state, context)
+    }
+
     func testRejectsInvalidBirthInsideOtherwiseCurrentArchive() throws {
         var state = AppState()
         state.birth = BirthProfile(year: 2025, month: 2, day: 29, hour: 10, minute: 0, gender: "女", city: "上海", longitude: 121.47)

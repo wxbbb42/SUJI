@@ -1,6 +1,7 @@
 import { baziTools, baziHandlers } from '../bazi';
 
 const FIXTURE_MING_PAN = {
+  birthDateTime: new Date("1990-08-15T04:00:00Z"), gender: "女",
   // 简化的 fixture，含 BaziEngine 输出的最小子集
   riZhu: { gan: '庚', wuXing: '金', yinYang: '阳', description: '...' },
   siZhu: {

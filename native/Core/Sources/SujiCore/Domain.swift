@@ -54,13 +54,13 @@ public struct BirthProfile: Codable, Equatable, Sendable {
     }
     public var date: Date? {
         var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = TimeZone(identifier: timeZoneID) ?? .gmt
+        calendar.timeZone = TimeZone(secondsFromGMT: 8 * 3600)!
         return calendar.date(from: DateComponents(year: year, month: month, day: day, hour: hour, minute: minute))
     }
     @discardableResult public func validated() throws -> Self {
-        guard (1900...2100).contains(year), (1...12).contains(month), (0...23).contains(hour), (0...59).contains(minute), longitude.isFinite, (-180...180).contains(longitude), ["男", "女"].contains(gender), timeZoneID == "Asia/Shanghai", let date else { throw DomainError.invalidBirth }
+        guard (1901...2100).contains(year), (1...12).contains(month), (0...23).contains(hour), (0...59).contains(minute), longitude.isFinite, (-180...180).contains(longitude), ["男", "女"].contains(gender), timeZoneID == "Asia/Shanghai", let date else { throw DomainError.invalidBirth }
         var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = TimeZone(identifier: timeZoneID)!
+        calendar.timeZone = TimeZone(secondsFromGMT: 8 * 3600)!
         let values = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
         guard values.year == year, values.month == month, values.day == day, values.hour == hour, values.minute == minute else { throw DomainError.invalidBirth }
         return self
@@ -86,6 +86,8 @@ public struct ConversationEntry: Codable, Identifiable, Sendable {
     public var evidence: [String] = []
     public var toolData: [String] = []
     public var toolReceipts: [ToolReceipt]?
+    public var toolContext: ToolContext?
+    public var analysisMode: String?
     public init(role: String, text: String) { self.role = role; self.text = text }
 }
 

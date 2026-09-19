@@ -8,14 +8,12 @@
     "typecheck": "tsc --noEmit",
     "test": "TZ=Asia/Shanghai jest --runInBand"
   },
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
-    "@lunisolar/plugin-char8ex": "0.2.5",
-    "@lunisolar/plugin-fetalgod": "0.1.4",
-    "@lunisolar/plugin-takesound": "0.1.2",
-    "@lunisolar/plugin-thegods": "0.1.4",
     "iztro": "2.5.8",
-    "lunisolar": "2.6.0"
+    "lunar-javascript": "1.7.7"
   },
   "devDependencies": {
     "@types/jest": "29.5.14",

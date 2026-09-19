@@ -32,6 +32,8 @@ import type {
   RootStrengthLabel,
   RootTier,
   ShiShen,
+  ShiShenRelationFact,
+  StemCombinationAssessment,
   TianGan,
   WuXing,
   XiangShenInfo,
@@ -154,7 +156,7 @@ export function computeRootStrength(
 // 出处：
 //   - 《子平真诠评注》六、论十干得时不旺失时不弱（月令旺相休囚死）
 //   - 《滴天髓阐微》通神论·清浊 / 寒暖燥湿 / 体用
-// 设计原则：所有判断基于结构化布尔/枚举，不引入任何"x.x 系数 / 阈值评分"。
+// 布尔/枚举输出仍依赖经验权重与计数阈值，不等于古籍原文算法。
 // ============================================================
 
 /** 五行相克：木克土，土克水，水克火，火克金，金克木 */
@@ -231,11 +233,11 @@ export function computeZuoGen(dayGan: TianGan, dayZhi: DiZhi): boolean {
 
 /**
  * 清浊判定 —《滴天髓·清浊论》
- *   清：五行流通无碍，无两两对峙之冲克，主气清纯（同党+印根 ≥ 60% 总根力）
- *   浊：五行交相克伐，多重冲克缠夹（4 种以上五行混杂 + 冲克 ≥ 2）
+ *   清：工程近似为五行种数 ≤ 3 且同党+印根 ≥ 60% 总根力
+ *   浊：工程近似为五行齐全且同党+印根 < 30% 总根力
  *   半清：介于其间
  *
- * 工程注意：本判断仅用结构计数，不打数值分。当前用四支五行计数近似（接入 branchRelations 后可更精确）。
+ * 工程注意：该近似未判定冲克或流通是否实际成立，60%/30%不是古籍阈值。
  */
 export function computeQingZhuo(
   dayGan: TianGan,
@@ -373,7 +375,7 @@ export function computeRiZhuStructure(
 //   - 《子平真诠》论用神格局高低（jibie 评级）
 // 算法骨架: docs/mingli/reading-notes/ziping-zhenquan-xiangshen.md
 // per-格局 规则: docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md
-// 设计原则：所有判断基于结构化布尔/枚举，不引入数值阈值。
+// 取格与评级包含未校准的计数/根力阈值，输出为候选，非定论。
 // ============================================================
 
 const GAN_YINYANG: Record<TianGan, '阳' | '阴'> = {
@@ -536,14 +538,21 @@ export function selectYongShen(
 }
 
 /** 格局名（中文）— ShiShen → 格名 */
-function geJuName(yong: ShiShen): string {
-  if (yong === '比肩') return '建禄格';
-  if (yong === '劫财') return '月刃格';
+function geJuName(yong: ShiShen, dayGan: TianGan, monthZhi: DiZhi): string {
+  const lu: Record<TianGan, DiZhi> = { 甲: '寅', 乙: '卯', 丙: '巳', 丁: '午', 戊: '巳', 己: '午', 庚: '申', 辛: '酉', 壬: '亥', 癸: '子' };
+  if (yong === '比肩') return lu[dayGan] === monthZhi ? '建禄格' : '比肩结构（格局待辨）';
+  if (yong === '劫财') {
+    if (YANG_REN[dayGan] === monthZhi) return '月刃格';
+    const monthGod = computeShiShenOf(dayGan, ROOT_HIDDEN_GAN[monthZhi][0].gan);
+    return monthGod === '劫财' ? '月劫格' : '劫财透干（格局待辨）';
+  }
   return `${yong}格`;
 }
 
 /** 格局 phaseId — ShiShen → 稳定 id（与 PhaseRegistry 命名一致） */
-function geJuPhaseId(yong: ShiShen): string {
+function geJuPhaseId(yong: ShiShen, name: string): string {
+  if (yong === '比肩' && name !== '建禄格') return 'bijie-pending';
+  if (yong === '劫财' && name !== '月刃格') return name === '月劫格' ? 'yuejie-ge' : 'bijie-pending';
   const map: Record<ShiShen, string> = {
     正官: 'zhengguan-ge',
     七杀: 'qisha-ge',
@@ -652,6 +661,58 @@ function ganKe(a: TianGan, b: TianGan): boolean {
   return KE[GAN_WUXING[a]] === GAN_WUXING[b];
 }
 
+/** Column geometry is checked per pair, not from a set of stem names.
+ * 《子平真诠评注》论十干合而不合 discusses intervening stems, remote
+ * pairs, and adjacent competing partners separately; season alone proves none.
+ */
+export function assessStemCombination(
+  stems: readonly TianGan[], monthZhi: DiZhi, left: number, right: number,
+): StemCombinationAssessment {
+  const a = stems[left], b = stems[right];
+  const rule = GAN_HE_TABLE.find(({ gans }) => gans.includes(a) && gans.includes(b) && a !== b);
+  if (!rule) throw new RangeError('所给柱位不构成天干五合配对');
+  const adjacent = Math.abs(left - right) === 1;
+  const competingAdjacentPartner = stems.some((g, i) => i !== left && i !== right && (
+    (Math.abs(i - left) === 1 && isGanHe(g, a)) ||
+    (Math.abs(i - right) === 1 && isGanHe(g, b))
+  ));
+  const monthSupportsTransformation = GAN_WUXING[ROOT_HIDDEN_GAN[monthZhi][0].gan] === rule.huaWx;
+  const reasons: string[] = [];
+  if (!adjacent) reasons.push('隔位配对，须另审中间干及全局，不直接作合去或成化');
+  if (competingAdjacentPartner) reasons.push('存在紧邻争合配对，不能自动选定一对成化');
+  if (!monthSupportsTransformation) reasons.push('月令本气不属所列化神五行');
+  reasons.push('五合方向不等于成化；根气、坐支及全局条件尚未完整求解');
+  return {
+    positions: [left, right], adjacent, competingAdjacentPartner,
+    monthSupportsTransformation,
+    status: adjacent && !competingAdjacentPartner && monthSupportsTransformation ? 'candidate' : 'unresolved',
+    reasons, transformationEstablished: false,
+  };
+}
+
+export function computeShiShenRelations(
+  dayGan: TianGan, stems: readonly TianGan[],
+): ShiShenRelationFact[] {
+  const facts: ShiShenRelationFact[] = [];
+  stems.forEach((a, sourcePosition) => stems.forEach((b, targetPosition) => {
+    if (sourcePosition === 2 || targetPosition === 2 || sourcePosition === targetPosition || !ganKe(a, b)) return;
+    const source = computeShiShenOf(dayGan, a), target = computeShiShenOf(dayGan, b);
+    let pattern: ShiShenRelationFact['pattern'] = '五行相克';
+    if (source === '偏印' && target === '食神') pattern = '偏印制食神';
+    else if ((source === '偏印' || source === '正印') && target === '伤官') pattern = '印制伤官';
+    else if (source === '食神' && target === '七杀') pattern = '食神制七杀';
+    else if (source === '伤官' && target === '正官') pattern = '伤官克正官';
+    else if ((source === '正财' || source === '偏财') && (target === '正印' || target === '偏印')) pattern = '财克印';
+    facts.push({
+      source: { gan: a, shiShen: source, position: sourcePosition },
+      target: { gan: b, shiShen: target, position: targetPosition },
+      relation: '克', adjacent: Math.abs(sourcePosition - targetPosition) === 1,
+      pattern, outcomeEstablished: false,
+    });
+  }));
+  return facts;
+}
+
 /**
  * 救应路径扫描（4 类）：
  *   qu-qing : 忌神被五合（合去）→ 去病
@@ -667,15 +728,18 @@ function scanJiuYing(
 ): JiuYingInfo[] {
   if (jiShenStems.length === 0) return [];
   const out: JiuYingInfo[] = [];
-  const allStems = stems.filter((g) => g !== dayGan);
+  const allStems = stems.filter((_, i) => i !== 2);
+  const adjacent = (a: TianGan, b: TianGan) => stems.some((g, i) => i !== 2 && g === a &&
+    stems.some((other, j) => j !== 2 && other === b && Math.abs(i - j) === 1));
 
   for (const ji of jiShenStems) {
     // (1) qu-qing / he-sha: 忌神被五合
-    const heHit = allStems.find((g) => g !== ji && isGanHe(g, ji));
+    const heHit = allStems.find((g) => g !== ji && isGanHe(g, ji) && adjacent(g, ji));
     if (heHit) {
       out.push({
         trigger: `忌神 ${ji}（${computeShiShenOf(dayGan, ji)}）透出`,
-        remedy: `${heHit} 与 ${ji} 五合，合去忌神`,
+        triggerGan: ji,
+        remedy: `${heHit} 与 ${ji} 紧邻五合，为合忌候选；是否去留须复核`,
         path: 'qu-qing',
         source: '《子平真诠》论用神成败救应',
       });
@@ -684,11 +748,12 @@ function scanJiuYing(
     // (2) shi-zhi: 食伤干克忌神
     const shiZhi = allStems.find((g) => {
       const ss = computeShiShenOf(dayGan, g);
-      return (ss === '食神' || ss === '伤官') && ganKe(g, ji);
+      return (ss === '食神' || ss === '伤官') && ganKe(g, ji) && adjacent(g, ji);
     });
     if (shiZhi) {
       out.push({
         trigger: `忌神 ${ji}（${computeShiShenOf(dayGan, ji)}）透出`,
+        triggerGan: ji,
         remedy: `${shiZhi}（${computeShiShenOf(dayGan, shiZhi)}）制忌神`,
         path: 'shi-zhi',
         source: '《子平真诠》论用神成败救应',
@@ -698,12 +763,18 @@ function scanJiuYing(
     // (3) yin-hua: 印透出（伤官见官 → 印护官；七杀逢印 → 印化杀）
     const yin = allStems.find((g) => {
       const ss = computeShiShenOf(dayGan, g);
-      return ss === '正印' || ss === '偏印';
+      if (ss !== '正印' && ss !== '偏印') return false;
+      // 印制伤官 and 官杀生印 are different relations. An arbitrary 印
+      // cannot "化" the 财 that actually overcomes it.
+      return adjacent(g, ji) && (ganKe(g, ji) || SHENG[GAN_WUXING[ji]] === GAN_WUXING[g]);
     });
     if (yin && (yong === '正官' || yong === '七杀' || yong === '伤官')) {
       out.push({
         trigger: `忌神 ${ji}（${computeShiShenOf(dayGan, ji)}）透出`,
-        remedy: `${yin}（${computeShiShenOf(dayGan, yin)}）化忌神 / 护用神`,
+        triggerGan: ji,
+        remedy: ganKe(yin, ji)
+          ? `${yin}（${computeShiShenOf(dayGan, yin)}）克${ji}（${computeShiShenOf(dayGan, ji)}），为制伤候选`
+          : `${ji}（${computeShiShenOf(dayGan, ji)}）生${yin}（${computeShiShenOf(dayGan, yin)}），为印通关候选`,
         path: 'yin-hua',
         source: '《子平真诠》论用神成败救应',
       });
@@ -719,8 +790,14 @@ function isYongShenBroken(
   dayGan: TianGan,
   stems: [TianGan, TianGan, TianGan, TianGan],
 ): boolean {
-  // 用神被五合（除自身 / 日干外的干合走用神）
-  return stems.some((g) => g !== yongGan && g !== dayGan && isGanHe(g, yongGan));
+  // Only an unopposed adjacent combination of every exposed copy is a
+  // candidate disruption. Remote pairs, the day stem itself, and 合一留一
+  // must not mechanically become a broken configuration.
+  const exposed = stems.map((g, i) => g === yongGan && i !== 2 ? i : -1).filter(i => i >= 0);
+  return exposed.length > 0 && exposed.every(i => stems.some((g, j) =>
+    j !== 2 && Math.abs(i - j) === 1 && isGanHe(g, yongGan) &&
+    !stems.some((other, k) => k !== i && k !== j && Math.abs(k - j) === 1 && isGanHe(other, g)),
+  ));
 }
 
 /** 月支是否被冲（影响月令取格 / 用神变化的判定） */
@@ -739,10 +816,10 @@ function isMonthBranchChonged(
 
 /**
  * 化气格结构化检测
- *   条件（《子平真诠》论化气）：
- *     1. 日干与紧邻天干（年/月/时其一）五合
+ *   保守候选筛查，不能当作完整古籍成化求解器：
+ *     1. 日干与紧邻天干（月/时）五合，无紧邻争合
  *     2. 化神（合化所成五行）= 月令本气
- *     3. 日主无根（rootStrength.label === '无根'）
+ *     3. 日主不见任何比印根或额外透干比印（不只看阈值 label）
  *     4. 月支不被冲
  */
 export interface HuaQiResult {
@@ -758,6 +835,10 @@ export function detectHuaQi(
   rootLabel: RootStrengthLabel,
 ): HuaQiResult {
   if (rootLabel !== '无根') return { isHuaQi: false, huaWx: null, partnerGan: null };
+  const dayWx = GAN_WUXING[dayGan];
+  if (computeRootStrength(dayGan, branches).totalRoot > 0 || stems.some((g, i) =>
+    i !== 2 && (GAN_WUXING[g] === dayWx || SHENG[GAN_WUXING[g]] === dayWx),
+  )) return { isHuaQi: false, huaWx: null, partnerGan: null };
   const monthZhi = branches[1];
   if (isMonthBranchChonged(monthZhi, branches)) {
     return { isHuaQi: false, huaWx: null, partnerGan: null };
@@ -765,13 +846,13 @@ export function detectHuaQi(
   const benGan = ROOT_HIDDEN_GAN[monthZhi].find((h) => h.tier === 'ben')!.gan;
   const monthBenWx = GAN_WUXING[benGan];
 
-  // 邻干：年/月/时（不取日干自己）
-  const neighbors: TianGan[] = [stems[0], stems[1], stems[3]];
-  for (const n of neighbors) {
+  // The year column is not adjacent to the day column.
+  for (const position of [1, 3]) {
+    const n = stems[position];
     for (const { gans, huaWx } of GAN_HE_TABLE) {
       const matches =
         (gans[0] === dayGan && gans[1] === n) || (gans[0] === n && gans[1] === dayGan);
-      if (matches && huaWx === monthBenWx) {
+      if (matches && huaWx === monthBenWx && !assessStemCombination(stems, monthZhi, 2, position).competingAdjacentPartner) {
         return { isHuaQi: true, huaWx, partnerGan: n };
       }
     }
@@ -798,10 +879,15 @@ export function detectCongGe(
 ): CongGeResult {
   if (rootLabel !== '无根') return { isCong: false, congType: null, congWx: null };
   const dayWx = GAN_WUXING[dayGan];
+  // An engineering "无根" bucket includes small nonzero roots; it must not
+  // erase actual supporting stems or roots when screening a following chart.
+  if (computeRootStrength(dayGan, branches).totalRoot > 0 || stems.some((g, i) =>
+    i !== 2 && (GAN_WUXING[g] === dayWx || SHENG[GAN_WUXING[g]] === dayWx),
+  )) return { isCong: false, congType: null, congWx: null };
   const counts: Record<'财' | '官杀' | '食伤' | '比劫' | '印', number> = {
     财: 0, 官杀: 0, 食伤: 0, 比劫: 0, 印: 0,
   };
-  const allGans: TianGan[] = [...stems.filter((g) => g !== dayGan), ...allHiddenStems(branches)];
+  const allGans: TianGan[] = [...stems.filter((_, i) => i !== 2), ...allHiddenStems(branches)];
   for (const g of allGans) {
     const wx = GAN_WUXING[g];
     if (wx === dayWx) counts.比劫++;
@@ -846,7 +932,7 @@ export function detectZhuanWang(
   let bijie = 0;
   let yin = 0;
   let keXie = 0; // 官杀 + 食伤
-  const allGans: TianGan[] = [...stems.filter((g) => g !== dayGan), ...allHiddenStems(branches)];
+  const allGans: TianGan[] = [...stems.filter((_, i) => i !== 2), ...allHiddenStems(branches)];
   for (const g of allGans) {
     const wx = GAN_WUXING[g];
     if (wx === dayWx) bijie++;
@@ -934,6 +1020,8 @@ export function computeGeJuV2(
       jiuYing: null,
       jibie: 'shang',
       evidence: ['bazi.yongshen.bianhua-trigger'],
+      assessmentStatus: 'heuristic-candidate',
+      conditions: ['通过相邻、月令、无比印根与无透干比印的保守筛查；仍为化气候选，未证明成化'],
     };
   }
 
@@ -950,6 +1038,8 @@ export function computeGeJuV2(
       jiuYing: null,
       jibie: 'shang',
       evidence: ['bazi.geju.rank-criteria'],
+      assessmentStatus: 'heuristic-candidate',
+      conditions: ['已排除显式比印根与透干比印；党势计数阈值仍属工程规则，非从格定论'],
     };
   }
 
@@ -966,6 +1056,8 @@ export function computeGeJuV2(
       jiuYing: null,
       jibie: 'shang',
       evidence: ['bazi.geju.rank-criteria'],
+      assessmentStatus: 'heuristic-candidate',
+      conditions: ['专旺党势计数仍属工程规则，未完成月令、成局与全局条件求解'],
     };
   }
 
@@ -980,10 +1072,10 @@ export function computeGeJuV2(
   // 三态 chengBai
   let chengBai: ChengBaiStatus;
   if (yongBroken) {
-    chengBai = jiuYing.length > 0 ? 'jiuying' : 'po';
+    chengBai = 'po';
   } else if (jiStems.length === 0) {
     chengBai = 'cheng';
-  } else if (jiuYing.length > 0) {
+  } else if (jiStems.every(ji => jiuYing.some(remedy => remedy.triggerGan === ji))) {
     chengBai = 'jiuying';
   } else {
     chengBai = 'po';
@@ -991,6 +1083,7 @@ export function computeGeJuV2(
 
   const yongRootLabel = computeYongShenRootLabel(sel.yongWx, branches);
   const jibie = rankGeJu(chengBai, xiang, yongRootLabel, jiStems.length);
+  const name = geJuName(yong, dayGan, monthZhi);
 
   // evidence: 引 reading-note 抽出的 claim ids
   const evidence: string[] = ['bazi.yongshen.priority-chain'];
@@ -1000,8 +1093,8 @@ export function computeGeJuV2(
   if (jibie !== 'zhong') evidence.push('bazi.geju.rank-criteria');
 
   return {
-    phaseId: geJuPhaseId(yong),
-    name: geJuName(yong),
+    phaseId: geJuPhaseId(yong, name),
+    name,
     category: 'zhengge',
     yongShen: sel.yongWx,
     xiangShen: xiang,
@@ -1009,5 +1102,14 @@ export function computeGeJuV2(
     jiuYing: jiuYing.length > 0 ? jiuYing : null,
     jibie,
     evidence,
+    assessmentStatus: 'heuristic-candidate',
+    conditions: [
+      '成败与等级是当前结构规则的候选输出，不是完整古籍格局裁定',
+      '隔位五合不自动合去用神；相邻合一留一不自动判全格破败',
+      ...(isMonthBranchChonged(monthZhi, branches) ? ['月支逢冲，须复核根气与配置影响'] : []),
+    ],
+    yongShenGan: sel.yongGan,
+    yongShenShiShen: yong,
+    selectionBasis: sel.basis,
   };
 }

@@ -11,6 +11,7 @@ export const ziweiTools: ToolDefinition[] = [
       description: '查紫微 12 宫某宫的主星、辅星、四化。常用宫名：命宫、夫妻宫、子女宫、财帛宫、官禄宫、田宅宫、福德宫、迁移宫、疾厄宫、父母宫、兄弟宫、仆役宫。',
       parameters: {
         type: 'object',
+        additionalProperties: false,
         properties: {
           palace: {
             type: 'string',
@@ -60,6 +61,9 @@ export const ziweiHandlers: Record<string, ToolHandler> = {
       mainStarsDetailed,
       minorStars,
       isShenGong: target.isShenGong,
+      method: ziweiPan.method,
+      emptyMainPalace: mainStars.length === 0,
+      note: mainStars.length === 0 ? "本宫无主星；须结合对宫与三方四正，不等于此领域不存在。" : undefined,
     };
 
     if (withSihua || withFlying) {

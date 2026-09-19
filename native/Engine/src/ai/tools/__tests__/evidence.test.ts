@@ -28,6 +28,7 @@ describe('buildEvidenceFromToolCalls', () => {
       '格局 · 飞鸟跌穴',
       '格局 · 青龙返首',
       '应期 · 约 1-3 个月内见分晓',
+      '方法 · mvp',
     ]);
   });
 

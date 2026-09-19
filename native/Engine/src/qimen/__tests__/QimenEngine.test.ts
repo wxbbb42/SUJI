@@ -65,13 +65,15 @@ describe('QimenEngine setup', () => {
 describe('QimenEngine yongShen selection', () => {
   const engine = new QimenEngine();
 
-  it('career questionType selects 庚 as primaryGan', () => {
+  it('career references the asker and career door, not an invented fixed 庚 officer', () => {
     const r = engine.setup({
       question: '我会得到这个 offer 吗',
       questionType: 'career',
       setupTime: new Date('2026-04-25T15:32:00'),
     });
-    expect(r.yongShen.type).toBe('庚');
+    expect(r.yongShen.type).toBe('己');
+    expect(r.yongShen.references?.some(v=>v.label==='开门')).toBe(true);
+    expect(r.yongShen.selectionStatus).toBe('initial-reference');
   });
 
   it('yongShen has palaceId, state, summary', () => {
@@ -84,6 +86,28 @@ describe('QimenEngine yongShen selection', () => {
     expect(['旺', '相', '休', '囚', '死', '不上卦']).toContain(r.yongShen.state);
     expect(r.yongShen.interactions[0]).toMatch(/^宫位五行判/);
     expect(r.yongShen.summary).toBeTruthy();
+  });
+
+  it('甲日求问者按甲子遁戊定位，仍保留原日干甲', () => {
+    // lunar-javascript independent oracle: 2026-04-20 is 甲子日。
+    const r = engine.setup({question:'事业',questionType:'career',setupTime:new Date('2026-04-20T15:32:00+08:00')});
+    expect(r.dayGanZhi).toBe('甲子');
+    expect(r.yongShen.type).toBe('甲');
+    const carrier = r.palaces.find(p=>p.id!==5&&(p.tianPanGan==='戊'||p.hostedTianPanGan==='戊'))!;
+    expect(r.yongShen.palaceId).toBe(carrier.id);
+    expect(r.yongShen.references).toContainEqual({label:'求问者（日干甲）',palaceId:carrier.id});
+  });
+
+  it('事件与关系保留不同参考角色，不根据性别预设固定庚乙伴侣', () => {
+    const setupTime=new Date('2026-04-25T15:32:00+08:00');
+    const event=engine.setup({question:'出行',questionType:'event',setupTime});
+    expect(event.yongShen.type).toBe('壬');
+    const male=engine.setup({question:'关系',questionType:'marriage',gender:'男',setupTime});
+    const female=engine.setup({question:'关系',questionType:'marriage',gender:'女',setupTime});
+    expect(male.yongShen.type).toBe('己');
+    expect(female.yongShen).toEqual(male.yongShen);
+    const harmony=male.palaces.find(p=>p.bashen==='六合')!;
+    expect(male.yongShen.references).toContainEqual({label:'六合',palaceId:harmony.id});
   });
 
   it('returns 应期 description', () => {

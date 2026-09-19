@@ -68,22 +68,11 @@ describe('QimenEngine fixture — 自然数序流转 + 真旋天盘', () => {
   // ────────────────────────────────────────────────────────
   // Fixture 3：地盘自然数序 — 阴遁 2 局（多源核验数据）
   // ────────────────────────────────────────────────────────
-  // 戊起 8 艮（阴遁 2 局戊位）→ 阴遁逆布 → 8→7→6→5→4→3→2→1→9
-  // 戊8→己7→庚6→辛5→壬4→癸3→丁2→丙1→乙9
-  // 注：太白童子博客示例为"阴遁 2 局戊起坤 2"的另一派系（飞盘奇门），
-  //     转盘奇门以本表为准（spec §3.7.2 表）
+  // 阴二局戊起坤2，阴遁只改变行进方向。旧“戊8属另一派”的注释没有来源支撑。
+  // qfdk/qimen dipan + qimen-go calcGong 独立一致，详见研究报告。
   describe('buildDiPan 阴遁 2 局', () => {
-    const diPan = buildDiPan('阴', 2);
-    it('戊→8、己→7、庚→6、辛→5、壬→4、癸→3、丁→2、丙→1、乙→9', () => {
-      expect(diPan.get(8)).toBe('戊');
-      expect(diPan.get(7)).toBe('己');
-      expect(diPan.get(6)).toBe('庚');
-      expect(diPan.get(5)).toBe('辛');
-      expect(diPan.get(4)).toBe('壬');
-      expect(diPan.get(3)).toBe('癸');
-      expect(diPan.get(2)).toBe('丁');
-      expect(diPan.get(1)).toBe('丙');
-      expect(diPan.get(9)).toBe('乙');
+    it('戊2己1庚9辛8壬7癸6丁5丙4乙3', () => {
+      expect(Object.fromEntries(buildDiPan('阴',2))).toEqual({1:'己',2:'戊',3:'乙',4:'丙',5:'丁',6:'癸',7:'壬',8:'辛',9:'庚'});
     });
   });
 

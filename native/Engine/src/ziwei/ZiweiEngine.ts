@@ -4,6 +4,7 @@
  * 包装 iztro 库，提供精简、稳定的接口供 AI 工具层使用
  */
 import { astro } from 'iztro';
+import { Lunar, Solar } from 'lunar-javascript';
 import type { IFunctionalAstrolabe } from 'iztro/lib/astro/FunctionalAstrolabe';
 import type {
   ZiweiPan, ZiweiBirthInput, Palace, Star, PalaceName, SiHua,
@@ -23,6 +24,28 @@ export class ZiweiEngine {
    * 普通调用方仍可继续用 compute() 拿 ZiweiPan，互不影响。
    */
   computeWithAstrolabe(input: ZiweiBirthInput): { pan: ZiweiPan; astrolabe: IFunctionalAstrolabe } {
+    for (const [name,value,min,max] of [
+      ['year',input.year,1901,2100],['month',input.month,1,12],['day',input.day,1,31],
+      ['hour',input.hour,0,23],['minute',input.minute ?? 0,0,59],
+    ] as const) {
+      if (!Number.isInteger(value) || value<min || value>max) throw new Error(`invalid ziwei ${name}`);
+    }
+    if (!['男','女'].includes(input.gender)) throw new Error('invalid ziwei gender');
+    if (input.isLeapMonth && !input.isLunar) throw new Error('leap month requires lunar input');
+    const dateCheck = new Date(Date.UTC(input.year,input.month-1,input.day));
+    if (!input.isLunar && (dateCheck.getUTCMonth()!==input.month-1 || dateCheck.getUTCDate()!==input.day)) throw new Error('invalid ziwei calendar date');
+    // lunar-lite silently ignores an impossible leap-month flag; validate before calling it.
+    const solar = input.isLunar
+      ? Lunar.fromYmd(input.year,input.isLeapMonth ? -input.month : input.month,input.day).getSolar()
+      : Solar.fromYmd(input.year,input.month,input.day);
+    const solarDate = solar.toYmd();
+    if (!input.isLunar && solarDate !== `${input.year}-${String(input.month).padStart(2,'0')}-${String(input.day).padStart(2,'0')}`) throw new Error('invalid ziwei calendar date');
+    if (solarDate<'1901-01-01' || solarDate>'2100-12-31') throw new Error('ziwei date outside 1901 through 2100');
+    // Pin the selected school's policies; upstream process-global settings must not leak in.
+    const globalRules = astro.getConfig();
+    for (const key of Object.keys(globalRules.mutagens)) delete globalRules.mutagens[key as keyof typeof globalRules.mutagens];
+    for (const key of Object.keys(globalRules.brightness)) delete globalRules.brightness[key as keyof typeof globalRules.brightness];
+    astro.config({yearDivide:'normal',horoscopeDivide:'normal',ageDivide:'normal',dayDivide:'forward',algorithm:'default'});
     const dateStr = `${input.year}-${input.month}-${input.day}`;
     const hourIndex = this.hourToIndex(input.hour);
 
@@ -43,12 +66,17 @@ export class ZiweiEngine {
     }));
 
     const pan: ZiweiPan = {
-      birthDateTime: new Date(input.year, input.month - 1, input.day, input.hour, input.minute ?? 0),
+      birthDateTime: new Date(`${solarDate}T${String(input.hour).padStart(2,'0')}:${String(input.minute ?? 0).padStart(2,'0')}:00+08:00`),
       gender: input.gender,
       palaces,
       mingGongPosition: astrolabe.earthlyBranchOfSoulPalace ?? this.findMingGongPosition(palaces),
       shenGongPosition: astrolabe.earthlyBranchOfBodyPalace ?? (palaces.find(p => p.isShenGong)?.position ?? ''),
       fiveElementsClass: astrolabe.fiveElementsClass ?? '',
+      method: {algorithm:'iztro-2.5.8-default',dayBoundary:'zi-hour',yearBoundary:'lunar-new-year',leapMonth:'split-at-day-15',caveats:[
+        '采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则',
+        '四化使用默认十干表；亮度、四化和闰月规则存在传本差异',
+        '排盘一致性不等于对现实事件的预测效度',
+      ]},
     };
     return { pan, astrolabe };
   }
@@ -62,19 +90,22 @@ export class ZiweiEngine {
     return (name.endsWith('宫') ? name : name + '宫') as PalaceName;
   }
 
-  /** 24 小时制转 iztro 的 0-11 时辰索引 */
+  /** iztro 区分早子0与晚子12；默认 forward 晚子按次日安星。 */
   private hourToIndex(hour: number): number {
-    if (hour === 23 || hour === 0) return 0;
+    if (hour === 23) return 12;
+    if (hour === 0) return 0;
     return Math.floor((hour + 1) / 2);
   }
 
   private normalizeStar(s: any, defaultType: Star['type'], source: Star['source']): Star {
+    const mutagen = s.mutagen ? String(s.mutagen).replace(/^化/,'') : '';
+    const sihua = ['禄','权','科','忌'].includes(mutagen) ? [`化${mutagen}` as SiHua] : undefined;
     return {
       name: s.name,
       brightness: s.brightness as Star['brightness'],
       type: defaultType,
       source,
-      sihua: s.mutagen ? [s.mutagen as SiHua] : undefined,
+      sihua,
     };
   }
 

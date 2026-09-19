@@ -12,12 +12,13 @@ export const liuyaoTools: ToolDefinition[] = [
     type: 'function',
     function: {
       name: 'cast_liuyao',
-      description: '为单一具体事件起一卦（六爻易经卜卦）。用于"该不该 X / 会不会 Y / X 这件事的结果"等决策类问题。返回主卦+变卦+动爻+用神+应期。',
+      description: '为单一具体事件起一卦（六爻易经卜卦）。用于"该不该 X / 会不会 Y / X 这件事的结果"等决策类问题。返回主卦、变卦、动爻、纳甲、世应、六神、旬空、月日关系和用神候选；证据不足时应期保持未定。',
       parameters: {
         type: 'object',
+        additionalProperties: false,
         properties: {
           question: {
-            type: 'string',
+            type: 'string', minLength: 1, maxLength: 1600,
             description: '用户的具体问题（保留作为上下文，不影响起卦数学）',
           },
           questionType: {
@@ -40,12 +41,12 @@ export const liuyaoTools: ToolDefinition[] = [
 const engine = new HexagramEngine();
 
 export const liuyaoHandlers: Record<string, ToolHandler> = {
-  cast_liuyao: ({ question, questionType, gender }, _ctx) => {
+  cast_liuyao: ({ question, questionType, gender }, ctx) => {
     const reading = engine.cast({
       question: String(question),
       questionType: (questionType as QuestionType | undefined) ?? 'general',
       gender: gender as '男' | '女' | undefined,
-      castTime: new Date(),
+      castTime: ctx.now,
     });
     return reading;
   },

@@ -1,41 +1,28 @@
-/**
- * end-to-end 设计验证：成年用户 + ±1 时辰 → buildSignalTable 必须产出 non-empty 信号。
- *
- * 用真实 BaziEngine + ZiweiEngine + iztro，不 mock 任何引擎。
- * 这条测试如果回到全 'none'，说明紫微大限/八字大运信号都没接入，
- * LLM 拿不到差异性信号 → 任何 lock 都不可信。
- *
- * 历史背景：八字大运由「年柱+月柱+性别」决定，不依赖时辰，
- * 三盘的八字事件序列完全相同。紫微大限由命宫位置决定，
- * 时辰平移 1 → 命宫平移 1 宫 → 大限干支序列变化 → 同年份不同盘转出不同十神。
- */
+/** Real engine smoke for separated calculation facts. Differences between charts
+ * are not empirical evidence for a correct birth time or grounds for auto-lock. */
 import { buildCandidates } from '../buildCandidates';
 import { extractEventsForCandidate } from '../extractEvents';
 import { extractZiweiEventsForCandidate } from '../extractZiweiEvents';
-import type { Candidate, EventType } from '../types';
+import type { Candidate } from '../types';
 
 function hasNonNoneSignal(cands: Candidate[], currentYear: number): boolean {
   for (const c of cands) {
-    const merged: Record<number, EventType> = {
-      ...extractEventsForCandidate(c, currentYear),
-      ...extractZiweiEventsForCandidate(c, currentYear),
-    };
-    if (Object.values(merged).some(e => e !== 'none')) return true;
+    const systems = [extractEventsForCandidate(c, currentYear), extractZiweiEventsForCandidate(c, currentYear)];
+    if (systems.some(events => Object.values(events).some(event => event !== 'none'))) return true;
   }
   return false;
 }
 
 function hasInterCandidateDivergence(cands: Candidate[], currentYear: number): boolean {
-  // 至少有一年三盘事件类型不全一样——这是 LLM 用来判别的最小条件。
   const tables = cands.map(c => ({
-    ...extractEventsForCandidate(c, currentYear),
-    ...extractZiweiEventsForCandidate(c, currentYear),
+    bazi: extractEventsForCandidate(c, currentYear),
+    ziwei: extractZiweiEventsForCandidate(c, currentYear),
   }));
-  const allYears = new Set<number>();
-  for (const t of tables) for (const y of Object.keys(t)) allYears.add(Number(y));
-  for (const y of allYears) {
-    const set = new Set(tables.map(t => t[y] ?? 'none'));
-    if (set.size > 1) return true;
+  for (const system of ['bazi', 'ziwei'] as const) {
+    const years = new Set(tables.flatMap(table => Object.keys(table[system])));
+    for (const year of years) {
+      if (new Set(tables.map(table => table[system][Number(year)] ?? 'none')).size > 1) return true;
+    }
   }
   return false;
 }

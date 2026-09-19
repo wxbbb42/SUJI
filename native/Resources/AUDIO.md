@@ -2,8 +2,9 @@
 
 The calm-space ambience is original procedural synthesis implemented in
 `native/App/Services/AmbienceAudio.swift`. SUJI does not bundle, download, or
-stream field recordings for these sounds. The UI therefore calls them “合成音景”
-(synthesized ambience), rather than claiming that they were recorded in nature.
+stream field recordings for these sounds. The main UI calls the seasonal mixes
+“节气音景”; its “关于这些声音” disclosure explicitly describes their real-time
+synthesis and says they are not nature recordings.
 
 The four layers are generated in real time at 44.1 kHz:
 

@@ -7,7 +7,7 @@ export type PalaceName =
   | '财帛宫' | '疾厄宫' | '迁移宫' | '仆役宫'
   | '官禄宫' | '田宅宫' | '福德宫' | '父母宫';
 
-export type StarBrightness = '庙' | '旺' | '得' | '利' | '平' | '闲' | '陷';
+export type StarBrightness = '庙' | '旺' | '得' | '利' | '平' | '闲' | '不' | '陷';
 export type SiHua = '化禄' | '化权' | '化科' | '化忌';
 
 export interface Star {
@@ -34,6 +34,7 @@ export interface ZiweiPan {
   mingGongPosition: string;  // 命宫地支位
   shenGongPosition: string;  // 身宫地支位
   fiveElementsClass: string; // 五行局（水二局/木三局/...）
+  method?: { algorithm: string; dayBoundary: string; leapMonth: string; yearBoundary: string; caveats: string[] };
 }
 
 export interface ZiweiBirthInput {

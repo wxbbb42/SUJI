@@ -13,11 +13,12 @@ export const qimenTools: ToolDefinition[] = [
     type: 'function',
     function: {
       name: 'setup_qimen',
-      description: '为战略级重大决策起一局奇门盘（"要不要换城市/移民/换行业/创业"等）。返回完整 9 宫盘 + 用神宫 + 格局列表 + 应期 + method 可信度说明；method.level=mvp 时解读必须保留余地。',
+      description: '为战略级重大决策起一局奇门盘（"要不要换城市/移民/换行业/创业"等）。返回拆补法转盘的 9 宫、值符值使、用神初选、格局与方法说明。应期证据不足时不会给出固定期限；派别差异和取用限制必须保留。',
       parameters: {
         type: 'object',
+        additionalProperties: false,
         properties: {
-          question: { type: 'string', description: '用户的具体问题' },
+          question: { type: 'string', minLength: 1, maxLength: 1600, description: '用户的具体问题' },
           questionType: {
             type: 'string',
             enum: ['career', 'wealth', 'marriage', 'kids', 'parents', 'health', 'event', 'general'],

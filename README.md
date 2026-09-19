@@ -55,8 +55,10 @@ npm test --prefix supabase
 node scripts/ingest-mingli-kb.mjs
 ```
 
+命理计算约定、独立开源/文献研究、已修缺陷与验证边界见 [命理验证记录](docs/mingli/validation/PLAN.md)。四柱使用精确交节、固定 UTC+08 和子初换日；调候条目保留出处与条件，尚不自动取用。问道将盘面快照绑定到本次资料，起盘重试沿用原盘，命理解读核对通过后才展示。
+
 已执行的检查与尚需实机验证的项目见 [验证记录](native/VERIFICATION.md)。传统算法保留明确的简化边界，不作为医疗、财务或人生决策建议；当前版本尚未发布到 App Store。
 
 ## License
 
-Private — All Rights Reserved. 第三方字体与素材授权见 `native/Resources`。
+Private — All Rights Reserved. 第三方运行库授权随 App 附带在 `native/Resources/ThirdPartyNotices.txt`；字体与素材授权见同目录。

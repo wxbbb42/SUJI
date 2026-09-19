@@ -235,7 +235,7 @@ describe('computeGeJuV2 — 正格破后救应（jiuying）', () => {
   // 又透癸正印 → 印化伤官护官 → 救应（yin-hua）；
   // 评级降为中格。
   it('甲日酉月辛透 + 丁伤官破官 + 癸印化救 → 正官格 jiuying / 中格', () => {
-    const g = computeGeJuV2('甲', ['癸', '辛', '甲', '丁'], ['酉', '酉', '子', '卯']);
+    const g = computeGeJuV2('甲', ['癸', '丁', '甲', '辛'], ['酉', '酉', '子', '卯']);
     expect(g.name).toBe('正官格');
     expect(g.chengBai).toBe('jiuying');
     expect(g.xiangShen?.shiShen).toBe('正印');
@@ -278,10 +278,10 @@ describe('computeGeJuV2 — 从财格', () => {
 
 describe('computeGeJuV2 — 化气格（甲己合化土）', () => {
   // 甲日戌月：月令本气戊（土）；时干己 → 甲己合化土；
-  // 日主无根（地支午戌巳未仅未藏乙余气微弱）；
+  // 日主无任何比印根、无其他透干比印；
   // 月支戌不被冲（地支无辰）→ 化土格成。
   it('甲日戌月 + 时干己 + 日主无根 + 月支不冲 → 化土格', () => {
-    const g = computeGeJuV2('甲', ['癸', '辛', '甲', '己'], ['午', '戌', '巳', '未']);
+    const g = computeGeJuV2('甲', ['戊', '丙', '甲', '己'], ['午', '戌', '巳', '午']);
     expect(g.name).toBe('化土格');
     expect(g.category).toBe('huaqi');
     expect(g.yongShen).toBe('土');
@@ -333,7 +333,7 @@ describe('selectYongShen — 用神变化（《子平真诠》论用神变化）
 
 describe('detectHuaQi / detectCongGe / detectZhuanWang — 结构化布尔', () => {
   it('detectHuaQi: 化气前置条件齐全 → isHuaQi=true', () => {
-    const r = detectHuaQi('甲', ['癸', '辛', '甲', '己'], ['午', '戌', '巳', '未'], '无根');
+    const r = detectHuaQi('甲', ['戊', '丙', '甲', '己'], ['午', '戌', '巳', '午'], '无根');
     expect(r.isHuaQi).toBe(true);
     expect(r.huaWx).toBe('土');
     expect(r.partnerGan).toBe('己');

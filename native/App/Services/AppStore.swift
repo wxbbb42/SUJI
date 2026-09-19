@@ -2,6 +2,7 @@ import Foundation
 import SwiftData
 import SwiftUI
 import SujiCore
+import CryptoKit
 
 @Model final class SavedState {
     @Attribute(.unique) var key: String
@@ -34,6 +35,7 @@ struct Document {
     private(set) var scopeKey: String
     var widgetStatus: String?
     let engine: MingliBridge
+    let engineRevision: String
     private let context: ModelContext
     private var record: SavedState
     private var calculationVersion = 0
@@ -56,6 +58,7 @@ struct Document {
         self.context = context
         let key = userID.map { "user:" + $0 } ?? "local"
         scopeKey = key
+        engineRevision = SHA256.hash(data: try Data(contentsOf: scriptURL)).map { String(format: "%02x", $0) }.joined()
         engine = try MingliBridge(scriptURL: scriptURL)
         if let existing = try context.fetch(FetchDescriptor<SavedState>(predicate: #Predicate { $0.key == key })).first {
             state = try JSONDecoder().decode(AppState.self, from: existing.data)
@@ -113,7 +116,9 @@ struct Document {
     }
     func request(_ payload: [String: Any]) async throws -> Document {
         let data = try JSONSerialization.data(withJSONObject: payload)
-        return try Document(data: await engine.request(String(decoding: data, as: UTF8.self)))
+        let result = try await engine.request(String(decoding: data, as: UTF8.self))
+        try EngineContract.validate(result, command: payload["command"] as? String ?? "")
+        return try Document(data: result)
     }
     func birthJSON(_ birth: BirthProfile) throws -> Any { try JSONSerialization.jsonObject(with: JSONEncoder().encode(birth)) }
     func updateBirth(_ birth: BirthProfile) async throws {

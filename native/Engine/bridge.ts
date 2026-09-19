@@ -10,13 +10,23 @@ import { extractEventsForCandidate } from './src/calibration/extractEvents';
 import { extractZiweiEventsForCandidate } from './src/calibration/extractZiweiEvents';
 import { ALL_HANDLERS, ALL_TOOLS } from './src/ai/tools';
 import { buildEvidenceFromToolCalls } from './src/ai/tools/evidence';
+import { CALENDAR_POLICY, assertCalendarRange, beijingDateParts, fromBeijingParts } from './src/calendar/precision';
+import { annualCycle, annualReference } from './src/ai/tools/annual';
+import { validateToolArguments } from './src/ai/tools/validation';
+
+declare const __ENGINE_REVISION__: string;
+const ENGINE_REVISION = typeof __ENGINE_REVISION__ === 'undefined' ? 'development-unbundled' : __ENGINE_REVISION__;
 
 type Birth = { year: number; month: number; day: number; hour: number; minute: number; gender: '男' | '女'; longitude: number; timeZoneID?: string };
 function dateOf(b: Birth): Date {
+  if (!b || typeof b !== 'object') throw new Error('出生资料无效');
   if (b.timeZoneID && b.timeZoneID !== 'Asia/Shanghai') throw new Error('目前排盘使用北京时间，请先换算为北京时间。');
   if (!Number.isFinite(b.longitude) || b.longitude < -180 || b.longitude > 180) throw new Error('出生地经度无效');
-  const d = new Date(b.year, b.month - 1, b.day, b.hour, b.minute);
-  if (d.getFullYear() !== b.year || d.getMonth() + 1 !== b.month || d.getDate() !== b.day || d.getHours() !== b.hour || d.getMinutes() !== b.minute || !['男','女'].includes(b.gender)) throw new Error('出生日期无效');
+  if (![b.year,b.month,b.day,b.hour,b.minute].every(Number.isInteger)) throw new Error('出生日期须为整数');
+  const d = fromBeijingParts(b.year,b.month,b.day,b.hour,b.minute);
+  assertCalendarRange(d);
+  const p = beijingDateParts(d);
+  if (p.year !== b.year || p.month !== b.month || p.day !== b.day || p.hour !== b.hour || p.minute !== b.minute || !['男','女'].includes(b.gender)) throw new Error('出生日期无效');
   return d;
 }
 const bazi = new BaziEngine();
@@ -27,38 +37,59 @@ function charts(b: Birth) {
 }
 
 export async function dispatch(input: any): Promise<any> {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) throw new Error('无效引擎请求');
+  if (input.now !== undefined && (typeof input.now !== 'string' || !/T.*(?:Z|[+-]\d{2}:\d{2})$/.test(input.now))) throw new Error('参考时刻须包含时区');
   const now = input.now ? new Date(input.now) : new Date();
+  if (!Number.isFinite(now.getTime())) throw new Error('参考时刻无效');
+  const currentYear = beijingDateParts(now).year;
+  const yearOf = (value: unknown): number => {
+    if (typeof value !== 'number' || !Number.isInteger(value) || value < 1901 || value > 2100) throw new Error('年份须为1901–2100');
+    return value;
+  };
+  const referenceFor = (year:number) => annualReference(year,now);
   switch(input.command) {
+    case 'metadata': return {engineRevision:ENGINE_REVISION, calendarPolicy:CALENDAR_POLICY};
     case 'calendar': {
+      if (input.day !== undefined && (typeof input.day !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(input.day))) throw new Error('日历日期无效');
       const d = input.day ? new Date(`${input.day}T12:00:00+08:00`) : now;
+      assertCalendarRange(d);
+      if (input.day && d.toISOString().slice(0,10) !== input.day) throw new Error('日历日期无效');
       return { ...getTodayInfo(d), solarTerm: currentSolarTerm(d) };
     }
     case 'profile': {
       const { mingPan, ziweiPan } = charts(input.birth);
       const insight = new InsightEngine(mingPan);
       const timing = new DayunEngine(mingPan);
-      return { mingPan, ziweiPan, personality: insight.getPersonalityInsight(), daily: insight.getDailyInsight(now), timing: insight.getTimingInsight(now.getFullYear()), forecast: timing.getYearForecast(input.year ?? now.getFullYear()) };
+      const year = yearOf(input.year ?? currentYear);
+      return { mingPan, ziweiPan, personality: insight.getPersonalityInsight(), daily: insight.getDailyInsight(now), timing: insight.getTimingInsight(year,referenceFor(year)), forecast: {...timing.getYearForecast(year,referenceFor(year)), annualCycle:annualCycle(year,now), requestReferenceDate:now.toISOString()} };
     }
     case 'forecast': {
       const mingPan = bazi.calculate(dateOf(input.birth), input.birth.gender, input.birth.longitude);
-      const year = Number(input.year);
-      if (!Number.isInteger(year) || year < 1900 || year > 2100) throw new Error('年份无效');
-      return { timing: new InsightEngine(mingPan).getTimingInsight(year), forecast: new DayunEngine(mingPan).getYearForecast(year) };
+      const year = yearOf(input.year);
+      return { timing: new InsightEngine(mingPan).getTimingInsight(year,referenceFor(year)), forecast: {...new DayunEngine(mingPan).getYearForecast(year,referenceFor(year)), annualCycle:annualCycle(year,now), requestReferenceDate:now.toISOString()} };
     }
     case 'tools': return ALL_TOOLS;
     case 'tool': {
       const handler = ALL_HANDLERS[input.name];
       if (!handler) throw new Error(`未知工具：${input.name}`);
+      const definition = ALL_TOOLS.find(tool => tool.function.name === input.name)!;
+      validateToolArguments(definition, input.arguments ?? {});
       const ctx = input.birth ? charts(input.birth) : { mingPan: null, ziweiPan: null };
       if (!input.birth && !['cast_liuyao', 'setup_qimen'].includes(input.name)) throw new Error('请先在「我的」填写出生资料');
-      const result = await handler(input.arguments ?? {}, {...ctx, now});
+      assertCalendarRange(now);
+      const raw = await handler(input.arguments ?? {}, {...ctx, now});
+      const result = { ...(raw as object), provenance: {
+        engineRevision:ENGINE_REVISION, referenceDate:now.toISOString(), calendarPolicy:CALENDAR_POLICY,
+        interpretation:'干支、星曜与盘面为规则计算；强弱评分、用神取舍及文字为指定流派或产品启发式，不是事件概率。',
+        baziPolicy:ctx.mingPan?.interpretationPolicy, ziweiPolicy:ctx.ziweiPan?.method,
+      }};
       return { result, evidence: buildEvidenceFromToolCalls([{call:{ id: input.id ?? 'native', name: input.name, arguments: input.arguments ?? {} }, result}]) };
     }
     case 'relationship': {
       const a = charts(input.birth).mingPan;
       const b = charts(input.partner).mingPan;
       const { dayGanCompatibility, dayZhiCompatibility } = new MarriageEngine(a,b).getMatchResult();
-      return { dayGanCompatibility, dayZhiCompatibility, first: a.riZhu, second: b.riZhu, note: '传统干支关系仅提供文化视角，不能衡量两个人相处的质量。' };
+      return { dayGanCompatibility, dayZhiCompatibility, first: a.riZhu, second: b.riZhu, firstDayPillar:a.siZhu.day.ganZhi, secondDayPillar:b.siZhu.day.ganZhi, note: '传统干支关系仅提供文化视角，不能衡量两个人相处的质量。' };
     }
     case 'candidates': {
       const b = input.birth as Birth;
@@ -66,7 +97,10 @@ export async function dispatch(input: any): Promise<any> {
         id: c.id, birthDate: c.birthDate.toISOString(), hour: c.birthDate.getHours(),
         dayPillar: c.mingPan.siZhu.day.ganZhi, hourPillar: c.mingPan.siZhu.hour.ganZhi,
         mingGong: c.ziweiPan.mingGongPosition,
-        events: { ...extractEventsForCandidate(c, now.getFullYear()), ...extractZiweiEventsForCandidate(c, now.getFullYear()) },
+        eventsBySystem: {
+          bazi: extractEventsForCandidate(c, currentYear),
+          ziwei: extractZiweiEventsForCandidate(c, currentYear),
+        },
       }));
     }
     default: throw new Error('不支持的引擎请求');

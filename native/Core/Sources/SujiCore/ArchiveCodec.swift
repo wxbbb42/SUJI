@@ -17,6 +17,9 @@ public enum ArchiveCodec {
         }
     }
 
+    /// External file import only. An archive can be edited outside the app, so its
+    /// calculation receipts remain readable history but cannot become tool evidence.
+    /// Local SavedState persistence uses JSONDecoder directly and retains contexts.
     public static func decode(_ data: Data) throws -> AppState {
         do {
             guard !data.isEmpty, data.count <= maximumByteCount else { throw DomainError.invalidArchive }
@@ -43,10 +46,28 @@ public enum ArchiveCodec {
                 state = try decodeLegacy(root)
             }
             try validate(state)
-            return state
+            return removingImportedReceiptTrust(from: state)
         } catch {
             throw DomainError.invalidArchive
         }
+    }
+
+    private static func removingImportedReceiptTrust(from state: AppState) -> AppState {
+        func historicalEntry(_ entry: ConversationEntry) -> ConversationEntry {
+            var copy = entry
+            copy.toolContext = nil
+            copy.analysisMode = nil
+            copy.toolReceipts = entry.toolReceipts?.map { receipt in
+                var historicalReceipt = receipt
+                historicalReceipt.context = nil
+                return historicalReceipt
+            }
+            return copy
+        }
+        var imported = state
+        imported.conversations = state.conversations.map(historicalEntry)
+        imported.reflections = state.reflections?.mapValues { $0.map(historicalEntry) }
+        return imported
     }
 
     private static func validate(_ state: AppState) throws {
@@ -95,10 +116,13 @@ public enum ArchiveCodec {
               entry.toolData.count <= 1_000,
               entry.evidence.allSatisfy({ $0.count <= 20_000 }),
               entry.toolData.allSatisfy({ $0.count <= 100_000 }) else { throw DomainError.invalidArchive }
+        if let context = entry.toolContext, !context.isValid { throw DomainError.invalidArchive }
+        if let mode = entry.analysisMode, !["倾诉", "命理", "起卦"].contains(mode) { throw DomainError.invalidArchive }
         if let receipts = entry.toolReceipts {
             guard receipts.count <= 32 else { throw DomainError.invalidArchive }
             var callIDs = Set<String>()
             for receipt in receipts {
+                if let context = receipt.context, !context.isValid { throw DomainError.invalidArchive }
                 guard !receipt.callID.isEmpty, receipt.callID.count <= 512,
                       callIDs.insert(receipt.callID).inserted,
                       ToolOrchestrator.allowedToolNames.contains(receipt.name),

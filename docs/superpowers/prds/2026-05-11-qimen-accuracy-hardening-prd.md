@@ -1,5 +1,7 @@
 # PRD：奇门遁甲起局准确性 Hardening（上中下元 + 值使门/八门转盘）
 
+> 2026-09-19 实施校勘：本文件保留为历史 PRD。FR-2 推荐的逐日干定元表不符合五日符头拆补规则，不再作为实现依据；以 [符头与值使 source note](../../mingli/reading-notes/qimen-yuan-and-zhishi.md) 及 [独立研究](../../mingli/validation/divination-research.md) 的明确规则和证据为准。原 `lib/` 路径已迁至 `native/Engine/src/`。
+
 **日期**：2026-05-11  
 **项目**：有时 / SUJI  
 **模块**：`lib/qimen/` 奇门遁甲起局引擎  

@@ -85,7 +85,10 @@ export interface WuXingStrength {
   riZhuStrong: boolean;     // 日主是否身强
   yongShen: WuXing;         // 用神五行
   xiShen: WuXing;           // 喜神五行
-  jiShen: WuXing;           // 忌神五行
+  jiShen: WuXing;           // 忌神五行（兼容扶抑启发式，不是调候定论）
+  suggestionBasis?: 'fuyi-heuristic';
+  suggestionStatus?: 'not-empirically-validated';
+  tiaohouApplied?: false;
 }
 
 // ========================
@@ -94,7 +97,7 @@ export interface WuXingStrength {
 
 /** 地支关系类型 */
 export type BranchRelationType =
-  | '六合' | '三合' | '三会'
+  | '六合' | '三合' | '三会' | '半合候选' | '拱合候选' | '三会候选'
   | '六冲' | '六害' | '六破'
   | '相刑';
 
@@ -102,8 +105,12 @@ export type BranchRelationType =
 export interface BranchRelation {
   type: BranchRelationType;
   branches: DiZhi[];
-  result?: WuXing;      // 合化结果五行（如有）
+  result?: WuXing;      // Traditional combination direction, not established transformation.
   positions: string[];   // 涉及的柱位（如 "年支-月支"）
+  requiredBranches?: DiZhi[];
+  missingBranches?: DiZhi[];
+  completeness?: 'complete' | 'partial';
+  outcomeEstablished?: false;
 }
 
 // ========================
@@ -117,8 +124,29 @@ export interface StemRelation {
   stems: TianGan[];
   result?: WuXing;
   positions: string[];
-  heHua?: boolean;      // 天干五合是否真正化成
+  heHua?: boolean;      // Legacy; omitted while transformation is not established.
   heHuaDesc?: string;   // 合化条件说明
+  combinationAssessments?: StemCombinationAssessment[];
+}
+
+export interface StemCombinationAssessment {
+  positions: [number, number];
+  adjacent: boolean;
+  competingAdjacentPartner: boolean;
+  monthSupportsTransformation: boolean;
+  status: 'candidate' | 'unresolved';
+  reasons: string[];
+  transformationEstablished: false;
+}
+
+/** Exact transparent-stem identities, without asserting that an interaction wins. */
+export interface ShiShenRelationFact {
+  source: { gan: TianGan; shiShen: ShiShen; position: number };
+  target: { gan: TianGan; shiShen: ShiShen; position: number };
+  relation: '克';
+  adjacent: boolean;
+  pattern: '偏印制食神' | '印制伤官' | '食神制七杀' | '伤官克正官' | '财克印' | '五行相克';
+  outcomeEstablished: false;
 }
 
 // ========================
@@ -126,7 +154,15 @@ export interface StemRelation {
 // ========================
 
 /** 大运信息 */
+export interface QiYunInfo {
+  years: number; months: number; days: number; hours: number;
+  startDate: string; termDate: string; termName: string; sect: 2;
+}
+
 export interface DaYun {
+  /** Exact half-open interval [startDate, endDate); ages are only whole-year display references. */
+  startDate?: string;
+  endDate?: string;
   startAge: number;
   endAge: number;
   ganZhi: GanZhi;
@@ -145,7 +181,10 @@ export interface LiuNian {
 
 /** 流月信息 */
 export interface LiuYue {
-  month: number;           // 1-12
+  month: number;           // 1-12 solar-term month ordinal, 1=寅月 (not Gregorian January)
+  startDate?: string;
+  endDate?: string;
+  solarTerm?: string;
   ganZhi: GanZhi;
   shiShen: ShiShen;        // 流月天干十神
   zhiShiShen: ShiShen;     // 流月地支藏干主气十神
@@ -210,6 +249,7 @@ export interface MingPan {
 
   // 五行分析
   wuXingStrength: WuXingStrength;
+  tiaoHou?: import('./tiaohou').TiaoHouReview;
 
   // 日主结构（得令/通根/坐刃/清浊/寒暖燥湿/五档强弱）
   riZhuStructure?: RiZhuStructure;
@@ -217,6 +257,7 @@ export interface MingPan {
   // 关系网络
   branchRelations: BranchRelation[];
   stemRelations: StemRelation[];
+  shiShenRelations?: ShiShenRelationFact[];
 
   // 格局（legacy stub，下游逐步迁移到 geJuV2）
   geJu: GeJu;
@@ -231,6 +272,11 @@ export interface MingPan {
   daYunDirection: DaYunDirection;
   daYunStartAge: number;
   daYunList: DaYun[];
+  qiYun?: QiYunInfo;
+  calculationPolicy?: typeof import('../calendar/precision').CALENDAR_POLICY & {
+    civilBirthTime: string; effectiveSolarTime: string; solarTimeApplied: boolean; longitude?: number; warnings: string[];
+  };
+  interpretationPolicy?: { strengthYongShen: string; structureYongShen: string; status: string };
 
   // 农历信息
   lunarDate: string;
@@ -395,6 +441,7 @@ export interface XiangShenInfo {
 
 /** 救应路径 */
 export interface JiuYingInfo {
+  triggerGan?: TianGan;        // Actual stem addressed, so one remedy cannot cover another threat.
   trigger: string;             // 触发破格的条件
   remedy: string;              // 救应字
   path?: 'qu-qing' | 'shi-zhi' | 'yin-hua' | 'he-sha' | 'other';
@@ -418,6 +465,11 @@ export interface GeJuV2 {
   jiuYing: JiuYingInfo[] | null;
   jibie: GeJuRank;
   evidence: string[];          // 引 claims.json 的 claim id
+  assessmentStatus?: 'heuristic-candidate';
+  conditions?: string[];
+  yongShenGan?: TianGan;
+  yongShenShiShen?: ShiShen;
+  selectionBasis?: string;
 }
 
 // --- 多派投票骨架 ---
