@@ -57,6 +57,7 @@ public enum ArchiveCodec {
             var copy = entry
             copy.toolContext = nil
             copy.analysisMode = nil
+            copy.readingDocument = nil
             copy.toolReceipts = entry.toolReceipts?.map { receipt in
                 var historicalReceipt = receipt
                 historicalReceipt.context = nil
@@ -117,6 +118,9 @@ public enum ArchiveCodec {
               entry.evidence.allSatisfy({ $0.count <= 20_000 }),
               entry.toolData.allSatisfy({ $0.count <= 100_000 }) else { throw DomainError.invalidArchive }
         if let context = entry.toolContext, !context.isValid { throw DomainError.invalidArchive }
+        if let document = entry.readingDocument {
+            guard entry.role == "assistant", document.isValid, entry.text == document.plainText else { throw DomainError.invalidArchive }
+        }
         if let mode = entry.analysisMode, !["倾诉", "命理", "起卦"].contains(mode) { throw DomainError.invalidArchive }
         if let receipts = entry.toolReceipts {
             guard receipts.count <= 32 else { throw DomainError.invalidArchive }

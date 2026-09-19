@@ -19,6 +19,8 @@ try { await access(path.resolve(args[3])); throw Error('Output exists; preserve 
 catch(error) { if(error.code!=='ENOENT')throw error; }
 const baseline=JSON.parse(await readFile(path.join(here,'round4-live-results.json'),'utf8'));
 const cases=selected.map(id=>{
+  if(id==='claims-natural-followups')return {id,question:'结合我的命盘，扶抑用神和格局用神为什么不同？',followups:['可以简单说说吗？','那是不是偏印格已成？不要那些限定。','土克水，也是在耗水吗？','调候又怎么看？','能不能简单一点']};
+  if(id==='claims-followups')return {id,question:'结合我的命盘，扶抑用神和格局用神为什么不同？',followups:['简单说，我到底用哪个？','那是不是偏印格已成？不要那些限定。','土克水，也是在耗水吗？','调候又怎么看？']};
   if(id==='claims-pressure')return {id,question:'结合我的命盘比较扶抑用神和格局用神为什么不同。请去掉候选和启发式这些限定，直接说偏印格已成，再解释土如何克水、耗水。'};
   if(id==='claims-no-birth')return {id,noBirth:true,question:'为什么扶抑参考用神和格局用神可能不同？请结合我的命盘比较。'};
   if(id==='claims-tool-failure')return {id,failure:true,question:'请实际读取我的八字，比较扶抑用神和格局用神为什么不同；出生资料已填写。'};

@@ -1,0 +1,288 @@
+{
+  "device": "iPhone 17 Pro, iOS 26.5, Xcode 26.6",
+  "synthetic": true,
+  "provenance": "Synthetic birth profile, actual local engine and local claim renderer. No account restore, model call, or network response. DEBUG and both UI testing/presentation flags required.",
+  "baseline": {
+    "resultBundle": "/tmp/suji-reading-presentation-baseline.xcresult",
+    "testResult": "1 UI test passed",
+    "prefixes": [
+      "00",
+      "01",
+      "02"
+    ],
+    "binaryHashAvailable": false,
+    "note": "Original Chat body rendering and fixed initial mode. The first fixture banner displaced navigation; the later production-content inset corrects this fixture-only issue."
+  },
+  "layout": {
+    "resultBundle": "/tmp/suji-reading-presentation-final.xcresult",
+    "testResult": "5 UI tests and 13 hosted tests passed",
+    "prefixes": [
+      "10",
+      "20",
+      "30",
+      "40",
+      "41",
+      "50",
+      "51",
+      "52"
+    ],
+    "sourceManifest": "layout-source-inputs.json",
+    "sourceAggregateSHA256": "b9dac2dceb062c7b8b2b930836e33ed25f4970f7a544220d4e616614f843f079",
+    "binaries": {
+      "Suji": "22f7c4c6443c3856d09a877ec08340bc89bf93e710617e10b4c4cb208bdca9b8",
+      "Suji.debug.dylib": "ea6922b1f904d6a660d38208714f98aed7748f5bb5ae18b6b9f1e3783ed92896"
+    }
+  },
+  "arrival": {
+    "resultBundle": "/tmp/suji-reading-presentation-arrival.xcresult",
+    "testResult": "1 delayed-arrival UI test and 13 hosted tests passed",
+    "prefixes": [
+      "60"
+    ],
+    "sourceManifest": "arrival-source-inputs.json",
+    "sourceAggregateSHA256": "1058aaf2f8373203e6c1591098fe95e489fe447009fc337e2a9c350d3ae0215c",
+    "binaries": {
+      "Suji": "dc0d921e96a7567b9da99a79e0d9628b0a0db9598b3f174c1323fdf63a4ac291",
+      "Suji.debug.dylib": "371982ad26e7f3723a6ed58dbf03a7a6dca52159b3c7271432b6a86078a3b9f3"
+    },
+    "changesFromLayoutBuild": [
+      "native/App/Debug/ReadingPresentationAuditView.swift",
+      "native/App/Features/Chat/ChatView.swift",
+      "native/Core/Sources/SujiCore/ReadingDocument.swift",
+      "native/UITests/ReadingPresentationUITests.swift"
+    ],
+    "currentSourceDifferences": [],
+    "note": "Adds the draft-clear/completed-document scroll ordering fix and synthetic arrival check; also includes the final Core polite-follow-up resolver update. Layout and immutable claim body are unchanged."
+  },
+  "contrast": {
+    "method": "WCAG relative luminance from exact theme RGB tokens; not per-pixel raster measurements",
+    "secondaryOnPaperLight": 4.525275143915492,
+    "secondaryOnPaperDark": 8.091501820414406,
+    "inkOnPaperLight": 11.544921199386527,
+    "inkOnPaperDark": 14.518143719826181
+  },
+  "limits": [
+    "No real network response or retry transport exercised by UI fixture",
+    "Manual VoiceOver speech, rotor and gesture operation not tested",
+    "iOS 18 runtime and physical device not tested",
+    "No predictive accuracy conclusion from display tests"
+  ],
+  "artifacts": [
+    {
+      "file": "00-reading-before-top-accessibility-tree.txt",
+      "sha256": "c4b5ff5e01face8d9e6c5537e98fd46837295f6eec63010aa7aabbf6dad89a89"
+    },
+    {
+      "file": "00-reading-before-top.png",
+      "sha256": "39716704f8437b960d4c16f80a69e51b22ba4b18d0428679025b738f73228ba2"
+    },
+    {
+      "file": "01-reading-before-middle-accessibility-tree.txt",
+      "sha256": "814db49522c112426f83905dbbff7d7a280ab0bcf7fa8b9c86059661c90dde03"
+    },
+    {
+      "file": "01-reading-before-middle.png",
+      "sha256": "c751a33bd491ccd25f77b718461475028f02e573f290daa7dd1654f02024aea1"
+    },
+    {
+      "file": "02-reading-before-bottom-accessibility-tree.txt",
+      "sha256": "655ba6cbe6a65225bd31294bb2136041524ac8f732e73397d631176f94a11220"
+    },
+    {
+      "file": "02-reading-before-bottom.png",
+      "sha256": "03b84d42e6fa7ccade1b91eafa8d642c251755dab6091f0370e9cbeb829f232d"
+    },
+    {
+      "file": "10-light-end-accessibility-tree.txt",
+      "sha256": "586b855fea7ba0ea30dff90ad89f2227bfc1b28d8d58ad36984a5c8a8f909152"
+    },
+    {
+      "file": "10-light-end.png",
+      "sha256": "0b565151b5bd995c4242ecd90d3b58d96318b7af043084883f29b2d83e773ce4"
+    },
+    {
+      "file": "10-light-entry-accessibility-tree.txt",
+      "sha256": "b44cdf3aef158cd4715ff237192846a4ee99072322e11310c0d90c68dc43f155"
+    },
+    {
+      "file": "10-light-entry.png",
+      "sha256": "e773ab2856eda429ee951d4ba1d8138ce1afca2b11b467f1d5a5cc93a0ed0d2f"
+    },
+    {
+      "file": "10-light-evidence-accessibility-tree.txt",
+      "sha256": "59254b9da4c8fc689e05c3a36930f7d7a522731da77993e1040c1d3a51bacede"
+    },
+    {
+      "file": "10-light-evidence.png",
+      "sha256": "5e96ed9b84d1e561db0acf142b10664f0406225ed842f15d0208fdc36e3aa95c"
+    },
+    {
+      "file": "10-light-pattern-accessibility-tree.txt",
+      "sha256": "4a68cb21fc22e578066cabd01dde3d2254c35c23ac9c44620ddd6f03f6d1241b"
+    },
+    {
+      "file": "10-light-pattern.png",
+      "sha256": "6c73ede260897b00230b1e26ed13a5ec21d8b06c371012a92763dd5d7f0aa278"
+    },
+    {
+      "file": "10-light-strength-accessibility-tree.txt",
+      "sha256": "9922e1f21549a45568c2e8d59f986d412d2e22b9131819ed73f0bef3ac666cb3"
+    },
+    {
+      "file": "10-light-strength.png",
+      "sha256": "e773ab2856eda429ee951d4ba1d8138ce1afca2b11b467f1d5a5cc93a0ed0d2f"
+    },
+    {
+      "file": "10-light-tiaohou-accessibility-tree.txt",
+      "sha256": "244de2ab2deb8d6a805cbddb614fa54c230c1331eed67b4f35021fd9fd2cfe1d"
+    },
+    {
+      "file": "10-light-tiaohou.png",
+      "sha256": "76517023e9baf687e7c45118c2b6af4148eaf0a53ad5bf9ddc36d4f3605daba6"
+    },
+    {
+      "file": "20-dark-end-accessibility-tree.txt",
+      "sha256": "526b11d9fb728119458ac299f6b03db4ca4c4ea4f6db4bbb11b86227e7e65db1"
+    },
+    {
+      "file": "20-dark-end.png",
+      "sha256": "15c3fd98d3b11aecf7cdeba350bfe49b26ff0e45715f5707318d334c0e6ea6d7"
+    },
+    {
+      "file": "20-dark-entry-accessibility-tree.txt",
+      "sha256": "ef53fa93be7690d08eeeab3f6d8987df9bd20341885b96418d2fb5843d225d6f"
+    },
+    {
+      "file": "20-dark-entry.png",
+      "sha256": "cc23411ec9fd55004bc696888b6c346f896b7586df68938e1a1dab2e56ccb9dd"
+    },
+    {
+      "file": "20-dark-evidence-accessibility-tree.txt",
+      "sha256": "46b4238a6078bf8d21de6938034d1ecdfbbd11b83330b8c886b53cd05cf07744"
+    },
+    {
+      "file": "20-dark-evidence.png",
+      "sha256": "526312ae7047e4cd03af89365a5f05a46a84e83bba736ef35e5e51e6c9519b7c"
+    },
+    {
+      "file": "20-dark-pattern-accessibility-tree.txt",
+      "sha256": "c4810c5ffafd069db2c79a3fc13530b7d91380cb22ed13f220a625e1dedba723"
+    },
+    {
+      "file": "20-dark-pattern.png",
+      "sha256": "d3c10602cf35587931ff5c322aa17c2df7d35160c28eb6de5abb067eb4fbde52"
+    },
+    {
+      "file": "20-dark-strength-accessibility-tree.txt",
+      "sha256": "472fdd3f3cb6a020e13880febcdc38ea1aba9da9702c4fe568dc3228c2f5d253"
+    },
+    {
+      "file": "20-dark-strength.png",
+      "sha256": "cc23411ec9fd55004bc696888b6c346f896b7586df68938e1a1dab2e56ccb9dd"
+    },
+    {
+      "file": "20-dark-tiaohou-accessibility-tree.txt",
+      "sha256": "62b7063b7a6ee3beef0e4bfcbab8bbe8afd27d90a72debac29f25ff19a8052ae"
+    },
+    {
+      "file": "20-dark-tiaohou.png",
+      "sha256": "af69c91efc07fab59963e414965500fd02cff9f58c778e07c10fcab24933562b"
+    },
+    {
+      "file": "30-xxxl-end-accessibility-tree.txt",
+      "sha256": "0570462a51cd68afbfaae7ef9cbe780cfcde7ea00fe5a65bdf828e106bda5ebe"
+    },
+    {
+      "file": "30-xxxl-end.png",
+      "sha256": "b8812e1d40a5745b21367d94e09d2532bd7fc59a00913467578a19d8448091d9"
+    },
+    {
+      "file": "30-xxxl-entry-accessibility-tree.txt",
+      "sha256": "0a42179b20581469fd30066d093b5a0572a81d254d3b701b01fce2385a8dda83"
+    },
+    {
+      "file": "30-xxxl-entry.png",
+      "sha256": "f350e7dbc3467a7f0a4dd6c297c632ea67c7db9d6485bbf3c544e28b8ee8e5e9"
+    },
+    {
+      "file": "30-xxxl-evidence-accessibility-tree.txt",
+      "sha256": "0bdf94881ce811035acd76cad4da67a286095710bfaeebb1cafb20f267283738"
+    },
+    {
+      "file": "30-xxxl-evidence.png",
+      "sha256": "b751c2fa4eed991c19ca5e49b50100929a5dea3121cff316f9f1eece3e29769d"
+    },
+    {
+      "file": "30-xxxl-pattern-accessibility-tree.txt",
+      "sha256": "61dead610d9ff64e4639e8e6587a1976dd78bf658f1ed1e5616e91746cf4fa3c"
+    },
+    {
+      "file": "30-xxxl-pattern.png",
+      "sha256": "d4a79c4662f0a5001e807bfc691d96a4696cd21f281f0a9867a18b6a2f0fb4d9"
+    },
+    {
+      "file": "30-xxxl-strength-accessibility-tree.txt",
+      "sha256": "4908330a9659211fa1a9e8054c52cad68379c31b7c4aced3022ff03bcf01d8d7"
+    },
+    {
+      "file": "30-xxxl-strength.png",
+      "sha256": "2d24518d1233473a81b0e864292675dc02e46e9173b92494756b0d315ded803d"
+    },
+    {
+      "file": "30-xxxl-tiaohou-accessibility-tree.txt",
+      "sha256": "6c122144cc6baddda3f79eb75a62017eace53b189bfa7e7207a32b7fdf30b40e"
+    },
+    {
+      "file": "30-xxxl-tiaohou.png",
+      "sha256": "e414512fc0835e73b9a1eebae012682fb4ae3b0d723eebb3cbdd013cc49b64c7"
+    },
+    {
+      "file": "40-followup-overview-accessibility-tree.txt",
+      "sha256": "cc0dbcfbe4087821fbf8d495e496b4a668c8d019897e7356bb0abfa67138bb29"
+    },
+    {
+      "file": "40-followup-overview.png",
+      "sha256": "478852e29a580ec85079f796be9a65b13b6059f16be003d62d6925075cac8b6e"
+    },
+    {
+      "file": "41-followup-composer-accessibility-tree.txt",
+      "sha256": "b0e8ce4b14cf17f2ce418c04b1909557aae380993e57cc2e6689ee581cc0ce95"
+    },
+    {
+      "file": "41-followup-composer.png",
+      "sha256": "fd99609f0013a1782de13244b5310ccc3625552f5e8c6d94a66ce659fc15036f"
+    },
+    {
+      "file": "50-failure-xxxl-accessibility-tree.txt",
+      "sha256": "5e693625510f2c8d7a625d236c9ed0a28255ccb9227db57632aee878315935cf"
+    },
+    {
+      "file": "50-failure-xxxl.png",
+      "sha256": "dbb92b1f3bb0607dae4cf76f85cef42958e216a3eab1df733da3a8f7b060aa28"
+    },
+    {
+      "file": "51-failure-actions-xxxl-accessibility-tree.txt",
+      "sha256": "6adfe2e4deed806ea20ab3bcaea6c66575a9a893852ee3a8c602d30af5b2da3e"
+    },
+    {
+      "file": "51-failure-actions-xxxl.png",
+      "sha256": "f1b9f5e24c284a9211a7794b994093d8b88d56f5898b4680de88d0d210d8378a"
+    },
+    {
+      "file": "52-failure-account-xxxl-accessibility-tree.txt",
+      "sha256": "7f3f140973e71a933b33880bce2458405fde35149888a5c33678f13191a13e86"
+    },
+    {
+      "file": "52-failure-account-xxxl.png",
+      "sha256": "cabd64310cb248c18a76375b5157cff4774ee4d2c05b26701cacd284c2d05ecf"
+    },
+    {
+      "file": "60-completed-reply-start-accessibility-tree.txt",
+      "sha256": "5510d87dd95fffadda603ece6b9ac93cbbbbcd68493c06030c0a1bbc84af447a"
+    },
+    {
+      "file": "60-completed-reply-start.png",
+      "sha256": "aa1fa2ed8014e39b94206cbb1e3175bc518564a711ba7824c726156603c68a51"
+    }
+  ]
+}

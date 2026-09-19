@@ -10,10 +10,14 @@ import SujiCore
     var evidence: [String] = []
     private var task: Task<Void, Never>?
     private var partialEntryID: UUID?
+    private var pendingDocument: ReadingDocument?
+    private var hasPreservedCalculation = false
 
     func stop() {
         guard task != nil else { return }
-        failure = "回答已停止，已计算的盘面会保留。可以重试继续解读。"
+        failure = hasPreservedCalculation
+            ? "回答已停止，已计算的盘面会保留。可以重试继续解读。"
+            : "回答已停止，可以重试继续。"
         task?.cancel()
     }
 
@@ -75,10 +79,12 @@ import SujiCore
         failure = nil
         partial = ""
         evidence = []
+        pendingDocument = nil
+        hasPreservedCalculation = false
         working = true
 
         task = Task {
-            defer { working = false; activity = ""; task = nil }
+            defer { working = false; activity = ""; task = nil; pendingDocument = nil }
             do {
                 let client = try await store.chatClient()
                 try Self.checkScope(store, revision: revision, birth: birth)
@@ -88,11 +94,13 @@ import SujiCore
                 guard context.isValid else { throw EngineError.execution("排盘版本信息无效，请更新应用。") }
                 if let previousContext, previousContext != context { throw ToolOrchestratorError.staleContext }
                 if cachedReceipts.contains(where: { $0.context != context }) { throw ToolOrchestratorError.staleContext }
+                hasPreservedCalculation = !cachedReceipts.isEmpty
                 if let index = store.state.conversations.firstIndex(where: { $0.id == userID }) {
                     store.state.conversations[index].toolContext = context
                     try store.saveThrowing()
                 }
                 let instruction = ReadingPrompt.instruction(tone: tone, mode: effectiveMode, referenceDate: referenceDate, hasBirth: birth != nil)
+                let focus = BaziReadingRequest.resolve(question: originalQuestion, mode: effectiveMode, entries: historyEntries, currentUserID: userID, context: context)
                 // These caches belong only to this user entry and passed the
                 // context checks above. A retry planner may need no new calls.
                 var frameworkReceipts = cachedReceipts
@@ -104,11 +112,14 @@ import SujiCore
                     activity = "正在整理线索"
                     let definitions = try await loadDefinitions(mode: effectiveMode, question: originalQuestion, birth: birth, store: store)
                     try Self.checkScope(store, revision: revision, birth: birth)
-                    history[0].content = instruction + "\n" + ReadingPrompt.plannerInstruction(question: originalQuestion, mode: effectiveMode)
-
+                    history[0].content = instruction + "\n" + ReadingPrompt.plannerInstruction(question: originalQuestion, mode: effectiveMode, focus: focus)
+                    let frameworkCallID = "bazi-" + UUID().uuidString
                     let orchestrator = ToolOrchestrator(
                         complete: { messages, tools in
-                            try await client.complete(messages: messages, tools: tools)
+                            if focus != nil {
+                                return BaziFrameworkReading.plan(callID: frameworkCallID, history: messages, cachedReceipts: cachedReceipts, context: context, hasBirth: birth != nil)
+                            }
+                            return try await client.complete(messages: messages, tools: tools)
                         },
                         execute: { call in
                             try Task.checkCancellation()
@@ -164,10 +175,10 @@ import SujiCore
 
                 }
 
-                if BaziFrameworkReading.applies(question: originalQuestion, mode: effectiveMode) {
+                if let focus {
                     activity = "正在整理解释依据"
                     if let catalog = BaziFrameworkReading.catalog(receipts: frameworkReceipts, context: context) {
-                        let answer = try await BaziFrameworkReading.compose(catalog: catalog, question: originalQuestion) { messages in
+                        let answer = try await BaziFrameworkReading.compose(catalog: catalog, question: originalQuestion, focus: focus) { messages in
                             try Self.checkScope(store, revision: revision, birth: birth)
                             let selected = try await client.complete(messages: messages)
                             try Self.checkScope(store, revision: revision, birth: birth)
@@ -176,8 +187,9 @@ import SujiCore
                         try Task.checkCancellation()
                         try Self.checkScope(store, revision: revision, birth: birth)
                         partial = answer.text
+                        pendingDocument = ReadingDocument(catalog: catalog, answer: answer, sourceUserID: userID, focus: focus)
                     } else {
-                        partial = BaziFrameworkReading.unavailableReply(hasBirth: birth != nil)
+                        partial = BaziFrameworkReading.unavailableReply(hasBirth: birth != nil, focus: focus)
                     }
                 } else {
                     activity = "正在写回信"
@@ -258,6 +270,7 @@ import SujiCore
         store.state.conversations[index].toolReceipts = receipts
         store.state.conversations[index].toolData.append(receipt.output)
         try store.saveThrowing()
+        hasPreservedCalculation = true
     }
 
     @discardableResult
@@ -267,12 +280,14 @@ import SujiCore
         if let id, let index = store.state.conversations.firstIndex(where: { $0.id == id && $0.role == "assistant" }) {
             store.state.conversations[index].text = partial
             store.state.conversations[index].evidence = uniqueEvidence
+            store.state.conversations[index].readingDocument = pendingDocument
             store.save()
             partial = ""
             return id
         }
         var entry = ConversationEntry(role: "assistant", text: partial)
         entry.evidence = uniqueEvidence
+        entry.readingDocument = pendingDocument
         store.state.conversations.append(entry)
         store.save()
         partial = ""

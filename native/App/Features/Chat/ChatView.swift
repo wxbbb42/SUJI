@@ -1,16 +1,19 @@
 import SwiftUI
 import SujiCore
 
-struct ChatView: View {
+@MainActor struct ChatView: View {
     @Environment(AppStore.self) private var store
-    @State private var session = ChatSession()
+    @State private var session: ChatSession
     @State private var input = ""
     @State private var mode = "倾诉"
     @State private var clearConfirmation = false
     @State private var followingReply = true
+    @State private var restoredMode = false
     @Environment(\.dynamicTypeSize) private var typeSize
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @FocusState private var focused: Bool
     private let prompts = ["最近总是停不下来", "我想重新找回自己的节奏", "今天，给我一点小建议"]
+    init(session: ChatSession? = nil) { _session = State(initialValue: session ?? ChatSession()) }
     var body: some View {
         NavigationStack {
             ScrollViewReader { scroll in
@@ -48,16 +51,20 @@ struct ChatView: View {
                         ForEach(store.state.conversations) { entry in
                             VStack(alignment: .leading, spacing: 16) {
                                 HStack { Text(entry.role == "user" ? "你" : "有时").font(.caption).foregroundStyle(SujiTheme.secondary); Spacer(); Text(entry.date, style: .time).font(.caption2).foregroundStyle(SujiTheme.secondary) }
-                                Text(.init(entry.text)).font(.body).lineSpacing(8).textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading)
+                                let receipts = replyReceipts(for: entry)
+                                if entry.role == "assistant", let document = entry.readingDocument,
+                                   document.isValid, document.plainText == entry.text {
+                                    if !receipts.isEmpty { evidenceLink(receipts, position: "top") }
+                                    ReadingDocumentView(document: document)
+                                } else {
+                                    Text(.init(entry.text)).font(.body).lineSpacing(8).textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading)
+                                }
                                 if entry.role == "assistant", !entry.evidence.isEmpty {
                                     DisclosureGroup("参照的线索") { VStack(alignment: .leading, spacing: 12) { ForEach(entry.evidence, id: \.self) { Text($0).font(.footnote).foregroundStyle(SujiTheme.secondary) } }.frame(maxWidth: .infinity, alignment: .leading).padding(.top, 12) }.font(.footnote)
                                 }
                                 toolResults(replyTools(for: entry))
-                                let receipts = replyReceipts(for: entry)
                                 if !receipts.isEmpty {
-                                    NavigationLink(destination: ReadingEvidenceView(receipts: receipts)) {
-                                        Label("查看完整计算依据", systemImage: "text.book.closed").font(.footnote)
-                                    }
+                                    evidenceLink(receipts, position: "bottom")
                                 }
                             }.padding(entry.role == "user" ? 20 : 0).background(entry.role == "user" ? SujiTheme.surface : Color.clear, in: RoundedRectangle(cornerRadius: 20)).id(entry.id)
                         }
@@ -67,18 +74,20 @@ struct ChatView: View {
                         }
                         if let failure = session.failure {
                             VStack(alignment: .leading, spacing: 12) {
-                                Text(failure).font(.footnote).foregroundStyle(SujiTheme.secondary)
+                                Text(failure).font(.footnote).foregroundStyle(SujiTheme.secondary).accessibilityIdentifier("chat.failure")
                                 HStack {
                                     Button("重试") { if let last = store.state.conversations.last(where: { $0.role == "user" }) { session.send(last.text, mode: mode, store: store, appendUser: false) } }
+                                        .frame(minWidth: 44, minHeight: 44).accessibilityIdentifier("chat.retry")
                                     NavigationLink("账户与登录") { AccountView(session: store.accountSession) }
+                                        .frame(minHeight: 44).accessibilityIdentifier("chat.account")
                                 }.font(.subheadline)
                             }.padding(20).background(SujiTheme.surface, in: RoundedRectangle(cornerRadius: 18))
                         }
                         if !session.working {
                             ForEach(unansweredToolEntries) { entry in
                                 VStack(alignment: .leading, spacing: 12) {
-                                    Text("这次提问的线索已保留，重试解读不会重新起卦。").font(.caption).foregroundStyle(SujiTheme.secondary)
-                                    toolResults(entry.toolData)
+                                    Text(preservedCalculationLabel(entry)).font(.caption).foregroundStyle(SujiTheme.secondary)
+                                    toolResults(entry.toolData.filter(isSuccessfulCalculation))
                                 }
                             }
                         }
@@ -86,25 +95,55 @@ struct ChatView: View {
                     }.padding(24)
                 }.scrollDismissesKeyboard(.interactively)
                     .onScrollPhaseChange { _, phase in if phase == .interacting { followingReply = false } }
-                    .onChange(of: store.state.conversations.count) { _, _ in withAnimation { scroll.scrollTo("bottom", anchor: .bottom) } }
-                    .onChange(of: session.partial) { _, _ in if followingReply { scroll.scrollTo("bottom", anchor: .bottom) } }
-                    .onChange(of: session.working) { _, value in if value { followingReply = true } }
+                    .onChange(of: store.state.conversations.count) { _, _ in
+                        guard let last = store.state.conversations.last else { return }
+                        // Start a completed structured reply at its beginning. Never
+                        // pull someone away while they are reading an earlier turn.
+                        if last.role == "user" {
+                            withAnimation(reduceMotion ? nil : .easeOut(duration: 0.2)) { scroll.scrollTo("bottom", anchor: .bottom) }
+                        } else if followingReply {
+                            if last.readingDocument != nil { scroll.scrollTo(last.id, anchor: .top) }
+                            else { scroll.scrollTo("bottom", anchor: .bottom) }
+                        }
+                    }
+                    .onChange(of: session.partial) { _, text in
+                        if followingReply && !text.isEmpty { scroll.scrollTo("bottom", anchor: .bottom) }
+                    }
+                    .onChange(of: session.working) { _, value in
+                        if value { followingReply = true }
+                        else if followingReply, let last = store.state.conversations.last,
+                                last.role == "assistant", last.readingDocument != nil {
+                            // Persistence clears the draft in the same update. The
+                            // completed document wins over that cleanup, also on retry.
+                            scroll.scrollTo(last.id, anchor: .top)
+                        }
+                    }
             }
             .background(SujiTheme.paper).foregroundStyle(SujiTheme.ink)
             .navigationTitle("问道").navigationBarTitleDisplayMode(.inline)
+            .safeAreaInset(edge: .top, spacing: 0) {
+#if DEBUG
+                if ProcessInfo.processInfo.arguments.contains("--ui-testing") && ProcessInfo.processInfo.arguments.contains("--reading-presentation-fixtures") {
+                    Text("界面验收 · 合成资料 · 未调用 AI")
+                        .font(.caption.weight(.medium)).dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+                        .foregroundStyle(SujiTheme.ink).frame(maxWidth: .infinity)
+                        .padding(10).background(SujiTheme.surface).accessibilityIdentifier("audit.synthetic")
+                }
+#endif
+            }
             .safeAreaInset(edge: .bottom) {
                 VStack(spacing: 12) {
                     if !store.isSignedIn {
                         HStack {
-                            Text("登录后，AI 才能为你写回信。").font(.caption).foregroundStyle(SujiTheme.secondary)
+                            Text(typeSize.isAccessibilitySize ? "AI 回信需登录" : "登录后，AI 才能为你写回信。").font(.caption).foregroundStyle(SujiTheme.secondary)
                             Spacer(minLength: 8)
-                            NavigationLink("去登录") { AccountView(session: store.accountSession) }.font(.caption.weight(.medium))
+                            NavigationLink("去登录") { AccountView(session: store.accountSession) }.font(.caption.weight(.medium)).frame(minWidth: 44, minHeight: 44)
                         }
                     } else if mode == "命理" && store.state.birth == nil {
                         HStack {
                             Text("个性化排盘需要出生资料。").font(.caption).foregroundStyle(SujiTheme.secondary)
                             Spacer(minLength: 8)
-                            Button("去填写") { store.selectedTab = 3 }.font(.caption.weight(.medium))
+                            Button("去填写") { store.selectedTab = 3 }.font(.caption.weight(.medium)).frame(minWidth: 44, minHeight: 44)
                         }
                     }
                     Picker("对话方式", selection: $mode) {
@@ -119,12 +158,48 @@ struct ChatView: View {
                         }.disabled(!session.working && input.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty).accessibilityLabel(session.working ? "停止回答" : "发送")
                     }
                 }.padding(.horizontal, 20).padding(.vertical, 12).background(.regularMaterial)
+                    .accessibilityElement(children: .contain).accessibilityIdentifier("chat.composer")
             }
             .toolbar { ToolbarItem(placement: .topBarTrailing) { Menu { NavigationLink("设置", destination: SettingsView()); Button("清空对话", role: .destructive) { clearConfirmation = true }.disabled(session.working) } label: { Image(systemName: "ellipsis") } } }
             .confirmationDialog("清空本机的全部对话？", isPresented: $clearConfirmation, titleVisibility: .visible) { Button("清空对话", role: .destructive) { store.state.conversations = []; store.save() } }
-            .onChange(of: store.scopeRevision) { _, _ in session.stop(); input = "" }
+            .onAppear { if !restoredMode { restoreConversationMode(); restoredMode = true } }
+            .onChange(of: store.scopeRevision) { _, _ in session.stop(); input = ""; restoreConversationMode() }
             .onChange(of: store.state.birth) { _, _ in if session.working { session.stop() } }
         }
+    }
+
+    private func restoreConversationMode() {
+        let previous = store.state.conversations.last(where: { $0.role == "user" })?.analysisMode
+        mode = previous.flatMap { ["倾诉", "命理", "起卦"].contains($0) ? $0 : nil } ?? "倾诉"
+    }
+
+    private func evidenceLink(_ receipts: [ToolReceipt], position: String) -> some View {
+        NavigationLink(destination: ReadingEvidenceView(receipts: receipts)) {
+            HStack(spacing: 10) {
+                Image(systemName: "text.book.closed").accessibilityHidden(true)
+                Text("查看完整计算依据").multilineTextAlignment(.leading).fixedSize(horizontal: false, vertical: true)
+                Spacer(minLength: 4)
+                Image(systemName: "chevron.right").font(.caption.weight(.semibold)).accessibilityHidden(true)
+            }.font(.subheadline).frame(minHeight: 44)
+                .contentShape(Rectangle())
+        }
+        .accessibilityHint("查看本次排盘记录与文献条件")
+        .accessibilityIdentifier("reading.evidence." + position)
+    }
+
+    private func preservedCalculationLabel(_ entry: ConversationEntry) -> String {
+        guard let context = entry.toolContext, context.isValid else {
+            return "这条历史记录的计算资料已保留，可供查看。"
+        }
+        let hasCast = (entry.toolReceipts ?? []).contains {
+            $0.context == context && ["cast_liuyao", "setup_qimen"].contains($0.name) && isSuccessfulCalculation($0.output)
+        }
+        return hasCast ? "这次起盘已保留，重试解读不会重新起盘。" : "这次提问的计算资料已保留，可以重试解读。"
+    }
+
+    private func isSuccessfulCalculation(_ raw: String) -> Bool {
+        guard let document = try? Document(data: Data(raw.utf8)) else { return false }
+        return !document.dictionary.isEmpty && document.dictionary["error"] == nil
     }
 
     // Receipts remain on the user turn for retry; presentation follows the reply.
@@ -146,7 +221,7 @@ struct ChatView: View {
         let entries = store.state.conversations
         return entries.indices.compactMap { index in
             let entry = entries[index]
-            guard entry.role == "user", !entry.toolData.isEmpty,
+            guard entry.role == "user", entry.toolData.contains(where: isSuccessfulCalculation),
                   index + 1 == entries.count || entries[index + 1].role != "assistant" else { return nil }
             return entry
         }

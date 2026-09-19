@@ -1,0 +1,67 @@
+Optional(Attributes: Application, 0x109fe4500, pid: 78889, label: '有时'
+Element subtree:
+ →Application, 0x109fe4500, pid: 78889, label: '有时'
+    Window (Main), 0x109fe6580, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x109fe4780, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x109fe48c0, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x109fe4a00, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x109fe4b40, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x109fe4c80, {{0.0, 0.0}, {402.0, 874.0}}
+                NavigationBar, 0x109fe4dc0, {{0.0, 62.0}, {402.0, 54.0}}, identifier: '问道'
+                  StaticText, 0x109fe4f00, {{180.7, 71.3}, {40.3, 25.3}}, label: '问道'
+                  Other, 0x109fe5040, {{346.0, 66.0}, {36.0, 36.0}}, label: '更多'
+                    Other, 0x109fe5180, {{346.0, 66.0}, {36.0, 36.0}}
+                      Button, 0x109fe52c0, {{347.3, 66.0}, {33.3, 36.0}}, label: '更多'
+                        Button, 0x109fe5400, {{347.3, 66.0}, {33.3, 36.0}}
+                          Image, 0x109fe6300, {{351.7, 81.3}, {24.7, 5.3}}, identifier: 'ellipsis', label: '更多'
+                Other, 0x109fe66c0, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x109fe6800, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x109fe6940, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x109fe6a80, {{0.0, 0.0}, {402.0, 874.0}}
+                        ScrollView, 0x109fe6bc0, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x109fe6d00, {{0.0, -109.0}, {402.0, 944.3}}
+                            StaticText, 0x109fe6e40, {{44.0, -65.0}, {40.7, 51.3}}, label: '你'
+                            StaticText, 0x109fe6f80, {{258.3, -63.3}, {99.7, 48.0}}, label: '12:00'
+                            StaticText, 0x109fe70c0, {{44.0, 2.3}, {300.3, 343.7}}, label: '为什么扶抑用神和格局用神不同？可以结合我的资料解释吗？'
+                            StaticText, 0x109fe7200, {{44.0, 416.0}, {313.3, 208.7}}, identifier: 'chat.failure', label: '这次计算暂时没有完成。出生资料已保留，无需重填；可以重试。'
+                            Button, 0x109fe7340, {{44.0, 665.7}, {92.7, 58.7}}, identifier: 'chat.retry', label: '重试'
+                            Button, 0x109fe7480, {{144.7, 636.7}, {139.0, 116.7}}, identifier: 'chat.account', label: '账户与登录'
+                          Other, 0x109fe75c0, {{0.0, 0.0}, {402.0, 874.0}}
+                            Other, 0x109fe7700, {{0.0, 0.0}, {402.0, 170.8}}
+                          Other, 0x109fe7840, {{0.0, 0.0}, {402.0, 874.0}}
+                            Other, 0x109fe7980, {{0.0, 0.0}, {402.0, 170.8}}
+                              Image, 0x109fe7ac0, {{-120.0, -166.0}, {642.0, 332.0}}, identifier: 'AdditionalDimmingOverlay'
+                              Other, 0x109fe7c00, {{0.0, 0.0}, {402.0, 106.0}}
+                              Other, 0x109fe7d40, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x109fe7e80, {{0.0, 0.0}, {402.0, 170.8}}
+                              Other, 0x106e33340, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x106e33480, {{0.0, 0.0}, {402.0, 170.8}}
+                              Other, 0x106e335c0, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x106e33700, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x106e33840, {{0.0, 0.0}, {402.0, 170.8}}
+                          Other, 0x106e33980, {{369.0, 157.7}, {30.0, 401.0}}, label: 'Vertical scroll bar, 3 pages', value: 49%
+                            Other, 0x106e33ac0, {{396.0, 235.0}, {3.0, 243.7}}
+                          Other, 0x106e33c00, {{369.0, 157.7}, {30.0, 401.0}}, label: 'Vertical scroll bar, 3 pages', value: 49%
+                            Other, 0x106e33d40, {{396.0, 235.0}, {3.0, 243.7}}
+                        StaticText, 0x106e33e80, {{0.0, 0.0}, {402.0, 157.7}}, identifier: 'audit.synthetic', label: '界面验收 · 合成资料 · 未调用 AI'
+                        Other, 0x11696c000, {{0.0, 566.7}, {402.0, 307.3}}, identifier: 'chat.composer'
+                          StaticText, 0x11696c140, {{20.0, 578.7}, {169.0, 102.3}}, label: 'AI 回信需登录'
+                          Button, 0x11696c280, {{260.0, 604.3}, {122.0, 51.3}}, label: '去登录'
+                          SegmentedControl, 0x11696c3c0, {{20.0, 693.0}, {362.0, 31.0}}
+                            Button, 0x11696c500, {{20.0, 693.0}, {120.0, 32.0}}, label: '倾诉'
+                            Button, 0x11696c640, {{140.0, 693.0}, {121.0, 32.0}}, label: '命理', Selected
+                            Button, 0x11696c780, {{261.0, 693.0}, {121.0, 32.0}}, label: '起卦'
+                          TextField, 0x11696c8c0, {{34.0, 750.0}, {274.0, 64.0}}, identifier: 'chat.input', label: '写下此刻的心事', placeholderValue: '写下此刻的心事…'
+                            Other, 0x11696ca00, {{36.0, 781.0}, {272.0, 30.0}}, label: 'Horizontal scroll bar, 1 pages', value: 0%
+                              Other, 0x11696cb40, {{39.0, 808.0}, {266.0, 3.0}}
+                          Button, 0x11696cc80, {{334.0, 780.0}, {48.0, 48.0}}, identifier: 'arrow.up', label: '发送', Disabled
+                Other, 0x11696cdc0, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x11696cf00, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x109fe4500, pid: 78889, label: '有时'
+Query chain:
+ →Find: Target Application 'app.suji.native'
+  Output: {
+    Application, 0x11696d040, pid: 78889, label: '有时'
+  }
+)

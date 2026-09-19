@@ -29,7 +29,7 @@ public struct ToolContext: Codable, Equatable, Sendable {
 }
 
 public enum ReadingPrompt {
-    public static let version = "suji-grounded-reading-8"
+    public static let version = "suji-grounded-reading-9"
 
     public static func instruction(tone: String, mode: String, referenceDate: Date, hasBirth: Bool) -> String {
         let at = ISO8601DateFormatter().string(from: referenceDate)
@@ -54,9 +54,9 @@ public enum ReadingPrompt {
     }
 
     public static let planner = "仅选择回答当前问题必需的工具；通常1–3次即可。需要个性化结论必须先取事实，完成取证后停止调用。不要撰写最终回信，不把计划或猜测当依据。用户未明确请求奇门时不要调用 setup_qimen。"
-    public static func plannerInstruction(question: String, mode: String) -> String {
-        planner + (BaziFrameworkReading.applies(question: question, mode: mode)
-            ? "\n本次比较扶抑与格局用神，若已有出生资料，只需一次get_domain中的八字字段；各领域返回的是同一八字，不重复查询。若用户未指定领域，可读取事业领域的八字部分，不作事业推断。"
+    public static func plannerInstruction(question: String, mode: String, focus: ReadingDocument.Focus? = nil) -> String {
+        planner + ((focus != nil || BaziFrameworkReading.applies(question: question, mode: mode))
+            ? "\n本次解释八字的扶抑、格局或调候依据（\(focus?.rawValue ?? "comparison")），若已有出生资料，必须先取本次get_domain中的八字字段；各领域返回的是同一八字，只需一次，不重复查询。即使是在追问历史回答，也需取得当前问题上下文的依据；本次重试已有匹配缓存则复用。若用户未指定领域，可读取事业领域的八字部分，不作事业推断。"
             : "")
     }
     public static let writer = "取证已结束。回答本次原始问题，简洁回应原始问题，只解释需要的术语；计算问题直接给本次事实，现实建议不要绑定盘面年份或星曜。用两三句说明实际盘面依据、解释口径及局限，不暴露JSON字段、内部状态或核对流程；缺证据的部分明确留空。不沿用历史回答里的未经复算断言。"

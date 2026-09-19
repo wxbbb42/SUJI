@@ -31,7 +31,9 @@ import SujiCore
     }
     @ViewBuilder private var launchView: some View {
 #if DEBUG
-        if ProcessInfo.processInfo.arguments.contains("--ui-testing") && ProcessInfo.processInfo.arguments.contains("--mingli-detail-fixtures") {
+        if ProcessInfo.processInfo.arguments.contains("--ui-testing") && ProcessInfo.processInfo.arguments.contains("--reading-presentation-fixtures") {
+            ReadingPresentationAuditView()
+        } else if ProcessInfo.processInfo.arguments.contains("--ui-testing") && ProcessInfo.processInfo.arguments.contains("--mingli-detail-fixtures") {
             MingliDetailAuditView()
         } else { RootView() }
 #else
