@@ -72,6 +72,10 @@ public final class ChatClient: @unchecked Sendable {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("text/event-stream, application/json", forHTTPHeaderField: "Accept")
+        request.timeoutInterval = 95
+        if let publicAPIKey = configuration.publicAPIKey {
+            request.setValue(publicAPIKey, forHTTPHeaderField: "apikey")
+        }
 
         switch resolvedAuthentication {
         case .none:

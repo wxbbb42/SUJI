@@ -3,6 +3,34 @@ import XCTest
 @testable import SujiCore
 
 final class ChatClientTests: XCTestCase {
+    func testManagedBackendUsesSupabaseSessionAndFixedRoute() async throws {
+        let captured = LockedBox<URLRequest?>(nil)
+        StubURLProtocol.handler = { request in
+            captured.value = request
+            return .json(status: 200, body: #"{"choices":[{"message":{"role":"assistant","content":"你好"}}]}"#)
+        }
+        let configuration = try ManagedAI.configuration(supabase: SupabaseConfiguration(
+            url: URL(string: "https://project.supabase.co")!, anonKey: "public-key"
+        ))
+        let sessionConfiguration = URLSessionConfiguration.ephemeral
+        sessionConfiguration.protocolClasses = [StubURLProtocol.self]
+        let client = ChatClient(configuration: configuration, credential: "user-session", session: URLSession(configuration: sessionConfiguration))
+        _ = try await client.complete(messages: [ChatMessage(role: .user, content: "你好")])
+        let request = try XCTUnwrap(captured.value)
+        XCTAssertEqual(request.url?.absoluteString, "https://project.supabase.co/functions/v1/suji-chat/chat/completions")
+        XCTAssertEqual(request.value(forHTTPHeaderField: "Authorization"), "Bearer user-session")
+        XCTAssertEqual(request.value(forHTTPHeaderField: "apikey"), "public-key")
+        XCTAssertEqual(try requestJSONObject(request)["model"] as? String, "deepseek-flash")
+    }
+
+    func testManagedBackendRejectsInsecureOrCredentialBearingURLs() {
+        for url in ["http://project.test", "https://user:password@project.test", "https://project.test?token=x"] {
+            XCTAssertThrowsError(try ManagedAI.configuration(supabase: SupabaseConfiguration(url: URL(string: url)!, anonKey: "public")))
+        }
+        XCTAssertTrue(ChatClientError.httpStatus(status: 429, body: #"{"error":{"code":"daily_limit"}}"#).localizedDescription.contains("明天"))
+        XCTAssertTrue(ChatClientError.httpStatus(status: 429, body: "{}").localizedDescription.contains("一分钟"))
+    }
+
     override func tearDown() {
         StubURLProtocol.handler = nil
         StubURLProtocol.onStop = nil
@@ -320,7 +348,7 @@ final class ChatClientTests: XCTestCase {
         let incomplete = ChatClientError.incompleteStream
 
         XCTAssertTrue(authentication.localizedDescription.contains("身份验证"))
-        XCTAssertTrue(authentication.localizedDescription.contains("API Key"))
+        XCTAssertTrue(authentication.localizedDescription.contains("重新登录"))
         XCTAssertTrue(service.localizedDescription.contains("503"))
         XCTAssertTrue(service.localizedDescription.contains("稍后重试"))
         XCTAssertTrue(transport.localizedDescription.contains("网络"))

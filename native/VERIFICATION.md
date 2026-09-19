@@ -4,7 +4,21 @@ Date: 2026-09-19. Branch: `codex/swiftui-rebuild`; original Expo baseline: `0857
 
 This is a native implementation and simulator verification record, not an App Store release certificate. Screens run in SwiftUI, deterministic TypeScript code runs locally in JavaScriptCore, and native services own persistence, audio, credentials and networking.
 
-## Executed checks
+## Managed DeepSeek follow-up — 2026-09-19
+
+The app now uses authenticated Supabase → `deepseek-flash` with thinking disabled. User-editable provider/model/key fields are removed. The deployed backend and quota migration are documented in `../supabase/README.md`; this supersedes the original rebuild's user-supplied provider configuration below.
+
+- Swift core: **64 tests passed**, including fixed backend URL, user-session/public-key headers and managed errors (`/tmp/suji-deepseek-core.log`).
+- App-hosted regression: **13 tests passed** (`/tmp/suji-deepseek-native.log`).
+- iPhone 17 Pro: login-required chat, account navigation, fixed DeepSeek status and absence of model/key input fields **passed** (`/tmp/suji-deepseek-ui-verified.xcresult`).
+- Backend: **14 Node/PostgreSQL tests passed**. Auth rejection, fixed model and inference budget, valid tools/history, input limits, SSE, cancellation, timeouts, error sanitization, database permissions and atomic quotas.
+- Existing Expo TypeScript check passed; its compiler excludes the separately deployed Deno function.
+- Live deployed endpoint: missing user tokens and anon-key-only requests returned **401**; a real signed-in disposable account received a **200** SSE response and completed a real DeepSeek tool-call/result round trip; minute quota returned **429**. Synthetic data only, no emails sent. Test account and personal quota row removed afterward.
+- DeepSeek credential is in Supabase secrets and an ignored owner-readable backend env file. It is absent from native source/resources and the app bundle. Legacy notebook provider fields remain decodable but never select the model or endpoint.
+
+Google OAuth/email delivery, real-device networking and release signing remain separate release checks. This follow-up did not repeat the unrelated audio/widget/ritual suite below.
+
+## Original rebuild checks
 
 | Layer | Result | Evidence and scope |
 | --- | --- | --- |
@@ -58,11 +72,11 @@ Do not disable simulator signing: Keychain and App Group operations require the 
 
 ## Still requires live service or physical-device verification
 
-- Real model-provider streaming and errors with the user's URL/key/model.
+- Full production account/device coverage beyond the managed DeepSeek smoke check above.
 - Supabase email delivery, Google OAuth, token refresh against the real backend, password-reset email and callback delivery; schema and redirect configuration need the user's project settings.
 - Real headphones, incoming calls, long background sessions, audio quality, haptics, thermal behavior and device performance.
 - OS notification permission denial/delivery and real cold-launch notification tap timing.
 - Home-screen widget rendering, OS-controlled midnight refresh and tapping the installed widget.
 - Distribution signing, release archive, App Store review and physical iOS-version coverage.
 
-No production schema was changed. No live AI/auth success is claimed. Subscriptions and gift commerce were excluded from the approved scope.
+The original rebuild changed no production schema and made no live AI/auth success claim. The managed-AI follow-up above adds a separate usage table/function and verifies the deployed provider path. Subscriptions and gift commerce remain outside the approved scope.

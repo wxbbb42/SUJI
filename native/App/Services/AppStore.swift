@@ -38,6 +38,19 @@ struct Document {
     private var record: SavedState
     private var calculationVersion = 0
     private var refreshVersion = 0
+    @ObservationIgnored lazy var accountSession: AccountSession = {
+#if DEBUG
+        let restore = !ProcessInfo.processInfo.arguments.contains("--ui-testing")
+#else
+        let restore = true
+#endif
+        return AccountSession(restoreSession: restore) { [weak self] previous, next in
+            guard let self else { throw CancellationError() }
+            try await self.switchAccount(from: previous, to: next)
+        }
+    }()
+
+    var isSignedIn: Bool { scopeKey != "local" && accountSession.user?.id == String(scopeKey.dropFirst(5)) }
 
     init(context: ModelContext, scriptURL: URL, userID: String? = nil) throws {
         self.context = context

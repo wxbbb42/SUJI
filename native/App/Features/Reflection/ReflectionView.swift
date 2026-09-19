@@ -38,7 +38,7 @@ struct ReflectionView: View {
                         Text(failure).font(.footnote).foregroundStyle(SujiTheme.secondary)
                         HStack {
                             Button("继续整理") { send("请继续上一轮尚未完成的整理。") }
-                            NavigationLink("模型设置") { SettingsView() }
+                            NavigationLink("账户与登录") { AccountView(session: store.accountSession) }
                         }.font(.subheadline)
                     }
                     Color.clear.frame(height: 1).id("reflection-bottom")
@@ -82,7 +82,7 @@ struct MonthlyReflectionView: View {
                             context: entries.map { "\($0.day) · \($0.mood.rawValue)：\($0.note)" }.joined(separator: "\n"),
                             instruction: "只根据实际记录总结可观察的心情与生活主题；明确记录稀疏时的局限，不推断心理疾病。找出一两个支持用户的具体时刻，再给一个下月可以尝试的小行动。可温和追问。",
                             opening: "帮我回望 \(month) 的这些记录，看看哪些时刻值得留住。",
-                            privacy: "开始后，这个月的心情和短文会发送给你设置的 AI 服务。回信保存在当前本机册页。")
+                            privacy: "开始后，这个月的心情和短文会经有时的服务发送给 DeepSeek。回信保存在当前本机册页。")
                     }
                 }
             }

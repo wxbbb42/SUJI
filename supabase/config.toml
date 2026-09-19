@@ -1,0 +1,6 @@
+project_id = "suji"
+
+[functions.suji-chat]
+# Validate the session with Auth /user in the handler (supports signing-key JWTs).
+# Never rely on the public anon key or on locally decoded JWT claims.
+verify_jwt = false

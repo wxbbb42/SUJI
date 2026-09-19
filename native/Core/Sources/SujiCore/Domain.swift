@@ -100,6 +100,8 @@ public struct AppState: Codable, Sendable {
     public var reflections: [String: [ConversationEntry]]?
     public var appearance = "system"
     public var tone = "温暖"
+    // Retained only to decode existing version-1 notebooks. Managed AI never
+    // reads these fields, including after archive import or cloud restoration.
     public var providerURL = "https://api.openai.com/v1"
     public var model = "gpt-4.1-mini"
     public init() {}

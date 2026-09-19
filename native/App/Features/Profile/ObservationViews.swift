@@ -21,7 +21,7 @@ struct CalibrationView: View {
                             context: Document(candidates.map(\.value)).json,
                             instruction: "这是出生时辰参照访谈。比较提供的三个候选盘，先围绕候选事件差异提出一个开放问题，等待回答，再问下一题；最多五个问题。用户可回答不确定，不能把无回应视为吻合。最后逐个说明候选支持与不支持的线索，资料不足就直说。不虚构概率、不声称能验证出生时间、不修改用户资料。提醒回到候选页自行决定。",
                             opening: "从一个容易回答的问题开始，陪我比较这三个出生时辰。",
-                            privacy: "开始后，候选盘与您主动补充的经历会发送给所配置的 AI 服务。建议仅供参照，采用时辰需要你另行确认。")
+                            privacy: "开始后，候选盘与您主动补充的经历会经有时的服务发送给 DeepSeek。建议仅供参照，采用时辰需要你另行确认。")
                     }.font(.headline)
                 }
                 ForEach(Array(candidates.enumerated()), id: \.offset) { index, candidate in
@@ -93,7 +93,7 @@ struct RelationshipView: View {
                         ReflectionView(title: "关系里的练习", key: "relationship:" + (store.state.birth?.label ?? "") + ":" + (partner?.label ?? ""), context: result.json,
                             instruction: "先明确传统干支描述只是反思角度，不能评价关系质量、兼容性或预测分手。结合两个人的实际差异给一项具体沟通练习，再询问用户目前遇到的相处情境。不要编造对方的感受。",
                             opening: "给我们一个更理解彼此的小练习。",
-                            privacy: "开始后，上方的双方传统关系线索与您补充的情境会发送给所配置的 AI 服务。")
+                            privacy: "开始后，上方的双方传统关系线索与您补充的情境会经有时的服务发送给 DeepSeek。")
                     }
                 }
                 if let error { Text(error).foregroundStyle(SujiTheme.secondary) }

@@ -87,17 +87,20 @@ public struct ChatProviderConfiguration: Codable, Sendable, Equatable {
     public var model: String
     public var api: ChatAPIStyle
     public var authentication: ChatAuthenticationStyle
+    public var publicAPIKey: String?
 
     public init(
         baseURL: URL,
         model: String,
         api: ChatAPIStyle = .automatic,
-        authentication: ChatAuthenticationStyle = .automatic
+        authentication: ChatAuthenticationStyle = .automatic,
+        publicAPIKey: String? = nil
     ) {
         self.baseURL = baseURL
         self.model = model
         self.api = api
         self.authentication = authentication
+        self.publicAPIKey = publicAPIKey
     }
 }
 
@@ -188,11 +191,16 @@ public enum ChatClientError: LocalizedError, Sendable, Equatable {
     public var errorDescription: String? {
         switch self {
         case .missingCredential:
-            return "尚未设置 AI 服务凭据。请在设置中填写 API Key 后重试。"
+            return "请先登录账户，再使用 AI 回信。"
         case .invalidConfiguration:
-            return "AI 服务配置无效。请检查服务地址和模型设置。"
+            return "AI 服务暂未就绪，请稍后重试。"
         case let .authentication(status, _):
-            return "AI 服务身份验证失败（HTTP \(status)）。请检查 API Key 或账户权限。"
+            return "登录身份验证失败（HTTP \(status)），请重新登录账户。"
+        case let .httpStatus(status, body) where status == 429:
+            if body.contains("daily_limit") { return "今天的 AI 使用额度已用完，请明天再来。" }
+            return "提问有些频繁，请稍等一分钟再试。"
+        case .httpStatus(status: 413, body: _):
+            return "这段内容太长，请缩短文字或开启一段新对话。"
         case let .httpStatus(status, _):
             return "AI 服务暂时不可用（HTTP \(status)）。请稍后重试。"
         case .cancelled:
@@ -200,7 +208,7 @@ public enum ChatClientError: LocalizedError, Sendable, Equatable {
         case .transport:
             return "无法连接 AI 服务。请检查网络后重试。"
         case .malformedResponse:
-            return "AI 服务返回的数据无法解析。请稍后重试或检查服务配置。"
+            return "AI 服务返回的数据无法解析。请稍后重试。"
         case .server:
             return "AI 服务未能完成请求。请稍后重试。"
         case .incompleteStream:

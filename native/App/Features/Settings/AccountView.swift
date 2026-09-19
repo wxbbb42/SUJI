@@ -11,8 +11,8 @@ struct AccountView: View {
     @State private var confirmPush = false
     @State private var confirmSignOut = false
 
-    init(onAccountChange: @escaping AccountSession.ScopeTransition) {
-        _session = State(initialValue: AccountSession(onScopeTransition: onAccountChange))
+    init(session: AccountSession) {
+        _session = State(initialValue: session)
     }
 
     var body: some View {
@@ -31,7 +31,7 @@ struct AccountView: View {
             }
 
             Section {
-                Text("账户只同步出生资料、引导状态和 AI 服务地址与模型。API Key、对话、日签和日记不会上传。")
+                Text("账户同步只包含出生资料和引导状态。日签、日记与对话保存在本机；主动使用 AI 时，相关内容会经有时的服务发送给 DeepSeek。")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                 Text("切换账户前，App 会先切换到独立的本机册页空间，避免不同账户看到彼此的私密记录。")
@@ -54,13 +54,13 @@ struct AccountView: View {
             Button("覆盖个人资料", role: .destructive) { applyPendingProfile() }
             Button("取消", role: .cancel) { pendingProfile = nil }
         } message: {
-            Text("会覆盖出生资料、是否完成引导、AI 服务地址和模型。日签、日记、对话和本机 API Key保持不变。")
+            Text("会覆盖出生资料和是否完成引导。日签、日记与对话保持不变。")
         }
         .confirmationDialog("把本机个人资料保存到云端？", isPresented: $confirmPush, titleVisibility: .visible) {
             Button("保存到云端") { pushProfile() }
             Button("取消", role: .cancel) {}
         } message: {
-            Text("会写入出生资料、是否完成引导、AI 服务地址和模型。不会上传 API Key、日签、日记或对话。")
+            Text("会写入出生资料和是否完成引导，不会同步日签、日记或对话。")
         }
         .confirmationDialog("退出这个账户？", isPresented: $confirmSignOut, titleVisibility: .visible) {
             Button("退出并切换到本地册页", role: .destructive) { Task { await session.signOut() } }
@@ -116,7 +116,7 @@ struct AccountView: View {
             Button("查看并恢复云端个人资料", systemImage: "arrow.down.circle") { pullProfile() }
             Button("将本机个人资料保存到云端", systemImage: "arrow.up.circle") { confirmPush = true }
         } header: { Text("手动同步") } footer: {
-            Text("恢复前会再次列出被覆盖字段并要求确认。云端没有对话、日签、日记和 API Key，登录也不会恢复这些内容。")
+            Text("恢复前会再次列出被覆盖字段并要求确认。云端没有对话、日签和日记，登录也不会恢复这些内容。")
         }
     }
 

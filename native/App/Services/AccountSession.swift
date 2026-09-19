@@ -44,10 +44,11 @@ import UIKit
     private var refreshTokenValue: String?
     private var expiresAt: Date?
     private var pendingSession: SupabaseAuthSession?
+    private var refreshTask: Task<SupabaseAuthSession, Error>?
     private var browserSession: ASWebAuthenticationSession?
     private let presentationAnchor = BrowserPresentationAnchor()
 
-    init(bundle: Bundle = .main, urlSession: URLSession = .shared, onScopeTransition: @escaping ScopeTransition) {
+    init(bundle: Bundle = .main, urlSession: URLSession = .shared, restoreSession: Bool = true, onScopeTransition: @escaping ScopeTransition) {
         self.onScopeTransition = onScopeTransition
         if let configuration = Self.configuration(in: bundle) {
             client = SupabaseClient(configuration: configuration, session: urlSession)
@@ -57,7 +58,7 @@ import UIKit
             availability = .localOnly
         }
         super.init()
-        restoreLocalSession()
+        if restoreSession { restoreLocalSession() }
     }
 
     func initialize() async {
@@ -190,9 +191,6 @@ import UIKit
             gender: state.birth?.gender,
             birthCity: state.birth?.city,
             birthLongitude: state.birth?.longitude,
-            apiProvider: Self.provider(for: state.providerURL),
-            apiModel: state.model,
-            apiBaseURL: state.providerURL,
             hasOnboarded: state.hasOnboarded
         )
         let token = try await validAccessToken()
@@ -208,8 +206,6 @@ import UIKit
             updated.birth = birth
         }
         updated.hasOnboarded = profile.hasOnboarded
-        updated.providerURL = profile.apiBaseURL.flatMap { $0.nilIfBlank } ?? "https://api.openai.com/v1"
-        updated.model = profile.apiModel.flatMap { $0.nilIfBlank } ?? "gpt-4.1-mini"
         return updated
     }
 
@@ -226,10 +222,31 @@ import UIKit
     private func validAccessToken() async throws -> String {
         if let accessTokenValue, let expiresAt, expiresAt.timeIntervalSinceNow > 60 { return accessTokenValue }
         guard let refreshTokenValue else { throw AccountFailure("登录已过期，请重新登录。") }
-        let session = try await configuredClient().refresh(refreshToken: refreshTokenValue)
+        if let refreshTask {
+            let session = try await refreshTask.value
+            guard session.user.id == user?.id else { throw CancellationError() }
+            return session.accessToken
+        }
+        let client = try configuredClient()
+        let expectedUserID = user?.id
+        let operation = Task { @MainActor in
+            let session = try await client.refresh(refreshToken: refreshTokenValue)
+            guard self.user?.id == expectedUserID, session.user.id == expectedUserID else { throw CancellationError() }
+            try self.persist(session)
+            return session
+        }
+        refreshTask = operation
+        defer { refreshTask = nil }
+        let session = try await operation.value
         guard session.user.id == user?.id else { throw AccountFailure("刷新后的账户身份不一致。") }
-        try persist(session)
         return session.accessToken
+    }
+
+    func aiAccessToken(for userID: String) async throws -> String {
+        guard user?.id == userID else { throw ChatClientError.missingCredential }
+        let token = try await validAccessToken()
+        guard user?.id == userID else { throw CancellationError() }
+        return token
     }
 
     private func persist(_ session: SupabaseAuthSession) throws {
@@ -334,13 +351,6 @@ import UIKit
         guard let url = bundle.url(forResource: "PublicConfig", withExtension: "plist"),
               let dictionary = NSDictionary(contentsOf: url) as? [String: Any] else { return nil }
         return SupabaseConfiguration(dictionary: dictionary)
-    }
-
-    private static func provider(for url: String) -> String {
-        let host = URL(string: url)?.host?.lowercased() ?? ""
-        if host.contains("openai") { return "openai" }
-        if host.contains("deepseek") { return "deepseek" }
-        return "custom"
     }
 
     private static func birth(from profile: SupabaseProfile) throws -> BirthProfile? {

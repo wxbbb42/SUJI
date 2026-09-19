@@ -25,14 +25,14 @@ xcodebuild -project native/Suji.xcodeproj -scheme Suji \
 - **问道**: native streamed replies, stop/retry, persistent conversation history, eight deterministic tools, expandable evidence, six-line hexagrams and the traditional spatial qimen grid.
 - **静心**: 3/5/10-minute breathing sessions, pause/resume, independent rain/stream/wind/fire gains, 24 seasonal combinations, standalone playback and sleep timer. Sounds are original procedural synthesis; see `Resources/AUDIO.md`.
 - **我的**: birth records, true solar time, four pillars, five elements, twelve ziwei palaces, annual/decadal content, candidate-time comparisons with explicit adoption/undo, relationship insights, journal editing and monthly reflection.
-- **Settings**: warm paper, deep ink, celadon and system appearance, tone and AI provider, account-scoped local storage, explicit cloud profile sync, versioned archive import/export, morning and seasonal notifications, and deletion of the current local notebook.
+- **Settings**: warm paper, deep ink, celadon and system appearance, tone and managed AI status, account-scoped local storage, explicit cloud profile sync, versioned archive import/export, morning and seasonal notifications, and deletion of the current local notebook.
 - **WidgetKit**: small/medium home-screen widgets share only the current daily card. At local midnight an old snapshot becomes an invitation to open the app; yesterday's card is never labelled as today's.
 
-AI reflection is user initiated. The app explains when birth-derived data, messages or journal entries are sent to the user's selected service. There are no simulated AI replies. Model credentials stay in the iOS Keychain and are separate for each local account scope.
+AI reflection is user initiated and requires an account. The app explains when birth-derived data, messages or journal entries are sent through SUJI's authenticated backend to DeepSeek. There are no simulated AI replies. The provider key stays in Supabase Edge Function secrets; only the user's account session is stored in the iOS Keychain.
 
-## AI configuration
+## Managed AI
 
-In **我的 → 设置**, enter an HTTPS service URL, model and API key. Chat Completions and Responses endpoints are supported, including Azure endpoint URLs. Authentication automatically uses Azure `api-key` for Azure hosts and bearer authentication for standard compatible services. Real provider requests require your own configuration.
+Sign in via **我的 → 设置 → 账户与云端资料**. AI uses **DeepSeek Flash** (`deepseek-flash`, thinking disabled) through the existing Supabase project. There are no service URL, model or API-key fields. Chat, daily reflection, monthly reflection, calibration and relationship reflection all share this backend. Legacy provider settings in notebooks or cloud profiles cannot change the route. Deploy the function and quota migration using [the backend guide](../supabase/README.md).
 
 ## Accounts and migration
 
@@ -43,9 +43,9 @@ python3 native/scripts/configure-public.py
 python3 native/scripts/generate-project.py
 ```
 
-Private model keys and Supabase service-role credentials are never copied. Configure `suji-native://auth/callback` and `suji-native://auth/reset` as allowed redirects in the existing Supabase project's auth settings before using Google OAuth or password recovery. Email/Google and the existing `profiles` table are supported; no production schema changes are made.
+Private model keys and Supabase service-role credentials are never copied. Configure `suji-native://auth/callback` and `suji-native://auth/reset` as allowed redirects in the existing Supabase project's auth settings before using Google OAuth or password recovery. Email/Google and the existing `profiles` table are supported. The AI backend adds a separate quota table/function; it does not change profiles.
 
-The SwiftData notebook is stored in the app’s private container, with CloudKit disabled. Only the daily widget snapshot is written to the App Group. A prerelease shared notebook, if present, is migrated into the private store after a verified private backup; existing private rows win conflicts, and unrelated shared files are retained. Switching accounts saves the active notebook and loads an independent `local` or `user:<id>` notebook. Cloud push/pull is explicit. The existing cloud schema restores birth metadata, onboarding state, model URL and model name only; it does not contain conversations, journals, rituals or AI keys.
+The SwiftData notebook is stored in the app’s private container, with CloudKit disabled. Only the daily widget snapshot is written to the App Group. A prerelease shared notebook, if present, is migrated into the private store after a verified private backup; existing private rows win conflicts, and unrelated shared files are retained. Switching accounts saves the active notebook and loads an independent `local` or `user:<id>` notebook. Cloud push/pull is explicit. Cloud profile sync restores birth metadata and onboarding state; legacy model fields are ignored. The cloud profile does not contain conversations, journals, rituals or AI keys.
 
 A separate app cannot automatically read the old React Native sandbox. Import accepts the native version-1 JSON archive and exported Zustand containers named `suiji-user-store` and `suiji-chat-store` (or `userStore` / `chatStore`). Old API keys and derived chart caches are discarded. If an old installation has no export facility, cloud recovery restores only the fields above. Keep an external backup before replacing a notebook.
 
@@ -77,7 +77,7 @@ Fixtures compare the original Node algorithms running in Beijing time with JavaS
 
 Birth calculations currently require civil Beijing time (`Asia/Shanghai`) with explicit longitude. Historical daylight-saving and worldwide timezone conversion are not validated. The 23:00–23:59 calibration path is explicitly unavailable because the old candidate engine does not support it. Qimen and several pattern/timing rules retain MVP approximations; their metadata remains visible. Relationship views show interpretable stem/branch relationships instead of an unsupported compatibility score. The existing algorithms contain distinct traditional interpretations; forecasts are cultural reflection, not medical, financial or life-decision advice.
 
-The app is not an App Store release. Real device haptics, prolonged audio quality/background behavior and live account/provider delivery need device credentials and final release testing. Paid subscriptions and gift-commerce were deliberately excluded from this approved rebuild.
+The app is not an App Store release. Real device haptics, prolonged audio quality/background behavior and full account delivery still require final release testing. Paid subscriptions and gift-commerce were deliberately excluded from this approved rebuild.
 
 ## Visual direction
 

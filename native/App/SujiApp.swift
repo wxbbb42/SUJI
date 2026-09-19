@@ -63,7 +63,7 @@ struct RootView: View {
                         context: Document(["date": store.day.rawValue, "calendar": store.calendarInfo?.value ?? NSNull(), "personalObservation": store.profile?["daily"].value ?? NSNull(), "quote": store.ritual?.quote ?? store.content.quote]).json,
                         instruction: "根据今日的日签与可选的传统观察给出简短、具体、容易实行的自我关照行动。没有个人数据时就以普通日常建议回应；不要声称已经分析命盘。不使用吉凶、幸运数或健康运势指令。先问问用户今天最在意的一件事。",
                         opening: "陪我想一想，今天可以怎样照顾自己。",
-                        privacy: "开始后，今日历法、日签与已有的个人观察会发送给你配置的 AI 服务。日签正文始终是本地编辑内容。")
+                        privacy: "开始后，今日历法、日签与已有的个人观察会经有时的服务发送给 DeepSeek。日签正文始终是本地编辑内容。")
                         .toolbar { ToolbarItem(placement: .confirmationAction) { Button("完成") { sheet = nil } } }
                 }
             }
@@ -79,6 +79,7 @@ struct RootView: View {
         }
         .task {
             consumePendingNotificationRoute()
+            await store.accountSession.initialize()
             await store.refresh()
             await ReminderService.shared.refreshFromSavedPreferences()
         }

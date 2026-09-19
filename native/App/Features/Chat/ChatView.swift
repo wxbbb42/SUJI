@@ -64,7 +64,7 @@ struct ChatView: View {
                                 Text(failure).font(.footnote).foregroundStyle(SujiTheme.secondary)
                                 HStack {
                                     Button("重试") { if let last = store.state.conversations.last(where: { $0.role == "user" }) { session.send(last.text, mode: mode, store: store, appendUser: false) } }
-                                    NavigationLink("模型设置") { SettingsView() }
+                                    NavigationLink("账户与登录") { AccountView(session: store.accountSession) }
                                 }.font(.subheadline)
                             }.padding(20).background(SujiTheme.surface, in: RoundedRectangle(cornerRadius: 18))
                         }
@@ -99,7 +99,7 @@ struct ChatView: View {
                     }
                 }.padding(.horizontal, 20).padding(.vertical, 12).background(.regularMaterial)
             }
-            .toolbar { ToolbarItem(placement: .topBarTrailing) { Menu { NavigationLink("模型设置", destination: SettingsView()); Button("清空对话", role: .destructive) { clearConfirmation = true }.disabled(session.working) } label: { Image(systemName: "ellipsis") } } }
+            .toolbar { ToolbarItem(placement: .topBarTrailing) { Menu { NavigationLink("设置", destination: SettingsView()); Button("清空对话", role: .destructive) { clearConfirmation = true }.disabled(session.working) } label: { Image(systemName: "ellipsis") } } }
             .confirmationDialog("清空本机的全部对话？", isPresented: $clearConfirmation, titleVisibility: .visible) { Button("清空对话", role: .destructive) { store.state.conversations = []; store.save() } }
             .onChange(of: store.scopeRevision) { _, _ in session.stop(); input = "" }
         }

@@ -72,16 +72,24 @@ final class SujiUITests: XCTestCase {
         XCTAssertTrue(app.navigationBars["命盘手稿"].waitForExistence(timeout: 5)); capture("12-four-pillars")
         app.buttons["紫微"].tap(); capture("13-ziwei")
     }
-    func testSettingsAndMissingAIConfiguration() {
+    func testManagedAIRequiresLoginAndSettingsHaveNoProviderFields() {
         begin(); app.tabBars.buttons["问道"].tap(); capture("14-chat-empty")
         let input = app.textFields["chat.input"]
         XCTAssertTrue(input.waitForExistence(timeout: 5)); input.tap(); input.typeText("今天想慢一点。")
         app.buttons["发送"].tap()
-        XCTAssertTrue(app.buttons["模型设置"].waitForExistence(timeout: 15))
-        XCTAssertTrue(app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "尚未配置 AI 服务")).firstMatch.exists)
-        capture("15-ai-configuration-needed")
-        app.buttons["模型设置"].tap()
-        XCTAssertTrue(app.navigationBars["设置"].waitForExistence(timeout: 5)); capture("16-settings")
+        XCTAssertTrue(app.buttons["账户与登录"].waitForExistence(timeout: 15))
+        XCTAssertTrue(app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "请先登录账户")).firstMatch.exists)
+        capture("15-ai-login-needed")
+        app.buttons["账户与登录"].tap()
+        XCTAssertTrue(app.navigationBars["账户与云端资料"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["通过 Google 继续"].exists)
+        app.tabBars.buttons["我的"].tap()
+        if !app.navigationBars["设置"].exists { app.buttons["设置"].tap() }
+        XCTAssertTrue(app.staticTexts["回信伙伴, DeepSeek Flash"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.textFields["服务地址"].exists)
+        XCTAssertFalse(app.textFields["模型名称"].exists)
+        XCTAssertFalse(app.secureTextFields["API Key"].exists)
+        capture("16-settings")
         app.swipeUp(); app.buttons["晨间与节气提醒"].tap()
         capture("17-reminders")
     }
