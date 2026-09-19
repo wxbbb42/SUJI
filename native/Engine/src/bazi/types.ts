@@ -89,6 +89,44 @@ export interface WuXingStrength {
   suggestionBasis?: 'fuyi-heuristic';
   suggestionStatus?: 'not-empirically-validated';
   tiaohouApplied?: false;
+  evidence?: WuXingStrengthEvidence;
+}
+
+/** 日主视角的五种方向；不是喜忌或事件结果。 */
+export type StrengthRelation = 'peer' | 'resource' | 'output' | 'wealth' | 'officer';
+
+export interface StrengthContribution {
+  pillar: 'year' | 'month' | 'day' | 'hour';
+  source: 'stem' | 'hidden-stem';
+  gan: TianGan;
+  zhi: DiZhi;
+  element: WuXing;
+  weight: number;
+  relation: StrengthRelation;
+  isDayMaster: boolean;
+}
+
+/** 对兼容计数逐项记账；数字是工程参数，不能解释为传统力量的实测值。 */
+export interface WuXingStrengthEvidence {
+  version: 'weighted-count-v1';
+  basis: 'engineering-heuristic';
+  dayMaster: TianGan;
+  dayElement: WuXing;
+  monthBranch: DiZhi;
+  contributions: StrengthContribution[];
+  elementTotals: Record<WuXing, number>;
+  relationTotals: Record<StrengthRelation, number>;
+  supportTotal: number;
+  drainTotal: number;
+  total: number;
+  dayMasterContribution: number;
+  supportExcludingDayMaster: number;
+  threshold: 'supportTotal >= drainTotal';
+  monthWeightApplied: false;
+  strongestElements: WuXing[];
+  weakestElements: WuXing[];
+  tieBreakOrder: WuXing[];
+  limitations: string[];
 }
 
 // ========================
@@ -397,6 +435,31 @@ export interface RiZhuStructure {
   qingZhuo: QingZhuo;          // 清浊
   hanNuanZaoShi: HanNuanZaoShi;
   strength: RiZhuStrengthLabel;
+  evidence?: RiZhuStructureEvidence;
+}
+
+/** 月支本气查表、实际藏干事实与兼容分档分别列出。 */
+export interface RiZhuStructureEvidence {
+  version: 'month-root-matrix-v1';
+  basis: 'engineering-heuristic';
+  monthBranch: DiZhi;
+  monthMainQi: TianGan;
+  monthMainElement: WuXing;
+  monthRelation: StrengthRelation;
+  monthMethod: 'month-branch-main-qi';
+  sameElementRoots: RootDetail[];
+  resourceSupport: RootDetail[];
+  hasSameElementRoot: boolean;
+  hasResourceSupport: boolean;
+  daySeatSameElementRoot: boolean;
+  daySeatResourceSupport: boolean;
+  rootWeightBasis: 'open-source-engineering-weights';
+  rootWeights: Record<RootTier, number>;
+  rootLabelBands: { label: RootStrengthLabel; lowerInclusive: number; upperExclusive: number | null }[];
+  strengthRule: string;
+  exposedStemsUsedForStrength: false;
+  sourceRefs: string[];
+  limitations: string[];
 }
 
 /** 流派 */

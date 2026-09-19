@@ -40,8 +40,9 @@ swift test --package-path native/Core \
 - `/tmp/suji-continuity-independent-after.log`
 - `/tmp/suji-continuity-independent-expanded.log`
 - `/tmp/suji-continuity-independent-final.log`
+- `/tmp/suji-continuity-independent-brief-final.log`（补齐“可以简单说说吗”等整句表达后的独立 8 项复跑，全部通过）
 
-最终日志 SHA256：`6ca35f717adcc8402a0b2c4844e4bb792f0b3e0f6a888a761da19dba9e094977`。`git diff --check` 无问题。
+最终日志 SHA256：`82ac809966dd70713a776abbbdad44c34209fcb6d437433bbf7db693b6df3617`。`git diff --check` 无问题。
 
 ## 证据绑定与持久化结论的范围
 
@@ -55,7 +56,7 @@ swift test --package-path native/Core \
 
 | 文件 | SHA256 |
 |---|---|
-| ReadingDocument.swift | `26e1fc1041c77a3976b7b06a3c837bc2dafb155b16ba0e4abe25774524c721f0` |
+| ReadingDocument.swift | `2c03ad30c9c2a11c44c789f32cf9a4471c34ca82b9059d82fb95ba3cefcb0029` |
 | BaziFrameworkReading.swift | `87b63b462702529b463ccc1a15a87b2af8cf034649d6209d13b44b6bb6bf55a5` |
 | ReadingContext.swift | `eccbac9cc1018070da8dbb8b17e89c7738da978415fc1e2360df7f713b0ad85f` |
 | ArchiveCodec.swift | `4c9ef706d9b3b189d5372925dc5d43e90d3c51000722595a94831ec45dca58fe` |
