@@ -78,6 +78,8 @@ export interface GeJu {
   type: '吉' | '凶' | '中性';
   description: string;
   palaceIds?: number[];      // 涉及的宫位
+  assessmentStatus?: 'traditional-condition-only' | 'structural-fact-only';
+  source?: { title: string; url: string; quote: string; editionStatus: string };
 }
 
 /** 应期 */

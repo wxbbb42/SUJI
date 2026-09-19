@@ -1553,69 +1553,110 @@
         "geJu": [
           {
             "name": "伏吟",
-            "type": "凶",
-            "description": "天地盘相同，事情停滞、忧愁不展",
+            "type": "中性",
+            "description": "九星在八个外宫均回到本宫（星伏吟）；八门另列，不由少数干同宫推定",
             "palaceIds": [
               1,
               2,
               3,
               4,
-              5,
               6,
               7,
               8,
               9
-            ]
+            ],
+            "assessmentStatus": "traditional-condition-only",
+            "source": {
+              "title": "烟波钓叟歌（在线转录）",
+              "url": "https://zh.wikisource.org/wiki/煙波釣叟歌",
+              "quote": "就中伏吟最為凶，天蓬加著地天蓬。",
+              "editionStatus": "transcription-not-checked-against-print"
+            }
           },
           {
-            "name": "值符",
-            "type": "吉",
-            "description": "值符神所在宫得吉门，事易成",
-            "palaceIds": [
-              6
-            ]
-          },
-          {
-            "name": "值使",
-            "type": "吉",
-            "description": "值使门为吉门（开/休/生），用之则诸事顺",
+            "name": "八门伏吟",
+            "type": "中性",
+            "description": "八门均回到本门原宫；与九星伏吟分别核对",
             "palaceIds": [
               1,
+              2,
+              3,
+              4,
               6,
-              8
-            ]
+              7,
+              8,
+              9
+            ],
+            "assessmentStatus": "traditional-condition-only",
+            "source": {
+              "title": "烟波钓叟歌（在线转录）",
+              "url": "https://zh.wikisource.org/wiki/煙波釣叟歌",
+              "quote": "八門返伏皆如此，生在生兮死在死。",
+              "editionStatus": "transcription-not-checked-against-print"
+            }
+          },
+          {
+            "name": "值符临三吉门",
+            "type": "中性",
+            "description": "八神值符与开、休、生之一同宫；仅列同宫事实",
+            "palaceIds": [
+              6
+            ],
+            "assessmentStatus": "structural-fact-only"
+          },
+          {
+            "name": "值使为三吉门",
+            "type": "中性",
+            "description": "实际值使门为开、休、生之一；只标实际值使宫，不把所有吉门都称为值使",
+            "palaceIds": [
+              6
+            ],
+            "assessmentStatus": "structural-fact-only"
           },
           {
             "name": "入墓",
-            "type": "凶",
-            "description": "干临墓宫（乙入坤、丙丁戊入乾、己庚入艮、辛壬入巽、癸入坤），抱负难申",
+            "type": "中性",
+            "description": "按本版奇门墓库表核对天盘及其寄干：乙丙戊在乾六、丁己庚在艮八、辛壬在巽四、癸在坤二；不以地盘占位代替天盘临宫",
             "palaceIds": [
               8
-            ]
+            ],
+            "assessmentStatus": "traditional-condition-only",
+            "source": {
+              "title": "qimen-go QMTomb（所选奇门墓库表）",
+              "url": "https://github.com/deminzhang/qimen-go/blob/4d3f58fa0f401b5b3a337f119138e99e90685dda/xuan/qimen_defs.go#L221",
+              "quote": "\"甲\": \"未\", \"乙\": \"戌\", \"丙\": \"戌\", \"丁\": \"丑\", \"戊\": \"戌\",\n\"己\": \"丑\", \"庚\": \"丑\", \"辛\": \"辰\", \"壬\": \"辰\", \"癸\": \"未\"",
+              "editionStatus": "selected-implementation-table-not-classical-edition"
+            }
           },
           {
             "name": "乙奇遇吉门",
             "type": "吉",
-            "description": "乙奇临开/休/生三吉门，谋事大利",
+            "description": "天盘乙与开、休、生之一同宫；只成立此局部配合，不代表现实结果有利",
             "palaceIds": [
               1
-            ]
+            ],
+            "assessmentStatus": "traditional-condition-only",
+            "source": {
+              "title": "烟波钓叟歌（在线转录）",
+              "url": "https://zh.wikisource.org/wiki/煙波釣叟歌",
+              "quote": "吉門偶合爾三奇……更合從旁加檢點，餘宮不可有微疵。",
+              "editionStatus": "transcription-not-checked-against-print"
+            }
           },
           {
             "name": "癸击刑",
             "type": "凶",
-            "description": "癸临巽宫（4宫），地支相刑、诸事不顺",
+            "description": "天盘癸（甲寅所遁，含寄干）临4宫的传统地支刑关系；地盘癸本身不触发",
             "palaceIds": [
               4
-            ]
-          },
-          {
-            "name": "龙遁",
-            "type": "吉",
-            "description": "乙奇 + 三吉门 + 坎宫（1 宫）或六癸，利祈雨、水运、架桥、凿井",
-            "palaceIds": [
-              1
-            ]
+            ],
+            "assessmentStatus": "traditional-condition-only",
+            "source": {
+              "title": "烟波钓叟歌（在线转录）",
+              "url": "https://zh.wikisource.org/wiki/煙波釣叟歌",
+              "quote": "六儀擊刑何太凶，甲子值符愁向東。戌刑未上申刑虎，寅巳辰辰午刑午。",
+              "editionStatus": "transcription-not-checked-against-print"
+            }
           }
         ],
         "yingQi": {
@@ -1649,7 +1690,7 @@
         "zhiShiSourcePalaceId": 6,
         "tianQinPalaceId": 2,
         "provenance": {
-          "engineRevision": "00683a35f434329459805f7182ec1f9a2d7cf9fe945bb4a341bd959161d6f8aa",
+          "engineRevision": "4e1ef94cee4d5cd6fff63a2f36d05cd1c139ff075e81328a32cdb718ee727082",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -1677,7 +1718,7 @@
         "阴遁 · 9局",
         "用神 · 求问者（日干）丙临坤宫，休（死门 · 天…",
         "格局 · 伏吟",
-        "格局 · 值符"
+        "格局 · 八门伏吟"
       ]
     }
   },
@@ -6339,7 +6380,7 @@
         },
         "readingBoundary": "两种体系分别解释，不能把相似意象当作相互验证。",
         "provenance": {
-          "engineRevision": "00683a35f434329459805f7182ec1f9a2d7cf9fe945bb4a341bd959161d6f8aa",
+          "engineRevision": "4e1ef94cee4d5cd6fff63a2f36d05cd1c139ff075e81328a32cdb718ee727082",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",

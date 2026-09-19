@@ -309,31 +309,26 @@ final class StoreRegressionTests: XCTestCase {
     }
 
     private func makeScript() throws -> URL {
-        let source = """
-        var SujiNative = {
+        // Exercise scope/version races with a real, contract-valid engine response.
+        // A marker-only stub is intentionally rejected by the new boundary decoder.
+        let bundled = try XCTUnwrap(Bundle.main.url(forResource: "mingli", withExtension: "js"))
+        let source = try String(contentsOf: bundled, encoding: .utf8) + """
+        ;var originalTestEngine = SujiNative;
+        SujiNative = {
           run: function(json, resolve, reject) {
             var input = JSON.parse(json);
-            if (input.command === "calendar") {
-              resolve(JSON.stringify({
-                lunarDate: "测试",
-                ganZhi: "测试",
-                solarTerm: ""
-              }));
-              return;
+            if (input.command === "profile" && input.birth.year === 1990) {
+              var until = Date.now() + 150;
+              while (Date.now() < until) {}
             }
-            if (input.command === "profile") {
-              var year = input.birth.year;
-              if (year === 1990) {
-                var until = Date.now() + 150;
-                while (Date.now() < until) {}
+            originalTestEngine.run(json, function(result) {
+              var output = JSON.parse(result);
+              if (input.command === "profile") {
+                output.marker = input.birth.year === 1990 ? "old" : "new";
+                output.year = input.birth.year;
               }
-              resolve(JSON.stringify({
-                marker: year === 1990 ? "old" : "new",
-                year: year
-              }));
-              return;
-            }
-            reject("unexpected command");
+              resolve(JSON.stringify(output));
+            }, reject);
           }
         };
         """

@@ -1,5 +1,7 @@
-// Opt-in synthetic live smoke evaluation; uses the app's exported Swift prompt and bundled engine.
-// This does not replace Swift orchestration/cancellation tests or establish predictive validity.
+// Legacy Node-only synthetic prompt smoke, NOT the shipping Swift harness.
+// It lacks whole-batch abort and stable-cast caching. Never report its accepted
+// count as App passes. See ReadingReplayTests and harness-final-validation.md.
+// Future runs retain raw planning batches so these differences can be audited.
 import {readFile,writeFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
@@ -47,16 +49,17 @@ async function complete(messages,definitions) {
   const body=await response.json();
   return {message:body.choices[0].message,usage:body.usage,model:body.model};
 }
-const report={timestamp:new Date().toISOString(),promptVersion:prompts.version,promptDigest:createHash("sha256").update(JSON.stringify(prompts)).digest("hex"),engine:metadata,scope:'Synthetic direct-provider prompt smoke; not a Supabase auth/Swift-runtime integration test.',cases:[]};
+const report={timestamp:new Date().toISOString(),orchestration:'legacy-node-smoke',promptVersion:prompts.version,promptDigest:createHash("sha256").update(JSON.stringify(prompts)).digest("hex"),engine:metadata,scope:'Synthetic direct-provider prompt smoke; not a Supabase auth/Swift-runtime integration test. Whole-batch validation, stable-cast caching and planner-content stripping differ from the shipping App.',cases:[]};
 for(const item of cases) {
   const system=item.mode==='起卦'?prompts.cast:(item.noBirth?prompts.noBirth:prompts.mingli);
   const allowsQimen=nativeGuard('',item.question).allowsQimen;
   const definitions=tools.filter(t=>item.mode==='起卦'?t.function.name==='cast_liuyao':t.function.name==='setup_qimen'?allowsQimen:!item.noBirth&&t.function.name!=='cast_liuyao');
   const messages=[{role:'system',content:system+'\n'+prompts.planner},{role:'user',content:item.question}];
-  const record={...item,calls:[],usage:[],answer:'',automaticChecks:{}};
+  const record={...item,calls:[],planning:[],usage:[],answer:'',automaticChecks:{}};
   let count=0;
   for(let round=0;round<5;round++) {
     const result=await complete(messages,definitions);record.usage.push(result.usage);record.model=result.model;
+    record.planning.push(result.message);
     if(!result.message.tool_calls?.length) break; // Planning prose is deliberately discarded.
     if(count+result.message.tool_calls.length>8) break;
     messages.push(result.message);

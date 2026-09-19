@@ -1,569 +1,137 @@
-/**
- * 奇门遁甲格局识别（51 个 MVP）
- *
- * 数据来源（每个格局已交叉验证至少 2 个权威源，详见 commit 说明）：
- *   - 知乎《奇门遁甲》专栏 (zhuanlan.zhihu.com)
- *   - 国易堂周易算命网 (guoyi360.com)
- *   - 易德轩奇门遁甲 (qimen.yi958.com)
- *   - 乾坤国学院培训教材 (qkgxy.com)
- *   - 易先生奇门基础 (yixiansheng.com)
- *   - 《奇门遁甲全书》节选 (httpcn.com)
- *
- * MVP 简化说明：
- * - 由于本引擎当前不展开 "甲子戊 / 甲申庚" 等具体 60 甲子组合，
- *   六仪相关格局以 "干 + 宫位" 简化判定（如 "戊在震宫" 即视为 戊击刑）。
- * - 三奇得使原本依赖 "甲X" 旬首六仪信息，简化为 "三奇临对应六仪干所在宫"。
- * - 部分凶格（飞干 / 伏干 / 时格 / 月格）需日干 / 月干 / 时干上下文，
- *   引擎未传入这些参数，故按 chart 信息可获得的最大近似规则实现，
- *   description 注明 "简化版"。
+/** Selected, explicit conditions for the existing rotating-plate school.
+ * Classical pairings are tied to the consulted Yanbo Diaosou Ge transcription;
+ * the full tomb table is separately attributed to the selected Qimen reference.
+ * uncertain MVP approximations are not emitted as established named patterns.
+ * See docs/mingli/validation/qimen-geju-audit.md for the full disposition table.
  */
-
-import type { QimenChart, GeJu, Palace, TianGan } from '../types';
+import type { QimenChart, GeJu, Palace, TianGan, BamenName, JiuxingName } from '../types';
+import { computeXunShou } from '../helpers/tianPan';
 
 export interface GeJuRule {
   name: string;
   type: GeJu['type'];
   description: string;
-  /** 匹配函数，返回涉及的宫 IDs；不匹配返回 null */
+  sourceQuote?: string;
+  source?: GeJu['source'];
+  /** null=no match; []=a time-level condition without an invented palace. */
   match: (chart: QimenChart) => number[] | null;
 }
 
-// ────────────────────────────────────────────────────────
-// 工具函数
-// ────────────────────────────────────────────────────────
+const OUTER = [1, 2, 3, 4, 6, 7, 8, 9];
+const OPPOSITE: Record<number, number> = {1:9, 9:1, 2:8, 8:2, 3:7, 7:3, 4:6, 6:4};
+const HOME_STAR: Record<number, JiuxingName> = {1:'天蓬', 2:'天芮', 3:'天冲', 4:'天辅', 6:'天心', 7:'天柱', 8:'天任', 9:'天英'};
+const HOME_DOOR: Record<number, BamenName> = {1:'休门', 2:'死门', 3:'伤门', 4:'杜门', 6:'开门', 7:'惊门', 8:'生门', 9:'景门'};
+const GOOD_DOORS: BamenName[] = ['开门', '休门', '生门'];
+const STEMS = '甲乙丙丁戊己庚辛壬癸';
+const BRANCHES = '子丑寅卯辰巳午未申酉戌亥';
+const TOMB: Partial<Record<TianGan, number>> = {乙:6, 丙:6, 丁:8, 戊:6, 己:8, 庚:8, 辛:4, 壬:4, 癸:2};
+const TOMB_SOURCE: NonNullable<GeJu['source']> = {
+  title: 'qimen-go QMTomb（所选奇门墓库表）',
+  url: 'https://github.com/deminzhang/qimen-go/blob/4d3f58fa0f401b5b3a337f119138e99e90685dda/xuan/qimen_defs.go#L221',
+  quote: '"甲": "未", "乙": "戌", "丙": "戌", "丁": "丑", "戊": "戌",\n"己": "丑", "庚": "丑", "辛": "辰", "壬": "辰", "癸": "未"',
+  editionStatus: 'selected-implementation-table-not-classical-edition',
+};
 
-function findPalacesByDiGan(chart: QimenChart, gan: TianGan): Palace[] {
-  return chart.palaces.filter(p => p.diPanGan === gan);
+function outer(chart: QimenChart): Palace[] { return chart.palaces.filter(p => p.id !== 5); }
+function sky(p: Palace): TianGan[] {
+  return [...new Set([p.tianPanGan, p.hostedTianPanGan].filter((value): value is TianGan => Boolean(value)))];
+}
+function earth(chart: QimenChart, p: Palace): TianGan[] {
+  const center = p.id === 2 && chart.method.centerPolicy?.startsWith('fixed-kun-2')
+    ? chart.palaces.find(item => item.id === 5)?.diPanGan : null;
+  return [...new Set([p.diPanGan, center].filter((value): value is TianGan => Boolean(value)))];
+}
+function matching(chart: QimenChart, predicate: (p: Palace) => boolean): number[] | null {
+  const ids = outer(chart).filter(predicate).map(p => p.id);
+  return ids.length ? ids : null;
+}
+function pair(chart: QimenChart, above: TianGan, below: TianGan): number[] | null {
+  return matching(chart, p => sky(p).includes(above) && earth(chart, p).includes(below));
+}
+function fieldPattern(chart: QimenChart, field: 'jiuxing' | 'bamen', homes: Record<number, string>, opposite: boolean): number[] | null {
+  // A few matching stems or the static middle palace cannot establish a full-plate pattern.
+  return OUTER.every(id => chart.palaces.find(p => p.id === id)?.[field] === homes[opposite ? OPPOSITE[id] : id]) ? OUTER : null;
+}
+function stemOf(ganzhi?: string): TianGan | undefined {
+  if (!ganzhi || ganzhi.length !== 2) return undefined;
+  const stem = STEMS.indexOf(ganzhi[0]), branch = BRANCHES.indexOf(ganzhi[1]);
+  return stem >= 0 && branch >= 0 && stem % 2 === branch % 2 ? ganzhi[0] as TianGan : undefined;
+}
+function carrier(ganzhi?: string): TianGan | undefined {
+  const stem = stemOf(ganzhi);
+  return stem === '甲' ? computeXunShou(stem, ganzhi![1] as Parameters<typeof computeXunShou>[1]) : stem;
+}
+function pairRule(name: string, above: TianGan, below: TianGan, type: GeJu['type'], quote: string): GeJuRule {
+  return {name, type, description:`天盘${above}加地盘${below}；仅为传统叠盘条件，不据此推定现实事件`, sourceQuote:quote, match: chart => pair(chart, above, below)};
 }
 
-function findPalacesByTianGan(chart: QimenChart, gan: TianGan): Palace[] {
-  return chart.palaces.filter(p => p.tianPanGan === gan);
-}
-
-/** 找天盘 X 加临地盘 Y 的宫（即同一宫 tianPanGan===X && diPanGan===Y） */
-function findTianAddDi(chart: QimenChart, tianGan: TianGan, diGan: TianGan): Palace[] {
-  return chart.palaces.filter(p => p.tianPanGan === tianGan && p.diPanGan === diGan);
-}
-
-const GOOD_MEN = ['开门', '休门', '生门'];
-
-// ────────────────────────────────────────────────────────
-// 通用格 (10)
-// ────────────────────────────────────────────────────────
-
-const TONG_YONG_GE: GeJuRule[] = [
-  {
-    name: '伏吟',
-    type: '凶',
-    description: '天地盘相同，事情停滞、忧愁不展',
-    match: (chart) => {
-      const matched: number[] = [];
-      for (const p of chart.palaces) {
-        if (p.diPanGan && p.diPanGan === p.tianPanGan) {
-          matched.push(p.id);
-        }
-      }
-      return matched.length >= 3 ? matched : null;
-    },
-  },
-  {
-    name: '反吟',
-    type: '凶',
-    description: '天盘干与地盘干相冲，事情反复',
-    match: (chart) => {
-      // 天干七冲：甲庚、乙辛、丙壬、丁癸；戊己居中无冲（简化）
-      const CHONG: Record<string, string> = {
-        甲: '庚', 庚: '甲',
-        乙: '辛', 辛: '乙',
-        丙: '壬', 壬: '丙',
-        丁: '癸', 癸: '丁',
-      };
-      const matched: number[] = [];
-      for (const p of chart.palaces) {
-        if (p.diPanGan && p.tianPanGan && CHONG[p.diPanGan] === p.tianPanGan) {
-          matched.push(p.id);
-        }
-      }
-      return matched.length >= 3 ? matched : null;
-    },
-  },
-  {
-    name: '值符',
-    type: '吉',
-    description: '值符神所在宫得吉门，事易成',
-    match: (chart) => {
-      const valuePalace = chart.palaces.find(p => p.bashen === '值符');
-      if (!valuePalace || !valuePalace.bamen) return null;
-      return GOOD_MEN.includes(valuePalace.bamen) ? [valuePalace.id] : null;
-    },
-  },
-  {
-    name: '值使',
-    type: '吉',
-    description: '值使门为吉门（开/休/生），用之则诸事顺',
-    match: (chart) => {
-      // 简化：开门 / 休门 / 生门 任一存在即视为值使吉
-      const matched = chart.palaces
-        .filter(p => p.bamen && GOOD_MEN.includes(p.bamen))
-        .map(p => p.id);
-      return matched.length > 0 ? matched : null;
-    },
-  },
-  {
-    name: '入墓',
-    type: '凶',
-    description: '干临墓宫（乙入坤、丙丁戊入乾、己庚入艮、辛壬入巽、癸入坤），抱负难申',
-    match: (chart) => {
-      // 干 → 墓宫 ID：乙 2, 丙 6, 丁 8, 戊 6, 己 8, 庚 8, 辛 4, 壬 4, 癸 2
-      const TOMB: Record<string, number> = {
-        乙: 2, 丙: 6, 丁: 8, 戊: 6, 己: 8, 庚: 8, 辛: 4, 壬: 4, 癸: 2,
-      };
-      const matched: number[] = [];
-      for (const p of chart.palaces) {
-        if (p.tianPanGan && TOMB[p.tianPanGan] === p.id) {
-          matched.push(p.id);
-        }
-      }
-      return matched.length > 0 ? matched : null;
-    },
-  },
-  {
-    name: '大格',
-    type: '凶',
-    description: '天盘庚加地盘癸（申寅冲），百事凶',
-    match: (chart) => {
-      const ps = findTianAddDi(chart, '庚', '癸');
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '小格',
-    type: '凶',
-    description: '天盘庚加地盘壬，远行迷路、求谋破财得病',
-    match: (chart) => {
-      const ps = findTianAddDi(chart, '庚', '壬');
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '刑格',
-    type: '凶',
-    description: '天盘庚加地盘己，主管司受刑、破财疾病',
-    match: (chart) => {
-      const ps = findTianAddDi(chart, '庚', '己');
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '白虎猖狂',
-    type: '凶',
-    description: '天盘辛加地盘乙，白虎横行、出入有惊、远行多灾',
-    match: (chart) => {
-      const ps = findTianAddDi(chart, '辛', '乙');
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '玄武当权',
-    type: '凶',
-    description: '玄武所在宫天地盘为癸/壬，主盗贼、阴私、是非',
-    match: (chart) => {
-      const xuanwu = chart.palaces.find(p => p.bashen === '玄武');
-      if (!xuanwu) return null;
-      const watery = ['癸', '壬'];
-      if (
-        (xuanwu.tianPanGan && watery.includes(xuanwu.tianPanGan)) ||
-        (xuanwu.diPanGan && watery.includes(xuanwu.diPanGan))
-      ) {
-        return [xuanwu.id];
-      }
-      return null;
-    },
-  },
+const BASE: GeJuRule[] = [
+  {name:'伏吟', type:'中性', description:'九星在八个外宫均回到本宫（星伏吟）；八门另列，不由少数干同宫推定', sourceQuote:'就中伏吟最為凶，天蓬加著地天蓬。', match:chart=>fieldPattern(chart,'jiuxing',HOME_STAR,false)},
+  {name:'反吟', type:'中性', description:'九星在八个外宫均临本宫的对宫（星反吟）；不是天干相冲的数量阈值', sourceQuote:'天蓬若到天英上，須知即是返吟宮。', match:chart=>fieldPattern(chart,'jiuxing',HOME_STAR,true)},
+  {name:'八门伏吟', type:'中性', description:'八门均回到本门原宫；与九星伏吟分别核对', sourceQuote:'八門返伏皆如此，生在生兮死在死。', match:chart=>fieldPattern(chart,'bamen',HOME_DOOR,false)},
+  {name:'八门反吟', type:'中性', description:'八门均临本门原宫的对宫；与九星反吟分别核对', sourceQuote:'八門返伏皆如此，生在生兮死在死。', match:chart=>fieldPattern(chart,'bamen',HOME_DOOR,true)},
+  {name:'值符临三吉门', type:'中性', description:'八神值符与开、休、生之一同宫；仅列同宫事实', match:chart=>matching(chart,p=>p.bashen==='值符'&&p.bamen!==null&&GOOD_DOORS.includes(p.bamen))},
+  {name:'值使为三吉门', type:'中性', description:'实际值使门为开、休、生之一；只标实际值使宫，不把所有吉门都称为值使', match:chart=>matching(chart,p=>p.id===chart.zhiShiPalaceId&&p.bamen===chart.zhiShiMen&&p.bamen!==null&&GOOD_DOORS.includes(p.bamen))},
+  {name:'入墓', type:'中性', description:'按本版奇门墓库表核对天盘及其寄干：乙丙戊在乾六、丁己庚在艮八、辛壬在巽四、癸在坤二；不以地盘占位代替天盘临宫', source:TOMB_SOURCE, match:chart=>matching(chart,p=>sky(p).some(gan=>TOMB[gan]===p.id))},
+  pairRule('大格','庚','癸','凶','庚加癸兮為大格，加己為刑最不宜。'),
+  pairRule('上格','庚','壬','凶','加壬之時為上格，又嫌歲月日時逢。'),
+  pairRule('刑格','庚','己','凶','庚加癸兮為大格，加己為刑最不宜。'),
+  pairRule('白虎猖狂','辛','乙','凶','六乙加辛龍逃走，六辛加乙虎猖狂。'),
 ];
 
-// ────────────────────────────────────────────────────────
-// 三奇格 (15)：每奇 5 类（升殿 / 得使 / 遇吉门 / 入墓 / 受制）
-// ────────────────────────────────────────────────────────
+const QI_TARGET = {乙:3, 丙:9, 丁:7} as const;
+const QI_POSITION = {乙:'震三', 丙:'离九', 丁:'兑七'} as const;
+const QI_DE_SHI = {乙:['己','辛'], 丙:['戊','庚'], 丁:['壬','癸']} as const;
+const THREE_QI: GeJuRule[] = (['乙','丙','丁'] as const).flatMap(qi=>[
+  {name:`${qi}奇临${QI_POSITION[qi]}`, type:'中性' as const, description:`天盘${qi}临${QI_TARGET[qi]}宫；此项只报告位置，不把未校勘的升殿解释当作事件依据`, match:(chart:QimenChart)=>matching(chart,p=>p.id===QI_TARGET[qi]&&sky(p).includes(qi))},
+  {name:`${qi}奇得使`, type:'吉' as const, description:`天盘${qi}加地盘${QI_DE_SHI[qi].join('或')}，为指定六甲配对；并非任一三奇加戊都得使`, sourceQuote:'乙逢犬馬丙鼠猴，六丁玉女騎龍虎。', match:(chart:QimenChart)=>matching(chart,p=>sky(p).includes(qi)&&earth(chart,p).some(gan=>(QI_DE_SHI[qi] as readonly TianGan[]).includes(gan)))},
+  {name:`${qi}奇遇吉门`, type:'吉' as const, description:`天盘${qi}与开、休、生之一同宫；只成立此局部配合，不代表现实结果有利`, sourceQuote:'吉門偶合爾三奇……更合從旁加檢點，餘宮不可有微疵。', match:(chart:QimenChart)=>matching(chart,p=>sky(p).includes(qi)&&p.bamen!==null&&GOOD_DOORS.includes(p.bamen))},
+  {name:`${qi}奇入墓`, type:'中性' as const, description:`天盘${qi}临${TOMB[qi]}宫；采用本版奇门墓库口径`, sourceQuote:'丙奇屬火火墓戌……更兼乙奇來臨六，丁奇臨八亦同時。', match:(chart:QimenChart)=>matching(chart,p=>p.id===TOMB[qi]&&sky(p).includes(qi))},
+  {name:`${qi}与庚叠盘`, type:'中性' as const, description:`${qi}与庚分居同宫天地盘；只报告叠盘，不统一称庚克三奇（丙丁为火，不是庚金所克）`, match:(chart:QimenChart)=>matching(chart,p=>(sky(p).includes(qi)&&earth(chart,p).includes('庚'))||(sky(p).includes('庚')&&earth(chart,p).includes(qi)))},
+]);
 
-/** 三奇升殿宫位：乙→震 3、丙→离 9、丁→兑 7 */
-const QI_PALACE: Record<'乙' | '丙' | '丁', number> = { 乙: 3, 丙: 9, 丁: 7 };
-
-/** 三奇得使（简化）：乙临戊宫 / 丙临戊宫 / 丁临戊宫 — 旬首六仪戊代表甲子甲戌 */
-function makeSanQiGe(qi: '乙' | '丙' | '丁'): GeJuRule[] {
-  return [
-    {
-      name: `${qi}奇升殿`,
-      type: '吉',
-      description: `${qi}奇临${qi === '乙' ? '震' : qi === '丙' ? '离' : '兑'}宫，奇得正位、大吉`,
-      match: (chart) => {
-        const target = QI_PALACE[qi];
-        const ps = chart.palaces.filter(p => p.id === target && p.tianPanGan === qi);
-        return ps.length > 0 ? ps.map(p => p.id) : null;
-      },
-    },
-    {
-      name: `${qi}奇得使`,
-      type: '吉',
-      description: `${qi}奇临旬首六仪所在宫，得使可用事（简化版）`,
-      match: (chart) => {
-        // 简化：乙加戊或乙加己 / 丙加戊 / 丁加戊任意旬首仪
-        const ps = chart.palaces.filter(p =>
-          p.tianPanGan === qi && p.diPanGan && ['戊', '己', '庚', '辛', '壬', '癸'].includes(p.diPanGan)
-        );
-        // 三奇得使是特定 "甲子甲戌甲申..." 配对，无六十甲子上下文，简化为一般 "奇加仪"
-        // 取最贴近的：乙加戊、丙加戊、丁加戊 视为得使
-        const goodPs = ps.filter(p => p.diPanGan === '戊');
-        return goodPs.length > 0 ? goodPs.map(p => p.id) : null;
-      },
-    },
-    {
-      name: `${qi}奇遇吉门`,
-      type: '吉',
-      description: `${qi}奇临开/休/生三吉门，谋事大利`,
-      match: (chart) => {
-        const ps = chart.palaces.filter(
-          p => p.tianPanGan === qi && p.bamen && GOOD_MEN.includes(p.bamen)
-        );
-        return ps.length > 0 ? ps.map(p => p.id) : null;
-      },
-    },
-    {
-      name: `${qi}奇入墓`,
-      type: '凶',
-      description: `${qi}奇临墓宫（${qi === '乙' ? '坤宫 2' : qi === '丙' ? '乾宫 6' : '艮宫 8'}），力量受困`,
-      match: (chart) => {
-        const TOMB: Record<string, number> = { 乙: 2, 丙: 6, 丁: 8 };
-        const target = TOMB[qi];
-        const ps = chart.palaces.filter(p => p.id === target && p.tianPanGan === qi);
-        return ps.length > 0 ? ps.map(p => p.id) : null;
-      },
-    },
-    {
-      name: `${qi}奇受制`,
-      type: '凶',
-      description: `${qi}奇被庚金克制（${qi}加庚或庚加${qi}），奇用受阻`,
-      match: (chart) => {
-        const ps = chart.palaces.filter(
-          p => (p.tianPanGan === qi && p.diPanGan === '庚') ||
-               (p.tianPanGan === '庚' && p.diPanGan === qi)
-        );
-        return ps.length > 0 ? ps.map(p => p.id) : null;
-      },
-    },
-  ];
-}
-
-const SAN_QI_GE: GeJuRule[] = [
-  ...makeSanQiGe('乙'),
-  ...makeSanQiGe('丙'),
-  ...makeSanQiGe('丁'),
-];
-
-// ────────────────────────────────────────────────────────
-// 六仪击刑 (6)：戊→震、己→坤、庚→艮、辛→离、壬→巽、癸→巽
-// ────────────────────────────────────────────────────────
-
-const JI_XING_MAP: Array<{ gan: TianGan; palaceId: number; palaceName: string }> = [
-  { gan: '戊', palaceId: 3, palaceName: '震宫' },
-  { gan: '己', palaceId: 2, palaceName: '坤宫' },
-  { gan: '庚', palaceId: 8, palaceName: '艮宫' },
-  { gan: '辛', palaceId: 9, palaceName: '离宫' },
-  { gan: '壬', palaceId: 4, palaceName: '巽宫' },
-  { gan: '癸', palaceId: 4, palaceName: '巽宫' },
-];
-
-const LIU_YI_JI_XING: GeJuRule[] = JI_XING_MAP.map(({ gan, palaceId, palaceName }) => ({
-  name: `${gan}击刑`,
-  type: '凶' as const,
-  description: `${gan}临${palaceName}（${palaceId}宫），地支相刑、诸事不顺`,
-  match: (chart: QimenChart) => {
-    const ps = chart.palaces.filter(
-      p => p.id === palaceId && (p.tianPanGan === gan || p.diPanGan === gan)
-    );
-    return ps.length > 0 ? ps.map(p => p.id) : null;
-  },
+const PUNISHMENT: GeJuRule[] = ([['戊',3,'甲子'],['己',2,'甲戌'],['庚',8,'甲申'],['辛',9,'甲午'],['壬',4,'甲辰'],['癸',4,'甲寅']] as const).map(([gan,id,hidden])=>({
+  name:`${gan}击刑`, type:'凶', description:`天盘${gan}（${hidden}所遁，含寄干）临${id}宫的传统地支刑关系；地盘${gan}本身不触发`,
+  sourceQuote:'六儀擊刑何太凶，甲子值符愁向東。戌刑未上申刑虎，寅巳辰辰午刑午。',
+  match:chart=>matching(chart,p=>p.id===id&&sky(p).includes(gan)),
 }));
 
-// ────────────────────────────────────────────────────────
-// 命名吉格 (12)：飞鸟跌穴 / 青龙返首 / 玉女守门 + 九遁
-// ────────────────────────────────────────────────────────
-
-const NAMED_JI_GE: GeJuRule[] = [
-  {
-    name: '飞鸟跌穴',
-    type: '吉',
-    description: '天盘丙奇加地盘戊（甲子戊），万事昭然，奇门第一吉格',
-    match: (chart) => {
-      const ps = findTianAddDi(chart, '丙', '戊');
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '青龙返首',
-    type: '吉',
-    description: '天盘戊（甲子）加地盘丙奇，大吉，求事必成',
-    match: (chart) => {
-      const ps = findTianAddDi(chart, '戊', '丙');
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '玉女守门',
-    type: '吉',
-    description: '丁奇 + 生门同宫（或值使临丁奇），利婚姻、和合、宴乐',
-    match: (chart) => {
-      const ps = chart.palaces.filter(
-        p => (p.tianPanGan === '丁' || p.diPanGan === '丁') && p.bamen === '生门'
-      );
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '天遁',
-    type: '吉',
-    description: '丙奇 + 生门 + 九天，利上书、求官、商贾、隐遁',
-    match: (chart) => {
-      const ps = chart.palaces.filter(
-        p =>
-          (p.tianPanGan === '丙' || p.diPanGan === '丙') &&
-          p.bamen === '生门' &&
-          p.bashen === '九天'
-      );
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '地遁',
-    type: '吉',
-    description: '乙奇 + 开门 + 九地（或己），利安营、藏兵、修造、葬埋',
-    match: (chart) => {
-      const ps = chart.palaces.filter(
-        p =>
-          (p.tianPanGan === '乙' || p.diPanGan === '乙') &&
-          p.bamen === '开门' &&
-          p.bashen === '九地'
-      );
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '人遁',
-    type: '吉',
-    description: '丁奇 + 休门 + 太阴，利谈判、间谍、求贤、婚商',
-    match: (chart) => {
-      const ps = chart.palaces.filter(
-        p =>
-          (p.tianPanGan === '丁' || p.diPanGan === '丁') &&
-          p.bamen === '休门' &&
-          p.bashen === '太阴'
-      );
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '神遁',
-    type: '吉',
-    description: '丙奇 + 生门 + 九天，利攻虚、开路、塑像（与天遁相邻定义）',
-    match: (chart) => {
-      // 简化版：与天遁同条件但加上"九天/值符"任一神助
-      const ps = chart.palaces.filter(
-        p =>
-          (p.tianPanGan === '丙' || p.diPanGan === '丙') &&
-          p.bamen === '生门' &&
-          (p.bashen === '九天' || p.bashen === '值符')
-      );
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '鬼遁',
-    type: '吉',
-    description: '丁奇 + 杜门 + 九地，利偷袭、藏匿、暗中行事',
-    match: (chart) => {
-      const ps = chart.palaces.filter(
-        p =>
-          (p.tianPanGan === '丁' || p.diPanGan === '丁') &&
-          p.bamen === '杜门' &&
-          p.bashen === '九地'
-      );
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '风遁',
-    type: '吉',
-    description: '乙奇 + 开/休/生三吉门 + 巽宫（4 宫），借风行事',
-    match: (chart) => {
-      const ps = chart.palaces.filter(
-        p =>
-          p.id === 4 &&
-          (p.tianPanGan === '乙' || p.diPanGan === '乙') &&
-          p.bamen && GOOD_MEN.includes(p.bamen)
-      );
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '云遁',
-    type: '吉',
-    description: '乙奇 + 三吉门 + 辛（六辛），利祈雨、安营、铸兵',
-    match: (chart) => {
-      const ps = chart.palaces.filter(
-        p =>
-          (p.tianPanGan === '乙' || p.diPanGan === '乙') &&
-          p.bamen && GOOD_MEN.includes(p.bamen) &&
-          (p.tianPanGan === '辛' || p.diPanGan === '辛')
-      );
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '龙遁',
-    type: '吉',
-    description: '乙奇 + 三吉门 + 坎宫（1 宫）或六癸，利祈雨、水运、架桥、凿井',
-    match: (chart) => {
-      const ps = chart.palaces.filter(
-        p =>
-          (p.tianPanGan === '乙' || p.diPanGan === '乙') &&
-          p.bamen && GOOD_MEN.includes(p.bamen) &&
-          (p.id === 1 || p.tianPanGan === '癸' || p.diPanGan === '癸')
-      );
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '虎遁',
-    type: '吉',
-    description: '乙奇 + 休门 + 艮宫（8 宫）或六辛，利招兵、立寨、防守',
-    match: (chart) => {
-      const ps = chart.palaces.filter(
-        p =>
-          (p.tianPanGan === '乙' || p.diPanGan === '乙') &&
-          p.bamen === '休门' &&
-          (p.id === 8 || p.tianPanGan === '辛' || p.diPanGan === '辛')
-      );
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
+const NAMED: GeJuRule[] = [
+  pairRule('飞鸟跌穴','丙','戊','吉','丙加甲兮鳥跌穴，甲加丙兮龍返首。'),
+  pairRule('青龙返首','戊','丙','吉','丙加甲兮鳥跌穴，甲加丙兮龍返首。'),
+  {name:'值使临地盘丁', type:'中性', description:'实际值使门落地盘丁所在宫；只列条件，不把生门或任意天盘丁都当作玉女守门', match:chart=>matching(chart,p=>p.id===chart.zhiShiPalaceId&&p.bamen===chart.zhiShiMen&&p.bamen!==null&&earth(chart,p).includes('丁'))},
+  {name:'天遁', type:'吉', description:'天盘丙加地盘丁并临生门；九天不替代地盘丁条件', sourceQuote:'生門六丙合六丁，此為天遁自分明。', match:chart=>matching(chart,p=>sky(p).includes('丙')&&earth(chart,p).includes('丁')&&p.bamen==='生门')},
+  {name:'地遁', type:'吉', description:'天盘乙加地盘己并临开门；九地不替代地盘己条件', sourceQuote:'開門六乙合六己，地遁如斯而已矣。', match:chart=>matching(chart,p=>sky(p).includes('乙')&&earth(chart,p).includes('己')&&p.bamen==='开门')},
+  {name:'人遁', type:'吉', description:'天盘丁、休门、太阴同宫；不以地盘丁替代天盘丁', sourceQuote:'休門六丁共太陰，欲求人遁無過此。', match:chart=>matching(chart,p=>sky(p).includes('丁')&&p.bamen==='休门'&&p.bashen==='太阴')},
+  {name:'五不遇时', type:'凶', description:'时干克日干且阴阳相同；依据本盘实际日时干，不以值符宫庚代替', sourceQuote:'時干來剋日干上，甲日須知時忌庚。', match:chart=>{
+    const day=stemOf(chart.dayGanZhi), hour=stemOf(chart.hourGanZhi);
+    if(!day||!hour)return null;
+    const d=STEMS.indexOf(day), h=STEMS.indexOf(hour);
+    return d%2===h%2&&(Math.floor(h/2)+2)%5===Math.floor(d/2)?[]:null;
+  }},
+  pairRule('太白入荧','庚','丙','凶','六庚加丙白入熒，六丙加庚熒入白。'),
+  pairRule('荧入太白','丙','庚','凶','六庚加丙白入熒，六丙加庚熒入白。'),
+  pairRule('朱雀投江','丁','癸','凶','六癸加丁蛇夭矯，六丁加癸雀投江。'),
+  pairRule('青龙逃走','乙','辛','凶','六乙加辛龍逃走，六辛加乙虎猖狂。'),
+  {name:'伏干格', type:'凶', description:'天盘庚加地盘日干；甲日按本日旬首所遁六仪定位，不把任一三奇当日干', sourceQuote:'庚加日干為伏干，日干加庚飛干格。', match:chart=>{const day=carrier(chart.dayGanZhi);return day?pair(chart,'庚',day):null;}},
+  {name:'飞干格', type:'凶', description:'天盘日干加地盘庚；甲日按本日旬首所遁六仪定位', sourceQuote:'庚加日干為伏干，日干加庚飛干格。', match:chart=>{const day=carrier(chart.dayGanZhi);return day?pair(chart,day,'庚'):null;}},
+  {name:'庚加时干', type:'中性', description:'天盘庚加地盘实际时干；只列本时关系，不冒称已经检查岁月日时全部条件', match:chart=>{const hour=carrier(chart.hourGanZhi);return hour?pair(chart,'庚',hour):null;}},
 ];
 
-// ────────────────────────────────────────────────────────
-// 命名凶格 (8)
-// ────────────────────────────────────────────────────────
+export const ALL_GE_JU: GeJuRule[] = [...BASE, ...THREE_QI, ...PUNISHMENT, ...NAMED];
 
-const NAMED_XIONG_GE: GeJuRule[] = [
-  {
-    name: '五不遇时',
-    type: '凶',
-    description: '时干克日干（阳克阳、阴克阴），用事大凶（简化版：检测庚、辛克木日干情况）',
-    match: (chart) => {
-      // 严格五不遇时需日干上下文。引擎当前未传入日干，
-      // 简化为：天盘庚临值符宫（克伐用神之象）
-      const valuePalace = chart.palaces.find(p => p.bashen === '值符');
-      if (!valuePalace) return null;
-      if (valuePalace.tianPanGan === '庚') {
-        return [valuePalace.id];
-      }
-      return null;
-    },
-  },
-  {
-    name: '太白入荧',
-    type: '凶',
-    description: '天盘庚加地盘丙，贼来偷营，主有惊恐',
-    match: (chart) => {
-      const ps = findTianAddDi(chart, '庚', '丙');
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '荧入太白',
-    type: '凶',
-    description: '天盘丙加地盘庚，宜守不宜攻、贼自退',
-    match: (chart) => {
-      const ps = findTianAddDi(chart, '丙', '庚');
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '朱雀投江',
-    type: '凶',
-    description: '天盘丁加地盘癸，文书口舌沉溺、音信不通',
-    match: (chart) => {
-      const ps = findTianAddDi(chart, '丁', '癸');
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '青龙逃走',
-    type: '凶',
-    description: '天盘乙加地盘辛，与白虎猖狂相反，主财损人离',
-    match: (chart) => {
-      const ps = findTianAddDi(chart, '乙', '辛');
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '飞干格',
-    type: '凶',
-    description: '天盘庚加地盘日干（简化版：庚加任一三奇即视触发）',
-    match: (chart) => {
-      // 简化：日干信息缺失，以庚加三奇近似
-      const ps = chart.palaces.filter(
-        p => p.tianPanGan === '庚' && p.diPanGan && ['乙', '丙', '丁'].includes(p.diPanGan)
-      );
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '伏干格',
-    type: '凶',
-    description: '天盘日干加地盘庚（简化版：三奇加庚视为触发）',
-    match: (chart) => {
-      const ps = chart.palaces.filter(
-        p => p.diPanGan === '庚' && p.tianPanGan && ['乙', '丙', '丁'].includes(p.tianPanGan)
-      );
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-  {
-    name: '岁月日时格',
-    type: '凶',
-    description: '六庚加岁/月/日/时干，用事不利（简化版：庚加戊视触发）',
-    match: (chart) => {
-      // 简化：年月日时干信息缺失，以庚加戊（旬首）作通用近似
-      const ps = findTianAddDi(chart, '庚', '戊');
-      return ps.length > 0 ? ps.map(p => p.id) : null;
-    },
-  },
-];
-
-// ────────────────────────────────────────────────────────
-// 汇总
-// ────────────────────────────────────────────────────────
-
-export const ALL_GE_JU: GeJuRule[] = [
-  ...TONG_YONG_GE,        // 10
-  ...SAN_QI_GE,           // 15
-  ...LIU_YI_JI_XING,      // 6
-  ...NAMED_JI_GE,         // 12
-  ...NAMED_XIONG_GE,      // 8
-];                        // = 51
-
-/** 检测一个盘上所有命中的格局 */
 export function detectGeJu(chart: QimenChart): GeJu[] {
-  const result: GeJu[] = [];
-  for (const rule of ALL_GE_JU) {
-    const palaceIds = rule.match(chart);
-    if (palaceIds && palaceIds.length > 0) {
-      result.push({
-        name: rule.name,
-        type: rule.type,
-        description: rule.description,
-        palaceIds,
-      });
-    }
-  }
-  return result;
+  return ALL_GE_JU.flatMap(rule=>{
+    const palaceIds=rule.match(chart);
+    if(palaceIds===null)return [];
+    const source=rule.source??(rule.sourceQuote?{
+      title:'烟波钓叟歌（在线转录）',url:'https://zh.wikisource.org/wiki/煙波釣叟歌',
+      quote:rule.sourceQuote,editionStatus:'transcription-not-checked-against-print',
+    }:undefined);
+    return [{name:rule.name, type:rule.type, description:rule.description,
+      ...(palaceIds.length?{palaceIds:[...new Set(palaceIds)]}:{}),
+      assessmentStatus:source?'traditional-condition-only' as const:'structural-fact-only' as const,
+      ...(source?{source}:{}),
+    }];
+  });
 }

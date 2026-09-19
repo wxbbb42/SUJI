@@ -4,6 +4,21 @@ Date: 2026-09-19. Branch: `codex/swiftui-rebuild`; original Expo baseline: `0857
 
 This is a native implementation and simulator verification record, not an App Store release certificate. Screens run in SwiftUI, deterministic TypeScript code runs locally in JavaScriptCore, and native services own persistence, audio, credentials and networking.
 
+## Mingli validation and SwiftUI-only follow-up — 2026-09-19
+
+Branch: `codex/mingli-validation`. Checkpoint `c89d93c` and its follow-up contain the native calendar, readings, UI and research changes. SwiftUI remains the only maintained client; CI rejects retired client paths and Expo / React Native dependencies. See [the validation plan](../docs/mingli/validation/PLAN.md) and [harness evidence and limits](../docs/mingli/validation/harness-final-validation.md).
+
+- Engine typecheck passed; **30 suites / 475 tests passed**, including 60 Qimen pattern tests (`/tmp/suji-geju-final-tests.log`).
+- Final bundled engine: SHA-256 `451036e701144f190def6f733d70b0d7589b95d8586ef02d0d70365c8d3fe9b0`; engine revision `4e1ef94cee4d5cd6fff63a2f36d05cd1c139ff075e81328a32cdb718ee727082`. A second generation of bundle, 11 fixtures and license notices was byte-for-byte identical. Xcode project regeneration also produced no changes.
+- Final Swift core under `America/Los_Angeles`: **106 tests passed**, including Node/JavaScriptCore parity, actual Swift replay of historical provider decisions, invalid batch atomicity, stable cast retries and read-only reflection history (`/tmp/suji-mingli-core-verified.log`).
+- Final signed iPhone 17 Pro simulator App/Widget build and **13 app-hosted tests passed** (`/tmp/suji-mingli-hosted-verified.xcresult`). Older race stubs were updated to return a real engine contract, preserving their delay and scope assertions.
+- Backend **14 tests passed** earlier in this validation stage (`/tmp/suji-mingli-backend-final.log`); backend code has not changed since. Public configuration **4 Python tests passed** in final verification. The native-only repository check and `git diff --check` passed.
+- Production-bundle Qimen regression at `2024-02-04T04:00Z` no longer emits the false ground-stem 戊击刑. Value-star/value-door palaces remain 3; the duty-door label includes only palace 3. Reproducible selected output is in `Engine/validation/research-divination/qimen-geju-regression.json`.
+- UI: 21 post-fix screenshots and their distinct build hashes are preserved in `Documentation/mingli-improvements/capture-manifest.json`. The final main journey passed alone; dark/four-tab and XXXL tests passed on an earlier build. The final hosted run compiled the newer receipt details and reflection archive UI; it did not recapture these screens or repeat the whole UI suite.
+- Four synthetic direct-provider model rounds are retained. Round 4 reported 8 accepted/3 rejected; independent review found false acceptance and false rejection. Actual Swift replay instead aborts one case before tool execution and renders fact-only recovery for two rejected cases. These counts are execution outcomes, not accuracy scores or a new authenticated end-to-end run.
+
+Official HKO daily comparison covers 1901–2100 (73,049 day rows; 73,000 complete lunar dates). The 2057 30-day discrepancy, uncollated printed editions, heuristic interpretation thresholds, model-verifier fallibility, global historical timezone support, manual VoiceOver and physical-device/distribution checks remain explicit limits. No claim of empirically validated prediction is made.
+
 ## SwiftUI-only repository — 2026-09-19
 
 The Expo / React Native client, root app package, Metro configuration, old UI assets, Zustand stores and client-side AI networking were retired after checkpoint `328bcff`. SwiftUI is the only maintained client. Its local deterministic sources and tests now live in the independent `native/Engine` package; historical Expo product documents are marked and archived under `docs/archive/expo`.

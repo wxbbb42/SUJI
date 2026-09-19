@@ -12,10 +12,10 @@ npm run build --prefix native/Engine
 TZ=America/Los_Angeles swift test --package-path native/Core
 ```
 
-The package declares all its dependencies. It does not require a root `node_modules` directory, Expo, React Native or `native/tooling`. The lockfile preserves the pre-retirement runtime dependency versions, and `useDefineForClassFields` preserves the original compilation semantics. The Jest suite runs in Beijing time, matching the engine's supported civil timezone.
+The package declares all its dependencies. It does not require a root `node_modules` directory, Expo, React Native or `native/tooling`. The lockfile pins MIT-licensed `lunar-javascript` 1.7.7 and `iztro` 2.5.8; `useDefineForClassFields` preserves the original compilation semantics. The Jest suite runs in Beijing time, matching the engine's supported civil timezone.
 
 `build.mjs` bundles `bridge.ts` and `src/` into the checked-in `../Resources/mingli.js`, then creates `../Resources/engine-fixtures.json` using an independent Node process timezone. `timezone.js` adapts Date operations to Beijing time inside JavaScriptCore. The Swift core suite compares both implementations under a different host timezone. Commit regenerated resources whenever engine source or dependencies change.
 
 `src/ai/tools` defines eight local calculations and their evidence. It performs no provider requests. The former Expo chat client, model settings, calibration session controller and network orchestration have been retired; the Swift equivalents live in `../App/Services` and `../Core`.
 
-Calculation sources were moved from `lib/` without changing their rules. Source citations and method limitations remain in `../../docs/mingli`. Migration parity does not establish the predictive accuracy of traditional interpretations.
+The initial retirement moved sources from `lib/` without rule changes. The subsequent accuracy audit corrected calendar boundaries, exact luck-cycle dates, Ziwei, Liuyao and Qimen rules; its independent evidence and remaining limits are in [the validation record](../../docs/mingli/validation/PLAN.md). Runtime parity does not establish algorithmic correctness or the predictive accuracy of traditional interpretations.

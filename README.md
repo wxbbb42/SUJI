@@ -4,6 +4,8 @@
 
 旧 Expo / React Native 构建已退役，页面、客户端依赖和构建入口均已移除。退役前的完整代码可从 Git 提交 `328bcff` 找回；历史设计文档位于 `docs/archive/expo`。
 
+唯一客户端工程为 `native/Suji.xcodeproj`。CI 会拒绝重新加入旧客户端目录、根目录 npm 构建入口及 Expo / React Native 依赖；`native/Engine` 和 `supabase` 的独立工具链继续维护。
+
 ## 运行
 
 使用 Xcode 26 或更新版本打开 `native/Suji.xcodeproj`，选择 **Suji** scheme 和 iPhone 模拟器，直接运行。原生工程、历法引擎 bundle 和资源已纳入版本控制，启动 App 无需安装 Node.js。
@@ -34,6 +36,9 @@ AI 需要登录，统一通过 Supabase 调用 **DeepSeek Flash**。用户无需
 ## 验证
 
 ```sh
+# 检查仓库只保留原生客户端
+python3 native/scripts/check-native-only.py
+
 # Swift 核心逻辑及跨时区引擎一致性
 TZ=America/Los_Angeles swift test --package-path native/Core
 
@@ -62,3 +67,5 @@ node scripts/ingest-mingli-kb.mjs
 ## License
 
 Private — All Rights Reserved. 第三方运行库授权随 App 附带在 `native/Resources/ThirdPartyNotices.txt`；字体与素材授权见同目录。
+
+命理引擎的独立资料、逐日历表对照、规则修复与模型评测限制见 [验证记录](docs/mingli/validation/PLAN.md)。最新构建与测试证据见 [原生验证](native/VERIFICATION.md)。

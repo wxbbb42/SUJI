@@ -90,4 +90,21 @@ final class ReflectionConversationTests: XCTestCase {
         XCTAssertEqual(conversation.completedReplyCount, 0)
         XCTAssertEqual(conversation.pendingEntry?.id, user.id)
     }
+
+    func testChangedIdentityAndImportedSessionsRemainDiscoverableWithoutJoiningCurrentHistory() throws {
+        let current = try context()
+        var active = ConversationEntry(role: "user", text: "当前资料")
+        active.toolContext = current
+        var old = ConversationEntry(role: "assistant", text: "旧资料下的回信")
+        old.toolContext = current
+        let imported = ConversationEntry(role: "assistant", text: "导入记录，没有计算身份")
+        let oldKey = key(revision: "older-engine")
+        let history = ReflectionConversation.archivedSessions([
+            key(): [active, imported], oldKey: [old], "calibration:legacy": [imported], "empty": [],
+        ], currentKey: key(), context: current)
+        XCTAssertEqual(Set(history.map(\.id)), Set([key(), oldKey, "calibration:legacy"]))
+        XCTAssertFalse(history.flatMap(\.entries).contains { $0.id == active.id })
+        XCTAssertEqual(history.first { $0.id == oldKey }?.entries.map(\.text), [old.text])
+        XCTAssertEqual(history.first { $0.id == key() }?.entries.map(\.text), [imported.text])
+    }
 }

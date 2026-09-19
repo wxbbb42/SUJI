@@ -67,6 +67,28 @@ public struct ReflectionConversation {
         return "reflection:v2:" + digest.finalize().map { String(format: "%02x", $0) }.joined()
     }
 
+    public struct ArchivedSession: Identifiable {
+        public let id: String
+        public let entries: [ConversationEntry]
+    }
+
+    /// Opaque identity hashes cannot recover their former topic or birth profile.
+    /// Keep all older sessions discoverable, grouped separately and read-only;
+    /// never feed these entries into the current conversation's model history.
+    public static func archivedSessions(_ reflections: [String: [ConversationEntry]], currentKey: String, context: ToolContext?) -> [ArchivedSession] {
+        reflections.compactMap { key, entries in
+            let archived = key == currentKey ? entries.filter { entry in
+                guard let expected = context, let actual = entry.toolContext else { return true }
+                return actual.birthFingerprint != expected.birthFingerprint || actual.engineRevision != expected.engineRevision
+            } : entries
+            return archived.isEmpty ? nil : ArchivedSession(id: key, entries: archived)
+        }.sorted {
+            let lhs = $0.entries.last?.date ?? .distantPast
+            let rhs = $1.entries.last?.date ?? .distantPast
+            return lhs == rhs ? $0.id < $1.id : lhs > rhs
+        }
+    }
+
     public enum Failure: LocalizedError {
         case pendingReply, nothingToRetry, questionTooLong, changedConversation, invalidReply
         public var errorDescription: String? {

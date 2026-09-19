@@ -24,8 +24,8 @@ struct ReflectionView: View {
         return actual.birthFingerprint == expected.birthFingerprint && actual.engineRevision == expected.engineRevision
     }
     private var messages: [ConversationEntry] { (store.state.reflections?[effectiveKey] ?? []).filter(matchesCurrent) }
-    private var olderMessages: [ConversationEntry] {
-        (store.state.reflections?[key] ?? []) + (store.state.reflections?[effectiveKey] ?? []).filter { !matchesCurrent($0) }
+    private var archivedSessions: [ReflectionConversation.ArchivedSession] {
+        ReflectionConversation.archivedSessions(store.state.reflections ?? [:], currentKey: effectiveKey, context: currentContext)
     }
     private var pendingReply: Bool { messages.last?.role == "user" }
     private var viewIdentity: String { store.scopeRevision.uuidString + ":" + effectiveKey }
@@ -65,11 +65,21 @@ struct ReflectionView: View {
                         Button("重试这次整理") { if !sourceChanged { session.retry(key: key, context: context, instruction: instruction, store: store) } }
                             .font(.subheadline).disabled(!store.isSignedIn || sourceChanged)
                     }
-                    if !olderMessages.isEmpty {
+                    if !archivedSessions.isEmpty {
                         DisclosureGroup("较早的整理（只读）") {
                             VStack(alignment: .leading, spacing: 22) {
-                                Text("这些记录没有当前资料与计算版本的依据，保留供你翻阅，不会用于本次 AI 整理。").font(.footnote).foregroundStyle(SujiTheme.secondary)
-                                ForEach(olderMessages) { messageView($0) }
+                                Text("这里保留了其他资料、主题或计算版本下的整理。每段记录独立展示，不会用于本次 AI 整理。").font(.footnote).foregroundStyle(SujiTheme.secondary)
+                                ForEach(archivedSessions) { archive in
+                                    DisclosureGroup {
+                                        VStack(alignment: .leading, spacing: 22) {
+                                            ForEach(archive.entries) { messageView($0) }
+                                        }.padding(.top, 12)
+                                    } label: {
+                                        if let date = archive.entries.first?.date {
+                                            Text(date, format: .dateTime.year().month().day().hour().minute())
+                                        }
+                                    }
+                                }
                             }.padding(.top, 16)
                         }.font(.subheadline)
                     }

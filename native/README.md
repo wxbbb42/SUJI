@@ -76,11 +76,11 @@ npm run build --prefix native/Engine
 
 All algorithm sources, dependencies and tests are contained in [Engine](Engine/README.md). The retired Expo build is available in Git at `328bcff`.
 
-Fixtures compare the original Node algorithms running in Beijing time with JavaScriptCore under a different host timezone, including midnight, night-zi, leap-day, longitude and solar-term boundaries. Equality is evidence of migration parity, not validation of traditional claims.
+Fixtures compare the current Node algorithms running in Beijing time with JavaScriptCore under a different host timezone, including midnight, night-zi, leap-day, longitude and solar-term boundaries. Equality is evidence of migration parity, not validation of traditional claims.
 
 ## Method boundaries
 
-Birth calculations currently require civil Beijing time (`Asia/Shanghai`) with explicit longitude. Historical daylight-saving and worldwide timezone conversion are not validated. The 23:00–23:59 calibration path is explicitly unavailable because the old candidate engine does not support it. Qimen and several pattern/timing rules retain MVP approximations; their metadata remains visible. Relationship views show interpretable stem/branch relationships instead of an unsupported compatibility score. The existing algorithms contain distinct traditional interpretations; forecasts are cultural reflection, not medical, financial or life-decision advice.
+Birth calculations currently require civil Beijing time (`Asia/Shanghai`) with explicit longitude. Historical daylight-saving and worldwide timezone conversion are not validated. The 23:00–23:59 calibration path is explicitly unavailable because the old candidate engine does not support it. Qimen uses a documented fixed 坤二寄宫 school and source-audited structural conditions; it is not a complete traditional auspicious-date solver. Pattern strength thresholds remain engineering heuristics, and their sensitivity and source limitations are recorded. Relationship views show interpretable stem/branch relationships instead of an unsupported compatibility score. The existing algorithms contain distinct traditional interpretations; forecasts are cultural reflection, not medical, financial or life-decision advice.
 
 The app is not an App Store release. Real device haptics, prolonged audio quality/background behavior and full account delivery still require final release testing. Paid subscriptions and gift-commerce were deliberately excluded from this approved rebuild.
 

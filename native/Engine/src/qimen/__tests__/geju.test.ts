@@ -46,304 +46,184 @@ function makeChart(palaceOverrides: Array<Partial<Palace>>): QimenChart {
   };
 }
 
-// ────────────────────────────────────────────────────────
-// 结构性测试
-// ────────────────────────────────────────────────────────
+// Expected facts below come from explicit classical pairings and full plate
+// fixtures, not the implementation's old count thresholds or matching tables.
+import { QimenEngine } from '../QimenEngine';
+import type { TianGan, BamenName, JiuxingName } from '../types';
 
-describe('ALL_GE_JU', () => {
-  it('exports 45-60 格局（spec ADR-5 接受范围）', () => {
-    expect(ALL_GE_JU.length).toBeGreaterThanOrEqual(45);
-    expect(ALL_GE_JU.length).toBeLessThanOrEqual(60);
-  });
+function names(chart: QimenChart): string[] { return detectGeJu(chart).map(item => item.name); }
+function one(id: number, data: Partial<Palace>, metadata: Partial<QimenChart> = {}): QimenChart {
+  const overrides: Array<Partial<Palace>> = Array.from({length:9},()=>({}));
+  overrides[id-1]=data;
+  return {...makeChart(overrides),...metadata};
+}
 
-  it('all rules have name, type, description, match', () => {
-    for (const rule of ALL_GE_JU) {
-      expect(rule.name).toBeTruthy();
-      expect(['吉', '凶', '中性']).toContain(rule.type);
-      expect(rule.description).toBeTruthy();
-      expect(typeof rule.match).toBe('function');
+describe('Reviewed rule scope', () => {
+  it('has unique documented rules without unsupported MVP names or event guarantees', () => {
+    expect(new Set(ALL_GE_JU.map(rule=>rule.name)).size).toBe(ALL_GE_JU.length);
+    for(const old of ['玄武当权','神遁','鬼遁','风遁','云遁','龙遁','虎遁','岁月日时格','玉女守门','丙奇受制']) {
+      expect(ALL_GE_JU.map(rule=>rule.name)).not.toContain(old);
     }
-  });
-
-  it('rule names are unique', () => {
-    const names = ALL_GE_JU.map(r => r.name);
-    expect(new Set(names).size).toBe(names.length);
-  });
-
-  it('contains key 通用 / 命名 格局', () => {
-    const names = ALL_GE_JU.map(r => r.name);
-    const keyOnes = ['伏吟', '反吟', '值符', '入墓', '飞鸟跌穴', '青龙返首', '玉女守门'];
-    for (const k of keyOnes) {
-      expect(names).toContain(k);
-    }
+    expect(ALL_GE_JU.map(rule=>rule.description).join()).not.toMatch(/求事必成|诸事顺|破财得病|事易成/);
+    expect(detectGeJu(makeChart([]))).toEqual([]);
   });
 });
 
-// ────────────────────────────────────────────────────────
-// Fixture 测试：通用格
-// ────────────────────────────────────────────────────────
-
-describe('detectGeJu - 伏吟', () => {
-  it('triggers when ≥3 palaces have same di+tian gan', () => {
-    const overrides: Array<Partial<Palace>> = [
-      { diPanGan: '甲', tianPanGan: '甲' },
-      { diPanGan: '乙', tianPanGan: '乙' },
-      { diPanGan: '丙', tianPanGan: '丙' },
-      {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '伏吟')).toBe(true);
+describe('Full stars and doors, never a stem-count proxy', () => {
+  const homeStars: Array<JiuxingName> = ['天蓬','天芮','天冲','天辅','天禽','天心','天柱','天任','天英'];
+  const reversedStars: Array<JiuxingName> = ['天英','天任','天柱','天心','天禽','天辅','天冲','天芮','天蓬'];
+  const homeDoors: Array<BamenName|null> = ['休门','死门','伤门','杜门',null,'开门','惊门','生门','景门'];
+  const reversedDoors: Array<BamenName|null> = ['景门','生门','惊门','开门',null,'杜门','伤门','死门','休门'];
+  it('distinguishes star and door repetition independently', () => {
+    const chart=makeChart(homeStars.map((jiuxing,i)=>({jiuxing,bamen:reversedDoors[i]})));
+    expect(names(chart)).toContain('伏吟');
+    expect(names(chart)).toContain('八门反吟');
+    expect(names(chart)).not.toContain('反吟');
+    expect(names(chart)).not.toContain('八门伏吟');
   });
-
-  it('does NOT trigger with only 2 matching palaces', () => {
-    const overrides: Array<Partial<Palace>> = [
-      { diPanGan: '甲', tianPanGan: '甲' },
-      { diPanGan: '乙', tianPanGan: '乙' },
-      {}, {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '伏吟')).toBe(false);
+  it('recognizes opposite star palaces and doors at home', () => {
+    const chart=makeChart(reversedStars.map((jiuxing,i)=>({jiuxing,bamen:homeDoors[i]})));
+    expect(names(chart)).toContain('反吟');
+    expect(names(chart)).toContain('八门伏吟');
+    expect(names(chart)).not.toContain('伏吟');
   });
-});
-
-describe('detectGeJu - 反吟', () => {
-  it('triggers when ≥3 palaces have opposing tian/di gan (甲庚 / 乙辛 / 丙壬)', () => {
-    const overrides: Array<Partial<Palace>> = [
-      { diPanGan: '甲', tianPanGan: '庚' },
-      { diPanGan: '乙', tianPanGan: '辛' },
-      { diPanGan: '丙', tianPanGan: '壬' },
-      {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '反吟')).toBe(true);
+  it('rejects a partial plate and both old arbitrary three-stem conditions', () => {
+    expect(names(makeChart([{diPanGan:'甲',tianPanGan:'甲'},{diPanGan:'乙',tianPanGan:'乙'},{diPanGan:'丙',tianPanGan:'丙'}]))).not.toContain('伏吟');
+    expect(names(makeChart([{diPanGan:'甲',tianPanGan:'庚'},{diPanGan:'乙',tianPanGan:'辛'},{diPanGan:'丙',tianPanGan:'壬'}]))).not.toContain('反吟');
+    const chart=makeChart(homeStars.map(jiuxing=>({jiuxing})));
+    chart.palaces[0].jiuxing=null;
+    expect(names(chart)).not.toContain('伏吟');
   });
 });
 
-describe('detectGeJu - 值符', () => {
-  it('triggers when 值符神 is on 吉门 palace', () => {
-    const overrides: Array<Partial<Palace>> = [
-      { bashen: '值符', bamen: '开门' },
-      {}, {}, {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '值符')).toBe(true);
+describe('Six instruments and tombs use the moving sky plate', () => {
+  test.each([['戊',3],['己',2],['庚',8],['辛',9],['壬',4],['癸',4]] as const)('%s punishment requires sky placement in palace %s', (gan,id)=>{
+    expect(names(one(id,{tianPanGan:gan}))).toContain(`${gan}击刑`);
+    expect(names(one(id,{diPanGan:gan,tianPanGan:'乙'}))).not.toContain(`${gan}击刑`);
+    expect(names(one(1,{tianPanGan:gan}))).not.toContain(`${gan}击刑`);
   });
-
-  it('does NOT trigger when 值符 is on 凶门', () => {
-    const overrides: Array<Partial<Palace>> = [
-      { bashen: '值符', bamen: '伤门' },
-      {}, {}, {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '值符')).toBe(false);
+  test.each([['乙',6],['丙',6],['丁',8],['戊',6],['己',8],['庚',8],['辛',4],['壬',4],['癸',2]] as const)('%s tomb is palace %s in the selected Qimen table', (gan,id)=>{
+    expect(names(one(id,{tianPanGan:gan}))).toContain('入墓');
+    expect(names(one(id,{diPanGan:gan}))).not.toContain('入墓');
   });
-});
-
-// ────────────────────────────────────────────────────────
-// Fixture 测试：六仪击刑
-// ────────────────────────────────────────────────────────
-
-describe('detectGeJu - 六仪击刑', () => {
-  it('戊击刑：戊在震宫 (3)', () => {
-    const overrides: Array<Partial<Palace>> = [
-      {}, {},
-      { diPanGan: '戊' }, // index 2 = palace id 3 (震宫)
-      {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '戊击刑')).toBe(true);
+  it('does not put Yi in Kun tomb and accounts for hosted sky stems', ()=>{
+    expect(names(one(2,{tianPanGan:'乙'}))).not.toContain('乙奇入墓');
+    expect(names(one(6,{tianPanGan:'乙'}))).toContain('乙奇入墓');
+    expect(names(one(4,{tianPanGan:'乙',hostedTianPanGan:'壬'}))).toContain('壬击刑');
+    expect(names(one(5,{tianPanGan:'庚',diPanGan:'丙'}))).not.toContain('太白入荧');
   });
-
-  it('庚击刑：庚在艮宫 (8)', () => {
-    const overrides: Array<Partial<Palace>> = [
-      {}, {}, {}, {}, {}, {}, {},
-      { tianPanGan: '庚' }, // index 7 = palace id 8 (艮宫)
-      {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '庚击刑')).toBe(true);
+  it('does not reproduce the round4 false Wu punishment', ()=>{
+    const chart=new QimenEngine().setup({setupTime:new Date('2024-02-04T04:00:00Z'),question:'项目',questionType:'general'});
+    expect(chart.palaces.find(p=>p.id===3)?.diPanGan).toBe('戊');
+    expect(chart.palaces.find(p=>p.id===3)?.tianPanGan).toBe('癸');
+    expect(names(chart)).not.toContain('戊击刑');
   });
-
-  it('壬击刑 / 癸击刑：壬癸在巽宫 (4)', () => {
-    const overrides: Array<Partial<Palace>> = [
-      {}, {}, {},
-      { tianPanGan: '壬' }, // index 3 = palace id 4 (巽宫)
-      {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '壬击刑')).toBe(true);
-  });
-
-  it('does NOT trigger 戊击刑 when 戊 is in another palace', () => {
-    const overrides: Array<Partial<Palace>> = [
-      { diPanGan: '戊' }, // 坎宫，不是震宫
-      {}, {}, {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '戊击刑')).toBe(false);
+  it('attributes the full tomb table separately from the poem about the three Qi', ()=>{
+    const rules=detectGeJu(one(6,{tianPanGan:'乙'}));
+    expect(rules.find(rule=>rule.name==='入墓')?.source).toEqual(expect.objectContaining({
+      title:'qimen-go QMTomb（所选奇门墓库表）',
+      editionStatus:'selected-implementation-table-not-classical-edition',
+    }));
+    expect(rules.find(rule=>rule.name==='乙奇入墓')?.source?.title).toBe('烟波钓叟歌（在线转录）');
   });
 });
 
-// ────────────────────────────────────────────────────────
-// Fixture 测试：命名吉格
-// ────────────────────────────────────────────────────────
-
-describe('detectGeJu - 飞鸟跌穴', () => {
-  it('triggers when 天盘丙 加 地盘戊', () => {
-    const overrides: Array<Partial<Palace>> = [
-      { diPanGan: '戊', tianPanGan: '丙' },
-      {}, {}, {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '飞鸟跌穴')).toBe(true);
+describe('Chief door is one actual door', ()=>{
+  it('marks only the real chief palace, not every good door', ()=>{
+    const chart=makeChart([{bamen:'开门'},{},{bamen:'生门'},{},{},{},{},{bamen:'休门'}]);
+    chart.zhiShiMen='生门';chart.zhiShiPalaceId=3;
+    expect(detectGeJu(chart).find(item=>item.name==='值使为三吉门')?.palaceIds).toEqual([3]);
+    chart.zhiShiMen='伤门';chart.zhiShiPalaceId=4;chart.palaces[3].bamen='伤门';
+    expect(names(chart)).not.toContain('值使为三吉门');
+  });
+  it('only reports real chief-door contact with earth Ding', ()=>{
+    expect(names(one(1,{diPanGan:'丁',bamen:'休门'},{zhiShiMen:'休门',zhiShiPalaceId:1}))).toContain('值使临地盘丁');
+    expect(names(one(1,{tianPanGan:'丁',bamen:'生门'},{zhiShiMen:'生门',zhiShiPalaceId:1}))).not.toContain('值使临地盘丁');
+    expect(names(one(1,{diPanGan:'丁',bamen:'生门'},{zhiShiMen:'休门',zhiShiPalaceId:8}))).not.toContain('值使临地盘丁');
   });
 });
 
-describe('detectGeJu - 青龙返首', () => {
-  it('triggers when 天盘戊 加 地盘丙', () => {
-    const overrides: Array<Partial<Palace>> = [
-      { diPanGan: '丙', tianPanGan: '戊' },
-      {}, {}, {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '青龙返首')).toBe(true);
+describe('Specific Qi/instrument pairs rather than all Qi over Wu', ()=>{
+  test.each([['乙','己'],['乙','辛'],['丙','戊'],['丙','庚'],['丁','壬'],['丁','癸']] as const)('%s over %s is a poem pairing', (qi,instrument)=>{
+    expect(names(one(1,{tianPanGan:qi,diPanGan:instrument}))).toContain(`${qi}奇得使`);
+    expect(names(one(1,{tianPanGan:instrument,diPanGan:qi}))).not.toContain(`${qi}奇得使`);
+  });
+  it('rejects Yi/Wu and Ding/Wu and does not say Geng metal controls fire', ()=>{
+    expect(names(one(1,{tianPanGan:'乙',diPanGan:'戊'}))).not.toContain('乙奇得使');
+    expect(names(one(1,{tianPanGan:'丁',diPanGan:'戊'}))).not.toContain('丁奇得使');
+    const fact=detectGeJu(one(1,{tianPanGan:'丙',diPanGan:'庚'})).find(item=>item.name==='丙与庚叠盘');
+    expect(fact?.assessmentStatus).toBe('structural-fact-only');
+  });
+  it('includes the center earth stem only under explicit fixed-Kun hosting', ()=>{
+    const chart=makeChart([{}, {tianPanGan:'丙',diPanGan:'壬'}, {}, {}, {diPanGan:'戊'}]);
+    expect(names(chart)).not.toContain('飞鸟跌穴');
+    chart.method.centerPolicy='fixed-kun-2; tian-qin-follows-tian-rui';
+    expect(detectGeJu(chart).find(item=>item.name==='飞鸟跌穴')?.palaceIds).toEqual([2]);
+  });
+  it('reports the old ascension positions literally without claiming an established home', ()=>{
+    const fact=detectGeJu(one(3,{tianPanGan:'乙'})).find(item=>item.name==='乙奇临震三');
+    expect(fact?.assessmentStatus).toBe('structural-fact-only');
+    expect(fact?.source).toBeUndefined();
+    expect(names(one(3,{tianPanGan:'乙'}))).not.toContain('乙奇升殿');
   });
 });
 
-describe('detectGeJu - 玉女守门', () => {
-  it('triggers when 丁 + 生门 同宫', () => {
-    const overrides: Array<Partial<Palace>> = [
-      { tianPanGan: '丁', bamen: '生门' },
-      {}, {}, {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '玉女守门')).toBe(true);
+describe('Three escapes preserve heaven/earth roles', ()=>{
+  it('Heaven requires Bing over Ding and Life door, not Nine Heaven', ()=>{
+    expect(names(one(1,{tianPanGan:'丙',diPanGan:'丁',bamen:'生门'}))).toContain('天遁');
+    expect(names(one(1,{tianPanGan:'丙',diPanGan:'戊',bamen:'生门',bashen:'九天'}))).not.toContain('天遁');
+    expect(names(one(1,{tianPanGan:'丁',diPanGan:'丙',bamen:'生门'}))).not.toContain('天遁');
+  });
+  it('Earth requires Yi over Ji and Open door, not Nine Earth', ()=>{
+    expect(names(one(1,{tianPanGan:'乙',diPanGan:'己',bamen:'开门'}))).toContain('地遁');
+    expect(names(one(1,{tianPanGan:'乙',diPanGan:'戊',bamen:'开门',bashen:'九地'}))).not.toContain('地遁');
+  });
+  it('Human requires sky Ding, Rest door and Taiyin', ()=>{
+    expect(names(one(1,{tianPanGan:'丁',bamen:'休门',bashen:'太阴'}))).toContain('人遁');
+    expect(names(one(1,{diPanGan:'丁',bamen:'休门',bashen:'太阴'}))).not.toContain('人遁');
   });
 });
 
-// ────────────────────────────────────────────────────────
-// Fixture 测试：命名凶格
-// ────────────────────────────────────────────────────────
-
-describe('detectGeJu - 大格 / 小格 / 刑格', () => {
-  it('大格：庚加癸', () => {
-    const overrides: Array<Partial<Palace>> = [
-      { tianPanGan: '庚', diPanGan: '癸' },
-      {}, {}, {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '大格')).toBe(true);
+describe('Actual day/hour conditions', ()=>{
+  test.each([['甲子','庚午'],['乙丑','辛巳'],['丙寅','壬辰'],['丁卯','癸卯'],['戊辰','甲寅'],['己巳','乙丑'],['庚午','丙子'],['辛未','丁酉'],['壬申','戊申'],['癸酉','己未']])('%s / %s meets same-polarity hour control', (dayGanZhi,hourGanZhi)=>{
+    expect(names({...makeChart([]),dayGanZhi,hourGanZhi})).toContain('五不遇时');
   });
-
-  it('小格：庚加壬', () => {
-    const overrides: Array<Partial<Palace>> = [
-      { tianPanGan: '庚', diPanGan: '壬' },
-      {}, {}, {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '小格')).toBe(true);
+  it('does not substitute a sky Geng chief or opposite polarity', ()=>{
+    expect(names(one(1,{tianPanGan:'庚',bashen:'值符'}))).not.toContain('五不遇时');
+    expect(names({...makeChart([]),dayGanZhi:'甲子',hourGanZhi:'辛未'})).not.toContain('五不遇时');
   });
-
-  it('刑格：庚加己', () => {
-    const overrides: Array<Partial<Palace>> = [
-      { tianPanGan: '庚', diPanGan: '己' },
-      {}, {}, {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '刑格')).toBe(true);
+  it('names flying/hidden stems correctly and uses the actual day stem', ()=>{
+    expect(names(one(1,{tianPanGan:'庚',diPanGan:'乙'},{dayGanZhi:'乙丑'}))).toContain('伏干格');
+    expect(names(one(1,{tianPanGan:'庚',diPanGan:'乙'},{dayGanZhi:'乙丑'}))).not.toContain('飞干格');
+    expect(names(one(1,{tianPanGan:'乙',diPanGan:'庚'},{dayGanZhi:'乙丑'}))).toContain('飞干格');
+    expect(names(one(1,{tianPanGan:'庚',diPanGan:'乙'},{dayGanZhi:'壬子'}))).not.toContain('伏干格');
+    expect(names(one(1,{tianPanGan:'庚',diPanGan:'辛'},{dayGanZhi:'甲午'}))).toContain('伏干格');
+    expect(names(one(1,{tianPanGan:'庚',diPanGan:'辛'},{dayGanZhi:'甲子'}))).not.toContain('伏干格');
   });
-});
-
-describe('detectGeJu - 太白入荧 / 荧入太白', () => {
-  it('太白入荧：庚加丙', () => {
-    const overrides: Array<Partial<Palace>> = [
-      { tianPanGan: '庚', diPanGan: '丙' },
-      {}, {}, {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '太白入荧')).toBe(true);
+  it('uses the actual hour carrier and rejects impossible sexagenary pairs', ()=>{
+    expect(names(one(1,{tianPanGan:'庚',diPanGan:'辛'},{hourGanZhi:'甲午'}))).toContain('庚加时干');
+    expect(names(one(1,{tianPanGan:'庚',diPanGan:'辛'},{hourGanZhi:'甲子'}))).not.toContain('庚加时干');
+    const invalid=one(1,{tianPanGan:'庚',diPanGan:'戊'},{dayGanZhi:'甲丑',hourGanZhi:'甲丑'});
+    expect(names(invalid)).not.toContain('伏干格');
+    expect(names(invalid)).not.toContain('庚加时干');
+    expect(names(invalid)).not.toContain('五不遇时');
   });
-
-  it('荧入太白：丙加庚', () => {
-    const overrides: Array<Partial<Palace>> = [
-      { tianPanGan: '丙', diPanGan: '庚' },
-      {}, {}, {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '荧入太白')).toBe(true);
+  it('keeps a global time condition without fabricating a palace', ()=>{
+    const result=detectGeJu({...makeChart([]),dayGanZhi:'甲子',hourGanZhi:'庚午'}).find(rule=>rule.name==='五不遇时');
+    expect(result).toBeDefined();
+    expect(result?.palaceIds).toBeUndefined();
+    expect(result?.assessmentStatus).toBe('traditional-condition-only');
   });
 });
 
-// ────────────────────────────────────────────────────────
-// Fixture 测试：三奇格
-// ────────────────────────────────────────────────────────
-
-describe('detectGeJu - 三奇升殿', () => {
-  it('乙奇升殿：乙临震宫 (3)', () => {
-    const overrides: Array<Partial<Palace>> = [
-      {}, {},
-      { tianPanGan: '乙' }, // 震宫
-      {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '乙奇升殿')).toBe(true);
-  });
-
-  it('丙奇升殿：丙临离宫 (9)', () => {
-    const overrides: Array<Partial<Palace>> = [
-      {}, {}, {}, {}, {}, {}, {}, {},
-      { tianPanGan: '丙' }, // 离宫
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '丙奇升殿')).toBe(true);
-  });
-
-  it('丁奇升殿：丁临兑宫 (7)', () => {
-    const overrides: Array<Partial<Palace>> = [
-      {}, {}, {}, {}, {}, {},
-      { tianPanGan: '丁' }, // 兑宫
-      {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '丁奇升殿')).toBe(true);
-  });
-});
-
-describe('detectGeJu - 三奇遇吉门', () => {
-  it('乙奇遇吉门：乙 + 开门', () => {
-    const overrides: Array<Partial<Palace>> = [
-      { tianPanGan: '乙', bamen: '开门' },
-      {}, {}, {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    expect(result.some(g => g.name === '乙奇遇吉门')).toBe(true);
-  });
-});
-
-// ────────────────────────────────────────────────────────
-// 集成测试
-// ────────────────────────────────────────────────────────
-
-describe('detectGeJu - empty chart', () => {
-  it('returns empty array when no rules match', () => {
-    const overrides: Array<Partial<Palace>> = [
-      {}, {}, {}, {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    // 注意：可能空 chart 也会触发"值使"（吉门检测）等规则；只验证返回类型
-    expect(Array.isArray(result)).toBe(true);
-  });
-});
-
-describe('detectGeJu - 多格局并发', () => {
-  it('chart 同时触发多个格局', () => {
-    const overrides: Array<Partial<Palace>> = [
-      { tianPanGan: '丙', diPanGan: '戊', bashen: '值符', bamen: '开门' }, // 飞鸟跌穴 + 值符
-      {}, {}, {}, {}, {}, {}, {}, {},
-    ];
-    const result = detectGeJu(makeChart(overrides));
-    const names = result.map(g => g.name);
-    expect(names).toContain('飞鸟跌穴');
-    expect(names).toContain('值符');
+describe('Named directional pairs', ()=>{
+  test.each([
+    ['飞鸟跌穴','丙','戊'],['青龙返首','戊','丙'],['大格','庚','癸'],['上格','庚','壬'],['刑格','庚','己'],
+    ['太白入荧','庚','丙'],['荧入太白','丙','庚'],['朱雀投江','丁','癸'],['青龙逃走','乙','辛'],['白虎猖狂','辛','乙'],
+  ] as const)('%s preserves its top/bottom order', (name,above,below)=>{
+    const match=detectGeJu(one(1,{tianPanGan:above,diPanGan:below})).find(item=>item.name===name);
+    expect(match?.assessmentStatus).toBe('traditional-condition-only');
+    expect(match?.source?.quote).toBeTruthy();
+    expect(names(one(1,{tianPanGan:below,diPanGan:above}))).not.toContain(name);
   });
 });

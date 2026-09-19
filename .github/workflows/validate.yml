@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: SwiftUI is the only client
+        run: python3 native/scripts/check-native-only.py
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
