@@ -36,14 +36,14 @@ Sign in via **我的 → 设置 → 账户与云端资料**. AI uses **DeepSeek 
 
 ## Accounts and migration
 
-The optional `Resources/PublicConfig.plist` contains only `SUPABASE_URL` and `SUPABASE_ANON_KEY`. It is ignored by git. To reuse the old app's public configuration from `.env`/`.env.local`, run:
+The optional `Resources/PublicConfig.plist` contains only `SUPABASE_URL` and `SUPABASE_ANON_KEY`. It is ignored by git. Set `SUPABASE_URL` and `SUPABASE_ANON_KEY` in the repository's `.env.local` (see `.env.example`), then run:
 
 ```sh
 python3 native/scripts/configure-public.py
 python3 native/scripts/generate-project.py
 ```
 
-Private model keys and Supabase service-role credentials are never copied. Configure `suji-native://auth/callback` and `suji-native://auth/reset` as allowed redirects in the existing Supabase project's auth settings before using Google OAuth or password recovery. Email/Google and the existing `profiles` table are supported. The AI backend adds a separate quota table/function; it does not change profiles.
+Existing `EXPO_PUBLIC_SUPABASE_*` names remain accepted only to migrate local configuration; new setups should use the names above. Only publishable keys or anon-role JWTs are accepted. Private model keys and Supabase service-role credentials are never copied. Configure `suji-native://auth/callback` and `suji-native://auth/reset` as allowed redirects in the existing Supabase project's auth settings before using Google OAuth or password recovery. Email/Google and the existing `profiles` table are supported. The AI backend adds a separate quota table/function; it does not change profiles.
 
 The SwiftData notebook is stored in the app’s private container, with CloudKit disabled. Only the daily widget snapshot is written to the App Group. A prerelease shared notebook, if present, is migrated into the private store after a verified private backup; existing private rows win conflicts, and unrelated shared files are retained. Switching accounts saves the active notebook and loads an independent `local` or `user:<id>` notebook. Cloud push/pull is explicit. Cloud profile sync restores birth metadata and onboarding state; legacy model fields are ignored. The cloud profile does not contain conversations, journals, rituals or AI keys.
 
@@ -57,9 +57,12 @@ TZ=America/Los_Angeles swift test --package-path native/Core
 # Keychain, SwiftData account isolation, widget payload and native UI flows
 xcodebuild -project native/Suji.xcodeproj -scheme Suji \
   -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test
-# Original algorithms and TypeScript baseline
-npm test -- --runInBand
-npx tsc --noEmit
+# Public app configuration and credential separation
+python3 -m unittest discover -s native/scripts/tests -v
+# Deterministic engine (independent of any client framework)
+npm ci --prefix native/Engine
+npm run typecheck --prefix native/Engine
+npm test --prefix native/Engine
 ```
 
 UI tests use an in-memory notebook via a Debug-only test launch argument and attach actual simulator screenshots. They do not overwrite a user's persistent notebook. The test run contains no live AI/auth requests with user credentials. See `VERIFICATION.md` for executed results and remaining physical-device/online checks.
@@ -67,9 +70,11 @@ UI tests use an in-memory notebook via a Debug-only test launch argument and att
 To regenerate the deterministic engine and independent Node fixtures:
 
 ```sh
-npm ci --prefix native/tooling
-node native/Engine/build.mjs
+npm ci --prefix native/Engine
+npm run build --prefix native/Engine
 ```
+
+All algorithm sources, dependencies and tests are contained in [Engine](Engine/README.md). The retired Expo build is available in Git at `328bcff`.
 
 Fixtures compare the original Node algorithms running in Beijing time with JavaScriptCore under a different host timezone, including midnight, night-zi, leap-day, longitude and solar-term boundaries. Equality is evidence of migration parity, not validation of traditional claims.
 

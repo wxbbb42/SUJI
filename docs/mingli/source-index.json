@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-07T06:41:02.566Z",
+  "generatedAt": "2026-09-19T06:18:25.371Z",
   "sourceCount": 49,
-  "claimCount": 36,
+  "claimCount": 46,
   "domains": {
     "academic": [
       {
@@ -1117,15 +1117,13 @@
       "confidence": "medium_high"
     },
     {
-      "id": "bazi.geju-thresholds.engineering",
+      "id": "bazi.deling.structural-boolean",
       "domain": "bazi",
       "sourceIds": [
-        "bazi-yuanhai-ziping",
-        "bazi-ziping-zhenquan",
-        "bazi-sanming-tonghui"
+        "bazi-ziping-zhenquan"
       ],
-      "status": "engineering_threshold_no_classical_basis",
-      "confidence": "high_for_engineering_choice_no_classical_basis"
+      "status": "classical_grounded",
+      "confidence": "high"
     },
     {
       "id": "bazi.geju.cai.chengbai",
@@ -1183,6 +1181,16 @@
       "confidence": "medium_high_for_online_text_pending_print_verification"
     },
     {
+      "id": "bazi.geju.rank-criteria",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan",
+        "bazi-ditiansui"
+      ],
+      "status": "classical_grounded_qing-zhuo-pending",
+      "confidence": "high_for_four-criteria_principle_medium_for_qing-zhuo-integration"
+    },
+    {
       "id": "bazi.geju.xiangshen-required",
       "domain": "bazi",
       "sourceIds": [
@@ -1210,6 +1218,16 @@
       "confidence": "medium_high_for_online_text_pending_print_verification"
     },
     {
+      "id": "bazi.hannuanzaoshi.structural-rules",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ditiansui",
+        "bazi-qiongtong-baojian"
+      ],
+      "status": "classical_grounded",
+      "confidence": "high"
+    },
+    {
       "id": "bazi.hidden-stems.table",
       "domain": "bazi",
       "sourceIds": [
@@ -1218,6 +1236,15 @@
       ],
       "status": "text_cited_needs_version_fixture",
       "confidence": "medium_high_for_common_table_medium_for_version"
+    },
+    {
+      "id": "bazi.jiuying.path-classification",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "classical_grounded",
+      "confidence": "high_for_classical_classification_medium_for_per-path-implementation"
     },
     {
       "id": "bazi.open-phase.thresholds-borrowed",
@@ -1237,6 +1264,25 @@
       ],
       "status": "design_pattern_borrowed_from_open_source",
       "confidence": "high_for_design_pattern"
+    },
+    {
+      "id": "bazi.qingzhuo.structural-proxy",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ditiansui"
+      ],
+      "status": "classical_grounded_with_engineering_proxy",
+      "confidence": "medium_phase2_starter_approximation"
+    },
+    {
+      "id": "bazi.rizhushuruo.five-tier-structural",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan",
+        "bazi-ditiansui"
+      ],
+      "status": "classical_grounded",
+      "confidence": "high"
     },
     {
       "id": "bazi.school-vote.weights-borrowed",
@@ -1290,17 +1336,6 @@
       "confidence": "high_for_engineering_choice_no_classical_basis"
     },
     {
-      "id": "bazi.wuxing-strength.scoring-coefficients-engineering",
-      "domain": "bazi",
-      "sourceIds": [
-        "bazi-ditiansui",
-        "bazi-sanming-tonghui",
-        "bazi-yuanhai-ziping"
-      ],
-      "status": "engineering_threshold_no_classical_basis",
-      "confidence": "high_for_engineering_choice_no_classical_basis"
-    },
-    {
       "id": "bazi.wuxing.seasonal-prosperity.requires-tongbian",
       "domain": "bazi",
       "sourceIds": [
@@ -1308,6 +1343,24 @@
       ],
       "status": "text_cited_needs_algorithm_review",
       "confidence": "medium_high"
+    },
+    {
+      "id": "bazi.xiangshen.cheng-po-rule",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "classical_principle_partial_implementation",
+      "confidence": "high_for_principle_low_for_implementation_completeness"
+    },
+    {
+      "id": "bazi.xiangshen.definition",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "classical_grounded_default-mapping-needs-printed-edition-review",
+      "confidence": "high_for_classical_text_medium_for_per-geju-default"
     },
     {
       "id": "bazi.yongshen-priority.product-decision",
@@ -1319,6 +1372,34 @@
       ],
       "status": "engineering_priority_choice_needs_copy_audit",
       "confidence": "high_for_product_decision_low_for_classical_alignment"
+    },
+    {
+      "id": "bazi.yongshen.bianhua-trigger",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "classical_grounded_edge-cases-need-printed-edition-review",
+      "confidence": "high_for_principle_medium_for_zhuanqi-edge-cases"
+    },
+    {
+      "id": "bazi.yongshen.priority-chain",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "classical_grounded",
+      "confidence": "high_for_priority_principle_medium_for_zhongqi-vs-yuqi-order"
+    },
+    {
+      "id": "bazi.yueling.wang-xiang-xiu-qiu-si",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan",
+        "bazi-ditiansui"
+      ],
+      "status": "classical_grounded",
+      "confidence": "high"
     },
     {
       "id": "bazi.ziping-zhenquan.geju-chengbai-jiuying",
@@ -1364,6 +1445,16 @@
       ],
       "status": "new_claim_needs_algorithm_design",
       "confidence": "medium_high_for_first_pass_text_low_for_edition"
+    },
+    {
+      "id": "bazi.zuoren.yang-gan-only",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan",
+        "bazi-yuanhai-ziping"
+      ],
+      "status": "classical_grounded",
+      "confidence": "high"
     },
     {
       "id": "product.no-absolute-fortune-claims",

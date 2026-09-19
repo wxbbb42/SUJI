@@ -1,22 +1,65 @@
 #!/usr/bin/env python3
-"""Copy only Supabase's public app configuration; never copy model or service keys."""
-import pathlib, plistlib, os
+"""Prepare public Supabase app configuration, including legacy env migration."""
+import base64
+import json
+import os
+import pathlib
+import plistlib
 from urllib.parse import urlparse
-root = pathlib.Path(__file__).resolve().parents[1]
-values = {}
-for source in [root.parent/'.env', root.parent/'.env.local']:
-    if source.exists():
+
+
+PUBLIC_KEYS = ('SUPABASE_URL', 'SUPABASE_ANON_KEY')
+
+
+def public_values(values):
+    """Canonical names win within each source; legacy names are migration-only."""
+    return {
+        key: values.get(key) or values.get('EXPO_PUBLIC_' + key)
+        for key in PUBLIC_KEYS
+        if values.get(key) or values.get('EXPO_PUBLIC_' + key)
+    }
+
+
+def is_public_key(value):
+    if value.startswith('sb_publishable_'):
+        return len(value) > 30 and 'REPLACE' not in value
+    # Inspect only the public role; this is not a replacement for server JWT validation.
+    try:
+        parts = value.split('.')
+        if len(parts) != 3:
+            return False
+        payload = json.loads(base64.urlsafe_b64decode(parts[1] + '=' * (-len(parts[1]) % 4)))
+        return isinstance(payload, dict) and payload.get('role') == 'anon'
+    except (ValueError, UnicodeError):
+        return False
+
+
+def configure(root):
+    values = {}
+    for source in [root.parent / '.env', root.parent / '.env.local']:
+        if not source.exists():
+            continue
+        parsed = {}
         for line in source.read_text().splitlines():
-            line=line.strip()
-            if not line or line.startswith('#') or '=' not in line: continue
-            key,value=line.split('=',1)
-            if key in ['EXPO_PUBLIC_SUPABASE_URL','EXPO_PUBLIC_SUPABASE_ANON_KEY']:
-                values[key]=value.strip().strip('"\'')
-for key in ['EXPO_PUBLIC_SUPABASE_URL','EXPO_PUBLIC_SUPABASE_ANON_KEY']:
-    if os.getenv(key): values[key]=os.environ[key]
-url=values.get('EXPO_PUBLIC_SUPABASE_URL',''); anon=values.get('EXPO_PUBLIC_SUPABASE_ANON_KEY','')
-if urlparse(url).scheme=='https' and urlparse(url).hostname and len(anon)>30 and 'your-' not in url:
-    (root/'Resources/PublicConfig.plist').write_bytes(plistlib.dumps({'SUPABASE_URL':url,'SUPABASE_ANON_KEY':anon}))
+            line = line.strip()
+            if not line or line.startswith('#') or '=' not in line:
+                continue
+            key, value = line.split('=', 1)
+            parsed[key.strip()] = value.strip().strip('"\'')
+        values.update(public_values(parsed))
+    values.update(public_values(os.environ))
+    url = values.get('SUPABASE_URL', '')
+    anon = values.get('SUPABASE_ANON_KEY', '')
+    valid_url = urlparse(url).scheme == 'https' and urlparse(url).hostname and 'your_project' not in url.lower()
+    if not valid_url or not is_public_key(anon):
+        print('No valid public Supabase configuration found; existing app configuration left unchanged.')
+        return False
+    destination = root / 'Resources' / 'PublicConfig.plist'
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_bytes(plistlib.dumps({key: values[key] for key in PUBLIC_KEYS}))
     print('Prepared public Supabase configuration. No private keys copied.')
-else:
-    print('No complete public Supabase configuration found; local mode remains available.')
+    return True
+
+
+if __name__ == '__main__':
+    configure(pathlib.Path(__file__).resolve().parents[1])

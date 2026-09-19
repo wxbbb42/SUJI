@@ -1,15 +1,15 @@
-import { BaziEngine } from '../../lib/bazi/BaziEngine';
-import { ZiweiEngine } from '../../lib/ziwei/ZiweiEngine';
-import { InsightEngine } from '../../lib/bazi/InsightEngine';
-import { DayunEngine } from '../../lib/bazi/DayunEngine';
-import { MarriageEngine } from '../../lib/marriage/MarriageEngine';
-import { getTodayInfo } from '../../lib/calendar';
-import { currentSolarTerm } from '../../lib/qimen/helpers/solarTerms';
-import { buildCandidates } from '../../lib/calibration/buildCandidates';
-import { extractEventsForCandidate } from '../../lib/calibration/extractEvents';
-import { extractZiweiEventsForCandidate } from '../../lib/calibration/extractZiweiEvents';
-import { ALL_HANDLERS, ALL_TOOLS } from '../../lib/ai/tools';
-import { buildEvidenceFromToolCalls } from '../../lib/ai/tools/evidence';
+import { BaziEngine } from './src/bazi/BaziEngine';
+import { ZiweiEngine } from './src/ziwei/ZiweiEngine';
+import { InsightEngine } from './src/bazi/InsightEngine';
+import { DayunEngine } from './src/bazi/DayunEngine';
+import { MarriageEngine } from './src/marriage/MarriageEngine';
+import { getTodayInfo } from './src/calendar';
+import { currentSolarTerm } from './src/qimen/helpers/solarTerms';
+import { buildCandidates } from './src/calibration/buildCandidates';
+import { extractEventsForCandidate } from './src/calibration/extractEvents';
+import { extractZiweiEventsForCandidate } from './src/calibration/extractZiweiEvents';
+import { ALL_HANDLERS, ALL_TOOLS } from './src/ai/tools';
+import { buildEvidenceFromToolCalls } from './src/ai/tools/evidence';
 
 type Birth = { year: number; month: number; day: number; hour: number; minute: number; gender: '男' | '女'; longitude: number; timeZoneID?: string };
 function dateOf(b: Birth): Date {

@@ -5,14 +5,14 @@
     {
       "id": "bazi.yongshen-priority.product-decision",
       "domain": "bazi",
-      "claim": "BaziEngine.computeWuXingStrength 中的用神选择采用三段优先级：先查《穷通宝鉴》调候表，若无条目则按身强用克泄、身弱用生扶（lib/bazi/BaziEngine.ts:854-879）。古籍提供调候、扶抑、通关、病药、专旺等多种取用思路，何者为主取决于格局成败、月令喜忌与四柱配合（《滴天髓》体用清浊、《子平真诠》论用神成败救应），并非固定 \"调候 > 扶抑\" 的优先级。当前实现的优先级是产品决策，不是古籍规则；解释层不能把输出的 yongShen 当作经典子平用神，而需标注这是简化算法选择。",
+      "claim": "BaziEngine.computeWuXingStrength 中的用神选择采用三段优先级：先查《穷通宝鉴》调候表，若无条目则按身强用克泄、身弱用生扶（native/Engine/src/bazi/BaziEngine.ts:854-879）。古籍提供调候、扶抑、通关、病药、专旺等多种取用思路，何者为主取决于格局成败、月令喜忌与四柱配合（《滴天髓》体用清浊、《子平真诠》论用神成败救应），并非固定 \"调候 > 扶抑\" 的优先级。当前实现的优先级是产品决策，不是古籍规则；解释层不能把输出的 yongShen 当作经典子平用神，而需标注这是简化算法选择。",
       "sourceIds": [
         "bazi-qiongtong-baojian",
         "bazi-ditiansui",
         "bazi-ziping-zhenquan"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
         "docs/mingli/audit/2026-04-30-bazi-engine-grounding.md"
       ],
       "confidence": "high_for_product_decision_low_for_classical_alignment",
@@ -26,8 +26,8 @@
         "bazi-yuanhai-ziping"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
-        "lib/bazi/DayunEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/DayunEngine.ts",
         "docs/mingli/reading-notes/2026-04-30-yuanhai-ziping-first-pass.md"
       ],
       "confidence": "medium_high_for_rule_low_for_full_interpretation",
@@ -42,7 +42,7 @@
         "bazi-sanming-tonghui"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
         "docs/mingli/reading-notes/2026-04-30-yuanhai-ziping-first-pass.md",
         "docs/mingli/reading-notes/2026-04-29-reading-log.md"
       ],
@@ -58,7 +58,7 @@
         "bazi-ditiansui"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts"
+        "native/Engine/src/bazi/BaziEngine.ts"
       ],
       "confidence": "medium",
       "status": "implemented_needs_text_citation"
@@ -73,7 +73,7 @@
         "ziwei-doushu-quanji"
       ],
       "repoRefs": [
-        "lib/ziwei/ZiweiEngine.ts",
+        "native/Engine/src/ziwei/ZiweiEngine.ts",
         "docs/superpowers/specs/2026-04-25-ai-orchestration-and-divination-systems-design.md"
       ],
       "confidence": "high_for_engineering_low_for_theory",
@@ -103,7 +103,7 @@
         "journal-zhouyi-research"
       ],
       "repoRefs": [
-        "lib/ai/index.ts",
+        "native/App/Services/ChatSession.swift",
         "docs/superpowers/specs/2026-04-25-ai-orchestration-and-divination-systems-design.md"
       ],
       "confidence": "high_as_product_policy",
@@ -118,7 +118,7 @@
         "bazi-yuanhai-ziping"
       ],
       "repoRefs": [
-        "lib/bazi/SiLing.ts",
+        "native/Engine/src/bazi/SiLing.ts",
         "docs/mingli/reading-notes/2026-04-29-reading-log.md",
         "docs/mingli/reading-notes/2026-04-30-yuanhai-ziping-first-pass.md"
       ],
@@ -133,7 +133,7 @@
         "bazi-sanming-tonghui"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
         "docs/mingli/reading-notes/2026-04-29-reading-log.md"
       ],
       "confidence": "medium_high",
@@ -148,8 +148,8 @@
         "academic-mingli-history-lu"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
-        "lib/bazi/DayunEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/DayunEngine.ts",
         "docs/mingli/reading-notes/2026-04-29-reading-log.md"
       ],
       "confidence": "medium_high",
@@ -164,7 +164,7 @@
         "ziwei-iztro"
       ],
       "repoRefs": [
-        "lib/ziwei/ZiweiEngine.ts",
+        "native/Engine/src/ziwei/ZiweiEngine.ts",
         "docs/mingli/reading-notes/2026-04-29-reading-log.md"
       ],
       "confidence": "medium",
@@ -179,7 +179,7 @@
         "ziwei-iztro"
       ],
       "repoRefs": [
-        "lib/ziwei/ZiweiEngine.ts",
+        "native/Engine/src/ziwei/ZiweiEngine.ts",
         "docs/mingli/reading-notes/2026-04-29-reading-log.md"
       ],
       "confidence": "medium",
@@ -193,7 +193,7 @@
         "ziwei-doushu-quanshu"
       ],
       "repoRefs": [
-        "lib/ai/tools/ziwei.ts",
+        "native/Engine/src/ai/tools/ziwei.ts",
         "docs/mingli/reading-notes/2026-04-29-reading-log.md"
       ],
       "confidence": "medium",
@@ -208,7 +208,7 @@
         "bazi-ziping-zhenquan"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
         "docs/mingli/reading-notes/2026-04-30-yuanhai-ziping-first-pass.md",
         "docs/mingli/reading-notes/2026-04-30-ziping-zhenquan-first-pass.md"
       ],
@@ -224,7 +224,7 @@
         "bazi-ziping-zhenquan"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
         "docs/mingli/reading-notes/2026-04-30-yuanhai-ziping-first-pass.md",
         "docs/mingli/reading-notes/2026-04-30-ziping-zhenquan-first-pass.md"
       ],
@@ -241,7 +241,7 @@
         "bazi-ditiansui"
       ],
       "repoRefs": [
-        "lib/bazi/DayunEngine.ts",
+        "native/Engine/src/bazi/DayunEngine.ts",
         "docs/mingli/reading-notes/2026-04-30-yuanhai-ziping-first-pass.md",
         "docs/mingli/reading-notes/2026-04-30-ziping-zhenquan-first-pass.md"
       ],
@@ -256,7 +256,7 @@
         "bazi-ziping-zhenquan"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
         "docs/mingli/reading-notes/2026-04-30-ziping-zhenquan-first-pass.md"
       ],
       "confidence": "medium_high_for_first_pass_text_low_for_edition",
@@ -283,7 +283,7 @@
         "bazi-ziping-zhenquan"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
         "docs/mingli/reading-notes/2026-04-30-ziping-zhenquan-first-pass.md"
       ],
       "confidence": "medium_high_for_first_pass_text_low_for_edition",
@@ -297,7 +297,7 @@
         "bazi-ziping-zhenquan"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
         "docs/mingli/reading-notes/2026-04-30-ziping-zhenquan-first-pass.md"
       ],
       "confidence": "medium_high_for_first_pass_text_low_for_edition",
@@ -311,7 +311,7 @@
         "bazi-ziping-zhenquan"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
         "docs/mingli/reading-notes/2026-04-30-ziping-zhenquan-first-pass.md"
       ],
       "confidence": "medium_high_for_first_pass_text_low_for_edition",
@@ -325,7 +325,7 @@
         "bazi-ziping-zhenquan"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
         "docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md"
       ],
       "confidence": "medium_high_for_online_text_pending_print_verification",
@@ -339,7 +339,7 @@
         "bazi-ziping-zhenquan"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
         "docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md"
       ],
       "confidence": "medium_high_for_online_text_pending_print_verification",
@@ -353,7 +353,7 @@
         "bazi-ziping-zhenquan"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
         "docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md"
       ],
       "confidence": "medium_high_for_online_text_pending_print_verification",
@@ -367,7 +367,7 @@
         "bazi-ziping-zhenquan"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
         "docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md"
       ],
       "confidence": "medium_high_for_online_text_pending_print_verification",
@@ -381,7 +381,7 @@
         "bazi-ziping-zhenquan"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
         "docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md"
       ],
       "confidence": "medium_high_for_online_text_pending_print_verification",
@@ -395,7 +395,7 @@
         "bazi-ziping-zhenquan"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
         "docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md"
       ],
       "confidence": "medium_high_for_online_text_pending_print_verification",
@@ -409,7 +409,7 @@
         "bazi-ziping-zhenquan"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
         "docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md"
       ],
       "confidence": "medium_high_for_online_text_pending_print_verification",
@@ -423,7 +423,7 @@
         "bazi-ziping-zhenquan"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
         "docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md"
       ],
       "confidence": "medium_high_for_online_text_pending_print_verification",
@@ -432,13 +432,13 @@
     {
       "id": "bazi.tonggen.tier-weights-borrowed",
       "domain": "bazi",
-      "claim": "lib/bazi/structural.ts 的 ROOT_TIER_WEIGHT 取本气 1.0 / 中气 0.5 / 余气 0.2，借自 bazi-life-curves `_bazi_core.py:210` `ROOT_TIER_WEIGHT` (MIT, XiaoChu-1208)。学理依据为《三命通会》藏干主气论（本气>中气>余气），但具体 1.0/0.5/0.2 比值是开源工程选择，不是古籍数。SUJI 当前未启用此权重做格局判定，仅在 Phase 0.5 骨架中可调用；Phase 2 启用后需在 release notes 标 attribution。",
+      "claim": "native/Engine/src/bazi/structural.ts 的 ROOT_TIER_WEIGHT 取本气 1.0 / 中气 0.5 / 余气 0.2，借自 bazi-life-curves `_bazi_core.py:210` `ROOT_TIER_WEIGHT` (MIT, XiaoChu-1208)。学理依据为《三命通会》藏干主气论（本气>中气>余气），但具体 1.0/0.5/0.2 比值是开源工程选择，不是古籍数。SUJI 当前未启用此权重做格局判定，仅在 Phase 0.5 骨架中可调用；Phase 2 启用后需在 release notes 标 attribution。",
       "sourceIds": [
         "bazi-sanming-tonghui",
         "opensource-bazi-life-curves"
       ],
       "repoRefs": [
-        "lib/bazi/structural.ts",
+        "native/Engine/src/bazi/structural.ts",
         "docs/mingli/research/2026-05-07-bazi-life-curves-leverage.md"
       ],
       "confidence": "high_for_engineering_choice_no_classical_basis",
@@ -447,13 +447,13 @@
     {
       "id": "bazi.tonggen.label-thresholds-borrowed",
       "domain": "bazi",
-      "claim": "lib/bazi/structural.ts 的 5 档通根 label 切分阈值 0.30 / 0.70 / 1.50 / 2.50（无根/微根/弱根/中根/强根），借自 bazi-life-curves `_bazi_core.classify_root_strength` (MIT, XiaoChu-1208)。古籍只有定性描述（如《滴天髓》'有根则不畏制'），无具体数字阈值。这 4 个阈值是工程切分点；其优势在于：(a) 输出 label 比 raw 数字更易转化为格局逻辑判断，(b) 比 BaziEngine 当前 9 个数字门槛少 5 个。",
+      "claim": "native/Engine/src/bazi/structural.ts 的 5 档通根 label 切分阈值 0.30 / 0.70 / 1.50 / 2.50（无根/微根/弱根/中根/强根），借自 bazi-life-curves `_bazi_core.classify_root_strength` (MIT, XiaoChu-1208)。古籍只有定性描述（如《滴天髓》'有根则不畏制'），无具体数字阈值。这 4 个阈值是工程切分点；其优势在于：(a) 输出 label 比 raw 数字更易转化为格局逻辑判断，(b) 比 BaziEngine 当前 9 个数字门槛少 5 个。",
       "sourceIds": [
         "bazi-ditiansui",
         "opensource-bazi-life-curves"
       ],
       "repoRefs": [
-        "lib/bazi/structural.ts"
+        "native/Engine/src/bazi/structural.ts"
       ],
       "confidence": "high_for_engineering_choice_no_classical_basis",
       "status": "engineering_threshold_borrowed_from_open_source"
@@ -461,7 +461,7 @@
     {
       "id": "bazi.school-vote.weights-borrowed",
       "domain": "bazi",
-      "claim": "lib/bazi/multiSchoolVote.ts 的默认派权重 ziping 0.25 / tiaohou 0.40 / geju 0.30 / mangpai 0，借自 bazi-life-curves `_school_registry.py:157–194` (MIT, XiaoChu-1208)。该比值由 bazi-life-curves 的 calibration/dataset.yaml 5 人 15 事件回测调出；古籍未给出派别权重。注意：与 SUJI《子平真诠》deepread 暗示的'格局应优先'有张力——前者把调候权重设为最高。Phase 2 接管 BaziEngine.determineGeJu 时需做用户 A/B 验证。",
+      "claim": "native/Engine/src/bazi/multiSchoolVote.ts 的默认派权重 ziping 0.25 / tiaohou 0.40 / geju 0.30 / mangpai 0，借自 bazi-life-curves `_school_registry.py:157–194` (MIT, XiaoChu-1208)。该比值由 bazi-life-curves 的 calibration/dataset.yaml 5 人 15 事件回测调出；古籍未给出派别权重。注意：与 SUJI《子平真诠》deepread 暗示的'格局应优先'有张力——前者把调候权重设为最高。Phase 2 接管 BaziEngine.determineGeJu 时需做用户 A/B 验证。",
       "sourceIds": [
         "bazi-ziping-zhenquan",
         "bazi-qiongtong-baojian",
@@ -469,7 +469,7 @@
         "opensource-bazi-life-curves"
       ],
       "repoRefs": [
-        "lib/bazi/multiSchoolVote.ts",
+        "native/Engine/src/bazi/multiSchoolVote.ts",
         "docs/mingli/research/2026-05-07-bazi-life-curves-leverage.md"
       ],
       "confidence": "high_for_engineering_choice_no_classical_basis",
@@ -478,13 +478,13 @@
     {
       "id": "bazi.open-phase.thresholds-borrowed",
       "domain": "bazi",
-      "claim": "lib/bazi/multiSchoolVote.ts 的 open_phase 触发阈值 minTop1 0.55 / minGap 0.10，借自 bazi-life-curves `phase_posterior.py:80–120` (MIT, XiaoChu-1208)。设计学理：top1 后验信心不足或 top1/top2 接近时，主动落 open_phase（坦白说'不知道'），不强行独断。这一'诚实设计'与 SUJI 产品政策 product.no-absolute-fortune-claims 及《子平真诠》'相从'观念吻合，是 Phase 2 必接的机制。具体 0.55 / 0.10 是经验值。",
+      "claim": "native/Engine/src/bazi/multiSchoolVote.ts 的 open_phase 触发阈值 minTop1 0.55 / minGap 0.10，借自 bazi-life-curves `phase_posterior.py:80–120` (MIT, XiaoChu-1208)。设计学理：top1 后验信心不足或 top1/top2 接近时，主动落 open_phase（坦白说'不知道'），不强行独断。这一'诚实设计'与 SUJI 产品政策 product.no-absolute-fortune-claims 及《子平真诠》'相从'观念吻合，是 Phase 2 必接的机制。具体 0.55 / 0.10 是经验值。",
       "sourceIds": [
         "bazi-ziping-zhenquan",
         "opensource-bazi-life-curves"
       ],
       "repoRefs": [
-        "lib/bazi/multiSchoolVote.ts"
+        "native/Engine/src/bazi/multiSchoolVote.ts"
       ],
       "confidence": "high_for_engineering_choice_no_classical_basis",
       "status": "engineering_threshold_borrowed_from_open_source"
@@ -492,12 +492,12 @@
     {
       "id": "bazi.phase-registry.source-enforcement",
       "domain": "bazi",
-      "claim": "lib/bazi/phaseRegistry.ts 在注册时强制 PhaseMeta.source 非空且不含'自创/原创'字样，违规抛错。设计学理：每条格局规则必须能溯源至古籍出处，杜绝散落代码的 hardcoded 业务规则。这是借鉴 bazi-life-curves `_phase_registry.py:94–104` 的 source 强制校验设计 (MIT, XiaoChu-1208)；目的是为 Phase 2 的 14 个 core phase + 反向规则统一管理打基础。",
+      "claim": "native/Engine/src/bazi/phaseRegistry.ts 在注册时强制 PhaseMeta.source 非空且不含'自创/原创'字样，违规抛错。设计学理：每条格局规则必须能溯源至古籍出处，杜绝散落代码的 hardcoded 业务规则。这是借鉴 bazi-life-curves `_phase_registry.py:94–104` 的 source 强制校验设计 (MIT, XiaoChu-1208)；目的是为 Phase 2 的 14 个 core phase + 反向规则统一管理打基础。",
       "sourceIds": [
         "opensource-bazi-life-curves"
       ],
       "repoRefs": [
-        "lib/bazi/phaseRegistry.ts"
+        "native/Engine/src/bazi/phaseRegistry.ts"
       ],
       "confidence": "high_for_design_pattern",
       "status": "design_pattern_borrowed_from_open_source"
@@ -511,7 +511,7 @@
         "bazi-ditiansui"
       ],
       "repoRefs": [
-        "lib/bazi/structural.ts",
+        "native/Engine/src/bazi/structural.ts",
         "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
         "docs/mingli/source-texts/bazi/ditianshui-chanwei/tongshen-17-shuaiwang-zhonghe.md"
       ],
@@ -526,7 +526,7 @@
         "bazi-ziping-zhenquan"
       ],
       "repoRefs": [
-        "lib/bazi/structural.ts"
+        "native/Engine/src/bazi/structural.ts"
       ],
       "confidence": "high",
       "status": "classical_grounded"
@@ -540,7 +540,7 @@
         "bazi-yuanhai-ziping"
       ],
       "repoRefs": [
-        "lib/bazi/structural.ts",
+        "native/Engine/src/bazi/structural.ts",
         "docs/mingli/source-texts/bazi/ziping-zhenquan/41-yangren.md",
         "docs/mingli/source-texts/bazi/yuanhai-ziping/02-shishen-geju.md"
       ],
@@ -555,7 +555,7 @@
         "bazi-ditiansui"
       ],
       "repoRefs": [
-        "lib/bazi/structural.ts",
+        "native/Engine/src/bazi/structural.ts",
         "docs/mingli/source-texts/bazi/ditianshui-chanwei/qingzhuo.md"
       ],
       "confidence": "medium_phase2_starter_approximation",
@@ -570,7 +570,7 @@
         "bazi-qiongtong-baojian"
       ],
       "repoRefs": [
-        "lib/bazi/structural.ts",
+        "native/Engine/src/bazi/structural.ts",
         "docs/mingli/source-texts/bazi/ditianshui-chanwei/hannuanzaoshi.md"
       ],
       "confidence": "high",
@@ -585,8 +585,8 @@
         "bazi-ditiansui"
       ],
       "repoRefs": [
-        "lib/bazi/structural.ts",
-        "lib/bazi/__tests__/structural.test.ts",
+        "native/Engine/src/bazi/structural.ts",
+        "native/Engine/src/bazi/__tests__/structural.test.ts",
         "docs/mingli/source-texts/bazi/ditianshui-chanwei/tiyong.md"
       ],
       "confidence": "high",
@@ -595,11 +595,11 @@
     {
       "id": "bazi.xiangshen.definition",
       "domain": "bazi",
-      "claim": "相神（XiangShen）= 月令用神之外、全局赖以成格的关键字；不限于固定十神表，可为任一柱的干或支。一格必有相神，相神不存在则成格存疑。《子平真诠》论相神紧要：'月令既得用神，则别位亦必有相，若君之有相，辅者是也'；'凡全局之格，赖此一字而成者，均谓之相也'；'伤用神甚于伤身，伤相甚于伤用'。lib/bazi/structural.ts XIANGSHEN_DEFAULT 表给出 per-格局 默认相神十神映射（正官→财生官+印护官、七杀→食制+印化、正财→食生财+官护财 等），由 scanXiangShen() 在 computeGeJuV2 中扫描透干 + 藏干命中。",
+      "claim": "相神（XiangShen）= 月令用神之外、全局赖以成格的关键字；不限于固定十神表，可为任一柱的干或支。一格必有相神，相神不存在则成格存疑。《子平真诠》论相神紧要：'月令既得用神，则别位亦必有相，若君之有相，辅者是也'；'凡全局之格，赖此一字而成者，均谓之相也'；'伤用神甚于伤身，伤相甚于伤用'。native/Engine/src/bazi/structural.ts XIANGSHEN_DEFAULT 表给出 per-格局 默认相神十神映射（正官→财生官+印护官、七杀→食制+印化、正财→食生财+官护财 等），由 scanXiangShen() 在 computeGeJuV2 中扫描透干 + 藏干命中。",
       "sourceIds": ["bazi-ziping-zhenquan"],
       "repoRefs": [
-        "lib/bazi/structural.ts",
-        "lib/bazi/__tests__/structural.test.ts",
+        "native/Engine/src/bazi/structural.ts",
+        "native/Engine/src/bazi/__tests__/structural.test.ts",
         "docs/mingli/reading-notes/ziping-zhenquan-xiangshen.md"
       ],
       "confidence": "high_for_classical_text_medium_for_per-geju-default",
@@ -608,10 +608,10 @@
     {
       "id": "bazi.xiangshen.cheng-po-rule",
       "domain": "bazi",
-      "claim": "相神被合/冲/破即触发破格判定，且优先级高于'用神被破'本身：'伤用神甚于伤身，伤相甚于伤用'（《子平真诠》论相神紧要）。当前 lib/bazi/structural.ts computeGeJuV2 的 chengBai 三态以 yongBroken + jiStems + jiuYing 三元组判，相神层只用于评级（XiangShenInfo 缺位 → jibie 不可为 'shang'）；'相神被破'的精确实现（合 vs 冲 vs 害是否等价）待印刷版与徐乐吾评注核。",
+      "claim": "相神被合/冲/破即触发破格判定，且优先级高于'用神被破'本身：'伤用神甚于伤身，伤相甚于伤用'（《子平真诠》论相神紧要）。当前 native/Engine/src/bazi/structural.ts computeGeJuV2 的 chengBai 三态以 yongBroken + jiStems + jiuYing 三元组判，相神层只用于评级（XiangShenInfo 缺位 → jibie 不可为 'shang'）；'相神被破'的精确实现（合 vs 冲 vs 害是否等价）待印刷版与徐乐吾评注核。",
       "sourceIds": ["bazi-ziping-zhenquan"],
       "repoRefs": [
-        "lib/bazi/structural.ts",
+        "native/Engine/src/bazi/structural.ts",
         "docs/mingli/reading-notes/ziping-zhenquan-xiangshen.md"
       ],
       "confidence": "high_for_principle_low_for_implementation_completeness",
@@ -620,12 +620,12 @@
     {
       "id": "bazi.jiuying.path-classification",
       "domain": "bazi",
-      "claim": "救应路径分四类（与 lib/bazi/types.ts JiuYingInfo.path 枚举一致）：去清（qu-qing，去病留用神）/ 食制（shi-zhi，以食伤制忌神）/ 印化（yin-hua，以印化忌神）/ 合凶（he-sha，以合去凶神），其余归 other。一个破格场景可同时存在多条救应路径。出处：《子平真诠》论用神成败救应：'用神专寻月令，以四柱配之，必有成败'；'成中有败，必是带忌；败中有成，全凭救应'。lib/bazi/structural.ts scanJiuYing() 对每个透干忌神依次扫三条路径（qu-qing / shi-zhi / yin-hua），he-sha 路径作为 qu-qing 在七杀格语境下的别名暂未独立扫描。",
+      "claim": "救应路径分四类（与 native/Engine/src/bazi/types.ts JiuYingInfo.path 枚举一致）：去清（qu-qing，去病留用神）/ 食制（shi-zhi，以食伤制忌神）/ 印化（yin-hua，以印化忌神）/ 合凶（he-sha，以合去凶神），其余归 other。一个破格场景可同时存在多条救应路径。出处：《子平真诠》论用神成败救应：'用神专寻月令，以四柱配之，必有成败'；'成中有败，必是带忌；败中有成，全凭救应'。native/Engine/src/bazi/structural.ts scanJiuYing() 对每个透干忌神依次扫三条路径（qu-qing / shi-zhi / yin-hua），he-sha 路径作为 qu-qing 在七杀格语境下的别名暂未独立扫描。",
       "sourceIds": ["bazi-ziping-zhenquan"],
       "repoRefs": [
-        "lib/bazi/types.ts",
-        "lib/bazi/structural.ts",
-        "lib/bazi/__tests__/structural.test.ts",
+        "native/Engine/src/bazi/types.ts",
+        "native/Engine/src/bazi/structural.ts",
+        "native/Engine/src/bazi/__tests__/structural.test.ts",
         "docs/mingli/reading-notes/ziping-zhenquan-xiangshen.md"
       ],
       "confidence": "high_for_classical_classification_medium_for_per-path-implementation",
@@ -634,11 +634,11 @@
     {
       "id": "bazi.yongshen.priority-chain",
       "domain": "bazi",
-      "claim": "取格优先级链：(1) 月令本气透干 → (2) 月令中气透干 → (3) 月令余气透干 → (4) 月支参与的三合/三会成局 → (5) 建禄/月劫处理（本气未透则月令本气仍为用）。专气支（子午卯酉）只取本气，不走中/余气路径。出处：《子平真诠》论用神变化：'用神既主月令矣，然月令所藏不一，而用神遂有变化'；'八字非用神不立，用神非变化不灵'。lib/bazi/structural.ts selectYongShen() 实现五段优先链，YongShenSelection.basis 枚举（yueling-benqi-tougan / yueling-zhongqi-tougan / yueling-yuqi-tougan / sanhe / sanhui / jianlu-yueliu）一一对应。",
+      "claim": "取格优先级链：(1) 月令本气透干 → (2) 月令中气透干 → (3) 月令余气透干 → (4) 月支参与的三合/三会成局 → (5) 建禄/月劫处理（本气未透则月令本气仍为用）。专气支（子午卯酉）只取本气，不走中/余气路径。出处：《子平真诠》论用神变化：'用神既主月令矣，然月令所藏不一，而用神遂有变化'；'八字非用神不立，用神非变化不灵'。native/Engine/src/bazi/structural.ts selectYongShen() 实现五段优先链，YongShenSelection.basis 枚举（yueling-benqi-tougan / yueling-zhongqi-tougan / yueling-yuqi-tougan / sanhe / sanhui / jianlu-yueliu）一一对应。",
       "sourceIds": ["bazi-ziping-zhenquan"],
       "repoRefs": [
-        "lib/bazi/structural.ts",
-        "lib/bazi/__tests__/structural.test.ts",
+        "native/Engine/src/bazi/structural.ts",
+        "native/Engine/src/bazi/__tests__/structural.test.ts",
         "docs/mingli/reading-notes/ziping-zhenquan-xiangshen.md"
       ],
       "confidence": "high_for_priority_principle_medium_for_zhongqi-vs-yuqi-order",
@@ -647,11 +647,11 @@
     {
       "id": "bazi.yongshen.bianhua-trigger",
       "domain": "bazi",
-      "claim": "用神变化触发条件：(1) 月令本气不透干；(2) 月令本气透干但被合化/冲克失效；(3) 月支参与三合/三会改变五行；(4) 子午卯酉为专气支，原则上不变化（除非被冲）。化气格（日主自身被合化为他党）应与用神变化区分实现 — 化气是日主级，用神变化是月令所成格的级。lib/bazi/structural.ts 中 detectHuaQi() 与 selectYongShen() 分别承担两个判断，YongShenSelection.bianhua=true 仅在 basis ∈ {zhongqi/yuqi/sanhe/sanhui} 时设。出处：《子平真诠》论用神变化：'然月令所藏不一，而用神遂有变化'。",
+      "claim": "用神变化触发条件：(1) 月令本气不透干；(2) 月令本气透干但被合化/冲克失效；(3) 月支参与三合/三会改变五行；(4) 子午卯酉为专气支，原则上不变化（除非被冲）。化气格（日主自身被合化为他党）应与用神变化区分实现 — 化气是日主级，用神变化是月令所成格的级。native/Engine/src/bazi/structural.ts 中 detectHuaQi() 与 selectYongShen() 分别承担两个判断，YongShenSelection.bianhua=true 仅在 basis ∈ {zhongqi/yuqi/sanhe/sanhui} 时设。出处：《子平真诠》论用神变化：'然月令所藏不一，而用神遂有变化'。",
       "sourceIds": ["bazi-ziping-zhenquan"],
       "repoRefs": [
-        "lib/bazi/structural.ts",
-        "lib/bazi/__tests__/structural.test.ts",
+        "native/Engine/src/bazi/structural.ts",
+        "native/Engine/src/bazi/__tests__/structural.test.ts",
         "docs/mingli/reading-notes/ziping-zhenquan-xiangshen.md"
       ],
       "confidence": "high_for_principle_medium_for_zhuanqi-edge-cases",
@@ -660,11 +660,11 @@
     {
       "id": "bazi.geju.rank-criteria",
       "domain": "bazi",
-      "claim": "格局高低（GeJuRank: shang / zhong / xia）判定基于'有情/无情、有力/无力、清/浊、相神是否破'四要素：成格 + 用神有力（通根 ≥ 中根）+ 相神齐 + 八字清纯 = 上；成格但相神不全或 jiuying 救应 = 中；破格无救 = 下。格名本身（正官/七杀/正财...）不决定高低。出处：《子平真诠》论用神格局高低：'八字既有用神，必有格局，有格局必有高低'；'其理之大纲，亦在有情、有力无力之间而已'。lib/bazi/structural.ts rankGeJu() 实现该四要素的布尔门：chengBai='cheng' + xiangShen!=null + 用神中根/强根 + 透干忌神=0 → 'shang'；chengBai='po' → 'xia'；其余 → 'zhong'。'有情/无情'与'清/浊'的细化判定留下一阶段接《滴天髓·清浊论》。",
+      "claim": "格局高低（GeJuRank: shang / zhong / xia）判定基于'有情/无情、有力/无力、清/浊、相神是否破'四要素：成格 + 用神有力（通根 ≥ 中根）+ 相神齐 + 八字清纯 = 上；成格但相神不全或 jiuying 救应 = 中；破格无救 = 下。格名本身（正官/七杀/正财...）不决定高低。出处：《子平真诠》论用神格局高低：'八字既有用神，必有格局，有格局必有高低'；'其理之大纲，亦在有情、有力无力之间而已'。native/Engine/src/bazi/structural.ts rankGeJu() 实现该四要素的布尔门：chengBai='cheng' + xiangShen!=null + 用神中根/强根 + 透干忌神=0 → 'shang'；chengBai='po' → 'xia'；其余 → 'zhong'。'有情/无情'与'清/浊'的细化判定留下一阶段接《滴天髓·清浊论》。",
       "sourceIds": ["bazi-ziping-zhenquan", "bazi-ditiansui"],
       "repoRefs": [
-        "lib/bazi/structural.ts",
-        "lib/bazi/__tests__/structural.test.ts",
+        "native/Engine/src/bazi/structural.ts",
+        "native/Engine/src/bazi/__tests__/structural.test.ts",
         "docs/mingli/reading-notes/ziping-zhenquan-xiangshen.md"
       ],
       "confidence": "high_for_four-criteria_principle_medium_for_qing-zhuo-integration",

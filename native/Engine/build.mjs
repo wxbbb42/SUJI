@@ -1,4 +1,4 @@
-import { build } from '../tooling/node_modules/esbuild/lib/main.js';
+import { build } from 'esbuild';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -8,7 +8,7 @@ await mkdir(path.join(native,'Resources'), { recursive:true });
 const result = await build({
   entryPoints:[path.join(native,'Engine/bridge.ts')], bundle:true, write:false,
   format:'iife', globalName:'SujiNative', target:'es2020', platform:'browser',
-  tsconfig:path.join(native,'../tsconfig.json'), minify:true,
+  tsconfig:path.join(native,'Engine/tsconfig.json'), minify:true,
 });
 const code = await readFile(path.join(native,'Engine/timezone.js'),'utf8') + '\n' + result.outputFiles[0].text;
 await writeFile(path.join(native,'Resources/mingli.js'),code);

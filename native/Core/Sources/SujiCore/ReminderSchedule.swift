@@ -184,7 +184,7 @@ public enum SolarTermCalculator {
     }
 
     /// Approximate apparent geocentric solar longitude. This is a direct Swift
-    /// port of `lib/qimen/helpers/solarTerms.ts`, whose low-order equations follow
+    /// port of `native/Engine/src/qimen/helpers/solarTerms.ts`, whose low-order equations follow
     /// NOAA's Solar Calculation Details (Julian centuries, geometric mean
     /// longitude/anomaly, equation of center, and apparent-longitude correction).
     /// It is suitable for notification timing, not high-precision ephemerides.

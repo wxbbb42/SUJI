@@ -4,6 +4,21 @@ Date: 2026-09-19. Branch: `codex/swiftui-rebuild`; original Expo baseline: `0857
 
 This is a native implementation and simulator verification record, not an App Store release certificate. Screens run in SwiftUI, deterministic TypeScript code runs locally in JavaScriptCore, and native services own persistence, audio, credentials and networking.
 
+## SwiftUI-only repository — 2026-09-19
+
+The Expo / React Native client, root app package, Metro configuration, old UI assets, Zustand stores and client-side AI networking were retired after checkpoint `328bcff`. SwiftUI is the only maintained client. Its local deterministic sources and tests now live in the independent `native/Engine` package; historical Expo product documents are marked and archived under `docs/archive/expo`.
+
+- Fresh `npm ci --prefix native/Engine` succeeded with no root `node_modules` or old `native/tooling` dependencies present. The lockfile contains no Expo, React, React Native, Metro, Zustand or Three packages.
+- Engine typecheck passed; **22 suites / 187 tests passed** using the Node Jest environment.
+- Regenerated `mingli.js` and all **11 parity fixtures are byte-for-byte identical** to the pre-cleanup resources. Existing runtime dependency versions and class-field compilation semantics are preserved.
+- Swift core: **64 tests passed**, including JavaScriptCore parity under `America/Los_Angeles` (`/tmp/suji-swiftui-only-core.log`).
+- Signed iPhone 17 Pro simulator: **13 app-hosted tests passed** (`/tmp/suji-swiftui-only-final.xcresult`); the managed-AI login/settings UI test **passed** in `/tmp/suji-swiftui-only-ui-recheck.xcresult`. One intermediate UI run lost the onboarding button between its existence check and tap; an isolated rerun passed without code changes. The intermittent startup interaction remains noted, rather than counted as a clean first-pass UI run.
+- Backend: **14 tests passed** after a fresh install in `supabase`, including the actual PostgreSQL quota migration.
+- Public configuration: **4 Python tests passed** for legacy env migration, canonical configuration precedence and exclusion of private/service credentials. New setups use `SUPABASE_URL` / `SUPABASE_ANON_KEY`; existing local Expo public env names remain migration-compatible.
+- Knowledge-base regeneration succeeded (**49 sources / 46 claims**); current source references resolve to the new native locations.
+
+This cleanup changes repository structure and build ownership, not deployed backend behavior or calculation rules. Physical-device and distribution checks below remain outstanding.
+
 ## Managed DeepSeek follow-up — 2026-09-19
 
 The app now uses authenticated Supabase → `deepseek-flash` with thinking disabled. User-editable provider/model/key fields are removed. The deployed backend and quota migration are documented in `../supabase/README.md`; this supersedes the original rebuild's user-supplied provider configuration below.

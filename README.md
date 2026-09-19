@@ -1,88 +1,62 @@
-# 岁吉 (SUJI)
+# 有时 · SUJI
 
-> 中式美学 self-care App — 命理可视化 × AI 解读 × 日常仪式感。
+一款原生 iPhone self-care App：日签、问道、静心与自我观察。**SwiftUI 是唯一维护的客户端**，支持 iOS 18 及以上。
 
-## 产品定位
+旧 Expo / React Native 构建已退役，页面、客户端依赖和构建入口均已移除。退役前的完整代码可从 Git 提交 `328bcff` 找回；历史设计文档位于 `docs/archive/expo`。
 
-岁吉不是传统“算命工具”，而是把八字、紫微、六爻、奇门等传统体系转译成现代人能理解的自我观察语言。产品目标是：用克制的中式审美、轻量的交互和可追溯的命理依据，提供有仪式感的 self-care 体验。
+## 运行
 
-## 当前实现状态
+使用 Xcode 26 或更新版本打开 `native/Suji.xcodeproj`，选择 **Suji** scheme 和 iPhone 模拟器，直接运行。原生工程、历法引擎 bundle 和资源已纳入版本控制，启动 App 无需安装 Node.js。
 
-这是一个仍在 hardening 的 Expo / React Native 项目。当前 repo 已包含：
+账户与 AI 的公开配置：
 
-- Expo Router 页面：日历首页、问道/AI 对话、命盘页、设置、登录/注册、引导页
-- 本地命理引擎：`bazi`、`ziwei`、`divination`、`qimen`
-- AI 编排原型：thinker（工具推演）+ interpreter（生活化解读）
-- Supabase Auth / profiles 同步基础设施
-- Jest 测试覆盖核心工具和部分组件规则
-
-还在打磨中的部分：
-
-- 奇门、格局、应期等规则仍有 MVP 简化项，不能当作完整传统排盘实现
-- 3D 手撕黄历组件是概念实现，首页目前以稳定日期卡片为主
-- AI 当前支持 BYOK 客户端直连 provider；生产级后端代理仍是后续目标
-- 文档中的目标功能（订阅、Widget、推送、音景等）不代表已完成
-
-## 技术栈
-
-- **客户端**：Expo SDK 54 + React Native 0.81 + React 19 + TypeScript strict
-- **路由**：expo-router
-- **状态管理**：Zustand + AsyncStorage persist
-- **3D / 动效**：react-three-fiber + drei + expo-gl，Reanimated 4
-- **后端**：Supabase Auth + Postgres profiles
-- **AI**：OpenAI / DeepSeek / custom OpenAI-compatible；支持 Responses API / Azure AI Foundry URL
-- **命理引擎**：lunisolar、iztro、自研 bazi / qimen / liuyao
-- **测试**：jest + jest-expo + @testing-library/react-native
-
-## 快速开始
-
-```bash
-npm install
-npx expo start --dev-client
+```sh
+cp .env.example .env.local
+# 填写 Supabase URL 和公开 publishable / anon key
+python3 native/scripts/configure-public.py
+python3 native/scripts/generate-project.py
 ```
 
-常用检查：
+AI 需要登录，统一通过 Supabase 调用 **DeepSeek Flash**。用户无需填写模型或密钥；DeepSeek key 只存放在服务端。日签、日记和静心可离线使用。
 
-```bash
-npm test -- --runInBand
-npx tsc --noEmit
+详细操作、设备签名、账号迁移与产品边界见 [SwiftUI 开发指南](native/README.md)，后端部署见 [Supabase 指南](supabase/README.md)。
+
+## 结构
+
+- `native/App`：SwiftUI 页面与原生服务。
+- `native/Core`：Swift 模型、网络、归档和核心测试。
+- `native/Widget`：WidgetKit 小组件。
+- `native/Engine`：纯计算 TypeScript 源码、测试和独立工具链，编译后由 JavaScriptCore 离线运行。
+- `native/Resources`：原生素材、字体、引擎 bundle 与对照 fixtures。
+- `supabase`：登录后使用的 AI 转发接口、配额迁移与后端测试。
+- `docs/mingli`、`scripts`：算法文献和知识库维护工具。
+
+## 验证
+
+```sh
+# Swift 核心逻辑及跨时区引擎一致性
+TZ=America/Los_Angeles swift test --package-path native/Core
+
+# 原生 App、Widget 和集成/UI 测试；保留模拟器签名以使用 Keychain / App Group
+xcodebuild -project native/Suji.xcodeproj -scheme Suji \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test
+
+# 修改算法时：独立安装、类型检查、测试并重新生成资源
+npm ci --prefix native/Engine
+npm run typecheck --prefix native/Engine
+npm test --prefix native/Engine
+npm run build --prefix native/Engine
+
+# 后端测试
+npm ci --prefix supabase
+npm test --prefix supabase
+
+# 更新知识库索引（无 npm 依赖）
+node scripts/ingest-mingli-kb.mjs
 ```
 
-## 环境配置
-
-Supabase 使用 Expo public env：
-
-```bash
-EXPO_PUBLIC_SUPABASE_URL=...
-EXPO_PUBLIC_SUPABASE_ANON_KEY=...
-```
-
-数据库 schema 见：
-
-```txt
-supabase/migrations/0001_init_profiles.sql
-```
-
-AI API key 当前由用户在 App 设置页配置，并保存在本机；`profiles` 表不会上传 `api_key`。
-
-## 项目结构
-
-```txt
-app/          Expo Router 页面与导航
-components/   UI / AI / calendar / bazi / divination / qimen 组件
-lib/          核心逻辑：ai、bazi、calendar、divination、qimen、store、supabase、ziwei
-supabase/     数据库迁移
-docs/         PRD、架构、美学、设计规范、任务清单
-assets/       静态资源
-```
-
-## 开发约定
-
-- 命理算法不要凭感觉补规则；不确定的地方保留 TODO，并配测试或 fixture
-- 新功能优先补单测，尤其是命理 engine、AI tools 和 orchestrator
-- 视觉 / UI / 动效改动先看 `docs/AESTHETIC_DIRECTION.md` 和 `docs/DESIGN_GUIDELINE.md`
-- 风险动作（生产 schema、删除数据、force push）先确认
+已执行的检查与尚需实机验证的项目见 [验证记录](native/VERIFICATION.md)。传统算法保留明确的简化边界，不作为医疗、财务或人生决策建议；当前版本尚未发布到 App Store。
 
 ## License
 
-Private - All Rights Reserved
+Private — All Rights Reserved. 第三方字体与素材授权见 `native/Resources`。
