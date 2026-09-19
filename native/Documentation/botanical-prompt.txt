@@ -1,0 +1,7 @@
+Use case: illustration-story
+Asset type: original botanical illustration for an Eastern minimal native iPhone daily ritual app.
+Input image: a Figma moodboard, used only as style reference. Do not reproduce its screens, artwork, text or device frames.
+Primary request: one delicate ginkgo branch, three to five elegant fan-shaped leaves, with the restraint of a Chinese botanical album and the fine natural detail of the botanical reference. A slender curving stem rising from bottom left toward upper right. Soft muted olive and pale ochre watercolor, precise fine ink veins, gentle imperfect pigment edges. Quiet, refined, light, not ornate.
+Composition: portrait 1024 x 1536, single isolated branch centered, entire branch within frame, approximately 72 percent of image width and 78 percent of height, generous empty margin on all four sides. This will appear at 94 x 142 points beside a large calendar day numeral. It must read clearly at that size.
+Background: perfectly flat pure white #FFFFFF, no paper texture, no vignette, no scene and no cast shadow; the white will be removed for native light and dark themes.
+Constraints: no text, no lettering, no stamp, no logo, no border, no pot, no extra objects, no gradients behind the subject, no mockup. Original illustration, inspired by the moodboard's quiet editorial atmosphere.

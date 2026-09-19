@@ -1,0 +1,7 @@
+.build/
+DerivedData*/
+*.xcuserstate
+xcuserdata/
+tooling/node_modules/
+artifacts/
+Resources/PublicConfig.plist
