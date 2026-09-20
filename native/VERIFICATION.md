@@ -230,3 +230,7 @@ C exact head `9c0f578acfd80259ba18de9c907a0e795dc90303`: [run35493977209](https:
 取用不再默认首爻；明确对象身份、缺项、原变伏与日月候选，返回源绑定的条件触发支且不确定具体日期。独立复核36,864组选用及53,920条条件未见方向/对象错误。原生卡片适配候选状态及历史回执。
 
 本地46套666项Engine、241项Swift Core，18fixtures及typecheck/build/native-only/diff通过。最大允许问题/事件边界曾触发122,435字符核验超限；无损共享重复后缀后最大109,558，完整双盘55,635字节保存重放。见 [E1记录](../docs/mingli/validation/liuyao-question-conditions-2026-09-20.md)。奇门E2、D3/F及剩余核心条件仍未验收。
+
+## Cast-calendar interpretation binding F1 — 2026-09-20
+
+250 Swift Core tests (America/Los_Angeles), nine new targeted tests, independent39 assertion recheck pass. Original E1 wrong month is reproduced against the full archived tool history and corrected before model review. Counterexamples cover question punctuation, reported/old/hypothetical values, cross-system fields, conflicting receipts and timing advice. Final DeepSeek replay still safely falls back because of unrelated line-relation/source errors; not interpretation acceptance. See [F1 record](../docs/mingli/validation/divination-calendar-reading-2026-09-20.md). E1 exact6fd9d92 remote CI35494700577 passed all three jobs.

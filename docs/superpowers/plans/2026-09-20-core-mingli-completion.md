@@ -126,6 +126,10 @@ E1 local validation: 666 Engine /241 Swift tests. Independent reviewer cleared o
 
 ## Batch F1 — prioritize observed live calendar hallucination
 
-- [ ] Bind Liuyao month/day/hour and Qimen day/hour/month to their own explicit cast context; wrong system, negation and ambiguous multi-tool values must not authorize corrections.
-- [ ] Local deterministic correction for narrowly bound calendrical mismatches, including the actual E1 pre-LiChun failure; source/tool values only, no separate calendar recomputation.
-- [ ] Counterexample tests, real provider replay and full validation. Fine-grained line relations and Ziwei D3 remain next.
+- [x] Bind Liuyao month/day/hour and Qimen day/hour/month to their own explicit cast context; wrong system, negation and ambiguous multi-tool values must not authorize corrections.
+- [x] Local deterministic correction for narrowly bound calendrical mismatches, including the actual E1 pre-LiChun failure; source/tool values only, no separate calendar recomputation.
+- [x] Counterexample tests, real provider replay and full validation (live interpretation still failed; preserved as evidence). Fine-grained line relations and Ziwei D3 remain next.
+
+E1 accepted within its documented calculation scope: `6fd9d92163fb82b82577d18e61e8fce183d28516` matches remote. [Run35494700577](https://github.com/wxbbb42/SUJI/actions/runs/35494700577) passed engine, swift-core and native-app. Live prose remains unaccepted.
+
+F1 local scope accepted: 250 Swift Core tests, nine targeted tests, independent39 assertions; final real replay still fact-fallback. See [F1](../../mingli/validation/divination-calendar-reading-2026-09-20.md). No broad interpretation acceptance. Exact-head CI pending.

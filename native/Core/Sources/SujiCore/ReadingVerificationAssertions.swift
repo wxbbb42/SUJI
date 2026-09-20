@@ -39,6 +39,7 @@ enum ReadingVerificationAssertions {
         // Do not discard a negation before the group marker while slicing it.
         // Mixed assertions/denials are ambiguous and are never repair evidence.
         guard !conditional(sentence), !denied(sentence) else { return false }
+        if calendarClaims(in: sentence, key: fact.factKey).contains(quote) { return true }
         let value = NSRegularExpression.escapedPattern(for: quote)
         let link = "(?:的)?\\s*(?:仍为|仍是|为|是|落在|落|在|为：|是：|：|:)?\\s*[「『“\"]?"
         let key = fact.factKey.components(separatedBy: ".")
