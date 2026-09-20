@@ -58,7 +58,7 @@ public struct BirthProfile: Codable, Equatable, Sendable {
         return calendar.date(from: DateComponents(year: year, month: month, day: day, hour: hour, minute: minute))
     }
     @discardableResult public func validated() throws -> Self {
-        guard (1901...2100).contains(year), (1...12).contains(month), (0...23).contains(hour), (0...59).contains(minute), longitude.isFinite, (-180...180).contains(longitude), ["男", "女"].contains(gender), timeZoneID == "Asia/Shanghai", let date else { throw DomainError.invalidBirth }
+        guard (1901...2100).contains(year), (1...12).contains(month), (0...23).contains(hour), (0...59).contains(minute), !city.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, longitude.isFinite, (-180...180).contains(longitude), ["男", "女"].contains(gender), timeZoneID == "Asia/Shanghai", let date else { throw DomainError.invalidBirth }
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone(secondsFromGMT: 8 * 3600)!
         let values = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
@@ -72,7 +72,7 @@ public enum DomainError: LocalizedError {
     case invalidBirth, invalidArchive
     public var errorDescription: String? {
         switch self {
-        case .invalidBirth: return "请检查出生日期、时间与经度。当前排盘使用北京时间。"
+        case .invalidBirth: return "请检查出生日期、时间、地点与经度。当前排盘使用北京时间。"
         case .invalidArchive: return "这份备份格式不受支持，原有数据未被更改。"
         }
     }

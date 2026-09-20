@@ -64,6 +64,7 @@ struct Document {
         guard let birth = state.birth else { return false }
         return natalDossier?.matches(ownerID: scopeKey, birth: birth, engineRevision: engineRevision) == true
     }
+    var buildingNatalDossier: Bool { natalTask != nil }
 
     init(context: ModelContext, scriptURL: URL, userID: String? = nil) throws {
         self.context = context
@@ -176,7 +177,6 @@ struct Document {
     }
     func updateBirth(_ birth: BirthProfile) async throws {
         try birth.validated()
-        guard !birth.city.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { throw DomainError.invalidBirth }
         let old = state
         let scope = scopeRevision
         if state.birth != birth { state.previousBirth = state.birth }
@@ -236,7 +236,7 @@ struct Document {
                     guard scopeRevision == scope, state.birth == nil else { return }
                     let old = state
                     state = try accountSession.applying(cloud, to: state)
-                    do { try saveThrowing() } catch { state = old; throw error }
+                    do { try saveThrowing() } catch { context.rollback(); state = old; throw error }
                 }
             } catch {
                 guard scopeRevision == scope else { return }

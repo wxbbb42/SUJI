@@ -153,7 +153,7 @@ struct DossierSetupView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 24) {
-                if store.computing { ProgressView("正在建立本命档案…") }
+                if store.computing || store.buildingNatalDossier { ProgressView("正在建立本命档案…") }
                 else {
                     Text("建立你的档案").font(SujiTheme.serif(28))
                     Text(store.dossierError ?? "根据出生资料整理八字与紫微本命盘，完成后即可进入册页。")
@@ -164,7 +164,6 @@ struct DossierSetupView: View {
                 NavigationLink("账户与登录") { AccountView(session: store.accountSession) }
             }.padding(28)
                 .sheet(isPresented: $editing) { BirthEditor(existing: store.state.birth) { birth in try await store.updateBirth(birth) } }
-                .task { await store.calculateProfile() }
         }
     }
 }

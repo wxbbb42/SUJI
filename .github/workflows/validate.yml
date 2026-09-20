@@ -50,8 +50,13 @@ jobs:
             -only-testing:SujiTests/StoreRegressionTests \
             -only-testing:SujiTests/NatalDossierStoreTests \
             -only-testing:SujiUITests/SujiUITests/testAccountGateBlocksNotebookBeforeLogin
+      - name: Export UI screenshots
+        if: always()
+        run: xcrun xcresulttool export attachments --path /tmp/SujiNative.xcresult --output-path /tmp/SujiNativeScreenshots
       - uses: actions/upload-artifact@v4
-        if: failure()
+        if: always()
         with:
           name: native-test-results
-          path: /tmp/SujiNative.xcresult
+          path: |
+            /tmp/SujiNative.xcresult
+            /tmp/SujiNativeScreenshots

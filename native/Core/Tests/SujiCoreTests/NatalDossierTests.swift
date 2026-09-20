@@ -3,6 +3,10 @@ import XCTest
 
 final class NatalDossierTests: XCTestCase {
     private let birth = BirthProfile(year: 1995, month: 8, day: 15, hour: 19, minute: 30, gender: "女", city: "上海", longitude: 121.47)
+    func testDossierRequiresBirthLocationAsWellAsDateAndTime() {
+        var incomplete = birth; incomplete.city = "  "
+        XCTAssertThrowsError(try incomplete.validated())
+    }
     private func payload() async throws -> Data {
         let resources = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("Resources")
         let bridge = try MingliBridge(scriptURL: resources.appendingPathComponent("mingli.js"))

@@ -135,7 +135,7 @@ import SujiCore
         XCTAssertEqual(app.state.journal.first?.note, "guest-original")
     }
 
-    private static func body(_ request: URLRequest) throws -> Data {
+    nonisolated private static func body(_ request: URLRequest) throws -> Data {
         if let data = request.httpBody { return data }
         let stream = try XCTUnwrap(request.httpBodyStream)
         stream.open(); defer { stream.close() }
