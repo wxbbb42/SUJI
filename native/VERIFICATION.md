@@ -214,3 +214,11 @@ D2 exact head `5857c5ebe520f7fc590e0e7153c60af12bcad95e`: [run 35492560471](http
 回头生克、七组进退、飞伏及静爻日冲条件已补；4,096卦值穷举核对12,288回头关系与3,584飞伏关系。完整原生盘面和证据测试发现并修复核验容量及重试丢盘：核验共享前缀保留所有事实，重放与首次交付共享60KB盘面预算，后端限制不变。大畜+奇门48,543字节完整保存、重放且不重起盘。
 
 本地43套645项Engine、237项Swift Core、15项后端测试通过；typecheck/build/native-only/diff通过，18个Node/JSC fixtures。详见 [B验收记录](../docs/mingli/validation/liuyao-conditional-2026-09-20.md)。这不完成全局旺衰、取用或自然语言解释验收。
+
+B exact head `5134662ffd9c7a658ab5c3aff09b0cfb8ba47a26`: [run 35493371399](https://github.com/wxbbb42/SUJI/actions/runs/35493371399) succeeded in engine, swift-core and native-app.
+
+### 2026-09-20 八字救应与配合条件 C
+
+正格新增逐柱根气/生扶/月令、克合约束、隔位救应与保护相神候选、月冲及合解/通关条件。返回源文档哈希和逐字摘录，保留效力未定。原生格局解释按具体柱位给出有限例子，错误对象/出处/效力升格反例拒绝通过。
+
+本地44套654项Engine、240项Swift Core通过，18个运行时fixtures；typecheck/build/native-only/diff通过。四领域真实结果完整交付、回执、重放和核验预算继续通过。详见 [C验证记录](../docs/mingli/validation/bazi-conditional-2026-09-20.md)；不宣称完成全局成败裁定。

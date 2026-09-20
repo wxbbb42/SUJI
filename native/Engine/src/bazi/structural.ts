@@ -40,6 +40,7 @@ import type {
   XiangShenInfo,
   YueLingState,
 } from './types';
+import { PATTERN_CONDITION_SOURCES } from './patternSources';
 
 /** 本/中/余 三级权重（adapted from bazi-life-curves `ROOT_TIER_WEIGHT`） */
 export const ROOT_TIER_WEIGHT: Record<RootTier, number> = {
@@ -850,6 +851,88 @@ function scanJiuYing(
   return out;
 }
 
+/** Explicit conditions for the regular-pattern candidate. Relative context
+ * pointers resolve within this object. No root weights or net-strength verdict.
+ * Remote pairs remain visible because the read edition gives remote rescues.
+ */
+export function computePatternConditions(
+  dayGan:TianGan, stems:[TianGan,TianGan,TianGan,TianGan],
+  branches:[DiZhi,DiZhi,DiZhi,DiZhi], yong:ShiShen,
+) {
+  const coordinates=(a:number,b:number)=>({adjacent:Math.abs(a-b)===1,
+    interveningPositions:Array.from({length:Math.max(0,Math.abs(a-b)-1)},(_,i)=>Math.min(a,b)+i+1)});
+  const hidden=branches.flatMap((branch,position)=>ROOT_HIDDEN_GAN[branch].map(({gan,tier})=>({position,branch,gan,tier})));
+  const monthElement=GAN_WUXING[ROOT_HIDDEN_GAN[branches[1]][0].gan];
+  const stemContexts=stems.map((gan,position)=>{
+    const element=GAN_WUXING[gan];
+    const monthState:YueLingState=monthElement===element?'旺':SHENG[monthElement]===element?'相':KE[monthElement]===element?'死':SHENG[element]===monthElement?'休':'囚';
+    const constraints=stems.flatMap((actorGan,actorPosition)=>{
+      if(actorPosition===position) return [];
+      const relations:('克'|'合')[]=[];
+      if(ganKe(actorGan,gan)) relations.push('克');
+      if(isGanHe(actorGan,gan)) relations.push('合');
+      return relations.map(relation=>({actorPosition,actorGan,relation,...coordinates(actorPosition,position)}));
+    });
+    return {position,gan,element,shiShen:computeShiShenOf(dayGan,gan),
+      month:{branch:branches[1],element:monthElement,state:monthState},
+      sameElementRoots:hidden.filter(v=>GAN_WUXING[v.gan]===element).map(v=>({...v,sameStem:v.gan===gan})),
+      generatingSupport:hidden.filter(v=>SHENG[GAN_WUXING[v.gan]]===element),
+      generatingStemPositions:stems.flatMap((g,i)=>i!==position&&SHENG[GAN_WUXING[g]]===element?[i]:[]),
+      constraints,combinationAdjudication:'unresolved' as const};
+  });
+  const def=XIANGSHEN_DEFAULT[yong],helperGods=[def.primary,...(def.secondary?[def.secondary]:[])];
+  const helperCandidates=[
+    ...stems.flatMap((gan,position)=>position!==2&&helperGods.includes(computeShiShenOf(dayGan,gan))?
+      [{layer:'stem',gan,position,shiShen:computeShiShenOf(dayGan,gan),context:`/stems/${position}`}]:[]),
+    ...hidden.filter(v=>helperGods.includes(computeShiShenOf(dayGan,v.gan))).map(v=>({layer:'hidden',...v,shiShen:computeShiShenOf(dayGan,v.gan)})),
+  ];
+  const threats=scanJiShenTransparent(yong,dayGan,stems);
+  const rescueCandidates=threats.flatMap(threat=>stems.flatMap((gan,position)=>{
+    if(position===2||position===threat.position) return [];
+    const ss=computeShiShenOf(dayGan,gan),isResource=ss==='正印'||ss==='偏印';
+    const relations:('合'|'克'|'生')[]=[];
+    if(isGanHe(gan,threat.gan)) relations.push('合');
+    if(ganKe(gan,threat.gan)&&(['食神','伤官'].includes(ss)||(isResource&&['正官','七杀','伤官'].includes(yong)))) relations.push('克');
+    if(isResource&&['正官','七杀','伤官'].includes(yong)&&SHENG[GAN_WUXING[threat.gan]]===GAN_WUXING[gan]) relations.push('生');
+    return relations.map(relation=>({triggerPosition:threat.position,remedyPosition:position,relation,
+      fromPosition:relation==='生'?threat.position:position,toPosition:relation==='生'?position:threat.position,
+      ...coordinates(position,threat.position),triggerContext:`/stems/${threat.position}`,remedyContext:`/stems/${position}`,effectiveness:'unresolved' as const}));
+  }));
+  const helperProtectionCandidates=helperCandidates.filter(v=>v.layer==='stem').flatMap(helper=>
+    stemContexts[helper.position].constraints.filter(v=>v.relation==='克').flatMap(attacker=>
+      stems.flatMap((gan,position)=>{
+        if(position===2||position===helper.position||position===attacker.actorPosition) return [];
+        const relations:('合'|'克')[]=[];
+        if(isGanHe(gan,attacker.actorGan)) relations.push('合');
+        if(ganKe(gan,attacker.actorGan)) relations.push('克');
+        return relations.map(relation=>({helperPosition:helper.position,attackerPosition:attacker.actorPosition,remedyPosition:position,relation,
+          ...coordinates(position,attacker.actorPosition),helperContext:`/stems/${helper.position}`,attackerContext:`/stems/${attacker.actorPosition}`,remedyContext:`/stems/${position}`,effectiveness:'unresolved' as const}));
+      })));
+  const clashes=(a:DiZhi,b:DiZhi)=>ZHI_LIU_CHONG_PAIRS.some(pair=>pair.includes(a)&&pair.includes(b)&&a!==b);
+  const branchOrder='子丑寅卯辰巳午未申酉戌亥';
+  const combines=(a:DiZhi,b:DiZhi)=>(branchOrder.indexOf(a)+branchOrder.indexOf(b))%12===1;
+  const monthClashes=branches.flatMap((branch,position)=>position!==1&&clashes(branches[1],branch)?[{
+    monthPosition:1,otherPosition:position,branches:[branches[1],branch],reliefEstablished:false as const,
+    combinationCandidates:branches.flatMap((candidate,i)=>i!==1&&i!==position?[1,position].flatMap(target=>combines(candidate,branches[target])?[{
+      position:i,branch:candidate,combinesWithPosition:target,...coordinates(i,target),
+      challengedByPositions:branches.flatMap((b,j)=>j!==i&&clashes(candidate,b)?[j]:[]),
+    }]:[]):[]),
+    mediationCandidates:branches.flatMap((candidate,i)=>{
+      if(i===1||i===position) return [];
+      const element=GAN_WUXING[ROOT_HIDDEN_GAN[candidate][0].gan],other=GAN_WUXING[ROOT_HIDDEN_GAN[branch][0].gan];
+      return (SHENG[other]===element&&SHENG[element]===monthElement)||(SHENG[monthElement]===element&&SHENG[element]===other)?
+        [{position:i,branch:candidate,element,challengedByPositions:branches.flatMap((b,j)=>j!==i&&clashes(candidate,b)?[j]:[])}]:[];
+    }),
+  }]:[]);
+  return {assessmentStatus:'conditions-only' as const,outcomeEstablished:false as const,
+    stems:stemContexts,helperCandidates,rescueCandidates,helperProtectionCandidates,monthClashes,
+    sources:PATTERN_CONDITION_SOURCES,
+    limitations:['相神表是当前格局默认候选集合，不穷尽全局取相；藏干候选不等同透干，藏干救应效力未裁定',
+      '克、合、根与月令分别记录；相隔、同名多配对或季候标签均不能单独裁定救应有效或失效',
+      '地支六合/通关仅列条件，不取消月冲，不以半合充完整三合或已成化；全局力量及合解仍待审',
+      'chengBai与jibie保留既有工程候选口径，不代表本条件评估已裁定成败或等级']};
+}
+
 /** 用神是否被合冲（结构性破象） */
 function isYongShenBroken(
   yongGan: TianGan,
@@ -1177,5 +1260,6 @@ export function computeGeJuV2(
     yongShenGan: sel.yongGan,
     yongShenShiShen: yong,
     selectionBasis: sel.basis,
+    conditionalEvidence:computePatternConditions(dayGan,stems,branches,yong),
   };
 }

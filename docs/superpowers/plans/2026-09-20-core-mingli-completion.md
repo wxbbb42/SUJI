@@ -21,7 +21,7 @@
 ## Acceptance ledger / dependency order
 
 - [x] A. Liuyao original/changed/hidden objects each carry their own month/day/void/clash/combination facts; Qimen hour void, scoped horse, directional door pressure and star/month relationship; native fact index binds these precisely.
-- [ ] B. Liuyao returning generation/control, flying/hidden, advance/retreat, conditional dark movement/day break with explicit satisfied/conflicting/unresolved conditions and classical counterexamples.
+- [x] B. Liuyao returning generation/control, flying/hidden, advance/retreat, conditional dark movement/day break with explicit satisfied/conflicting/unresolved conditions and classical counterexamples.
 - [ ] C. Bazi rescue damage, support/root/season context and branch rescue conditions; do not replace unresolved global competition with a score.
 - [ ] D. Fresh Ziwei review and closure of demonstrated gaps: school policy boundaries, palace/star/transform relationships and natal versus dynamic layers; independent boundary and structural examples.
 - [ ] E. Question-object selection and conditional timing: candidate identities, selection/exclusion evidence, missing relationship/event/time scope, conflicts retained; no first-candidate-as-verdict behavior.
@@ -91,8 +91,22 @@ Source choice: read 增删卜易 electronic chapters17/20/22 and root chapters28
 - [x] Test 姤二亥飞生寅伏 / 遯初辰飞克子伏. Return identity, direction and separate enabling/opposing conditions including day/month/moving generation, clash/control of flying, and flying emptiness/month break. Comprehensive strength and 墓绝 must not be fabricated from monthState.
 - [x] Test 静旺日冲 / 静弱日冲, moving-line exclusion, 冲空, and 寅月己未日坤→师: month克丑 plus同类日扶 coexist. Return competing conditional暗动/日破 cases; do not classify by monthState alone or invent a net-strength threshold.
 - [x] Bind each condition to precise original/changed/hidden fact pointers. Include sources once, keep true/false/unresolved separate, preserve incomplete adjudication rather than hide it in a score.
-- [ ] Native index and actual cast transport/replay; check limits before accepting richer results. Independent review, source registry, full checks and exact-head CI.
+- [x] Native index and actual cast transport/replay; check limits before accepting richer results. Independent review, source registry, full checks and exact-head CI.
 
 This batch closes structural and conditional rule gaps only; question-dependent final取用 and event timing remain E, interpretation claims F. Additional 三合、六合六冲、反吟伏吟、墓绝 require their own grounded decisions before final core acceptance.
 
 B local verification: 645 Engine /237 Core /15 backend tests pass,18 Node/JSC fixtures. Exhaustive 4,096 casts validate 12,288 returning and3,584 flying-hidden directions. Lossless verifier prefixes reduce the large 大畜+奇门 case from132,867 to110,541 UTF-16 units. Actual live/replay test found mismatched60KB/40KB receipt budgets; both now share the existing60KB live limit, backend limits unchanged. See `docs/mingli/validation/liuyao-conditional-2026-09-20.md`. Independent review cleared, including repeated cached-chart message count. Push/exact-head CI remain pending.
+
+## Batch C — rescue and support conditions
+
+Read archived Ziping abstract chapters and foundations (hashes in returned source records). Independent review demonstrated: 月癸制年丁 can itself be combined/controlled by 时戊; 印 can constrain 食神; same rescue stem names conceal different roots; 月午日子冲 may coexist with 日子时丑合. The explicit 年丁月癸时戊 example disproves treating the current adjacency-only scan as a universal rule. Preserve the existing heuristic summary for compatibility, and add a separately scoped conditional assessment; no new net-strength score or automatic success claim.
+
+- [x] RED/GREEN for seven independent literal vectors, including remote rescue and non-universal competing-pair interpretation.
+- [x] Bind candidate/helper identities to stem or hidden-stem column. Return exact/same-element roots separately from generating support, month state, incoming control/combination and intermediary positions. Keep calendar facts distinct from outcome.
+- [x] Return direct rescue and helper-protection candidates, including remote pairs as unresolved. Preserve every candidate and opponent, not first-match verdict. Associate each with its own support and constraints.
+- [x] Return monthly clash pairs plus precise combination/mediation candidates and obstruction facts; do not erase the clash or call partial三合 transformed.
+- [ ] Source-grounded native indexing and framework reading, real transport/replay, independent recheck, full checks and exact-head CI.
+
+B accepted: exact5134662ffd9c7a658ab5c3aff09b0cfb8ba47a26 pushed; run35493371399 succeeded in engine,swift-core,native-app.
+
+C local verification: 654 Engine /240 Swift Core tests pass,18 fixtures, typecheck/build/native-only/diff pass. Independent source review cleared. Native review caught an empty-list evidence omission; actual-chart RED/GREEN now preserves the empty rescue list in both catalog and persisted reading. Exact-head CI pending; global competition and final efficacy remain separate unresolved scope.

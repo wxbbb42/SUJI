@@ -521,6 +521,7 @@ export type GeJuRank = 'shang' | 'zhong' | 'xia';
 
 /** 结构化格局（《子平真诠》成败救应 + 相神 + 高低）*/
 export interface GeJuV2 {
+  conditionalEvidence?: ReturnType<typeof import('./structural').computePatternConditions>;
   phaseId: string;             // 引用 PhaseRegistry
   name: string;
   category: 'zhengge' | 'conge' | 'zhuanwang' | 'huaqi';

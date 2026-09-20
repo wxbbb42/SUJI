@@ -177,10 +177,12 @@ public enum BaziFrameworkReading {
                             evidence: evidence(strengthPaths), ruleIDs: ["suji.fuyi-counting-v1"]))
 
         let trace = patternTrace(root: root)
+        let conditionTrace = BaziPatternConditionTrace.make(root:root)
+        if value(g + "conditionalEvidence",root) != nil && conditionTrace == nil { return nil }
         let patternMethod = category == "zhengge" ? "格局用神按本次子平真诠口径，讨论月令结构及其配合。" : "本次格局结果来自特殊格的工程筛查，不能直接套用普通月令取格的解释。"
         claims.append(Claim(id: "pattern", qualification: .candidate,
-                            text: patternMethod + "本次列出\(pattern)候选，格局用神记为\(patternElement.rawValue)\(patternStemText(root))。\(trace.text)这里的格局名称与成败都仍是结构规则候选，不能据此说已经成格。条件：\(conditionText(conditions))。",
-                            evidence: evidence([g + "name", g + "assessmentStatus", g + "yongShen", g + "yongShenGan", g + "yongShenShiShen", g + "selectionBasis", g + "category", g + "conditions", policy + "structureYongShen", policy + "status"] + trace.paths), ruleIDs: ["bazi.yongshen.priority-chain"]))
+                            text: patternMethod + "本次列出\(pattern)候选，格局用神记为\(patternElement.rawValue)\(patternStemText(root))。\(trace.text)这里的格局名称与成败都仍是结构规则候选，不能据此说已经成格。条件：\(conditionText(conditions))。" + (conditionTrace?.text ?? ""),
+                            evidence: evidence([g + "name", g + "assessmentStatus", g + "yongShen", g + "yongShenGan", g + "yongShenShiShen", g + "selectionBasis", g + "category", g + "conditions", policy + "structureYongShen", policy + "status"] + trace.paths + (conditionTrace?.paths ?? [])), ruleIDs: ["bazi.yongshen.priority-chain"] + (conditionTrace == nil ? [] : ["bazi.pattern-conditions-v1"])))
 
         let edges = relations(to: dayElement)
         let support = edges[0], restrain = edges[1], drain = edges[2], consume = edges[3]
@@ -340,6 +342,7 @@ public enum BaziFrameworkReading {
     }
 
     private static let ruleSources = [
+        RuleSource(id:"bazi.pattern-conditions-v1",source:"native/Engine/src/bazi/patternSources.ts; native/Engine/src/bazi/structural.ts#computePatternConditions",scope:"Returned stem relations and constraints, with exact columns and source hashes; no adjudicated remedy efficacy or pattern success."),
         RuleSource(id: "suji.fuyi-counting-v1", source: "native/Engine/src/bazi/BaziEngine.ts#computeWuXingStrength", scope: "Current product counting heuristic; not a complete traditional strength calculation or an empirical prediction."),
         RuleSource(id: "bazi.yongshen.priority-chain", source: "native/Engine/src/bazi/structural.ts#selectYongShen; docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md", scope: "Trace only the supplied basis and matching month-hidden/exposed stem; not established pattern success."),
         RuleSource(id: "bazi.five-elements-directed-relations-v1", source: "native/Engine/src/bazi/BaziEngine.ts#SHENG,KE; docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md", scope: "Conventional directed generating/controlling relationships and day-master-relative draining/consuming; not personalized effect strength."),

@@ -1326,6 +1326,15 @@ Updated: 2026-04-30
 - Confidence: high_for_engineering_choice_no_classical_basis
 - Status: engineering_threshold_borrowed_from_open_source
 
+### bazi.pattern-conditional-support-and-rescue
+
+- Domain: bazi
+- Claim: 正格条件层保留救应与相神的具体柱位、隔位克合、同干/同五行根、生扶及月令状态；月冲与六合/通关候选并存，不取消原冲。原文年丁月癸时戊证明仅邻柱不是普遍规则；原文次序例外也不支持把多邻位配对一律判争合。既有成败等级仍是工程候选，新条件层不裁定净力量或已救成格。
+- Sources: `bazi-ziping-zhenquan`
+- Repo refs: `native/Engine/src/bazi/structural.ts`, `native/Engine/src/bazi/patternSources.ts`, `native/Engine/src/bazi/__tests__/patternConditions.test.ts`, `native/Core/Sources/SujiCore/BaziPatternConditionTrace.swift`
+- Confidence: high_for_scoped_relations_not_final_strength_or_adjudication
+- Status: conditional_facts_with_source_and_counterexample_checks
+
 ### bazi.peer-occurrence-is-not-day-self
 
 - Domain: bazi

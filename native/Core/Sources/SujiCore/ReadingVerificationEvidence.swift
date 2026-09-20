@@ -72,10 +72,41 @@ enum ReadingVerificationEvidence {
                 fields("ziwei.method", base + "/method", ["algorithm", "dayBoundary", "yearBoundary", "leapMonth", "calculationDate", "civilTimeZone", "caveats"])
                 sources("ziwei", base)
             }
+            func patternConditions() {
+                let base = "/bazi/patternAnalysis/conditionalEvidence", prefix = "bazi.pattern.conditions"
+                fields(prefix,base,["assessmentStatus","outcomeEstablished","limitations"])
+                func rows(_ key: String,_ path: String,_ keys: [String]) {
+                    guard case let .array(items) = pointer(path,in:object) else { return }
+                    for index in items.indices { fields(key + String(index + 1),path + "/\(index)",keys) }
+                }
+                if case let .array(stems) = pointer(base + "/stems",in:object) {
+                    for index in stems.indices {
+                        let p = base + "/stems/\(index)",k = prefix + ".stem\(index + 1)"
+                        fields(k,p,["position","gan","element","shiShen","generatingStemPositions","combinationAdjudication"])
+                        fields(k + ".month",p + "/month",["branch","element","state"])
+                        rows(k + ".root",p + "/sameElementRoots",["position","branch","gan","tier","sameStem"])
+                        rows(k + ".support",p + "/generatingSupport",["position","branch","gan","tier"])
+                        rows(k + ".constraint",p + "/constraints",["actorPosition","actorGan","relation","adjacent","interveningPositions"])
+                    }
+                }
+                rows(prefix + ".helper",base + "/helperCandidates",["layer","position","gan","branch","tier","shiShen","context"])
+                rows(prefix + ".rescue",base + "/rescueCandidates",["triggerPosition","remedyPosition","relation","fromPosition","toPosition","adjacent","interveningPositions","triggerContext","remedyContext","effectiveness"])
+                rows(prefix + ".protection",base + "/helperProtectionCandidates",["helperPosition","attackerPosition","remedyPosition","relation","adjacent","interveningPositions","helperContext","attackerContext","remedyContext","effectiveness"])
+                if case let .array(clashes) = pointer(base + "/monthClashes",in:object) {
+                    for index in clashes.indices {
+                        let p = base + "/monthClashes/\(index)",k = prefix + ".monthClash\(index + 1)"
+                        fields(k,p,["monthPosition","otherPosition","branches","reliefEstablished"])
+                        rows(k + ".combination",p + "/combinationCandidates",["position","branch","combinesWithPosition","adjacent","interveningPositions","challengedByPositions"])
+                        rows(k + ".mediation",p + "/mediationCandidates",["position","branch","element","challengedByPositions"])
+                    }
+                }
+                rows(prefix + ".source",base + "/sources",["id","document","sha256","locator","quote","additionalQuotes","editionStatus"])
+            }
             switch name {
             case "get_today_context":
                 for (key, path) in [("year", "yearGanZhi"), ("month", "monthGanZhi"), ("day", "dayGanZhi"), ("term", "solarTerm")] { add("calendar." + key, "/" + path) }
             case "get_domain":
+                patternConditions()
                 for column in ["year", "month", "day", "hour"] {
                     for part in ["gan", "zhi"] { add("bazi.\(column).\(part)", "/bazi/pillars/\(column)/ganZhi/\(part)") }
                     add("bazi.\(column).tenGod", "/bazi/pillars/\(column)/shiShen")

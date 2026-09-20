@@ -884,6 +884,22 @@
       ],
       "confidence": "high_for_structural_directions_conditional_for_adjudication",
       "status": "conditional_rules_implemented_final_strength_and_timing_pending"
+    },
+    {
+      "id": "bazi.pattern-conditional-support-and-rescue",
+      "domain": "bazi",
+      "claim": "正格条件层保留救应与相神的具体柱位、隔位克合、同干/同五行根、生扶及月令状态；月冲与六合/通关候选并存，不取消原冲。原文年丁月癸时戊证明仅邻柱不是普遍规则；原文次序例外也不支持把多邻位配对一律判争合。既有成败等级仍是工程候选，新条件层不裁定净力量或已救成格。",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "repoRefs": [
+        "native/Engine/src/bazi/structural.ts",
+        "native/Engine/src/bazi/patternSources.ts",
+        "native/Engine/src/bazi/__tests__/patternConditions.test.ts",
+        "native/Core/Sources/SujiCore/BaziPatternConditionTrace.swift"
+      ],
+      "confidence": "high_for_scoped_relations_not_final_strength_or_adjudication",
+      "status": "conditional_facts_with_source_and_counterexample_checks"
     }
   ]
 }

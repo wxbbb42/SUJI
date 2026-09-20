@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-20T05:55:51.240Z",
+  "generatedAt": "2026-09-20T06:14:12.342Z",
   "sourceCount": 50,
-  "claimCount": 59,
+  "claimCount": 60,
   "domains": {
     "academic": [
       {
@@ -1275,6 +1275,15 @@
       ],
       "status": "engineering_threshold_borrowed_from_open_source",
       "confidence": "high_for_engineering_choice_no_classical_basis"
+    },
+    {
+      "id": "bazi.pattern-conditional-support-and-rescue",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "conditional_facts_with_source_and_counterexample_checks",
+      "confidence": "high_for_scoped_relations_not_final_strength_or_adjudication"
     },
     {
       "id": "bazi.peer-occurrence-is-not-day-self",
