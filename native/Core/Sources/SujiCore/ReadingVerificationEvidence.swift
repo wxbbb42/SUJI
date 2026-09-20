@@ -176,6 +176,23 @@ enum ReadingVerificationEvidence {
                         }
                     }
                 }
+                let rolesPath = "/roleRelations", rolesKey = "liuyao.roleRelations"
+                fields(rolesKey,rolesPath,["assessmentStatus","outcomeEstablished","sourceId","inspectedOriginalPaths","groups","unsupportedCandidates","unresolved"])
+                if case let .array(groups) = pointer(rolesPath+"/groups",in:object) {
+                    for i in groups.indices {
+                        let p=rolesPath+"/groups/\(i)",k=rolesKey+".group\(i+1)"
+                        fields(k,p,["targetElement","candidateRefs","yuanPositions","jiPositions","chouPositions","jiYuanMovingPairs","chouJiMovingPairs"])
+                        fields(k+".elements",p+"/elements",["yuan","ji","chou"])
+                        for (collection,label,keys) in [("candidateRefs","candidate",["id","objectPath","contextPath"]),("jiYuanMovingPairs","jiYuanPair",["jiPosition","yuanPosition"]),("chouJiMovingPairs","chouJiPair",["chouPosition","jiPosition"])] {
+                            if case let .array(rows) = pointer(p+"/"+collection,in:object) {
+                                for j in rows.indices { fields(k+".\(label)\(j+1)",p+"/\(collection)/\(j)",keys) }
+                            }
+                        }
+                    }
+                }
+                if case let .array(rows) = pointer(rolesPath+"/unsupportedCandidates",in:object) {
+                    for i in rows.indices { fields(rolesKey+".unsupported\(i+1)",rolesPath+"/unsupportedCandidates/\(i)",["id","objectPath","reason"]) }
+                }
                 fields("liuyao.timing", "/yingQi", ["assessmentStatus", "outcomeEstablished", "sourceId", "timeScale", "unresolved", "branchesByCandidate"])
                 if case let .array(candidates) = pointer("/yingQi/branchesByCandidate",in:object) {
                     for index in candidates.indices {

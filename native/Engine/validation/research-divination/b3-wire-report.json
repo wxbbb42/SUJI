@@ -1,0 +1,8 @@
+{
+  "fixture": 6,
+  "actualChatClientWire": "passed",
+  "network": "local URLProtocol only; no provider request",
+  "bytes": 158059,
+  "withReserve": 159083,
+  "limit": 262144
+}

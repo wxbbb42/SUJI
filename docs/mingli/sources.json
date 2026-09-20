@@ -532,7 +532,9 @@
     {
       "repoRefs": [
         "native/Engine/src/divination/HexagramEngine.ts",
-        "native/Engine/src/ai/tools/liuyao.ts"
+        "native/Engine/src/ai/tools/liuyao.ts",
+        "native/Engine/src/divination/roleRelations.ts",
+        "native/Engine/validation/research-divination/liuyao-role-sources.json"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P0",
@@ -554,7 +556,7 @@
         "分类占例",
         "现代六爻实务核心参考"
       ],
-      "notes": "六爻实务 P0 source；需要重点核对当前用神/应期实现。"
+      "notes": "六爻实务 P0 source；需要重点核对当前用神/应期实现。 本批逐字读取第九/十章onlyinclude原文，排除后附原劍按；保存原始页和SHA256，按候选对象列元忌仇结构。第十章动化退神异文尚未据此立效力规则。"
     },
     {
       "id": "yijing-zhouyi-received",

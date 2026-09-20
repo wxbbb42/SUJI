@@ -61,7 +61,7 @@ public enum ReadingPrompt {
             ? "\n本次解释八字的扶抑、格局或调候依据（\(focus?.rawValue ?? "comparison")），若已有出生资料，必须先取本次get_domain中的八字字段；各领域返回的是同一八字，只需一次，不重复查询。即使是在追问历史回答，也需取得当前问题上下文的依据；本次重试已有匹配缓存则复用。若用户未指定领域，可读取事业领域的八字部分，不作事业推断。"
             : "")
     }
-    public static let writer = "取证已结束。回答本次原始问题，简洁回应原始问题，只解释需要的术语；计算问题直接给本次事实，现实建议不要绑定盘面年份或星曜。用两三句说明实际盘面依据、解释口径及局限，不暴露JSON字段、内部状态或核对流程；缺证据的部分明确留空。不沿用历史回答里的未经复算断言。"
+    public static let writer = "取证已结束。工具结果的questionFromArguments如出现，表示question完整原文在同一toolCallID的参数/question中，仅复用原文、不改变盘面。回答本次原始问题，简洁回应原始问题，只解释需要的术语；计算问题直接给本次事实，现实建议不要绑定盘面年份或星曜。用两三句说明实际盘面依据、解释口径及局限，不暴露JSON字段、内部状态或核对流程；缺证据的部分明确留空。不沿用历史回答里的未经复算断言。"
 
     public static func boundedQuestion(_ text: String) -> String {
         guard text.utf8.count > 24_000 else { return text }
@@ -93,7 +93,7 @@ public enum ReadingPrompt {
             guard entry.id == currentUserID, let context else { continue }
             let receiptStart = messages.count
             for receipt in entry.toolReceipts ?? [] where receipt.context == context {
-                let modelOutput = NatalEvidenceProjection.output(receipt.output,name:receipt.name,delivered:Array(messages.dropFirst(receiptStart)))
+                let modelOutput = NatalEvidenceProjection.output(receipt.output,name:receipt.name,delivered:Array(messages.dropFirst(receiptStart)) + [.assistantToolCalls([receipt.call])],callID:receipt.callID)
                 guard modelOutput.utf16.count <= 32_000, receiptBytes + modelOutput.utf8.count <= ToolOrchestrator.outputByteLimit else { continue }
                 receiptBytes += modelOutput.utf8.count
                 messages.append(.assistantToolCalls([receipt.call]))

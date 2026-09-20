@@ -1,0 +1,16 @@
+{
+  "failures" : [
+
+  ],
+  "initialExecutions" : 1,
+  "initialReceipts" : 2,
+  "messageBytes" : [
+    25119,
+    25119
+  ],
+  "persistedReceipts" : 1,
+  "retryEvidence" : [
+    "facts"
+  ],
+  "retryExecutions" : 0
+}

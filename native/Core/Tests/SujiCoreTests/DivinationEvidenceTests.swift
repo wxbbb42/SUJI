@@ -2,6 +2,18 @@ import XCTest
 @testable import SujiCore
 
 final class DivinationEvidenceTests: XCTestCase {
+    func testCandidateRolesIndexKeepsSeparateObjectsEmptyRolesAndMovingPairs() throws {
+        let messages = history("cast_liuyao", #"{"roleRelations":{"assessmentStatus":"candidate-relative-structure","outcomeEstablished":false,"sourceId":"liuyao-candidate-roles-v1","inspectedOriginalPaths":["/lines/0","/lines/1","/lines/2","/lines/3","/lines/4","/lines/5"],"groups":[{"targetElement":"水","candidateRefs":[{"id":"original-4","objectPath":"/lines/3","contextPath":"/lines/3/context"}],"elements":{"yuan":"金","ji":"土","chou":"火"},"yuanPositions":[3,5],"jiPositions":[1,6],"chouPositions":[],"jiYuanMovingPairs":[{"jiPosition":6,"yuanPosition":5}],"chouJiMovingPairs":[]}],"unsupportedCandidates":[{"id":"month","objectPath":"/castGanZhi/month","reason":"calendar-target-outside-line-role-scope"}],"unresolved":["target-viability"],"prediction":"一定有救"}}"#)
+        let facts = Dictionary(uniqueKeysWithValues:ReadingVerificationEvidence.facts(messages).map { ($0.factKey,$0) })
+        XCTAssertEqual(facts["liuyao.roleRelations.outcomeEstablished"]?.value,false)
+        XCTAssertEqual(facts["liuyao.roleRelations.group1.chouPositions"]?.value,[])
+        XCTAssertEqual(facts["liuyao.roleRelations.group1.candidate1.objectPath"]?.value,"/lines/3")
+        XCTAssertEqual(facts["liuyao.roleRelations.group1.jiYuanPair1.jiPosition"]?.pointer,"/roleRelations/groups/0/jiYuanMovingPairs/0/jiPosition")
+        XCTAssertEqual(facts["liuyao.roleRelations.unsupported1.objectPath"]?.value,"/castGanZhi/month")
+        XCTAssertNil(facts["liuyao.roleRelations.prediction"])
+        try assertIndexRestoresFacts(review:ReadingVerifier.messages(draft:"只核对角色",history:messages,question:"元忌仇"),history:messages)
+    }
+
     func testLiuyaoWholeChartPairsAndMovingClashesKeepSeparateEvidence() throws {
         let messages = history("cast_liuyao", #"{"guaRelations":{"assessmentStatus":"structural-only","outcomeEstablished":false,"sourceId":"liuyao-calendar-relations-v1","original":{"guaPath":"/benGua","kind":"六冲","ganZhi":["己卯","己丑","己亥","己酉","己未","己巳"],"pairs":[{"positions":[1,4],"relation":"六冲"}]},"resulting":{"guaPath":"/bianGua","kind":"六合","ganZhi":["丙辰","丙午","丙申","己酉","己未","己巳"],"pairs":[{"positions":[1,4],"relation":"六合"}]},"transition":{"hasChange":true,"fromKind":"六冲","toKind":"六合","kind":"六冲变六合","factPaths":["/changingYao","/guaRelations/original/kind","/guaRelations/resulting/kind"]},"verdict":"必成"},"lines":[{"rules":{"returning":{"branchRelation":"neither","branchSourceId":"liuyao-calendar-relations-v1","from":"/lines/0/changed","to":"/lines/0","sourceId":"liuyao-calendar-relations-v1","assessmentStatus":"structural-relation","conditionsFrom":"/lines/0/rules/advanceRetreat/conditions"}}}]}"#)
         let indexed = Dictionary(uniqueKeysWithValues:ReadingVerificationEvidence.facts(messages).map { ($0.factKey,$0) })
@@ -220,7 +232,6 @@ final class DivinationEvidenceTests: XCTestCase {
             let raw = try await bridge.request(String(decoding: JSONSerialization.data(withJSONObject: request), as: UTF8.self))
             let root = try JSONDecoder().decode(JSONValue.self, from: raw)
             let output = ReadingVerificationEvidence.encoded(try XCTUnwrap(ReadingVerificationEvidence.pointer("/result", in: root)))
-            XCTAssertLessThanOrEqual(output.utf16.count, 32_000)
             messages.append(.assistantToolCalls([.init(id: id, name: name, arguments: .object(arguments.mapValues(JSONValue.string)))]))
             messages.append(.toolResult(.init(callID: id, output: output)))
         }
@@ -233,22 +244,31 @@ final class DivinationEvidenceTests: XCTestCase {
         let orchestrator = ToolOrchestrator(complete:{ _,_ in round += 1; return round == 1 ? .toolCalls(calls) : .text("ready") },execute:{ call in .init(output:outputs[call.id]!,evidence:[call.id]) })
         let delivery = try await orchestrator.run(history:Array(messages.prefix(1)),definitions:definitions,context:context)
         XCTAssertEqual(delivery.receipts.map(\.output),expectedOutputs)
-        XCTAssertEqual(delivery.messages.filter { $0.role == .tool }.map(\.content),expectedOutputs)
+        let modelOutputs=delivery.messages.filter { $0.role == .tool }.map { $0.content! }
+        for (call,modelOutput) in zip(calls,modelOutputs) {
+            XCTAssertLessThanOrEqual(modelOutput.utf16.count,32_000)
+            var projected=try XCTUnwrap(try JSONSerialization.jsonObject(with:Data(modelOutput.utf8)) as? [String:Any])
+            if projected.removeValue(forKey:"questionFromArguments") != nil { projected["question"]=question }
+            let restored=try JSONDecoder().decode(JSONValue.self,from:JSONSerialization.data(withJSONObject:projected))
+            let original=try JSONDecoder().decode(JSONValue.self,from:Data(outputs[call.id]!.utf8))
+            XCTAssertTrue(restored == original,"Every original chart field must survive projection")
+        }
+        XCTAssertLessThanOrEqual(modelOutputs.reduce(0){$0+$1.utf8.count},ToolOrchestrator.outputByteLimit)
         var entry = ConversationEntry(role:"user",text:question)
         entry.toolReceipts = delivery.receipts
         let replay = ReadingPrompt.history(from:[entry],currentUserID:entry.id,context:context)
-        XCTAssertEqual(replay.filter { $0.role == .tool }.map(\.content),expectedOutputs)
+        XCTAssertTrue(replay.filter { $0.role == .tool }.map { $0.content! } == modelOutputs)
         let retry = ToolOrchestrator(complete:{ _,_ in .text("ready") },execute:{ _ in XCTFail("Retry must retain the original casts"); return .init(output:"{}") })
         let retried = try await retry.run(history:replay,definitions:definitions,cachedReceipts:delivery.receipts,context:context)
         XCTAssertEqual(retried.evidence,calls.map(\.id))
-        let review = ReadingVerifier.messages(draft: String(repeating: "本次仅列出盘面事实和条件。", count: 60), history: messages, question: question)
-        try assertIndexRestoresFacts(review:review,history:messages)
+        let review = ReadingVerifier.messages(draft: String(repeating: "本次仅列出盘面事实和条件。", count: 60), history: delivery.messages, question: question)
+        try assertIndexRestoresFacts(review:review,history:delivery.messages)
         let total = review.reduce(0) { $0 + ($1.content?.utf16.count ?? 0) + ($1.toolCalls ?? []).reduce(0) { $0 + ReadingVerificationEvidence.encoded($1.arguments).utf16.count } }
         XCTAssertLessThanOrEqual(total, 120_000, "Backend rejects a valid two-chart review when the fact index repeats too much metadata")
         XCTAssertLessThanOrEqual(review.count, 120)
         XCTAssertLessThan(try JSONEncoder().encode(review).count + 1024,262_144)
         for message in review { XCTAssertLessThanOrEqual(message.content?.utf16.count ?? 0, 32_000) }
-        print("Divination evidence capacity: \(total) UTF-16 code units, \(review.count) messages, casts \(expectedOutputs.reduce(0) { $0 + $1.utf8.count }) bytes")
+        print("Divination evidence capacity: \(total) UTF-16 code units, \(review.count) messages, casts \(modelOutputs.reduce(0) { $0 + $1.utf8.count }) bytes")
     }
 
     func testCompactIndexPreservesEveryFactAndItsToolIdentity() throws {

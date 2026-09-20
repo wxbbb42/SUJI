@@ -231,7 +231,7 @@ Source review confirms the selected iztro2.5.8/lunar-lite0.2.8 normal convention
 - [x] Native original-path fact index and exact-scope interpretation counterexamples; actual tool transport/replay/capacity and Node/JSC parity.
 - [x] Archive versioned sources, independent literal oracle and limitations; full local checks.
 - [x] Final independent review (24 monthly counterexamples,4,120 exact index records,129 exact references).
-- [ ] Commit/push and exact-head CI.
+- [x] Commit/push and exact-head CI.
 
 Broader D/E/F/G remain open; no extension implementation.
 
@@ -239,6 +239,21 @@ D4 remote accepted at `83e2bd958ab150c2938d1e80992a35baa9dbad35`, matching remot
 
 D5 local: 711 Engine /309 Core tests pass,20 runtime fixtures. Independent HKO25 dates,26 upstream compatibility cases,30 production structural cases pass; raw upstream23h timestamps differ and are not adopted. Final12 large five-tool requests pass actual backend offline validation,113885 UTF16 max including arguments,542 exact concrete references, no fact-value loss or source-removal authentication. Shared field layouts restore each original receipt/key/pointer/value. Live4calls/2receipts returned matching month transformations but falsely accepted “农历月序号从6月进到7月” where only the calculation month changes; immutable report retained. This accepts neither broad text accuracy nor core completion. See ziwei-monthly-2026-09-20.md.
 
+D5 remote accepted within the documented structural scope: exact `966c9f5550dc1fb5c2e58fc7c26d941d6bcd1b71`, run35502405039 passed engine, swift-core and native-app. F5 remains open.
+
 ## Batch F5 — actual lunar month versus selected calculation month (pending)
 
 The D5 provider answer correctly lists both leap-six dates but later describes the selected effective-month transition as a real lunar month change. Preserve original calendars, selected school convention and separate date scopes. Use this actual false acceptance as a permanent regression before choosing a bounded receipt-based month description or another precisely scoped repair. Do not treat model accepted status as semantic evidence; do not broaden auto-rewrite across ambiguous date contexts.
+
+## Batch B3 — candidate-relative 元神 / 忌神 / 仇神
+
+Read actual 增删卜易 ch9/ch10 raw subpages, not the root transclusion markers or later editor annotation. Ch9 defines 生用为元、克用为忌、克元生忌为仇. Ch10 大过→鼎 explicitly retains 月破日克 despite 元忌同动; a co-moving chain is not a successful rescue. Three-combination and reverse/repeated chanting efficacy remain separate because the read transcription has conflicting passages.
+
+- [x] Write RED/GREEN against independent five-element role table and ch9乾→小畜, ch10大过→鼎/兑→解, hidden姤 and static反例. Keep all target candidates; never substitute a convenient changed branch.
+- [x] Map only actual original actors relative to each original/hidden candidate; group identical target elements losslessly with explicit candidate identities. Record original moving-pair chains separately from static role identity. Calendar targets remain explicitly unsupported in this layer; no changed/hidden/calendar actor freely attacking another original.
+- [x] Retain every original object's month/day/void/return/binding context and unresolved target/actor effectiveness. No new outcome, date or net strength score.
+- [x] Source archive and native original-pointer index, strict receipt-bound reference description including wrong-object/source/candidate and unavailable-layer counterexamples. Check actual combined transport/replay and backend capacity before acceptance.
+- [x] Independent rereview and complete local validation.
+- [ ] Commit/push and exact-head CI. Other B/E/F gaps remain open.
+
+B3 local:720 Engine /313 Core tests,20 runtime fixtures,source index51/65 pass. Independent40,960 engine cases and1,280 actual native reports,617,780 exact references and26 rejected corruptions pass.9,728 lossless capacity combinations;12 real native/replay/backend requests max107,617 UTF16 including arguments,52,603 tool bytes;actual ChatClient body158,059 bytes. Only duplicate long question text references same-call arguments; original receipts and every chart field remain complete. No final efficacy/吉凶/日期 or broader core acceptance. See liuyao-candidate-roles-2026-09-20.md.

@@ -4,6 +4,31 @@ import XCTest
 final class NatalEvidenceProjectionTests: XCTestCase {
     private let definition = ChatToolDefinition(name:"get_domain", description:"domain", parameters:["type":"object","properties":["domain":["type":"string"]],"required":["domain"]])
 
+    func testLongCastQuestionReferencesOnlyItsExactCallArgument() throws {
+        let question=String(repeating:"保留原问题，不改变盘面。",count:120)
+        for name in ["cast_liuyao","setup_qimen"] {
+            let full=ReadingVerificationEvidence.encoded(JSONValue.object(["question":.string(question),"lines":[],"questionContext":["event":"核对"]]))
+            let call=ChatToolCall(id:"cast",name:name,arguments:["question":.string(question)])
+            let before=[ChatMessage.assistantToolCalls([call])]
+            let projected=NatalEvidenceProjection.output(full,name:name,delivered:before)
+            let root=try JSONDecoder().decode(JSONValue.self,from:Data(projected.utf8))
+            XCTAssertNil(ReadingVerificationEvidence.pointer("/question",in:root))
+            XCTAssertEqual(ReadingVerificationEvidence.pointer("/questionFromArguments/toolCallID",in:root),"cast")
+            XCTAssertEqual(ReadingVerificationEvidence.pointer("/questionFromArguments/pointer",in:root),"/question")
+            let receipt=ToolReceipt(callID:"cast",name:name,arguments:call.arguments,output:full,evidence:["cast"])
+            let result=ChatMessage.toolResult(.init(callID:"cast",output:projected))
+            XCTAssertTrue(NatalEvidenceProjection.wasDelivered(receipt,in:before+[result]))
+            XCTAssertFalse(NatalEvidenceProjection.wasDelivered(receipt,in:[result]))
+            let wrong=ChatMessage.assistantToolCalls([.init(id:"cast",name:name,arguments:["question":"另一件事"])])
+            XCTAssertFalse(NatalEvidenceProjection.wasDelivered(receipt,in:[wrong,result]))
+            XCTAssertEqual(NatalEvidenceProjection.output(full,name:name,delivered:[wrong]),full)
+            XCTAssertEqual(NatalEvidenceProjection.output(full,name:name,delivered:[]),full)
+            // A different call, even with identical words, cannot authenticate this receipt.
+            let other=ChatMessage.assistantToolCalls([.init(id:"other",name:name,arguments:call.arguments)])
+            XCTAssertFalse(NatalEvidenceProjection.wasDelivered(receipt,in:[other,result]))
+        }
+    }
+
     func testStandalonePalaceReferencesKeepIdentityOriginalSourceAndCompleteReceipts() throws {
         let stars: JSONValue = [["name":"天同","detail":.string(String(repeating:"source",count:80))]]
         let method: JSONValue = ["algorithm":.string(String(repeating:"selected",count:60))]

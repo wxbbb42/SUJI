@@ -499,9 +499,9 @@ Updated: 2026-09-20
 - Status: candidate
 - Priority: P0
 - Current usage: 用神取法；旺衰生克；动变；分类占例；现代六爻实务核心参考
-- Repo refs: `native/Engine/src/divination/HexagramEngine.ts`, `native/Engine/src/ai/tools/liuyao.ts`
+- Repo refs: `native/Engine/src/divination/HexagramEngine.ts`, `native/Engine/src/ai/tools/liuyao.ts`, `native/Engine/src/divination/roleRelations.ts`, `native/Engine/validation/research-divination/liuyao-role-sources.json`
 - License note: 古籍文本需优先选公共领域/可引用版本；记录版本、卷次、页码/章节，不 ingest 现代版权全文。
-- Notes: 六爻实务 P0 source；需要重点核对当前用神/应期实现。
+- Notes: 六爻实务 P0 source；需要重点核对当前用神/应期实现。 本批逐字读取第九/十章onlyinclude原文，排除后附原劍按；保存原始页和SHA256，按候选对象列元忌仇结构。第十章动化退神异文尚未据此立效力规则。
 
 #### yijing-zhouyi-received
 
@@ -1552,6 +1552,15 @@ Updated: 2026-09-20
 - Repo refs: `native/Engine/src/bazi/structural.ts`, `docs/mingli/source-texts/bazi/ziping-zhenquan/41-yangren.md`, `docs/mingli/source-texts/bazi/yuanhai-ziping/02-shishen-geju.md`
 - Confidence: high
 - Status: classical_grounded
+
+### liuyao.candidate-relative-yuan-ji-chou
+
+- Domain: liuyao
+- Claim: 元生用、忌克用、仇克元生忌均相对于具体原爻或伏神候选；本批只检索六个实际原爻，静爻身份与明动配对分开，全部候选及自己的空破、生克、同位变化条件保留。元忌同明动不取消忌克用，也不证明目标可受生；仇神身份不要求盘中实际存在元神爻。日月候选明确超出此层范围；不加入跨位变爻或自由伏神作用者，不定救应、吉凶或应期。
+- Sources: `liuyao-zengshan-buyi`
+- Repo refs: `native/Engine/src/divination/roleRelations.ts`, `native/Engine/src/divination/__tests__/RoleRelations.test.ts`, `native/Engine/validation/research-divination/liuyao-role-sources.json`, `native/Engine/validation/research-divination/liuyao-role-independent-oracle.json`
+- Confidence: high_for_selected_candidate_relative_structure_not_efficacy
+- Status: source_reviewed_literal_vectors_and_native_evidence_verified
 
 ### liuyao.changed-hidden-need-own-context
 

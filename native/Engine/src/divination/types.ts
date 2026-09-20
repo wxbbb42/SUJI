@@ -4,6 +4,7 @@
 import type { RuleSource } from '../rules/provenance';
 import type { lineRules } from './conditionalRules';
 import type { guaRelations } from './guaRelations';
+import type { roleRelations } from './roleRelations';
 import type {QuestionContext,selectQuestionObjects,conditionalTiming} from './questionJudgment';
 
 export type Yao = '阴' | '阳';
@@ -81,6 +82,7 @@ export interface HexagramReading {
   /** Shared only by original/changed/hidden context facts, not rule effectiveness. */
   lineContextPolicy: { assessmentStatus:'calendar-relations-only'; sourceIds:string[] };
   guaRelations: ReturnType<typeof guaRelations>;
+  roleRelations: ReturnType<typeof roleRelations>;
   ruleSources: RuleSource[];
   method: { algorithm: string; calendar: string; dayBoundary: string; caveats: string[] };
 }

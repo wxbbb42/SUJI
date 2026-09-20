@@ -1,0 +1,17 @@
+{
+  "base": "966c9f5550dc1fb5c2e58fc7c26d941d6bcd1b71",
+  "headDuringReview": "966c9f5550dc1fb5c2e58fc7c26d941d6bcd1b71",
+  "files": {
+    "native/Engine/src/divination/roleRelations.ts": "3d262f8131751678d1007e7411c57f89104ee5cfb37a12f4fbed887b7da27582",
+    "native/Engine/src/divination/HexagramEngine.ts": "13005e600ece4f79e928cf039112f464552a74a0ddc7eaaa8a942d8e26e4d7a6",
+    "native/Core/Sources/SujiCore/LiuyaoReferenceReading.swift": "7499fa58b8a6d1ff647019449c375b1dd9fb8d7928b3aaa623ab7896b8feeb9e",
+    "native/Core/Sources/SujiCore/ReadingVerificationEvidence.swift": "537692b83a8048c37882579be6da36640d39246273aff36ee38b9bfa5e11cc90",
+    "native/Core/Sources/SujiCore/NatalEvidenceProjection.swift": "dcbadd9128b81f378708c3aa7c8a5c2d10cb709c1d5e93b1e711a84943963550",
+    "native/Core/Sources/SujiCore/ReadingContext.swift": "a4550ba2e10dc0f26899ea2abe9c31d0781382dbcb37ac9b1f1a098ec0401384",
+    "native/Core/Sources/SujiCore/ToolOrchestrator.swift": "354447dd33da7dd91df8eeedfea26f9261e691b1145522dfc4931408507fdb6c",
+    "native/Resources/mingli.js": "600f08393ee465e7e0c8791a01937d1786052ff7518d27a38ea4a06dc0f3b9de"
+  },
+  "sourceOracle": "source-inputs/handwritten-role-examples.json",
+  "derivedFixtures": "bundle-fixtures.ndjson",
+  "fixtureCount": 5376
+}

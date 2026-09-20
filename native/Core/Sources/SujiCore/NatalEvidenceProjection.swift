@@ -1,6 +1,6 @@
 import Foundation
 
-/// Transport-only sharing of identical natal facts within one orchestration run.
+/// Transport-only sharing of identical natal facts and echoed cast questions within one orchestration run.
 /// Receipts stay complete. Every reference points to a delivered, concrete value;
 /// references never point to another reference or an older conversation context.
 enum NatalEvidenceProjection {
@@ -9,12 +9,15 @@ enum NatalEvidenceProjection {
             if message.content == receipt.output { return true }
             // Authenticate projected delivery against the full receipt and the
             // concrete earlier fields, rather than trusting only a call ID.
-            if message.content == output(receipt.output,name:receipt.name,delivered:Array(history.prefix(index))) { return true }
+            if message.content == output(receipt.output,name:receipt.name,delivered:Array(history.prefix(index)),callID:receipt.callID) { return true }
         }
         return false
     }
 
-    static func output(_ output: String, name: String, delivered: [ChatMessage]) -> String {
+    static func output(_ output: String, name: String, delivered: [ChatMessage], callID: String? = nil) -> String {
+        if ["cast_liuyao", "setup_qimen"].contains(name) {
+            return castQuestion(output, name:name, delivered:delivered, callID:callID)
+        }
         let supported: Set<String> = ["get_domain", "get_ziwei_palace", "get_ziwei_timing"]
         guard supported.contains(name),
               let value = try? JSONDecoder().decode(JSONValue.self, from: Data(output.utf8)),
@@ -99,6 +102,22 @@ enum NatalEvidenceProjection {
         root["reusedFactsFormat"] = .string("Each missing path has the exact value at the earlier delivered toolCallID and pointer. Use that original tool result as evidence; these are references, not new calculations.")
         let compact = ReadingVerificationEvidence.encoded(JSONValue.object(root))
         return compact.utf8.count < output.utf8.count ? compact : output
+    }
+
+    /// Long questions are already present verbatim in the same call's arguments.
+    /// Share only that exact string; chart facts and persisted receipts stay full.
+    private static func castQuestion(_ output:String, name:String, delivered:[ChatMessage], callID:String?) -> String {
+        guard let value=try? JSONDecoder().decode(JSONValue.self,from:Data(output.utf8)),
+              case var .object(root)=value,root["error"] == nil,root["questionFromArguments"] == nil,
+              case let .string(question)=root["question"],question.utf8.count > 600 else { return output }
+        let matches=delivered.flatMap { $0.toolCalls ?? [] }.filter {
+            $0.name == name && (callID == nil || $0.id == callID) &&
+            ReadingVerificationEvidence.pointer("/question",in:$0.arguments) == .string(question)
+        }
+        guard matches.count == 1,let call=matches.first else { return output }
+        root.removeValue(forKey:"question")
+        root["questionFromArguments"]=["toolCallID":.string(call.id),"pointer":"/question"]
+        return ReadingVerificationEvidence.encoded(JSONValue.object(root))
     }
 
     /// Remove only a selected field; retain array order and surrounding palace

@@ -1,0 +1,44 @@
+{
+  "cases": 9728,
+  "scope": "Lossless same-call question argument reference; original chart JSON checked field-for-field. All64 all-moving original charts; 12 consecutive dates (12 day branches); all8 question types; all8 subjects on Sep19, role-matched subjects on other dates; 1600-char question/200-char event; projected JSON UTF16/UTF8; combined with questionType career Qimen",
+  "max": {
+    "units": 31094,
+    "bytes": 35378,
+    "combinedBytes": 51030,
+    "values": [
+      9,
+      9,
+      6,
+      6,
+      9,
+      9
+    ],
+    "date": "2026-09-20T04:00:00Z",
+    "questionType": "kids",
+    "subject": "child",
+    "original": "风泽中孚",
+    "resulting": "雷山小过"
+  },
+  "pairMax": {
+    "bytes": 52603,
+    "case": {
+      "units": 30491,
+      "bytes": 34811,
+      "combinedBytes": 52603,
+      "values": [
+        6,
+        6,
+        6,
+        6,
+        9,
+        9
+      ],
+      "date": "2026-09-12T04:00:00Z",
+      "questionType": "parents",
+      "subject": "parent",
+      "original": "风地观",
+      "resulting": "雷天大壮"
+    }
+  },
+  "failures": []
+}

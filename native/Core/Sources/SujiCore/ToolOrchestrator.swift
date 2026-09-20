@@ -256,7 +256,7 @@ public struct ToolOrchestrator {
                         if Self.stableChartTools.contains(receipt.name) { cachedCharts[receipt.name] = receipt }
                     }
                     receipts.append(receipt)
-                    let modelOutput = NatalEvidenceProjection.output(receipt.output, name:receipt.name, delivered:Array(messages.dropFirst(history.count)))
+                    let modelOutput = NatalEvidenceProjection.output(receipt.output, name:receipt.name, delivered:Array(messages.dropFirst(history.count)),callID:call.id)
                     guard modelOutput.utf16.count <= 32_000, outputBytes + modelOutput.utf8.count <= Self.outputByteLimit else {
                         try Self.appendFailureOutput(Self.errorOutput(SchemaValidationError(reason: "盘面已保存，但本次模型依据容量不足；不要重新起盘，也不要编造未读取的细节")), callID: call.id, messages: &messages, outputBytes: &outputBytes)
                         continue

@@ -1,0 +1,254 @@
+[
+  {
+    "authenticated": 2,
+    "date": "2026-09-20T04:00:00Z",
+    "factsPreserved": true,
+    "faithfulChartRoundtrip": true,
+    "index": 0,
+    "liveBytes": 51030,
+    "maxToolUTF16": 31094,
+    "messageCount": 12,
+    "receiptCount": 2,
+    "replayEqualsLive": true,
+    "retryEvidence": [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    ],
+    "reviewUTF16": 102818,
+    "sourceRemovalAccepted": 0,
+    "wireBodyBytes": 155114,
+    "backendStatus": "pass",
+    "withArgumentsUTF16": 106594
+  },
+  {
+    "authenticated": 2,
+    "date": "2026-09-11T04:00:00Z",
+    "factsPreserved": true,
+    "faithfulChartRoundtrip": true,
+    "index": 1,
+    "liveBytes": 50888,
+    "maxToolUTF16": 31044,
+    "messageCount": 12,
+    "receiptCount": 2,
+    "replayEqualsLive": true,
+    "retryEvidence": [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    ],
+    "reviewUTF16": 101912,
+    "sourceRemovalAccepted": 0,
+    "wireBodyBytes": 154134,
+    "backendStatus": "pass",
+    "withArgumentsUTF16": 105688
+  },
+  {
+    "authenticated": 2,
+    "date": "2026-09-11T04:00:00Z",
+    "factsPreserved": true,
+    "faithfulChartRoundtrip": true,
+    "index": 2,
+    "liveBytes": 50851,
+    "maxToolUTF16": 30963,
+    "messageCount": 12,
+    "receiptCount": 2,
+    "replayEqualsLive": true,
+    "retryEvidence": [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    ],
+    "reviewUTF16": 101504,
+    "sourceRemovalAccepted": 0,
+    "wireBodyBytes": 153665,
+    "backendStatus": "pass",
+    "withArgumentsUTF16": 105285
+  },
+  {
+    "authenticated": 2,
+    "date": "2026-09-20T04:00:00Z",
+    "factsPreserved": true,
+    "faithfulChartRoundtrip": true,
+    "index": 3,
+    "liveBytes": 50876,
+    "maxToolUTF16": 30919,
+    "messageCount": 12,
+    "receiptCount": 2,
+    "replayEqualsLive": true,
+    "retryEvidence": [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    ],
+    "reviewUTF16": 101311,
+    "sourceRemovalAccepted": 0,
+    "wireBodyBytes": 153582,
+    "backendStatus": "pass",
+    "withArgumentsUTF16": 105092
+  },
+  {
+    "authenticated": 2,
+    "date": "2026-09-20T04:00:00Z",
+    "factsPreserved": true,
+    "faithfulChartRoundtrip": true,
+    "index": 4,
+    "liveBytes": 50755,
+    "maxToolUTF16": 30790,
+    "messageCount": 12,
+    "receiptCount": 2,
+    "replayEqualsLive": true,
+    "retryEvidence": [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    ],
+    "reviewUTF16": 101270,
+    "sourceRemovalAccepted": 0,
+    "wireBodyBytes": 153525,
+    "backendStatus": "pass",
+    "withArgumentsUTF16": 105051
+  },
+  {
+    "authenticated": 2,
+    "date": "2026-09-10T04:00:00Z",
+    "factsPreserved": true,
+    "faithfulChartRoundtrip": true,
+    "index": 5,
+    "liveBytes": 51230,
+    "maxToolUTF16": 30764,
+    "messageCount": 12,
+    "receiptCount": 2,
+    "replayEqualsLive": true,
+    "retryEvidence": [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    ],
+    "reviewUTF16": 103316,
+    "sourceRemovalAccepted": 0,
+    "wireBodyBytes": 155863,
+    "backendStatus": "pass",
+    "withArgumentsUTF16": 107097
+  },
+  {
+    "authenticated": 2,
+    "date": "2026-09-12T04:00:00Z",
+    "factsPreserved": true,
+    "faithfulChartRoundtrip": true,
+    "index": 6,
+    "liveBytes": 52603,
+    "maxToolUTF16": 30491,
+    "messageCount": 12,
+    "receiptCount": 2,
+    "replayEqualsLive": true,
+    "retryEvidence": [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    ],
+    "reviewUTF16": 103836,
+    "sourceRemovalAccepted": 0,
+    "wireBodyBytes": 156977,
+    "backendStatus": "pass",
+    "withArgumentsUTF16": 107617
+  },
+  {
+    "authenticated": 2,
+    "date": "2026-09-12T04:00:00Z",
+    "factsPreserved": true,
+    "faithfulChartRoundtrip": true,
+    "index": 7,
+    "liveBytes": 52338,
+    "maxToolUTF16": 30228,
+    "messageCount": 12,
+    "receiptCount": 2,
+    "replayEqualsLive": true,
+    "retryEvidence": [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    ],
+    "reviewUTF16": 102476,
+    "sourceRemovalAccepted": 0,
+    "wireBodyBytes": 155466,
+    "backendStatus": "pass",
+    "withArgumentsUTF16": 106254
+  },
+  {
+    "authenticated": 2,
+    "date": "2026-09-12T04:00:00Z",
+    "factsPreserved": true,
+    "faithfulChartRoundtrip": true,
+    "index": 8,
+    "liveBytes": 52274,
+    "maxToolUTF16": 30210,
+    "messageCount": 12,
+    "receiptCount": 2,
+    "replayEqualsLive": true,
+    "retryEvidence": [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    ],
+    "reviewUTF16": 102350,
+    "sourceRemovalAccepted": 0,
+    "wireBodyBytes": 155330,
+    "backendStatus": "pass",
+    "withArgumentsUTF16": 106126
+  },
+  {
+    "authenticated": 2,
+    "date": "2026-09-12T04:00:00Z",
+    "factsPreserved": true,
+    "faithfulChartRoundtrip": true,
+    "index": 9,
+    "liveBytes": 52030,
+    "maxToolUTF16": 29974,
+    "messageCount": 12,
+    "receiptCount": 2,
+    "replayEqualsLive": true,
+    "retryEvidence": [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    ],
+    "reviewUTF16": 101912,
+    "sourceRemovalAccepted": 0,
+    "wireBodyBytes": 154820,
+    "backendStatus": "pass",
+    "withArgumentsUTF16": 105688
+  },
+  {
+    "authenticated": 2,
+    "date": "2026-09-12T04:00:00Z",
+    "factsPreserved": true,
+    "faithfulChartRoundtrip": true,
+    "index": 10,
+    "liveBytes": 51881,
+    "maxToolUTF16": 29825,
+    "messageCount": 12,
+    "receiptCount": 2,
+    "replayEqualsLive": true,
+    "retryEvidence": [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    ],
+    "reviewUTF16": 101407,
+    "sourceRemovalAccepted": 0,
+    "wireBodyBytes": 154231,
+    "backendStatus": "pass",
+    "withArgumentsUTF16": 105183
+  },
+  {
+    "authenticated": 2,
+    "date": "2026-09-12T04:00:00Z",
+    "factsPreserved": true,
+    "faithfulChartRoundtrip": true,
+    "index": 11,
+    "liveBytes": 51706,
+    "maxToolUTF16": 29615,
+    "messageCount": 12,
+    "receiptCount": 2,
+    "replayEqualsLive": true,
+    "retryEvidence": [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    ],
+    "reviewUTF16": 101229,
+    "sourceRemovalAccepted": 0,
+    "wireBodyBytes": 153967,
+    "backendStatus": "pass",
+    "withArgumentsUTF16": 105005
+  }
+]

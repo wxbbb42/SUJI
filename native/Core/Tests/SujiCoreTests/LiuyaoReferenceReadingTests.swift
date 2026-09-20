@@ -95,7 +95,7 @@ final class LiuyaoReferenceReadingTests: XCTestCase {
                 if mutation == 4 { var lines=root["lines"] as! [[String:Any]];lines[0]["position"]=3;root["lines"]=lines }
                 if mutation == 5 { var s=root["ruleSources"] as! [[String:Any]];s[0]["version"]="99";root["ruleSources"]=s }
             }
-            XCTAssertNil(LiuyaoReferenceReading.render(receipts:[invalid],context:context),"mutation \(mutation)")
+            XCTAssertTrue(LiuyaoReferenceReading.render(receipts:[invalid],context:context) == nil,"mutation \(mutation)")
         }
         var untrusted=receipt;untrusted.context=nil
         XCTAssertNil(LiuyaoReferenceReading.render(receipts:[untrusted],context:context))
@@ -135,7 +135,7 @@ final class LiuyaoReferenceReadingTests: XCTestCase {
                 if mutation == 2 { conditions.remove(at:0) }
                 advance["conditions"]=conditions;rules["advanceRetreat"]=advance;lines[0]["rules"]=rules;root["lines"]=lines
             }
-            XCTAssertNil(LiuyaoReferenceReading.render(receipts:[invalid],context:context),"mutation \(mutation)")
+            XCTAssertTrue(LiuyaoReferenceReading.render(receipts:[invalid],context:context) == nil,"mutation \(mutation)")
         }
     }
     func testActualIntentGateRecognizesTraditionalMixedRequestsAndDiscussion() async throws {
@@ -201,4 +201,40 @@ final class LiuyaoReferenceReadingTests: XCTestCase {
         let replay=try XCTUnwrap(LiuyaoReferenceReading.render(receipts:[receipt]+result.receipts,context:context))
         XCTAssertEqual(replay.text,report.text);try evidence(replay,receipt)
     }
+    func testCandidateRoleReadingRetainsStaticActorsAndOnlyActualMovingChains() async throws {
+        let (receipt,context)=try await fixture([8,7,7,7,9,6],args:["question":"核对自身对象","questionType":"health","subject":"self","event":"仅核对角色","timeHorizon":"near"])
+        let report=try XCTUnwrap(LiuyaoReferenceReading.render(receipts:[receipt],context:context))
+        let section=try XCTUnwrap(report.sections.first { $0.id == "roles-original-4" })
+        XCTAssertTrue(section.text.contains("元神：第3、5爻"))
+        XCTAssertTrue(section.text.contains("忌神：第1、6爻"))
+        XCTAssertTrue(section.text.contains("仇神：无"))
+        XCTAssertTrue(section.text.contains("第6爻→第5爻"))
+        XCTAssertTrue(section.text.contains("尚未裁定"))
+        XCTAssertTrue(section.text.contains("忌克用的直接关系仍保留"))
+        XCTAssertTrue(section.text.contains("墓绝"))
+        for p in ["/lines/3/context","/lines/5/isChanging","/lines/4/isChanging","/lines/5/rules/returning/branchRelation","/lines/5/rules/advanceRetreat","/roleRelations/sourceId"] { XCTAssertTrue(section.evidence.contains { $0.pointer == p },p) }
+        try evidence(report,receipt)
+        let (allMoving,movingContext)=try await fixture([9,6,6,6,6,9])
+        let movingReport=try XCTUnwrap(LiuyaoReferenceReading.render(receipts:[allMoving],context:movingContext))
+        XCTAssertFalse(movingReport.text.contains("暗动"))
+    }
+    func testRoleReadingRejectsWrongCandidateActorsChainsSourcesAndMissingGroup() async throws {
+        let (receipt,context)=try await fixture([8,7,7,7,9,6],args:["question":"核对自身对象","questionType":"health","subject":"self","event":"仅核对角色"])
+        for mutation in 0..<8 {
+            let invalid=try edited(receipt) { root in
+                guard var role=root["roleRelations"] as? [String:Any],var groups=role["groups"] as? [[String:Any]],!groups.isEmpty else { return }
+                if mutation == 0 { var refs=groups[0]["candidateRefs"] as! [[String:Any]];refs[0]["contextPath"]="/lines/1/context";groups[0]["candidateRefs"]=refs }
+                if mutation == 1 { groups[0]["yuanPositions"]=[5] }
+                if mutation == 2 { groups[0]["jiYuanMovingPairs"]=[["jiPosition":6,"yuanPosition":3]] }
+                if mutation == 3 { var e=groups[0]["elements"] as! [String:Any];e["chou"]="木";groups[0]["elements"]=e }
+                if mutation == 4 { role["sourceId"]="liuyao-day-clash-v1" }
+                if mutation == 5 { groups=[] }
+                if mutation == 6 { role["inspectedOriginalPaths"]=["/lines/0/changed"] }
+                role["groups"]=groups;root["roleRelations"]=role
+                if mutation == 7 { root.removeValue(forKey:"roleRelations") }
+            }
+            XCTAssertTrue(LiuyaoReferenceReading.render(receipts:[invalid],context:context) == nil,"mutation \(mutation)")
+        }
+    }
+
 }

@@ -54,6 +54,7 @@ public enum LiuyaoReferenceReading {
     private static let kin: Set<String> = ["父母","兄弟","子孙","妻财","官鬼"]
     private static let calendarSource = "liuyao-calendar-relations-v1"
     private static let questionSource = "liuyao-question-timing-v1"
+    private static let roleSource = "liuyao-candidate-roles-v1"
     private static let labels: [String:String] = [
         "changed-void":"变爻旬空","changed-month-break":"变爻月破","changed-day-clash":"变爻日冲","combined-effectiveness":"综合效力",
         "changed-month-generation":"月生变爻","changed-day-support":"日扶变爻","original-day-presence":"本爻临日",
@@ -107,7 +108,10 @@ public enum LiuyaoReferenceReading {
             let clock=ISO8601DateFormatter()
             guard let time=fractional.date(from:stamp) ?? clock.date(from:stamp),time == clock.date(from:clock.string(from:context.referenceDate)) else { throw Incomplete.record }
             let sources=try array("/ruleSources")
-            let accepted=[calendarSource,questionSource,"liuyao-changing-relations-v1","liuyao-flying-hidden-v1","liuyao-day-clash-v1"]
+            let hasRoles = ReadingVerificationEvidence.pointer("/roleRelations",in:root) != nil
+            let hasRoleSource = sources.contains { ReadingVerificationEvidence.pointer("/id",in:$0) == .string(roleSource) }
+            guard hasRoles == hasRoleSource else { throw Incomplete.record }
+            let accepted=[calendarSource,questionSource,"liuyao-changing-relations-v1","liuyao-flying-hidden-v1","liuyao-day-clash-v1"] + (hasRoles ? [roleSource] : [])
             for i in sources.indices {
                 let p="/ruleSources/\(i)",id=try string(p+"/id")
                 guard accepted.contains(id),sourcePaths[id] == nil,
@@ -147,6 +151,7 @@ public enum LiuyaoReferenceReading {
             }
             for i in 0..<6 { try line(i) }
             try selectionAndTiming()
+            if hasRoles { try candidateRoles() }
             return Report(sourceReceiptID:receipt.callID,sections:sections)
         }
         func object(_ p: String, label: String, paths: inout [String]) throws -> String {
@@ -352,10 +357,75 @@ public enum LiuyaoReferenceReading {
             let pending=try terms(t+"/unresolved")
             try append("timing-limit","尚未定用，\(pending)仍未裁定，不能确定到账或其他事件日期。月令生克标签、明动及冲合结构不单独证明综合效力。",[t+"/assessmentStatus",t+"/outcomeEstablished",t+"/timeScale",t+"/unresolved"]+timingSource)
         }
+        mutating func candidateRoles() throws {
+            let base="/roleRelations",provenance=try source(base+"/sourceId",expected:roleSource)
+            guard try string(base+"/assessmentStatus") == "candidate-relative-structure",try bool(base+"/outcomeEstablished") == false,
+                  try strings(base+"/inspectedOriginalPaths") == (0..<6).map({"/lines/\($0)"}) else { throw Incomplete.record }
+            let candidates=try array("/yongShen/candidates")
+            var byID:[String:(object:String,layer:String,label:String,context:String?)]=[:]
+            for i in candidates.indices {
+                var paths:[String]=[]
+                let c=try candidate("/yongShen/candidates/\(i)",related:false,paths:&paths)
+                byID[c.id]=(c.object,c.layer,c.label,c.layer == "original" || c.layer == "hidden" ? c.object+"/context" : nil)
+            }
+            let hasStaticClash=try (0..<6).contains { try bool("/lines/\($0)/isChanging") == false && bool("/lines/\($0)/context/day/clash") }
+            let unresolved=["selected-object","actor-effectiveness","target-viability","binding","tomb-or-extinction","event-outcome"]+(hasStaticClash ? ["dark-movement"] : [])+(byID.values.contains{$0.layer == "hidden"} ? ["hidden-emergence"] : [])
+            guard try strings(base+"/unresolved") == unresolved else { throw Incomplete.record }
+            // Independent literal relation table validates the reported role names;
+            // it does not calculate a cast, strength or event judgment.
+            let table=["木":["水","金","土"],"火":["木","水","金"],"土":["火","木","水"],"金":["土","火","木"],"水":["金","土","火"]]
+            var seen=Set<String>(),seenElements=Set<String>()
+            let groups=try array(base+"/groups")
+            guard groups.count <= 5 else { throw Incomplete.record }
+            for i in groups.indices {
+                let p=base+"/groups/\(i)",target=try allowed(p+"/targetElement",elements)
+                guard seenElements.insert(target).inserted,let row=table[target] else { throw Incomplete.record }
+                var positions:[[Int]]=[],actorPaths:[String]=[]
+                for (j,role) in ["yuan","ji","chou"].enumerated() {
+                    guard try string(p+"/elements/"+role) == row[j] else { throw Incomplete.record }
+                    let expected=try (0..<6).filter { try string("/lines/\($0)/wuXing") == row[j] }.map{$0+1}
+                    guard try value(p+"/"+role+"Positions") == .array(expected.map{.integer(Int64($0))}) else { throw Incomplete.record }
+                    positions.append(expected)
+                    for n in expected {
+                        let a="/lines/\(n-1)"
+                        actorPaths += [a+"/position",a+"/ganZhi",a+"/wuXing",a+"/isChanging",a+"/context"]
+                        if ReadingVerificationEvidence.pointer(a+"/rules/returning",in:root) != nil {
+                            actorPaths += [a+"/rules/returning/branchRelation",a+"/rules/returning/relation",a+"/rules/advanceRetreat"]
+                        }
+                    }
+                }
+                func moving(_ positions:[Int]) throws -> [Int] { try positions.filter { try bool("/lines/\($0-1)/isChanging") } }
+                let yuan=try moving(positions[0]),ji=try moving(positions[1]),chou=try moving(positions[2])
+                let jy: [JSONValue]=ji.flatMap { j in yuan.map { y in ["jiPosition":.integer(Int64(j)),"yuanPosition":.integer(Int64(y))] } }
+                let cj: [JSONValue]=chou.flatMap { c in ji.map { j in ["chouPosition":.integer(Int64(c)),"jiPosition":.integer(Int64(j))] } }
+                guard try value(p+"/jiYuanMovingPairs") == .array(jy),try value(p+"/chouJiMovingPairs") == .array(cj) else { throw Incomplete.record }
+                let refs=try array(p+"/candidateRefs");guard !refs.isEmpty else { throw Incomplete.record }
+                for j in refs.indices {
+                    let r=p+"/candidateRefs/\(j)",id=try string(r+"/id")
+                    guard seen.insert(id).inserted,let c=byID[id],let ctx=c.context,
+                          try string(r+"/objectPath") == c.object,try string(r+"/contextPath") == ctx,
+                          try string(c.object+"/wuXing") == target else { throw Incomplete.record }
+                    func label(_ p:[Int]) -> String { p.isEmpty ? "无" : "第"+p.map(String.init).joined(separator:"、")+"爻" }
+                    var chains:[String]=[]
+                    for j in ji { for y in yuan { chains.append("第\(j)爻→第\(y)爻→此候选（忌生元、元生用；忌克用的直接关系仍保留）") } }
+                    for c in chou { for j in ji { chains.append("第\(c)爻→第\(j)爻（仇生忌；仇的\(row[2])同时克元的\(row[0])，不表示盘中必有元神爻）") } }
+                    let text="以候选\(c.label)为参照，元神：\(label(positions[0]))；忌神：\(label(positions[1]))；仇神：\(label(positions[2]))。静爻也保留角色身份，以上只检索六个实际原爻。"+(chains.isEmpty ? "没有元忌或忌仇共同明动的组合。" : "共同明动结构："+chains.joined(separator:"；")+"。")+"此候选仍未定用；各爻原有的空破、日月支持与同位变化分别保留，施力、合住、候选能否受生\(hasStaticClash ? "、静爻日冲效力" : "")、墓绝条件及事件方向尚未裁定，不能据此确定吉凶。"
+                    try append("roles-"+id,text,[base+"/assessmentStatus",base+"/outcomeEstablished",base+"/inspectedOriginalPaths",base+"/unresolved",p,r,c.object+"/wuXing",ctx]+actorPaths+provenance)
+                }
+            }
+            for i in try array(base+"/unsupportedCandidates").indices {
+                let p=base+"/unsupportedCandidates/\(i)",id=try string(p+"/id")
+                guard seen.insert(id).inserted,let c=byID[id],c.context == nil,["month","day"].contains(c.layer),
+                      try string(p+"/objectPath") == c.object,try string(p+"/reason") == "calendar-target-outside-line-role-scope" else { throw Incomplete.record }
+                try append("roles-"+id,"候选\(c.label)属于日月参考，本层只对本爻及伏神候选列元忌仇关系，未给日月候选套用爻的施力规则。",[p,c.object,base+"/assessmentStatus"]+provenance)
+            }
+            guard seen == Set(byID.keys) else { throw Incomplete.record }
+            if byID.isEmpty { try append("roles-unavailable","本次尚无明确用神候选，暂不指定元神、忌神或仇神。",[base+"/groups",base+"/unsupportedCandidates","/yongShen/candidates",base+"/inspectedOriginalPaths"]+provenance) }
+        }
         func validateReferences(_ p: String, source: String) throws {
             let rootURL="https://zh.wikisource.org/wiki/增刪卜易"
-            let hashes=["":"897f963b938ec4582bc892465301b831a6439216f317841f44b888117704ca07", "/8":"da83c3e47c04bb4813040e6cf5c3e43f8775e2293da3b32c9a8e2fb542e72a90", "/17":"e70bfbed847449facf08d1801c5cfe37c3655761ad635b484d7c24e5a4361623", "/19":"087c35339f209c6d1359c01d8a918a535eb6151729973fc09ef960c1195f3fdf", "/20":"8aec9b6625a18b4c487e45e92c9de662929597fa74a3653ce9ed9dd2d0b7e49b", "/22":"c8d2e339a0bf86b1e09e290ff191eac06c6c0bfce190c3d1e7942cc3fab874d5", "/26":"29213289bfd323be3206860ee2904f61c05f6f9941313745ae5e8b2bc6620d41", "/26又3":"dc529f9dc18f3620c1975fe3463f744fd8732000c4f9d01eecf318d45528eea4"]
-            let suffixes=[calendarSource:["/17","/19","/20","/26"],questionSource:["/8","","/26又3"],"liuyao-changing-relations-v1":["/17",""],"liuyao-flying-hidden-v1":[""],"liuyao-day-clash-v1":["/22"]]
+            let hashes=["/9":"e84db11ae9a316ba00cb301e4e25c71496b32d9fcc495f16e09a575eb2159412","/10":"3afc338a9c87a3df29583d36cf608abe381d44a5736e33641ca6d95c1cf387b9","":"897f963b938ec4582bc892465301b831a6439216f317841f44b888117704ca07", "/8":"da83c3e47c04bb4813040e6cf5c3e43f8775e2293da3b32c9a8e2fb542e72a90", "/17":"e70bfbed847449facf08d1801c5cfe37c3655761ad635b484d7c24e5a4361623", "/19":"087c35339f209c6d1359c01d8a918a535eb6151729973fc09ef960c1195f3fdf", "/20":"8aec9b6625a18b4c487e45e92c9de662929597fa74a3653ce9ed9dd2d0b7e49b", "/22":"c8d2e339a0bf86b1e09e290ff191eac06c6c0bfce190c3d1e7942cc3fab874d5", "/26":"29213289bfd323be3206860ee2904f61c05f6f9941313745ae5e8b2bc6620d41", "/26又3":"dc529f9dc18f3620c1975fe3463f744fd8732000c4f9d01eecf318d45528eea4"]
+            let suffixes=[roleSource:["/9","/10"],calendarSource:["/17","/19","/20","/26"],questionSource:["/8","","/26又3"],"liuyao-changing-relations-v1":["/17",""],"liuyao-flying-hidden-v1":[""],"liuyao-day-clash-v1":["/22"]]
             guard let expected=suffixes[source],try array(p).count == expected.count else { throw Incomplete.record }
             for i in expected.indices {
                 let path=p+"/\(i)"

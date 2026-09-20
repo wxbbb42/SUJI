@@ -16,7 +16,7 @@
     },
     "result": {
       "schemaVersion": 1,
-      "engineRevision": "91f2e4f3c4483efa1e4f647f286c05ccc76b0b67fc4c25bec71e3dbe43042ea7",
+      "engineRevision": "f2b852db0a76c60514844f86eb5f5ae984699b5b819cbcd85634c0ea7a4aba24",
       "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
       "calendarPolicy": {
         "version": "suji-calendar-2",
@@ -6063,7 +6063,7 @@
           }
         ],
         "provenance": {
-          "engineRevision": "91f2e4f3c4483efa1e4f647f286c05ccc76b0b67fc4c25bec71e3dbe43042ea7",
+          "engineRevision": "f2b852db0a76c60514844f86eb5f5ae984699b5b819cbcd85634c0ea7a4aba24",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -15542,7 +15542,7 @@
         },
         "readingBoundary": "两种体系分别解释，不能把相似意象当作相互验证。",
         "provenance": {
-          "engineRevision": "91f2e4f3c4483efa1e4f647f286c05ccc76b0b67fc4c25bec71e3dbe43042ea7",
+          "engineRevision": "f2b852db0a76c60514844f86eb5f5ae984699b5b819cbcd85634c0ea7a4aba24",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -15725,7 +15725,7 @@
     },
     "result": {
       "schemaVersion": 1,
-      "engineRevision": "91f2e4f3c4483efa1e4f647f286c05ccc76b0b67fc4c25bec71e3dbe43042ea7",
+      "engineRevision": "f2b852db0a76c60514844f86eb5f5ae984699b5b819cbcd85634c0ea7a4aba24",
       "birthKey": "[2023,4,6,23,59,\"女\",121.47,\"Asia/Shanghai\"]",
       "calendarPolicy": {
         "version": "suji-calendar-2",
@@ -18230,7 +18230,7 @@
     },
     "result": {
       "schemaVersion": 1,
-      "engineRevision": "91f2e4f3c4483efa1e4f647f286c05ccc76b0b67fc4c25bec71e3dbe43042ea7",
+      "engineRevision": "f2b852db0a76c60514844f86eb5f5ae984699b5b819cbcd85634c0ea7a4aba24",
       "birthKey": "[2024,2,9,23,59,\"女\",121.47,\"Asia/Shanghai\"]",
       "calendarPolicy": {
         "version": "suji-calendar-2",
@@ -21070,7 +21070,7 @@
         "note": "本宫无主星；须结合对宫与三方四正，不等于此领域不存在。",
         "sihua": [],
         "provenance": {
-          "engineRevision": "91f2e4f3c4483efa1e4f647f286c05ccc76b0b67fc4c25bec71e3dbe43042ea7",
+          "engineRevision": "f2b852db0a76c60514844f86eb5f5ae984699b5b819cbcd85634c0ea7a4aba24",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -21131,7 +21131,7 @@
       },
       "natal": {
         "schemaVersion": 1,
-        "engineRevision": "91f2e4f3c4483efa1e4f647f286c05ccc76b0b67fc4c25bec71e3dbe43042ea7",
+        "engineRevision": "f2b852db0a76c60514844f86eb5f5ae984699b5b819cbcd85634c0ea7a4aba24",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "calendarPolicy": {
           "version": "suji-calendar-2",
@@ -26446,7 +26446,7 @@
       },
       "natal": {
         "schemaVersion": 1,
-        "engineRevision": "91f2e4f3c4483efa1e4f647f286c05ccc76b0b67fc4c25bec71e3dbe43042ea7",
+        "engineRevision": "f2b852db0a76c60514844f86eb5f5ae984699b5b819cbcd85634c0ea7a4aba24",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "calendarPolicy": {
           "version": "suji-calendar-2",
@@ -29204,7 +29204,7 @@
         ],
         "referenceMode": "question-instant",
         "provenance": {
-          "engineRevision": "91f2e4f3c4483efa1e4f647f286c05ccc76b0b67fc4c25bec71e3dbe43042ea7",
+          "engineRevision": "f2b852db0a76c60514844f86eb5f5ae984699b5b819cbcd85634c0ea7a4aba24",
           "referenceDate": "2024-02-09T15:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -29269,7 +29269,7 @@
       },
       "natal": {
         "schemaVersion": 1,
-        "engineRevision": "91f2e4f3c4483efa1e4f647f286c05ccc76b0b67fc4c25bec71e3dbe43042ea7",
+        "engineRevision": "f2b852db0a76c60514844f86eb5f5ae984699b5b819cbcd85634c0ea7a4aba24",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "calendarPolicy": {
           "version": "suji-calendar-2",
@@ -32029,7 +32029,7 @@
         ],
         "referenceMode": "explicit-date-noon",
         "provenance": {
-          "engineRevision": "91f2e4f3c4483efa1e4f647f286c05ccc76b0b67fc4c25bec71e3dbe43042ea7",
+          "engineRevision": "f2b852db0a76c60514844f86eb5f5ae984699b5b819cbcd85634c0ea7a4aba24",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -32094,7 +32094,7 @@
       },
       "natal": {
         "schemaVersion": 1,
-        "engineRevision": "91f2e4f3c4483efa1e4f647f286c05ccc76b0b67fc4c25bec71e3dbe43042ea7",
+        "engineRevision": "f2b852db0a76c60514844f86eb5f5ae984699b5b819cbcd85634c0ea7a4aba24",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "calendarPolicy": {
           "version": "suji-calendar-2",
@@ -35129,7 +35129,7 @@
           ]
         },
         "provenance": {
-          "engineRevision": "91f2e4f3c4483efa1e4f647f286c05ccc76b0b67fc4c25bec71e3dbe43042ea7",
+          "engineRevision": "f2b852db0a76c60514844f86eb5f5ae984699b5b819cbcd85634c0ea7a4aba24",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -35191,7 +35191,7 @@
       },
       "natal": {
         "schemaVersion": 1,
-        "engineRevision": "91f2e4f3c4483efa1e4f647f286c05ccc76b0b67fc4c25bec71e3dbe43042ea7",
+        "engineRevision": "f2b852db0a76c60514844f86eb5f5ae984699b5b819cbcd85634c0ea7a4aba24",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "calendarPolicy": {
           "version": "suji-calendar-2",
@@ -38127,7 +38127,7 @@
         ],
         "referenceMode": "question-instant",
         "provenance": {
-          "engineRevision": "91f2e4f3c4483efa1e4f647f286c05ccc76b0b67fc4c25bec71e3dbe43042ea7",
+          "engineRevision": "f2b852db0a76c60514844f86eb5f5ae984699b5b819cbcd85634c0ea7a4aba24",
           "referenceDate": "2025-08-08T15:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
