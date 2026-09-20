@@ -160,6 +160,7 @@ public enum ReadingVerifier {
         let facts = ReadingVerificationEvidence.facts(history)
         issues += ReadingVerificationAssertions.calendarIssues(draft, facts: facts)
         issues += ZiweiReadingAssertions.issues(draft, facts: facts)
+        issues += ZiweiMonthlyCalendarAssertions.issues(draft, history: history)
         issues += QimenReadingAssertions.issues(draft, facts: facts)
         for rule in ["interpretation.candidate-not-established", "method.no-unproven-validity"] {
             let sentences = ReadingVerificationEvidence.sentences(draft).filter {

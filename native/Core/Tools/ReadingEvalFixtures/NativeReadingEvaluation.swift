@@ -20,6 +20,7 @@ enum NativeReadingEvaluation {
         let fixedLineValues: [Int]?
         let followups: [String]?
         let referenceDate: String?
+        let verificationReplay: String?
     }
 
     static func object<T: Encodable>(_ value: T) throws -> Any {
@@ -52,6 +53,14 @@ enum NativeReadingEvaluation {
             "executableSHA256": SHA256.hash(data: try Data(contentsOf: URL(fileURLWithPath: CommandLine.arguments[0]))).map { String(format: "%02x", $0) }.joined(),
         ]
         for item in config.cases {
+            if let archive = item.verificationReplay {
+                let replay = try await replayVerification(archive: archive, id: item.id, client: client)
+                records.append(replay)
+                var report = reportBase; report["cases"] = records
+                try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]).write(to: output, options: .atomic)
+                print("\(item.id): \(replay["status"] ?? "unknown"), original archived receipts, no new planning or calculation")
+                continue
+            }
             var caseBridge = bridge
             var fixture: [String: Any] = [:]
             let caseDate: Date
@@ -214,5 +223,44 @@ enum NativeReadingEvaluation {
                 print("\(record["id"]!): \(record["status"] ?? "unknown"), \(receipts.count) preserved receipts")
             }
         }
+    }
+
+    /// Replay a retained synthetic failure through the shipping verifier. Do not
+    /// regenerate a more convenient draft or alter its original tool evidence.
+    private static func replayVerification(archive: String, id: String, client: ChatClient) async throws -> [String: Any] {
+        let data = try Data(contentsOf: URL(fileURLWithPath: archive))
+        guard let report = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let cases = report["cases"] as? [[String: Any]], cases.count == 1,
+              let original = cases.first, let draft = original["draft"] as? String,
+              let question = original["question"] as? String, let rawHistory = original["writerHistory"] else {
+            throw EngineError.execution("Replay requires one archived synthetic draft and its complete writer history")
+        }
+        let history = try JSONDecoder().decode([ChatMessage].self, from: JSONSerialization.data(withJSONObject: rawHistory))
+        var record: [String: Any] = ["id": id, "executionPath": "archived-verification-replay",
+            "archive": URL(fileURLWithPath: archive).lastPathComponent,
+            "archiveSHA256": SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined(),
+            "question": question, "draft": draft, "writerHistory": rawHistory,
+            "receipts": original["receipts"] ?? [], "initialIssues": ReadingVerifier.deterministicIssues(in: draft, history: history)]
+        var exchanges: [[String: Any]] = []
+        do {
+            record["answer"] = try await ReadingVerifier.verify(draft: draft, history: history, question: question) { messages in
+                let response = try await client.complete(messages: messages)
+                let payload: Any
+                switch response {
+                case let .text(text): payload = ["text": text]
+                case let .toolCalls(calls): payload = ["toolCalls": try object(calls)]
+                }
+                exchanges.append(["phase": messages.first?.content == ReadingVerifier.instruction ? "verifier" : "revision",
+                    "messages": try object(messages), "response": payload])
+                return response
+            }
+            record["status"] = "accepted"
+        } catch let error as ReadingVerifier.Rejected {
+            record["status"] = "rejected"; record["rejectionReason"] = error.reason
+        } catch {
+            record["status"] = "error"; record["error"] = error.localizedDescription
+        }
+        record["exchanges"] = exchanges
+        return record
     }
 }

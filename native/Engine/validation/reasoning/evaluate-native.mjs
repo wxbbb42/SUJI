@@ -19,6 +19,7 @@ try { await access(path.resolve(args[3])); throw Error('Output exists; preserve 
 catch(error) { if(error.code!=='ENOENT')throw error; }
 const baseline=JSON.parse(await readFile(path.join(here,'round4-live-results.json'),'utf8'));
 const cases=selected.map(id=>{
+  if(id==='ziwei-monthly-replay')return {id,question:'Replay retained D5 synthetic failure',verificationReplay:path.join(here,'core-d5-results.json')};
   if(id==='claims-negation-boundaries')return {id,question:'我的格局暂时不用讲，只讲调候',followups:['我的扶抑怎么理解，格局不用讲','请解释我的八字为什么不成格？','我的八字不成格是什么意思？','能不能简单一点']};
   if(id==='claims-topic-exclusions')return {id,question:'只讲我的扶抑和调候，请不要讲格局。',followups:['不要讲我的扶抑和调候，只讲格局','我不想看扶抑，只讲调候','能不能简单一点']};
   if(id==='claims-strength-evidence')return {id,question:'为什么我身强，具体是哪几项累加？',followups:['我的通根在哪几柱，壬水和癸水要分开吗？','那你说的参考，具体怎么计算出来的？','能不能简单一点']};

@@ -241,9 +241,20 @@ D5 local: 711 Engine /309 Core tests pass,20 runtime fixtures. Independent HKO25
 
 D5 remote accepted within the documented structural scope: exact `966c9f5550dc1fb5c2e58fc7c26d941d6bcd1b71`, run35502405039 passed engine, swift-core and native-app. F5 remains open.
 
-## Batch F5 — actual lunar month versus selected calculation month (pending)
+## Batch F5 — actual lunar month versus selected calculation month
 
 The D5 provider answer correctly lists both leap-six dates but later describes the selected effective-month transition as a real lunar month change. Preserve original calendars, selected school convention and separate date scopes. Use this actual false acceptance as a permanent regression before choosing a bounded receipt-based month description or another precisely scoped repair. Do not treat model accepted status as semantic evidence; do not broaden auto-rewrite across ambiguous date contexts.
+
+Decision: add a bounded, source/date/argument-bound contradiction guard to the existing verifier. Only an explicit two-date 紫微流月 comparison with complete mutually consistent original calendars can authorize the known actual-month/effective-month transition correction. Preserve negation, report framing, hypothetical and ambiguous dates. Validate concrete source sharing against globally unique original receipts and source identity. This does not replace the complete answer or extend the old current-month transformation rewriting to ambiguous date contexts.
+
+- [x] Permanent RED/GREEN on the immutable actual D5 false acceptance and unchanged-draft rejection before model acceptance.
+- [x] Same-date/source/method/argument validation; false-positive and missing/conflicting/date/quote/transport-reference counterexamples, including independent review findings.
+- [x] Actual JSC cached natal → monthly tools → compact transport → persisted replay → retry; original calendars unchanged and no retry recomputation.
+- [x] Real archived-draft provider replay (2 requests, original2 receipts), independently check the corrected calendars,斗君,命宫 and8 transformations; preserve raw result and limitations.
+- [x] Final local Core/native checks and independent review artifact archive.
+- [ ] Commit/push and exact-head CI. Broad monthly prose and full core acceptance remain open.
+
+See `docs/mingli/validation/ziwei-month-calendar-2026-09-20.md`. No claim that a finite assertion grammar fully verifies natural-language interpretation.
 
 ## Batch B3 — candidate-relative 元神 / 忌神 / 仇神
 
@@ -254,6 +265,10 @@ Read actual 增删卜易 ch9/ch10 raw subpages, not the root transclusion marker
 - [x] Retain every original object's month/day/void/return/binding context and unresolved target/actor effectiveness. No new outcome, date or net strength score.
 - [x] Source archive and native original-pointer index, strict receipt-bound reference description including wrong-object/source/candidate and unavailable-layer counterexamples. Check actual combined transport/replay and backend capacity before acceptance.
 - [x] Independent rereview and complete local validation.
-- [ ] Commit/push and exact-head CI. Other B/E/F gaps remain open.
+- [x] Commit/push and exact-head CI. Other B/E/F gaps remain open.
 
 B3 local:720 Engine /313 Core tests,20 runtime fixtures,source index51/65 pass. Independent40,960 engine cases and1,280 actual native reports,617,780 exact references and26 rejected corruptions pass.9,728 lossless capacity combinations;12 real native/replay/backend requests max107,617 UTF16 including arguments,52,603 tool bytes;actual ChatClient body158,059 bytes. Only duplicate long question text references same-call arguments; original receipts and every chart field remain complete. No final efficacy/吉凶/日期 or broader core acceptance. See liuyao-candidate-roles-2026-09-20.md.
+
+B3 remote accepted within this structural scope: `b20b03ce41585042c69cbe1ea5924d5f19e7b3c0` matches origin; [run35503491952](https://github.com/wxbbb42/SUJI/actions/runs/35503491952) passed engine, swift-core and native-app. F5 is the next priority; core G/H are not accepted.
+
+F5 local:325 Core tests (including12 new permanent regressions),39 independent probes and SwiftUI simulator build pass. Actual archived-draft replay:2 real provider calls, original2 receipts, no planner or recomputation; dates,斗君,命宫 and8 transformations independently match. Source and code hashes recorded in `native/Engine/validation/reasoning/f5-independent-review/`; original D5 false acceptance remains unchanged. Exact-head CI pending. Broader prose/context extraction, B/E efficacy and G/H remain open. Additional 易林補遺反伏吟 transcription is preserved as research only in `fanfu-additional-source-review.json`, not adopted as an engine rule.

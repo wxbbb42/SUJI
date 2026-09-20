@@ -22,4 +22,4 @@
 
 复现：先运行 `b3-capacity-probe.cjs`；将 `b3-native-capacity.swift` 与 `native/Core/Sources/SujiCore/*.swift` 用 `swiftc -parse-as-library` 一起编译运行；再运行 `b3-provider-probe.mjs`。`b3-wire-capture.swift` 用相同方式编译，可指定0–11样本捕获真实 ChatClient wire。脚本均在 `native/Engine/validation/research-divination/`；中间数据写入 /tmp，不含真实用户资料。
 
-最终本地720项Engine／313项Swift Core测试通过，包含20组Node／JavaScriptCore对照；类型检查、资源构建、native-only和diff检查通过。来源索引51条来源／65条声明通过校验。独立审查无阻断性发现：40,960引擎起卦组合、1,280实际原生记录、617,780条引用全部一致；26种畸形变异全部拒收；5组独立古例、日月候选、长问题认证与重试保留原卦均通过。有效原生计数为1,280；最初5,376循环因审查脚本假定固定日期必有日月候选而退出，未作为通过证据。详见b3-review-report.md及独立JSON记录。提交及远端CI待核验。三合、反吟伏吟、墓绝具体规则、综合效力以及其他核心E/F/G缺口仍开放；没有新增七政四余、星宿或生肖。
+最终本地720项Engine／313项Swift Core测试通过，包含20组Node／JavaScriptCore对照；类型检查、资源构建、native-only和diff检查通过。来源索引51条来源／65条声明通过校验。独立审查无阻断性发现：40,960引擎起卦组合、1,280实际原生记录、617,780条引用全部一致；26种畸形变异全部拒收；5组独立古例、日月候选、长问题认证与重试保留原卦均通过。有效原生计数为1,280；最初5,376循环因审查脚本假定固定日期必有日月候选而退出，未作为通过证据。详见b3-review-report.md及独立JSON记录。提交`b20b03ce41585042c69cbe1ea5924d5f19e7b3c0`与远端一致；[run35503491952](https://github.com/wxbbb42/SUJI/actions/runs/35503491952)的engine、swift-core、native-app全部通过。三合、反吟伏吟、墓绝具体规则、综合效力以及其他核心E/F/G缺口仍开放；没有新增七政四余、星宿或生肖。
