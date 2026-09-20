@@ -133,3 +133,22 @@ E1 local validation: 666 Engine /241 Swift tests. Independent reviewer cleared o
 E1 accepted within its documented calculation scope: `6fd9d92163fb82b82577d18e61e8fce183d28516` matches remote. [Run35494700577](https://github.com/wxbbb42/SUJI/actions/runs/35494700577) passed engine, swift-core and native-app. Live prose remains unaccepted.
 
 F1 local scope accepted: 250 Swift Core tests, nine targeted tests, independent39 assertions; final real replay still fact-fallback. See [F1](../../mingli/validation/divination-calendar-reading-2026-09-20.md). No broad interpretation acceptance. Exact-head CI pending.
+
+## Batch D3 — scoped Ziwei interpretation assertions
+
+- [x] Bind each transformation to its explicit natal/annual/decadal scope, named star, actual target palace and source identity. Named star brightness is a different field; never borrow another star or palace.
+- [x] Detect only explicit current-scope literal mismatches. Mixed correct layers coexist. Negations/questions/reported/hypothetical/old values and conflicting tool outputs do not authorize a rewrite.
+- [x] Empty main-star palace does not erase actual minor stars; demonstrate with returned arrays. Preserve opposite-palace reference rather than move stars into the empty palace.
+- [ ] Test independent literal contradictions, real native natal+timing outputs and model replay; retain failures. Review, full validation, push and exact-head CI before accepting D3.
+
+F1 remote accepted in its narrow scope: exact `4da3a3b85ebac190aa9db29f28f1dcf4aa287600` matches remote; run35495103778 passed engine, swift-core and native-app.
+
+D3 local:258 Core tests including8 scoped regressions. Third live run was falsely accepted with wrong source-stem comparison and a lunar-year denial; raw report retained and both errors reproduced in permanent verifier regression. Final delivery replay agrees with three actual receipts,4 real provider requests. See `docs/mingli/validation/ziwei-reading-scope-2026-09-20.md`. Independent final rereview cleared; exact-head CI pending; broad D/E/F acceptance remains open.
+
+## Batch E2 — Qimen question objects and conditional timing (next)
+
+Read the actual Dunjia Yanyi and Daoisms finance pages; neither qualifies as a complete, version-selected modern object/timing rulebook. Do not cite a search-engine AI summary as a classical quotation. See `docs/mingli/validation/qimen-selection-source-review-2026-09-20.md`.
+
+- [ ] E2a: explicit subject/event/horizon, all candidate identities including hosted stems and甲旬仪, missing context and per-object fact pointers. Distinguish product initial-reference convention from classical rule provenance; no first candidate as adjudication.
+- [ ] E2b: select a readable, explicit timing convention; encode supported/opposing/unresolved conditions and object/source identity. Do not transplant Liuyao timing or infer a date from a palace number. No precise deadline without an adjudicated event and time unit.
+- [ ] Independent fixed vectors and ambiguity/代占/hosted-counterexamples; native allowlist, actual transport/replay/capacity, semantic review and remote checks.

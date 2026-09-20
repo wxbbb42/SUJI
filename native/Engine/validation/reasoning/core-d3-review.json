@@ -1,0 +1,80 @@
+{
+  "scope": "D3 bounded Ziwei literal assertions and two observed live summary failures; not universal interpretation acceptance",
+  "reports": [
+    {
+      "path": "core-d3-results.json",
+      "sha256": "0742ae981776fc920d94b45e2d133d817738692cee53cb42cf053620f0c0a407",
+      "observedStatus": "accepted",
+      "providerRequests": 5,
+      "executableSHA256": "f97ce4916c5ff7291aac92e7086d4bc61722b1b62cc77cb5050584ea12610e47",
+      "semanticAssessment": "reviewed facts agree with receipts",
+      "finalImplementation": false
+    },
+    {
+      "path": "core-d3-final-results.json",
+      "sha256": "e448c1761159b1c31a33e55feaf0bcd029f1904e13fd756d1c020f120bb96547",
+      "observedStatus": "accepted",
+      "providerRequests": 4,
+      "executableSHA256": "d5b6b4a9ed21cd0e0cb5f578dac79b2bb51d101ef4b732f87d455ac9fa9a2ed6",
+      "semanticAssessment": "reviewed facts agree with receipts",
+      "finalImplementation": false
+    },
+    {
+      "path": "core-d3-verified-results.json",
+      "sha256": "0ebec8c5a9782d23cb76ece654dc6f99c5976a28aec61d20041cc47c7f42a303",
+      "observedStatus": "accepted",
+      "providerRequests": 5,
+      "executableSHA256": "b5b1a872cce02a2c6c27dbe6c740dd8fa386c933cc158587a697f9e172e2eaf4",
+      "semanticAssessment": "failed: source stems incorrectly called equal and current lunar year denied",
+      "finalImplementation": false
+    },
+    {
+      "path": "core-d3-release-results.json",
+      "sha256": "00f750d4b28df56950ce97f63133a4534af1c2b295a913ab8e5294c36ec69439",
+      "observedStatus": "accepted",
+      "providerRequests": 4,
+      "executableSHA256": "9631d01c6fac8e10f0c2802da9928d0b6c7b347b39a31495abf637dbc55b69ca",
+      "semanticAssessment": "reviewed facts agree with receipts",
+      "finalImplementation": false
+    },
+    {
+      "path": "core-d3-delivery-results.json",
+      "sha256": "a519dd5a2a17fd6c643046d573277ac5d65c28721b047380df3a8a7ceb992cc3",
+      "observedStatus": "accepted",
+      "providerRequests": 4,
+      "executableSHA256": "11828180c3195ee83cccc86e284cf15edd316f4a1e23e1a368a5b9269a5b252b",
+      "semanticAssessment": "reviewed facts agree with receipts",
+      "finalImplementation": true
+    }
+  ],
+  "findings": [
+    "Source stem/target palace/star/transformation are distinct fields. All three layers are bound by explicit scope, named star and returned source identity.",
+    "Repeated agreeing receipts retain citation identity; conflicting same-object values do not authorize unscoped correction.",
+    "Reported, hypothetical, question, old-year and explicit unbound numeric-year clauses are excluded. Known trailing denials are tested before clause splitting.",
+    "core-d3-verified-results was accepted by the model protocol but semantically wrong. The raw report is preserved, and a permanent test replays its complete writer history and draft through ReadingVerifier.verify before model review.",
+    "The observed stem-summary comparison is checked only with explicit same-star natal/decadal/annual scope. The observed year denial is checked only with one explicit matching date in the same paragraph and same-receipt calculationDate, annual.ganZhi and lunar-new-year method.",
+    "Final delivery replay agrees with returned palace/star/brightness/transformation/year facts, with three preserved receipts; four provider requests. This is one synthetic chart and does not establish general model accuracy."
+  ],
+  "localVerification": {
+    "swiftCoreTests": 258,
+    "targetedTests": 8,
+    "timezone": "America/Los_Angeles",
+    "nativeFixtures": 18,
+    "redGreen": [
+      "Initial layer/star/empty-palace failures",
+      "Repeated agreeing receipt identity",
+      "Reported/past and numeric-year exclusions",
+      "Trailing denial/uncertainty",
+      "Archived false-accepted source/year summary",
+      "Dated year trailing denial"
+    ],
+    "independentReview": "Final read-only compiled probes and semantic review cleared bounded D3 scope; no remaining actionable finding. Final delivery prompt12 and executable hash verified."
+  },
+  "limitations": [
+    "Narrow Chinese literal templates; other formulations are not certified.",
+    "Explicit numeric-year transformations are deliberately excluded unless separately date-bound.",
+    "No natal recalculation or mutation; no palace-stem flying, flow-month or event inference added.",
+    "Authentication/quota are synthetic in live harness; actual shipping Swift writer/verifier/backend handler and real DeepSeek are used.",
+    "Overall D/E/F/G/H acceptance remains open."
+  ]
+}

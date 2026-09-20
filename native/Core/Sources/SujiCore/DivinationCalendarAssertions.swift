@@ -15,10 +15,10 @@ extension ReadingVerificationAssertions {
     }
 
     static func calendarAssertion(_ fact: ReadingVerificationEvidence.Fact, sentence: String, draft: String) -> Bool {
-        calendarFields[fact.factKey] == nil || calendarStatements(draft).contains(sentence)
+        calendarFields[fact.factKey] == nil || declarativeSentences(draft).contains(sentence)
     }
 
-    private static func calendarStatements(_ draft: String) -> [String] {
+    static func declarativeSentences(_ draft: String) -> [String] {
         // The general reviewer protocol strips punctuation. Keep interrogative
         // punctuation until this specialized assertion check has rejected it.
         let regex = try! NSRegularExpression(pattern: "[^。！？\\n]+[。！？]?")
@@ -71,7 +71,7 @@ extension ReadingVerificationAssertions {
                   group.allSatisfy({ $0.value == fact.value }) else { continue }
             // Several casts with different values require explicit receipt
             // identity; generic prose cannot choose one as authoritative.
-            for sentence in calendarStatements(draft) {
+            for sentence in declarativeSentences(draft) {
                 let claims = calendarClaims(in: sentence, key: key)
                 if claims.contains(where: { $0 != actual }) {
                     issues.append("原句：\(sentence)；本次工具\(fact.toolCallID)的\(key)（\(fact.pointer)）实际值为\(actual)。只按这个原始字段纠正对应的起卦/起局干支，不另算历法，不改变已保存的盘面。")

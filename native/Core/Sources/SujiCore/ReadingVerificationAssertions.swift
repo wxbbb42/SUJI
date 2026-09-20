@@ -30,7 +30,7 @@ enum ReadingVerificationAssertions {
         }
     }
 
-    static func binds(_ quote: String, to fact: ReadingVerificationEvidence.Fact, in original: String) -> Bool {
+    static func binds(_ quote: String, to fact: ReadingVerificationEvidence.Fact, in original: String, facts: [ReadingVerificationEvidence.Fact] = []) -> Bool {
         // Quoting a value is different from quoting someone else's assertion.
         var sentence = original
         for (open, close) in [("「", "」"), ("『", "』"), ("“", "”"), ("‘", "’"), ("\"", "\""), ("'", "'")] {
@@ -40,6 +40,7 @@ enum ReadingVerificationAssertions {
         // Mixed assertions/denials are ambiguous and are never repair evidence.
         guard !conditional(sentence), !denied(sentence) else { return false }
         if calendarClaims(in: sentence, key: fact.factKey).contains(quote) { return true }
+        if ZiweiReadingAssertions.binds(quote,to:fact,in:sentence,facts:facts) { return true }
         let value = NSRegularExpression.escapedPattern(for: quote)
         let link = "(?:的)?\\s*(?:仍为|仍是|为|是|落在|落|在|为：|是：|：|:)?\\s*[「『“\"]?"
         let key = fact.factKey.components(separatedBy: ".")

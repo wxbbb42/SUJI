@@ -78,7 +78,8 @@ public enum ReadingVerifier {
                       ReadingVerificationAssertions.sameKind(claimed, actual), claimed != actual,
                       ReadingVerificationAssertions.unambiguousCalendarFact(fact, facts: facts),
                       ReadingVerificationAssertions.calendarAssertion(fact, sentence: issue.candidateQuote, draft: draft),
-                      ReadingVerificationAssertions.binds(quote, to: fact, in: issue.candidateQuote) else {
+                      (!fact.factKey.hasPrefix("ziwei.") || ReadingVerificationAssertions.declarativeSentences(draft).contains(issue.candidateQuote)),
+                      ReadingVerificationAssertions.binds(quote, to: fact, in: issue.candidateQuote, facts: facts) else {
                     return .invalid("字段矛盾须引用事实索引原值、合法字段和候选实际说出的不同值；禁止另算上下卦或由藏干推定未透")
                 }
                 corrections.append("原句：\(issue.candidateQuote)；字段\(fact.factKey)的本次实际值为\(ReadingVerificationEvidence.encoded(actual))，候选实际声称值为\(ReadingVerificationEvidence.encoded(claimed))。只纠正这一字段，不添加推导。")
@@ -155,6 +156,7 @@ public enum ReadingVerifier {
         }
         let facts = ReadingVerificationEvidence.facts(history)
         issues += ReadingVerificationAssertions.calendarIssues(draft, facts: facts)
+        issues += ZiweiReadingAssertions.issues(draft, facts: facts)
         for rule in ["interpretation.candidate-not-established", "method.no-unproven-validity"] {
             if ReadingVerificationEvidence.sentences(draft).contains(where: { ReadingVerificationAssertions.supports(rule: rule, sentence: $0, facts: facts) }) {
                 issues.append(rules[rule]!)

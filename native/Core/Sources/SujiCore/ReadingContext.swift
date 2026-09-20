@@ -29,7 +29,7 @@ public struct ToolContext: Codable, Equatable, Sendable {
 }
 
 public enum ReadingPrompt {
-    public static let version = "suji-grounded-reading-11"
+    public static let version = "suji-grounded-reading-12"
 
     public static func instruction(tone: String, mode: String, referenceDate: Date, hasBirth: Bool) -> String {
         let at = ISO8601DateFormatter().string(from: referenceDate)
@@ -50,6 +50,7 @@ public enum ReadingPrompt {
         7. 不用盘面替用户选定投资、升职或搬家年份，不用“押注某年”“一定适合”等措辞；可比较规则事实，现实行动基于工作条件、预算与意愿。
         8. 不由盘直接推定用户现实性格、成功率或准备窗口；出生资料已提供但工具失败时，只说取数失败，不要求重填。不同解释框架各自也可能有错误，不能声称差异证明双方自洽。
         9. 给出可审阅的简短依据与局限，不展示内部推理草稿。传统文化解读不能代替用户判断，也不是心理诊断。
+        10. 紫微运限按get_ziwei_timing的calculationDate、annual与method解释指定日期；提问时刻、八字立春年与本命出生年不能替代该流年。annual已返回某干支年时，不能又说同一计算日尚未进入该年。概括多个四化层时分别比较sourceStem、star、transformation、targetPalace；同星同宫不表示来源干或四化类型相同。空宫仅指无主星，保留本宫辅杂曜，对宫星曜是参照而非迁入。
         """
     }
 
