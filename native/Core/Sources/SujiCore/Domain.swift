@@ -87,6 +87,7 @@ public struct ConversationEntry: Codable, Identifiable, Sendable {
     public var toolData: [String] = []
     public var toolReceipts: [ToolReceipt]?
     public var toolContext: ToolContext?
+    public var confirmedCastQuestions: [ConfirmedCastQuestion]?
     public var analysisMode: String?
     public var readingDocument: ReadingDocument?
     public init(role: String, text: String) { self.role = role; self.text = text }

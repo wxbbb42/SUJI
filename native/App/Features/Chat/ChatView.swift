@@ -162,6 +162,9 @@ import SujiCore
             }
             .toolbar { ToolbarItem(placement: .topBarTrailing) { Menu { NavigationLink("设置", destination: SettingsView()); Button("清空对话", role: .destructive) { clearConfirmation = true }.disabled(session.working) } label: { Image(systemName: "ellipsis") } } }
             .confirmationDialog("清空本机的全部对话？", isPresented: $clearConfirmation, titleVisibility: .visible) { Button("清空对话", role: .destructive) { store.state.conversations = []; store.save() } }
+            .sheet(item: Binding(get: { session.castConfirmation.pending }, set: { _ in })) { request in
+                CastQuestionConfirmationView(request: request, gate: session.castConfirmation) { session.stop() }
+            }
             .onAppear { if !restoredMode { restoreConversationMode(); restoredMode = true } }
             .onChange(of: store.scopeRevision) { _, _ in session.stop(); input = ""; restoreConversationMode() }
             .onChange(of: store.state.birth) { _, _ in if session.working { session.stop() } }

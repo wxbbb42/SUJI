@@ -105,11 +105,15 @@ public struct ToolOrchestrator {
 
     public typealias Complete = ([ChatMessage], [ChatToolDefinition]) async throws -> ChatCompletionResult
     public typealias Execute = (ChatToolCall) async throws -> ToolExecutionResult
+    public typealias PrepareCasts = ([ChatToolCall]) async throws -> [ConfirmedCastQuestion]
+    public typealias PersistConfirmations = ([ConfirmedCastQuestion]) async throws -> Void
     public typealias PersistReceipt = (ToolReceipt) async throws -> Void
 
     private let complete: Complete
     private let execute: Execute
     private let persistReceipt: PersistReceipt
+    private let prepareCasts: PrepareCasts?
+    private let persistConfirmations: PersistConfirmations
     private let maxRounds: Int
     private let maxCalls: Int
 
@@ -118,7 +122,9 @@ public struct ToolOrchestrator {
         maxCalls: Int = 8,
         complete: @escaping Complete,
         execute: @escaping Execute,
-        persistReceipt: @escaping PersistReceipt = { _ in }
+        persistReceipt: @escaping PersistReceipt = { _ in },
+        prepareCasts: PrepareCasts? = nil,
+        persistConfirmations: @escaping PersistConfirmations = { _ in }
     ) {
         precondition(maxRounds > 0 && maxCalls > 0)
         self.maxRounds = maxRounds
@@ -126,13 +132,17 @@ public struct ToolOrchestrator {
         self.complete = complete
         self.execute = execute
         self.persistReceipt = persistReceipt
+        self.prepareCasts = prepareCasts
+        self.persistConfirmations = persistConfirmations
     }
 
     public func run(
         history: [ChatMessage],
         definitions: [ChatToolDefinition],
         cachedReceipts: [ToolReceipt] = [],
-        context: ToolContext? = nil
+        context: ToolContext? = nil,
+        questionID: UUID? = nil,
+        confirmedQuestions: [ConfirmedCastQuestion] = []
     ) async throws -> ToolOrchestrationResult {
         if let context, cachedReceipts.contains(where: { $0.context != context }) {
             throw ToolOrchestratorError.staleContext
@@ -143,7 +153,24 @@ public struct ToolOrchestrator {
         }
         let availableDefinitions = definitionsByName.values.sorted { $0.name < $1.name }
 
+        var preparedArguments: [String: JSONValue] = [:]
+        for confirmation in confirmedQuestions {
+            guard let questionID, let context else { throw ToolOrchestratorError.staleContext }
+            try confirmation.validate(userID: questionID, context: context)
+            guard preparedArguments[confirmation.call.name] == nil else { throw ToolOrchestratorError.staleContext }
+            preparedArguments[confirmation.call.name] = confirmation.call.arguments
+        }
+        // A saved confirmation must not silently rebind an already completed chart.
+        for receipt in cachedReceipts {
+            if let confirmed = preparedArguments[receipt.name], confirmed != receipt.arguments {
+                throw ToolOrchestratorError.staleContext
+            }
+        }
+
         var messages = history
+        for confirmation in confirmedQuestions where !messages.contains(confirmation.intentMessage) {
+            messages.append(confirmation.intentMessage)
+        }
         var receipts: [ToolReceipt] = []
         var evidence: [String] = cachedReceipts.filter { NatalEvidenceProjection.wasDelivered($0,in:history) }.flatMap(\.evidence)
         var totalCalls = 0
@@ -192,11 +219,39 @@ public struct ToolOrchestrator {
                         throw ToolOrchestratorError.invalidArguments(tool: call.name, reason: error.localizedDescription)
                     }
                 }
+                // Collect all new methods before executing any sibling tool. Aliases
+                // share one confirmation and completed receipts always take priority.
+                var newNames = Set<String>()
+                let newCasts = calls.filter {
+                    Self.stableChartTools.contains($0.name) && cachedCharts[$0.name] == nil &&
+                    preparedArguments[$0.name] == nil && newNames.insert($0.name).inserted
+                }
+                if !newCasts.isEmpty, let prepareCasts {
+                    guard let questionID, let context else { throw ToolOrchestratorError.staleContext }
+                    let confirmations = try await prepareCasts(newCasts)
+                    try Task.checkCancellation()
+                    guard confirmations.count == newCasts.count else { throw SchemaValidationError(reason: "占问确认不完整") }
+                    for (original, confirmation) in zip(newCasts, confirmations) {
+                        try confirmation.validate(userID: questionID, context: context)
+                        guard confirmation.proposedCall == original,
+                              let definition = definitionsByName[original.name] else { throw SchemaValidationError(reason: "占问确认与原请求不一致") }
+                        try Self.validate(confirmation.call.arguments, against: definition.parameters, path: "arguments")
+                        try Self.validateToolSemantics(confirmation.call)
+                    }
+                    // Persistence errors abort before any calculation, including siblings.
+                    try await persistConfirmations(confirmations)
+                    try Task.checkCancellation()
+                    for confirmation in confirmations {
+                        preparedArguments[confirmation.call.name] = confirmation.call.arguments
+                        messages.append(confirmation.intentMessage)
+                    }
+                }
                 totalCalls += calls.count
                 seenCallIDs.formUnion(batchIDs)
                 // A retry references the original question and chart, not newly invented
                 // model arguments. This preserves the provenance attached to the receipt.
-                var chartArguments = cachedCharts.mapValues(\.arguments)
+                var chartArguments = preparedArguments
+                for (name, receipt) in cachedCharts { chartArguments[name] = receipt.arguments }
                 let effectiveCalls = calls.map { call in
                     guard Self.stableChartTools.contains(call.name) else { return call }
                     if let original = chartArguments[call.name] {
@@ -204,6 +259,13 @@ public struct ToolOrchestrator {
                     }
                     chartArguments[call.name] = call.arguments
                     return call
+                }
+                // Validate confirmed/cached effective arguments against today's schema.
+                for call in effectiveCalls {
+                    if let definition = definitionsByName[call.name] {
+                        try Self.validate(call.arguments, against: definition.parameters, path: "arguments")
+                        try Self.validateToolSemantics(call)
+                    }
                 }
                 messages.append(.assistantToolCalls(effectiveCalls))
 

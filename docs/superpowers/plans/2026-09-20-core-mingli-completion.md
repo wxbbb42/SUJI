@@ -252,7 +252,7 @@ Decision: add a bounded, source/date/argument-bound contradiction guard to the e
 - [x] Actual JSC cached natal → monthly tools → compact transport → persisted replay → retry; original calendars unchanged and no retry recomputation.
 - [x] Real archived-draft provider replay (2 requests, original2 receipts), independently check the corrected calendars,斗君,命宫 and8 transformations; preserve raw result and limitations.
 - [x] Final local Core/native checks and independent review artifact archive.
-- [ ] Commit/push and exact-head CI. Broad monthly prose and full core acceptance remain open.
+- [x] Commit/push and exact-head CI. Broad monthly prose and full core acceptance remain open.
 
 See `docs/mingli/validation/ziwei-month-calendar-2026-09-20.md`. No claim that a finite assertion grammar fully verifies natural-language interpretation.
 
@@ -271,4 +271,18 @@ B3 local:720 Engine /313 Core tests,20 runtime fixtures,source index51/65 pass. 
 
 B3 remote accepted within this structural scope: `b20b03ce41585042c69cbe1ea5924d5f19e7b3c0` matches origin; [run35503491952](https://github.com/wxbbb42/SUJI/actions/runs/35503491952) passed engine, swift-core and native-app. F5 is the next priority; core G/H are not accepted.
 
-F5 local:325 Core tests (including12 new permanent regressions),39 independent probes and SwiftUI simulator build pass. Actual archived-draft replay:2 real provider calls, original2 receipts, no planner or recomputation; dates,斗君,命宫 and8 transformations independently match. Source and code hashes recorded in `native/Engine/validation/reasoning/f5-independent-review/`; original D5 false acceptance remains unchanged. Exact-head CI pending. Broader prose/context extraction, B/E efficacy and G/H remain open. Additional 易林補遺反伏吟 transcription is preserved as research only in `fanfu-additional-source-review.json`, not adopted as an engine rule.
+F5 local:325 Core tests (including12 new permanent regressions),39 independent probes and SwiftUI simulator build pass. Actual archived-draft replay:2 real provider calls, original2 receipts, no planner or recomputation; dates,斗君,命宫 and8 transformations independently match. Source and code hashes recorded in `native/Engine/validation/reasoning/f5-independent-review/`; original D5 false acceptance remains unchanged. Exact-head CI passed at `6f7446679b1ae75ba9716d3cbc772bf421dc635b` (run35504442304). Broader prose/context extraction, B/E efficacy and G/H remain open. Additional 易林補遺反伏吟 transcription is preserved as research only in `fanfu-additional-source-review.json`, not adopted as an engine rule.
+
+F5 remote acceptance: `6f7446679b1ae75ba9716d3cbc772bf421dc635b` matched origin and CI run35504442304; engine, swift-core and native-app all success. Recorded real-provider responses were also replayed against the final refusal-guard source: the revision/review message arrays and final answer matched, without another provider request.
+
+## Batch F6a — confirm first-cast question context
+
+Retain the actual F4 missing-event planner call (office lease). Before a new 六爻/奇门 cast, show the original question beside editable proposed question, category, subject, event and near/far/unspecified scope. No gender inference or silent extraction fallback. Event mode requires a nonblank event; explicit reference-only mode permits absence. Unknown subject and unspecified horizon remain visible unresolved inputs, never final object selection or timing. This is input integrity, not core interpretation acceptance.
+
+- Validate the entire planner batch before asking; collect all unique new cast preparations before executing any tool. Validate identity, schema and semantics again after preparation. Same-tool aliases share one confirmation.
+- Persist confirmed call arguments, purpose, source question identity, context and timestamp before calculation; preserve the original question timestamp as cast time. Retry after a failed execution reuses confirmed arguments. Completed original receipts take priority and never trigger confirmation/recast. Backward archives without confirmations still decode.
+- Native confirmation suspends execution. Cancel, stop, account/birth change and stale callbacks must not resume an old operation or execute an unconfirmed cast. Persistence failure prevents calculation.
+- Test the archived omission, edited context reaching the actual engine, batch/alias/retry/cancellation/scope counterexamples, persistence and native UI. Independent review; full relevant local checks; commit/push and exact-head CI.
+- Cross-turn question supplementation/re-adjudication without recast remains F6b; this batch does not claim it. E2b timing, broader efficacy and core G/H also remain open.
+
+F6a local accepted within this input-integrity scope: 12 new Core regressions /337 total,720 Engine tests and unchanged rebuilt resources,15 backend tests,25 native unit tests (6 new),2 new UI tests and inspected screenshots pass. The native session test uses actual SwiftData/JSC with synthetic HTTP planner replies shaped like the archived F4 omission. Independent review resolved a maximum-original-question truncation bug and passed six max-size verifier cases plus100 cancellation/confirmation races. The initial UI selector used the wrong automation type; querying its existing accessibility identifier passes across the observed SwiftUI type mismatch. Evidence: `docs/mingli/validation/cast-question-confirmation-2026-09-20.md`, `core-f6a-local-results.json`, and `f6-independent-review/`. Commit/push and exact-head CI are pending; F6b/E2b, broader efficacy and G/H remain open.

@@ -1,0 +1,192 @@
+{
+  "recorded_at_utc": "2026-09-20T10:36:03.823390+00:00",
+  "base_commit": "6f7446679b1ae75ba9716d3cbc772bf421dc635b",
+  "reviewed_worktree_branch": "codex/mingli-validation",
+  "compiler": "Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+  "compiled_snapshot_sources": [
+    {
+      "path": "native/Core/Sources/SujiCore/ArchiveCodec.swift",
+      "sha256": "4c9ef706d9b3b189d5372925dc5d43e90d3c51000722595a94831ec45dca58fe",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BaziFrameworkReading.swift",
+      "sha256": "514b934b9fbb94875ebaeeb26bf8b74c6f7ff66e3aa78a9379179a9560aae8e2",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BaziPatternConditionTrace.swift",
+      "sha256": "1c9ac6fb8f28c57112f809120c5b7613c0d05cb25f33efaa8d9c40df7126b063",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BaziStrengthTrace.swift",
+      "sha256": "39f6a53de465039ed7cd7c5feb071d93e1c8f61cb4d28a0eff53e2b3b232d336",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BreathingClock.swift",
+      "sha256": "7ef3097cf121a5544add9a27175f9d9d4eb00df60e1ebef44c35139f2f8f4423",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/CastQuestionPreparation.swift",
+      "sha256": "0c2eca177a9e69b3c37e042b86244ba9fd4aaaccc91d7fad5e20bb4790ace639",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ChatClient.swift",
+      "sha256": "19d89f1760d4fcaa91d3edd385334143593a0c4b24aa52a1c3dc5c3734f8639c",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ChatTypes.swift",
+      "sha256": "cf1f74f56c99e74266eba7b5f12c0eaee6f8c8441ddf8ee068494ae521ba8f70",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/DivinationCalendarAssertions.swift",
+      "sha256": "26d5bb67099fdabafc3cf09dd441d2f96ea4f9b748ff004e9e8eb00c0bc77f0c",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/Domain.swift",
+      "sha256": "b22b0dd311d262f40e885d2494e798166fab06b1759a1d031e7449fa2fe8b004",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/EngineContract.swift",
+      "sha256": "c78d0036fbf0492dca600e257764709eb9654f0b6f51c0ebd997cba4eab9873d",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/LiuyaoReferenceReading.swift",
+      "sha256": "7499fa58b8a6d1ff647019449c375b1dd9fb8d7928b3aaa623ab7896b8feeb9e",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ManagedAI.swift",
+      "sha256": "b6368e446855814d77d2135973a8ed49a9aaa098df9aef377d30d4fac0a558bb",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/MingliBridge.swift",
+      "sha256": "1f4b24084788184956166be2b5f5847c67fbdfa960521874c532025db8b4382c",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/NatalDossier.swift",
+      "sha256": "e205274576a6abc6ea0c3cd1a7c3e74518a590e0ec9c4001218c65bc056aaa9e",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/NatalEvidenceProjection.swift",
+      "sha256": "dcbadd9128b81f378708c3aa7c8a5c2d10cb709c1d5e93b1e711a84943963550",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/QimenReadingAssertions.swift",
+      "sha256": "a8987ec2043be23596e35da2fefe4e6836558fd1432223ed02af0787c12e0562",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/QimenReferenceReading.swift",
+      "sha256": "31fb419894387686f09a9fb6c47d13d09f4d58619f536c103f9c98b0429bdbd7",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingContext.swift",
+      "sha256": "a02c1a5f4afdc5a9348f5fd109cd05bdd42d886bd2993b0ba4c86227b565452a",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingDocument.swift",
+      "sha256": "3a4f97e8ff3b0d32c2398d851d2e3cacb23fe1267b92b5314dfb8ecd35a90663",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingFallback.swift",
+      "sha256": "201ef6ec94312a6fef227cbfebd774b5f37a7f8539125b79571c172e3f897ded",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingIntent.swift",
+      "sha256": "eb59440f3d9404ec45af3f041116fe32067dd40a65dcab14a5c0382b6d3d7c10",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingVerificationAssertions.swift",
+      "sha256": "7edb2a1e252d8a1b65affd01f0f16f15be072b11711e088192350882cb2b2763",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingVerificationEvidence.swift",
+      "sha256": "537692b83a8048c37882579be6da36640d39246273aff36ee38b9bfa5e11cc90",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingVerifier.swift",
+      "sha256": "3cfb8d02495e1ec15df03c8776ee710b99f42bb92387dae6894cb27b652288ec",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReflectionConversation.swift",
+      "sha256": "1f33d5505c8c486915e5a1793a3bab3f8f90491ee991c263b6d692ca79f0f85c",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReminderSchedule.swift",
+      "sha256": "b37f6e9fb98ee69cf08586b2c395ce5b29e998372e36599a1e6ebcece7bb3219",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/SSEParser.swift",
+      "sha256": "cf5776962a9f0af864a9b8912cdefe790bc0d3f5c7a0374c69b52414a469a6a0",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/SupabaseClient.swift",
+      "sha256": "2bb445cf0b5af429edb95970d01a42dc503dee5f01452d4f771e76f49bdf1632",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ToolOrchestrator.swift",
+      "sha256": "3d535af204242c7e2bd0c852394e9d2acec9d680c4c5048768ca296b9d10adc6",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ZiweiMonthlyCalendarAssertions.swift",
+      "sha256": "ceefc5907be0dd8fb1cf2c39f70de2f36eebfa55f0d291c9f74f6c0818361600",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ZiweiReadingAssertions.swift",
+      "sha256": "eae6c12445a065c15dda3ec0eccbd6672ba25e4814fb7b119ad156a8754e8152",
+      "matches_workspace_at_recording": true
+    },
+    {
+      "path": "native/App/Services/CastQuestionConfirmation.swift",
+      "sha256": "07b50ea5f5ce44a8997ec0b54bcbb679060d69fd5d2196d58e33f2d36ebf2d7a",
+      "matches_workspace_at_recording": true
+    }
+  ],
+  "reviewed_source_hashes": {
+    "native/Core/Sources/SujiCore/CastQuestionPreparation.swift": "0c2eca177a9e69b3c37e042b86244ba9fd4aaaccc91d7fad5e20bb4790ace639",
+    "native/Core/Sources/SujiCore/ToolOrchestrator.swift": "3d535af204242c7e2bd0c852394e9d2acec9d680c4c5048768ca296b9d10adc6",
+    "native/Core/Sources/SujiCore/Domain.swift": "b22b0dd311d262f40e885d2494e798166fab06b1759a1d031e7449fa2fe8b004",
+    "native/Core/Sources/SujiCore/ReadingContext.swift": "a02c1a5f4afdc5a9348f5fd109cd05bdd42d886bd2993b0ba4c86227b565452a",
+    "native/Core/Sources/SujiCore/ReadingVerifier.swift": "3cfb8d02495e1ec15df03c8776ee710b99f42bb92387dae6894cb27b652288ec",
+    "native/Core/Tests/SujiCoreTests/CastQuestionPreparationTests.swift": "b05db8323cb590a3fb16d287e53c6f998fd7da075cd904e2b5d36749a01e2acf",
+    "native/App/Services/CastQuestionConfirmation.swift": "07b50ea5f5ce44a8997ec0b54bcbb679060d69fd5d2196d58e33f2d36ebf2d7a",
+    "native/App/Services/ChatSession.swift": "7cbc77ae96cba2119addabb1e11a610749d1270862138e0f10b79b244f7fe4cc",
+    "native/App/Features/Chat/ChatView.swift": "7e877523f4a61e2236a90b86e52dde12f047dc62861093cc9f6ecc04942756e5",
+    "native/App/Features/Chat/CastQuestionConfirmationView.swift": "b55dce87c48973e7a6ba335428d37d92de66e9ec476f01f05580711b8107a4c1",
+    "native/AppTests/CastQuestionConfirmationTests.swift": "e802779b75b9203d541076d3ec708c622cd6b37a8cbaf296d9770121bc608483",
+    "docs/superpowers/plans/2026-09-20-core-mingli-completion.md": "9deb29ac412ba61599f59dd214dff63ef26df4f68c2f0b748db88a00494f3a3f"
+  },
+  "probe_hashes": {
+    "probes.swift": "eaaa48de0c7e6ad922c160baa0e3f9b7f6746929f66db774aeec324a1f0b1bab",
+    "before-fix-probe.swift": "3674948af11ed306e651c9f5714db698071f87a0f68db1da107207b8295f6233"
+  },
+  "probe_executable_sha256": "48508e5a29a4e9be7c930571be1ef236a5b37501762348eb5ec0732ba998c73a"
+}

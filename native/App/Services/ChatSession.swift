@@ -3,17 +3,24 @@ import Observation
 import SujiCore
 
 @MainActor @Observable final class ChatSession {
+    let castConfirmation = CastQuestionConfirmation()
     var working = false
     var partial = ""
     var activity = ""
     var failure: String?
     var evidence: [String] = []
+    @ObservationIgnored private let makeClient: (AppStore) async throws -> ChatClient
     private var task: Task<Void, Never>?
+
+    init(makeClient: @escaping (AppStore) async throws -> ChatClient = { try await $0.chatClient() }) {
+        self.makeClient = makeClient
+    }
     private var partialEntryID: UUID?
     private var pendingDocument: ReadingDocument?
     private var hasPreservedCalculation = false
 
     func stop() {
+        castConfirmation.cancel()
         guard task != nil else { return }
         failure = hasPreservedCalculation
             ? "回答已停止，已计算的盘面会保留。可以重试继续解读。"
@@ -29,6 +36,7 @@ import SujiCore
         let userID: UUID
         let historyEntries: [ConversationEntry]
         let cachedReceipts: [ToolReceipt]
+        let confirmedQuestions: [ConfirmedCastQuestion]
         let replacementID: UUID?
         let referenceDate: Date
         let previousContext: ToolContext?
@@ -50,6 +58,7 @@ import SujiCore
             userID = entry.id
             historyEntries = Array(store.state.conversations.suffix(20))
             cachedReceipts = []
+            confirmedQuestions = []
             replacementID = nil
             partialEntryID = nil
         } else {
@@ -70,6 +79,7 @@ import SujiCore
             userID = entry.id
             historyEntries = Array(store.state.conversations[...userIndex].suffix(20))
             cachedReceipts = entry.toolReceipts ?? []
+            confirmedQuestions = entry.confirmedCastQuestions ?? []
             replacementID = partialEntryID ?? store.state.conversations[(userIndex + 1)...]
                 .last(where: { $0.role == "assistant" })?.id
         }
@@ -84,9 +94,9 @@ import SujiCore
         working = true
 
         task = Task {
-            defer { working = false; activity = ""; task = nil; pendingDocument = nil }
+            defer { castConfirmation.cancel(); working = false; activity = ""; task = nil; pendingDocument = nil }
             do {
-                let client = try await store.chatClient()
+                let client = try await makeClient(store)
                 try Self.checkScope(store, revision: revision, birth: birth)
                 let metadata = try await store.request(["command": "metadata"])
                 try Self.checkScope(store, revision: revision, birth: birth)
@@ -94,6 +104,7 @@ import SujiCore
                 guard context.isValid else { throw EngineError.execution("排盘版本信息无效，请更新应用。") }
                 if let previousContext, previousContext != context { throw ToolOrchestratorError.staleContext }
                 if cachedReceipts.contains(where: { $0.context != context }) { throw ToolOrchestratorError.staleContext }
+                for confirmation in confirmedQuestions { try confirmation.validate(userID: userID, context: context) }
                 hasPreservedCalculation = !cachedReceipts.isEmpty
                 if let index = store.state.conversations.firstIndex(where: { $0.id == userID }) {
                     store.state.conversations[index].toolContext = context
@@ -158,13 +169,25 @@ import SujiCore
                         persistReceipt: { receipt in
                             try Self.checkScope(store, revision: revision, birth: birth)
                             try self.persist(receipt: receipt, on: userID, store: store, revision: revision, birth: birth)
+                        },
+                        prepareCasts: { calls in
+                            self.activity = "等待核对占问资料"
+                            return try await self.castConfirmation.request(calls: calls, originalQuestion: originalQuestion, userID: userID, context: context) {
+                                try Self.checkScope(store, revision: revision, birth: birth)
+                            }
+                        },
+                        persistConfirmations: { confirmations in
+                            try Self.checkScope(store, revision: revision, birth: birth)
+                            try self.persist(confirmations: confirmations, on: userID, store: store)
                         }
                     )
                     let result = try await orchestrator.run(
                         history: history,
                         definitions: definitions,
                         cachedReceipts: cachedReceipts,
-                        context: context
+                        context: context,
+                        questionID: userID,
+                        confirmedQuestions: confirmedQuestions
                     )
                     history = result.messages
                     frameworkReceipts += result.receipts
@@ -175,10 +198,14 @@ import SujiCore
                             content: "已达到工具轮次上限，请说明现有依据的限度，不要继续起盘。"
                         ))
                     }
-                    history[0].content = instruction + "\n" + ReadingPrompt.writer
+                    history[0].content = instruction + "\n" + ReadingPrompt.writer + "\n若本次有用户确认的占问资料，按确认后的问题、对象、事项和范围解读；仅核对盘面时不判断成败或日期。"
                     if evidence.isEmpty { history[0].content! += "\n本次没有取得新的计算证据；只能提供一般建议，不能声称已完成命盘解读。" }
 
                 }
+
+                let currentConfirmations = store.state.conversations.first(where: { $0.id == userID })?.confirmedCastQuestions ?? []
+                for confirmation in currentConfirmations { try confirmation.validate(userID: userID, context: context) }
+                let verificationQuestion = ReadingPrompt.verificationQuestion(original: originalQuestion, confirmations: currentConfirmations)
 
                 if let focus {
                     activity = "正在整理解释依据"
@@ -221,7 +248,7 @@ import SujiCore
                     if effectiveMode != "倾诉" {
                         activity = "正在核对盘面依据"
                         do {
-                            let verified = try await ReadingVerifier.verify(draft: draft, history: history, question: originalQuestion) { messages in
+                            let verified = try await ReadingVerifier.verify(draft: draft, history: history, question: verificationQuestion) { messages in
                                 try Self.checkScope(store, revision: revision, birth: birth)
                                 let result = try await client.complete(messages: messages)
                                 try Self.checkScope(store, revision: revision, birth: birth)
@@ -268,6 +295,20 @@ import SujiCore
     private func loadDefinitions(mode: String, question: String, birth: BirthProfile?, store: AppStore) async throws -> [ChatToolDefinition] {
         let definitions = try await store.request(["command": "tools"])
         return try ReadingIntent.definitions(from: Data(definitions.json.utf8), mode: mode, question: question, hasBirth: birth != nil)
+    }
+
+    func persist(confirmations: [ConfirmedCastQuestion], on userID: UUID, store: AppStore) throws {
+        guard let index = store.state.conversations.firstIndex(where: { $0.id == userID && $0.role == "user" }),
+              let context = store.state.conversations[index].toolContext else { throw CancellationError() }
+        for confirmation in confirmations { try confirmation.validate(userID: userID, context: context) }
+        let previous = store.state.conversations[index].confirmedCastQuestions
+        let existing = previous ?? []
+        guard Set(existing.map { $0.call.name } + confirmations.map { $0.call.name }).count == existing.count + confirmations.count else {
+            throw EngineError.execution("这次占问已有已确认资料，请重试继续")
+        }
+        store.state.conversations[index].confirmedCastQuestions = existing + confirmations
+        do { try store.saveThrowing() }
+        catch { store.state.conversations[index].confirmedCastQuestions = previous; throw error }
     }
 
     private func persist(

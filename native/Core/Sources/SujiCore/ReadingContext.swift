@@ -75,6 +75,13 @@ public enum ReadingPrompt {
         return result + "\n［这条历史问题过长，以上为保留片段；请用户聚焦问题，不假定省略内容。］"
     }
 
+    /// Confirmed edits precede the bounded original so a long original cannot
+    /// evict the latest user intent from the verifier's per-message budget.
+    public static func verificationQuestion(original: String, confirmations: [ConfirmedCastQuestion]) -> String {
+        guard !confirmations.isEmpty else { return original }
+        return (confirmations.compactMap { $0.intentMessage.content } + ["原提问（对应资料以以上确认为准）：\n" + boundedQuestion(original)]).joined(separator: "\n\n")
+    }
+
     /// Keep conversational context bounded; old computations never masquerade as current facts.
     public static func history(from entries: [ConversationEntry], currentUserID: UUID, context: ToolContext?) -> [ChatMessage] {
         var selected: [ConversationEntry] = []
@@ -91,6 +98,10 @@ public enum ReadingPrompt {
             guard let role = ChatRole(rawValue: entry.role), role == .user || role == .assistant else { continue }
             messages.append(ChatMessage(role: role, content: entry.id == currentUserID ? boundedQuestion(entry.text) : String(entry.text.prefix(3_000))))
             guard entry.id == currentUserID, let context else { continue }
+            for confirmation in entry.confirmedCastQuestions ?? [] {
+                guard (try? confirmation.validate(userID: currentUserID, context: context)) != nil else { continue }
+                messages.append(confirmation.intentMessage)
+            }
             let receiptStart = messages.count
             for receipt in entry.toolReceipts ?? [] where receipt.context == context {
                 let modelOutput = NatalEvidenceProjection.output(receipt.output,name:receipt.name,delivered:Array(messages.dropFirst(receiptStart)) + [.assistantToolCalls([receipt.call])],callID:receipt.callID)
