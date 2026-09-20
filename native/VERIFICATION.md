@@ -1,5 +1,16 @@
 # Native rebuild verification
 
+## Account-first setup and persistent natal dossiers — 2026-09-20
+
+- Validated implementation: `a39838df3f0c75458d30a7e21e102f7db634d264`; [GitHub Actions 35489808350](https://github.com/wxbbb42/SUJI/actions/runs/35489808350) succeeded for engine, Swift Core and native app jobs.
+- Engine typecheck, **37 suites / 592 tests**, reproducible bundle and **13 Node/JavaScriptCore parity fixtures** passed. Backend regression suite: **14 tests**.
+- macOS Swift Core: **219 tests**, with `TZ=America/Los_Angeles`; iOS simulator: **18 hosted integration tests + 2 UI tests**, zero failures. The app and widget compiled on the remote runner. Local SwiftPM remains blocked by the existing Xcode license gate.
+- New checks cover persisted-chart round trips without natal engine calls, dynamic Lichun reference dates, owner/birth/version mismatch, damaged records, concurrent first-build coalescing, restart reuse, archive/deletion boundaries, automatic cloud recovery, offline sync retry, login gating and birth confirmation through a real native form.
+- Account HTTP tests use URLProtocol fixtures; they do not register or modify a real user account. UI birth data is synthetic. Existing guest records stay separate and require explicit import.
+- Screenshots in [Documentation/natal-dossier](Documentation/natal-dossier) show the login gate and enabled birth-confirmation form. `03-dossier-during-dismissal.png` captures the built dossier while the birth sheet is animating away; it is evidence of the transition, not a polished stationary screen capture.
+- Architecture, sync and recalculation boundaries: [natal-dossier.md](../docs/mingli/natal-dossier.md). Seven Luminaries/Four Residuals and independent mansions remain deferred; no zodiac module was added.
+
+
 Date: 2026-09-19. Branch: `codex/swiftui-rebuild`; original Expo baseline: `08574c4`.
 
 This is a native implementation and simulator verification record, not an App Store release certificate. Screens run in SwiftUI, deterministic TypeScript code runs locally in JavaScriptCore, and native services own persistence, audio, credentials and networking.
