@@ -1,0 +1,56 @@
+{
+  "bundleSHA256": "bfe775b3a0082370cb533f24bfce871268885c96438bb41b0fce63d2d4199b9b",
+  "cases": [
+    {
+      "birth": {
+        "city": "合成资料",
+        "day": 15,
+        "gender": "女",
+        "hour": 10,
+        "longitude": 120,
+        "minute": 0,
+        "month": 8,
+        "timeZoneID": "Asia/Shanghai",
+        "year": 1990
+      },
+      "context": {
+        "birthFingerprint": "cb9edccdc372eaed6910617a6f41b9b9f32c4254a39508123ee74e4139b8a824",
+        "engineRevision": "cc50bb6404e4633096eceda951472dbde6bd548da001618fe51019bf1aa196ab",
+        "mode": "命理",
+        "referenceDate": 728712000
+      },
+      "error": "AI 服务暂时不可用（HTTP 503）。请稍后重试。",
+      "exchanges": [],
+      "id": "ziwei-palace-flights",
+      "mode": "命理",
+      "question": "请实际读取本命命宫和迁移宫的宫干飞入、飞出关系。分别说明来源宫及宫干、四化星、实际目标宫；同宫回环与生年四化分开。空宫是否仍有自己的宫干飞出？采用哪一个四化表，不能据此确定哪些事情？只核对结构，不断吉凶或应期。",
+      "receipts": [],
+      "status": "error",
+      "turnIndex": 0
+    }
+  ],
+  "claimProtocolVersion": "suji-bazi-claims-1",
+  "engine": {
+    "calendarPolicy": {
+      "dayBoundary": "zi-hour-23:00",
+      "lunarDayBoundary": "civil-midnight",
+      "monthBoundary": "exact-jie",
+      "provider": "lunar-javascript@1.7.7",
+      "solarTimeScope": "day-and-hour-only",
+      "supportedCivilYears": [
+        1901,
+        2100
+      ],
+      "timezone": "UTC+08:00",
+      "version": "suji-calendar-2",
+      "yearBoundary": "exact-lichun",
+      "yun": "year-polarity-gender; jie; three-days-per-year; sect-2-minute-conversion"
+    },
+    "engineRevision": "cc50bb6404e4633096eceda951472dbde6bd548da001618fe51019bf1aa196ab"
+  },
+  "executableSHA256": "a6547d9705384891b32d7ca4e4b5718c997b2e86d0a945bfdd6ebb5ddc0ef933",
+  "promptVersion": "suji-grounded-reading-15",
+  "scope": "Live synthetic Swift ChatClient, MingliBridge, ToolOrchestrator and backend handler. Framework comparisons use a local claim compiler plus model ordering; Qimen-only requests use local reference rendering after model planning; other cases use SSE writing and ReadingVerifier. Loopback auth/quota are mocked; not deployed Supabase authentication or SwiftUI integration.",
+  "timestamp": "2026-09-20T08:52:03Z",
+  "providerRequests": 1
+}

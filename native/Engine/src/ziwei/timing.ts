@@ -1,20 +1,12 @@
 import { Solar } from 'lunar-javascript';
 import { assertCalendarRange, beijingDateParts, beijingDateString, lunarCalendarWarnings } from '../calendar/precision';
 import type { RuleSource } from '../rules/provenance';
-import type { DecadalSchedule, SiHua, ZiweiPan } from './types';
+import type { DecadalSchedule, ZiweiPan } from './types';
+
+import { TRANSFORM_STARS, TRANSFORMATIONS } from './transformations';
 
 const BRANCHES = '子丑寅卯辰巳午未申酉戌亥';
 const STEMS = '甲乙丙丁戊己庚辛壬癸';
-// Selected iztro 2.5.8 default, in 禄 / 权 / 科 / 忌 order. The Ren variant
-// is explicitly preserved; do not read mutable process-global iztro config.
-const TRANSFORM_STARS:Record<string,readonly string[]> = {
-  甲:['廉贞','破军','武曲','太阳'],乙:['天机','天梁','紫微','太阴'],
-  丙:['天同','天机','文昌','廉贞'],丁:['太阴','天同','天机','巨门'],
-  戊:['贪狼','太阴','右弼','天机'],己:['武曲','贪狼','天梁','文曲'],
-  庚:['太阳','武曲','太阴','天同'],辛:['巨门','太阳','文曲','文昌'],
-  壬:['天梁','紫微','左辅','武曲'],癸:['破军','巨门','太阴','贪狼'],
-};
-const TRANSFORMATIONS:SiHua[] = ['化禄','化权','化科','化忌'];
 
 export const ZIWEI_TIMING_SOURCE:RuleSource = {
   id:'ziwei-timing-selected-v1',version:'1',title:'紫微大限与流年：所选现代约定',

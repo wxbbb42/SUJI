@@ -30,6 +30,7 @@ const cases=selected.map(id=>{
   if(id==='claims-tool-failure')return {id,failure:true,question:'请实际读取我的八字，比较扶抑用神和格局用神为什么不同；出生资料已填写。'};
   if(id==='health-with-facts')return {id,question:'先实际读取我的疾厄宫主星和辅星，说明哪些是盘面事实。若有擎羊，可以据此判断我容易外伤或器官疾病吗？'};
   if(id==='ziwei-scope-conditions')return {id,question:'请实际读取本命子女宫、疾厄宫，再读取2025年1月29日紫微运限：分别说明太阴的生年、大限、流年四化和出处；疾厄宫空宫是否等于没有任何星曜？只解释盘面与流派条件，不根据星曜断健康或事件。'};
+  if(id==='ziwei-palace-flights')return {id,question:'请实际读取本命命宫和迁移宫的宫干飞入、飞出关系。分别说明来源宫及宫干、四化星、实际目标宫；同宫回环与生年四化分开。空宫是否仍有自己的宫干飞出？采用哪一个四化表，不能据此确定哪些事情？只核对结构，不断吉凶或应期。'};
   if(id==='liuyao-question-conditions')return {id,question:'请用六爻问我自己这周能否收回一笔应收款，这是近事。我想核对取用候选与条件应期：保留多个候选及各自出处，不要把触发地支说成确定到账日期。',noBirth:true,mode:'起卦',fixedLineValues:[9,6,6,6,6,9]};
   if(id==='qimen-question-conditions')return {id,question:'请用奇门问我自己近期能否签下新办公室租约，这是近事。先只核对盘面：日干、时干和事项参考各在哪一层哪一宫，天禽寄干有没有漏掉？哪些属于产品参考约定，是否已经定用或能确定签约日期？请保留各自依据和未决条件。',noBirth:true,mode:'起卦'};
   if(id==='qimen-jia-reference')return {id,question:'请用奇门，代问父亲远期采购设备这件事，按求财类别先核对日干、时干、生门及两层寄干位置。时干若是甲请分清本柱旬仪，不要自行定用或给采购日期。',noBirth:true,mode:'起卦',referenceDate:'2026-09-19T04:00:00.789Z'};

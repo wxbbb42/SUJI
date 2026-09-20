@@ -1,0 +1,12 @@
+{
+  "fixture": 0,
+  "capturedFrom": "ChatClient.complete through local URLProtocol, no network",
+  "semanticMessageEquality": true,
+  "identicalBudgetCharacterCount": true,
+  "withArgumentsUTF16": 117536,
+  "actualWireBytes": 165500,
+  "backendStatus": "pass",
+  "toolCalls": 5,
+  "messageCount": 18,
+  "actualWireBytesWithReserve": 166524
+}

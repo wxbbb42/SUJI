@@ -933,6 +933,22 @@
       ],
       "confidence": "high_for_structural_relations_not_outcome",
       "status": "structural_rules_with_classical_vectors_and_exhaustive_counterexamples"
+    },
+    {
+      "id": "ziwei.cached-palace-stem-flights",
+      "domain": "ziwei",
+      "claim": "本命宫干按iztro2.5.8默认十干表映射四化星，指向各星实际本命宫；固定48条有向关系随出生档案缓存，查询只投影本宫飞出及飞入，同源目标多种星化、同干不同宫均保留。壬干用左辅化科；isSelf只标记同宫回环，不等同完整向心离心自化学说，不自动断吉凶、效力或应期。与生年、大限、流年四化分开。",
+      "sourceIds": [
+        "ziwei-iztro"
+      ],
+      "repoRefs": [
+        "native/Engine/src/ziwei/palaceFlights.ts",
+        "native/Engine/src/ziwei/transformations.ts",
+        "native/Engine/src/ziwei/__tests__/PalaceFlights.test.ts",
+        "native/Engine/validation/research-divination/ziwei-palace-flight-source.json"
+      ],
+      "confidence": "high_for_selected_engineering_structure_not_event_prediction",
+      "status": "selected_structure_independent_vectors_and_native_delivery_verified"
     }
   ]
 }

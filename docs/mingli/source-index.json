@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-20T07:13:51.105Z",
+  "generatedAt": "2026-09-20T09:03:05.335Z",
   "sourceCount": 51,
-  "claimCount": 61,
+  "claimCount": 63,
   "domains": {
     "academic": [
       {
@@ -1552,6 +1552,15 @@
       "confidence": "high_for_table_and_textual_boundary"
     },
     {
+      "id": "liuyao.whole-chart-and-moving-branch-relations",
+      "domain": "liuyao",
+      "sourceIds": [
+        "liuyao-zengshan-buyi"
+      ],
+      "status": "structural_rules_with_classical_vectors_and_exhaustive_counterexamples",
+      "confidence": "high_for_structural_relations_not_outcome"
+    },
+    {
       "id": "liuyao.yingqi-requires-conditional-chain",
       "domain": "liuyao",
       "sourceIds": [
@@ -1626,6 +1635,15 @@
       ],
       "status": "implemented_with_independent_boundary_and_scope_tests",
       "confidence": "high_for_selected_modern_convention_not_universal"
+    },
+    {
+      "id": "ziwei.cached-palace-stem-flights",
+      "domain": "ziwei",
+      "sourceIds": [
+        "ziwei-iztro"
+      ],
+      "status": "selected_structure_independent_vectors_and_native_delivery_verified",
+      "confidence": "high_for_selected_engineering_structure_not_event_prediction"
     },
     {
       "id": "ziwei.four-transformations.by-year-stem",

@@ -4,6 +4,51 @@ import XCTest
 final class NatalEvidenceProjectionTests: XCTestCase {
     private let definition = ChatToolDefinition(name:"get_domain", description:"domain", parameters:["type":"object","properties":["domain":["type":"string"]],"required":["domain"]])
 
+    func testStandalonePalaceReferencesKeepIdentityOriginalSourceAndCompleteReceipts() throws {
+        let stars: JSONValue = [["name":"天同","detail":.string(String(repeating:"source",count:80))]]
+        let method: JSONValue = ["algorithm":.string(String(repeating:"selected",count:60))]
+        let palace: JSONValue = ["palace":"夫妻宫","starDetails":stars,"method":method]
+        let full = ReadingVerificationEvidence.encoded(JSONValue.object(["palace":"夫妻宫","starDetails":stars,"method":method,"palaceFlights":["scope":"natal-palace-stem","outgoing":[["sourcePalace":"夫妻宫","targetPalace":"父母宫"]]]]))
+        for sourceObject: JSONValue in [["ziwei":palace],["ziwei":["palace":"官禄宫","relatedPalaces":[palace]]]] {
+        let source = ReadingVerificationEvidence.encoded(sourceObject)
+        let calls = ChatMessage.assistantToolCalls([.init(id:"a",name:"get_domain",arguments:[:]),.init(id:"b",name:"get_ziwei_palace",arguments:[:]),.init(id:"c",name:"get_ziwei_palace",arguments:[:])])
+        let earlier = [calls,ChatMessage.toolResult(.init(callID:"a",output:source))]
+        let projected = NatalEvidenceProjection.output(full,name:"get_ziwei_palace",delivered:earlier)
+        let value = try JSONDecoder().decode(JSONValue.self,from:Data(projected.utf8))
+        let original = try JSONDecoder().decode(JSONValue.self,from:Data(full.utf8))
+        XCTAssertNil(ReadingVerificationEvidence.pointer("/starDetails",in:value))
+        XCTAssertEqual(ReadingVerificationEvidence.pointer("/palaceFlights",in:value),ReadingVerificationEvidence.pointer("/palaceFlights",in:original))
+        let repeated = NatalEvidenceProjection.output(full,name:"get_ziwei_palace",delivered:earlier+[.toolResult(.init(callID:"b",output:projected))])
+        let repeatedValue = try JSONDecoder().decode(JSONValue.self,from:Data(repeated.utf8))
+        // The second receipt may retain a concrete method even though its star
+        // details are references. Sharing that concrete method is not a chain.
+        guard case let .array(repeatedRefs) = ReadingVerificationEvidence.pointer("/reusedFacts",in:repeatedValue) else { return XCTFail("Missing repeated references") }
+        for ref in repeatedRefs {
+            guard case let .string(id) = ReadingVerificationEvidence.pointer("/toolCallID",in:ref),case let .string(path) = ReadingVerificationEvidence.pointer("/path",in:ref),case let .string(pointer) = ReadingVerificationEvidence.pointer("/pointer",in:ref) else { return XCTFail("Missing repeated identity") }
+            let sourceValue = id == "a" ? sourceObject : value
+            XCTAssertTrue(["a","b"].contains(id))
+            if path == "/starDetails" { XCTAssertEqual(id,"a") }
+            XCTAssertEqual(ReadingVerificationEvidence.pointer(pointer,in:sourceValue),ReadingVerificationEvidence.pointer(path,in:original))
+        }
+        guard case let .array(refs) = ReadingVerificationEvidence.pointer("/reusedFacts",in:value) else { return XCTFail("Missing explicit references") }
+        for ref in refs {
+            XCTAssertEqual(ReadingVerificationEvidence.pointer("/toolCallID",in:ref),"a")
+            guard case let .string(path) = ReadingVerificationEvidence.pointer("/path",in:ref),case let .string(pointer) = ReadingVerificationEvidence.pointer("/pointer",in:ref) else { return XCTFail("Missing pointer") }
+            let sourceValue = try JSONDecoder().decode(JSONValue.self,from:Data(source.utf8))
+            XCTAssertEqual(ReadingVerificationEvidence.pointer(pointer,in:sourceValue),ReadingVerificationEvidence.pointer(path,in:original))
+        }
+        let wrongPalace = source.replacingOccurrences(of:"夫妻宫",with:"父母宫")
+        let wrongProjection = NatalEvidenceProjection.output(full,name:"get_ziwei_palace",delivered:[calls,.toolResult(.init(callID:"a",output:wrongPalace))])
+        XCTAssertEqual(ReadingVerificationEvidence.pointer("/starDetails",in:try JSONDecoder().decode(JSONValue.self,from:Data(wrongProjection.utf8))),stars)
+        XCTAssertEqual(NatalEvidenceProjection.output(full,name:"get_ziwei_palace",delivered:[calls]),full)
+        let context = try ToolContext(birth:nil,engineRevision:"fixture",referenceDate:Date(),mode:"命理")
+        let receipt = ToolReceipt(callID:"b",name:"get_ziwei_palace",arguments:[:],output:full,context:context)
+        XCTAssertTrue(NatalEvidenceProjection.wasDelivered(receipt,in:earlier+[.toolResult(.init(callID:"b",output:projected))]))
+        XCTAssertFalse(NatalEvidenceProjection.wasDelivered(receipt,in:[calls,.toolResult(.init(callID:"b",output:projected))]))
+        XCTAssertFalse(NatalEvidenceProjection.wasDelivered(receipt,in:[calls,.toolResult(.init(callID:"a",output:wrongPalace)),.toolResult(.init(callID:"b",output:projected))]))
+        }
+    }
+
     func testProjectionRequiresEqualDeliveredValuesAndNeverBuildsReferenceChains() throws {
         let full = ReadingVerificationEvidence.encoded(JSONValue.object(["bazi":.object(["pillars":.string(String(repeating:"A",count:400))]),"domain":.string("事业")]))
         let call = ChatMessage.assistantToolCalls([.init(id:"a",name:"get_domain",arguments:[:]),.init(id:"b",name:"get_domain",arguments:[:])])

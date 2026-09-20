@@ -54,6 +54,7 @@ function natalCharts(input: any): ReturnType<typeof charts> {
       !['year','month','day','hour'].every(p => n.mingPan?.siZhu?.[p]?.ganZhi?.gan && n.mingPan?.siZhu?.[p]?.ganZhi?.zhi) ||
       !Array.isArray(n.ziweiPan?.palaces) || n.ziweiPan.palaces.length !== 12 || !n.personality ||
       !n.ziweiPan?.natalYear || n.ziweiPan?.decadalSchedule?.periods?.length !== 12 ||
+      n.ziweiPan?.palaceFlights?.algorithm !== 'suji-ziwei-palace-flights-1' || n.ziweiPan?.palaceFlights?.edges?.length !== 48 ||
       new Date(n.mingPan.birthDateTime).getTime() !== date.getTime() ||
       new Date(n.ziweiPan.birthDateTime).getTime() !== date.getTime() ||
       n.mingPan.gender !== input.birth.gender || n.ziweiPan.gender !== input.birth.gender) {

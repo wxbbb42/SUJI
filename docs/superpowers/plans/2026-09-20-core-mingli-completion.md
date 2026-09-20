@@ -201,8 +201,23 @@ The archived F1 final provider draft invents 丑戌合, confuses selection/timin
 - [x] Reject missing/unsupported sources, wrong object pointers, conflicting/stale/cross-context receipts. Empty candidates and calendar/hidden candidates keep their own identity; no substituted primary changed object or invented event signal.
 - [x] Shipping ChatSession and live evaluator use the same exclusive-request gate and compiler. Mixed-system requests remain mixed. Cached retries preserve original receipts and do not recast.
 - [x] Independent review, full Core/native verification and one real provider planner/tool/local-render trial; retain model extraction failures.
-- [ ] Commit/push, verify exact head.
+- [x] Commit/push, verify exact head.
 
 B2 remote accepted at `a93f07ffc66fc24a36efff4c3b94c89f472fc272`, remote hash matched, run35499556906 passed engine/swift-core/native-app. F2 and broader core completion remain open.
 
 F2 local:294 Core tests and18 parity fixtures pass. Independent5,376 receipts /2,446,086 evidence fields have zero mismatches. Final eight mutation and eight intent probes pass; nine-receipt retry defect reproduced and fixed in both Liuyao and Qimen. Four real provider calls yield one source-bound report and one honest no-receipt failure; synthetic authentication/quota, not deployed E2E. Exact-head CI pending.
+
+## Batch D4 — fixed natal palace-stem transformation graph
+
+Selected convention: pinned iztro2.5.8 FunctionalPalace.fliesTo/selfMutaged/mutagedPlaces plus the already-selected ten-stem table. This defines source palace stem → actual natal star palace, including self loops. It is not a universal classical school, a complete 自化 taxonomy or an event judgment. Flow-month remains separate.
+
+- [x] RED/GREEN independent2023正月初一子时 chart/star placements and all48 directed edges; minor stars, Ren左辅 variant, self loop and empty source宫 counterexamples.
+- [x] Compute once in natal dossier; serialize graph with source/target identities, selected scope and source. Cached query must not recompute charts or mutate natal labels. Invalid/missing snapshot requires rebuild.
+- [x] Explicit `withPalaceFlights` option on existing palace tool projects incoming/outgoing edges for only the requested宫. Legacy `withFlying` keeps its existing生年四化 alias meaning. Domain summaries do not automatically expand48 edges.
+- [x] Native allowlist includes directed identities and original pointers, including empty incoming sets and false self flags; verify transport/replay, capacity and runtime parity. Source archive/claims distinguish natal-palace, natal-year, decade and annual layers.
+- [x] Independent source and final code review, full local verification.
+- [ ] Commit/push and exact-head CI. Broader D/E/F remain open.
+
+F2 remote accepted at `278b8ea3d7dbeff41bd21afd21a6132f2e53710f`, matching remote; run35500445792 passed engine,swift-core,native-app. D4 remains pending final review and remote checks.
+
+D4 local:694 Engine /299 Core tests pass,19 parity fixtures. Independent48 literal edges pass;96-chart compatibility probe passes4,608 edges. Two capacity regressions observed RED/GREEN; final12 large queries preserve all distinct facts and314 exact references with full prompts/draft. Provider planning used the new option but writing ended503, no live interpretation acceptance. See ziwei-palace-flights-2026-09-20.md.

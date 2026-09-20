@@ -4,6 +4,7 @@
 import type { ToolDefinition, ToolHandler } from './types';
 import { palaceFacts, palaceContext } from '../../ziwei/context';
 import { ziweiTiming } from '../../ziwei/timing';
+import { palaceFlightContext, ZIWEI_PALACE_FLIGHT_SOURCE } from '../../ziwei/palaceFlights';
 import { assertCalendarRange, beijingDateString } from '../../calendar/precision';
 
 export const ziweiTools: ToolDefinition[] = [
@@ -11,7 +12,7 @@ export const ziweiTools: ToolDefinition[] = [
     type: 'function',
     function: {
       name: 'get_ziwei_palace',
-      description: '查紫微本命某宫及三方四正的实际星曜、亮度、身宫、生年四化来源。空宫提供对宫参照，不移动星曜。不含宫干飞化或流年四化。',
+      description: '查紫微本命某宫及三方四正的实际星曜、亮度、身宫、生年四化来源。查本命宫干飞入飞出时传withPalaceFlights=true，投影已建档关系，保留来源宫和实际目标宫。空宫只提供对宫参照。不含流年四化；结构不直接断吉凶。',
       parameters: {
         type: 'object',
         additionalProperties: false,
@@ -32,6 +33,10 @@ export const ziweiTools: ToolDefinition[] = [
           withFlying: {
             type: 'boolean',
             description: '旧参数名，兼容等同 withSihua；不包含飞入/飞出宫位关系',
+          },
+          withPalaceFlights: {
+            type:'boolean',
+            description:'返回本宫宫干四化飞出的四条关系及其他本命宫干飞入本宫的全部关系。所选iztro2.5.8约定，包含同宫回环；与生年、大限、流年四化分开。仅需详查宫干关系时传true。',
           },
         },
         required: ['palace'],
@@ -58,7 +63,7 @@ export const ziweiHandlers: Record<string, ToolHandler> = {
     }
     return {...ziweiTiming(ziweiPan,reference),referenceMode:date===undefined?'question-instant':'explicit-date-noon'};
   },
-  get_ziwei_palace: ({ palace, withSihua, withFlying }, { ziweiPan }) => {
+  get_ziwei_palace: ({ palace, withSihua, withFlying, withPalaceFlights }, { ziweiPan }) => {
     if (!ziweiPan) {
       return { palace, error: 'no_ziwei_chart' };
     }
@@ -82,6 +87,11 @@ export const ziweiHandlers: Record<string, ToolHandler> = {
         }
       }
       result.sihua = sihua;
+    }
+
+    if (withPalaceFlights === true) {
+      result.palaceFlights = palaceFlightContext(target,ziweiPan);
+      result.ruleSources = [...result.ruleSources,ZIWEI_PALACE_FLIGHT_SOURCE];
     }
 
     return result;

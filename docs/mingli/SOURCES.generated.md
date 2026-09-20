@@ -1589,6 +1589,15 @@ Updated: 2026-09-20
 - Confidence: high_for_table_and_textual_boundary
 - Status: verified_table_not_predictive_validation
 
+### liuyao.whole-chart-and-moving-branch-relations
+
+- Domain: liuyao
+- Claim: 整卦纳甲按初四、二五、三上三组地支分别核对六合/六冲；本卦与完整变卦投影分开，只有实际动爻具有同位变爻关系。静卦不伪造变化，动化支冲不等于回头五行克。十九章六冲变六合不看用神的例外未编码为通用吉断，二十章恒之豫及坤反例保留日月生合的独立条件。
+- Sources: `liuyao-zengshan-buyi`
+- Repo refs: `native/Engine/src/divination/guaRelations.ts`, `native/Engine/src/divination/__tests__/GuaRelations.test.ts`, `native/Core/Tests/SujiCoreTests/DivinationEvidenceTests.swift`
+- Confidence: high_for_structural_relations_not_outcome
+- Status: structural_rules_with_classical_vectors_and_exhaustive_counterexamples
+
 ### liuyao.yingqi-requires-conditional-chain
 
 - Domain: liuyao
@@ -1660,6 +1669,15 @@ Updated: 2026-09-20
 - Repo refs: `native/Engine/src/ziwei/timing.ts`, `native/Engine/src/ziwei/__tests__/Timing.test.ts`, `native/Engine/validation/research-divination/ziwei-core-sources.json`
 - Confidence: high_for_selected_modern_convention_not_universal
 - Status: implemented_with_independent_boundary_and_scope_tests
+
+### ziwei.cached-palace-stem-flights
+
+- Domain: ziwei
+- Claim: 本命宫干按iztro2.5.8默认十干表映射四化星，指向各星实际本命宫；固定48条有向关系随出生档案缓存，查询只投影本宫飞出及飞入，同源目标多种星化、同干不同宫均保留。壬干用左辅化科；isSelf只标记同宫回环，不等同完整向心离心自化学说，不自动断吉凶、效力或应期。与生年、大限、流年四化分开。
+- Sources: `ziwei-iztro`
+- Repo refs: `native/Engine/src/ziwei/palaceFlights.ts`, `native/Engine/src/ziwei/transformations.ts`, `native/Engine/src/ziwei/__tests__/PalaceFlights.test.ts`, `native/Engine/validation/research-divination/ziwei-palace-flight-source.json`
+- Confidence: high_for_selected_engineering_structure_not_event_prediction
+- Status: selected_structure_independent_vectors_and_native_delivery_verified
 
 ### ziwei.four-transformations.by-year-stem
 

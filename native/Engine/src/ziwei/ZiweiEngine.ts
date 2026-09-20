@@ -6,6 +6,7 @@
 import { astro } from 'iztro';
 import { Lunar, Solar } from 'lunar-javascript';
 import { decadalSchedule } from './timing';
+import { natalPalaceFlights } from './palaceFlights';
 import type { IFunctionalAstrolabe } from 'iztro/lib/astro/FunctionalAstrolabe';
 import type {
   ZiweiPan, ZiweiBirthInput, Palace, Star, PalaceName, SiHua,
@@ -86,6 +87,7 @@ export class ZiweiEngine {
       ]},
     };
     pan.decadalSchedule = decadalSchedule(pan);
+    pan.palaceFlights = natalPalaceFlights(pan);
     return { pan, astrolabe };
   }
 

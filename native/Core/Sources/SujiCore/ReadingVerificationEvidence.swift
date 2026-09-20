@@ -70,6 +70,15 @@ enum ReadingVerificationEvidence {
                 fields("ziwei.emptyPalaceReference", base + "/emptyPalaceReference", ["status", "sourcePalace", "sourcePosition", "mainStars"])
                 fields("ziwei.natalYear", base + "/natalYear", ["lunarYear", "ganZhi", "stem", "branch"])
                 fields("ziwei.method", base + "/method", ["algorithm", "dayBoundary", "yearBoundary", "leapMonth", "calculationDate", "civilTimeZone", "caveats"])
+                let flightPath = base + "/palaceFlights", flightKey = "ziwei.palaceFlights"
+                fields(flightKey, flightPath, ["status", "reason", "scope", "algorithm", "assessmentStatus", "sourceId", "incoming", "outgoing"])
+                for direction in ["outgoing", "incoming"] {
+                    if case let .array(edges) = pointer(flightPath + "/" + direction, in: object) {
+                        for index in edges.indices {
+                            fields("\(flightKey).\(direction)\(index + 1)", "\(flightPath)/\(direction)/\(index)", ["scope", "sourcePalace", "sourcePosition", "sourceStem", "star", "transformation", "targetPalace", "targetPosition", "isSelf", "sourceId"])
+                        }
+                    }
+                }
                 sources("ziwei", base)
             }
             func patternConditions() {

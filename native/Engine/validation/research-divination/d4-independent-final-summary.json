@@ -1,0 +1,16 @@
+{
+  "count": 12,
+  "statuses": [
+    "pass"
+  ],
+  "maxLiveBytes": 54392,
+  "maxReviewWithArgumentsUTF16": 117536,
+  "maxReviewJSONBytes": 166196,
+  "allReplayExact": true,
+  "liveErrors": 0,
+  "factsPreserved": true,
+  "referenceCount": 314,
+  "referenceErrors": 0,
+  "unauthenticatedReceipts": 0,
+  "acceptedAfterSourceRemoval": 0
+}

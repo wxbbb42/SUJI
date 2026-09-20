@@ -1,0 +1,492 @@
+{
+  "input": {
+    "year": 2023,
+    "month": 1,
+    "day": 22,
+    "hour": 0,
+    "gender": "男"
+  },
+  "derivation": "癸卯正月初一子时：命寅甲寅水二，初一补一得二、商一寅退一为紫微丑；紫府两系位移。子时昌戌曲辰，正月辅辰弼戌。十干采用已选iztro2.5.8表，包括壬左辅科。字面边先于被测飞化实现写定。",
+  "edges": [
+    {
+      "sourcePosition": "寅",
+      "sourceStem": "甲",
+      "sourcePalace": "命宫",
+      "star": "廉贞",
+      "transformation": "化禄",
+      "targetPosition": "巳",
+      "targetPalace": "田宅宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "寅",
+      "sourceStem": "甲",
+      "sourcePalace": "命宫",
+      "star": "破军",
+      "transformation": "化权",
+      "targetPosition": "丑",
+      "targetPalace": "兄弟宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "寅",
+      "sourceStem": "甲",
+      "sourcePalace": "命宫",
+      "star": "武曲",
+      "transformation": "化科",
+      "targetPosition": "酉",
+      "targetPalace": "疾厄宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "寅",
+      "sourceStem": "甲",
+      "sourcePalace": "命宫",
+      "star": "太阳",
+      "transformation": "化忌",
+      "targetPosition": "戌",
+      "targetPalace": "财帛宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "卯",
+      "sourceStem": "乙",
+      "sourcePalace": "父母宫",
+      "star": "天机",
+      "transformation": "化禄",
+      "targetPosition": "子",
+      "targetPalace": "夫妻宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "卯",
+      "sourceStem": "乙",
+      "sourcePalace": "父母宫",
+      "star": "天梁",
+      "transformation": "化权",
+      "targetPosition": "申",
+      "targetPalace": "迁移宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "卯",
+      "sourceStem": "乙",
+      "sourcePalace": "父母宫",
+      "star": "紫微",
+      "transformation": "化科",
+      "targetPosition": "丑",
+      "targetPalace": "兄弟宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "卯",
+      "sourceStem": "乙",
+      "sourcePalace": "父母宫",
+      "star": "太阴",
+      "transformation": "化忌",
+      "targetPosition": "辰",
+      "targetPalace": "福德宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "辰",
+      "sourceStem": "丙",
+      "sourcePalace": "福德宫",
+      "star": "天同",
+      "transformation": "化禄",
+      "targetPosition": "申",
+      "targetPalace": "迁移宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "辰",
+      "sourceStem": "丙",
+      "sourcePalace": "福德宫",
+      "star": "天机",
+      "transformation": "化权",
+      "targetPosition": "子",
+      "targetPalace": "夫妻宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "辰",
+      "sourceStem": "丙",
+      "sourcePalace": "福德宫",
+      "star": "文昌",
+      "transformation": "化科",
+      "targetPosition": "戌",
+      "targetPalace": "财帛宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "辰",
+      "sourceStem": "丙",
+      "sourcePalace": "福德宫",
+      "star": "廉贞",
+      "transformation": "化忌",
+      "targetPosition": "巳",
+      "targetPalace": "田宅宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "巳",
+      "sourceStem": "丁",
+      "sourcePalace": "田宅宫",
+      "star": "太阴",
+      "transformation": "化禄",
+      "targetPosition": "辰",
+      "targetPalace": "福德宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "巳",
+      "sourceStem": "丁",
+      "sourcePalace": "田宅宫",
+      "star": "天同",
+      "transformation": "化权",
+      "targetPosition": "申",
+      "targetPalace": "迁移宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "巳",
+      "sourceStem": "丁",
+      "sourcePalace": "田宅宫",
+      "star": "天机",
+      "transformation": "化科",
+      "targetPosition": "子",
+      "targetPalace": "夫妻宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "巳",
+      "sourceStem": "丁",
+      "sourcePalace": "田宅宫",
+      "star": "巨门",
+      "transformation": "化忌",
+      "targetPosition": "午",
+      "targetPalace": "官禄宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "午",
+      "sourceStem": "戊",
+      "sourcePalace": "官禄宫",
+      "star": "贪狼",
+      "transformation": "化禄",
+      "targetPosition": "巳",
+      "targetPalace": "田宅宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "午",
+      "sourceStem": "戊",
+      "sourcePalace": "官禄宫",
+      "star": "太阴",
+      "transformation": "化权",
+      "targetPosition": "辰",
+      "targetPalace": "福德宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "午",
+      "sourceStem": "戊",
+      "sourcePalace": "官禄宫",
+      "star": "右弼",
+      "transformation": "化科",
+      "targetPosition": "戌",
+      "targetPalace": "财帛宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "午",
+      "sourceStem": "戊",
+      "sourcePalace": "官禄宫",
+      "star": "天机",
+      "transformation": "化忌",
+      "targetPosition": "子",
+      "targetPalace": "夫妻宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "未",
+      "sourceStem": "己",
+      "sourcePalace": "仆役宫",
+      "star": "武曲",
+      "transformation": "化禄",
+      "targetPosition": "酉",
+      "targetPalace": "疾厄宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "未",
+      "sourceStem": "己",
+      "sourcePalace": "仆役宫",
+      "star": "贪狼",
+      "transformation": "化权",
+      "targetPosition": "巳",
+      "targetPalace": "田宅宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "未",
+      "sourceStem": "己",
+      "sourcePalace": "仆役宫",
+      "star": "天梁",
+      "transformation": "化科",
+      "targetPosition": "申",
+      "targetPalace": "迁移宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "未",
+      "sourceStem": "己",
+      "sourcePalace": "仆役宫",
+      "star": "文曲",
+      "transformation": "化忌",
+      "targetPosition": "辰",
+      "targetPalace": "福德宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "申",
+      "sourceStem": "庚",
+      "sourcePalace": "迁移宫",
+      "star": "太阳",
+      "transformation": "化禄",
+      "targetPosition": "戌",
+      "targetPalace": "财帛宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "申",
+      "sourceStem": "庚",
+      "sourcePalace": "迁移宫",
+      "star": "武曲",
+      "transformation": "化权",
+      "targetPosition": "酉",
+      "targetPalace": "疾厄宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "申",
+      "sourceStem": "庚",
+      "sourcePalace": "迁移宫",
+      "star": "太阴",
+      "transformation": "化科",
+      "targetPosition": "辰",
+      "targetPalace": "福德宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "申",
+      "sourceStem": "庚",
+      "sourcePalace": "迁移宫",
+      "star": "天同",
+      "transformation": "化忌",
+      "targetPosition": "申",
+      "targetPalace": "迁移宫",
+      "isSelf": true
+    },
+    {
+      "sourcePosition": "酉",
+      "sourceStem": "辛",
+      "sourcePalace": "疾厄宫",
+      "star": "巨门",
+      "transformation": "化禄",
+      "targetPosition": "午",
+      "targetPalace": "官禄宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "酉",
+      "sourceStem": "辛",
+      "sourcePalace": "疾厄宫",
+      "star": "太阳",
+      "transformation": "化权",
+      "targetPosition": "戌",
+      "targetPalace": "财帛宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "酉",
+      "sourceStem": "辛",
+      "sourcePalace": "疾厄宫",
+      "star": "文曲",
+      "transformation": "化科",
+      "targetPosition": "辰",
+      "targetPalace": "福德宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "酉",
+      "sourceStem": "辛",
+      "sourcePalace": "疾厄宫",
+      "star": "文昌",
+      "transformation": "化忌",
+      "targetPosition": "戌",
+      "targetPalace": "财帛宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "戌",
+      "sourceStem": "壬",
+      "sourcePalace": "财帛宫",
+      "star": "天梁",
+      "transformation": "化禄",
+      "targetPosition": "申",
+      "targetPalace": "迁移宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "戌",
+      "sourceStem": "壬",
+      "sourcePalace": "财帛宫",
+      "star": "紫微",
+      "transformation": "化权",
+      "targetPosition": "丑",
+      "targetPalace": "兄弟宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "戌",
+      "sourceStem": "壬",
+      "sourcePalace": "财帛宫",
+      "star": "左辅",
+      "transformation": "化科",
+      "targetPosition": "辰",
+      "targetPalace": "福德宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "戌",
+      "sourceStem": "壬",
+      "sourcePalace": "财帛宫",
+      "star": "武曲",
+      "transformation": "化忌",
+      "targetPosition": "酉",
+      "targetPalace": "疾厄宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "亥",
+      "sourceStem": "癸",
+      "sourcePalace": "子女宫",
+      "star": "破军",
+      "transformation": "化禄",
+      "targetPosition": "丑",
+      "targetPalace": "兄弟宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "亥",
+      "sourceStem": "癸",
+      "sourcePalace": "子女宫",
+      "star": "巨门",
+      "transformation": "化权",
+      "targetPosition": "午",
+      "targetPalace": "官禄宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "亥",
+      "sourceStem": "癸",
+      "sourcePalace": "子女宫",
+      "star": "太阴",
+      "transformation": "化科",
+      "targetPosition": "辰",
+      "targetPalace": "福德宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "亥",
+      "sourceStem": "癸",
+      "sourcePalace": "子女宫",
+      "star": "贪狼",
+      "transformation": "化忌",
+      "targetPosition": "巳",
+      "targetPalace": "田宅宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "子",
+      "sourceStem": "甲",
+      "sourcePalace": "夫妻宫",
+      "star": "廉贞",
+      "transformation": "化禄",
+      "targetPosition": "巳",
+      "targetPalace": "田宅宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "子",
+      "sourceStem": "甲",
+      "sourcePalace": "夫妻宫",
+      "star": "破军",
+      "transformation": "化权",
+      "targetPosition": "丑",
+      "targetPalace": "兄弟宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "子",
+      "sourceStem": "甲",
+      "sourcePalace": "夫妻宫",
+      "star": "武曲",
+      "transformation": "化科",
+      "targetPosition": "酉",
+      "targetPalace": "疾厄宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "子",
+      "sourceStem": "甲",
+      "sourcePalace": "夫妻宫",
+      "star": "太阳",
+      "transformation": "化忌",
+      "targetPosition": "戌",
+      "targetPalace": "财帛宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "丑",
+      "sourceStem": "乙",
+      "sourcePalace": "兄弟宫",
+      "star": "天机",
+      "transformation": "化禄",
+      "targetPosition": "子",
+      "targetPalace": "夫妻宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "丑",
+      "sourceStem": "乙",
+      "sourcePalace": "兄弟宫",
+      "star": "天梁",
+      "transformation": "化权",
+      "targetPosition": "申",
+      "targetPalace": "迁移宫",
+      "isSelf": false
+    },
+    {
+      "sourcePosition": "丑",
+      "sourceStem": "乙",
+      "sourcePalace": "兄弟宫",
+      "star": "紫微",
+      "transformation": "化科",
+      "targetPosition": "丑",
+      "targetPalace": "兄弟宫",
+      "isSelf": true
+    },
+    {
+      "sourcePosition": "丑",
+      "sourceStem": "乙",
+      "sourcePalace": "兄弟宫",
+      "star": "太阴",
+      "transformation": "化忌",
+      "targetPosition": "辰",
+      "targetPalace": "福德宫",
+      "isSelf": false
+    }
+  ]
+}
