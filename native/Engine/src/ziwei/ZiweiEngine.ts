@@ -5,6 +5,7 @@
  */
 import { astro } from 'iztro';
 import { Lunar, Solar } from 'lunar-javascript';
+import { decadalSchedule } from './timing';
 import type { IFunctionalAstrolabe } from 'iztro/lib/astro/FunctionalAstrolabe';
 import type {
   ZiweiPan, ZiweiBirthInput, Palace, Star, PalaceName, SiHua,
@@ -84,6 +85,7 @@ export class ZiweiEngine {
         '排盘一致性不等于对现实事件的预测效度',
       ]},
     };
+    pan.decadalSchedule = decadalSchedule(pan);
     return { pan, astrolabe };
   }
 

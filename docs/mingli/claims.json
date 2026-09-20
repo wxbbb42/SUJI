@@ -853,6 +853,22 @@
       ],
       "confidence": "high_for_geometry_scoped_to_selected_table",
       "status": "implemented_with_counterexamples"
+    },
+    {
+      "id": "ziwei.cached-decades-and-annual-layers",
+      "domain": "ziwei",
+      "claim": "固定档案存十二大限；所选现代约定为命宫首限、局数起虚岁、阳男阴女顺与阴男阳女逆，十年一宫。动态层以农历正月和完整23点换日定虚岁与流年，分列大限宫干四化、流年干四化及太岁所在本命宫，不迁移本命星或覆盖生年四化。古籍大限摘录只能支持顺逆，不能证明现代首限约定；未包含小限、流月或流曜排布。",
+      "sourceIds": [
+        "ziwei-iztro",
+        "ziwei-doushu-quanshu"
+      ],
+      "repoRefs": [
+        "native/Engine/src/ziwei/timing.ts",
+        "native/Engine/src/ziwei/__tests__/Timing.test.ts",
+        "native/Engine/validation/research-divination/ziwei-core-sources.json"
+      ],
+      "confidence": "high_for_selected_modern_convention_not_universal",
+      "status": "implemented_with_independent_boundary_and_scope_tests"
     }
   ]
 }

@@ -1614,6 +1614,15 @@ Updated: 2026-04-30
 - Confidence: high_for_scope_distinction_contested_textual_variants
 - Status: selected_version_implemented_independent_matrix_tested
 
+### ziwei.cached-decades-and-annual-layers
+
+- Domain: ziwei
+- Claim: 固定档案存十二大限；所选现代约定为命宫首限、局数起虚岁、阳男阴女顺与阴男阳女逆，十年一宫。动态层以农历正月和完整23点换日定虚岁与流年，分列大限宫干四化、流年干四化及太岁所在本命宫，不迁移本命星或覆盖生年四化。古籍大限摘录只能支持顺逆，不能证明现代首限约定；未包含小限、流月或流曜排布。
+- Sources: `ziwei-iztro`, `ziwei-doushu-quanshu`
+- Repo refs: `native/Engine/src/ziwei/timing.ts`, `native/Engine/src/ziwei/__tests__/Timing.test.ts`, `native/Engine/validation/research-divination/ziwei-core-sources.json`
+- Confidence: high_for_selected_modern_convention_not_universal
+- Status: implemented_with_independent_boundary_and_scope_tests
+
 ### ziwei.four-transformations.by-year-stem
 
 - Domain: ziwei

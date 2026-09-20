@@ -115,6 +115,16 @@ function evidenceFromTool(call: ToolCall, result: unknown): string[] {
       return lines;
     }
 
+    case 'get_ziwei_timing': {
+      const lines:string[] = [];
+      if (r.calculationDate) uniqPush(lines, `紫微计算日 · ${compact(r.calculationDate)}`);
+      if (r.annual?.ganZhi) uniqPush(lines, `紫微流年 · ${compact(r.annual.ganZhi)}（农历换年）`);
+      if (r.nominalAge!==undefined) uniqPush(lines, `虚岁 · ${compact(r.nominalAge)}`);
+      if (r.activeDecade) uniqPush(lines, `大限 · ${compact(r.activeDecade.palace)} ${r.activeDecade.startAge}–${r.activeDecade.endAge}虚岁`);
+      else uniqPush(lines, `大限 · ${{'before-birth':'出生之前','before-first-decade':'未入首限','out-of-range':'超出十二限'}[r.status as string] ?? r.status}`);
+      return lines;
+    }
+
     case 'get_ziwei_palace': {
       const lines: string[] = [];
       const palace = call.arguments.palace ?? r.name ?? r.palace;
@@ -167,7 +177,7 @@ export function buildEvidenceFromToolCalls(
     const result = getRecord(entry.result);
     if (result && !result.error && result.provenance?.referenceDate) {
       uniqPush(lines, `计算时刻 · ${compact(result.provenance.referenceDate, 32)}`);
-      uniqPush(lines, '历法 · 北京时间；精确交节；子初换日');
+      uniqPush(lines, entry.call.name.startsWith('get_ziwei_') ? '紫微历法 · 北京时间；农历换年；子初换日' : '历法 · 北京时间；精确交节；子初换日');
     }
     for (const line of evidenceFromTool(entry.call, entry.result)) {
       uniqPush(lines, line);

@@ -49,6 +49,8 @@ const requests = [
 ];
 const savedNatal=JSON.parse(JSON.stringify(await context.SujiNative.dispatch({command:'natal',birth})));
 requests.push({command:'profile',birth,natal:savedNatal,now:'2026-09-19T04:00:00Z'});
+requests.push({command:'tool',name:'get_ziwei_timing',birth,natal:savedNatal,now:'2024-02-09T15:00:00Z',arguments:{}});
+requests.push({command:'tool',name:'get_ziwei_timing',birth,natal:savedNatal,now:'2026-09-19T04:00:00Z',arguments:{date:'2025-01-29'}});
 const fixtures=[];
 for(const request of requests) fixtures.push({request,result:await context.SujiNative.dispatch(request)});
 await writeFile(path.join(native,'Resources/engine-fixtures.json'),JSON.stringify(fixtures,null,2));

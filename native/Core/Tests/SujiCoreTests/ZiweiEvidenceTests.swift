@@ -2,6 +2,58 @@ import XCTest
 @testable import SujiCore
 
 final class ZiweiEvidenceTests: XCTestCase {
+    func testRealNatalAndTimingToolsFitLiveAndReplayBudgets() async throws {
+        let native = URL(fileURLWithPath:#filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+        let bridge = try MingliBridge(scriptURL:native.appendingPathComponent("Resources/mingli.js"))
+        let birth: [String:Any] = ["year":2023,"month":1,"day":22,"hour":0,"minute":0,"gender":"男","longitude":120]
+        let request = try JSONSerialization.data(withJSONObject:["command":"natal","birth":birth])
+        let natalData = try await bridge.request(String(decoding:request,as:UTF8.self))
+        let natal = try JSONSerialization.jsonObject(with:natalData)
+        let callArguments: [(String,[String:JSONValue])] = [("get_domain",["domain":"事业"]),("get_domain",["domain":"婚姻"]),("get_ziwei_palace",["palace":"命宫"]),("get_ziwei_timing",["date":"2025-01-29"])]
+        let calls = callArguments.enumerated().map { ChatToolCall(id:"call_" + String(repeating:"z",count:23) + String($0.offset),name:$0.element.0,arguments:.object($0.element.1)) }
+        var outputs: [String:String] = [:]
+        for call in calls {
+            let arguments = try JSONSerialization.jsonObject(with:JSONEncoder().encode(call.arguments))
+            let request: [String:Any] = ["command":"tool","name":call.name,"birth":birth,"natal":natal,"now":"2025-01-29T04:00:00Z","arguments":arguments]
+            let data = try await bridge.request(String(decoding:JSONSerialization.data(withJSONObject:request),as:UTF8.self))
+            let envelope = try JSONDecoder().decode(JSONValue.self,from:data)
+            outputs[call.id] = ReadingVerificationEvidence.encoded(try XCTUnwrap(ReadingVerificationEvidence.pointer("/result",in:envelope)))
+        }
+        let definitions = Set(calls.map(\.name)).map { ChatToolDefinition(name:$0,description:$0,parameters:["type":"object","properties":["date":["type":"string"],"palace":["type":"string"],"domain":["type":"string"]]]) }
+        var round = 0
+        let orchestrator = ToolOrchestrator(complete:{ _,_ in round += 1; return round == 1 ? .toolCalls(calls) : .text("ready") },execute:{ call in .init(output:outputs[call.id]!,evidence:[call.id]) })
+        let context = try ToolContext(birth:nil,engineRevision:"fixture",referenceDate:Date(timeIntervalSince1970:1_738_123_200),mode:"命理")
+        let result = try await orchestrator.run(history:[],definitions:definitions,context:context)
+        let toolMessages = result.messages.filter { $0.role == .tool }
+        XCTAssertEqual(result.receipts.count,4)
+        XCTAssertEqual(toolMessages.count,4)
+        for message in toolMessages { XCTAssertFalse(message.content?.contains("\"error\"") == true) }
+        var entry = ConversationEntry(role:"user",text:"核对本命和2025年紫微时间层")
+        entry.toolReceipts = result.receipts
+        let restored = ReadingPrompt.history(from:[entry],currentUserID:entry.id,context:context)
+        XCTAssertEqual(restored.filter { $0.role == .tool }.map(\.content),toolMessages.map(\.content))
+        let facts = ReadingVerificationEvidence.facts(restored)
+        XCTAssertEqual(facts.first { $0.factKey == "ziwei.timing.annual.ganZhi" }?.value,.string("乙巳"))
+        XCTAssertEqual(facts.first { $0.factKey == "ziwei.timing.natalYear.ganZhi" }?.value,.string("癸卯"))
+        let review = ReadingVerifier.messages(draft:"核对时间层",history:restored,question:entry.text)
+        XCTAssertLessThanOrEqual(review.reduce(0) { $0 + ($1.content?.utf16.count ?? 0) },120_000)
+        XCTAssertLessThan(try JSONEncoder().encode(review).count + 1024,262_144)
+        print("Ziwei temporal delivery: \(toolMessages.reduce(0) { $0 + ($1.content?.utf8.count ?? 0) }) bytes")
+    }
+    func testTimingKeepsAnnualDecadalAndNatalIdentitiesSeparate() {
+        let output = #"{"referenceDate":"2025-01-29T04:00:00.000Z","referenceMode":"explicit-date-noon","nominalAge":3,"status":"active","natalYear":{"lunarYear":2023,"ganZhi":"癸卯"},"activeDecade":{"index":1,"palace":"命宫","ganZhi":"甲寅","startAge":2,"endAge":11},"annual":{"lunarYear":2025,"ganZhi":"乙巳","appliesToBirth":true,"taiSui":{"position":"巳","natalPalace":"田宅宫"},"transformations":[{"scope":"annual-year-stem","sourceStem":"乙","star":"太阴","transformation":"化忌","targetPalace":"福德宫","targetPosition":"辰","sourceId":"ziwei-timing-selected-v1"}]},"decadalTransformations":[{"scope":"decadal-palace-stem","sourceStem":"甲","star":"太阳","transformation":"化忌","targetPalace":"官禄宫"}],"method":{"ageConvention":"lunar-nominal","yearBoundary":"lunar-new-year"},"ruleSources":[{"id":"ziwei-timing-selected-v1","version":"1"}]}"#
+        let facts = Dictionary(uniqueKeysWithValues: ReadingVerificationEvidence.facts(history(output,name:"get_ziwei_timing")).map { ($0.factKey,$0) })
+        XCTAssertTrue(ToolOrchestrator.allowedToolNames.contains("get_ziwei_timing"))
+        XCTAssertEqual(facts["ziwei.timing.nominalAge"]?.value,.integer(3))
+        XCTAssertEqual(facts["ziwei.timing.natalYear.ganZhi"]?.value,.string("癸卯"))
+        XCTAssertEqual(facts["ziwei.timing.annual.ganZhi"]?.value,.string("乙巳"))
+        XCTAssertEqual(facts["ziwei.timing.activeDecade.ganZhi"]?.value,.string("甲寅"))
+        XCTAssertEqual(facts["ziwei.timing.annual.transformation1.scope"]?.pointer,"/annual/transformations/0/scope")
+        XCTAssertEqual(facts["ziwei.timing.decadal.transformation1.sourceStem"]?.pointer,"/decadalTransformations/0/sourceStem")
+        XCTAssertEqual(facts["ziwei.timing.method.ageConvention"]?.value,.string("lunar-nominal"))
+        XCTAssertEqual(facts["ziwei.timing.ruleSource1.version"]?.value,.string("1"))
+        XCTAssertFalse(facts.contains { $0.key == "ziwei.福德宫.sihua" })
+    }
     private let raw = #"{"palace":"命宫","position":"戌","ganZhi":"丙戌","mainStars":[],"isShenGong":false,"emptyMainPalace":true,"relatedPalaces":[{"relation":"opposite","palace":"迁移宫","position":"辰","mainStars":["天机","天梁"],"starDetails":[{"name":"天机","group":"main","brightness":"利","sihua":["化禄"]}],"natalTransformations":[{"scope":"natal-year-stem","sourceStem":"乙","star":"天机","transformation":"化禄","targetPalace":"迁移宫","targetPosition":"辰","sourceId":"ziwei-sihua-selected-v1"}]}],"emptyPalaceReference":{"status":"opposite-reference","sourcePalace":"迁移宫","sourcePosition":"辰","mainStars":["天机","天梁"]},"natalYear":{"lunarYear":1995,"ganZhi":"乙亥","stem":"乙"},"method":{"calculationDate":"1995-08-15","dayBoundary":"zi-hour"},"ruleSources":[{"id":"ziwei-sihua-selected-v1","version":"1","limitations":["壬年异文"]}]}"#
     private func history(_ output: String, name: String = "get_ziwei_palace") -> [ChatMessage] {
         [.assistantToolCalls([.init(id:"z", name:name, arguments:[:])]), .toolResult(.init(callID:"z", output:output))]

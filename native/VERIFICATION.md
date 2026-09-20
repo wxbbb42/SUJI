@@ -198,3 +198,11 @@ Local executed validation: 41 Engine suites / 624 tests, 233 Swift Core tests un
 Independent review caught missing-star-array compatibility and a 74,484-byte four-domain delivery exceeding the existing 60KB limit. Identical natal subtrees now use references to already delivered values in the same run, while full receipts remain intact. Four real charts with 29-character tool IDs deliver 37,648–38,729 bytes; verifier messages encode to at most 128,000 bytes. Replay initially dropped two domain tools under its 40KB budget; a RED/GREEN receipt→history→orchestration test now preserves all four and their evidence. Sources rejected by the model budget, earlier questions, unequal data and reference chains are excluded.
 
 This does not complete D2/D3 or the other core batches. Fine-grained brightness/transformation assertion bindings and dynamic Ziwei layers still require acceptance. Exact-head remote D1 CI remains pending until the new push.
+
+### 2026-09-20 紫微大限与流年 D2
+
+- 固定十二大限进入本命缓存；新增 get_ziwei_timing 独立读取时间层。生年、大限、流年四化分开，农历年及23点边界测试通过。
+- 本地42套636项Engine、235项Swift Core（America/Los_Angeles）、15项后端测试；typecheck/build/native-only/diff检查通过，18个Node/JSC fixtures。
+- 两领域+本命宫+时间层的原生真实结果共35,513字节，完整receipt重放和证据恢复通过。
+- Supabase函数已部署。真实测试账户通过9工具定义、新工具调用、缓存本命结果回传与DeepSeek续答、SSE/鉴权/配额；账户和配额行已清理。不将该smoke等同完整解释验收。
+- 详见 `docs/mingli/validation/ziwei-timing-2026-09-20.md`；自动改稿对时间层多段事实的绑定仍待D3/F。

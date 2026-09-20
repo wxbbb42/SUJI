@@ -95,6 +95,7 @@ public struct ToolOrchestrator {
         "get_timing",
         "get_today_context",
         "get_ziwei_palace",
+        "get_ziwei_timing",
         "cast_liuyao",
         "setup_qimen",
     ]

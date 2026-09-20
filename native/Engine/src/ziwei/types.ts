@@ -35,7 +35,27 @@ export interface ZiweiPan {
   shenGongPosition: string;  // 身宫地支位
   fiveElementsClass: string; // 五行局（水二局/木三局/...）
   natalYear?: { lunarYear:number; ganZhi:string; stem:string; branch:string };
+  decadalSchedule?: DecadalSchedule;
   method?: { algorithm: string; dayBoundary: string; leapMonth: string; yearBoundary: string; calculationDate?: string; civilTimeZone?: string; caveats: string[] };
+}
+
+export interface ZiweiDecade {
+  index:number;
+  startAge:number;
+  endAge:number;
+  startLunarYear:number;
+  endLunarYear:number;
+  palace:PalaceName;
+  position:string;
+  ganZhi:string;
+}
+
+export interface DecadalSchedule {
+  direction:'forward'|'reverse';
+  startAge:number;
+  ageConvention:'lunar-nominal';
+  sourceId:string;
+  periods:ZiweiDecade[];
 }
 
 export interface ZiweiBirthInput {

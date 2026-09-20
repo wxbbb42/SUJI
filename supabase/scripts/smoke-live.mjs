@@ -3,6 +3,8 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { randomUUID } from "node:crypto";
+import { readFileSync } from "node:fs";
+import vm from "node:vm";
 
 if (!process.argv.includes("--create-test-user")) {
   throw new Error("Requires --create-test-user and an authenticated Supabase CLI.");
@@ -59,17 +61,36 @@ try {
   assert.ok(text.trim()); assert.equal(done, true);
   console.log("PASS authenticated live Flash stream, nonempty text and DONE marker");
 
-  const messages = [{ role: "user", content: "今天几号？请先调用 get_today_context 工具获取实时日期，再用一句中文给我一个日常建议。" }];
+  const timing = process.argv.includes("--ziwei-timing");
+  const runtime = vm.createContext({console});
+  if(timing) vm.runInContext(readFileSync(new URL('../../native/Resources/mingli.js',import.meta.url),'utf8'),runtime);
+  const birth = {year:2023,month:1,day:22,hour:0,minute:0,gender:'男',longitude:120};
+  const natal = timing ? await runtime.SujiNative.dispatch({command:'natal',birth}) : undefined;
+  const messages = [{ role: "user", content: timing ? "这是一组已建档的合成测试资料。请仅调用 get_ziwei_timing，date填2025-01-29，核对该日的紫微流年干支、虚岁和大限；取得工具结果后仅复述这些盘面事实。" : "今天几号？请先调用 get_today_context 工具获取实时日期，再用一句中文给我一个日常建议。" }];
   const tool = { type: "function", function: { name: "get_today_context", description: "获取今天的实时日期。", parameters: { type: "object", properties: {} } } };
-  const result = await jsonRequest(endpoint, { stream: false, messages, tools: [tool] }, headers);
+  const definitions = timing ? await runtime.SujiNative.dispatch({command:'tools'}) : [tool];
+  if(timing) assert.equal(definitions.length,9);
+  const result = await jsonRequest(endpoint, { stream: false, messages, tools: definitions }, headers);
   const message = result.choices[0].message;
   assert.ok(message.tool_calls?.length, "Expected a real tool call");
-  assert.equal(message.tool_calls[0].function.name, "get_today_context");
+  assert.equal(message.tool_calls[0].function.name, timing ? "get_ziwei_timing" : "get_today_context");
   messages.push({ role: "assistant", content: message.content, tool_calls: message.tool_calls });
-  for (const call of message.tool_calls) messages.push({ role: "tool", tool_call_id: call.id, content: '{"date":"2026-09-19","source":"synthetic smoke fixture"}' });
+  for (const call of message.tool_calls) {
+    let content = '{"date":"2026-09-19","source":"synthetic smoke fixture"}';
+    if(timing) {
+      assert.equal(call.function.name,"get_ziwei_timing");
+      const arguments_ = JSON.parse(call.function.arguments);
+      assert.equal(arguments_.date,"2025-01-29");
+      const value = await runtime.SujiNative.dispatch({command:'tool',name:call.function.name,arguments:arguments_,birth,natal,now:'2025-01-29T04:00:00Z'});
+      assert.equal(value.result.annual.ganZhi,'乙巳');assert.equal(value.result.nominalAge,3);
+      content=JSON.stringify(value.result);
+    }
+    messages.push({ role: "tool", tool_call_id: call.id, content });
+  }
   const continuation = await jsonRequest(endpoint, { stream: false, messages }, headers);
   assert.ok(continuation.choices[0].message.content?.trim());
   console.log("PASS authenticated live tool request and tool-result continuation");
+  if(timing) console.log("PASS all nine definitions, real Ziwei timing from cached synthetic natal and DeepSeek continuation (not a full interpretation evaluation)");
 
   // Hit the minute limit using inexpensive counter RPCs, never extra model calls.
   for (let i = 0; i < 12; i++) {

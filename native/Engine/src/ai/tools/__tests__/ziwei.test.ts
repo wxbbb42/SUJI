@@ -26,8 +26,8 @@ const FIXTURE_ZIWEI_PAN = {
 const CTX = { mingPan: null, ziweiPan: FIXTURE_ZIWEI_PAN, now: new Date() };
 
 describe('ziweiTools', () => {
-  it('exports 1 tool', () => {
-    expect(ziweiTools).toHaveLength(1);
+  it('exports 2 tools', () => {
+    expect(ziweiTools).toHaveLength(2);
     expect(ziweiTools[0].function.name).toBe('get_ziwei_palace');
   });
 });

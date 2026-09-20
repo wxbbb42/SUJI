@@ -3,6 +3,8 @@
  */
 import type { ToolDefinition, ToolHandler } from './types';
 import { palaceFacts, palaceContext } from '../../ziwei/context';
+import { ziweiTiming } from '../../ziwei/timing';
+import { assertCalendarRange, beijingDateString } from '../../calendar/precision';
 
 export const ziweiTools: ToolDefinition[] = [
   {
@@ -36,9 +38,26 @@ export const ziweiTools: ToolDefinition[] = [
       },
     },
   },
+  {
+    type:'function',function:{name:'get_ziwei_timing',
+      description:'从固定紫微档案查大限和流年：虚岁、当前大限宫干四化、流年干四化、太岁所在本命宫。农历正月换年，与八字 get_timing 分开；不含小限、流月、流曜或完整宫干飞化。',
+      parameters:{type:'object',additionalProperties:false,properties:{date:{type:'string',minLength:10,maxLength:10,description:'可选公历日期 YYYY-MM-DD（1901–2100），按北京时间当日12:00查询。不传使用提问时刻，含子初23点换日。农历年前后须明确具体日期。'}}},
+    },
+  },
 ];
 
 export const ziweiHandlers: Record<string, ToolHandler> = {
+  get_ziwei_timing: ({date}, {ziweiPan,now}) => {
+    if (!ziweiPan) return {error:'no_ziwei_chart'};
+    let reference = now;
+    if (date!==undefined) {
+      if (typeof date!=='string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error('紫微查询日期须为 YYYY-MM-DD');
+      reference = new Date(`${date}T12:00:00+08:00`);
+      assertCalendarRange(reference);
+      if (beijingDateString(reference)!==date) throw new Error('紫微查询日期无效');
+    }
+    return {...ziweiTiming(ziweiPan,reference),referenceMode:date===undefined?'question-instant':'explicit-date-noon'};
+  },
   get_ziwei_palace: ({ palace, withSihua, withFlying }, { ziweiPan }) => {
     if (!ziweiPan) {
       return { palace, error: 'no_ziwei_chart' };

@@ -312,6 +312,7 @@ import SujiCore
             "get_timing": "查看时间节奏",
             "get_today_context": "查看今日历法",
             "get_ziwei_palace": "参照紫微宫位",
+            "get_ziwei_timing": "核对紫微大限与流年",
             "cast_liuyao": "起一卦，留一点思考",
             "setup_qimen": "整理奇门盘面",
         ][name] ?? "正在核对依据"

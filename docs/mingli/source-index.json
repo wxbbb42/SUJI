@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-20T05:24:54.867Z",
+  "generatedAt": "2026-09-20T05:43:05.079Z",
   "sourceCount": 50,
-  "claimCount": 57,
+  "claimCount": 58,
   "domains": {
     "academic": [
       {
@@ -1577,6 +1577,16 @@
       ],
       "status": "selected_version_implemented_independent_matrix_tested",
       "confidence": "high_for_scope_distinction_contested_textual_variants"
+    },
+    {
+      "id": "ziwei.cached-decades-and-annual-layers",
+      "domain": "ziwei",
+      "sourceIds": [
+        "ziwei-iztro",
+        "ziwei-doushu-quanshu"
+      ],
+      "status": "implemented_with_independent_boundary_and_scope_tests",
+      "confidence": "high_for_selected_modern_convention_not_universal"
     },
     {
       "id": "ziwei.four-transformations.by-year-stem",

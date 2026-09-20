@@ -84,6 +84,21 @@ enum ReadingVerificationEvidence {
                 ziwei("/ziwei")
             case "get_ziwei_palace":
                 ziwei("")
+            case "get_ziwei_timing":
+                fields("ziwei.timing", "", ["referenceDate", "referenceMode", "civilDate", "calculationDate", "nominalAge", "status", "direction", "startAge", "calendarWarnings"])
+                fields("ziwei.timing.natalYear", "/natalYear", ["lunarYear", "ganZhi", "stem", "branch"])
+                fields("ziwei.timing.activeDecade", "/activeDecade", ["index", "startAge", "endAge", "startLunarYear", "endLunarYear", "palace", "position", "ganZhi"])
+                fields("ziwei.timing.annual", "/annual", ["lunarYear", "ganZhi", "stem", "branch", "appliesToBirth"])
+                fields("ziwei.timing.annual.taiSui", "/annual/taiSui", ["position", "natalPalace"])
+                for (layer, path) in [("annual", "/annual/transformations"), ("decadal", "/decadalTransformations")] {
+                    if case let .array(transformations) = pointer(path, in: object) {
+                        for index in transformations.indices {
+                            fields("ziwei.timing.\(layer).transformation\(index + 1)", "\(path)/\(index)", ["scope", "sourceStem", "star", "transformation", "targetPalace", "targetPosition", "sourceId"])
+                        }
+                    }
+                }
+                fields("ziwei.timing.method", "/method", ["algorithm", "civilTimeZone", "dayBoundary", "yearBoundary", "ageConvention"])
+                sources("ziwei.timing")
             case "cast_liuyao":
                 add("liuyao.castTime", "/castTime")
                 fields("liuyao.calendar", "/castGanZhi", ["month", "day", "hour"])

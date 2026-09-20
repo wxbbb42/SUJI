@@ -66,3 +66,16 @@ The fresh read-only review found a P1 late-zi calendar inconsistency. This takes
 - [ ] D3: interpretation evidence for transformation scope, empty-palace overclaims and dynamic layers, with actual end-to-end cases. Palace-stem flying and flow-month remain separate scope decisions requiring grounded rules.
 
 Liuyao B source reread also uncovered a research-excerpt bug: prior root-page chapter28/32 excerpts hit the table of contents. `core-rule-sources.json` records actual chapter offsets/hashes from the same full-source hash. This corrects evidence extraction, not the still-pending B implementation.
+
+## Batch D2 — cached decades and separate temporal layers
+
+Selected policy: modern iztro-default decade convention, first decade at 命宫 and bureau-number nominal age, ten years per palace, 阳男阴女顺 / 阴男阳女逆. Cite the pinned engineering implementation; the Quanshu excerpt supports direction only, not the complete modern convention. Annual year and nominal age turn at lunar New Year, with the same complete 23:00 rollover as natal. Do not reuse Bazi 立春 or exact 起运 dates.
+
+- [x] RED/GREEN: independently written 2024甲男/女火六 and 2023癸男/女水二 decade vectors, 丑宫干 boundary, before birth / before first decade / exact decade transitions.
+- [x] Store twelve fixed decades in the natal snapshot. Dynamic projection reads only the snapshot; no natal recomputation or mutation.
+- [x] Add `get_ziwei_timing`, defaulting to the question instant; optional explicit Gregorian `date` uses Beijing noon and declares it. Return lunar-year age, active decade, 太岁所在本命宫, separately scoped annual and decade-stem transformations. Keep natal stars unchanged; do not claim 小限、流月、流曜 or palace-stem flying.
+- [x] RED/GREEN: before/after lunar New Year including 23:00; LiChun counterexample; same star 生年化科 and 流年化忌; minor-star 化科; invalid dates; persisted snapshot and timezone independence.
+- [x] Native allowlist, scoped scalar evidence index, real tool transport/replay and Node/JSC parity. Source archive/registry and scope descriptions updated.
+- [ ] Independent review, full local checks, push and exact-head CI.
+
+D2 local acceptance: 636 Engine /235 Swift Core /15 backend tests; independent review and deployed authenticated 9-tool smoke passed. Native mixed-tool replay35,513bytes; no natal recalculation. Commit and exact-head CI pending. D3 and core B/C/E/F remain open.

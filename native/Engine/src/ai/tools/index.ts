@@ -120,7 +120,7 @@ export const ALL_HANDLERS: Record<string, ToolHandler> = {
 /** 工具使用策略文本，注入 thinker prompt */
 export const TOOL_STRATEGY = `工具使用策略：
 1. 用户问题涉及具体领域（婚姻/子女/事业/财富/健康/父母/兄弟/迁移/田宅/福德）→ 优先用 get_domain
-2. 用户问题涉及"何时" → 加 get_timing
+2. 用户问题涉及"何时" → 八字用 get_timing，紫微用 get_ziwei_timing；紫微大限与流年以农历换年，不套八字立春或交运日期。指定日期只用于该日的时间层，不自动断定事件日期
 3. 跨领域复杂问题 → 用 get_bazi_star / get_ziwei_palace 精查
 4. "今日运势"类问题 → get_today_context
 5. 一次推演中工具调用 ≤ 4 次（避免无意义遍历）

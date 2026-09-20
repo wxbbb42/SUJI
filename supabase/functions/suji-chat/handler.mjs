@@ -4,7 +4,7 @@ export const MAX_BODY_BYTES = 262144;
 const UPSTREAM = "https://api.deepseek.com/chat/completions";
 const TOOLS = new Set([
   "get_domain", "get_bazi_star", "list_shensha", "get_timing",
-  "get_today_context", "get_ziwei_palace", "cast_liuyao", "setup_qimen",
+  "get_today_context", "get_ziwei_palace", "get_ziwei_timing", "cast_liuyao", "setup_qimen",
 ]);
 const HEADERS = { "Content-Type": "application/json", "Cache-Control": "no-store" };
 
@@ -78,7 +78,7 @@ export function providerRequest(input) {
     thinking: { type: "disabled" }, max_tokens: 2048,
   };
   if (input.tools != null) {
-    if (!Array.isArray(input.tools) || input.tools.length > 8 || input.stream) fail(400, "invalid_tools");
+    if (!Array.isArray(input.tools) || input.tools.length > TOOLS.size || input.stream) fail(400, "invalid_tools");
     const names = new Set();
     result.tools = input.tools.map(tool => {
       if (!object(tool) || tool.type !== "function" || !object(tool.function)) fail(400, "invalid_tools");
