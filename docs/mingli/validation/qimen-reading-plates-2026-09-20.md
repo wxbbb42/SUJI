@@ -26,4 +26,4 @@ prompt15，执行文件SHA `2371a5d41d1b03738405681cc5de33bdda45d1080b5b5b6c8a70
 
 - 5项永久回归覆盖真实错宫位、正反句式、两层寄干、旧盘、稀疏与冲突回执、问句和语境边界；已观察RED/GREEN。
 - 完整Core最终268项测试通过，日志：`/tmp/suji-f3-final-core.log`。独立最终复核的11例通过，前述P2已清除；仅确认有限字面范围。native-only与diff检查通过。
-- E2a远端：`49aed08b04b3c054aa6908b0800c5b23ed719ec8`，run35497388190，engine、swift-core、native-app均成功。F3自身提交与远端结果待补。
+- E2a远端：`49aed08b04b3c054aa6908b0800c5b23ed719ec8`，run35497388190，engine、swift-core、native-app均成功。F3远端：`e8a1a523f9fdabff5e28f87b5c57fc21733150c9`，run35497659888，engine、swift-core、native-app均成功。只验收上述有限字面范围。

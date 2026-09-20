@@ -163,6 +163,20 @@ E2a accepted in that structural scope: exact `49aed08b04b3c054aa6908b0800c5b23ed
 
 - [x] Archived real false acceptance reproduces wrong earth palace. Direct/reverse stem assertions use each receipt's field; hosted-earth and hosted-sky labels separate.
 - [x] Correct hosting, sparse legacy, reordered palaces, conflicting receipts, questions and full-sentence framing counterexamples; local guard before model review. No calendar or chart recalculation.
-- [ ] Independent final review, full checks, push and exact-head CI.
+- [x] Independent final review, full checks, push and exact-head CI.
 
 `core-f3-results.json` still fails broader interpretation: correct plate positions but an incorrect day/hour identity summary and user-picked palace advice. No further prompt reroll to claim accuracy. Next F4: compile critical Qimen fact/reference sections locally from original receipts, preserving identity, qualification, source and absence; reuse the proven claim approach where suitable. Before changing delivery, specify tests for actual failures, conflicting/sparse/cross-context receipts, source identity and cached original casts. E2b and F2 Liuyao source/object errors remain open.
+
+F3 remote accepted in its bounded assertion scope: exact `e8a1a523f9fdabff5e28f87b5c57fc21733150c9`, run35497659888 passed engine, swift-core and native-app. Broader live interpretation remains unaccepted.
+
+## Batch F4 — source-bound Qimen reference delivery
+
+Decision: compile complete reference sections locally for a Qimen-only tool request, following the existing Bazi evidence-bound path. A fixed short report is preferable to asking a model to select/rewrite these mandatory facts. The planner still extracts the explicitly supplied question context; calculations and persisted original receipts remain unchanged. Mixed-system questions stay outside this batch and cannot be silently reduced to Qimen.
+
+- [x] RED/GREEN against actual chart A and甲-carrier chart B: retain day/hour IDs independently, every plate occurrence, center record versus effective sky, both hosted stems, category-reference absence, product-source scope, missing question context and unresolved timing. No user-selected palace as an adjudication.
+- [x] Every section carries exact receipt ID, JSON pointers and values. Validate occurrence pointers against the matching palace/symbol and expected plate; reject conflicting, stale, sparse or unsupported-version receipts rather than fabricate prose. Reordered arrays preserve identity; retries use the original receipt.
+- [x] Integrate the same compiler in shipping ChatSession and the real Swift evaluation harness. An unavailable source-bound report yields an explicit incomplete-data response, not free-prose invention. Preserve cancellation, account/birth context checks and persisted receipts. No UI redesign or new natal calculation.
+- [x] Test the actual orchestration/retry path, compile more than one question category, independently review, run full Core/native checks, and archive a real provider planning+tool+local-render pass. Explicitly report that this replaces model prose for this scope; it does not prove model factual accuracy or complete event adjudication.
+- [ ] Commit/push and verify exact-head CI. Broader D/E/F/G remain open until their own requirements pass.
+
+F4 local: 11 new tests,279 total Core; independent73 renderer/18 actual intent-gate cases pass. Final real provider trial:6 calls,2 valid local reference reports (including甲午 at .789 subsecond) and honest zero-receipt failure response. One planner omitted explicitly supplied event; preserve this as context-extraction work still open. See `docs/mingli/validation/qimen-reference-delivery-2026-09-20.md`. Commit/exact-head CI pending. E2b source review continued with Yuanlingjing and a modern repost; incompatible chart conventions and contradictory passages are recorded, not adopted or counted as rule completion.

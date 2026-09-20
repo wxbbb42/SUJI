@@ -105,6 +105,7 @@ import SujiCore
                 // These caches belong only to this user entry and passed the
                 // context checks above. A retry planner may need no new calls.
                 var frameworkReceipts = cachedReceipts
+                var qimenReferenceRequest = false
                 var history = [ChatMessage(role: .system, content: instruction)]
                 history.append(contentsOf: ReadingPrompt.history(from: historyEntries, currentUserID: userID, context: context))
 
@@ -112,6 +113,7 @@ import SujiCore
                     try Self.checkScope(store, revision: revision, birth: birth)
                     activity = "正在整理线索"
                     let definitions = try await loadDefinitions(mode: effectiveMode, question: originalQuestion, birth: birth, store: store)
+                    qimenReferenceRequest = QimenReferenceReading.isExclusiveRequest(definitions: definitions, question: originalQuestion)
                     try Self.checkScope(store, revision: revision, birth: birth)
                     history[0].content = instruction + "\n" + ReadingPrompt.plannerInstruction(question: originalQuestion, mode: effectiveMode, focus: focus)
                     let frameworkCallID = "bazi-" + UUID().uuidString
@@ -192,6 +194,12 @@ import SujiCore
                     } else {
                         partial = BaziFrameworkReading.unavailableReply(hasBirth: birth != nil, focus: focus)
                     }
+                } else if qimenReferenceRequest {
+                    activity = "正在整理奇门依据"
+                    try Task.checkCancellation()
+                    try Self.checkScope(store, revision: revision, birth: birth)
+                    partial = QimenReferenceReading.render(receipts: frameworkReceipts, context: context)?.text
+                        ?? QimenReferenceReading.unavailableReply(receipts: frameworkReceipts)
                 } else {
                     activity = "正在写回信"
                     var draft = ""

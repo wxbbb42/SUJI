@@ -19,6 +19,7 @@ enum NativeReadingEvaluation {
         let failure: Bool?
         let fixedLineValues: [Int]?
         let followups: [String]?
+        let referenceDate: String?
     }
 
     static func object<T: Encodable>(_ value: T) throws -> Any {
@@ -46,13 +47,22 @@ enum NativeReadingEvaluation {
         let reportBase: [String: Any] = [
             "timestamp": ISO8601DateFormatter().string(from: Date()), "promptVersion": ReadingPrompt.version,
             "claimProtocolVersion": BaziFrameworkReading.protocolVersion,
-            "scope": "Live synthetic Swift ChatClient, MingliBridge, ToolOrchestrator and backend handler. Framework comparisons use a local claim compiler plus model ordering; other cases use SSE writing and ReadingVerifier. Loopback auth/quota are mocked; not deployed Supabase authentication or SwiftUI integration.",
+            "scope": "Live synthetic Swift ChatClient, MingliBridge, ToolOrchestrator and backend handler. Framework comparisons use a local claim compiler plus model ordering; Qimen-only requests use local reference rendering after model planning; other cases use SSE writing and ReadingVerifier. Loopback auth/quota are mocked; not deployed Supabase authentication or SwiftUI integration.",
             "engine": metadata, "bundleSHA256": SHA256.hash(data: try Data(contentsOf: bundle)).map { String(format: "%02x", $0) }.joined(),
             "executableSHA256": SHA256.hash(data: try Data(contentsOf: URL(fileURLWithPath: CommandLine.arguments[0]))).map { String(format: "%02x", $0) }.joined(),
         ]
         for item in config.cases {
             var caseBridge = bridge
             var fixture: [String: Any] = [:]
+            let caseDate: Date
+            if let timestamp = item.referenceDate {
+                let iso = ISO8601DateFormatter(); iso.formatOptions = [.withInternetDateTime,.withFractionalSeconds]
+                guard let date = iso.date(from:timestamp) ?? ISO8601DateFormatter().date(from:timestamp) else {
+                    throw EngineError.execution("Invalid synthetic reference date")
+                }
+                caseDate = date
+                fixture["referenceDate"] = timestamp
+            } else { caseDate = baseNow }
             if let values = item.fixedLineValues {
                 guard values.count == 6, values.allSatisfy({ (6...9).contains($0) }), item.mode == "起卦" else {
                     throw EngineError.execution("Invalid synthetic coin fixture")
@@ -72,7 +82,7 @@ enum NativeReadingEvaluation {
             var conversation: [ConversationEntry] = []
             for (turnIndex, question) in ([item.question] + (item.followups ?? [])).enumerated() {
                 guard turnIndex < 6 else { throw EngineError.execution("At most six synthetic turns per case") }
-                let now = baseNow.addingTimeInterval(Double(turnIndex * 60))
+                let now = caseDate.addingTimeInterval(Double(turnIndex * 60))
                 var userEntry = ConversationEntry(role: "user", text: question)
                 userEntry.date = now
                 userEntry.analysisMode = mode
@@ -142,6 +152,17 @@ enum NativeReadingEvaluation {
                         } else {
                             record["answer"] = BaziFrameworkReading.unavailableReply(hasBirth: birth != nil, focus: focus)
                             record["status"] = "claims-unavailable"
+                        }
+                    } else if QimenReferenceReading.isExclusiveRequest(definitions: available, question: question) {
+                        record["executionPath"] = "qimen-reference"
+                        record["referenceProtocolVersion"] = QimenReferenceReading.protocolVersion
+                        if let report = QimenReferenceReading.render(receipts: result.receipts, context: context) {
+                            record["referenceReport"] = try object(report)
+                            record["answer"] = report.text
+                            record["status"] = "locally-rendered-qimen"
+                        } else {
+                            record["answer"] = QimenReferenceReading.unavailableReply(receipts: result.receipts)
+                            record["status"] = "qimen-reference-unavailable"
                         }
                     } else {
                         record["executionPath"] = "verified-prose"
