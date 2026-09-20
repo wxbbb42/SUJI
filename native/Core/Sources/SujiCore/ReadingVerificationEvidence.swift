@@ -14,7 +14,8 @@ enum ReadingVerificationEvidence {
         var facts: [Fact] = []
         for message in history where message.role == .tool {
             guard let id = message.toolCallID, let name = calls[id], let raw = message.content,
-                  let object = try? JSONDecoder().decode(JSONValue.self, from: Data(raw.utf8)),
+                  let decoded = try? JSONDecoder().decode(JSONValue.self, from: Data(raw.utf8)),
+                  let object = LiuyaoConditionTransport.expand(decoded),
                   case let .object(root) = object, root["error"] == nil else { continue }
             func add(_ key: String, _ path: String, preserveNull: Bool = false) {
                 guard let value = pointer(path, in: object), preserveNull || value != .null else { return }
@@ -157,6 +158,12 @@ enum ReadingVerificationEvidence {
                 fields("liuyao.method", "/method", ["algorithm", "calendar", "dayBoundary", "caveats"])
                 fields("liuyao.question", "/questionContext", ["subject", "timeHorizon"])
                 fields("liuyao.lineContextPolicy", "/lineContextPolicy", ["assessmentStatus", "sourceIds"])
+                fields("liuyao.tombExtinction", "/tombExtinction", ["sourceId", "assessmentStatus", "efficacyEstablished", "unresolved"])
+                if case let .array(objects) = pointer("/tombExtinction/objects",in:object) {
+                    for index in objects.indices {
+                        fields("liuyao.tombExtinction.object\(index+1)", "/tombExtinction/objects/\(index)", ["objectPath", "month", "day", "ownChange", "flying", "movingTombPositions", "movingExtinctionPositions", "supportingMovingPositions"])
+                    }
+                }
                 fields("liuyao.guaRelations", "/guaRelations", ["assessmentStatus", "outcomeEstablished", "sourceId"])
                 fields("liuyao.guaRelations.transition", "/guaRelations/transition", ["hasChange", "kind", "fromKind", "toKind", "factPaths"])
                 for side in ["original", "resulting"] {

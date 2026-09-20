@@ -111,7 +111,10 @@ public enum LiuyaoReferenceReading {
             let hasRoles = ReadingVerificationEvidence.pointer("/roleRelations",in:root) != nil
             let hasRoleSource = sources.contains { ReadingVerificationEvidence.pointer("/id",in:$0) == .string(roleSource) }
             guard hasRoles == hasRoleSource else { throw Incomplete.record }
-            let accepted=[calendarSource,questionSource,"liuyao-changing-relations-v1","liuyao-flying-hidden-v1","liuyao-day-clash-v1"] + (hasRoles ? [roleSource] : [])
+            let hasTombs = ReadingVerificationEvidence.pointer("/tombExtinction",in:root) != nil
+            let hasTombSource = sources.contains { ReadingVerificationEvidence.pointer("/id",in:$0) == .string(LiuyaoTombExtinctionTrace.sourceID) }
+            guard hasTombs == hasTombSource else { throw Incomplete.record }
+            let accepted=[calendarSource,questionSource,"liuyao-changing-relations-v1","liuyao-flying-hidden-v1","liuyao-day-clash-v1"] + (hasRoles ? [roleSource] : []) + (hasTombs ? [LiuyaoTombExtinctionTrace.sourceID] : [])
             for i in sources.indices {
                 let p="/ruleSources/\(i)",id=try string(p+"/id")
                 guard accepted.contains(id),sourcePaths[id] == nil,
@@ -150,6 +153,9 @@ public enum LiuyaoReferenceReading {
                 try append("gua-relations","整卦支关系：本卦\(o == "ordinary" ? "非六合六冲" : o)，完整变卦\(r == "ordinary" ? "非六合六冲" : r)，\(kindText)。完整变卦投影不代表六爻全部发动；结构冲合尚不能确定事件成败。",[p] + source(p+"/sourceId",expected:calendarSource))
             }
             for i in 0..<6 { try line(i) }
+            if hasTombs {
+                sections += try LiuyaoTombExtinctionTrace.sections(root:root,receiptID:receipt.callID,sourcePaths:sourcePaths[LiuyaoTombExtinctionTrace.sourceID]!)
+            }
             try selectionAndTiming()
             if hasRoles { try candidateRoles() }
             return Report(sourceReceiptID:receipt.callID,sections:sections)
@@ -424,6 +430,21 @@ public enum LiuyaoReferenceReading {
         }
         func validateReferences(_ p: String, source: String) throws {
             let rootURL="https://zh.wikisource.org/wiki/增刪卜易"
+            if source == LiuyaoTombExtinctionTrace.sourceID {
+                let references=[
+                    (rootURL+"/26又1","630f38b037ae720e90e55faff10a1c044f7edf9e3a85ce7dc645b8693ada2008"),
+                    (rootURL+"/26又3","dc529f9dc18f3620c1975fe3463f744fd8732000c4f9d01eecf318d45528eea4"),
+                    (rootURL+"/15","0df8223b0c65616826c8caf86b592526b46b1dee51332e0c2707486f2d7ee4e5"),
+                    (rootURL,"897f963b938ec4582bc892465301b831a6439216f317841f44b888117704ca07"),
+                    ("https://zh.wikisource.org/wiki/易林補遺/1","abf77e78f3fbf77e33c2520e2a3525898894e5f5b0863fb5fa2c44619daab967")
+                ]
+                guard try array(p).count == references.count else { throw Incomplete.record }
+                for (i,reference) in references.enumerated() {
+                    guard try string(p+"/\(i)/url") == reference.0,try string(p+"/\(i)/sha256") == reference.1,
+                          !(try string(p+"/\(i)/locator")).isEmpty else { throw Incomplete.record }
+                }
+                return
+            }
             let hashes=["/9":"e84db11ae9a316ba00cb301e4e25c71496b32d9fcc495f16e09a575eb2159412","/10":"3afc338a9c87a3df29583d36cf608abe381d44a5736e33641ca6d95c1cf387b9","":"897f963b938ec4582bc892465301b831a6439216f317841f44b888117704ca07", "/8":"da83c3e47c04bb4813040e6cf5c3e43f8775e2293da3b32c9a8e2fb542e72a90", "/17":"e70bfbed847449facf08d1801c5cfe37c3655761ad635b484d7c24e5a4361623", "/19":"087c35339f209c6d1359c01d8a918a535eb6151729973fc09ef960c1195f3fdf", "/20":"8aec9b6625a18b4c487e45e92c9de662929597fa74a3653ce9ed9dd2d0b7e49b", "/22":"c8d2e339a0bf86b1e09e290ff191eac06c6c0bfce190c3d1e7942cc3fab874d5", "/26":"29213289bfd323be3206860ee2904f61c05f6f9941313745ae5e8b2bc6620d41", "/26又3":"dc529f9dc18f3620c1975fe3463f744fd8732000c4f9d01eecf318d45528eea4"]
             let suffixes=[roleSource:["/9","/10"],calendarSource:["/17","/19","/20","/26"],questionSource:["/8","","/26又3"],"liuyao-changing-relations-v1":["/17",""],"liuyao-flying-hidden-v1":[""],"liuyao-day-clash-v1":["/22"]]
             guard let expected=suffixes[source],try array(p).count == expected.count else { throw Incomplete.record }

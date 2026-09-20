@@ -1,0 +1,60 @@
+{
+  "reviewDate": "2026-09-20",
+  "reviewBase": "9a3e01c28e7d3b94c5be90fdf12a0be858701c07",
+  "status": "pass-with-fixed-findings",
+  "outstandingFindings": [],
+  "productionFilesModifiedByReviewer": [],
+  "authorizedExternalEdit": "native/Engine/validation/research-divination/lifecycle-source-review.json",
+  "independentEngineCases": 87552,
+  "independentSourceCharts": 5,
+  "finalNativeCases": 45,
+  "allNativeInvariantsPassed": true,
+  "actualBackendRequestsAccepted": 45,
+  "maxBackendTotalUTF16IncludingArguments": 113354,
+  "maxNativeRequestBytes": 167609,
+  "maxMessageUTF16": 30221,
+  "maxPairedToolBytes": 53763,
+  "packedRowsIndependentlyRestored": 4400,
+  "emptyPathRowsRestored": 808,
+  "corruptionChecks": {
+    "legalIDCapacitiesPassed": 4,
+    "malformedWholeRecordRejected": 27,
+    "validTamperAuthenticationRejected": 2,
+    "sourceCorruptionRenderRejected": 8
+  },
+  "fixedFindings": [
+    {
+      "id": "long-valid-call-ID-capacity",
+      "severity": "P2",
+      "originalEvidence": "native-corruption-report.json",
+      "finalEvidence": "final-native-corruption-report.json"
+    },
+    {
+      "id": "missing-layout-metadata-partial-facts",
+      "severity": "P2",
+      "originalEvidence": "native-corruption-report.json",
+      "finalEvidence": "final-native-corruption-report.json"
+    },
+    {
+      "id": "reviewer-request-budget",
+      "severity": "P2",
+      "origin": "parent finding independently reproduced and final-verified",
+      "originalEvidence": "intermediate-native-capacity-report.json",
+      "finalEvidence": "final-wire-decoder-report.json"
+    },
+    {
+      "id": "escaped-valid-event-capacity",
+      "severity": "P2",
+      "originalEvidence": "escaped-event-native-report.json; intermediate-native-capacity-report.json",
+      "finalEvidence": "final-native-capacity-report.json; final-wire-decoder-report.json"
+    }
+  ],
+  "limitations": [
+    "electronic sources not print-collated",
+    "no historical Gregorian reconstruction",
+    "no provider call or model outcome evaluation",
+    "no predictive or medical efficacy validation",
+    "bounded matrix, not formal capacity proof for all accepted inputs"
+  ],
+  "details": "README.md"
+}

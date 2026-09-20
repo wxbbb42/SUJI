@@ -554,9 +554,10 @@
         "旺衰生克",
         "动变",
         "分类占例",
-        "现代六爻实务核心参考"
+        "现代六爻实务核心参考",
+        "对象绑定的墓绝表及土巳、金丑、墓爻空破冲条件"
       ],
-      "notes": "六爻实务 P0 source；需要重点核对当前用神/应期实现。 本批逐字读取第九/十章onlyinclude原文，排除后附原劍按；保存原始页和SHA256，按候选对象列元忌仇结构。第十章动化退神异文尚未据此立效力规则。"
+      "notes": "六爻实务 P0 source；需要重点核对当前用神/应期实现。 本批逐字读取第九/十章onlyinclude原文，排除后附原劍按；保存原始页和SHA256，按候选对象列元忌仇结构。第十章动化退神异文尚未据此立效力规则。 B4 读取26又1、26又3、15及正文28/30章；火行转录缺项明确记录，日月、动墓、同位化墓、飞伏层分开，墓绝效力未决。"
     },
     {
       "id": "yijing-zhouyi-received",
@@ -1301,6 +1302,27 @@
         "docs/mingli/validation/qimen-selection-source-review-2026-09-20.md"
       ],
       "notes": "只为产品的有限参考映射和既有盘面投影负责；不证明最终取用或应期成立。未将网页搜索摘要作为古籍引文。"
+    },
+    {
+      "id": "liuyao-yilin-buyi-compatible-fire-table",
+      "title": "易林补遗（卷一兼容火墓绝表项）",
+      "domain": [
+        "liuyao"
+      ],
+      "tradition": "六爻五行墓绝参考",
+      "tier": "A",
+      "sourceType": "classic_text",
+      "currentUsage": [
+        "仅以“离火墓于戌、绝于亥”补证所选五行表的火行"
+      ],
+      "repoRefs": [
+        "native/Engine/src/divination/tombExtinction.ts",
+        "native/Engine/validation/research-divination/lifecycle-source-review.json"
+      ],
+      "ingestStatus": "scoped_electronic_excerpt_reviewed_not_print_collated",
+      "ingestPriority": "P0",
+      "licenseNote": "古籍电子转录；记录原始URL、正文和SHA256；未校印本。",
+      "notes": "不采其与增删不同的土逢巳不可论生效力断法，不据此引入卦变方位、吉凶或完整长生体系。作者、刊年和定本未在本批校勘，不补写。"
     }
   ]
 }

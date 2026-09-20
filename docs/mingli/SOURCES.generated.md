@@ -489,6 +489,18 @@ Updated: 2026-09-20
 - License note: 古籍文本需优先选公共领域/可引用版本；记录版本、卷次、页码/章节，不 ingest 现代版权全文。
 - Notes: 与《增删卜易》并列的六爻核心 source。
 
+#### liuyao-yilin-buyi-compatible-fire-table
+
+- Title: 易林补遗（卷一兼容火墓绝表项）
+- Tier: A
+- Type: classic_text
+- Status: scoped_electronic_excerpt_reviewed_not_print_collated
+- Priority: P0
+- Current usage: 仅以“离火墓于戌、绝于亥”补证所选五行表的火行
+- Repo refs: `native/Engine/src/divination/tombExtinction.ts`, `native/Engine/validation/research-divination/lifecycle-source-review.json`
+- License note: 古籍电子转录；记录原始URL、正文和SHA256；未校印本。
+- Notes: 不采其与增删不同的土逢巳不可论生效力断法，不据此引入卦变方位、吉凶或完整长生体系。作者、刊年和定本未在本批校勘，不补写。
+
 #### liuyao-zengshan-buyi
 
 - Title: 增删卜易
@@ -498,10 +510,10 @@ Updated: 2026-09-20
 - Type: classic_text
 - Status: candidate
 - Priority: P0
-- Current usage: 用神取法；旺衰生克；动变；分类占例；现代六爻实务核心参考
+- Current usage: 用神取法；旺衰生克；动变；分类占例；现代六爻实务核心参考；对象绑定的墓绝表及土巳、金丑、墓爻空破冲条件
 - Repo refs: `native/Engine/src/divination/HexagramEngine.ts`, `native/Engine/src/ai/tools/liuyao.ts`, `native/Engine/src/divination/roleRelations.ts`, `native/Engine/validation/research-divination/liuyao-role-sources.json`
 - License note: 古籍文本需优先选公共领域/可引用版本；记录版本、卷次、页码/章节，不 ingest 现代版权全文。
-- Notes: 六爻实务 P0 source；需要重点核对当前用神/应期实现。 本批逐字读取第九/十章onlyinclude原文，排除后附原劍按；保存原始页和SHA256，按候选对象列元忌仇结构。第十章动化退神异文尚未据此立效力规则。
+- Notes: 六爻实务 P0 source；需要重点核对当前用神/应期实现。 本批逐字读取第九/十章onlyinclude原文，排除后附原劍按；保存原始页和SHA256，按候选对象列元忌仇结构。第十章动化退神异文尚未据此立效力规则。 B4 读取26又1、26又3、15及正文28/30章；火行转录缺项明确记录，日月、动墓、同位化墓、飞伏层分开，墓绝效力未决。
 
 #### yijing-zhouyi-received
 
@@ -1579,6 +1591,15 @@ Updated: 2026-09-20
 - Repo refs: `docs/mingli/validation/liuyao-professional-audit.md`, `native/Engine/validation/research-divination/liuyao-professional-sources.json`, `native/Engine/src/divination/__tests__/ProfessionalLiuyaoAudit.test.ts`
 - Confidence: high_for_conditional_distinction_transcription_only
 - Status: grounded_requirement_not_implemented
+
+### liuyao.object-bound-tomb-extinction
+
+- Domain: liuyao
+- Claim: 所选五行墓绝表：木未申、火戌亥、土水辰巳、金丑寅。土随水属六爻约定，非八字阴阳干长生。原爻、实际变爻、伏神保留各自日月；原动爻另取本位化爻、伏神另取本位飞神；跨位墓绝仅列原爻目标与其他原动爻，动绝仅为表格结构投影。土巳生绝、金丑生墓、墓源空破冲和目标生扶分别保留；空破填实不一律解除，元忌墓绝不等于实际停用。未裁定取用、综合强弱、施力、事件吉凶或日期。火绝亥仅以易林兼容条文补证所读增删转录缺行，不引入其土绝效力规则。
+- Sources: `liuyao-zengshan-buyi`, `liuyao-yilin-buyi-compatible-fire-table`
+- Repo refs: `native/Engine/src/divination/tombExtinction.ts`, `native/Engine/src/divination/__tests__/TombExtinction.test.ts`, `native/Core/Sources/SujiCore/LiuyaoTombExtinctionTrace.swift`, `native/Engine/validation/research-divination/lifecycle-source-review.json`
+- Confidence: high_for_selected_object_bound_references_not_efficacy
+- Status: scoped_table_and_observable_conditions_with_source_counterexamples
 
 ### liuyao.scoped-conditional-relations
 

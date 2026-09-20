@@ -256,7 +256,10 @@ public enum ReadingVerifier {
         }
         guard groups.count > 1 else { return flat }
         let nested = groups.keys.sorted().flatMap { factEnvelopes(groups[$0]!) }
-        let size: ([String]) -> Int = { $0.reduce(0) { $0 + $1.utf16.count + 1 } }
+        // The index message shares repeated IDs. Account for that layout here;
+        // otherwise a long ID favors flat groups that repeat every field path.
+        let idCost=ReadingVerificationEvidence.encoded(JSONValue.string(facts[0].toolCallID)).utf16.count
+        let size: ([String]) -> Int = { $0.reduce(0) { $0 + $1.utf16.count - max(0,idCost-1) + 1 } }
         return size(nested) < size(flat) ? nested : flat
     }
 
@@ -298,12 +301,37 @@ public enum ReadingVerifier {
             for (index,object) in zip(indices,replacements) { objects[index] = object }
             layouts.append(layout)
         }
-        guard !layouts.isEmpty else { return ChatMessage(role:.user,content:prefix+inline) }
+        guard !layouts.isEmpty else { return indexWithSharedIDs(inline,prefix:prefix) }
         let compact = ReadingVerificationEvidence.encoded(JSONValue.object([
             "columns":["factKeySuffix","pointerSuffix","value"],
             "groups":.array(objects.map(JSONValue.object)), "layouts":.array(layouts),
         ]))
-        return ChatMessage(role:.user,content:prefix+(compact.utf16.count < inline.utf16.count ? compact : inline))
+        return indexWithSharedIDs(compact.utf16.count < inline.utf16.count ? compact : inline,prefix:prefix)
+    }
+
+    /// Legal tool IDs can be 200 bytes. Share the exact full ID within this
+    /// index message, retaining conflicting and agreeing receipt identities.
+    private static func indexWithSharedIDs(_ raw: String, prefix: String) -> ChatMessage {
+        let unchanged=ChatMessage(role:.user,content:prefix+raw)
+        guard case var .object(root)=try? JSONDecoder().decode(JSONValue.self,from:Data(raw.utf8)),
+              case let .array(groups)=root["groups"] else { return unchanged }
+        var ids:[JSONValue]=[],packed:[JSONValue]=[]
+        func index(_ id: JSONValue) -> JSONValue {
+            if let i=ids.firstIndex(of:id) { return .integer(Int64(i)) }
+            ids.append(id);return .integer(Int64(ids.count-1))
+        }
+        for group in groups {
+            guard case var .object(object)=group else { return unchanged }
+            if let id=object.removeValue(forKey:"toolCallID") { object["toolCallIDIndex"]=index(id) }
+            else if case let .array(values)=object.removeValue(forKey:"toolCallIDs") { object["toolCallIDIndices"] = .array(values.map(index)) }
+            else { return unchanged }
+            packed.append(.object(object))
+        }
+        root["toolCallIDs"] = .array(ids);root["groups"] = .array(packed)
+        let compact=ReadingVerificationEvidence.encoded(JSONValue.object(root))
+        let instruction="toolCallIDIndex/toolCallIDIndices是本条消息根toolCallIDs数组的从0起下标；先还原完整原回执ID再引用。\n"
+        guard compact.utf16.count + instruction.utf16.count < raw.utf16.count else { return unchanged }
+        return ChatMessage(role:.user,content:prefix+instruction+compact)
     }
 
     /// Only byte-identical field groups share storage; their receipt IDs remain

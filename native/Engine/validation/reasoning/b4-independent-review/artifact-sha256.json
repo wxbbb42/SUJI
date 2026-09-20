@@ -1,0 +1,118 @@
+{
+  "native/Engine/validation/reasoning/b4-independent-review/README.md": {
+    "bytes": 7207,
+    "sha256": "4b6b37730c0d3e321b218116ccb439115d0c3f237af51d5098a9584d43a10457"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/bulk-evidence-manifest.json": {
+    "bytes": 57694,
+    "sha256": "ee7ef6693264fd2ee33089440130e817707eb2ad80856f1939b3ecacec191d55"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/bulk-evidence.tar.xz": {
+    "bytes": 641112,
+    "sha256": "3876a078e55f7e301eef05deee5120c86a9aaefbd46975151c310a0e4db43e1f"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/engine-capacity-probe.cjs": {
+    "bytes": 8115,
+    "sha256": "6928d483a0e814952db8d0cd537adf14c262aa0e6839ae35ad52cbbe39e83042"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/engine-capacity-report.json": {
+    "bytes": 1303,
+    "sha256": "89a24cfd1f14b3fb15abfb175ebba216b81a13240d38f0c06fa9facaa7c2c797"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/escaped-event-fixtures.cjs": {
+    "bytes": 1311,
+    "sha256": "14fa9d271acedac8fe9b5fb5eb29bb9b76c52f4d182638bbefffe9087b92bad6"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/escaped-event-native-probe.swift": {
+    "bytes": 6106,
+    "sha256": "18b81fc19127ce5282b7b4959d0fa7ea7980046a38e39898132b86190b546705"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/escaped-event-native-report.json": {
+    "bytes": 4863,
+    "sha256": "b2e67491cbed1f211f71ccf0d66f7c9e565319b87e55a9e0e19a8ed3d645758d"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/expanded-capacity-probe.cjs": {
+    "bytes": 7902,
+    "sha256": "ab6bb88ecf5476479e3e2d65f7a3ad3d3d1d9df5d46d4c38c5eacd32b66f97c5"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/expanded-capacity-report.json": {
+    "bytes": 1223,
+    "sha256": "6bc320f4f6605c61b75f888775ef1c242dd97d69910128d0959054139d82e02f"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/expanded-native-capacity-probe.swift": {
+    "bytes": 5993,
+    "sha256": "42b8b1a6de3f6f6b49b62379dccf6e0a40e2c4a3e194b4aaece62c9cf1e13b40"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/expanded-native-capacity-report.json": {
+    "bytes": 12372,
+    "sha256": "fb74752e0f1331c4968018e3a1b239045ab8c051c8c91a26fcf8be0069cdaef4"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/final-native-capacity-probe.swift": {
+    "bytes": 8515,
+    "sha256": "ed2653587e417704f80b474a69658ea26e1fc72515859e1ff62eaca98fc4161c"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/final-native-capacity-report.json": {
+    "bytes": 47393,
+    "sha256": "b295274c757ca811b2b890a49709ed2aad1827cf06664a4e5d0f9b327ecaeb1f"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/final-native-corruption-probe.swift": {
+    "bytes": 7992,
+    "sha256": "c874e8b7391f1e1c1bdada8bd36f9d59d6a73fa106c3d8de3aa4ae83220c0bc9"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/final-native-corruption-report.json": {
+    "bytes": 7142,
+    "sha256": "b42ec5ba4bd942e0d2a8453c9d76f95d7ac5e48339239728589a6c7a8ee9c38b"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/final-wire-decoder-report.json": {
+    "bytes": 15075,
+    "sha256": "8062aec44438ce9e844c2fcce31a873d5f143400cda6565d07359ac9b89e5ca3"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/final-wire-decoder.mjs": {
+    "bytes": 4791,
+    "sha256": "b7cc8291aadb0cb4a01e96a5d5aad494a7a7a167a5e6365bcfe12372220565c8"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/intermediate-native-capacity-report.json": {
+    "bytes": 47183,
+    "sha256": "e69a195967169fb9b04bc2f51ddbf61d7453a137aa9b59acb2a35408e3945307"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/native-capacity-probe.swift": {
+    "bytes": 5966,
+    "sha256": "9d31cd83c10b02b9280087be5f2c834d05433cc8a92f519b28d305d918d0e856"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/native-capacity-report.json": {
+    "bytes": 12372,
+    "sha256": "d93e10c030e2b9d819e6550e9f4d6e93e3c79dba20b293963ef13355f84284e6"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/native-corruption-probe.swift": {
+    "bytes": 6602,
+    "sha256": "8674521735422c5a00cabf4c85c8d07784a773c25598f9872a145ed1c05ce6b6"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/native-corruption-report-noop-probe-errata.json": {
+    "bytes": 3829,
+    "sha256": "070fbff0aa60a9e1a190b7e2a2100a279d04815931627243095d1d715ffec4f1"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/native-corruption-report.json": {
+    "bytes": 3829,
+    "sha256": "070fbff0aa60a9e1a190b7e2a2100a279d04815931627243095d1d715ffec4f1"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/review-results.json": {
+    "bytes": 2195,
+    "sha256": "a19af541d8d3640e4d418835fb26b3b40e95c580f258c62f6ab350d6ccb752d6"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/source-case-probe.cjs": {
+    "bytes": 4626,
+    "sha256": "9e4757af54a52659262a583a85f7f45a43b9aac4a96b74fa20e4175473179e93"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/source-case-report.json": {
+    "bytes": 11097,
+    "sha256": "4705781434fcbb1396bc7fa8900fd560afe0d49be5d329ac822ddca819de681b"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/source-hashes-before-fixes.json": {
+    "bytes": 5736,
+    "sha256": "52a1993252b0eb080d3dae20e2e6e1ad3a748d5eece2cf65e5bca2b46f00e319"
+  },
+  "native/Engine/validation/reasoning/b4-independent-review/source-hashes-final.json": {
+    "bytes": 5997,
+    "sha256": "d3051e3104ce89d7133c0ce588df45b24a21c66a4eb060a3dcaba88aabbdb5e8"
+  }
+}

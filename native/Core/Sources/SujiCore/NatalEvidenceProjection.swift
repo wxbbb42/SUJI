@@ -16,7 +16,8 @@ enum NatalEvidenceProjection {
 
     static func output(_ output: String, name: String, delivered: [ChatMessage], callID: String? = nil) -> String {
         if ["cast_liuyao", "setup_qimen"].contains(name) {
-            return castQuestion(output, name:name, delivered:delivered, callID:callID)
+            let shared=castQuestion(output, name:name, delivered:delivered, callID:callID)
+            return name == "cast_liuyao" && shared.utf16.count > 28_000 ? LiuyaoConditionTransport.encode(shared) : shared
         }
         let supported: Set<String> = ["get_domain", "get_ziwei_palace", "get_ziwei_timing"]
         guard supported.contains(name),

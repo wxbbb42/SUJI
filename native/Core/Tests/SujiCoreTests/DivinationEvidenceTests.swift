@@ -2,6 +2,15 @@ import XCTest
 @testable import SujiCore
 
 final class DivinationEvidenceTests: XCTestCase {
+    func testTombReferencesKeepObjectIdentityFalseEfficacyAndEmptyActorSets() throws {
+        let messages=history("cast_liuyao", #"{"tombExtinction":{"sourceId":"liuyao-tomb-extinction-v1","assessmentStatus":"conditional-structure","efficacyEstablished":false,"unresolved":["target-strength"],"objects":[{"objectPath":"/lines/0/hidden","month":"墓","day":"neither","flying":"绝","movingTombPositions":[],"movingExtinctionPositions":[],"supportingMovingPositions":[2]}]}}"#)
+        let facts=Dictionary(uniqueKeysWithValues:ReadingVerificationEvidence.facts(messages).map{($0.factKey,$0)})
+        XCTAssertEqual(facts["liuyao.tombExtinction.efficacyEstablished"]?.value,.bool(false))
+        XCTAssertEqual(facts["liuyao.tombExtinction.object1.objectPath"]?.value,.string("/lines/0/hidden"))
+        XCTAssertEqual(facts["liuyao.tombExtinction.object1.flying"]?.pointer,"/tombExtinction/objects/0/flying")
+        XCTAssertEqual(facts["liuyao.tombExtinction.object1.movingTombPositions"]?.value,.array([]))
+        try assertIndexRestoresFacts(review:ReadingVerifier.messages(draft:"只核对结构及未决条件",history:messages,question:"墓绝参考"),history:messages)
+    }
     func testCandidateRolesIndexKeepsSeparateObjectsEmptyRolesAndMovingPairs() throws {
         let messages = history("cast_liuyao", #"{"roleRelations":{"assessmentStatus":"candidate-relative-structure","outcomeEstablished":false,"sourceId":"liuyao-candidate-roles-v1","inspectedOriginalPaths":["/lines/0","/lines/1","/lines/2","/lines/3","/lines/4","/lines/5"],"groups":[{"targetElement":"水","candidateRefs":[{"id":"original-4","objectPath":"/lines/3","contextPath":"/lines/3/context"}],"elements":{"yuan":"金","ji":"土","chou":"火"},"yuanPositions":[3,5],"jiPositions":[1,6],"chouPositions":[],"jiYuanMovingPairs":[{"jiPosition":6,"yuanPosition":5}],"chouJiMovingPairs":[]}],"unsupportedCandidates":[{"id":"month","objectPath":"/castGanZhi/month","reason":"calendar-target-outside-line-role-scope"}],"unresolved":["target-viability"],"prediction":"一定有救"}}"#)
         let facts = Dictionary(uniqueKeysWithValues:ReadingVerificationEvidence.facts(messages).map { ($0.factKey,$0) })
@@ -211,7 +220,15 @@ final class DivinationEvidenceTests: XCTestCase {
         try assertIndexRestoresFacts(review:review,history:messages)
     }
 
-    private func assertCombinedCharts(values: [Int],questionType:String = "parents",subject:String = "parent",instant:String = "2026-09-19T04:00:00Z") async throws {
+    func testLargestReviewedCastPreservesBothChartsWithMaximumLegalCallIDs() async throws {
+        try await assertCombinedCharts(values:[9,9,6,6,9,9],questionType:"kids",subject:"child",instant:"2026-09-20T04:00:00Z",callIDLength:200)
+    }
+
+    func testMaximumEscapedEventAndCallIDsPreserveBothChartsAndVerificationBudget() async throws {
+        try await assertCombinedCharts(values:[9,9,6,6,9,9],questionType:"kids",subject:"child",instant:"2026-09-20T04:00:00Z",callIDLength:200,event:"事"+String(repeating:"\u{1}",count:199))
+    }
+
+    private func assertCombinedCharts(values: [Int],questionType:String = "parents",subject:String = "parent",instant:String = "2026-09-19T04:00:00Z",callIDLength:Int = 32,event:String = String(repeating:"事",count:200)) async throws {
         let native = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
@@ -226,8 +243,8 @@ final class DivinationEvidenceTests: XCTestCase {
         let question = String(("用六爻和奇门分别解释这次盘面，请保留各自依据。" + String(repeating: "需要比较盘面细节。", count: 180)).prefix(1600))
         var messages = [ChatMessage(role: .system, content: ReadingPrompt.instruction(tone: "清晰", mode: "起卦", referenceDate: now, hasBirth: true))]
         for (index, name) in ["cast_liuyao", "setup_qimen"].enumerated() {
-            let id = String(repeating: index == 0 ? "a" : "b", count: 32)
-            let arguments = ["question": question, "questionType": name == "cast_liuyao" ? questionType : "career", "subject": subject, "event": String(repeating:"事",count:200), "timeHorizon": "near"]
+            let id = String(repeating: index == 0 ? "a" : "b", count: callIDLength)
+            let arguments = ["question": question, "questionType": name == "cast_liuyao" ? questionType : "career", "subject": subject, "event": event, "timeHorizon": "near"]
             let request: [String: Any] = ["command": "tool", "name": name, "arguments": arguments, "now": instant]
             let raw = try await bridge.request(String(decoding: JSONSerialization.data(withJSONObject: request), as: UTF8.self))
             let root = try JSONDecoder().decode(JSONValue.self, from: raw)
@@ -249,7 +266,7 @@ final class DivinationEvidenceTests: XCTestCase {
             XCTAssertLessThanOrEqual(modelOutput.utf16.count,32_000)
             var projected=try XCTUnwrap(try JSONSerialization.jsonObject(with:Data(modelOutput.utf8)) as? [String:Any])
             if projected.removeValue(forKey:"questionFromArguments") != nil { projected["question"]=question }
-            let restored=try JSONDecoder().decode(JSONValue.self,from:JSONSerialization.data(withJSONObject:projected))
+            let restored=try XCTUnwrap(LiuyaoConditionTransport.expand(JSONDecoder().decode(JSONValue.self,from:JSONSerialization.data(withJSONObject:projected))))
             let original=try JSONDecoder().decode(JSONValue.self,from:Data(outputs[call.id]!.utf8))
             XCTAssertTrue(restored == original,"Every original chart field must survive projection")
         }
@@ -288,6 +305,19 @@ final class DivinationEvidenceTests: XCTestCase {
         try assertIndexRestoresFacts(review:review,history:messages)
     }
 
+    func testSharedLongReceiptIDsRestoreAgreeingAndConflictingGroupsExactly() throws {
+        var messages:[ChatMessage]=[]
+        for (token,stem) in [("a","甲"),("b","甲"),("c","乙")] {
+            let id=String(repeating:token,count:200)
+            let output:JSONValue=["dayGanZhi":.string(stem+"子"),"hourGanZhi":"丙子","palaces":[["id":1,"diPanGan":"戊","tianPanGan":"庚"],["id":2,"diPanGan":"丙","tianPanGan":"丁"]]]
+            messages += [.assistantToolCalls([.init(id:id,name:"setup_qimen",arguments:[:])]),.toolResult(.init(callID:id,output:ReadingVerificationEvidence.encoded(output)))]
+        }
+        let review=ReadingVerifier.messages(draft:"逐一核对三份回执",history:messages,question:"核对")
+        XCTAssertTrue(review.contains{$0.content?.contains("\"toolCallIDIndices\"") == true})
+        XCTAssertTrue(review.contains{$0.content?.contains("\"toolCallIDIndex\"") == true})
+        try assertIndexRestoresFacts(review:review,history:messages)
+    }
+
     func testRepeatedFieldLayoutsPreserveValuesAndAllReceiptCoordinates() throws {
         let edges: [JSONValue] = (0..<24).map { index in
             ["scope":"natal-palace-stem","sourcePalace":"夫妻宫","sourcePosition":"辰","sourceStem":"丙","star":.string(index % 2 == 0 ? "天同" : "文昌"),"transformation":"化禄","targetPalace":"福德宫","targetPosition":"午","isSelf":.bool(index % 2 == 0),"sourceId":"ziwei-palace-flights-selected-v1"]
@@ -314,6 +344,15 @@ final class DivinationEvidenceTests: XCTestCase {
                 else if case let .array(values) = ReadingVerificationEvidence.pointer("/toolCallIDs",in:group) {
                     ids = values.compactMap { if case let .string(id) = $0 { return id }; return nil }
                     XCTAssertEqual(ids.count,values.count)
+                    XCTAssertEqual(Set(ids).count,ids.count)
+                } else if let index=ReadingVerificationEvidence.pointer("/toolCallIDIndex",in:group) {
+                    guard case let .integer(i)=index,case let .string(id)=ReadingVerificationEvidence.pointer("/toolCallIDs/\(i)",in:envelope) else { return XCTFail("Missing full ID") }
+                    ids=[id]
+                } else if case let .array(indices)=ReadingVerificationEvidence.pointer("/toolCallIDIndices",in:group) {
+                    ids=try indices.map { index in
+                        guard case let .integer(i)=index,case let .string(id)=ReadingVerificationEvidence.pointer("/toolCallIDs/\(i)",in:envelope) else { throw NSError(domain:"Missing full ID",code:1) }
+                        return id
+                    }
                     XCTAssertEqual(Set(ids).count,ids.count)
                 } else { return XCTFail("Missing receipt identity") }
                 guard case let .string(keyPrefix) = ReadingVerificationEvidence.pointer("/factKeyPrefix",in:group),

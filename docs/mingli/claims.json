@@ -982,6 +982,23 @@
       ],
       "confidence": "high_for_selected_candidate_relative_structure_not_efficacy",
       "status": "source_reviewed_literal_vectors_and_native_evidence_verified"
+    },
+    {
+      "id": "liuyao.object-bound-tomb-extinction",
+      "domain": "liuyao",
+      "claim": "所选五行墓绝表：木未申、火戌亥、土水辰巳、金丑寅。土随水属六爻约定，非八字阴阳干长生。原爻、实际变爻、伏神保留各自日月；原动爻另取本位化爻、伏神另取本位飞神；跨位墓绝仅列原爻目标与其他原动爻，动绝仅为表格结构投影。土巳生绝、金丑生墓、墓源空破冲和目标生扶分别保留；空破填实不一律解除，元忌墓绝不等于实际停用。未裁定取用、综合强弱、施力、事件吉凶或日期。火绝亥仅以易林兼容条文补证所读增删转录缺行，不引入其土绝效力规则。",
+      "sourceIds": [
+        "liuyao-zengshan-buyi",
+        "liuyao-yilin-buyi-compatible-fire-table"
+      ],
+      "repoRefs": [
+        "native/Engine/src/divination/tombExtinction.ts",
+        "native/Engine/src/divination/__tests__/TombExtinction.test.ts",
+        "native/Core/Sources/SujiCore/LiuyaoTombExtinctionTrace.swift",
+        "native/Engine/validation/research-divination/lifecycle-source-review.json"
+      ],
+      "confidence": "high_for_selected_object_bound_references_not_efficacy",
+      "status": "scoped_table_and_observable_conditions_with_source_counterexamples"
     }
   ]
 }

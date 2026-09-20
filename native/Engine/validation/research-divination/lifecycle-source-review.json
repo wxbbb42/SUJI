@@ -1,0 +1,264 @@
+{
+  "readAt": "2026-09-20",
+  "status": "independent-source-review-proposal-not-production-adoption",
+  "scope": "Liuyao 墓绝 facts and conditional efficacy only. No production edits, commit, historical Gregorian reconstruction, source collation, or outcome validation.",
+  "editionStatus": "Electronic transcriptions actually read; not collated with printed/scanned editions.",
+  "sources": [
+    {
+      "id": "zsgy-26x1",
+      "title": "增刪卜易/26又1",
+      "url": "https://zh.wikisource.org/wiki/增刪卜易/26又1",
+      "rawUrl": "https://zh.wikisource.org/w/index.php?title=%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93%2F26%E5%8F%881&action=raw",
+      "text": "{{Header2\n | title = [[增刪卜易]]\n | author = 野鶴老人\n | section = 生旺墓絕章第又二十六\n}}{{Textquality|50%}}\n<onlyinclude>\n長生、沐浴、冠帶、臨官、帝旺、衰、病、死、墓、絕、胎、養。予得驗者，只驗生旺墓絕，其餘不驗，不必用之。\n\n金長生在巳，旺在酉，墓在丑，絕在寅。\n\n木長生在亥，旺在卯，墓在未，絕在申。\n\n土水長生在申，旺在子，墓在辰，絕在巳。\n\n且如主事爻屬木，若在亥日占卦卽主事爻長生於亥日。若在卯日占卦，木旺於卯。若在未日占卦，木墓於未。若在申日占卦，木絕於申，其餘仿此。又如主事爻屬木，動而變出亥水者，謂之化長生，動而變出卯木者謂之化旺，動而變出未土者謂之化墓，動而變出申金者謂之化絕，餘仿此。\n\n覺子曰：金𨿽長生在巳，且宜金爻旺相，或日月動爻生扶，再遇巳日占卦，或是卦中動出巳爻，或是金爻動而化出巳火，皆謂長生。倘若金爻休囚無气，再遇巳午火多者，烈火煎金，論克不論生也。金爻𨿽墓於丑土，若得未土沖動，或卦中土多生金，論生不論墓也。土爻𨿽絕於巳，必須休囚無气，又逢巳爻謂之絕。若土爻旺相，或得日月動爻生扶，再遇巳爻，巳火反能生土，論生不論絕也。巳爻𨿽長生於寅，倘日月動爻及變出之爻又逢申金者，謂之三刑，論刑不論生也。古以土爻長生在申，又曰土長生在寅，無處考證，予以天時考之，常見土臨父母。有申日雨者，亦有子日雨者；又見土臨子孫，有申日晴者，亦有子日晴者。故知土長生於申，旺於子，實知土寄生於申而無疑也。\n\n曾於午月己卯日占妻病得震之豐\n<pre>\n妻財戌土ㄨ世　子孫巳火⚊\n官鬼申金⚋　　妻財未土⚋\n子孫午火⚊　　官鬼酉金⚊\n妻財辰土⚋應　妻財辰土⚋\n兄弟寅木⚋　　兄弟寅木⚋\n父母子水⚊　　父母子水⚊\n</pre>\n\n辰土財爻爲用神，近病逢沖卽愈，許之當愈於辰日，不然酉日必愈，後因連日昏沈，竟於子日起牀，許辰日愈者，辰土逢值之日也。許酉日者，辰與酉合動而逢合之日也，今愈子日辰土財爻旺於子也。\n\n李我平曰：生旺墓絕之論，金生在巳，木生在亥，水生在申，火生在寅，四大長生，理之正也。惟土寄生，未得關入。法云：火土長生在寅。知子上是胞胎，此卽土寄生於寅。今五行家戌土生寅己土生酉。[[易冒]]𨿽曰：惟土之長生不一，山中有坤土生於申，若分陰陽，則戌土生寅己土生寅，實未得其據。此專以天時考證者土長生於申，萬古之不易也。</onlyinclude>\n{{PD-old}}",
+      "archivedTextSha256": "630f38b037ae720e90e55faff10a1c044f7edf9e3a85ce7dc645b8693ada2008",
+      "archivedTextBytes": 2801,
+      "sha256": "630f38b037ae720e90e55faff10a1c044f7edf9e3a85ce7dc645b8693ada2008",
+      "rawRecheckedAt": "2026-09-20",
+      "rawEqualsArchivedText": true
+    },
+    {
+      "id": "zsgy-15",
+      "title": "增刪卜易/15",
+      "url": "https://zh.wikisource.org/wiki/增刪卜易/15",
+      "rawUrl": "https://zh.wikisource.org/w/index.php?title=%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93%2F15&action=raw",
+      "text": "{{Header2\n | title = [[增刪卜易]]\n | author = 野鶴老人\n | section = 動變生克沖合章第十五\n}}{{Textquality|50%}}\n<onlyinclude>\n卦有動爻，動而必變，夫變出之爻能生克沖合本位之動爻，不能生克他爻，而他爻與本位之動爻，亦不能生克變爻。\n\n例：令子月卯日占得坤卦變火地晉\n<pre>\n子孫酉金ㄨ世　父母巳火⚊\n妻財亥水⚋　　兄弟未土⚋\n兄弟丑土ㄨ　　子孫酉金⚊\n官鬼卯木⚋應　官鬼卯木⚋\n父母巳火⚋　　父母巳火⚋\n兄弟未土⚋　　兄弟未土⚋\n</pre>\n\n酉金發動，酉爲動爻，變出巳火，巳爲變爻，變爻之巳火能回頭克本位之酉金，並不能克生他爻。四爻之丑土能動而生世爻之酉金，不能生變出之酉金，而變出之酉金亦不能生克他爻。然則變爻誰能制之？惟日月能生之、克之、沖之、令之何也？日月如天，能生克動爻、靜爻、變爻、飛爻、伏爻、而諸爻不能傷日月。黃金策曰：爻傷日月，徒受其名。旣如此卦子水月建能克世爻變出之巳火。卯爲日建能沖變出之酉金是也，餘仿此。</onlyinclude>\n{{PD-old}}",
+      "archivedTextSha256": "0df8223b0c65616826c8caf86b592526b46b1dee51332e0c2707486f2d7ee4e5",
+      "archivedTextBytes": 1178
+    },
+    {
+      "id": "zsgy-26x3",
+      "title": "增刪卜易/26又3",
+      "url": "https://zh.wikisource.org/wiki/增刪卜易/26又3",
+      "rawUrl": "https://zh.wikisource.org/w/index.php?title=%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93%2F26%E5%8F%883&action=raw",
+      "text": "{{Header2\n | title = [[增刪卜易]]\n | author = 野鶴老人\n | section = 各門類應期總注章第又二十六\n}}{{Textquality|50%}}\n<onlyinclude>\n* 靜而逢值逢沖：如主事爻臨子水不動，後逢子日午日而應之，餘仿此。\n* 動而逢合逢值：如主事爻臨子水發動，後遇丑日子日而應之，餘仿此。\n* 太旺者逢墓逢沖：如主事爻臨午火，又遇巳火午月日占卦，或卦中巳午爻太多，後逢亥子日應之，又有戌日應之乃火入墓也，餘仿此。\n* 衰絕者，遇生遇旺：如主事爻屬金，占卦於巳午月日，卽是休囚無气，後逢土月日或至秋令當時，則旺矣！餘仿此。\n* 入三墓俱喜沖開：如主事爻臨午火，假使火墓於戌，後逢辰日則應之，餘仿此。\n* 遇六合亦宜相擊：如主事爻與月作合，或動而化合，吉凶必待沖開之月日應之。卽如主象臨子，與丑作合，後逢午未日應之是也，餘仿此，\n* 月破喜塡：如子月占，主事爻臨午火，乃爲月破。後逢未日應之，謂之破而逢合。又有逢午月應之，塡實之月，則不破矣！餘仿此。\n* 旬空最愛塡沖：詳[[增刪卜易/26|空亡論章]]。\n* 大象吉而受克，須待克神受克：如用神臨辰土，得日月動爻生扶，乃爲大象吉也。倘被寅卯克害，後逢申酉日沖克克神則吉，餘仿此。\n* 大象凶而受克，須防克者逢生：卽如前說，用神臨辰土，旣無日月動爻生扶，乃爲大象凶也。再逢寅卯克制者，後逢寅卯亥日，則凶。餘仿此。\n* 元神來助來扶，貴看用神衰旺，忌神來沖克，須觀元气興衰。\n* 化進神、逢值逢合：如申動酉，乃爲進神，爲福爲禍，有應申月日者，有應巳月日者，餘仿此。\n* 化退神、忌值忌沖：如酉化申，乃爲退神，爲凶爲吉，有應申月日者，有應寅日月者，餘仿此。\n* 問有應於獨發獨靜：詳獨發章。\n* 問有應於變爻動爻：如爻臨戌土，變出酉金，其吉凶有戌日應者，有酉日應者，餘仿此。\n* 勿謂爻之不驗，遠近當分：遠事定之以年月，近事應之於日時。再問有占遠應近，占近應遠，占月應年，占日應時，亦所當知。\n* 倘遇卦之不明，再占是一法。卦有恍惚者，再占一卦，不可妄斷。\n* 世空元動，須待元神逢值。如甲辰旬，占求財，得困之坎，主亥日得財，餘仿此。\n* 世衰元靜，必然是元气逢沖。如秋占圖謀，得困卦後逢巳日成事，餘仿此。</onlyinclude>\n{{PD-old}}",
+      "archivedTextSha256": "dc529f9dc18f3620c1975fe3463f744fd8732000c4f9d01eecf318d45528eea4",
+      "archivedTextBytes": 2590
+    },
+    {
+      "id": "zsgy-10",
+      "title": "增刪卜易/10",
+      "url": "https://zh.wikisource.org/wiki/增刪卜易/10",
+      "rawUrl": "https://zh.wikisource.org/w/index.php?title=%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93%2F10&action=raw",
+      "text": "{{Header2\n | title = [[增刪卜易]]\n | author = 野鶴老人\n | section = 元神忌神衰旺章第十\n}}{{Textquality|50%}}\n<onlyinclude>\n元神𨿽生用神，須要旺相，方可生得用神。元神能生用神者有五：元神旺相或臨日月或日月動爻生扶者一也。元神動化回頭生及化進神者二也。元神長生帝旺於日辰三也。元神與忌神同動四也。元神旺動臨空化空五也。\n\n占以臨空化空爲無用，非也。殊不知動不爲空，皆應沖空實空之日而有用也。故以爲吉能生用神，此五者乃有力之用神也，諸占皆吉。\n\n例：酉月辛亥日占求財得兌爲澤卦變雷水解卦\n\n<pre>\n父母未土⚋世　父母戌土⚋\n兄弟酉金○　　兄弟申金⚋\n子孫亥水⚊　　官鬼午火⚊\n父母丑土⚋應　官鬼午火⚋\n妻財卯木⚊　　父母辰土⚊\n官鬼巳火○　　妻財寅木⚋\n</pre>\n\n斷曰：寅日得見財，亦如心。彼曰：卯木妻財爻空而月破，又被金克，初爻巳火官𨿽生世，亥日沖散又化旬空何以爲吉。予曰：神兆機於動，予從來不言散，正因巳火化空，所以目下不見，待甲寅日出空而相見。寅木之財以生官，官來生世，果於寅日早見木日得財。\n\n元神𨿽現又有不能生用神者有六：元神休囚，不動或動而休囚又被傷克者一也。元神休囚又逢自空、月破二也。元神休囚動化退神三也。元神衰而又絕四也。元神入三墓五也。元神休囚動而化絕、化克、化破、化散六也。以上元神無力生用神，無用之元神也，𨿽有如無。\n\n忌神動而克害用神者有五：忌神旺相或遇日月動爻生扶或臨日月者一也。忌神動化回頭生扶退神者二也。忌神旺動動臨空化空三也。忌神長生帝旺與日辰四也。忌神與仇神同動五也。以上之忌神者如斧戟之忌神，諸占大凶。\n\n忌神𨿽動，不能克用神者有七：忌神休囚不動，而動休囚被日、月動爻克者一也。忌神靜臨空破二也。忌神入三墓三也。忌神衰動化退神四也。忌神衰而又絕五也。忌神動化絕化破、化克、化散六也。忌神與元神同動七也。此忌神者乃無力之忌神也，諸占化凶爲吉。以上論元神、忌神之有力、無力者，亦要用神有气，倘若用神無根謂之元神有力亦難生，忌神無力何足喜。\n\n例：巳月乙未日自占病得澤風大過變火風鼎卦\n\n<pre>\n妻財未土ㄨ　　子孫巳火⚊\n官鬼酉金○　　妻財未土⚋\n父母亥水⚊世　官鬼酉金⚊\n官鬼酉金⚊　　官鬼酉金⚊\n父母亥水⚊　　父母亥水⚊\n妻財丑土⚋應　妻財丑土⚋\n</pre>\n\n自占病世爻亥水爲用神，被未土忌神動而克水，幸得酉金元神亦動，忌神未土反生元神之酉金，金生亥水，接續相生，化凶而爲吉。其如亥水月沖日克，值月破而被克，𨿽有生扶生之不起，如樹無根，寒谷不回春也。果卒於癸卯日，應卯日者沖去元神之日也。此謂之用神無根，元神有力亦難生。</onlyinclude>\n{{PD-old}}",
+      "archivedTextSha256": "3afc338a9c87a3df29583d36cf608abe381d44a5736e33641ca6d95c1cf387b9",
+      "archivedTextBytes": 3128
+    },
+    {
+      "id": "zsgy-root",
+      "title": "增刪卜易（正文部分）",
+      "url": "https://zh.wikisource.org/wiki/增刪卜易",
+      "rawUrl": "https://zh.wikisource.org/w/index.php?title=%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93&action=raw",
+      "sha256": "897f963b938ec4582bc892465301b831a6439216f317841f44b888117704ca07",
+      "bytes": 326152,
+      "passages": [
+        {
+          "heading": "飛伏神章第二十八",
+          "startUnicodeCodepoint": 7771,
+          "endUnicodeCodepoint": 10778,
+          "text": "飛伏神章第二十八\n<br>\n<br>若用神不現﹐卽以日月爲用神﹐倘日月非用神者﹐則本宮首卦尋之﹐因本宮首卦﹐父子財官六親俱全之故耳﹐假令占得天風姤卦\n<br>\n<br>父母戌土⚊\n<br>兄弟申金⚊\n<br>官鬼午火⚊應\n<br>兄弟酉金⚊\n<br>子孫亥水⚊\n<br>父母丑土⚋世\n<br>\n<br>若占妻財﹐取財爻爲神﹐用此姤卦以寅卯木爻爲妻財﹐今六爻無寅卯﹐卽是用神不上卦﹐如於寅卯月占者﹐則以日月爲用神﹐倘非寅卯月﹐須在宮首卦﹐乾爲天卦內尋之。乾宮首卦乾爲天。\n<br>\n<br>父母戌土⚊世\n<br>兄弟申金⚊\n<br>官鬼午火⚊\n<br>父母辰土⚊應\n<br>妻財寅木⚊\n<br>子孫子水⚊\n<br>\n<br>此卦寅木妻財在二爻﹐卽以此寅木伏於姤卦亥水之下﹐姤卦二爻之亥水卽爲飛神﹐寅木妻財卽爲伏神﹐亥水而生寅木﹐謂之飛來生伏得長生﹐此用神不現﹐尋得伏神而遇生扶有用﹐亦爲用神﹐便作吉斷﹐餘仿此。又如占得天山遁\n<br>\n<br>父母戌土⚊\n<br>兄弟申金⚊應\n<br>官鬼午火⚊\n<br>兄弟申金⚊\n<br>官鬼午火⚋世\n<br>父母辰土⚋\n<br>\n<br>如占子孫﹐取子孫爲用神﹐此系乾宮卦﹐水爲子孫﹐今六爻並無亥水﹐亦是子孫不現﹐倘在亥子月日占者﹐卽以月日爲用神﹐若非亥子月日亦在乾爲天卦內尋之﹐乾爲天初爻之子水子孫以伏於遁卦初爻辰土之下﹐辰土卽是飛神﹐子水便是伏神﹐此乃飛來克伏﹐謂之飛克﹐伏神遭克害﹐名爲伏神受制﹐有用亦無用矣﹐卽作凶推﹐餘仿此。\n<br>\n<br>伏神有用者有六﹕伏神得日月生者一也﹔伏神旺相者二也﹔伏神得飛神生者三也﹔伏神得動爻生者四﹔伏神得遇日月動爻沖克飛神者五也﹔伏神得遇飛神空破休囚墓絕者六也。\n<br>\n<br>黃金策曰﹕空下伏神﹐易於引撥﹐此論近理﹐但有不獨飛神空亡而伏神得出﹐但得飛神臨破休囚入墓而伏神皆易出也﹐何也﹖飛神逢破墓衰空﹐𨿽有若無﹐所以伏神易於出現。\n<br>\n<br>此六皆有用之伏神也﹐𨿽曰不現亦如現矣。\n<br>\n<br>又伏神終不得出者有五。伏神休囚無气者一也﹔伏神被日月沖克者二也﹔伏神被旺相之飛神克者三也﹔伏神墓絕於日月飛爻者四也﹔伏神伏囚值空月破者五也。\n<br>\n<br>此五者乃無用之伏神也﹐𨿽有如無﹐終不能出。\n<br>\n<br>黃金策曰﹕伏居空地﹐事與心違。予得驗者﹐非此論也。凡用神旺相而遇旬空﹐出空之日則出矣。\n<br>\n<br>如卯月壬辰日占候文書何日得領﹐得山火賁卦\n<br>\n<br>官鬼寅木⚊\n<br>妻財子水⚋\n<br>兄弟戌土⚋應\n<br>妻財亥水⚊\n<br>兄弟丑土⚋\n<br>官鬼卯木⚊世\n<br>\n<br>午火父母爲用神﹐空而伏於二爻丑土之下﹐壓住難出﹐許甲午日出空必得﹐果得於甲午日。\n<br>\n<br>又酉月丙辰日占子病。得地風升\n<br>\n<br>官鬼酉金⚋\n<br>父母亥水⚋\n<br>妻財丑土⚋世\n<br>官鬼酉金⚊\n<br>父母亥水⚊\n<br>妻財丑土⚋應\n<br>\n<br>黃金策曰﹕空下伏神﹐易於引撥﹐此卦午火子孫伏於丑土之下﹐丑土旬空伏易出﹐許午日子孫出現必愈﹐果於午日起牀。\n<br>\n<br>以上用神不現﹐皆在本宮首卦尋之﹐古法又有凡得八純首卦用神若值空破﹐又在他宮尋之﹐比如占得乾爲天內有用神空破衰絕者﹐往坤宮尋之﹐謂之乾坤來往互換﹐易林補遺又以歸魂卦取離宮第四卦也。\n<br>\n<br>野鶴曰﹕何必如此﹖用神衰敗則禍福已知矣﹐爲何不再占一卦合斷﹖予於用神不現﹐卽有伏神亦不用之﹐再占兩卦用神必現。\n<br>\n<br>一日到一宅上見醫者滿座。卯月丙辰日占父病得地雷復卦\n<br>\n<br>子孫酉金⚋\n<br>妻財亥水⚋\n<br>兄弟丑土⚋應\n<br>兄弟辰土⚋\n<br>官鬼寅木⚋\n<br>妻財子水⚊世\n<br>\n<br>父母用神不現﹐明知巳火父母伏於二爻寅木之下﹐旺木以生巳火﹐飛來生伏﹐必愈之癥﹐不以此斷﹐令再卜之﹐占得山澤損\n<br>\n<br>官鬼寅木⚊應\n<br>妻財子水⚋\n<br>兄弟戌土⚋\n<br>兄弟丑土⚋世\n<br>官鬼卯木⚊\n<br>父母巳火⚊\n<br>\n<br>巳火父母明現於初爻﹐春占木旺火相﹐斷之卽愈﹐彼因病勢甚危﹐伊猶未決﹐次子又占﹐得漸之巽\n<br>\n<br>官鬼卯木⚊應　官鬼卯木⚊\n<br>父母巳火⚊　　父母巳火⚊\n<br>兄弟未土⚋　　兄弟未土⚋\n<br>子孫申金⚊世　子孫酉金⚊\n<br>父母午火ㄨ　　妻財亥水⚊\n<br>兄弟辰土⚋　　兄弟丑土⚋\n<br>\n<br>予疑曰﹕兩卦俱當卽愈﹐如何此卦亥水回頭克父母﹐忽而悟曰﹕是也﹐前兩卦巳火旺不受傷克﹐乃應目前之愈﹐此卦亥水克父﹐今冬難延﹐卽到前令自占﹐此卦竟於前卦相同﹐再請夫人卜之﹐又得此卦。\n<br>\n<br>予連見此卦﹐毛骨松然﹐有神乎﹖無神乎﹖占父亥水回頭克父﹐自占病亥水克世﹐妻占夫亥水克夫﹐三卦雷同﹐同如一手推出﹐今冬之危﹐扁鵲亦難爲矣﹐予且不言﹐只以前卦斷目前之愈﹐問請醫曰﹕卦中不得見﹐列位各見何如﹖曰﹕病勢甚險﹐遂公議一方﹐對癥便好﹐不然只看陰功德行耳﹐內有一位冷笑不言﹐予請問姓﹐答曰﹐姓壽﹐因私問曰﹕此公之祥﹐何如﹖彼曰﹕我可治之﹐不服我藥﹐柰何。予暗囑其子曰﹕太翁之病﹐須用姓壽者治之。次早壽姓來謝﹐予問將來何如﹖壽曰﹕目下不妨﹐今冬難保。予曰﹕公言與數相合﹐眞神醫也。果絕於亥月﹐予之不取伏神﹐多占幾卦以決禍福而更穩。卽知目前之生﹐又知將來之死﹐非多占之力耶﹖\n<br>\n<br>李我平曰﹕古法用伏神𨿽有驗﹐然伏神之衰旺休囚刑沖克害月破旬空亦有難於把握者﹐此謂多占兩卦又有用神﹐眞祕法也﹐以此之祕﹐急欲傳世﹐眞婆心也。或曰﹕多占兩卦﹐𨿽有詩言﹐不敢再三﹐然亦有再占者﹐何爲祕訣﹖予曰﹕旣知再占﹐何故用神不現而尋伏神﹐伏神無用又尋互卦﹐互之不得又尋於化﹐況易冒變互章中所存占驗﹐非惟牽彊且錯誤頗多。\n<br>\n<br>有子月戊寅日占官得困之兌卦\n<br>\n<br>父母未土⚋　　父母未土⚋\n<br>兄弟酉金⚊　　兄弟酉金⚊\n<br>子孫亥水⚊應　子孫亥水⚊\n<br>官鬼午火⚋　　父母丑土⚋\n<br>父母辰土⚊　　妻財卯木⚊\n<br>妻財寅木ㄨ世　官鬼巳火⚊\n<br>\n<br>彼斷曰﹕飛爻午之官已臨破矣﹐巳官伏神長生於寅﹐至孟春必得升遷。予斷之﹕黃金策曰﹐飛爻變爻俱無用神者﹐始尋伏神。此卦初爻寅木變出巳火官星﹐孟春官遇長生﹐且財爻獨發亦生官矣。不曰變出之官而曰伏神者﹐何也﹖幸次卦伏神變爻皆巳火也。倘後人遇他卦﹐亦執此爲法﹐用變爻乎﹖用神乎﹖非傳世教人之法而不取也。觀於化章中之占驗更爲可笑﹐有辛卯年丙申子日占存亡﹐得觀之萃\n<br>\n<br>妻財卯木○　　父母未土⚋\n<br>官鬼巳火⚊　　兄弟酉金⚊\n<br>父母未土ㄨ世　子孫亥水⚊\n<br>妻財卯木⚋　　妻財卯木⚋\n<br>官鬼巳火⚋　　官鬼巳火⚋\n<br>父母未土⚋應　父母未土⚋\n<br>\n<br>彼斷曰﹕水爲子孫不現﹐卻得丙月辛年﹐丙辛化水﹐後至亥月甲辰日申子辰合成水局﹐亥月而歸。予斷曰﹕世爻未土發動化出亥水子孫﹐是亥月卽見子也﹐世與子孫亥卯未三合成局﹐明明父子相逢﹐何故而取於化﹖卽使卦中亥水不現﹐子水日建亦作用神﹐疊疊用神而不取﹐左支右吾﹐以取於訛﹐是誤後人﹐非教後人也。\n<br>\n<br>"
+        },
+        {
+          "heading": "隨鬼入墓章第三十",
+          "startUnicodeCodepoint": 16174,
+          "endUnicodeCodepoint": 18430,
+          "text": "隨鬼入墓章第三十\n<br>\n<br>古有日墓﹑動墓﹑化墓之三墓。世爻隨鬼入墓﹑本命隨鬼入墓﹑卦身隨鬼入墓﹑世身隨鬼入墓。\n<br>\n<br>覺子曰﹕執此數論﹐若逢辰戌丑未之日﹐竟不敢占卦﹐非世臨鬼﹑卽卦身臨鬼﹑卽本命臨鬼﹐然又不獨辰戌丑未日而他日亦不敢占﹐何也﹖卜卦之中不免有二三墓爻發動﹐非世命而入﹑卽二身而入﹑及動而化墓﹑非世爻動化﹑卽二身動化﹐再不然難保其本命不化墓也﹐一卦之中不必看刑沖克害破散絕空﹐凡占疾病凶危之事﹐只以隨鬼入墓卽知凶吉也﹐予屢於疾病之占卦﹐卦卦畱神﹐見世爻旺者二身隨鬼入墓而不死也。本命隨鬼入墓而不死也﹐存畱驗﹐不驗又試﹐試之不驗﹐而再試之﹐一而十﹐十而百﹐全不驗者﹐始盡刪之﹐便是世爻用爻隨鬼入日墓入動墓或動而化墓﹐亦是休囚無气始見危﹐若旺而有扶亦有求解。\n<br>\n<br>如申月戊辰日占夫病癸亥命\n<br>\n<br>子孫戌土⚊應　兄弟巳火⚊\n<br>妻財申金○　　子孫未土⚋\n<br>兄弟午火⚊　　妻財酉金⚊\n<br>官鬼亥水⚊世　官鬼亥水⚊\n<br>子孫丑土⚋　　子孫丑土⚋\n<br>父母卯木⚊　　父母卯木⚊\n<br>\n<br>斷曰﹕妻占夫﹐亥水官星爲用神﹐墓於辰日﹐乃夫星夫命皆入墓於辰日﹐古法斷之必死﹐予曰﹕不獨不死﹐明日愈。何也﹖辰日沖動戌土以生申金﹐因世爻亥水空亡不受其生﹐明日己巳沖起亥水﹐得遇金生﹐其病如失﹐果於次日大愈。\n<br>\n<br>又如戌月甲寅日會試能連捷否﹖\n<br>\n<br>父母戌土ㄨ　　妻財寅木⚊\n<br>兄弟申金⚋　　子孫子水⚋\n<br>官鬼午火○世　父母戌土⚋\n<br>兄弟申金⚊　　兄弟申金⚊\n<br>官鬼午火⚋　　官鬼午火⚋\n<br>父母辰土⚋應　父母辰土⚋\n<br>\n<br>斷曰﹕世爻隨官入三墓﹐動墓﹐化墓﹐又入月德之墓﹐明歲辰年沖開墓庫﹐發榜之期﹐又遇辰月沖開三墓﹐不獨連登﹐定中狀元。日月合成官局旺相當時﹐卦之全美﹐如玉無暇﹐果然如是。\n<br>\n<br>又如申月己丑日占病壬申命得雷風恆\n<br>\n<br>妻財戌土⚋應\n<br>官鬼申金⚋\n<br>子孫午火⚊\n<br>官鬼酉金⚊世\n<br>父母亥水⚊\n<br>妻財丑土⚋\n<br>\n<br>此卦日命隨鬼入墓﹐世爻隨鬼入墓﹐世身又落旬空﹐卦身又臨月破﹐若執古法斷之﹐百無一生﹐因世爻旺相﹐許未日愈﹐果起牀於未日者﹐沖開丑墓之日而出也。古法以墓爲沈滯昏迷之象﹐此說近理﹐此人病中不思湯藥﹐昏昏沈沈﹐至未日忽然更醒﹐不藥而愈﹐豈可一槪謂之隨鬼入墓也。\n<br>\n<br>又如未月戊辰日占已定重罪可蒙赦免否\n<br>\n<br>兄弟寅木⚊應　兄弟寅木⚊\n<br>父母子水⚋　　父母子水⚋\n<br>妻財戌土⚋　　妻財戌土⚋\n<br>官鬼酉金○世　妻財丑土⚋\n<br>父母亥水⚊　　兄弟卯木⚊\n<br>妻財丑土ㄨ　　子孫巳火⚊\n<br>\n<br>世爻隨鬼入動墓﹐又動而化墓﹐古以爲凶﹐予以爲吉。日月生世﹐丑墓月破﹐破羅破网﹐容易而出。明歲酉年定蒙赦免。果於次年辰月蒙赦而出。予因屢試而得驗者﹐只驗世爻入墓有三﹕世爻隨鬼入日墓﹐入動墓﹐動而化墓。此三墓者﹐自占看世爻﹐旺相者非眞﹐代占看用神﹐用神旺相者非眞﹐惟世爻休囚被克﹐而又入墓者﹐是也。墓神破﹐日月動爻沖破﹐亦非眞也。墓破如破网﹐容易而出矣。\n<br>\n<br>占功名﹐世旺得地﹐沖開墓庫之年月成名﹐世若空破休囚﹐始終難成之象﹔占身命﹐世旺得地﹐沖開墓庫之年月發迹。世爻空破休囚﹐終身寂寞﹐如日月之無光也﹔占出仕﹐出行得世旺得地沖開墓庫之日月遂心。世若空破休囚﹐多見去而不返。占求財圖利﹐世旺者﹐沖墓之日月而成﹐若空破休囚﹐終無成日﹔占婚姻﹐世旺得地及財爻有气而生世者﹐沖墓之日月而成﹐若空破休囚﹐非病於他鄕卽流落也﹔占胎產﹐子孫入動墓化墓者﹐旺則沖墓之日月卽生。財爻空破休囚﹐妻遭產厄﹐子孫空破﹐子必危亡﹔占入公門﹐世旺得地﹐沖墓之年月如心﹐空破休囚﹐常遭枷鎖刑獄﹔占家宅﹐世旺者﹐或得財爻生世﹐沖開之年月興家。空破休囚﹐身衰家破。占祖塋者與家宅同﹔惟占新塋未葬者﹐旺相休囚皆不宜也﹔占偸關偸險﹐世爻旺相﹐又得生扶﹐難而無危﹐憂心難釋﹐鬼在身邊故耳﹔占訟事﹐世旺者得理﹐空破休囚被克者﹐必遭刑獄。\n<br>\n<br>諸占世爻若旺﹐墓爻而值空破﹐待墓爻塡實之日月而吉﹔世爻空破休囚者﹐又在墓爻塡實這日月而凶。\n<br>\n<br>古以世臨破鬼﹐如占防患﹐禍患潛消﹐予以爲非。月破旣爲白虎鬼﹐目下𨿽無妨﹐實破之年月非吉。\n<br>\n<br>如申月己未日占賊來否得大畜之泰卦\n<br>\n<br>官鬼寅木○　　子孫酉金⚋\n<br>妻財子水⚋應　妻財亥水⚋\n<br>兄弟戌土⚋　　兄弟丑土⚋\n<br>兄弟辰土⚊　　兄弟辰土⚊\n<br>官鬼寅木⚊世　官鬼寅木⚊\n<br>妻財子水⚊　　妻財子水⚊\n<br>\n<br>彼時土賊興發常來﹐鄕人了無寧日。一日忽報賊來﹐此人攜妻而避﹐因小女未隨﹐復去抱女﹐同遭賊害﹐夫應自身之死者﹐世臨破鬼而入日墓﹐女之死者﹐上爻鬼變子孫之故耳。豈可謂世臨破鬼﹐禍患消耶。\n<br>\n<br>﹝鬼臨月破﹐不動者不驗。﹞\n<br>\n<br>李我平曰﹕此論𨿽隨墓令人刮目﹐每卦之動墓多見﹐倘再遇辰戌丑未之日﹐疊疊墓爻﹐若兼世命二身﹐非此卽彼﹐以入墓也﹐眞無暇他論﹐況諸書章不言及旺衰﹐槪以隨墓不吉﹐如占功名旺官臨身﹐豈可曰履仕途而不返﹐占防災世臨月破又隨鬼入墓﹐豈可竟曰無憂﹐顚倒凶吉﹐不得不爲正之。\n<br>\n<br>\n<br>"
+        }
+      ]
+    }
+  ],
+  "archivedComparators": [
+    {
+      "id": "ylyb-1",
+      "title": "易林補遺/1",
+      "archive": "native/Engine/validation/research-divination/fanfu-additional-source-review.json",
+      "url": "https://zh.wikisource.org/wiki/易林補遺/1",
+      "sha256": "abf77e78f3fbf77e33c2520e2a3525898894e5f5b0863fb5fa2c44619daab967",
+      "passages": [
+        {
+          "startUnicodeCodepoint": 1521,
+          "endUnicodeCodepoint": 1807,
+          "quote": "卦之墓絕非宜，遠究伪真之辨。 \n\n凡卦變爲墓絕者，事事皆凶，其中有絕而不絕，墓而不墓者也。且如离卦爲火變干卦，地福诀云：戌亥属干垣，故此戌亥二爻乃干卦之本也，离火墓于戌、絕于亥，凡若甲子旬占，戌亥皆空，此火亦非墓絕也，又如甲辰旬丁未日卜得兑之艮卦，兑者属金，丑寅乃艮卦之本，金絕在寅，寅空絕于何处?金墓在丑，丑得未日冲開，此乃非絕非墓也。更論占長子病，七月丙辰日，卜得恒卦九四爻動之爲升卦，内卦不動則不言也，外卦震動化坤子孫，况在震宫，震者又爲長男之用，墓于坤宫未内，絕居坤象申中，况申不空而未不破，此是真墓真絕也，卦中虽有用爻而長男木象真投墓絕者，此子必死無疑也。 \n\n"
+        },
+        {
+          "startUnicodeCodepoint": 9623,
+          "endUnicodeCodepoint": 9761,
+          "quote": "土逢巳絕不可言生，金遇巳生終难言克，此憑日月變爻而断，非因世應動象而推。巳爻持世必傷金，巳象動兴能助土。土爻临巳日、巳月或變出巳爻，皆爲絕論。又如卦内巳爻持世或動出交重，便言生土之功亦非絕也。又論金變巳爻，乃是自身化入長生，豈云傷克。但若卦中巳動能伐其金，永不作長生也。 \n\n"
+        }
+      ],
+      "use": "Fire tomb/extinction mapping is shared corroboration only; do not adopt this book's trigram-direction or categorical efficacy rules."
+    }
+  ],
+  "proposal": {
+    "name": "增删卜易五行墓绝结构关系候选；效力分开待断",
+    "assessmentStatus": "conditional-structure",
+    "efficacyEstablished": false,
+    "table": [
+      {
+        "element": "木",
+        "tomb": "未",
+        "extinction": "申",
+        "basis": "zsgy-26x1 explicit"
+      },
+      {
+        "element": "火",
+        "tomb": "戌",
+        "extinction": "亥",
+        "basis": "tomb explicit in zsgy-26x3; extinction inferred from zsgy-26x1 火生寅 plus listed phase order and forward direction shown by other four rows, corroborated explicitly in ylyb-1; omitted as a direct row in this zsgy-26x1 transcription"
+      },
+      {
+        "element": "土",
+        "tomb": "辰",
+        "extinction": "巳",
+        "basis": "zsgy-26x1 explicit; no stem/yin-yang split"
+      },
+      {
+        "element": "金",
+        "tomb": "丑",
+        "extinction": "寅",
+        "basis": "zsgy-26x1 explicit"
+      },
+      {
+        "element": "水",
+        "tomb": "辰",
+        "extinction": "巳",
+        "basis": "zsgy-26x1 explicit"
+      }
+    ],
+    "objectScope": [
+      "Every original object: calculate its own element against month/day, its own changed branch only when that position actually moves, and other actual original moving branches. Mark moving-extinction scope as applying the chosen structural table, not an exhaustive textually enumerated efficacy rule.",
+      "Every actual changed object: calculate its own element against month/day only. Do not give it interactions with other changed rows, unrelated original rows, or a second own-change relation.",
+      "Every hidden object: calculate its own element against month/day and its own flying original branch. Preserve separate path/context from the original/flying object.",
+      "Month/day structural applicability has direct support in chapter17 and hidden chapter28; changed objects under month/day authority are explicit in chapter15. Extending the common table to every such object is a transparent representation policy.",
+      "Other static original branches are not moving-tomb actors. The hidden flying relation is a separate explicitly supported exception to this moving-only actor scope.",
+      "Source support must remain distinct: original/hidden objects may record original moving support, hidden flying support separately; changed objects receive no cross-line original moving support."
+    ],
+    "efficacyConditions": [
+      {
+        "condition": "tomb clash/opening candidate",
+        "basis": "zsgy-26x3 入三墓俱喜沖開；zsgy-root chapter30 墓神破，日月動爻沖破，亦非眞也",
+        "restriction": "Structural conflict alone records a candidate condition; it does not settle actor efficacy, selected object, overall target strength, or event outcome."
+      },
+      {
+        "condition": "gold at 丑",
+        "basis": "zsgy-26x1 金爻𨿽墓於丑土，若得未土沖動，或卦中土多生金，論生不論墓也",
+        "restriction": "Do not turn 土多 into an invented count threshold; preserve support and conflict observations and leave aggregation unresolved."
+      },
+      {
+        "condition": "earth at 巳",
+        "basis": "zsgy-26x1 土爻𨿽絕於巳，必須休囚無气，又逢巳爻謂之絕。若土爻旺相，或得日月動爻生扶，再遇巳爻，巳火反能生土，論生不論絕也",
+        "restriction": "Raw absolute-place fact and final absolute efficacy differ. Do not directly set unavailable based on branch lookup."
+      },
+      {
+        "condition": "strong target at tomb",
+        "basis": "zsgy-root chapter30 旺相者非眞；惟世爻休囚被克，而又入墓者，是也",
+        "restriction": "This is source conditional reasoning, not permission to infer target strength from one supportive fact."
+      },
+      {
+        "condition": "tomb actor empty or broken; later filled",
+        "basis": "zsgy-root chapter30 諸占世爻若旺，墓爻而值空破，待墓爻塡實之日月而吉；世爻空破休囚者，又在墓爻塡實這日月而凶",
+        "restriction": "Filling is not uniformly release or favorable. Keep it as a conditional timing factor, with no inferred Gregorian date or success outcome."
+      },
+      {
+        "condition": "hidden object and flying object have different signs",
+        "basis": "zsgy-root chapter28 伏神得遇飛神空破休囚墓絕；伏神墓絕於日月飛爻",
+        "restriction": "Flying object's own tomb/extinction may favor emergence; hidden object's tomb/extinction may obstruct it. Do not merge their states or impose a global winner when both supportive and obstructing facts are present."
+      }
+    ],
+    "unresolved": [
+      "selected-object",
+      "target-strength",
+      "actor-effectiveness",
+      "event-outcome"
+    ]
+  },
+  "independentCalculationCases": [
+    {
+      "id": "five-element-map",
+      "kind": "synthetic-fact-oracle",
+      "inputs": "Each of 木火土金水 against each of 子丑寅卯辰巳午未申酉戌亥",
+      "expectation": "Exactly table tomb branch -> 墓; table extinction branch -> 绝; all ten other branches -> neither. Same table for yin/yang branches of same element, no Bazi stem table."
+    },
+    {
+      "id": "changed-object-kept-distinct",
+      "kind": "manually-derived-structural-case",
+      "inputs": {
+        "hexagram": "巽为风",
+        "movingPositions": [
+          1,
+          3
+        ],
+        "changedHexagram": "风泽中孚",
+        "month": "申",
+        "dayBranch": "巳"
+      },
+      "expectation": "巽内卦原支初起丑亥酉，兑内卦变支初起巳卯丑。Original position3 酉金 -> own changed 丑土 is 化墓; actual changed position3 丑土 at 巳日 is 绝位. Original金's 巳日 is neither 墓 nor 绝. Original position1 丑土 is another actual moving tomb actor for original金 at3. No cross-line moving actor applies to changed丑土; same-position 化墓 is directed at original金, not at changed土.",
+      "limitations": "These are mechanical facts, not a conclusion that changed土 is ineffective; chapter26 exception and target support remain."
+    },
+    {
+      "id": "hidden-path-not-flying-path",
+      "kind": "manually-derived-structural-case",
+      "inputs": {
+        "hexagram": "天山遁",
+        "movingPositions": [],
+        "month": "申",
+        "day": "己卯",
+        "hiddenObject": "初爻子水",
+        "flyingObject": "初爻辰土"
+      },
+      "expectation": "Hidden 子水 has flying 墓 at 辰. Original/flying 初爻辰土 is its own distinct object; it does not inherit hidden水's relation. No moving-tomb positions exist. Hidden水 also receives month申金 generation, so the source's positive and adverse conditions coexist; do not conclude final emergence."
+    },
+    {
+      "id": "static-tomb-is-not-moving-tomb",
+      "kind": "source-anchored-counterexample",
+      "inputs": {
+        "hexagram": "雷风恒",
+        "movingPositions": [],
+        "month": "申",
+        "day": "己丑",
+        "target": "三爻酉金"
+      },
+      "expectation": "Target has 日墓 丑. The static 初爻丑土 is not a moving-tomb actor; moving list remains empty. Chapter30's described future 未冲丑 is a tomb-opening factor, not verification of medical outcome."
+    },
+    {
+      "id": "earth-extinction-is-conditional",
+      "kind": "source-anchored-counterexample",
+      "inputs": {
+        "element": "土",
+        "contextBranch": "巳",
+        "support": "day/month/moving support or 旺相 if independently established"
+      },
+      "expectation": "Table says absolute-place 巳; chapter26 explicitly permits 论生不论绝 when supported/strong. A raw 绝 fact cannot imply unavailable/blocked."
+    },
+    {
+      "id": "gold-tomb-opening",
+      "kind": "synthetic-fact-oracle",
+      "inputs": {
+        "element": "金",
+        "tombActorBranch": "丑",
+        "currentDayBranch": "未"
+      },
+      "expectation": "Table墓丑 survives as a structural relation; 未冲丑 is independently observable tomb-opening candidate. Still do not establish target/actor efficacy or outcome."
+    },
+    {
+      "id": "fill-is-not-always-release",
+      "kind": "source-anchored-counterexample",
+      "inputs": "Same empty/broken tomb actor; alternate strong versus weak/attacked target contexts",
+      "expectation": "Chapter30 assigns opposite possible outcomes on filling, so one unconditional fill=>released/usable rule is contradicted."
+    }
+  ],
+  "limitations": [
+    "Chapter26x1 omits the complete fire row; do not claim all five rows were copied verbatim from that page. The fire extinction choice is an explicit derivation with separately scoped corroboration.",
+    "The same electronic root contains modern 原剑增订说明 and an added 生旺墓绝 table. That table is not treated as a 野鹤 primary passage.",
+    "Chapter28 positive/negative hidden conditions overlap; this review does not supply a total precedence algorithm.",
+    "Current metadata cannot independently establish 旺相/休囚无气 or effectiveness of a moving actor from one raw support branch.",
+    "Source quotations include reported outcomes only as transmitted text. No clinical, predictive, empirical, or historical-outcome validation is claimed.",
+    "This review does not resolve three-combination or fanfu policies; their separate archives were read for context only."
+  ],
+  "reviewCorrections": [
+    {
+      "date": "2026-09-20",
+      "supersededReading": "Chapter30 戌月甲寅会试 example's line glyph/branch consistency is not silently repaired; use its prose as relation support, not a fully verified hexagram fixture.",
+      "correction": "Earlier review mistook 乾/震 shared najia branches for a glyph/branch inconsistency. The transmitted glyphs independently give 雷山小过→艮为山, bottom-up values [8,8,7,9,8,6], moving positions4,6; no textual glyph repair is necessary. 未月戊辰 example similarly gives 山风蛊→山泽损, values [6,7,9,8,8,7], moving positions1,3. Hexagram names are calculated identifications, not names supplied by those two source headings."
+    }
+  ]
+}

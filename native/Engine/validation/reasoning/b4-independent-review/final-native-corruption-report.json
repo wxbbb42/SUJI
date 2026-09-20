@@ -1,0 +1,318 @@
+[
+  {
+    "actualToolUTF16" : 29466,
+    "capacityError" : false,
+    "case" : "native-capacity-id-32",
+    "deliveredEvidence" : [
+      "cast-record"
+    ],
+    "projectedUTF16" : 29466,
+    "savedFull" : true,
+    "savedReceipts" : 1
+  },
+  {
+    "actualToolUTF16" : 29563,
+    "capacityError" : false,
+    "case" : "native-capacity-id-129",
+    "deliveredEvidence" : [
+      "cast-record"
+    ],
+    "projectedUTF16" : 29563,
+    "savedFull" : true,
+    "savedReceipts" : 1
+  },
+  {
+    "actualToolUTF16" : 29564,
+    "capacityError" : false,
+    "case" : "native-capacity-id-130",
+    "deliveredEvidence" : [
+      "cast-record"
+    ],
+    "projectedUTF16" : 29564,
+    "savedFull" : true,
+    "savedReceipts" : 1
+  },
+  {
+    "actualToolUTF16" : 29634,
+    "capacityError" : false,
+    "case" : "native-capacity-id-200",
+    "deliveredEvidence" : [
+      "cast-record"
+    ],
+    "projectedUTF16" : 29634,
+    "savedFull" : true,
+    "savedReceipts" : 1
+  },
+  {
+    "authenticated" : false,
+    "case" : "missing-layout-metadata",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "paths-missing",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "path-index-negative",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "path-index-too-large",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "path-index-float",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "path-index-null",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "states-missing",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "states-reversed",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "states-extra",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "state-index-negative",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "state-index-too-large",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "state-index-float",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "metadata-null",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "metadata-version-2",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "metadata-extra-key",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "columns-reordered",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "tuple-short",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "tuple-object",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "tuple-index-invalid",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "tuple-state-invalid",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "tuple-path-invalid",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "line-missing-rules",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "valid-state-tamper",
+    "expandAccepted" : true,
+    "factCount" : 893,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "valid-question-tamper",
+    "expandAccepted" : true,
+    "factCount" : 893,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "duplicate-dictionary-id",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "unused-dictionary-id",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "duplicate-path-dictionary",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "unused-path-dictionary",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "path-dictionary-invalid",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true,
+    "originalFactCount" : 893
+  },
+  {
+    "case" : "row-object-swap",
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "row-own-change-reversal",
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "false-final-efficacy",
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "actor-support-self",
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "changed-cross-actor",
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "context-day-branch-borrowed",
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "context-void-toggled",
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "missing-last-object",
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  }
+]

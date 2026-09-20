@@ -1,0 +1,116 @@
+{
+  "date": "2026-09-20",
+  "batch": "B4 object-bound Liuyao tomb/extinction",
+  "baseCommit": "9a3e01c28e7d3b94c5be90fdf12a0be858701c07",
+  "status": "local-verified-remote-pending",
+  "counts": {
+    "engine": 747,
+    "engineSuites": 53,
+    "core": 354,
+    "backend": 15,
+    "nativeUnit": 28,
+    "nativeUI": 3,
+    "sources": 52,
+    "claims": 66
+  },
+  "commands": [
+    "npm run typecheck --prefix native/Engine",
+    "npm test --prefix native/Engine",
+    "npm run build --prefix native/Engine",
+    "TZ=America/Los_Angeles swift test --package-path native/Core",
+    "npm test --prefix supabase",
+    "xcodebuild -project native/Suji.xcodeproj -scheme Suji -destination platform=iOS Simulator,id=09FF0B1D-9E60-4F2A-9465-3B156C88BD28 test (AppPersistenceTests,StoreRegressionTests,NatalDossierStoreTests,CastQuestionConfirmationTests,CastSupplementSessionTests,CastQuestionUITests)",
+    "python3 native/scripts/check-native-only.py",
+    "node scripts/ingest-mingli-kb.mjs",
+    "git diff --check"
+  ],
+  "evidenceLogs": {
+    "engine": {
+      "localPath": "/tmp/suji-b4-engine-full.log",
+      "sha256": "1c8fe3de4f2c6daa6994649a13545b4e8394cec040e24220ace7837db9ef4f81"
+    },
+    "core": {
+      "localPath": "/tmp/suji-b4-core-final.log",
+      "sha256": "4e13797e8e8df35560808f73dd7db36311672090d949ab727d84dad742eab7b3"
+    },
+    "backend": {
+      "localPath": "/tmp/suji-b4-backend.log",
+      "sha256": "7c74d492d6a3b38d1128ded2ac51a7d342304b401569450f2fe49d0c47ea763d"
+    },
+    "native": {
+      "localPath": "/tmp/suji-b4-native-final.log",
+      "sha256": "c29a5e2f7c33143a0b3e1d1a97e70d9053c2b07711ebe3f18ff844ab7d6660b3"
+    },
+    "capacity_red": {
+      "localPath": "/tmp/suji-b4-core-focused.log",
+      "sha256": "e3ec0ccced6d7962277079c9f17e36e89b871891e37770b2442cb2b18b64bf5c"
+    },
+    "review_red": {
+      "localPath": "/tmp/suji-b4-review-red.log",
+      "sha256": "1bfeec5c119a6596ebcdf726671ec83d9b815c0662e16838b6d12d92ecff65d0"
+    },
+    "escaped_red": {
+      "localPath": "/tmp/suji-b4-escaped-red.log",
+      "sha256": "249d292b0944fb78e8ed5e1138c21df712320bd3c8bec48e8180ca850259352c"
+    },
+    "focused_final": {
+      "localPath": "/tmp/suji-b4-review-green3.log",
+      "sha256": "a41fcffd333093e101ec2e8c8a9256475cc64f04ad002567e2689b31b86fe4c5"
+    }
+  },
+  "nativeResult": {
+    "devicesAndConfigurations": [
+      {
+        "device": {
+          "architecture": "arm64",
+          "deviceId": "09FF0B1D-9E60-4F2A-9465-3B156C88BD28",
+          "deviceName": "iPhone 17 Pro",
+          "modelName": "iPhone 17 Pro",
+          "osBuildNumber": "23F77",
+          "osVersion": "26.5",
+          "platform": "iOS Simulator"
+        },
+        "expectedFailures": 0,
+        "failedTests": 0,
+        "passedTests": 31,
+        "skippedTests": 0,
+        "testPlanConfiguration": {
+          "configurationId": "1",
+          "configurationName": "Test Scheme Action"
+        }
+      }
+    ],
+    "environmentDescription": "Suji · Built with macOS 27.0",
+    "expectedFailures": 0,
+    "failedTests": 0,
+    "finishTime": 1789905108.376,
+    "passedTests": 31,
+    "result": "Passed",
+    "runtimeWarnings": [],
+    "skippedTests": 0,
+    "startTime": 1789905034.461,
+    "statistics": [],
+    "testFailures": [],
+    "title": "Test - Suji",
+    "topInsights": [
+      {
+        "category": "Longest Test Runs",
+        "impact": "21% of duration",
+        "text": "1 longest test run with outlier durations exceeding 0.66s (three standard deviations)"
+      }
+    ],
+    "totalTestCount": 31
+  },
+  "resources": {
+    "native/Resources/mingli.js": "89908e9a461ecb1735a9474b72ed09e0d48d51dfe80fc73ae628591a03d56f71",
+    "native/Resources/engine-fixtures.json": "001029e39a2f81437222aea87e4779c05f273027822c5654615adf24465c8d14"
+  },
+  "independentReview": "native/Engine/validation/reasoning/b4-independent-review/README.md",
+  "limits": [
+    "Selected electronic transcriptions, not print collation.",
+    "Object references/observable conditions, no final selection, efficacy, outcome or Gregorian prediction.",
+    "Actual local ChatClient wire captured; backend validator invoked, no new DeepSeek inference.",
+    "Finite boundary samples do not prove unlimited multi-chart capacity.",
+    "Full core and extensions acceptance remain open."
+  ]
+}
