@@ -112,7 +112,7 @@ describe('professional liuyao audit: independently tabulated local facts', () =>
     const classical = cast([8,6,7,7,7,7], 'health');
     expect(classical.benGua.name).toBe('天山遯'); expect(classical.bianGua.name).toBe('天风姤');
     expect(classical.shiYao).toBe(2); expect(classical.lines[1].ganZhi).toBe('丙午');
-    expect(classical.lines[1].changed).toEqual({ ganZhi:'辛亥', wuXing:'水', liuQin:'子孙' });
+    expect(classical.lines[1].changed).toMatchObject({ ganZhi:'辛亥', wuXing:'水', liuQin:'子孙' });
     mockDay = '甲子';
     const changingVoid = cast([8,6,7,7,7,7]);
     expect(changingVoid.xunKong).toEqual(['戌','亥']);
@@ -133,6 +133,6 @@ describe('professional liuyao audit: independently tabulated local facts', () =>
       syntheticChangingVoid: changingVoid, syntheticChangingMonthBreak: changingBroken,
       syntheticHiddenClash: hiddenClash, syntheticMonthCombination: monthCombined,
     };
-    report.knownUnimplemented = ['per-line month/day five-element relationships','month combination','changed/hidden void and clash status','flying-hidden relationships','return generation/control','advance/retreat','dark movement versus day break','comprehensive strength and use-god resolution','conditional event timing'];
+    report.knownUnimplemented = ['flying-hidden relationships','return generation/control','advance/retreat','dark movement versus day break','comprehensive strength and use-god resolution','conditional event timing'];
   });
 });

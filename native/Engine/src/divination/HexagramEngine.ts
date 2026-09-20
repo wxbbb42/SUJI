@@ -4,6 +4,7 @@ import { findGuaByYao, GUA_64 } from './data/gua64';
 import { ganZhiForGua, liuQinForGua, yaoWuXingForGua, relationToMe } from './data/liuqin';
 import { TRIGRAMS } from './data/trigrams';
 import { getCalendarPillars } from '@engine/calendar/precision';
+import { lineContext, LINE_CONTEXT_SOURCE } from './lineContext';
 
 const BRANCHES = [...'子丑寅卯辰巳午未申酉戌亥'];
 const STEMS = [...'甲乙丙丁戊己庚辛壬癸'];
@@ -33,7 +34,6 @@ export class HexagramEngine {
     const yingYao = (shiYao + 2) % 6 + 1;
     const dayStem = STEMS.indexOf(pillars.day[0]);
     const dayBranch = BRANCHES.indexOf(pillars.day[1]);
-    const monthBranch = BRANCHES.indexOf(pillars.month[1]);
     const xunStartBranch = (dayBranch - dayStem + 12) % 12;
     const xunKong = [BRANCHES[(xunStartBranch+10)%12], BRANCHES[(xunStartBranch+11)%12]];
     const spiritStart = [0,0,1,1,2,3,4,4,5,5][dayStem];
@@ -43,24 +43,26 @@ export class HexagramEngine {
     const palaceElement = TRIGRAMS[benGua.palace].wuXing;
     const presentQin = new Set(Object.values(liuQin));
     const lines: HexagramLine[] = lineValues.map((value, i) => {
-      const position = i+1, branch = BRANCHES.indexOf(gzs[i][1]);
+      const position = i+1;
+      const context = lineContext(gzs[i],wxs[i],pillars.month,pillars.day,xunKong);
       const qin = liuQin[position as 1|2|3|4|5|6], hiddenQin = pureQin[position as 1|2|3|4|5|6];
       return {
         position, value, ganZhi:gzs[i], wuXing:wxs[i], liuQin:qin,
         liuShen:SIX_SPIRITS[(spiritStart+i)%6], isShi:position===shiYao, isYing:position===yingYao,
-        isChanging:changingYao.includes(position), isVoid:xunKong.includes(gzs[i][1]),
-        monthClash:(branch-monthBranch+12)%12===6,
-        dayClash:(branch-dayBranch+12)%12===6,
-        dayCombination:(branch+dayBranch)%12===1,
+        isChanging:changingYao.includes(position), context, isVoid:context.isVoid,
+        monthClash:context.month.clash,
+        dayClash:context.day.clash,
+        dayCombination:context.day.combination,
         // 变爻六亲仍以本卦宫五行为我，不改用变卦宫。
-        ...(changingYao.includes(position) ? {changed:{ganZhi:changedGzs[i],wuXing:changedWxs[i],liuQin:relationToMe(palaceElement,changedWxs[i])}} : {}),
-        ...(!presentQin.has(hiddenQin) ? {hidden:{ganZhi:pureGzs[i],wuXing:pureWxs[i],liuQin:hiddenQin}} : {}),
+        ...(changingYao.includes(position) ? {changed:{ganZhi:changedGzs[i],wuXing:changedWxs[i],liuQin:relationToMe(palaceElement,changedWxs[i]),context:lineContext(changedGzs[i],changedWxs[i],pillars.month,pillars.day,xunKong)}} : {}),
+        ...(!presentQin.has(hiddenQin) ? {hidden:{ganZhi:pureGzs[i],wuXing:pureWxs[i],liuQin:hiddenQin,context:lineContext(pureGzs[i],pureWxs[i],pillars.month,pillars.day,xunKong)}} : {}),
       };
     });
     const yongShen = this.selectYongShen(opts.questionType ?? 'general', opts.gender, liuQin, benGua, pillars.month, shiYao, lines);
     return {
       question:opts.question, questionType:opts.questionType ?? 'general', castTime:castTime.toISOString(), castGanZhi,
       benGua,bianGua,changingYao,liuQin,yongShen,lineValues,shiYao,yingYao,xunKong,lines,
+      ruleSources:[LINE_CONTEXT_SOURCE],
       yingQi:{description:'未推定应期；月日、动变与用神条件不足以给出可靠的具体日期',factors:['不使用固定周数或月份作为预测期限']},
       method:{algorithm:'jingfang-najia-v1',calendar:'Beijing civil time; exact solar-term month',dayBoundary:'zi-hour',caveats:[
         '旺相休囚死仅表示月建五行关系，不等于综合旺衰或事件结果',

@@ -180,3 +180,9 @@ Do not disable simulator signing: Keychain and App Group operations require the 
 - Distribution signing, release archive, App Store review and physical iOS-version coverage.
 
 The original rebuild changed no production schema and made no live AI/auth success claim. The managed-AI follow-up above adds a separate usage table/function and verifies the deployed provider path. Subscriptions and gift commerce remain outside the approved scope.
+
+## Core completion, Batch A — 2026-09-20
+
+Separate Liuyao original/changed/hidden calendar context and scoped Qimen void/horse/door/star-season facts are implemented, with returned provenance and native evidence indexing. Local checks pass: 609 Engine tests, 226 Swift Core tests (including 13 Node/JSC fixtures), 14 backend tests, TypeScript typecheck, regenerated bundle and native-only guard. The local Swift toolchain now runs; these are executed tests, not syntax-only results.
+
+Independent review reproduced an oversized two-chart verifier request. Compact lossless rows reduce the regression example from 129,308 to 83,574 UTF-16 characters; malformed nested source metadata is excluded. Both review findings were rechecked as resolved. New natural-language assertion bindings and the remaining rule chains are still open in the [core plan](../docs/superpowers/plans/2026-09-20-core-mingli-completion.md); this batch does not establish complete automatic interpretation. Exact-commit remote CI is recorded after push.

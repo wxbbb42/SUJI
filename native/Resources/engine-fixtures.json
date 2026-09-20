@@ -16,7 +16,7 @@
     },
     "result": {
       "schemaVersion": 1,
-      "engineRevision": "8ac28df836943e4d807827285863ba6bdc29b035029b13e2ae6b359701bcae51",
+      "engineRevision": "842183824dbeafc930cf631e5679c5ee315ea6f253a85672035ea002e5d9d5bb",
       "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
       "calendarPolicy": {
         "version": "suji-calendar-2",
@@ -3304,7 +3304,27 @@
             "tianPanGan": "乙",
             "bamen": "休门",
             "jiuxing": "天蓬",
-            "bashen": "九天"
+            "bashen": "九天",
+            "doorRelation": {
+              "door": "休门",
+              "doorElement": "水",
+              "palaceElement": "水",
+              "relation": "比和",
+              "isPressure": false,
+              "sourceId": "qimen-door-controls-palace-v1",
+              "assessmentStatus": "structural-fact-only"
+            },
+            "starSeason": {
+              "scope": "solar-term-month",
+              "star": "天蓬",
+              "element": "水",
+              "monthGanZhi": "丁酉",
+              "monthBranch": "酉",
+              "monthElement": "金",
+              "state": "废",
+              "sourceId": "qimen-star-month-v1",
+              "assessmentStatus": "season-relation-only"
+            }
           },
           {
             "id": 2,
@@ -3317,7 +3337,38 @@
             "jiuxing": "天芮",
             "bashen": "太阴",
             "hostsTianQin": true,
-            "hostedTianPanGan": "壬"
+            "hostedTianPanGan": "壬",
+            "doorRelation": {
+              "door": "死门",
+              "doorElement": "土",
+              "palaceElement": "土",
+              "relation": "比和",
+              "isPressure": false,
+              "sourceId": "qimen-door-controls-palace-v1",
+              "assessmentStatus": "structural-fact-only"
+            },
+            "starSeason": {
+              "scope": "solar-term-month",
+              "star": "天芮",
+              "element": "土",
+              "monthGanZhi": "丁酉",
+              "monthBranch": "酉",
+              "monthElement": "金",
+              "state": "旺",
+              "sourceId": "qimen-star-month-v1",
+              "assessmentStatus": "season-relation-only"
+            },
+            "hostedStarSeason": {
+              "scope": "solar-term-month",
+              "star": "天禽",
+              "element": "土",
+              "monthGanZhi": "丁酉",
+              "monthBranch": "酉",
+              "monthElement": "金",
+              "state": "旺",
+              "sourceId": "qimen-star-month-v1",
+              "assessmentStatus": "season-relation-only"
+            }
           },
           {
             "id": 3,
@@ -3328,7 +3379,27 @@
             "tianPanGan": "丁",
             "bamen": "伤门",
             "jiuxing": "天冲",
-            "bashen": "玄武"
+            "bashen": "玄武",
+            "doorRelation": {
+              "door": "伤门",
+              "doorElement": "木",
+              "palaceElement": "木",
+              "relation": "比和",
+              "isPressure": false,
+              "sourceId": "qimen-door-controls-palace-v1",
+              "assessmentStatus": "structural-fact-only"
+            },
+            "starSeason": {
+              "scope": "solar-term-month",
+              "star": "天冲",
+              "element": "木",
+              "monthGanZhi": "丁酉",
+              "monthBranch": "酉",
+              "monthElement": "金",
+              "state": "囚",
+              "sourceId": "qimen-star-month-v1",
+              "assessmentStatus": "season-relation-only"
+            }
           },
           {
             "id": 4,
@@ -3339,7 +3410,27 @@
             "tianPanGan": "癸",
             "bamen": "杜门",
             "jiuxing": "天辅",
-            "bashen": "白虎"
+            "bashen": "白虎",
+            "doorRelation": {
+              "door": "杜门",
+              "doorElement": "木",
+              "palaceElement": "木",
+              "relation": "比和",
+              "isPressure": false,
+              "sourceId": "qimen-door-controls-palace-v1",
+              "assessmentStatus": "structural-fact-only"
+            },
+            "starSeason": {
+              "scope": "solar-term-month",
+              "star": "天辅",
+              "element": "木",
+              "monthGanZhi": "丁酉",
+              "monthBranch": "酉",
+              "monthElement": "金",
+              "state": "囚",
+              "sourceId": "qimen-star-month-v1",
+              "assessmentStatus": "season-relation-only"
+            }
           },
           {
             "id": 5,
@@ -3361,7 +3452,27 @@
             "tianPanGan": "辛",
             "bamen": "开门",
             "jiuxing": "天心",
-            "bashen": "值符"
+            "bashen": "值符",
+            "doorRelation": {
+              "door": "开门",
+              "doorElement": "金",
+              "palaceElement": "金",
+              "relation": "比和",
+              "isPressure": false,
+              "sourceId": "qimen-door-controls-palace-v1",
+              "assessmentStatus": "structural-fact-only"
+            },
+            "starSeason": {
+              "scope": "solar-term-month",
+              "star": "天心",
+              "element": "金",
+              "monthGanZhi": "丁酉",
+              "monthBranch": "酉",
+              "monthElement": "金",
+              "state": "相",
+              "sourceId": "qimen-star-month-v1",
+              "assessmentStatus": "season-relation-only"
+            }
           },
           {
             "id": 7,
@@ -3372,7 +3483,27 @@
             "tianPanGan": "庚",
             "bamen": "惊门",
             "jiuxing": "天柱",
-            "bashen": "腾蛇"
+            "bashen": "腾蛇",
+            "doorRelation": {
+              "door": "惊门",
+              "doorElement": "金",
+              "palaceElement": "金",
+              "relation": "比和",
+              "isPressure": false,
+              "sourceId": "qimen-door-controls-palace-v1",
+              "assessmentStatus": "structural-fact-only"
+            },
+            "starSeason": {
+              "scope": "solar-term-month",
+              "star": "天柱",
+              "element": "金",
+              "monthGanZhi": "丁酉",
+              "monthBranch": "酉",
+              "monthElement": "金",
+              "state": "相",
+              "sourceId": "qimen-star-month-v1",
+              "assessmentStatus": "season-relation-only"
+            }
           },
           {
             "id": 8,
@@ -3383,7 +3514,27 @@
             "tianPanGan": "己",
             "bamen": "生门",
             "jiuxing": "天任",
-            "bashen": "九地"
+            "bashen": "九地",
+            "doorRelation": {
+              "door": "生门",
+              "doorElement": "土",
+              "palaceElement": "土",
+              "relation": "比和",
+              "isPressure": false,
+              "sourceId": "qimen-door-controls-palace-v1",
+              "assessmentStatus": "structural-fact-only"
+            },
+            "starSeason": {
+              "scope": "solar-term-month",
+              "star": "天任",
+              "element": "土",
+              "monthGanZhi": "丁酉",
+              "monthBranch": "酉",
+              "monthElement": "金",
+              "state": "旺",
+              "sourceId": "qimen-star-month-v1",
+              "assessmentStatus": "season-relation-only"
+            }
           },
           {
             "id": 9,
@@ -3394,7 +3545,27 @@
             "tianPanGan": "戊",
             "bamen": "景门",
             "jiuxing": "天英",
-            "bashen": "六合"
+            "bashen": "六合",
+            "doorRelation": {
+              "door": "景门",
+              "doorElement": "火",
+              "palaceElement": "火",
+              "relation": "比和",
+              "isPressure": false,
+              "sourceId": "qimen-door-controls-palace-v1",
+              "assessmentStatus": "structural-fact-only"
+            },
+            "starSeason": {
+              "scope": "solar-term-month",
+              "star": "天英",
+              "element": "火",
+              "monthGanZhi": "丁酉",
+              "monthBranch": "酉",
+              "monthElement": "金",
+              "state": "休",
+              "sourceId": "qimen-star-month-v1",
+              "assessmentStatus": "season-relation-only"
+            }
           }
         ],
         "yongShen": {
@@ -3569,8 +3740,100 @@
         "zhiShiRawPalaceId": 6,
         "zhiShiSourcePalaceId": 6,
         "tianQinPalaceId": 2,
+        "monthGanZhi": "丁酉",
+        "hourVoid": {
+          "scope": "hour",
+          "ganZhi": "甲午",
+          "xun": "甲午",
+          "branches": [
+            "辰",
+            "巳"
+          ],
+          "sourceId": "qimen-hour-void-horse-v1",
+          "palaces": [
+            {
+              "palaceId": 4,
+              "branches": [
+                "辰",
+                "巳"
+              ],
+              "palaceBranches": [
+                "辰",
+                "巳"
+              ],
+              "coverage": "full"
+            }
+          ]
+        },
+        "horse": {
+          "scope": "hour",
+          "ganZhi": "甲午",
+          "branch": "申",
+          "palaceId": 2,
+          "sourceId": "qimen-hour-void-horse-v1"
+        },
+        "ruleSources": [
+          {
+            "id": "qimen-hour-void-horse-v1",
+            "version": "1",
+            "title": "时家旬空与时支驿马固定表",
+            "editionStatus": "pinned-engineering-reference",
+            "scope": "时干支定旬空，时支定马；保留具体空支及所属宫的支位覆盖",
+            "references": [
+              {
+                "url": "https://github.com/deminzhang/qimen-go/blob/4d3f58fa0f401b5b3a337f119138e99e90685dda/xuan/ganzhi.go",
+                "locator": "KongWang / ZhiGong9 / Horse",
+                "sha256": "0dd04c5c2f290e87822ff85770f203467c1a7a69ced56990d808c718aa14b401"
+              },
+              {
+                "url": "https://github.com/deminzhang/qimen-go/blob/4d3f58fa0f401b5b3a337f119138e99e90685dda/xuan/qimen.go",
+                "locator": "时家盘时旬空、时支马选择"
+              }
+            ],
+            "limitations": [
+              "这是明确的时家工程约定，不冒充古籍定本",
+              "partial/full只说明本宫一支或全部支位落空，不裁定宫中事物效力，不混入日马"
+            ]
+          },
+          {
+            "id": "qimen-door-controls-palace-v1",
+            "version": "1",
+            "title": "烟波钓叟歌：门克宫为门迫",
+            "editionStatus": "electronic-transcription-not-print-collated",
+            "scope": "门五行克所落宫五行为门迫；宫克门另列，不称门迫",
+            "references": [
+              {
+                "url": "https://zh.wikisource.org/w/index.php?title=煙波釣叟歌&oldid=1336835",
+                "locator": "门迫句",
+                "quote": "宮制其門不迫門，門制其宮是迫雄。"
+              }
+            ],
+            "limitations": [
+              "电子本记有「为迫」异文，本版选门克宫方向",
+              "命中五行结构不是现实结局"
+            ]
+          },
+          {
+            "id": "qimen-star-month-v1",
+            "version": "1",
+            "title": "烟波钓叟歌：九星月令旺相休囚废",
+            "editionStatus": "electronic-transcription-not-print-collated",
+            "scope": "节月支五行；星同月相、星生月旺、月生星废、星克月休、月克星囚；中禽只在实际寄宫计一次",
+            "references": [
+              {
+                "url": "https://zh.wikisource.org/w/index.php?title=煙波釣叟歌&oldid=1336835",
+                "locator": "九星月令及天蓬例",
+                "quote": "我生之月誠為旺。廢於父母休於財，囚於鬼兮真不妄。假令水宿號天蓬，相在初冬與仲冬。旺於正二休四五。"
+              }
+            ],
+            "limitations": [
+              "同行句正文作「我」，本版采所注「相」，并以随后的天蓬例互校",
+              "土月按辰戌丑未节月支，不另混入四季土王分日；不是宫干生克或综合吉凶"
+            ]
+          }
+        ],
         "provenance": {
-          "engineRevision": "8ac28df836943e4d807827285863ba6bdc29b035029b13e2ae6b359701bcae51",
+          "engineRevision": "842183824dbeafc930cf631e5679c5ee315ea6f253a85672035ea002e5d9d5bb",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -9435,7 +9698,7 @@
         },
         "readingBoundary": "两种体系分别解释，不能把相似意象当作相互验证。",
         "provenance": {
-          "engineRevision": "8ac28df836943e4d807827285863ba6bdc29b035029b13e2ae6b359701bcae51",
+          "engineRevision": "842183824dbeafc930cf631e5679c5ee315ea6f253a85672035ea002e5d9d5bb",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -9615,7 +9878,7 @@
       },
       "natal": {
         "schemaVersion": 1,
-        "engineRevision": "8ac28df836943e4d807827285863ba6bdc29b035029b13e2ae6b359701bcae51",
+        "engineRevision": "842183824dbeafc930cf631e5679c5ee315ea6f253a85672035ea002e5d9d5bb",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "calendarPolicy": {
           "version": "suji-calendar-2",

@@ -3,6 +3,7 @@
  */
 
 import type { TianGan, DiZhi, WuXing } from '@engine/bazi/types';
+import type { RuleSource } from '../rules/provenance';
 
 export type { TianGan, DiZhi, WuXing };
 export type YinYangDun = '阳' | '阴';
@@ -38,6 +39,27 @@ export interface Palace {
   bashen: BashenName | null;
   hostedTianPanGan?: TianGan;
   hostsTianQin?: boolean;
+  doorRelation?: DoorRelation;
+  starSeason?: StarSeason;
+  hostedStarSeason?: StarSeason;
+}
+
+export interface HourVoid {
+  scope: 'hour'; ganZhi: string; xun: string; branches: string[]; sourceId: string;
+  palaces: {palaceId:number; branches:string[]; palaceBranches:string[]; coverage:'full'|'partial'}[];
+}
+export interface HourHorse {
+  scope: 'hour'; ganZhi: string; branch: string; palaceId: number; sourceId: string;
+}
+export interface DoorRelation {
+  door: BamenName; doorElement: WuXing; palaceElement: WuXing;
+  relation: '比和'|'门克宫'|'宫克门'|'门生宫'|'宫生门';
+  isPressure: boolean; sourceId: string; assessmentStatus: 'structural-fact-only';
+}
+export interface StarSeason {
+  scope: 'solar-term-month'; star: JiuxingName; element: WuXing;
+  monthGanZhi: string; monthBranch: string; monthElement: WuXing;
+  state: '旺'|'相'|'休'|'囚'|'废'; sourceId: string; assessmentStatus: 'season-relation-only';
 }
 
 export interface BamenInfo {
@@ -139,4 +161,8 @@ export interface QimenChart {
   tianQinPalaceId?: number;
   dayGanZhi?: string;
   hourGanZhi?: string;
+  monthGanZhi?: string;
+  hourVoid?: HourVoid;
+  horse?: HourHorse;
+  ruleSources?: RuleSource[];
 }

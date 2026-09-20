@@ -31,6 +31,8 @@ import { buildDiPan } from './helpers/diPan';
 import { rotateTianPan, computeXunShou, PALACE_CLOCKWISE_8 } from './helpers/tianPan';
 import { computeTimePillars } from './helpers/timeGanZhi';
 import { currentSolarTerm } from './helpers/solarTerms';
+import { getCalendarPillars } from '@engine/calendar/precision';
+import { qimenFacts } from './facts';
 
 const QIMEN_METHOD: QimenMethodMeta = {
   level: 'standard',
@@ -140,8 +142,9 @@ export class QimenEngine {
       tianQinPalaceId:rotation.tianQinPalaceId,
     };
     const geJu = detectGeJu(partialChart);
-
-    return { ...partialChart, geJu };
+    // Month changes at the physical solar-term instant, even on an apparent-solar hour clock.
+    const monthGanZhi = getCalendarPillars(setupTime).month;
+    return { ...partialChart, geJu, monthGanZhi, ...qimenFacts(pillars.hourGan+pillars.hourZhi,monthGanZhi,palaces) };
   }
 
   /** 按问题类别列出初始参考点，不能据单一同宫关系断吉凶。 */

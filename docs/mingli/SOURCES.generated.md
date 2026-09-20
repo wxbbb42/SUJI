@@ -740,12 +740,12 @@ Updated: 2026-04-30
 - Period: 古籍通行本体系
 - Tier: A
 - Type: classic_text
-- Status: candidate
+- Status: selected_passages_reviewed_not_print_collated
 - Priority: P0
 - Current usage: 奇门总诀；起局/格局口诀；传统术语源流
 - Repo refs: `native/Engine/src/qimen/**`
 - License note: 古籍文本需优先选公共领域/可引用版本；记录版本、卷次、页码/章节，不 ingest 现代版权全文。
-- Notes: 奇门核心口诀 source；需要逐句拆 claim，不直接机械化。
+- Notes: 已读取门迫、九星月令段；同行采相异文并以天蓬例互校，门迫采门克宫方向。仅电子转录，未完成纸本校勘。
 
 #### qimen-yuding-baojian
 
@@ -760,6 +760,18 @@ Updated: 2026-04-30
 - Repo refs: `native/Engine/src/qimen/**`
 - License note: 古籍文本需优先选公共领域/可引用版本；记录版本、卷次、页码/章节，不 ingest 现代版权全文。
 - Notes: 奇门 A-tier 重点 source；用于替换/校验当前 C/D tier 网站规则。
+
+#### qimen-go-fixed-rules
+
+- Title: qimen-go 固定版旬空、驿马与支宫表
+- Author: deminzhang/qimen-go
+- Tier: C
+- Type: open_source_implementation
+- Status: selected_tables_reviewed
+- Priority: P0
+- Current usage: 时旬空与地支宫位；时支驿马；时家选用时标
+- Repo refs: `native/Engine/src/qimen/facts.ts`
+- Notes: ganzhi.go SHA256 0dd04c5c2f290e87822ff85770f203467c1a7a69ced56990d808c718aa14b401。仅取固定表，不作为天文独立证据或古籍定本。
 
 #### qimen-faqiao
 
@@ -1524,11 +1536,11 @@ Updated: 2026-04-30
 ### liuyao.changed-hidden-need-own-context
 
 - Domain: liuyao
-- Claim: 本爻、变爻、伏神是不同对象，各自须核对旬空、月破、日月生克冲合，不能继承本爻布尔值。申月戊午日遁二爻动变姤古例的世午临日、申月生变亥、亥水回头克午是一条带对象链；当前仅返回丙午变辛亥等基础字段，未生成该链。飞伏关系还需出伏条件。古例只给月支干支日，不可虚构其公历年代或把古籍验辞当预测准确率。
+- Claim: 本爻、变爻、伏神是不同对象，各自核对旬空、月破、日月生克冲合，不能继承本爻布尔值。引擎现分别返回各对象context，保留临日与月破、合与克并存；monthState只指月建五行关系。申月戊午日遁二爻动变姤例中，世午临日、申月生变亥已分别输出，但回头克和飞伏作用链仍属下一批规则，不能称完整断卦。古例只有月支干支日，不虚构公历年代或以验辞计预测准确率。
 - Sources: `liuyao-zengshan-buyi`
-- Repo refs: `docs/mingli/validation/liuyao-professional-audit.md`, `native/Engine/validation/research-divination/liuyao-professional-sources.json`, `native/Engine/src/divination/__tests__/ProfessionalLiuyaoAudit.test.ts`
+- Repo refs: `docs/mingli/validation/liuyao-professional-audit.md`, `native/Engine/validation/research-divination/liuyao-professional-sources.json`, `native/Engine/src/divination/__tests__/ProfessionalLiuyaoAudit.test.ts`, `native/Engine/src/divination/lineContext.ts`, `native/Engine/src/divination/__tests__/CoreFacts.test.ts`
 - Confidence: high_for_object_distinction_partial_for_complete_conditions
-- Status: grounded_requirement_not_implemented
+- Status: independent_object_facts_implemented_interaction_chain_pending
 
 ### liuyao.day-clash-requires-strength-and-motion
 
@@ -1566,6 +1578,24 @@ Updated: 2026-04-30
 - Confidence: high_as_product_policy
 - Status: active_policy
 
+### qimen.door-pressure.direction
+
+- Domain: qimen
+- Claim: 采用《烟波钓叟歌》门制其宫是迫雄方向，门五行克宫五行才输出门迫；宫克门单列为宫克门，不同义。转录存在为迫异文，已明确版本选择。结构命中不能独立决定现实成败。
+- Sources: `qimen-yanbo-diaosou-ge`
+- Repo refs: `native/Engine/src/qimen/facts.ts`, `native/Engine/src/qimen/__tests__/CoreFacts.test.ts`
+- Confidence: high_for_selected_direction_with_textual_variants
+- Status: selected_direction_implemented_with_counterexamples
+
+### qimen.hour-void-and-horse.scope
+
+- Domain: qimen
+- Claim: 本版时家盘以时干支定六旬空、时支取驿马。旬空保存实际空支、所属宫支位及partial/full覆盖；这些覆盖词仅说明支位数量，不判整宫无效。时马与日马不同；不擅自混入日支。固定qimen-go工程表及调用约定为参考，不能冒充经典定本。
+- Sources: `qimen-go-fixed-rules`
+- Repo refs: `native/Engine/src/qimen/facts.ts`, `native/Engine/src/qimen/__tests__/CoreFacts.test.ts`
+- Confidence: high_for_selected_table_not_predictive
+- Status: scoped_facts_implemented_independently_tabulated
+
 ### qimen.require-three-source-verification
 
 - Domain: qimen
@@ -1578,11 +1608,11 @@ Updated: 2026-04-30
 ### qimen.star-season-not-palace-element-state
 
 - Domain: qimen
-- Claim: 《烟波钓叟歌》星与月令旺相休囚废的关系，和宫五行相对某干的生克状态不是同一计算。当前yongShen.state仅为宫位五行关系，不能宣称已实现月令九星旺衰。转录的“同行即为我/相”等有异文，正式实现应锁定版本与规则方向并以正反例复核，不能套普通五行同类为旺表后称为原文。
+- Claim: 《烟波钓叟歌》九星月令与宫五行相对某干的生克不是同一表。starSeason现按星同月相、星生月旺、月生星废、星克月休、月克星囚计算；节月基于物理交节时刻，辰戌丑未按月支土，不混入土王分日。锁定Wikisource oldid=1336835，同行句采异文相并由天蓬例互校；天禽只在真实寄宫计一次。yongShen.state仍仅为宫干关系，两者都不是综合吉凶。
 - Sources: `qimen-yanbo-diaosou-ge`
-- Repo refs: `docs/mingli/validation/qimen-professional-audit.md`, `native/Engine/src/qimen/QimenEngine.ts`
+- Repo refs: `docs/mingli/validation/qimen-professional-audit.md`, `native/Engine/src/qimen/QimenEngine.ts`, `native/Engine/src/qimen/facts.ts`, `native/Engine/src/qimen/__tests__/CoreFacts.test.ts`
 - Confidence: high_for_scope_distinction_contested_textual_variants
-- Status: grounded_requirement_not_implemented
+- Status: selected_version_implemented_independent_matrix_tested
 
 ### ziwei.four-transformations.by-year-stem
 

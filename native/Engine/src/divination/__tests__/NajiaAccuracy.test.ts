@@ -34,12 +34,12 @@ describe('calendar, casting identity and missing evidence',()=>{
   it('uses the original palace element for changing-line kinship',()=>{
     const r=engine.cast({question:'test',castTime,lineValues:[9,7,7,7,7,7]});
     expect(r.benGua.name).toBe('乾为天');expect(r.bianGua.name).toBe('天风姤');
-    expect(r.lines[0].changed).toEqual({ganZhi:'辛丑',wuXing:'土',liuQin:'父母'});
+    expect(r.lines[0].changed).toMatchObject({ganZhi:'辛丑',wuXing:'土',liuQin:'父母'});
   });
   it('stores hidden absent relationships under their pure-palace positions',()=>{
     const r=engine.cast({question:'test',castTime,lineValues:[8,7,7,7,7,7]});
     expect(r.benGua.name).toBe('天风姤');
-    expect(r.lines[1].hidden).toEqual({ganZhi:'甲寅',wuXing:'木',liuQin:'妻财'});
+    expect(r.lines[1].hidden).toMatchObject({ganZhi:'甲寅',wuXing:'木',liuQin:'妻财'});
   });
   it('correctly labels standard King Wen numbers without reordering palace families',()=>{
     expect(GUA_64.find(g=>g.name==='坤为地')?.code).toBe(2);

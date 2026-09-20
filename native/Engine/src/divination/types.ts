@@ -1,6 +1,7 @@
 /**
  * 六爻卜卦类型定义
  */
+import type { RuleSource } from '../rules/provenance';
 
 export type Yao = '阴' | '阳';
 export type WuXing = '金' | '木' | '水' | '火' | '土';
@@ -83,7 +84,35 @@ export interface HexagramReading {
   yingYao: number;
   xunKong: string[];
   lines: HexagramLine[];
+  ruleSources: RuleSource[];
   method: { algorithm: string; calendar: string; dayBoundary: string; caveats: string[] };
+}
+
+export interface CalendarInfluence {
+  ganZhi: string;
+  branch: string;
+  element: WuXing;
+  /** Direction is always calendar -> line. */
+  elementRelation: '同类' | '生爻' | '克爻' | '爻生' | '爻克';
+  sameBranch: boolean;
+  clash: boolean;
+  combination: boolean;
+}
+
+export interface LineContext {
+  isVoid: boolean;
+  month: CalendarInfluence;
+  day: CalendarInfluence;
+  monthState: '旺' | '相' | '休' | '囚' | '死';
+  assessmentStatus: 'calendar-relations-only';
+  sourceIds: string[];
+}
+
+export interface RelatedLine {
+  ganZhi: string;
+  wuXing: WuXing;
+  liuQin: LiuQin;
+  context: LineContext;
 }
 
 export interface HexagramLine {
@@ -100,6 +129,7 @@ export interface HexagramLine {
   monthClash: boolean;
   dayClash: boolean;
   dayCombination: boolean;
-  changed?: { ganZhi: string; wuXing: WuXing; liuQin: LiuQin };
-  hidden?: { ganZhi: string; wuXing: WuXing; liuQin: LiuQin };
+  context: LineContext;
+  changed?: RelatedLine;
+  hidden?: RelatedLine;
 }

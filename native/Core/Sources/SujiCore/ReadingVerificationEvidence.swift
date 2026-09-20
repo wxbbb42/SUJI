@@ -20,6 +20,32 @@ enum ReadingVerificationEvidence {
                 guard let value = pointer(path, in: object), value != .null else { return }
                 facts.append(Fact(factKey: key, toolCallID: id, pointer: path, value: value))
             }
+            func fields(_ prefix: String, _ path: String, _ keys: [String]) {
+                func scalar(_ value: JSONValue) -> Bool {
+                    switch value {
+                    case .string, .integer, .double, .bool: return true
+                    default: return false
+                    }
+                }
+                for key in keys {
+                    guard let value = pointer(path + "/" + key, in: object) else { continue }
+                    if case let .array(values) = value {
+                        guard values.allSatisfy(scalar) else { continue }
+                    } else if !scalar(value) { continue }
+                    add(prefix + "." + key, path + "/" + key)
+                }
+            }
+            func sources(_ prefix: String) {
+                guard case let .array(sources) = root["ruleSources"] else { return }
+                for (index, source) in sources.enumerated() {
+                    let key = "\(prefix).ruleSource\(index + 1)", path = "/ruleSources/\(index)"
+                    fields(key, path, ["id", "version", "title", "editionStatus", "scope", "limitations"])
+                    guard case let .object(source) = source, case let .array(references) = source["references"] else { continue }
+                    for reference in references.indices {
+                        fields("\(key).reference\(reference + 1)", "\(path)/references/\(reference)", ["url", "locator", "sha256", "quote"])
+                    }
+                }
+            }
             switch name {
             case "get_today_context":
                 for (key, path) in [("year", "yearGanZhi"), ("month", "monthGanZhi"), ("day", "dayGanZhi"), ("term", "solarTerm")] { add("calendar." + key, "/" + path) }
@@ -34,22 +60,55 @@ enum ReadingVerificationEvidence {
                 for key in ["palace", "ganZhi", "mainStars", "minorStars"] { add("ziwei." + key, "/" + key) }
             case "cast_liuyao":
                 add("liuyao.castTime", "/castTime")
+                fields("liuyao.calendar", "/castGanZhi", ["month", "day", "hour"])
+                fields("liuyao.method", "/method", ["algorithm", "calendar", "dayBoundary", "caveats"])
+                fields("liuyao.yongShen", "/yongShen", ["type", "yaoIndex", "wuXing", "state", "candidateYaoIndices"])
+                sources("liuyao")
                 for key in ["name", "upper", "lower"] {
                     add("liuyao.original." + key, "/benGua/" + key)
                     add("liuyao.changed." + key, "/bianGua/" + key)
                 }
-                for key in ["lineValues", "changingYao", "xunKong"] { add("liuyao." + key, "/" + key) }
+                for key in ["lineValues", "changingYao", "xunKong", "shiYao", "yingYao"] { add("liuyao." + key, "/" + key) }
                 for index in 0..<6 {
-                    for key in ["ganZhi", "liuQin", "liuShen", "isShi", "isYing", "isChanging", "isVoid", "monthClash", "dayClash"] { add("liuyao.line\(index + 1).\(key)", "/lines/\(index)/\(key)") }
+                    let key = "liuyao.line\(index + 1)", path = "/lines/\(index)"
+                    fields(key, path, ["ganZhi", "wuXing", "liuQin", "liuShen", "isShi", "isYing", "isChanging", "isVoid", "monthClash", "dayClash", "dayCombination"])
+                    for layer in ["", "changed", "hidden"] {
+                        let layerKey = layer.isEmpty ? key : key + "." + layer
+                        let layerPath = layer.isEmpty ? path : path + "/" + layer
+                        if !layer.isEmpty { fields(layerKey, layerPath, ["ganZhi", "wuXing", "liuQin"]) }
+                        fields(layerKey + ".context", layerPath + "/context", ["isVoid", "monthState", "assessmentStatus", "sourceIds"])
+                        for scope in ["month", "day"] {
+                            fields(layerKey + ".context." + scope, layerPath + "/context/" + scope, ["ganZhi", "branch", "element", "elementRelation", "sameBranch", "clash", "combination"])
+                        }
+                    }
                 }
             case "setup_qimen":
                 add("qimen.setupTime", "/setupTime")
-                for key in ["yinYangDun", "juNumber", "yuan", "jieqi", "zhiFuStar", "zhiFuPalaceId", "zhiShiMen", "zhiShiPalaceId"] { add("qimen." + key, "/" + key) }
+                for key in ["yinYangDun", "juNumber", "yuan", "jieqi", "zhiFuStar", "zhiFuPalaceId", "zhiShiMen", "zhiShiPalaceId", "fuTou", "zhiFuSourcePalaceId", "zhiShiSourcePalaceId", "zhiShiRawPalaceId", "tianQinPalaceId", "dayGanZhi", "hourGanZhi", "monthGanZhi", "calculationTime", "trueSolarTime"] { add("qimen." + key, "/" + key) }
+                fields("qimen.method", "/method", ["algorithm", "centerPolicy", "dayBoundary", "solarTermClock", "clockPolicy", "timezone", "longitude", "caveats"])
+                fields("qimen.hourVoid", "/hourVoid", ["scope", "ganZhi", "xun", "branches", "sourceId"])
+                fields("qimen.horse", "/horse", ["scope", "ganZhi", "branch", "palaceId", "sourceId"])
+                fields("qimen.yongShen", "/yongShen", ["type", "palaceId", "state", "selectionStatus"])
+                sources("qimen")
+                if case let .array(emptyPalaces) = pointer("/hourVoid/palaces", in: object) {
+                    for (index, emptyPalace) in emptyPalaces.enumerated() {
+                        guard case let .object(p) = emptyPalace, case let .integer(id) = p["palaceId"] else { continue }
+                        fields("qimen.hourVoid.palace\(id)", "/hourVoid/palaces/\(index)", ["branches", "palaceBranches", "coverage"])
+                    }
+                }
                 if case let .array(palaces) = root["palaces"] {
                     for (index, palace) in palaces.enumerated() {
                         guard case let .object(p) = palace, case let .integer(id) = p["id"] else { continue }
-                        for key in ["tianPanGan", "diPanGan", "bashen", "bamen", "jiuxing", "hostedTianPanGan"] { add("qimen.palace\(id).\(key)", "/palaces/\(index)/\(key)") }
+                        let key = "qimen.palace\(id)", path = "/palaces/\(index)"
+                        fields(key, path, ["tianPanGan", "diPanGan", "bashen", "bamen", "jiuxing", "hostedTianPanGan", "wuXing", "hostsTianQin"])
+                        fields(key + ".doorRelation", path + "/doorRelation", ["door", "doorElement", "palaceElement", "relation", "isPressure", "sourceId", "assessmentStatus"])
+                        for scope in ["starSeason", "hostedStarSeason"] {
+                            fields(key + "." + scope, path + "/" + scope, ["scope", "star", "element", "monthGanZhi", "monthBranch", "monthElement", "state", "sourceId", "assessmentStatus"])
+                        }
                     }
+                }
+                if case let .array(references) = pointer("/yongShen/references", in: object) {
+                    for index in references.indices { fields("qimen.yongShen.reference\(index + 1)", "/yongShen/references/\(index)", ["label", "palaceId"]) }
                 }
             default: break
             }

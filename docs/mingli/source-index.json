@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-20T03:41:56.530Z",
-  "sourceCount": 49,
-  "claimCount": 54,
+  "generatedAt": "2026-09-20T05:08:26.422Z",
+  "sourceCount": 50,
+  "claimCount": 56,
   "domains": {
     "academic": [
       {
@@ -704,7 +704,7 @@
         "tier": "A",
         "type": "classic_text",
         "priority": "P0",
-        "status": "candidate",
+        "status": "selected_passages_reviewed_not_print_collated",
         "usage": [
           "奇门总诀",
           "起局/格局口诀",
@@ -723,6 +723,19 @@
           "三奇六仪",
           "八门九星八神",
           "格局与占法"
+        ]
+      },
+      {
+        "id": "qimen-go-fixed-rules",
+        "title": "qimen-go 固定版旬空、驿马与支宫表",
+        "tier": "C",
+        "type": "open_source_implementation",
+        "priority": "P0",
+        "status": "selected_tables_reviewed",
+        "usage": [
+          "时旬空与地支宫位",
+          "时支驿马",
+          "时家选用时标"
         ]
       },
       {
@@ -1490,7 +1503,7 @@
       "sourceIds": [
         "liuyao-zengshan-buyi"
       ],
-      "status": "grounded_requirement_not_implemented",
+      "status": "independent_object_facts_implemented_interaction_chain_pending",
       "confidence": "high_for_object_distinction_partial_for_complete_conditions"
     },
     {
@@ -1531,6 +1544,24 @@
       "confidence": "high_as_product_policy"
     },
     {
+      "id": "qimen.door-pressure.direction",
+      "domain": "qimen",
+      "sourceIds": [
+        "qimen-yanbo-diaosou-ge"
+      ],
+      "status": "selected_direction_implemented_with_counterexamples",
+      "confidence": "high_for_selected_direction_with_textual_variants"
+    },
+    {
+      "id": "qimen.hour-void-and-horse.scope",
+      "domain": "qimen",
+      "sourceIds": [
+        "qimen-go-fixed-rules"
+      ],
+      "status": "scoped_facts_implemented_independently_tabulated",
+      "confidence": "high_for_selected_table_not_predictive"
+    },
+    {
       "id": "qimen.require-three-source-verification",
       "domain": "qimen",
       "sourceIds": [
@@ -1547,7 +1578,7 @@
       "sourceIds": [
         "qimen-yanbo-diaosou-ge"
       ],
-      "status": "grounded_requirement_not_implemented",
+      "status": "selected_version_implemented_independent_matrix_tested",
       "confidence": "high_for_scope_distinction_contested_textual_variants"
     },
     {
