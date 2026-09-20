@@ -40,12 +40,15 @@
 | Engine类型检查与全量回归 | 58套785项通过 |
 | Swift Core，America/Los_Angeles时区 | 372项通过，含25组Node/JSC契约；仅新增天文角度字段使用1e-9度浮点容差 |
 | 后端回归 | 15项通过 |
+| 构建夹具比较反例 | 6项通过，天文角度容差限定，其他字段严格 |
 | 七曜/宿位真实JSC→Swift→ChatClient→backend | all/Moon两组通过，完整结果与事实恢复；最大22,418总UTF-16、6,888单消息、41,576 bytes |
 | 六爻真实传输 | 48/48通过，原始盘面和依据完整 |
 | Native hosted/UI最终组合 | 34项hosted + 6项UI通过 |
 | 原生唯一客户端/生成资源/知识索引 | 本机检查通过；59sources/70claims |
 
 Supabase `suji-chat` 已部署到既有项目 `kwhjutkuntfuhpkrlbly`，版本3 ACTIVE，保留登录鉴权与原有限额；线上未登录烟测返回401 `sign_in_required`。本批未调用真实模型生成解读，离线传输通过不能被写成真实回答质量验收。原生交付是Git源码与验证构建，不是App Store发布；精确远端SHA与CI链接以本次交付回复为准。
+
+首个远端提交 `6259f54` 的785项Engine测试通过，但Linux重建夹具在两项天文角度末位与macOS不同（约4.3e-15、3.6e-15度），严格字节比较失败；引擎代码与许可资源没有差异。修复仅调整构建夹具校验：天文坐标沿用已采用的1e-9度Node/JSC容差，出生、时间、身份、归宿、依据和其他体系仍严格比较；生产计算与缓存数据未取整或修改。6个比较器反例、实际CI差异复放与真实工具回包形状复核通过。原失败与范围记录在 `validation/reasoning/astronomy-launch/fixture-portability.json`，最终远端CI必须在修复提交上再次通过。
 
 ## 是否可以开始产品体验优化
 

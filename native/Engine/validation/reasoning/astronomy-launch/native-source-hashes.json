@@ -1,5 +1,5 @@
 {
-  ".github/workflows/validate.yml": "3a263531f76f3aa025af1c8bbf3242c22a0804941fa3753ae68cf15df0cde1f3",
+  ".github/workflows/validate.yml": "3fb34aab45ee0d7415fa518d87e9f02d355e5158e0fdd11dcb1f8c3693fb0b2b",
   "native/App/Debug/CastPreparationAuditView.swift": "d4d244092ae827089054d6765a1a899d7dad14274ea4f410ad8cd10cfa88d75e",
   "native/App/Debug/MingliDetailAuditData.swift": "892f1b724eaeac7d864013756cdcf5a3b6c70ca771b040aa4fe299a5a100106e",
   "native/App/Debug/MingliDetailAuditView.swift": "4069cd11f327b055683e4576487cda1159a528a31f6b1dc78b37521d10ad6b57",
@@ -35,5 +35,7 @@
   "native/App/Services/WidgetSnapshotService.swift": "6583c50e8a71d19aa4ff6f535d14b1bda44e82b5163d0507aaaa18cd4fe64723",
   "native/App/SujiApp.swift": "da840ad02dd1f7bd9e4ccb04b4a100451acd62b9160a2327ab7c0a03ec6b4ccf",
   "native/AppTests/NatalAstronomyStoreTests.swift": "a6f42f461a08e409c33837cfe451fbe7239fe45b06bc925c01f5013f9243bb1c",
-  "native/Suji.xcodeproj/project.pbxproj": "5e7848a5a72af806335dec89747f01ae3d9fd2ad0e5497850166675bd3dc70d7"
+  "native/Suji.xcodeproj/project.pbxproj": "5e7848a5a72af806335dec89747f01ae3d9fd2ad0e5497850166675bd3dc70d7",
+  "native/scripts/check-engine-fixtures.mjs": "f82d65a5da763089f9c03f617c2f6673065dd762223e6a3d3241913e4803f0bc",
+  "native/scripts/check-engine-fixtures.test.mjs": "35d9caac2250d6b5f021274f09ee89f65ab1c2eee207ac3cd4847026ff765492"
 }

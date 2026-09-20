@@ -1,0 +1,23 @@
+{
+  "initialRemoteCommit": "6259f548168dfad9ad7451fa69dc6949a96279bc",
+  "initialRemoteRun": "https://github.com/wxbbb42/SUJI/actions/runs/35518355421",
+  "engineTestsPassed": 785,
+  "strictByteFixtureComparisonFailed": true,
+  "changes": [
+    {
+      "path": "/4/result/sevenBodies/positions/3/latitudeDegrees",
+      "macOS": -0.9745985545799962,
+      "linux": -0.9745985545800006,
+      "differenceDegrees": 4.3298697960381105e-15
+    },
+    {
+      "path": "/4/result/sevenBodies/positions/5/declinationDegrees",
+      "macOS": 21.794933639097195,
+      "linux": 21.79493363909719,
+      "differenceDegrees": 3.552713678800501e-15
+    }
+  ],
+  "scope": "Only versioned astronomy angular fields in fixture readouts/cached inputs allow the existing JSC parity tolerance of 1e-9 degrees; production data/math unchanged. All other fields and tool fixtures exact; bundle/notices byte-identical.",
+  "replayedActualCIDifferencesAccepted": true,
+  "counterexampleTests": 6
+}

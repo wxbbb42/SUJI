@@ -21,7 +21,10 @@ jobs:
       - run: npm test --prefix native/Engine
       - run: npm run build --prefix native/Engine
       - name: Bundled resources and notices are current
-        run: git diff --exit-code -- native/Resources/mingli.js native/Resources/engine-fixtures.json native/Resources/ThirdPartyNotices.txt
+        run: |
+          git diff --exit-code -- native/Resources/mingli.js native/Resources/ThirdPartyNotices.txt
+          node --test native/scripts/check-engine-fixtures.test.mjs
+          node native/scripts/check-engine-fixtures.mjs
       - run: npm ci --prefix supabase
       - run: npm test --prefix supabase
   swift-core:

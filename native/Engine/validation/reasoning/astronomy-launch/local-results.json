@@ -47,5 +47,11 @@
     "unauthenticatedSmokeHTTPStatus": 401,
     "newLiveModelInterpretationTested": false
   },
-  "scope": "Local integration acceptance. Exact Git remote and CI state are verified after commit; App Store distribution not included."
+  "scope": "Local integration acceptance. Exact Git remote and CI state are verified after commit; App Store distribution not included.",
+  "fixtureComparison": {
+    "tests": 6,
+    "passed": true,
+    "toleranceDegrees": 1e-09,
+    "scope": "Astronomy coordinates only; production unchanged"
+  }
 }
