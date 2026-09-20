@@ -79,7 +79,8 @@ enum NativeReadingEvaluation {
                 conversation.append(userEntry)
                 var readingDocument: ReadingDocument?
                 let context = try ToolContext(birth: birth, engineRevision: metadata["engineRevision"] as! String, referenceDate: now, mode: mode)
-                let focus = BaziReadingRequest.resolve(question: question, mode: mode, entries: conversation, currentUserID: userEntry.id, context: context)
+                let presentation = BaziReadingRequest.resolveRequest(question: question, mode: mode, entries: conversation, currentUserID: userEntry.id, context: context)
+                let focus = presentation?.focuses.first
                 let instruction = ReadingPrompt.instruction(tone: "温暖", mode: mode, referenceDate: now, hasBirth: birth != nil)
                 var exchanges: [[String: Any]] = []
                 var receipts: [ToolReceipt] = []
@@ -130,10 +131,10 @@ enum NativeReadingEvaluation {
                         record["executionPath"] = "typed-claims"
                         if let catalog = BaziFrameworkReading.catalog(receipts: result.receipts, context: context) {
                             record["claimCatalog"] = try object(catalog)
-                            let answer = try await BaziFrameworkReading.compose(catalog: catalog, question: question, focus: focus) { messages in
+                            let answer = try await BaziFrameworkReading.compose(catalog: catalog, question: question, focus: focus, presentation: presentation) { messages in
                                 try await complete(messages, phase: "claim-selection")
                             }
-                            readingDocument = ReadingDocument(catalog: catalog, answer: answer, sourceUserID: userEntry.id, focus: focus)
+                            readingDocument = ReadingDocument(catalog: catalog, answer: answer, sourceUserID: userEntry.id, focus: focus, presentation: presentation)
                             record["readingDocument"] = try object(readingDocument)
                             record["claimAnswer"] = try object(answer)
                             record["answer"] = answer.text

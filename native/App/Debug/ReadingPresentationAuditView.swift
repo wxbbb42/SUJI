@@ -10,10 +10,24 @@ struct ReadingPresentationAuditView: View {
     @State private var failure: String?
     @State private var session = ChatSession()
     @State private var delayedReply: ConversationEntry?
+    @State private var profileForAudit: Document?
 
     var body: some View {
         Group {
-            if ready { ChatView(session: session) }
+            if ready {
+                if let profileForAudit {
+                    NavigationStack {
+                        ChartDetailView(profile: profileForAudit)
+                            .safeAreaInset(edge: .top) {
+                                Text("界面验收 · 合成资料 · 未调用 AI")
+                                    .font(.caption.weight(.medium)).dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+                                    .foregroundStyle(SujiTheme.ink).padding(10).frame(maxWidth: .infinity)
+                                    .background(SujiTheme.surface)
+                                    .accessibilityIdentifier("audit.synthetic")
+                            }
+                    }
+                } else { ChatView(session: session) }
+            }
             else if let failure { Text(failure) }
             else { ProgressView("准备合成资料") }
         }
@@ -38,6 +52,10 @@ struct ReadingPresentationAuditView: View {
         let referenceDate = ISO8601DateFormatter().date(from: "2026-09-19T04:00:00Z")!
         let birth = BirthProfile(year: 1990, month: 8, day: 15, hour: 10, minute: 0, gender: "女", city: "合成资料", longitude: 120)
         store.state.birth = birth
+        if ProcessInfo.processInfo.arguments.contains("--strength-profile-fixture") {
+            profileForAudit = try await store.request(["command": "profile", "birth": store.birthJSON(birth)])
+            return
+        }
         let metadata = try await store.request(["command": "metadata"])
         let context = try ToolContext(birth: birth, engineRevision: metadata["engineRevision"].text, referenceDate: referenceDate, mode: "命理")
         var question = ConversationEntry(role: "user", text: "为什么扶抑用神和格局用神不同？可以结合我的资料解释吗？")
@@ -51,11 +69,13 @@ struct ReadingPresentationAuditView: View {
         let data = try await store.request(["command": "tool", "name": "get_domain", "id": "ui-audit:bazi-framework", "arguments": ["domain": "事业"], "birth": store.birthJSON(birth), "now": ISO8601DateFormatter().string(from: referenceDate)])
         let receipt = ToolReceipt(callID: "ui-audit:bazi-framework", name: "get_domain", arguments: ["domain": "事业"], output: data["result"].json, evidence: data["evidence"].strings, createdAt: referenceDate, context: context)
         guard let catalog = BaziFrameworkReading.catalog(receipts: [receipt], context: context) else { throw EngineError.execution("合成界面资料未能建立解释条目。") }
-        let answer = BaziFrameworkReading.render(selection: nil, catalog: catalog)
+        let presentation: ReadingDocument.Presentation? = ProcessInfo.processInfo.arguments.contains("--strength-brief-fixture")
+            ? .init(focuses: [.strength], detail: .brief) : nil
+        let answer = BaziFrameworkReading.render(selection: nil, catalog: catalog, presentation: presentation)
         question.toolReceipts = [receipt]
         var reply = ConversationEntry(role: "assistant", text: answer.text)
         reply.date = referenceDate; reply.toolContext = context
-        reply.readingDocument = ReadingDocument(catalog: catalog, answer: answer, sourceUserID: question.id)
+        reply.readingDocument = ReadingDocument(catalog: catalog, answer: answer, sourceUserID: question.id, presentation: presentation)
         store.state.conversations = [question, reply]
         if ProcessInfo.processInfo.arguments.contains("--reading-delivery-fixture") {
             store.state.conversations = [question]

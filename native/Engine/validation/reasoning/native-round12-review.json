@@ -1,0 +1,133 @@
+{
+  "report": "native-round12-results.json",
+  "reportSHA256": "3d71063dd0114f01609ca3fadb445a2ef29a4e7a85e92863e8f19ecd9ca09e23",
+  "scope": "Final Core binary; nine real provider ordering turns for polite/list/postposed refusal and factual negation. Synthetic auth/quota, not deployed auth or SwiftUI network E2E. Topic handling and field binding pass; general semantic coverage remains incomplete as recorded in rounds10/11.",
+  "providerRequests": 9,
+  "cases": [
+    {
+      "id": "claims-topic-exclusions",
+      "question": "只讲我的扶抑和调候，请不要讲格局。",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "strength",
+          "climate"
+        ]
+      },
+      "bodyCharacters": 296,
+      "exactReceiptBindings": true,
+      "expectedTopicSet": true
+    },
+    {
+      "id": "claims-topic-exclusions-turn2",
+      "question": "不要讲我的扶抑和调候，只讲格局",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "pattern"
+        ]
+      },
+      "bodyCharacters": 199,
+      "exactReceiptBindings": true,
+      "expectedTopicSet": true
+    },
+    {
+      "id": "claims-topic-exclusions-turn3",
+      "question": "我不想看扶抑，只讲调候",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "climate"
+        ]
+      },
+      "bodyCharacters": 185,
+      "exactReceiptBindings": true,
+      "expectedTopicSet": true
+    },
+    {
+      "id": "claims-topic-exclusions-turn4",
+      "question": "能不能简单一点",
+      "presentation": {
+        "detail": "brief",
+        "focuses": [
+          "climate"
+        ]
+      },
+      "bodyCharacters": 130,
+      "exactReceiptBindings": true,
+      "expectedTopicSet": true
+    },
+    {
+      "id": "claims-negation-boundaries",
+      "question": "我的格局暂时不用讲，只讲调候",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "climate"
+        ]
+      },
+      "bodyCharacters": 185,
+      "exactReceiptBindings": true,
+      "expectedTopicSet": true
+    },
+    {
+      "id": "claims-negation-boundaries-turn2",
+      "question": "我的扶抑怎么理解，格局不用讲",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "strength"
+        ]
+      },
+      "bodyCharacters": 133,
+      "exactReceiptBindings": true,
+      "expectedTopicSet": true
+    },
+    {
+      "id": "claims-negation-boundaries-turn3",
+      "question": "请解释我的八字为什么不成格？",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "pattern"
+        ]
+      },
+      "bodyCharacters": 199,
+      "exactReceiptBindings": true,
+      "expectedTopicSet": true
+    },
+    {
+      "id": "claims-negation-boundaries-turn4",
+      "question": "我的八字不成格是什么意思？",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "pattern"
+        ]
+      },
+      "bodyCharacters": 199,
+      "exactReceiptBindings": true,
+      "expectedTopicSet": true
+    },
+    {
+      "id": "claims-negation-boundaries-turn5",
+      "question": "能不能简单一点",
+      "presentation": {
+        "detail": "brief",
+        "focuses": [
+          "pattern"
+        ]
+      },
+      "bodyCharacters": 112,
+      "exactReceiptBindings": true,
+      "expectedTopicSet": true
+    }
+  ],
+  "sourceSHA256": {
+    "native/Core/Sources/SujiCore/ReadingDocument.swift": "3a4f97e8ff3b0d32c2398d851d2e3cacb23fe1267b92b5314dfb8ecd35a90663",
+    "native/Core/Sources/SujiCore/BaziFrameworkReading.swift": "34486c03248acae2d176ce01a9ad3eb3eee6afeb844904be48f56c21f3b002ef",
+    "native/Core/Sources/SujiCore/BaziStrengthTrace.swift": "39f6a53de465039ed7cd7c5feb071d93e1c8f61cb4d28a0eff53e2b3b232d336"
+  },
+  "executableSHA256": "bebda49cebe216e29c57350a4bd818dd2899b755395102099e8d21acb04e8143",
+  "bundleSHA256": "e0db8fcb48abc2ab67aafbf7ec268cd6a3577529928ccea55f49f4bd5e1a7792"
+}

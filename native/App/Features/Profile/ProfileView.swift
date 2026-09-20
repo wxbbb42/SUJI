@@ -165,11 +165,14 @@ struct ChartDetailView: View {
                     Text("五行与取用").font(SujiTheme.serif(24))
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible(), alignment: .top), count: typeSize.isAccessibilitySize ? 1 : 2), spacing: 16) {
                         element("日主", profile["mingPan"]["riZhu"]["wuXing"].text)
-                        element("较显", profile["mingPan"]["wuXingStrength"]["strongest"].text)
-                        element("较弱", profile["mingPan"]["wuXingStrength"]["weakest"].text)
+                        element("计数较多", profile["mingPan"]["wuXingStrength"]["strongest"].text)
+                        element("计数较少", profile["mingPan"]["wuXingStrength"]["weakest"].text)
                         element("扶抑参考", profile["mingPan"]["wuXingStrength"]["yongShen"].text)
                     }
-                    Text("扶抑参考根据五行强弱作简化取用，不等同于格局用神，也不是缺少哪种五行就补哪种。").font(.footnote).foregroundStyle(SujiTheme.secondary).lineSpacing(5)
+                    Text("五行计数来自当前天干与藏干权重，不能直接当作传统强弱；扶抑参考也不等同于格局用神。").font(.footnote).foregroundStyle(SujiTheme.secondary).lineSpacing(5)
+                    if let trace = baziStrengthTrace(pillars: profile["mingPan"]["siZhu"], strength: profile["mingPan"]["wuXingStrength"], structure: profile["mingPan"]["riZhuStructure"]) {
+                        BaziStrengthTraceView(trace: trace, identifier: "profile.strength.trace")
+                    }
                     DisclosureGroup("结构与关系") {
                         VStack(alignment: .leading, spacing: 12) {
                             Text((profile["mingPan"]["geJuV2"]["assessmentStatus"].text == "heuristic-candidate" ? "格局候选：" : "格局：") + profile["mingPan"]["geJuV2"]["name"].text)

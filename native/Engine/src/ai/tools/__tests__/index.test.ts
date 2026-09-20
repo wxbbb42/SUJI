@@ -1,4 +1,5 @@
 import { ALL_TOOLS, ALL_HANDLERS, TOOL_STRATEGY } from '../index';
+import { BaziEngine } from '../../../bazi/BaziEngine';
 
 const FIX_MP = {
   riZhu: { gan: '庚', wuXing: '金', yinYang: '阳', description: '' },
@@ -44,6 +45,20 @@ describe('TOOL_STRATEGY', () => {
 });
 
 describe('get_domain handler', () => {
+  it('keeps reproducible counting and month/root evidence in the serialized tool receipt', async () => {
+    const mingPan = new BaziEngine().calculate(new Date('1990-08-15T10:00:00+08:00'), '女');
+    const result = await ALL_HANDLERS.get_domain({ domain: '事业' }, { ...CTX, mingPan });
+    const r = JSON.parse(JSON.stringify(result));
+    expect(r.bazi.strengthReference.evidence).toMatchObject({ supportTotal: 4, drainTotal: 4, total: 8, dayMasterContribution: 1 });
+    expect(r.bazi.structureReference).toMatchObject({
+      yueLingState: '相', rootStrength: { bijieRoot: 1.5, yinRoot: 1.2, totalRoot: 2.7 },
+      evidence: { monthMainQi: '庚', monthRelation: 'resource', hasSameElementRoot: true, hasResourceSupport: true },
+    });
+    expect(r.bazi.strengthReference.evidence.contributions).toHaveLength(13);
+    expect(r.bazi.structureReference.evidence.sameElementRoots).toHaveLength(2);
+    expect(r.bazi.structureReference.evidence.resourceSupport).toHaveLength(2);
+  });
+
   it('returns 子女 domain bundle', async () => {
     const r = await ALL_HANDLERS.get_domain({ domain: '子女' }, CTX) as any;
     expect(r.domain).toBe('子女');

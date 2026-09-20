@@ -1,0 +1,104 @@
+Optional(Attributes: Application, 0x116b83e80, pid: 15296, label: '有时'
+Element subtree:
+ →Application, 0x116b83e80, pid: 15296, label: '有时'
+    Window (Main), 0x117b37c00, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x117b36800, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x117b370c0, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x117b37200, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x117b36a80, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x117b36bc0, {{0.0, 0.0}, {402.0, 874.0}}
+                NavigationBar, 0x117b36d00, {{0.0, 62.0}, {402.0, 54.0}}, identifier: '问道'
+                  StaticText, 0x117b36e40, {{184.0, 73.7}, {34.0, 20.7}}, label: '问道'
+                  Other, 0x117b37d40, {{346.0, 66.0}, {36.0, 36.0}}, label: '更多'
+                    Other, 0x117b37e80, {{346.0, 66.0}, {36.0, 36.0}}
+                      Button, 0x117b37840, {{350.0, 66.0}, {28.0, 36.0}}, label: '更多'
+                        Button, 0x117b37980, {{350.0, 66.0}, {28.0, 36.0}}
+                          Image, 0x117b37ac0, {{354.0, 82.0}, {20.0, 4.3}}, identifier: 'ellipsis', label: '更多'
+                Other, 0x117b37340, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x117b37480, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x117b375c0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x117b4c000, {{0.0, 0.0}, {402.0, 874.0}}
+                        ScrollView, 0x117b4c140, {{0.0, 0.0}, {402.3, 874.0}}
+                          Other, 0x117b4c280, {{0.0, -165.7}, {402.2, 2079.7}}
+                            StaticText, 0x117b4c3c0, {{44.0, -121.7}, {12.0, 14.3}}, label: '你'
+                            StaticText, 0x117b4c500, {{329.0, -121.2}, {29.3, 13.3}}, label: '12:00'
+                            StaticText, 0x117b4c640, {{44.0, -91.3}, {303.3, 48.7}}, label: '为什么扶抑用神和格局用神不同？可以结合我的资料解释吗？'
+                            StaticText, 0x117b4c780, {{24.0, 7.3}, {24.0, 14.3}}, label: '有时'
+                            StaticText, 0x117b4c8c0, {{349.0, 7.8}, {29.3, 13.3}}, label: '12:00'
+                            Button, 0x117b4ca00, {{24.2, 37.7}, {354.3, 44.0}}, identifier: 'reading.evidence.top', label: '查看完整计算依据'
+                              Image, 0x117b4cb40, {{26.2, 51.7}, {12.3, 16.0}}, identifier: 'text.book.closed', label: 'text.book.closed'
+                              StaticText, 0x117b4cc80, {{24.2, 37.7}, {354.3, 44.0}}, label: '查看完整计算依据'
+                              Image, 0x117b4cdc0, {{371.5, 54.3}, {6.3, 10.7}}, identifier: 'chevron.right', label: '前进'
+                            Other, 0x117b4cf00, {{24.0, 97.7}, {304.3, 113.7}}, identifier: 'reading.section.chart'
+                              StaticText, 0x117b4d040, {{24.0, 97.7}, {92.0, 33.3}}, identifier: 'reading.title.chart', label: '本次命盘'
+                              StaticText, 0x117b4d180, {{24.0, 137.0}, {51.7, 15.7}}, identifier: 'reading.qualification.chart', label: '本地计算'
+                              StaticText, 0x117b4d2c0, {{24.0, 164.7}, {304.3, 46.7}}, identifier: 'reading.body.chart', label: '本次四柱为庚午、甲申、壬子、乙巳，日主壬水。'
+                            Other, 0x117b4d400, {{24.0, 239.3}, {354.5, 283.0}}, identifier: 'reading.section.strength'
+                              StaticText, 0x117b4d540, {{24.0, 239.3}, {92.0, 33.3}}, identifier: 'reading.title.strength', label: '扶抑参考'
+                              StaticText, 0x117b4d680, {{24.0, 278.7}, {181.0, 15.7}}, identifier: 'reading.qualification.strength', label: '启发式参考 · 尚未验证预测效力'
+                              StaticText, 0x117b4d7c0, {{24.0, 306.3}, {351.7, 152.0}}, identifier: 'reading.body.strength', label: '当前工程启发式的固定权重计数：帮扶 4，克泄耗 4。两侧相等，按当前“≥”规则列为偏强。参考用神为土。这些数字是工程权重，不是实测力量。计数包含日干本人一次，未综合月令旺衰、根气、合化与调候，不能替代完整传统强弱辨析。'
+                              Button, 0x117b4d900, {{24.2, 470.3}, {354.3, 52.0}}, identifier: 'reading.strength.trace.toggle', label: '查看强弱判断依据'
+                                StaticText, 0x117b4da40, {{24.2, 470.3}, {354.3, 52.0}}, identifier: 'reading.strength.trace.toggle', label: '查看强弱判断依据'
+                                Image, 0x117b4db80, {{370.8, 490.3}, {7.0, 12.0}}, identifier: 'collapsed'
+                            Other, 0x117b4dcc0, {{24.0, 550.3}, {354.3, 297.7}}, identifier: 'reading.section.pattern'
+                              StaticText, 0x117b4de00, {{24.0, 550.3}, {92.0, 33.3}}, identifier: 'reading.title.pattern', label: '格局候选'
+                              StaticText, 0x117b4df40, {{24.0, 589.7}, {155.3, 15.7}}, identifier: 'reading.qualification.pattern', label: '结构候选 · 尚不能认定成格'
+                              StaticText, 0x117b4e080, {{24.0, 617.3}, {354.3, 230.7}}, identifier: 'reading.body.pattern', label: '格局用神按本次子平真诠口径，讨论月令结构及其配合。本次列出偏印格候选，格局用神记为金（庚）。可核对的取格线索是：月支申的本气庚出现在年干；透干只是取格线索，不等于全格成立。这里的格局名称与成败都仍是结构规则候选，不能据此说已经成格。条件：成败与等级是当前结构规则的候选输出，不是完整古籍格局裁定；隔位五合不自动合去用神；相邻合一留一不自动判全格破败。'
+                            Other, 0x117b4e1c0, {{24.0, 876.0}, {354.3, 245.3}}, identifier: 'reading.section.relations'
+                              StaticText, 0x117b4e300, {{24.0, 876.0}, {92.0, 33.3}}, identifier: 'reading.title.relations', label: '五行关系'
+                              StaticText, 0x117b4e440, {{24.0, 915.3}, {51.7, 15.7}}, identifier: 'reading.qualification.relations', label: '概念说明'
+                              StaticText, 0x117b4e580, {{24.0, 943.0}, {354.3, 178.3}}, identifier: 'reading.body.relations', label: '以水为参照，土克水，金生水；水生木称为“泄”，水克火称为“耗”。克、泄、耗是不同关系。这些关系说明术语的方向，本身不能证明某元素已经适合作为你的用神。完整相生顺序为木生火、火生土、土生金、金生水、水生木；相克为木克土、土克水、水克火、火克金、金克木。'
+                            Other, 0x117b4e6c0, {{24.0, 1149.3}, {354.3, 271.3}}, identifier: 'reading.section.tiaohou'
+                              StaticText, 0x117b4e800, {{24.0, 1149.3}, {92.0, 33.3}}, identifier: 'reading.title.tiaohou', label: '调候文献'
+                              StaticText, 0x117b4e940, {{24.0, 1188.7}, {155.3, 15.7}}, identifier: 'reading.qualification.tiaohou', label: '文献候选 · 适用条件待核对'
+                              StaticText, 0x117b4ea80, {{24.0, 1216.3}, {354.3, 204.3}}, identifier: 'reading.body.tiaohou', label: '若另看调候，它关注寒暖燥湿。《穷通宝鉴》壬日申月的当前网络转录摘录为：“专用戊土，次取丁火佐戊制庚”，列出的候选为戊、丁。适用条件：辰戌戊与申中戊的区别、戊癸合条件不可省略；候选仅表示此转录本中的传统论述；全局条件与印刷底本尚未完全核验，不自动选定用神。这段只核对了转录，尚未完成印刷底本校勘，也没有自动替你选定调候用神。'
+                            Other, 0x117b4ebc0, {{24.0, 1448.7}, {354.3, 271.3}}, identifier: 'reading.section.comparison'
+                              StaticText, 0x117b4ed00, {{24.0, 1448.7}, {138.0, 33.3}}, identifier: 'reading.title.comparison', label: '如何理解差异'
+                              StaticText, 0x117b4ee40, {{24.0, 1488.0}, {51.7, 15.7}}, identifier: 'reading.qualification.comparison', label: '概念说明'
+                              StaticText, 0x117b4ef80, {{24.0, 1515.7}, {354.3, 204.3}}, identifier: 'reading.body.comparison', label: '本次扶抑参考为土，格局候选用神为金：前者是当前强弱规则的取向，后者是当前结构规则的角色，不能直接互相替代。解释目标不同可以说明结果为何可能不同，却不能证明两套计算都正确。要进一步判断，需分别复核强弱计算的权重与缺项、取格所用的月令依据，以及格局配合和调候的适用条件；不能仅凭两个元素，决定现实中的职业、健康或投资选择。'
+                            Button, 0x117b4f0c0, {{24.2, 1748.0}, {102.0, 44.0}}, identifier: 'reading.copy', label: '复制完整回信'
+                              Image, 0x117b4f200, {{25.8, 1762.0}, {13.0, 16.0}}, identifier: 'doc.on.doc', label: '拷贝'
+                              StaticText, 0x117b4f340, {{24.2, 1748.0}, {102.0, 44.0}}, label: '复制完整回信'
+                            Button, 0x117b4f480, {{24.2, 1808.0}, {354.3, 44.0}}, identifier: 'reading.evidence.bottom', label: '查看完整计算依据'
+                              Image, 0x117b4f5c0, {{26.2, 1822.0}, {12.3, 16.0}}, identifier: 'text.book.closed', label: 'text.book.closed'
+                              StaticText, 0x117b4f700, {{24.2, 1808.0}, {354.3, 44.0}}, label: '查看完整计算依据'
+                              Image, 0x117b4f840, {{371.5, 1824.7}, {6.3, 10.7}}, identifier: 'chevron.right', label: '前进'
+                          Other, 0x117b4f980, {{0.0, -0.0}, {402.3, 874.0}}
+                            Other, 0x117b4fac0, {{0.0, 0.0}, {402.3, 170.8}}
+                          Other, 0x117b4fc00, {{0.0, -0.0}, {402.3, 874.0}}
+                            Other, 0x117b4fd40, {{0.0, 0.0}, {402.3, 170.8}}
+                              Image, 0x117b4fe80, {{-120.0, -166.0}, {642.3, 332.0}}, identifier: 'AdditionalDimmingOverlay'
+                              Other, 0x117b84000, {{0.0, 0.0}, {402.3, 106.0}}
+                              Other, 0x117b84140, {{0.0, 0.0}, {402.3, 170.8}}
+                                Other, 0x117b84280, {{0.0, 0.0}, {402.3, 170.8}}
+                              Other, 0x117b843c0, {{0.0, 0.0}, {402.3, 170.8}}
+                                Other, 0x117b84500, {{0.0, 0.0}, {402.3, 170.8}}
+                              Other, 0x117b84640, {{0.0, 0.0}, {402.3, 170.8}}
+                                Other, 0x117b84780, {{0.0, 0.0}, {402.3, 170.8}}
+                                Other, 0x117b848c0, {{0.0, 0.0}, {402.3, 170.8}}
+                          Other, 0x117b84a00, {{369.0, 150.3}, {30.0, 507.7}}, label: 'Vertical scroll bar, 5 pages', value: 20%
+                            Other, 0x117b84b40, {{396.0, 218.0}, {3.0, 179.3}}
+                          Other, 0x117b84c80, {{369.0, 150.3}, {30.0, 507.7}}, label: 'Vertical scroll bar, 5 pages', value: 20%
+                            Other, 0x117b84dc0, {{396.0, 218.0}, {3.0, 179.3}}
+                        StaticText, 0x117b84f00, {{0.0, 0.0}, {402.0, 150.3}}, identifier: 'audit.synthetic', label: '界面验收 · 合成资料 · 未调用 AI'
+                        Other, 0x117b85040, {{0.0, 666.0}, {402.0, 208.0}}, identifier: 'chat.composer'
+                          StaticText, 0x117b85180, {{20.0, 692.8}, {158.0, 14.3}}, label: '登录后，AI 才能为你写回信。'
+                          Button, 0x117b852c0, {{342.0, 693.0}, {36.0, 14.3}}, label: '去登录'
+                          SegmentedControl, 0x117b85400, {{20.0, 734.0}, {362.0, 31.0}}
+                            Button, 0x117b85540, {{20.0, 734.0}, {120.0, 32.0}}, label: '倾诉'
+                            Button, 0x117b85680, {{140.0, 734.0}, {121.0, 32.0}}, label: '命理', Selected
+                            Button, 0x117b857c0, {{261.0, 734.0}, {121.0, 32.0}}, label: '起卦'
+                          TextField, 0x117b85900, {{34.0, 791.0}, {274.0, 23.0}}, identifier: 'chat.input', label: '写下此刻的心事', placeholderValue: '写下此刻的心事…'
+                            Other, 0x117b85a40, {{36.0, 799.5}, {272.0, 11.5}}, label: 'Horizontal scroll bar, 1 pages', value: 0%
+                              Other, 0x117b85b80, {{39.0, 808.0}, {266.0, 3.0}}
+                          Button, 0x117b85cc0, {{334.0, 780.0}, {48.0, 48.0}}, identifier: 'arrow.up', label: '发送', Disabled
+                Other, 0x117b85e00, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x117b85f40, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x116b83e80, pid: 15296, label: '有时'
+Query chain:
+ →Find: Target Application 'app.suji.native'
+  Output: {
+    Application, 0x117b86080, pid: 15296, label: '有时'
+  }
+)

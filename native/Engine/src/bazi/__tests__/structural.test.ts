@@ -200,6 +200,44 @@ describe('computeRiZhuStructure (聚合)', () => {
   });
 });
 
+describe('structural strength evidence separates facts from engineering labels', () => {
+  it('does not describe a small real hidden root as literally absent', () => {
+    const small = computeRiZhuStructure('甲', ['丙', '辛', '甲', '丁'], ['巳', '酉', '巳', '未']);
+    expect(small.rootStrength).toMatchObject({ totalRoot: 0.2, label: '无根' });
+    expect(small.evidence).toMatchObject({
+      hasSameElementRoot: true, hasResourceSupport: false,
+      sameElementRoots: [{ zhi: '未', position: '时', hiddenGan: '乙', tier: 'yu', weight: 0.2, kind: 'bijie' }],
+      resourceSupport: [], strengthRule: 'shi-ling-minimal-root',
+    });
+    const zero = computeRiZhuStructure('甲', ['丙', '辛', '甲', '丁'], ['巳', '酉', '巳', '午']);
+    expect(zero.rootStrength.totalRoot).toBe(0);
+    expect(zero.evidence).toMatchObject({ hasSameElementRoot: false, hasResourceSupport: false, sameElementRoots: [], resourceSupport: [] });
+  });
+
+  it('shows pure resource support without inventing a same-element root or changing the legacy matrix', () => {
+    const r = computeRiZhuStructure('甲', ['壬', '壬', '甲', '壬'], ['子', '子', '子', '子']);
+    expect(r.rootStrength).toMatchObject({ bijieRoot: 0, yinRoot: 4, totalRoot: 4, label: '强根' });
+    expect(r.strength).toBe('taiwang');
+    expect(r.evidence).toMatchObject({
+      monthBranch: '子', monthMainQi: '癸', monthMainElement: '水', monthRelation: 'resource',
+      hasSameElementRoot: false, hasResourceSupport: true,
+      daySeatSameElementRoot: false, daySeatResourceSupport: true,
+      sameElementRoots: [], exposedStemsUsedForStrength: false,
+      strengthRule: 'de-ling-strong-root-with-seat-support',
+    });
+    expect(r.evidence?.resourceSupport).toHaveLength(4);
+  });
+
+  it('explains the neutral-month fallback without treating missing stem inputs as examined', () => {
+    const r = computeRiZhuStructure('甲', ['丙', '丁', '甲', '庚'], ['巳', '午', '申', '戌']);
+    expect(r).toMatchObject({ yueLingState: '休', deLing: false, shiLing: false, strength: 'ruo' });
+    expect(r.evidence).toMatchObject({ monthRelation: 'output', strengthRule: 'neutral-month-minimal-root', exposedStemsUsedForStrength: false });
+    const otherStems = computeRiZhuStructure('甲', ['壬', '癸', '甲', '乙'], ['巳', '午', '申', '戌']);
+    expect(otherStems.strength).toBe(r.strength);
+    expect(otherStems.evidence).toEqual(r.evidence);
+  });
+});
+
 // ============================================================
 // Phase 2 Step B：GeJuV2 fixtures（结构化格局）
 // 出处：《子平真诠》论用神 / 论用神成败救应 / 论用神变化 /

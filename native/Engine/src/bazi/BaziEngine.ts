@@ -12,7 +12,7 @@ import { CALENDAR_POLICY, getCalendarPillars, toSolar, fromSolar, fromBeijingPar
 import type { QiYunInfo } from './types';
 import { getTiaoHouReview } from './tiaohou';
 import { getTrueSolarTimeInfo } from './TrueSolarTime';
-import { assessStemCombination, computeGeJuV2, computeRiZhuStructure, computeShiShenRelations } from './structural';
+import { assessStemCombination, computeGeJuV2, computeRiZhuStructure, computeShiShenRelations, computeStrengthRelation } from './structural';
 import type {
   BranchRelation,
   CangGanItem,
@@ -25,12 +25,13 @@ import type {
   ShiErChangSheng,
   ShiShen,
   SiZhu,
+  StrengthContribution,
+  StrengthRelation,
   StemRelation,
   TianGan,
   WuXing,
   WuXingStrength,
   YinYang,
-  ZhuDetail,
 } from './types';
 
 // ─────────────────────────────────────────────
@@ -107,9 +108,9 @@ export class BaziEngine {
   };
 
   /**
-   * 地支藏干表（《三命通会》）
-   * 格式：[本气, 中气?, 余气?] + 权重
-   * 权重参考：本气 0.6–0.7，中气 0.2–0.3，余气 0.1
+   * 地支藏干表；藏干身份可与《渊海子平》藏遁歌等互校。
+   * 每支合计为 1 的权重是旧计数模型的工程约定，不是古籍给定比例。
+   * 本表权重均为十分位数；computeWuXingStrength 用整数十分位累计。
    */
   private static readonly CANG_GAN: Record<DiZhi, { gan: TianGan; weight: number }[]> = {
     子: [{ gan: '癸', weight: 1.0 }],
@@ -613,37 +614,47 @@ export class BaziEngine {
   /**
    * 工程计数近似，不是古籍给定的权重或已验证强弱算法。
    * 计算五行强弱（保留 yongShen/xiShen/jiShen/riZhuStrong/strongest/weakest 语义字段）
-   * balance 仅作内部变量用于 strongest/weakest 推导，不对外暴露。
+   * evidence 同步公开逐项贡献、分组与阈值，取用与 trace 使用同一份合计。
    */
   private computeWuXingStrength(
     siZhu: SiZhu,
     riGan: TianGan,
     monthZhi: DiZhi,
   ): WuXingStrength {
-    type BalanceKey = 'jin' | 'mu' | 'shui' | 'huo' | 'tu';
-    const balance: Record<BalanceKey, number> = { jin: 0, mu: 0, shui: 0, huo: 0, tu: 0 };
-    const wxToKey = (wx: WuXing): BalanceKey => ({ 金: 'jin', 木: 'mu', 水: 'shui', 火: 'huo', 土: 'tu' }[wx] as BalanceKey);
-    const keyToWx = (k: BalanceKey): WuXing => ({ jin: '金', mu: '木', shui: '水', huo: '火', tu: '土' }[k] as WuXing);
-
-    const addWx = (wx: WuXing, amt: number) => { balance[wxToKey(wx)] += amt; };
-
-    // 四天干各计 1
-    for (const zhu of [siZhu.year, siZhu.month, siZhu.day, siZhu.hour]) {
-      addWx(zhu.ganZhi.ganWuXing, 1);
-    }
-    // 四地支藏干按藏干权重
-    for (const zhu of Object.values(siZhu) as ZhuDetail[]) {
-      for (const cg of zhu.cangGan) {
-        addWx(cg.wuXing, cg.weight);
-      }
-    }
-
     const riWx = BaziEngine.GAN_WUXING[riGan];
-    const helpForce = [riWx, BaziEngine.reverseSheng(riWx)].reduce((s, wx) => s + balance[wxToKey(wx)], 0);
-    const weakenForce = [BaziEngine.SHENG[riWx], BaziEngine.KE[riWx], BaziEngine.getKeMe(riWx)]
-      .reduce((s, wx) => s + balance[wxToKey(wx)], 0);
-    // helpForce already contains the day-master element: never count it twice.
-    const riZhuStrong = helpForce >= weakenForce;
+    const pillarKeys: PillarKey[] = ['year', 'month', 'day', 'hour'];
+    const tieBreakOrder: WuXing[] = ['金', '木', '水', '火', '土'];
+    const contributions: StrengthContribution[] = [];
+    // Preserve the old traversal: four visible stems, then four sets of hidden stems.
+    for (const pillar of pillarKeys) {
+      const { ganZhi } = siZhu[pillar];
+      contributions.push({ pillar, source: 'stem', gan: ganZhi.gan, zhi: ganZhi.zhi,
+        element: ganZhi.ganWuXing, weight: 1,
+        relation: computeStrengthRelation(riWx, ganZhi.ganWuXing), isDayMaster: pillar === 'day' });
+    }
+    for (const pillar of pillarKeys) {
+      const zhu = siZhu[pillar];
+      for (const cg of zhu.cangGan) contributions.push({
+        pillar, source: 'hidden-stem', gan: cg.gan, zhi: zhu.ganZhi.zhi,
+        element: cg.wuXing, weight: cg.weight,
+        relation: computeStrengthRelation(riWx, cg.wuXing), isDayMaster: false,
+      });
+    }
+
+    // All declared weights are exact tenths. Integer units prevent a hand-counted
+    // 4:4 tie from becoming 3.9999999999999996:4 and changing the >= decision.
+    const elementUnits: Record<WuXing, number> = { 金: 0, 木: 0, 水: 0, 火: 0, 土: 0 };
+    const relationUnits: Record<StrengthRelation, number> = { peer: 0, resource: 0, output: 0, wealth: 0, officer: 0 };
+    let dayMasterUnits = 0;
+    for (const item of contributions) {
+      const units = Math.round(item.weight * 10);
+      elementUnits[item.element] += units;
+      relationUnits[item.relation] += units;
+      if (item.isDayMaster) dayMasterUnits += units;
+    }
+    const supportUnits = relationUnits.peer + relationUnits.resource;
+    const drainUnits = relationUnits.output + relationUnits.wealth + relationUnits.officer;
+    const riZhuStrong = supportUnits >= drainUnits;
 
     // Legacy display fields retain a named FUYI heuristic only. The unreviewed
     // 120-cell tiaohou table must never silently decide these values. Source-linked
@@ -661,11 +672,34 @@ export class BaziEngine {
       jiShen = BaziEngine.getKeMe(riWx);
     }
 
-    const entries = Object.entries(balance) as [BalanceKey, number][];
-    const strongest = keyToWx(entries.reduce((a, b) => (b[1] > a[1] ? b : a))[0]);
-    const weakest   = keyToWx(entries.reduce((a, b) => (b[1] < a[1] ? b : a))[0]);
+    const maximum = Math.max(...Object.values(elementUnits));
+    const minimum = Math.min(...Object.values(elementUnits));
+    const strongestElements = tieBreakOrder.filter(wx => elementUnits[wx] === maximum);
+    const weakestElements = tieBreakOrder.filter(wx => elementUnits[wx] === minimum);
+    const elementTotals = Object.fromEntries(tieBreakOrder.map(wx => [wx, elementUnits[wx] / 10])) as Record<WuXing, number>;
+    const relationTotals = Object.fromEntries(Object.entries(relationUnits).map(([relation, units]) => [relation, units / 10])) as Record<StrengthRelation, number>;
 
-    return { strongest, weakest, riZhuStrong, yongShen, xiShen, jiShen, suggestionBasis: 'fuyi-heuristic', suggestionStatus: 'not-empirically-validated', tiaohouApplied: false };
+    return {
+      strongest: strongestElements[0], weakest: weakestElements[0], riZhuStrong, yongShen, xiShen, jiShen,
+      suggestionBasis: 'fuyi-heuristic', suggestionStatus: 'not-empirically-validated', tiaohouApplied: false,
+      evidence: {
+        version: 'weighted-count-v1', basis: 'engineering-heuristic',
+        dayMaster: riGan, dayElement: riWx, monthBranch: monthZhi,
+        contributions, elementTotals, relationTotals,
+        supportTotal: supportUnits / 10, drainTotal: drainUnits / 10,
+        total: (supportUnits + drainUnits) / 10, dayMasterContribution: dayMasterUnits / 10,
+        supportExcludingDayMaster: (supportUnits - dayMasterUnits) / 10,
+        threshold: 'supportTotal >= drainTotal', monthWeightApplied: false,
+        strongestElements, weakestElements, tieBreakOrder,
+        limitations: [
+          '四天干各计1，四支藏干每支合计1，总计8；这是固定权重计数，不是实测五行力量。',
+          '日干本人计入同类一次；supportExcludingDayMaster只说明其余帮扶，未被用于兼容强弱与取用。',
+          '同我与生我合为帮扶；我生为泄、我克为耗、克我为制约，三者合为另一侧；关系本身不等于喜忌。',
+          '本计数未对月令加权，也未求解通根层次、司令、合化、刑冲或调候；不能替代完整传统旺衰辨析。',
+          '两侧相等时按>=归入兼容偏强；五行并列按金木水火土选旧字段，同时保留全部并列项。',
+        ],
+      },
+    };
   }
 
   /** 反向相生：找生我者（如木被水生，reverseSheng(木)=水） */

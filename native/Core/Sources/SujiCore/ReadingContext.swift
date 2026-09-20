@@ -29,7 +29,7 @@ public struct ToolContext: Codable, Equatable, Sendable {
 }
 
 public enum ReadingPrompt {
-    public static let version = "suji-grounded-reading-9"
+    public static let version = "suji-grounded-reading-10"
 
     public static func instruction(tone: String, mode: String, referenceDate: Date, hasBirth: Bool) -> String {
         let at = ISO8601DateFormatter().string(from: referenceDate)

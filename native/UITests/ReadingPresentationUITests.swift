@@ -54,11 +54,20 @@ final class ReadingPresentationUITests: XCTestCase {
         capture(prefix + "-entry")
         evidence.tap()
         XCTAssertTrue(app.navigationBars["计算依据"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.staticTexts["提问时刻"].exists)
         capture(prefix + "-evidence")
+        let referenceTime = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", "提问时刻,")).firstMatch
+        // The strength summary now precedes metadata; List virtualizes rows
+        // below the large-text viewport, so verify their reachable position.
+        for _ in 0..<12 {
+            if referenceTime.isHittable { break }
+            app.swipeUp()
+        }
+        XCTAssertTrue(referenceTime.isHittable)
+        XCTAssertTrue(referenceTime.label.contains("2026年9月19日"))
+        capture(prefix + "-metadata")
         app.navigationBars.buttons.firstMatch.tap()
         let checks = [
-            ("strength", "启发式参考", "未验证预测效力"),
+            ("strength", "启发式参考", "不是实测力量"),
             ("pattern", "结构候选", "不能据此说已经成格"),
             ("tiaohou", "文献候选", "尚未完成印刷底本校勘"),
         ]

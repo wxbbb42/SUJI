@@ -25,6 +25,12 @@ struct ReadingDocumentView: View {
                         .font(.body).lineSpacing(6).textSelection(.enabled)
                         .fixedSize(horizontal: false, vertical: true)
                         .accessibilityIdentifier("reading.body." + section.id)
+                    if ["strength", "strength-brief"].contains(section.id),
+                       let trace = BaziStrengthTrace.from(evidence: section.evidence) {
+                        BaziStrengthTraceView(trace: trace, showsSummary: false,
+                                              showsFootnote: false,
+                                              identifier: "reading.strength.trace")
+                    }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .accessibilityElement(children: .contain)

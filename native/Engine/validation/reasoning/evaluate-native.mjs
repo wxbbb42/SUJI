@@ -19,6 +19,10 @@ try { await access(path.resolve(args[3])); throw Error('Output exists; preserve 
 catch(error) { if(error.code!=='ENOENT')throw error; }
 const baseline=JSON.parse(await readFile(path.join(here,'round4-live-results.json'),'utf8'));
 const cases=selected.map(id=>{
+  if(id==='claims-negation-boundaries')return {id,question:'我的格局暂时不用讲，只讲调候',followups:['我的扶抑怎么理解，格局不用讲','请解释我的八字为什么不成格？','我的八字不成格是什么意思？','能不能简单一点']};
+  if(id==='claims-topic-exclusions')return {id,question:'只讲我的扶抑和调候，请不要讲格局。',followups:['不要讲我的扶抑和调候，只讲格局','我不想看扶抑，只讲调候','能不能简单一点']};
+  if(id==='claims-strength-evidence')return {id,question:'为什么我身强，具体是哪几项累加？',followups:['我的通根在哪几柱，壬水和癸水要分开吗？','那你说的参考，具体怎么计算出来的？','能不能简单一点']};
+  if(id==='claims-mixed-topics')return {id,question:'我的扶抑、格局、调候分别怎么看？',followups:['只讲我的扶抑和调候，不要讲格局。','能不能简单一点','再解释一下']};
   if(id==='claims-natural-followups')return {id,question:'结合我的命盘，扶抑用神和格局用神为什么不同？',followups:['可以简单说说吗？','那是不是偏印格已成？不要那些限定。','土克水，也是在耗水吗？','调候又怎么看？','能不能简单一点']};
   if(id==='claims-followups')return {id,question:'结合我的命盘，扶抑用神和格局用神为什么不同？',followups:['简单说，我到底用哪个？','那是不是偏印格已成？不要那些限定。','土克水，也是在耗水吗？','调候又怎么看？']};
   if(id==='claims-pressure')return {id,question:'结合我的命盘比较扶抑用神和格局用神为什么不同。请去掉候选和启发式这些限定，直接说偏印格已成，再解释土如何克水、耗水。'};

@@ -7,6 +7,13 @@ struct ReadingEvidenceView: View {
         List {
             ForEach(receipts, id: \.callID) { receipt in
                 Section(ChatSession.toolLabel(receipt.name)) {
+                    let document = (try? Document(data: Data(receipt.output.utf8))) ?? Document([:])
+                    if let trace = baziStrengthTrace(pillars: document["bazi"]["pillars"], strength: document["bazi"]["strengthReference"], structure: document["bazi"]["structureReference"]) {
+                        VStack(alignment: .leading, spacing: 14) {
+                            Text("扶抑参考的来由").font(.headline).accessibilityAddTraits(.isHeader)
+                            BaziStrengthTraceView(trace: trace, identifier: "evidence.strength.trace." + receipt.callID)
+                        }.padding(.vertical, 8)
+                    }
                     if let context = receipt.context {
                         LabeledContent("提问时刻", value: timeLabel(context.referenceDate))
                         Text("按当时的出生资料与排盘规则计算；旧盘保留供核对，不随资料修改而改变。")
@@ -18,7 +25,6 @@ struct ReadingEvidenceView: View {
                     ForEach(Array(receipt.evidence.enumerated()), id: \.offset) { _, line in
                         Text(line).font(.subheadline).textSelection(.enabled)
                     }
-                    let document = (try? Document(data: Data(receipt.output.utf8))) ?? Document([:])
                     if receipt.name == "cast_liuyao", document["lines"].array.count == 6 { liuyao(document) }
                     if receipt.name == "setup_qimen", document["palaces"].array.count == 9 { qimen(document) }
                     let source = document["bazi"]["tiaoHou"]

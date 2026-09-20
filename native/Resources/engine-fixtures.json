@@ -203,7 +203,207 @@
           "jiShen": "木",
           "suggestionBasis": "fuyi-heuristic",
           "suggestionStatus": "not-empirically-validated",
-          "tiaohouApplied": false
+          "tiaohouApplied": false,
+          "evidence": {
+            "version": "weighted-count-v1",
+            "basis": "engineering-heuristic",
+            "dayMaster": "戊",
+            "dayElement": "土",
+            "monthBranch": "申",
+            "contributions": [
+              {
+                "pillar": "year",
+                "source": "stem",
+                "gan": "乙",
+                "zhi": "亥",
+                "element": "木",
+                "weight": 1,
+                "relation": "officer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "stem",
+                "gan": "甲",
+                "zhi": "申",
+                "element": "木",
+                "weight": 1,
+                "relation": "officer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "stem",
+                "gan": "戊",
+                "zhi": "寅",
+                "element": "土",
+                "weight": 1,
+                "relation": "peer",
+                "isDayMaster": true
+              },
+              {
+                "pillar": "hour",
+                "source": "stem",
+                "gan": "壬",
+                "zhi": "戌",
+                "element": "水",
+                "weight": 1,
+                "relation": "wealth",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "year",
+                "source": "hidden-stem",
+                "gan": "壬",
+                "zhi": "亥",
+                "element": "水",
+                "weight": 0.7,
+                "relation": "wealth",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "year",
+                "source": "hidden-stem",
+                "gan": "甲",
+                "zhi": "亥",
+                "element": "木",
+                "weight": 0.3,
+                "relation": "officer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "hidden-stem",
+                "gan": "庚",
+                "zhi": "申",
+                "element": "金",
+                "weight": 0.6,
+                "relation": "output",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "hidden-stem",
+                "gan": "壬",
+                "zhi": "申",
+                "element": "水",
+                "weight": 0.2,
+                "relation": "wealth",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "hidden-stem",
+                "gan": "戊",
+                "zhi": "申",
+                "element": "土",
+                "weight": 0.2,
+                "relation": "peer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "hidden-stem",
+                "gan": "甲",
+                "zhi": "寅",
+                "element": "木",
+                "weight": 0.6,
+                "relation": "officer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "hidden-stem",
+                "gan": "丙",
+                "zhi": "寅",
+                "element": "火",
+                "weight": 0.2,
+                "relation": "resource",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "hidden-stem",
+                "gan": "戊",
+                "zhi": "寅",
+                "element": "土",
+                "weight": 0.2,
+                "relation": "peer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "hour",
+                "source": "hidden-stem",
+                "gan": "戊",
+                "zhi": "戌",
+                "element": "土",
+                "weight": 0.6,
+                "relation": "peer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "hour",
+                "source": "hidden-stem",
+                "gan": "辛",
+                "zhi": "戌",
+                "element": "金",
+                "weight": 0.2,
+                "relation": "output",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "hour",
+                "source": "hidden-stem",
+                "gan": "丁",
+                "zhi": "戌",
+                "element": "火",
+                "weight": 0.2,
+                "relation": "resource",
+                "isDayMaster": false
+              }
+            ],
+            "elementTotals": {
+              "金": 0.8,
+              "木": 2.9,
+              "水": 1.9,
+              "火": 0.4,
+              "土": 2
+            },
+            "relationTotals": {
+              "peer": 2,
+              "resource": 0.4,
+              "output": 0.8,
+              "wealth": 1.9,
+              "officer": 2.9
+            },
+            "supportTotal": 2.4,
+            "drainTotal": 5.6,
+            "total": 8,
+            "dayMasterContribution": 1,
+            "supportExcludingDayMaster": 1.4,
+            "threshold": "supportTotal >= drainTotal",
+            "monthWeightApplied": false,
+            "strongestElements": [
+              "木"
+            ],
+            "weakestElements": [
+              "火"
+            ],
+            "tieBreakOrder": [
+              "金",
+              "木",
+              "水",
+              "火",
+              "土"
+            ],
+            "limitations": [
+              "四天干各计1，四支藏干每支合计1，总计8；这是固定权重计数，不是实测五行力量。",
+              "日干本人计入同类一次；supportExcludingDayMaster只说明其余帮扶，未被用于兼容强弱与取用。",
+              "同我与生我合为帮扶；我生为泄、我克为耗、克我为制约，三者合为另一侧；关系本身不等于喜忌。",
+              "本计数未对月令加权，也未求解通根层次、司令、合化、刑冲或调候；不能替代完整传统旺衰辨析。",
+              "两侧相等时按>=归入兼容偏强；五行并列按金木水火土选旧字段，同时保留全部并列项。"
+            ]
+          }
         },
         "tiaoHou": {
           "ruleId": "qiongtong.戊申",
@@ -288,7 +488,112 @@
             "zao": false,
             "shi": false
           },
-          "strength": "zhonghe"
+          "strength": "zhonghe",
+          "evidence": {
+            "version": "month-root-matrix-v1",
+            "basis": "engineering-heuristic",
+            "monthBranch": "申",
+            "monthMainQi": "庚",
+            "monthMainElement": "金",
+            "monthRelation": "output",
+            "monthMethod": "month-branch-main-qi",
+            "sameElementRoots": [
+              {
+                "zhi": "申",
+                "position": "月",
+                "hiddenGan": "戊",
+                "tier": "yu",
+                "weight": 0.2,
+                "kind": "bijie"
+              },
+              {
+                "zhi": "寅",
+                "position": "日",
+                "hiddenGan": "戊",
+                "tier": "yu",
+                "weight": 0.2,
+                "kind": "bijie"
+              },
+              {
+                "zhi": "戌",
+                "position": "时",
+                "hiddenGan": "戊",
+                "tier": "ben",
+                "weight": 1,
+                "kind": "bijie"
+              }
+            ],
+            "resourceSupport": [
+              {
+                "zhi": "寅",
+                "position": "日",
+                "hiddenGan": "丙",
+                "tier": "zhong",
+                "weight": 0.5,
+                "kind": "yin"
+              },
+              {
+                "zhi": "戌",
+                "position": "时",
+                "hiddenGan": "丁",
+                "tier": "yu",
+                "weight": 0.2,
+                "kind": "yin"
+              }
+            ],
+            "hasSameElementRoot": true,
+            "hasResourceSupport": true,
+            "daySeatSameElementRoot": true,
+            "daySeatResourceSupport": true,
+            "rootWeightBasis": "open-source-engineering-weights",
+            "rootWeights": {
+              "ben": 1,
+              "zhong": 0.5,
+              "yu": 0.2
+            },
+            "rootLabelBands": [
+              {
+                "label": "无根",
+                "lowerInclusive": 0,
+                "upperExclusive": 0.3
+              },
+              {
+                "label": "微根",
+                "lowerInclusive": 0.3,
+                "upperExclusive": 0.7
+              },
+              {
+                "label": "弱根",
+                "lowerInclusive": 0.7,
+                "upperExclusive": 1.5
+              },
+              {
+                "label": "中根",
+                "lowerInclusive": 1.5,
+                "upperExclusive": 2.5
+              },
+              {
+                "label": "强根",
+                "lowerInclusive": 2.5,
+                "upperExclusive": null
+              }
+            ],
+            "strengthRule": "neutral-month-medium-or-strong-root",
+            "exposedStemsUsedForStrength": false,
+            "sourceRefs": [
+              "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md:200",
+              "docs/mingli/source-texts/bazi/ditianshui-chanwei/tongshen-17-shuaiwang-zhonghe.md:20",
+              "https://github.com/XiaoChu-1208/bazi-life-curves/blob/ad8fdeceac3d74b9682ce1df362e7a497dc91d2c/scripts/_bazi_core.py#L192-L283"
+            ],
+            "limitations": [
+              "月令五态仅按月支本气查表，未按交节后日数判司令，辰戌丑未也未区分月内用事。",
+              "得令包含旺与相，失令仅指囚与死，休在此矩阵按中性处理；这是本实现约定。",
+              "兼容根力标签合计同五行藏干与印支持；无根档也可能含非零余气，须以实际条目区分。",
+              "本中余权重1/0.5/0.2与分档阈值是开源工程参数，未获独立实证校准。",
+              "五档强弱未考虑其余透干、制化刑冲会合及调候，不能替代完整传统旺衰辨析。",
+              "经典引文来自待核印刷底本的电子转录，支持定性辨析，不为工程数值与矩阵背书。"
+            ]
+          }
         },
         "branchRelations": [
           {
@@ -1690,7 +1995,7 @@
         "zhiShiSourcePalaceId": 6,
         "tianQinPalaceId": 2,
         "provenance": {
-          "engineRevision": "e76281c812d5cec4e0c53f92aad8994bdb5b549bede85e220959d34205c088a2",
+          "engineRevision": "6ac5ff6a948b2b2d20459b81d5fbfb0cba8f1807986032be3bf86ccac2ca6b09",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -2095,7 +2400,188 @@
           "jiShen": "木",
           "suggestionBasis": "fuyi-heuristic",
           "suggestionStatus": "not-empirically-validated",
-          "tiaohouApplied": false
+          "tiaohouApplied": false,
+          "evidence": {
+            "version": "weighted-count-v1",
+            "basis": "engineering-heuristic",
+            "dayMaster": "戊",
+            "dayElement": "土",
+            "monthBranch": "申",
+            "contributions": [
+              {
+                "pillar": "year",
+                "source": "stem",
+                "gan": "乙",
+                "zhi": "亥",
+                "element": "木",
+                "weight": 1,
+                "relation": "officer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "stem",
+                "gan": "甲",
+                "zhi": "申",
+                "element": "木",
+                "weight": 1,
+                "relation": "officer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "stem",
+                "gan": "戊",
+                "zhi": "寅",
+                "element": "土",
+                "weight": 1,
+                "relation": "peer",
+                "isDayMaster": true
+              },
+              {
+                "pillar": "hour",
+                "source": "stem",
+                "gan": "壬",
+                "zhi": "子",
+                "element": "水",
+                "weight": 1,
+                "relation": "wealth",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "year",
+                "source": "hidden-stem",
+                "gan": "壬",
+                "zhi": "亥",
+                "element": "水",
+                "weight": 0.7,
+                "relation": "wealth",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "year",
+                "source": "hidden-stem",
+                "gan": "甲",
+                "zhi": "亥",
+                "element": "木",
+                "weight": 0.3,
+                "relation": "officer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "hidden-stem",
+                "gan": "庚",
+                "zhi": "申",
+                "element": "金",
+                "weight": 0.6,
+                "relation": "output",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "hidden-stem",
+                "gan": "壬",
+                "zhi": "申",
+                "element": "水",
+                "weight": 0.2,
+                "relation": "wealth",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "hidden-stem",
+                "gan": "戊",
+                "zhi": "申",
+                "element": "土",
+                "weight": 0.2,
+                "relation": "peer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "hidden-stem",
+                "gan": "甲",
+                "zhi": "寅",
+                "element": "木",
+                "weight": 0.6,
+                "relation": "officer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "hidden-stem",
+                "gan": "丙",
+                "zhi": "寅",
+                "element": "火",
+                "weight": 0.2,
+                "relation": "resource",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "hidden-stem",
+                "gan": "戊",
+                "zhi": "寅",
+                "element": "土",
+                "weight": 0.2,
+                "relation": "peer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "hour",
+                "source": "hidden-stem",
+                "gan": "癸",
+                "zhi": "子",
+                "element": "水",
+                "weight": 1,
+                "relation": "wealth",
+                "isDayMaster": false
+              }
+            ],
+            "elementTotals": {
+              "金": 0.6,
+              "木": 2.9,
+              "水": 2.9,
+              "火": 0.2,
+              "土": 1.4
+            },
+            "relationTotals": {
+              "peer": 1.4,
+              "resource": 0.2,
+              "output": 0.6,
+              "wealth": 2.9,
+              "officer": 2.9
+            },
+            "supportTotal": 1.6,
+            "drainTotal": 6.4,
+            "total": 8,
+            "dayMasterContribution": 1,
+            "supportExcludingDayMaster": 0.6,
+            "threshold": "supportTotal >= drainTotal",
+            "monthWeightApplied": false,
+            "strongestElements": [
+              "木",
+              "水"
+            ],
+            "weakestElements": [
+              "火"
+            ],
+            "tieBreakOrder": [
+              "金",
+              "木",
+              "水",
+              "火",
+              "土"
+            ],
+            "limitations": [
+              "四天干各计1，四支藏干每支合计1，总计8；这是固定权重计数，不是实测五行力量。",
+              "日干本人计入同类一次；supportExcludingDayMaster只说明其余帮扶，未被用于兼容强弱与取用。",
+              "同我与生我合为帮扶；我生为泄、我克为耗、克我为制约，三者合为另一侧；关系本身不等于喜忌。",
+              "本计数未对月令加权，也未求解通根层次、司令、合化、刑冲或调候；不能替代完整传统旺衰辨析。",
+              "两侧相等时按>=归入兼容偏强；五行并列按金木水火土选旧字段，同时保留全部并列项。"
+            ]
+          }
         },
         "tiaoHou": {
           "ruleId": "qiongtong.戊申",
@@ -2164,7 +2650,96 @@
             "zao": false,
             "shi": false
           },
-          "strength": "zhonghe"
+          "strength": "zhonghe",
+          "evidence": {
+            "version": "month-root-matrix-v1",
+            "basis": "engineering-heuristic",
+            "monthBranch": "申",
+            "monthMainQi": "庚",
+            "monthMainElement": "金",
+            "monthRelation": "output",
+            "monthMethod": "month-branch-main-qi",
+            "sameElementRoots": [
+              {
+                "zhi": "申",
+                "position": "月",
+                "hiddenGan": "戊",
+                "tier": "yu",
+                "weight": 0.2,
+                "kind": "bijie"
+              },
+              {
+                "zhi": "寅",
+                "position": "日",
+                "hiddenGan": "戊",
+                "tier": "yu",
+                "weight": 0.2,
+                "kind": "bijie"
+              }
+            ],
+            "resourceSupport": [
+              {
+                "zhi": "寅",
+                "position": "日",
+                "hiddenGan": "丙",
+                "tier": "zhong",
+                "weight": 0.5,
+                "kind": "yin"
+              }
+            ],
+            "hasSameElementRoot": true,
+            "hasResourceSupport": true,
+            "daySeatSameElementRoot": true,
+            "daySeatResourceSupport": true,
+            "rootWeightBasis": "open-source-engineering-weights",
+            "rootWeights": {
+              "ben": 1,
+              "zhong": 0.5,
+              "yu": 0.2
+            },
+            "rootLabelBands": [
+              {
+                "label": "无根",
+                "lowerInclusive": 0,
+                "upperExclusive": 0.3
+              },
+              {
+                "label": "微根",
+                "lowerInclusive": 0.3,
+                "upperExclusive": 0.7
+              },
+              {
+                "label": "弱根",
+                "lowerInclusive": 0.7,
+                "upperExclusive": 1.5
+              },
+              {
+                "label": "中根",
+                "lowerInclusive": 1.5,
+                "upperExclusive": 2.5
+              },
+              {
+                "label": "强根",
+                "lowerInclusive": 2.5,
+                "upperExclusive": null
+              }
+            ],
+            "strengthRule": "neutral-month-weak-root",
+            "exposedStemsUsedForStrength": false,
+            "sourceRefs": [
+              "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md:200",
+              "docs/mingli/source-texts/bazi/ditianshui-chanwei/tongshen-17-shuaiwang-zhonghe.md:20",
+              "https://github.com/XiaoChu-1208/bazi-life-curves/blob/ad8fdeceac3d74b9682ce1df362e7a497dc91d2c/scripts/_bazi_core.py#L192-L283"
+            ],
+            "limitations": [
+              "月令五态仅按月支本气查表，未按交节后日数判司令，辰戌丑未也未区分月内用事。",
+              "得令包含旺与相，失令仅指囚与死，休在此矩阵按中性处理；这是本实现约定。",
+              "兼容根力标签合计同五行藏干与印支持；无根档也可能含非零余气，须以实际条目区分。",
+              "本中余权重1/0.5/0.2与分档阈值是开源工程参数，未获独立实证校准。",
+              "五档强弱未考虑其余透干、制化刑冲会合及调候，不能替代完整传统旺衰辨析。",
+              "经典引文来自待核印刷底本的电子转录，支持定性辨析，不为工程数值与矩阵背书。"
+            ]
+          }
         },
         "branchRelations": [
           {
@@ -3410,7 +3985,167 @@
           "jiShen": "木",
           "suggestionBasis": "fuyi-heuristic",
           "suggestionStatus": "not-empirically-validated",
-          "tiaohouApplied": false
+          "tiaohouApplied": false,
+          "evidence": {
+            "version": "weighted-count-v1",
+            "basis": "engineering-heuristic",
+            "dayMaster": "己",
+            "dayElement": "土",
+            "monthBranch": "申",
+            "contributions": [
+              {
+                "pillar": "year",
+                "source": "stem",
+                "gan": "乙",
+                "zhi": "亥",
+                "element": "木",
+                "weight": 1,
+                "relation": "officer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "stem",
+                "gan": "甲",
+                "zhi": "申",
+                "element": "木",
+                "weight": 1,
+                "relation": "officer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "stem",
+                "gan": "己",
+                "zhi": "卯",
+                "element": "土",
+                "weight": 1,
+                "relation": "peer",
+                "isDayMaster": true
+              },
+              {
+                "pillar": "hour",
+                "source": "stem",
+                "gan": "甲",
+                "zhi": "子",
+                "element": "木",
+                "weight": 1,
+                "relation": "officer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "year",
+                "source": "hidden-stem",
+                "gan": "壬",
+                "zhi": "亥",
+                "element": "水",
+                "weight": 0.7,
+                "relation": "wealth",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "year",
+                "source": "hidden-stem",
+                "gan": "甲",
+                "zhi": "亥",
+                "element": "木",
+                "weight": 0.3,
+                "relation": "officer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "hidden-stem",
+                "gan": "庚",
+                "zhi": "申",
+                "element": "金",
+                "weight": 0.6,
+                "relation": "output",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "hidden-stem",
+                "gan": "壬",
+                "zhi": "申",
+                "element": "水",
+                "weight": 0.2,
+                "relation": "wealth",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "hidden-stem",
+                "gan": "戊",
+                "zhi": "申",
+                "element": "土",
+                "weight": 0.2,
+                "relation": "peer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "hidden-stem",
+                "gan": "乙",
+                "zhi": "卯",
+                "element": "木",
+                "weight": 1,
+                "relation": "officer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "hour",
+                "source": "hidden-stem",
+                "gan": "癸",
+                "zhi": "子",
+                "element": "水",
+                "weight": 1,
+                "relation": "wealth",
+                "isDayMaster": false
+              }
+            ],
+            "elementTotals": {
+              "金": 0.6,
+              "木": 4.3,
+              "水": 1.9,
+              "火": 0,
+              "土": 1.2
+            },
+            "relationTotals": {
+              "peer": 1.2,
+              "resource": 0,
+              "output": 0.6,
+              "wealth": 1.9,
+              "officer": 4.3
+            },
+            "supportTotal": 1.2,
+            "drainTotal": 6.8,
+            "total": 8,
+            "dayMasterContribution": 1,
+            "supportExcludingDayMaster": 0.2,
+            "threshold": "supportTotal >= drainTotal",
+            "monthWeightApplied": false,
+            "strongestElements": [
+              "木"
+            ],
+            "weakestElements": [
+              "火"
+            ],
+            "tieBreakOrder": [
+              "金",
+              "木",
+              "水",
+              "火",
+              "土"
+            ],
+            "limitations": [
+              "四天干各计1，四支藏干每支合计1，总计8；这是固定权重计数，不是实测五行力量。",
+              "日干本人计入同类一次；supportExcludingDayMaster只说明其余帮扶，未被用于兼容强弱与取用。",
+              "同我与生我合为帮扶；我生为泄、我克为耗、克我为制约，三者合为另一侧；关系本身不等于喜忌。",
+              "本计数未对月令加权，也未求解通根层次、司令、合化、刑冲或调候；不能替代完整传统旺衰辨析。",
+              "两侧相等时按>=归入兼容偏强；五行并列按金木水火土选旧字段，同时保留全部并列项。"
+            ]
+          }
         },
         "tiaoHou": {
           "ruleId": "qiongtong.己申",
@@ -3463,7 +4198,79 @@
             "zao": false,
             "shi": false
           },
-          "strength": "ruo"
+          "strength": "ruo",
+          "evidence": {
+            "version": "month-root-matrix-v1",
+            "basis": "engineering-heuristic",
+            "monthBranch": "申",
+            "monthMainQi": "庚",
+            "monthMainElement": "金",
+            "monthRelation": "output",
+            "monthMethod": "month-branch-main-qi",
+            "sameElementRoots": [
+              {
+                "zhi": "申",
+                "position": "月",
+                "hiddenGan": "戊",
+                "tier": "yu",
+                "weight": 0.2,
+                "kind": "bijie"
+              }
+            ],
+            "resourceSupport": [],
+            "hasSameElementRoot": true,
+            "hasResourceSupport": false,
+            "daySeatSameElementRoot": false,
+            "daySeatResourceSupport": false,
+            "rootWeightBasis": "open-source-engineering-weights",
+            "rootWeights": {
+              "ben": 1,
+              "zhong": 0.5,
+              "yu": 0.2
+            },
+            "rootLabelBands": [
+              {
+                "label": "无根",
+                "lowerInclusive": 0,
+                "upperExclusive": 0.3
+              },
+              {
+                "label": "微根",
+                "lowerInclusive": 0.3,
+                "upperExclusive": 0.7
+              },
+              {
+                "label": "弱根",
+                "lowerInclusive": 0.7,
+                "upperExclusive": 1.5
+              },
+              {
+                "label": "中根",
+                "lowerInclusive": 1.5,
+                "upperExclusive": 2.5
+              },
+              {
+                "label": "强根",
+                "lowerInclusive": 2.5,
+                "upperExclusive": null
+              }
+            ],
+            "strengthRule": "neutral-month-minimal-root",
+            "exposedStemsUsedForStrength": false,
+            "sourceRefs": [
+              "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md:200",
+              "docs/mingli/source-texts/bazi/ditianshui-chanwei/tongshen-17-shuaiwang-zhonghe.md:20",
+              "https://github.com/XiaoChu-1208/bazi-life-curves/blob/ad8fdeceac3d74b9682ce1df362e7a497dc91d2c/scripts/_bazi_core.py#L192-L283"
+            ],
+            "limitations": [
+              "月令五态仅按月支本气查表，未按交节后日数判司令，辰戌丑未也未区分月内用事。",
+              "得令包含旺与相，失令仅指囚与死，休在此矩阵按中性处理；这是本实现约定。",
+              "兼容根力标签合计同五行藏干与印支持；无根档也可能含非零余气，须以实际条目区分。",
+              "本中余权重1/0.5/0.2与分档阈值是开源工程参数，未获独立实证校准。",
+              "五档强弱未考虑其余透干、制化刑冲会合及调候，不能替代完整传统旺衰辨析。",
+              "经典引文来自待核印刷底本的电子转录，支持定性辨析，不为工程数值与矩阵背书。"
+            ]
+          }
         },
         "branchRelations": [
           {
@@ -4773,7 +5580,207 @@
           "jiShen": "水",
           "suggestionBasis": "fuyi-heuristic",
           "suggestionStatus": "not-empirically-validated",
-          "tiaohouApplied": false
+          "tiaohouApplied": false,
+          "evidence": {
+            "version": "weighted-count-v1",
+            "basis": "engineering-heuristic",
+            "dayMaster": "丙",
+            "dayElement": "火",
+            "monthBranch": "寅",
+            "contributions": [
+              {
+                "pillar": "year",
+                "source": "stem",
+                "gan": "庚",
+                "zhi": "辰",
+                "element": "金",
+                "weight": 1,
+                "relation": "wealth",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "stem",
+                "gan": "戊",
+                "zhi": "寅",
+                "element": "土",
+                "weight": 1,
+                "relation": "output",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "stem",
+                "gan": "丙",
+                "zhi": "辰",
+                "element": "火",
+                "weight": 1,
+                "relation": "peer",
+                "isDayMaster": true
+              },
+              {
+                "pillar": "hour",
+                "source": "stem",
+                "gan": "己",
+                "zhi": "亥",
+                "element": "土",
+                "weight": 1,
+                "relation": "output",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "year",
+                "source": "hidden-stem",
+                "gan": "戊",
+                "zhi": "辰",
+                "element": "土",
+                "weight": 0.6,
+                "relation": "output",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "year",
+                "source": "hidden-stem",
+                "gan": "乙",
+                "zhi": "辰",
+                "element": "木",
+                "weight": 0.2,
+                "relation": "resource",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "year",
+                "source": "hidden-stem",
+                "gan": "癸",
+                "zhi": "辰",
+                "element": "水",
+                "weight": 0.2,
+                "relation": "officer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "hidden-stem",
+                "gan": "甲",
+                "zhi": "寅",
+                "element": "木",
+                "weight": 0.6,
+                "relation": "resource",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "hidden-stem",
+                "gan": "丙",
+                "zhi": "寅",
+                "element": "火",
+                "weight": 0.2,
+                "relation": "peer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "hidden-stem",
+                "gan": "戊",
+                "zhi": "寅",
+                "element": "土",
+                "weight": 0.2,
+                "relation": "output",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "hidden-stem",
+                "gan": "戊",
+                "zhi": "辰",
+                "element": "土",
+                "weight": 0.6,
+                "relation": "output",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "hidden-stem",
+                "gan": "乙",
+                "zhi": "辰",
+                "element": "木",
+                "weight": 0.2,
+                "relation": "resource",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "hidden-stem",
+                "gan": "癸",
+                "zhi": "辰",
+                "element": "水",
+                "weight": 0.2,
+                "relation": "officer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "hour",
+                "source": "hidden-stem",
+                "gan": "壬",
+                "zhi": "亥",
+                "element": "水",
+                "weight": 0.7,
+                "relation": "officer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "hour",
+                "source": "hidden-stem",
+                "gan": "甲",
+                "zhi": "亥",
+                "element": "木",
+                "weight": 0.3,
+                "relation": "resource",
+                "isDayMaster": false
+              }
+            ],
+            "elementTotals": {
+              "金": 1,
+              "木": 1.3,
+              "水": 1.1,
+              "火": 1.2,
+              "土": 3.4
+            },
+            "relationTotals": {
+              "peer": 1.2,
+              "resource": 1.3,
+              "output": 3.4,
+              "wealth": 1,
+              "officer": 1.1
+            },
+            "supportTotal": 2.5,
+            "drainTotal": 5.5,
+            "total": 8,
+            "dayMasterContribution": 1,
+            "supportExcludingDayMaster": 1.5,
+            "threshold": "supportTotal >= drainTotal",
+            "monthWeightApplied": false,
+            "strongestElements": [
+              "土"
+            ],
+            "weakestElements": [
+              "金"
+            ],
+            "tieBreakOrder": [
+              "金",
+              "木",
+              "水",
+              "火",
+              "土"
+            ],
+            "limitations": [
+              "四天干各计1，四支藏干每支合计1，总计8；这是固定权重计数，不是实测五行力量。",
+              "日干本人计入同类一次；supportExcludingDayMaster只说明其余帮扶，未被用于兼容强弱与取用。",
+              "同我与生我合为帮扶；我生为泄、我克为耗、克我为制约，三者合为另一侧；关系本身不等于喜忌。",
+              "本计数未对月令加权，也未求解通根层次、司令、合化、刑冲或调候；不能替代完整传统旺衰辨析。",
+              "两侧相等时按>=归入兼容偏强；五行并列按金木水火土选旧字段，同时保留全部并列项。"
+            ]
+          }
         },
         "tiaoHou": {
           "ruleId": "qiongtong.丙寅",
@@ -4857,7 +5864,112 @@
             "zao": false,
             "shi": false
           },
-          "strength": "taiwang"
+          "strength": "taiwang",
+          "evidence": {
+            "version": "month-root-matrix-v1",
+            "basis": "engineering-heuristic",
+            "monthBranch": "寅",
+            "monthMainQi": "甲",
+            "monthMainElement": "木",
+            "monthRelation": "resource",
+            "monthMethod": "month-branch-main-qi",
+            "sameElementRoots": [
+              {
+                "zhi": "寅",
+                "position": "月",
+                "hiddenGan": "丙",
+                "tier": "zhong",
+                "weight": 0.5,
+                "kind": "bijie"
+              }
+            ],
+            "resourceSupport": [
+              {
+                "zhi": "辰",
+                "position": "年",
+                "hiddenGan": "乙",
+                "tier": "zhong",
+                "weight": 0.5,
+                "kind": "yin"
+              },
+              {
+                "zhi": "寅",
+                "position": "月",
+                "hiddenGan": "甲",
+                "tier": "ben",
+                "weight": 1,
+                "kind": "yin"
+              },
+              {
+                "zhi": "辰",
+                "position": "日",
+                "hiddenGan": "乙",
+                "tier": "zhong",
+                "weight": 0.5,
+                "kind": "yin"
+              },
+              {
+                "zhi": "亥",
+                "position": "时",
+                "hiddenGan": "甲",
+                "tier": "zhong",
+                "weight": 0.5,
+                "kind": "yin"
+              }
+            ],
+            "hasSameElementRoot": true,
+            "hasResourceSupport": true,
+            "daySeatSameElementRoot": false,
+            "daySeatResourceSupport": true,
+            "rootWeightBasis": "open-source-engineering-weights",
+            "rootWeights": {
+              "ben": 1,
+              "zhong": 0.5,
+              "yu": 0.2
+            },
+            "rootLabelBands": [
+              {
+                "label": "无根",
+                "lowerInclusive": 0,
+                "upperExclusive": 0.3
+              },
+              {
+                "label": "微根",
+                "lowerInclusive": 0.3,
+                "upperExclusive": 0.7
+              },
+              {
+                "label": "弱根",
+                "lowerInclusive": 0.7,
+                "upperExclusive": 1.5
+              },
+              {
+                "label": "中根",
+                "lowerInclusive": 1.5,
+                "upperExclusive": 2.5
+              },
+              {
+                "label": "强根",
+                "lowerInclusive": 2.5,
+                "upperExclusive": null
+              }
+            ],
+            "strengthRule": "de-ling-strong-root-with-seat-support",
+            "exposedStemsUsedForStrength": false,
+            "sourceRefs": [
+              "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md:200",
+              "docs/mingli/source-texts/bazi/ditianshui-chanwei/tongshen-17-shuaiwang-zhonghe.md:20",
+              "https://github.com/XiaoChu-1208/bazi-life-curves/blob/ad8fdeceac3d74b9682ce1df362e7a497dc91d2c/scripts/_bazi_core.py#L192-L283"
+            ],
+            "limitations": [
+              "月令五态仅按月支本气查表，未按交节后日数判司令，辰戌丑未也未区分月内用事。",
+              "得令包含旺与相，失令仅指囚与死，休在此矩阵按中性处理；这是本实现约定。",
+              "兼容根力标签合计同五行藏干与印支持；无根档也可能含非零余气，须以实际条目区分。",
+              "本中余权重1/0.5/0.2与分档阈值是开源工程参数，未获独立实证校准。",
+              "五档强弱未考虑其余透干、制化刑冲会合及调候，不能替代完整传统旺衰辨析。",
+              "经典引文来自待核印刷底本的电子转录，支持定性辨析，不为工程数值与矩阵背书。"
+            ]
+          }
         },
         "branchRelations": [
           {
@@ -6197,7 +7309,375 @@
             "jiShen": "木",
             "suggestionBasis": "fuyi-heuristic",
             "suggestionStatus": "not-empirically-validated",
-            "tiaohouApplied": false
+            "tiaohouApplied": false,
+            "evidence": {
+              "version": "weighted-count-v1",
+              "basis": "engineering-heuristic",
+              "dayMaster": "戊",
+              "dayElement": "土",
+              "monthBranch": "申",
+              "contributions": [
+                {
+                  "pillar": "year",
+                  "source": "stem",
+                  "gan": "乙",
+                  "zhi": "亥",
+                  "element": "木",
+                  "weight": 1,
+                  "relation": "officer",
+                  "isDayMaster": false
+                },
+                {
+                  "pillar": "month",
+                  "source": "stem",
+                  "gan": "甲",
+                  "zhi": "申",
+                  "element": "木",
+                  "weight": 1,
+                  "relation": "officer",
+                  "isDayMaster": false
+                },
+                {
+                  "pillar": "day",
+                  "source": "stem",
+                  "gan": "戊",
+                  "zhi": "寅",
+                  "element": "土",
+                  "weight": 1,
+                  "relation": "peer",
+                  "isDayMaster": true
+                },
+                {
+                  "pillar": "hour",
+                  "source": "stem",
+                  "gan": "壬",
+                  "zhi": "戌",
+                  "element": "水",
+                  "weight": 1,
+                  "relation": "wealth",
+                  "isDayMaster": false
+                },
+                {
+                  "pillar": "year",
+                  "source": "hidden-stem",
+                  "gan": "壬",
+                  "zhi": "亥",
+                  "element": "水",
+                  "weight": 0.7,
+                  "relation": "wealth",
+                  "isDayMaster": false
+                },
+                {
+                  "pillar": "year",
+                  "source": "hidden-stem",
+                  "gan": "甲",
+                  "zhi": "亥",
+                  "element": "木",
+                  "weight": 0.3,
+                  "relation": "officer",
+                  "isDayMaster": false
+                },
+                {
+                  "pillar": "month",
+                  "source": "hidden-stem",
+                  "gan": "庚",
+                  "zhi": "申",
+                  "element": "金",
+                  "weight": 0.6,
+                  "relation": "output",
+                  "isDayMaster": false
+                },
+                {
+                  "pillar": "month",
+                  "source": "hidden-stem",
+                  "gan": "壬",
+                  "zhi": "申",
+                  "element": "水",
+                  "weight": 0.2,
+                  "relation": "wealth",
+                  "isDayMaster": false
+                },
+                {
+                  "pillar": "month",
+                  "source": "hidden-stem",
+                  "gan": "戊",
+                  "zhi": "申",
+                  "element": "土",
+                  "weight": 0.2,
+                  "relation": "peer",
+                  "isDayMaster": false
+                },
+                {
+                  "pillar": "day",
+                  "source": "hidden-stem",
+                  "gan": "甲",
+                  "zhi": "寅",
+                  "element": "木",
+                  "weight": 0.6,
+                  "relation": "officer",
+                  "isDayMaster": false
+                },
+                {
+                  "pillar": "day",
+                  "source": "hidden-stem",
+                  "gan": "丙",
+                  "zhi": "寅",
+                  "element": "火",
+                  "weight": 0.2,
+                  "relation": "resource",
+                  "isDayMaster": false
+                },
+                {
+                  "pillar": "day",
+                  "source": "hidden-stem",
+                  "gan": "戊",
+                  "zhi": "寅",
+                  "element": "土",
+                  "weight": 0.2,
+                  "relation": "peer",
+                  "isDayMaster": false
+                },
+                {
+                  "pillar": "hour",
+                  "source": "hidden-stem",
+                  "gan": "戊",
+                  "zhi": "戌",
+                  "element": "土",
+                  "weight": 0.6,
+                  "relation": "peer",
+                  "isDayMaster": false
+                },
+                {
+                  "pillar": "hour",
+                  "source": "hidden-stem",
+                  "gan": "辛",
+                  "zhi": "戌",
+                  "element": "金",
+                  "weight": 0.2,
+                  "relation": "output",
+                  "isDayMaster": false
+                },
+                {
+                  "pillar": "hour",
+                  "source": "hidden-stem",
+                  "gan": "丁",
+                  "zhi": "戌",
+                  "element": "火",
+                  "weight": 0.2,
+                  "relation": "resource",
+                  "isDayMaster": false
+                }
+              ],
+              "elementTotals": {
+                "金": 0.8,
+                "木": 2.9,
+                "水": 1.9,
+                "火": 0.4,
+                "土": 2
+              },
+              "relationTotals": {
+                "peer": 2,
+                "resource": 0.4,
+                "output": 0.8,
+                "wealth": 1.9,
+                "officer": 2.9
+              },
+              "supportTotal": 2.4,
+              "drainTotal": 5.6,
+              "total": 8,
+              "dayMasterContribution": 1,
+              "supportExcludingDayMaster": 1.4,
+              "threshold": "supportTotal >= drainTotal",
+              "monthWeightApplied": false,
+              "strongestElements": [
+                "木"
+              ],
+              "weakestElements": [
+                "火"
+              ],
+              "tieBreakOrder": [
+                "金",
+                "木",
+                "水",
+                "火",
+                "土"
+              ],
+              "limitations": [
+                "四天干各计1，四支藏干每支合计1，总计8；这是固定权重计数，不是实测五行力量。",
+                "日干本人计入同类一次；supportExcludingDayMaster只说明其余帮扶，未被用于兼容强弱与取用。",
+                "同我与生我合为帮扶；我生为泄、我克为耗、克我为制约，三者合为另一侧；关系本身不等于喜忌。",
+                "本计数未对月令加权，也未求解通根层次、司令、合化、刑冲或调候；不能替代完整传统旺衰辨析。",
+                "两侧相等时按>=归入兼容偏强；五行并列按金木水火土选旧字段，同时保留全部并列项。"
+              ]
+            }
+          },
+          "structureReference": {
+            "deLing": false,
+            "shiLing": false,
+            "yueLingState": "休",
+            "rootStrength": {
+              "bijieRoot": 1.4,
+              "yinRoot": 0.7,
+              "totalRoot": 2.0999999999999996,
+              "label": "中根",
+              "details": [
+                {
+                  "zhi": "申",
+                  "position": "月",
+                  "hiddenGan": "戊",
+                  "tier": "yu",
+                  "weight": 0.2,
+                  "kind": "bijie"
+                },
+                {
+                  "zhi": "寅",
+                  "position": "日",
+                  "hiddenGan": "丙",
+                  "tier": "zhong",
+                  "weight": 0.5,
+                  "kind": "yin"
+                },
+                {
+                  "zhi": "寅",
+                  "position": "日",
+                  "hiddenGan": "戊",
+                  "tier": "yu",
+                  "weight": 0.2,
+                  "kind": "bijie"
+                },
+                {
+                  "zhi": "戌",
+                  "position": "时",
+                  "hiddenGan": "戊",
+                  "tier": "ben",
+                  "weight": 1,
+                  "kind": "bijie"
+                },
+                {
+                  "zhi": "戌",
+                  "position": "时",
+                  "hiddenGan": "丁",
+                  "tier": "yu",
+                  "weight": 0.2,
+                  "kind": "yin"
+                }
+              ]
+            },
+            "zuoRen": false,
+            "zuoGen": true,
+            "qingZhuo": "banqing",
+            "hanNuanZaoShi": {
+              "han": false,
+              "nuan": false,
+              "zao": false,
+              "shi": false
+            },
+            "strength": "zhonghe",
+            "evidence": {
+              "version": "month-root-matrix-v1",
+              "basis": "engineering-heuristic",
+              "monthBranch": "申",
+              "monthMainQi": "庚",
+              "monthMainElement": "金",
+              "monthRelation": "output",
+              "monthMethod": "month-branch-main-qi",
+              "sameElementRoots": [
+                {
+                  "zhi": "申",
+                  "position": "月",
+                  "hiddenGan": "戊",
+                  "tier": "yu",
+                  "weight": 0.2,
+                  "kind": "bijie"
+                },
+                {
+                  "zhi": "寅",
+                  "position": "日",
+                  "hiddenGan": "戊",
+                  "tier": "yu",
+                  "weight": 0.2,
+                  "kind": "bijie"
+                },
+                {
+                  "zhi": "戌",
+                  "position": "时",
+                  "hiddenGan": "戊",
+                  "tier": "ben",
+                  "weight": 1,
+                  "kind": "bijie"
+                }
+              ],
+              "resourceSupport": [
+                {
+                  "zhi": "寅",
+                  "position": "日",
+                  "hiddenGan": "丙",
+                  "tier": "zhong",
+                  "weight": 0.5,
+                  "kind": "yin"
+                },
+                {
+                  "zhi": "戌",
+                  "position": "时",
+                  "hiddenGan": "丁",
+                  "tier": "yu",
+                  "weight": 0.2,
+                  "kind": "yin"
+                }
+              ],
+              "hasSameElementRoot": true,
+              "hasResourceSupport": true,
+              "daySeatSameElementRoot": true,
+              "daySeatResourceSupport": true,
+              "rootWeightBasis": "open-source-engineering-weights",
+              "rootWeights": {
+                "ben": 1,
+                "zhong": 0.5,
+                "yu": 0.2
+              },
+              "rootLabelBands": [
+                {
+                  "label": "无根",
+                  "lowerInclusive": 0,
+                  "upperExclusive": 0.3
+                },
+                {
+                  "label": "微根",
+                  "lowerInclusive": 0.3,
+                  "upperExclusive": 0.7
+                },
+                {
+                  "label": "弱根",
+                  "lowerInclusive": 0.7,
+                  "upperExclusive": 1.5
+                },
+                {
+                  "label": "中根",
+                  "lowerInclusive": 1.5,
+                  "upperExclusive": 2.5
+                },
+                {
+                  "label": "强根",
+                  "lowerInclusive": 2.5,
+                  "upperExclusive": null
+                }
+              ],
+              "strengthRule": "neutral-month-medium-or-strong-root",
+              "exposedStemsUsedForStrength": false,
+              "sourceRefs": [
+                "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md:200",
+                "docs/mingli/source-texts/bazi/ditianshui-chanwei/tongshen-17-shuaiwang-zhonghe.md:20",
+                "https://github.com/XiaoChu-1208/bazi-life-curves/blob/ad8fdeceac3d74b9682ce1df362e7a497dc91d2c/scripts/_bazi_core.py#L192-L283"
+              ],
+              "limitations": [
+                "月令五态仅按月支本气查表，未按交节后日数判司令，辰戌丑未也未区分月内用事。",
+                "得令包含旺与相，失令仅指囚与死，休在此矩阵按中性处理；这是本实现约定。",
+                "兼容根力标签合计同五行藏干与印支持；无根档也可能含非零余气，须以实际条目区分。",
+                "本中余权重1/0.5/0.2与分档阈值是开源工程参数，未获独立实证校准。",
+                "五档强弱未考虑其余透干、制化刑冲会合及调候，不能替代完整传统旺衰辨析。",
+                "经典引文来自待核印刷底本的电子转录，支持定性辨析，不为工程数值与矩阵背书。"
+              ]
+            }
           },
           "interpretationPolicy": {
             "strengthYongShen": "扶抑参考（工程启发式，调候另列来源候选）",
@@ -6380,7 +7860,7 @@
         },
         "readingBoundary": "两种体系分别解释，不能把相似意象当作相互验证。",
         "provenance": {
-          "engineRevision": "e76281c812d5cec4e0c53f92aad8994bdb5b549bede85e220959d34205c088a2",
+          "engineRevision": "6ac5ff6a948b2b2d20459b81d5fbfb0cba8f1807986032be3bf86ccac2ca6b09",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",

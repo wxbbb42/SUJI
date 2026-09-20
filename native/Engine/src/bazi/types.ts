@@ -71,7 +71,7 @@ export interface CangGanItem {
   gan: TianGan;
   wuXing: WuXing;
   shiShen: ShiShen;
-  weight: number;  // 藏干力量权重 (0-1)
+  weight: number;  // 兼容计数工程权重 (0-1)，本表使用十分位，不是实测力量
 }
 
 // ========================
@@ -82,9 +82,9 @@ export interface CangGanItem {
 export interface WuXingStrength {
   strongest: WuXing;
   weakest: WuXing;
-  riZhuStrong: boolean;     // 日主是否身强
-  yongShen: WuXing;         // 用神五行
-  xiShen: WuXing;           // 喜神五行
+  riZhuStrong: boolean;     // 兼容固定权重计数是否帮扶>=克泄耗，不等于完整传统身强判断
+  yongShen: WuXing;         // 兼容扶抑启发式用神五行
+  xiShen: WuXing;           // 兼容扶抑启发式喜神五行
   jiShen: WuXing;           // 忌神五行（兼容扶抑启发式，不是调候定论）
   suggestionBasis?: 'fuyi-heuristic';
   suggestionStatus?: 'not-empirically-validated';
@@ -395,7 +395,7 @@ export interface RootDetail {
   hiddenGan: TianGan;
   tier: RootTier;
   weight: number;              // 本气 1.0 / 中气 0.5 / 余气 0.2
-  kind: 'bijie' | 'yin';       // 同党根 / 印根
+  kind: 'bijie' | 'yin';       // 同五行藏干根 / 生我藏干支持（兼容字段称印根）
 }
 
 /** 通根强度评估 */
@@ -421,7 +421,7 @@ export interface HanNuanZaoShi {
   shi: boolean;   // 湿（水土多 + 无火暖）
 }
 
-/** 日主五档强弱（《子平真诠》论用神 + 任注《滴天髓·体用》）*/
+/** 工程五档强弱；古籍提供定性辨析，未给出此数值分档矩阵。 */
 export type RiZhuStrengthLabel = 'taiwang' | 'wang' | 'zhonghe' | 'ruo' | 'tairuo';
 
 /** 日主结构（得令/通根/坐刃/清浊/寒暖燥湿/五档强弱） */

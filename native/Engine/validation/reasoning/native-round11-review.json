@@ -1,0 +1,321 @@
+{
+  "report": "native-round11-results.json",
+  "reportSHA256": "7704c6427958c4e89afd0b8980eb23e7073d9f3aea3ca251447586d293fe8152",
+  "scope": "18 synthetic typed turns with actual provider ordering; loopback auth/quota mocked. Independent binding and selected topic assertions, not a complete semantic correctness grade.",
+  "providerRequests": 18,
+  "cases": [
+    {
+      "id": "claims-topic-exclusions",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "strength",
+          "climate"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength",
+        "tiaohou"
+      ],
+      "bodyCharacters": 296,
+      "exactReceiptBindings": true,
+      "selectionStatus": "validated-selection"
+    },
+    {
+      "id": "claims-topic-exclusions-turn2",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "pattern"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "pattern"
+      ],
+      "bodyCharacters": 199,
+      "exactReceiptBindings": true,
+      "selectionStatus": "validated-selection"
+    },
+    {
+      "id": "claims-topic-exclusions-turn3",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "climate"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "tiaohou"
+      ],
+      "bodyCharacters": 185,
+      "exactReceiptBindings": true,
+      "selectionStatus": "validated-selection"
+    },
+    {
+      "id": "claims-topic-exclusions-turn4",
+      "presentation": {
+        "detail": "brief",
+        "focuses": [
+          "climate"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "tiaohou-brief"
+      ],
+      "bodyCharacters": 130,
+      "exactReceiptBindings": true,
+      "selectionStatus": "validated-selection"
+    },
+    {
+      "id": "claims-strength-evidence",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "strength"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength"
+      ],
+      "bodyCharacters": 133,
+      "exactReceiptBindings": true,
+      "selectionStatus": "validated-selection"
+    },
+    {
+      "id": "claims-strength-evidence-turn2",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "strength"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength"
+      ],
+      "bodyCharacters": 133,
+      "exactReceiptBindings": true,
+      "selectionStatus": "validated-selection"
+    },
+    {
+      "id": "claims-strength-evidence-turn3",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "strength"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength"
+      ],
+      "bodyCharacters": 133,
+      "exactReceiptBindings": true,
+      "selectionStatus": "validated-selection"
+    },
+    {
+      "id": "claims-strength-evidence-turn4",
+      "presentation": {
+        "detail": "brief",
+        "focuses": [
+          "strength"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength-brief"
+      ],
+      "bodyCharacters": 81,
+      "exactReceiptBindings": true,
+      "selectionStatus": "validated-selection"
+    },
+    {
+      "id": "claims-mixed-topics",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "strength",
+          "pattern",
+          "climate"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength",
+        "pattern",
+        "tiaohou"
+      ],
+      "bodyCharacters": 473,
+      "exactReceiptBindings": true,
+      "selectionStatus": "validated-selection"
+    },
+    {
+      "id": "claims-mixed-topics-turn2",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "strength",
+          "climate"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength",
+        "tiaohou"
+      ],
+      "bodyCharacters": 296,
+      "exactReceiptBindings": true,
+      "selectionStatus": "validated-selection"
+    },
+    {
+      "id": "claims-mixed-topics-turn3",
+      "presentation": {
+        "detail": "brief",
+        "focuses": [
+          "strength",
+          "climate"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength-brief",
+        "tiaohou-brief"
+      ],
+      "bodyCharacters": 189,
+      "exactReceiptBindings": true,
+      "selectionStatus": "validated-selection"
+    },
+    {
+      "id": "claims-mixed-topics-turn4",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "strength",
+          "climate"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength",
+        "tiaohou"
+      ],
+      "bodyCharacters": 296,
+      "exactReceiptBindings": true,
+      "selectionStatus": "validated-selection"
+    },
+    {
+      "id": "claims-natural-followups",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "comparison"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength",
+        "pattern",
+        "comparison"
+      ],
+      "bodyCharacters": 471,
+      "exactReceiptBindings": true,
+      "selectionStatus": "validated-selection"
+    },
+    {
+      "id": "claims-natural-followups-turn2",
+      "presentation": {
+        "detail": "brief",
+        "focuses": [
+          "overview"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "overview"
+      ],
+      "bodyCharacters": 125,
+      "exactReceiptBindings": true,
+      "selectionStatus": "validated-selection"
+    },
+    {
+      "id": "claims-natural-followups-turn3",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "pattern"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "pattern"
+      ],
+      "bodyCharacters": 199,
+      "exactReceiptBindings": true,
+      "selectionStatus": "validated-selection"
+    },
+    {
+      "id": "claims-natural-followups-turn4",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "relations"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "relations"
+      ],
+      "bodyCharacters": 149,
+      "exactReceiptBindings": true,
+      "selectionStatus": "validated-selection"
+    },
+    {
+      "id": "claims-natural-followups-turn5",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "climate"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "tiaohou"
+      ],
+      "bodyCharacters": 185,
+      "exactReceiptBindings": true,
+      "selectionStatus": "validated-selection"
+    },
+    {
+      "id": "claims-natural-followups-turn6",
+      "presentation": {
+        "detail": "brief",
+        "focuses": [
+          "climate"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "tiaohou-brief"
+      ],
+      "bodyCharacters": 130,
+      "exactReceiptBindings": true,
+      "selectionStatus": "validated-selection"
+    }
+  ],
+  "unresolvedFindings": [
+    {
+      "caseID": "claims-strength-evidence-turn2",
+      "status": "content-incomplete",
+      "finding": "Generic strength body repeated for direct root question; trace has the facts but answer body remains incomplete."
+    },
+    {
+      "status": "later-source-change",
+      "finding": "After this run, independent probes found postposed refusal (格局不用讲) and factual negation (为什么不成格) regressions. Round12 uses the repaired executable; this report is not the final-binary validation."
+    }
+  ]
+}

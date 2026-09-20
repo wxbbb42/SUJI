@@ -88,6 +88,7 @@ const aggregatedHandlers: Record<string, ToolHandler> = {
         pattern: ctx.mingPan?.geJu,
         patternAnalysis: ctx.mingPan?.geJuV2,
         strengthReference: ctx.mingPan?.wuXingStrength,
+        structureReference: ctx.mingPan?.riZhuStructure,
         interpretationPolicy: ctx.mingPan?.interpretationPolicy,
         tiaoHou: ctx.mingPan?.tiaoHou,
         branchRelations: ctx.mingPan?.branchRelations,

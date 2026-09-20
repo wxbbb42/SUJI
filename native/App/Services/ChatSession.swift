@@ -100,7 +100,8 @@ import SujiCore
                     try store.saveThrowing()
                 }
                 let instruction = ReadingPrompt.instruction(tone: tone, mode: effectiveMode, referenceDate: referenceDate, hasBirth: birth != nil)
-                let focus = BaziReadingRequest.resolve(question: originalQuestion, mode: effectiveMode, entries: historyEntries, currentUserID: userID, context: context)
+                let presentation = BaziReadingRequest.resolveRequest(question: originalQuestion, mode: effectiveMode, entries: historyEntries, currentUserID: userID, context: context)
+                let focus = presentation?.focuses.first
                 // These caches belong only to this user entry and passed the
                 // context checks above. A retry planner may need no new calls.
                 var frameworkReceipts = cachedReceipts
@@ -178,7 +179,7 @@ import SujiCore
                 if let focus {
                     activity = "正在整理解释依据"
                     if let catalog = BaziFrameworkReading.catalog(receipts: frameworkReceipts, context: context) {
-                        let answer = try await BaziFrameworkReading.compose(catalog: catalog, question: originalQuestion, focus: focus) { messages in
+                        let answer = try await BaziFrameworkReading.compose(catalog: catalog, question: originalQuestion, focus: focus, presentation: presentation) { messages in
                             try Self.checkScope(store, revision: revision, birth: birth)
                             let selected = try await client.complete(messages: messages)
                             try Self.checkScope(store, revision: revision, birth: birth)
@@ -187,7 +188,7 @@ import SujiCore
                         try Task.checkCancellation()
                         try Self.checkScope(store, revision: revision, birth: birth)
                         partial = answer.text
-                        pendingDocument = ReadingDocument(catalog: catalog, answer: answer, sourceUserID: userID, focus: focus)
+                        pendingDocument = ReadingDocument(catalog: catalog, answer: answer, sourceUserID: userID, focus: focus, presentation: presentation)
                     } else {
                         partial = BaziFrameworkReading.unavailableReply(hasBirth: birth != nil, focus: focus)
                     }

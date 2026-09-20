@@ -34,6 +34,7 @@ import type {
   ShiShen,
   ShiShenRelationFact,
   StemCombinationAssessment,
+  StrengthRelation,
   TianGan,
   WuXing,
   XiangShenInfo,
@@ -163,6 +164,15 @@ export function computeRootStrength(
 const KE: Record<WuXing, WuXing> = {
   木: '土', 土: '水', 水: '火', 火: '金', 金: '木',
 };
+
+/** 相对于日主的方向；月支与计数证据共用，不据此直接定喜忌。 */
+export function computeStrengthRelation(dayElement: WuXing, targetElement: WuXing): StrengthRelation {
+  if (targetElement === dayElement) return 'peer';
+  if (SHENG[targetElement] === dayElement) return 'resource';
+  if (SHENG[dayElement] === targetElement) return 'output';
+  if (KE[dayElement] === targetElement) return 'wealth';
+  return 'officer';
+}
 
 /** 阳干羊刃地支（《子平真诠》论阳刃 — 阳刃为劫财之地） */
 const YANG_REN: Partial<Record<TianGan, DiZhi>> = {
@@ -304,14 +314,15 @@ export function computeHanNuanZaoShi(
 /**
  * 日主五档强弱（结构化判定）
  *
- * 判定矩阵（《子平真诠》论用神 + 任注《滴天髓·体用》）：
+ * SUJI 兼容工程矩阵；经典只支持辨析月令与全局，不给出此精确矩阵：
  *   太旺 = 得令 + 强根 + (坐刃 || 坐根)
  *   旺   = 得令 + 中根以上
  *   中和 = 得令 + 弱根 OR 失令 + 中根以上
  *   弱   = 失令 + 弱根 OR 得令 + 微根/无根
  *   太弱 = 失令 + 微根/无根
  *
- * 不引入数值评分；rootStrength.label 与 deLing 是结构化输入。
+ * rootStrength.label 已依赖数值权重和阈值；这里只把分档再映射成五档。
+ * 保留原矩阵，并公开命中分支；这不构成完整传统旺衰判断。
  */
 const STRONG_LABELS: ReadonlySet<RootStrengthLabel> = new Set(['中根', '强根']);
 const WEAK_LABELS: ReadonlySet<RootStrengthLabel> = new Set(['微根', '无根']);
@@ -326,19 +337,25 @@ export function computeRiZhuStrength(
   const root = computeRootStrength(dayGan, branches);
   const zuoRen = computeZuoRen(dayGan, dayZhi);
   const zuoGen = computeZuoGen(dayGan, dayZhi);
+  return classifyRiZhuStrength(deLing, shiLing, root.label, zuoRen, zuoGen).strength;
+}
 
-  const isStrong = STRONG_LABELS.has(root.label);
-  const isWeak = WEAK_LABELS.has(root.label);
-
-  if (deLing && root.label === '强根' && (zuoRen || zuoGen)) return 'taiwang';
-  if (deLing && isStrong) return 'wang';
-  if ((deLing && root.label === '弱根') || (shiLing && isStrong)) return 'zhonghe';
-  if ((shiLing && root.label === '弱根') || (deLing && isWeak)) return 'ruo';
-  if (shiLing && isWeak) return 'tairuo';
-  // 中性月令（休 — 食伤当令）：根弱→ruo，根强→zhonghe，否则中和
-  if (isStrong) return 'zhonghe';
-  if (isWeak) return 'ruo';
-  return 'zhonghe';
+/** The result and its explanation share one decision, not two parallel matrices. */
+function classifyRiZhuStrength(
+  deLing: boolean, shiLing: boolean, rootLabel: RootStrengthLabel, zuoRen: boolean, zuoGen: boolean,
+): { strength: RiZhuStrengthLabel; rule: string } {
+  const isStrong = STRONG_LABELS.has(rootLabel);
+  const isWeak = WEAK_LABELS.has(rootLabel);
+  if (deLing && rootLabel === '强根' && (zuoRen || zuoGen)) return { strength: 'taiwang', rule: 'de-ling-strong-root-with-seat-support' };
+  if (deLing && isStrong) return { strength: 'wang', rule: 'de-ling-medium-or-strong-root' };
+  if (deLing && rootLabel === '弱根') return { strength: 'zhonghe', rule: 'de-ling-weak-root' };
+  if (shiLing && isStrong) return { strength: 'zhonghe', rule: 'shi-ling-medium-or-strong-root' };
+  if (shiLing && rootLabel === '弱根') return { strength: 'ruo', rule: 'shi-ling-weak-root' };
+  if (deLing && isWeak) return { strength: 'ruo', rule: 'de-ling-minimal-root' };
+  if (shiLing && isWeak) return { strength: 'tairuo', rule: 'shi-ling-minimal-root' };
+  if (isStrong) return { strength: 'zhonghe', rule: 'neutral-month-medium-or-strong-root' };
+  if (isWeak) return { strength: 'ruo', rule: 'neutral-month-minimal-root' };
+  return { strength: 'zhonghe', rule: 'neutral-month-weak-root' };
 }
 
 /**
@@ -353,16 +370,55 @@ export function computeRiZhuStructure(
   const monthZhi = branches[1];
   const dayZhi = branches[2];
   const { deLing, shiLing, yueLingState } = computeDeLing(dayGan, monthZhi);
+  const rootStrength = computeRootStrength(dayGan, branches);
+  const sameElementRoots = rootStrength.details.filter(item => item.kind === 'bijie');
+  const resourceSupport = rootStrength.details.filter(item => item.kind === 'yin');
+  const zuoRen = computeZuoRen(dayGan, dayZhi);
+  const zuoGen = computeZuoGen(dayGan, dayZhi);
+  const assessment = classifyRiZhuStrength(deLing, shiLing, rootStrength.label, zuoRen, zuoGen);
+  const monthMainQi = ROOT_HIDDEN_GAN[monthZhi].find(item => item.tier === 'ben')!.gan;
   return {
     deLing,
     shiLing,
     yueLingState,
-    rootStrength: computeRootStrength(dayGan, branches),
-    zuoRen: computeZuoRen(dayGan, dayZhi),
-    zuoGen: computeZuoGen(dayGan, dayZhi),
+    rootStrength,
+    zuoRen,
+    zuoGen,
     qingZhuo: computeQingZhuo(dayGan, branches, stems),
     hanNuanZaoShi: computeHanNuanZaoShi(monthZhi, branches, stems),
-    strength: computeRiZhuStrength(dayGan, branches, monthZhi, dayZhi),
+    strength: assessment.strength,
+    evidence: {
+      version: 'month-root-matrix-v1', basis: 'engineering-heuristic',
+      monthBranch: monthZhi, monthMainQi, monthMainElement: GAN_WUXING[monthMainQi],
+      monthRelation: computeStrengthRelation(GAN_WUXING[dayGan], GAN_WUXING[monthMainQi]),
+      monthMethod: 'month-branch-main-qi',
+      sameElementRoots, resourceSupport,
+      hasSameElementRoot: sameElementRoots.length > 0, hasResourceSupport: resourceSupport.length > 0,
+      daySeatSameElementRoot: sameElementRoots.some(item => item.position === '日'),
+      daySeatResourceSupport: resourceSupport.some(item => item.position === '日'),
+      rootWeightBasis: 'open-source-engineering-weights', rootWeights: { ...ROOT_TIER_WEIGHT },
+      rootLabelBands: [
+        { label: '无根', lowerInclusive: 0, upperExclusive: 0.3 },
+        { label: '微根', lowerInclusive: 0.3, upperExclusive: 0.7 },
+        { label: '弱根', lowerInclusive: 0.7, upperExclusive: 1.5 },
+        { label: '中根', lowerInclusive: 1.5, upperExclusive: 2.5 },
+        { label: '强根', lowerInclusive: 2.5, upperExclusive: null },
+      ],
+      strengthRule: assessment.rule, exposedStemsUsedForStrength: false,
+      sourceRefs: [
+        'docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md:200',
+        'docs/mingli/source-texts/bazi/ditianshui-chanwei/tongshen-17-shuaiwang-zhonghe.md:20',
+        'https://github.com/XiaoChu-1208/bazi-life-curves/blob/ad8fdeceac3d74b9682ce1df362e7a497dc91d2c/scripts/_bazi_core.py#L192-L283',
+      ],
+      limitations: [
+        '月令五态仅按月支本气查表，未按交节后日数判司令，辰戌丑未也未区分月内用事。',
+        '得令包含旺与相，失令仅指囚与死，休在此矩阵按中性处理；这是本实现约定。',
+        '兼容根力标签合计同五行藏干与印支持；无根档也可能含非零余气，须以实际条目区分。',
+        '本中余权重1/0.5/0.2与分档阈值是开源工程参数，未获独立实证校准。',
+        '五档强弱未考虑其余透干、制化刑冲会合及调候，不能替代完整传统旺衰辨析。',
+        '经典引文来自待核印刷底本的电子转录，支持定性辨析，不为工程数值与矩阵背书。',
+      ],
+    },
   };
 }
 

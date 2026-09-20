@@ -1,0 +1,103 @@
+Optional(Attributes: Application, 0x117c11540, pid: 15421, label: '有时'
+Element subtree:
+ →Application, 0x117c11540, pid: 15421, label: '有时'
+    Window (Main), 0x117c121c0, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x117c12300, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x117c11680, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x117c10140, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x117c10280, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x117c10000, {{0.0, 0.0}, {402.0, 874.0}}
+                NavigationBar, 0x117c117c0, {{0.0, 62.0}, {402.0, 54.0}}, identifier: '命盘手稿'
+                  StaticText, 0x117c11900, {{167.0, 73.7}, {67.7, 20.7}}, label: '命盘手稿'
+                Other, 0x117c11a40, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x117c11b80, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x117c11cc0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x117c11e00, {{0.0, 0.0}, {402.0, 874.0}}
+                        ScrollView, 0x117c11f40, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x117c12440, {{0.0, -272.0}, {402.0, 1167.7}}
+                            SegmentedControl, 0x117c12580, {{24.0, -248.0}, {354.0, 31.0}}
+                              Button, 0x117c126c0, {{24.0, -248.0}, {177.0, 32.0}}, label: '八字', Selected
+                              Button, 0x117c12800, {{201.0, -248.0}, {177.0, 32.0}}, label: '紫微'
+                            ScrollView, 0x117c12940, {{24.0, -189.0}, {354.0, 258.7}}
+                              Other, 0x117c12a80, {{24.0, -189.0}, {304.0, 258.7}}
+                                StaticText, 0x117c12bc0, {{50.0, -163.0}, {24.0, 14.3}}, label: '年柱'
+                                StaticText, 0x117c12d00, {{126.0, -163.0}, {24.0, 14.3}}, label: '月柱'
+                                StaticText, 0x117c12e40, {{202.0, -163.0}, {24.0, 14.3}}, label: '日柱'
+                                StaticText, 0x117c12f80, {{278.0, -163.0}, {24.0, 14.3}}, label: '时柱'
+                                StaticText, 0x117c130c0, {{44.5, -132.7}, {35.0, 50.3}}, label: '庚'
+                                StaticText, 0x117c13200, {{120.5, -132.7}, {35.0, 50.3}}, label: '甲'
+                                StaticText, 0x117c13340, {{196.5, -132.7}, {35.0, 50.3}}, label: '壬'
+                                StaticText, 0x117c13480, {{272.5, -132.7}, {35.0, 50.3}}, label: '乙'
+                                StaticText, 0x117c135c0, {{44.5, -66.3}, {35.0, 50.3}}, label: '午'
+                                StaticText, 0x117c13700, {{120.5, -66.3}, {35.0, 50.3}}, label: '申'
+                                StaticText, 0x117c13840, {{196.5, -66.3}, {35.0, 50.3}}, label: '子'
+                                StaticText, 0x117c13980, {{272.5, -66.3}, {35.0, 50.3}}, label: '巳'
+                                StaticText, 0x117c13ac0, {{50.0, -0.0}, {24.0, 14.3}}, label: '偏印'
+                                StaticText, 0x117c13c00, {{126.0, -0.0}, {24.0, 14.3}}, label: '食神'
+                                StaticText, 0x117c13d40, {{202.0, -0.0}, {24.0, 14.3}}, label: '比肩'
+                                StaticText, 0x117c13e80, {{278.0, -0.0}, {24.0, 14.3}}, label: '伤官'
+                                StaticText, 0x117b36d00, {{45.5, 30.3}, {33.0, 13.3}}, label: '路旁土'
+                                StaticText, 0x117b36a80, {{121.5, 30.3}, {33.0, 13.3}}, label: '泉中水'
+                                StaticText, 0x117b37340, {{197.5, 30.3}, {33.0, 13.3}}, label: '桑柘木'
+                                StaticText, 0x117b375c0, {{273.5, 30.3}, {33.0, 13.3}}, label: '覆灯火'
+                              Other, 0x117b37ac0, {{24.0, 36.7}, {354.0, 30.0}}, label: 'Horizontal scroll bar, 1 pages', value: 0%
+                                Other, 0x117b37840, {{368.0, 63.7}, {7.0, 3.0}}
+                              Other, 0x117b36940, {{24.0, 36.7}, {354.0, 30.0}}, label: 'Horizontal scroll bar, 1 pages', value: 0%
+                                Other, 0x117b37d40, {{368.0, 63.7}, {7.0, 3.0}}
+                            StaticText, 0x117b36800, {{24.0, 97.7}, {120.0, 34.7}}, label: '五行与取用'
+                            Other, 0x117b37480, {{86.5, 175.3}, {229.0, 183.3}}
+                              StaticText, 0x117b370c0, {{96.5, 175.3}, {28.0, 68.7}}, label: '水, 日主'
+                                StaticText, 0x117b37c00, {{96.5, 175.3}, {28.0, 40.3}}, label: '水'
+                                StaticText, 0x117b37200, {{98.5, 229.7}, {24.0, 14.3}}, label: '日主'
+                              StaticText, 0x117b37980, {{267.5, 175.3}, {48.0, 68.7}}, label: '水, 计数较多'
+                                StaticText, 0x117b37700, {{277.5, 175.3}, {28.0, 40.3}}, label: '水'
+                                StaticText, 0x117b36bc0, {{267.5, 229.7}, {48.0, 14.3}}, label: '计数较多'
+                              StaticText, 0x117b37e80, {{86.5, 290.0}, {48.0, 68.7}}, label: '土, 计数较少'
+                                StaticText, 0x117b36f80, {{96.5, 290.0}, {28.0, 40.3}}, label: '土'
+                                StaticText, 0x117b36e40, {{86.5, 344.3}, {48.0, 14.3}}, label: '计数较少'
+                              StaticText, 0x116b81a40, {{267.5, 290.0}, {48.0, 68.7}}, label: '土, 扶抑参考'
+                                StaticText, 0x116b83e80, {{277.5, 290.0}, {28.0, 40.3}}, label: '土'
+                                StaticText, 0x116b80a00, {{267.5, 344.3}, {48.0, 14.3}}, label: '扶抑参考'
+                            StaticText, 0x116b81900, {{24.0, 402.3}, {348.3, 36.3}}, label: '五行计数来自当前天干与藏干权重，不能直接当作传统强弱；扶抑参考也不等同于格局用神。'
+                            StaticText, 0x116b80f00, {{24.0, 466.7}, {352.7, 45.7}}, identifier: 'profile.strength.trace.summary', label: '当前工程启发式的固定权重计数：帮扶 4，克泄耗 4。两侧相等，按当前“≥”规则列为偏强。'
+                            StaticText, 0x116b81540, {{24.0, 524.3}, {349.0, 54.7}}, identifier: 'profile.strength.trace.qualification', label: '这些数字是工程权重，不是实测力量。计数包含日干本人一次，未综合月令旺衰、根气、合化与调候，不能替代完整传统强弱辨析。'
+                            Button, 0x116b83ac0, {{24.0, 591.0}, {354.0, 52.0}}, identifier: 'profile.strength.trace.toggle', label: '查看强弱判断依据'
+                              StaticText, 0x116b80c80, {{24.0, 591.0}, {354.0, 52.0}}, identifier: 'profile.strength.trace.toggle', label: '查看强弱判断依据'
+                              Image, 0x116b83d40, {{370.3, 611.0}, {7.0, 12.0}}, identifier: 'collapsed'
+                            Button, 0x116b80b40, {{24.0, 671.0}, {354.0, 28.3}}, label: '结构与关系'
+                              StaticText, 0x116b817c0, {{24.0, 671.0}, {354.0, 28.3}}, label: '结构与关系'
+                              Image, 0x116b81040, {{370.3, 679.3}, {7.0, 12.0}}, identifier: 'collapsed'
+                            Button, 0x116b82f80, {{24.0, 727.3}, {354.0, 26.0}}, label: '调候文献候选（条件待核）'
+                              StaticText, 0x116b81680, {{24.0, 727.3}, {354.0, 26.0}}, label: '调候文献候选（条件待核）'
+                              Image, 0x116b80dc0, {{370.3, 734.3}, {7.0, 12.0}}, identifier: 'collapsed'
+                            Button, 0x116b808c0, {{24.0, 781.3}, {354.0, 26.0}}, label: '排盘口径与时间'
+                              StaticText, 0x117ba6e40, {{24.0, 781.3}, {354.0, 26.0}}, label: '排盘口径与时间'
+                              Image, 0x117ba5900, {{370.3, 788.3}, {7.0, 12.0}}, identifier: 'collapsed'
+                            StaticText, 0x117ba5a40, {{24.0, 835.3}, {348.3, 36.3}}, label: '排盘使用本地传统算法；格局、应期等规则含简化项。结果用于文化体验与自我观察。'
+                          Other, 0x117ba5b80, {{0.0, 0.0}, {402.0, 874.0}}
+                            Other, 0x117ba5cc0, {{0.0, 0.0}, {402.0, 170.8}}
+                          Other, 0x117ba5e00, {{0.0, 0.0}, {402.0, 874.0}}
+                            Other, 0x117ba5f40, {{0.0, 0.0}, {402.0, 170.8}}
+                              Other, 0x117ba6300, {{0.0, 0.0}, {402.0, 94.3}}
+                              Other, 0x117ba6440, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x117ba6580, {{0.0, 0.0}, {402.0, 170.8}}
+                              Other, 0x117ba66c0, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x117ba6800, {{0.0, 0.0}, {402.0, 170.8}}
+                              Other, 0x117ba4a00, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x117ba7e80, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x117ba5680, {{0.0, 0.0}, {402.0, 170.8}}
+                          Other, 0x117ba7c00, {{369.0, 158.3}, {30.0, 653.7}}, label: 'Vertical scroll bar, 2 pages', value: 89%
+                            Other, 0x117ba7d40, {{396.0, 366.3}, {3.0, 416.3}}
+                          Other, 0x117ba7980, {{369.0, 158.3}, {30.0, 653.7}}, label: 'Vertical scroll bar, 2 pages', value: 89%
+                            Other, 0x117ba7ac0, {{396.0, 366.3}, {3.0, 416.3}}
+                        StaticText, 0x117ba57c0, {{0.0, 0.0}, {402.0, 150.3}}, identifier: 'audit.synthetic', label: '界面验收 · 合成资料 · 未调用 AI'
+                Other, 0x117ba7840, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x117ba7700, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x117c11540, pid: 15421, label: '有时'
+Query chain:
+ →Find: Target Application 'app.suji.native'
+  Output: {
+    Application, 0x117ba75c0, pid: 15421, label: '有时'
+  }
+)
