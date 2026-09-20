@@ -75,7 +75,7 @@ final class SupabaseClientTests: XCTestCase {
             XCTAssertEqual(request.value(forHTTPHeaderField: "Prefer"), "resolution=merge-duplicates,return=representation")
             let body = try requestBody(request).jsonObject
             XCTAssertEqual(body["id"] as? String, "user-1")
-            XCTAssertTrue(body["birth_date"] is NSNull)
+            for key in ["birth_date", "gender", "birth_city", "birth_longitude"] { XCTAssertTrue(body[key] is NSNull) }
             XCTAssertNil(body["api_key"])
             XCTAssertNil(body["conversations"])
             return Self.response(request, status: 201, json: [[

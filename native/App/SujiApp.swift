@@ -108,7 +108,7 @@ struct RootView: View {
         false
 #endif
     }
-    private var mainTabs: some View {
+    @ViewBuilder private var mainTabs: some View {
         @Bindable var store = store
         TabView(selection: $store.selectedTab) {
             TodayView(date: store.today, lunarDate: store.calendarInfo?["lunarDate"].text ?? "", ganZhi: store.calendarInfo?["ganZhi"].text ?? "", solarTerm: store.calendarInfo?["solarTerm"].text ?? "", quote: store.ritual?.quote ?? store.content.quote, action: store.ritual?.action ?? store.content.action, isRevealed: store.ritual != nil, onReveal: { store.revealToday() }, onJournal: { sheet = .journal }, onHistory: { sheet = .history }, onShare: { sheet = .share }, onReflect: { sheet = .reflection })

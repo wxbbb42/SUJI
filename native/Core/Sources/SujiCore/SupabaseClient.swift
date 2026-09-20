@@ -120,9 +120,8 @@ public struct SupabaseProfilePatch: Encodable, Sendable, Equatable {
     public var apiModel: String?
     public var apiBaseURL: String?
     public var hasOnboarded: Bool?
-    public var clearBirth: Bool
 
-    public init(birthDate: String? = nil, gender: String? = nil, birthCity: String? = nil, birthLongitude: Double? = nil, apiProvider: String? = nil, apiModel: String? = nil, apiBaseURL: String? = nil, hasOnboarded: Bool? = nil, clearBirth: Bool = false) {
+    public init(birthDate: String? = nil, gender: String? = nil, birthCity: String? = nil, birthLongitude: Double? = nil, apiProvider: String? = nil, apiModel: String? = nil, apiBaseURL: String? = nil, hasOnboarded: Bool? = nil) {
         self.birthDate = birthDate
         self.gender = gender
         self.birthCity = birthCity
@@ -131,23 +130,6 @@ public struct SupabaseProfilePatch: Encodable, Sendable, Equatable {
         self.apiModel = apiModel
         self.apiBaseURL = apiBaseURL
         self.hasOnboarded = hasOnboarded
-        self.clearBirth = clearBirth
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var values = encoder.container(keyedBy: CodingKeys.self)
-        if clearBirth {
-            for key in [CodingKeys.birthDate, .gender, .birthCity, .birthLongitude] { try values.encodeNil(forKey: key) }
-        } else {
-            try values.encodeIfPresent(birthDate, forKey: .birthDate)
-            try values.encodeIfPresent(gender, forKey: .gender)
-            try values.encodeIfPresent(birthCity, forKey: .birthCity)
-            try values.encodeIfPresent(birthLongitude, forKey: .birthLongitude)
-        }
-        try values.encodeIfPresent(apiProvider, forKey: .apiProvider)
-        try values.encodeIfPresent(apiModel, forKey: .apiModel)
-        try values.encodeIfPresent(apiBaseURL, forKey: .apiBaseURL)
-        try values.encodeIfPresent(hasOnboarded, forKey: .hasOnboarded)
     }
 
     enum CodingKeys: String, CodingKey {

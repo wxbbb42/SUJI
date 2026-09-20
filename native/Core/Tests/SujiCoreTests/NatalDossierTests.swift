@@ -3,14 +3,6 @@ import XCTest
 
 final class NatalDossierTests: XCTestCase {
     private let birth = BirthProfile(year: 1995, month: 8, day: 15, hour: 19, minute: 30, gender: "女", city: "上海", longitude: 121.47)
-    func testDeletingBirthSendsExplicitNullsRatherThanLeavingCloudColumnsUntouched() throws {
-        let patch = SupabaseProfilePatch(hasOnboarded: false, clearBirth: true)
-        let object = try XCTUnwrap(JSONSerialization.jsonObject(with: JSONEncoder().encode(patch)) as? [String: Any])
-        for key in ["birth_date", "gender", "birth_city", "birth_longitude"] { XCTAssertTrue(object[key] is NSNull) }
-        XCTAssertNil(object["api_provider"])
-        let unchanged = try XCTUnwrap(JSONSerialization.jsonObject(with: JSONEncoder().encode(SupabaseProfilePatch(hasOnboarded: true))) as? [String: Any])
-        XCTAssertNil(unchanged["birth_date"])
-    }
     private func payload() async throws -> Data {
         let resources = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("Resources")
         let bridge = try MingliBridge(scriptURL: resources.appendingPathComponent("mingli.js"))

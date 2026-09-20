@@ -184,8 +184,7 @@ import UIKit
             gender: state.birth?.gender,
             birthCity: state.birth?.city,
             birthLongitude: state.birth?.longitude,
-            hasOnboarded: state.hasOnboarded,
-            clearBirth: state.birth == nil
+            hasOnboarded: state.hasOnboarded
         )
         let token = try await validAccessToken()
         guard self.user?.id == user.id else { throw CancellationError() }

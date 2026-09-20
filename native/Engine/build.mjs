@@ -33,6 +33,7 @@ process.env.TZ = 'Asia/Shanghai';
 const context=vm.createContext({ console }); vm.runInContext(result.outputFiles[0].text,context);
 const birth={year:1995,month:8,day:15,hour:19,minute:30,gender:'女',city:'上海',longitude:121.47,timeZoneID:'Asia/Shanghai'};
 const requests = [
+  {command:'natal',birth},
   {command:'calendar',day:'2026-09-19'},
   {command:'profile',birth,now:'2026-09-19T04:00:00Z'},
   {command:'tool',name:'setup_qimen',arguments:{question:'换个城市生活',questionType:'career'},now:'2026-09-19T04:00:00Z'},
@@ -44,6 +45,8 @@ const requests = [
   {command:'tool',name:'get_domain',birth,arguments:{domain:'事业'},now:'2026-09-19T04:00:00Z'},
   {command:'forecast',birth,year:2027,now:'2026-09-19T04:00:00Z'},
 ];
+const savedNatal=JSON.parse(JSON.stringify(await context.SujiNative.dispatch({command:'natal',birth})));
+requests.push({command:'profile',birth,natal:savedNatal,now:'2026-09-19T04:00:00Z'});
 const fixtures=[];
 for(const request of requests) fixtures.push({request,result:await context.SujiNative.dispatch(request)});
 await writeFile(path.join(native,'Resources/engine-fixtures.json'),JSON.stringify(fixtures,null,2));

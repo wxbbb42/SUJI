@@ -76,4 +76,92 @@ import SujiCore
         let rebuilt = try await app.ensureNatalDossier()
         XCTAssertEqual(rebuilt.ownerID, "user:one")
     }
+
+    func testLoginRestoresCloudBirthAndOfflineEditRetriesWithoutLosingDossier() async throws {
+        let oldSession = try KeychainStore.read("supabase-session")
+        defer { try? KeychainStore.write(oldSession, name: "supabase-session"); DossierAccountProtocol.handler = nil }
+        let container = try ModelContainer(for: SavedState.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        let script = try XCTUnwrap(Bundle.main.url(forResource: "mingli", withExtension: "js"))
+        let app = try AppStore(context: container.mainContext, scriptURL: script)
+        app.recordMood(.calm, note: "guest-original")
+        var offline = false
+        var uploaded: [String: Any]?
+        let cloud: [String: Any] = ["id": "one", "birth_date": "1995-08-15T11:30:00Z", "gender": "女", "birth_city": "上海", "birth_longitude": 121.47, "has_onboarded": true, "created_at": "2026-01-01T00:00:00Z", "updated_at": "2026-01-01T00:00:00Z"]
+        DossierAccountProtocol.handler = { request in
+            if offline { throw URLError(.notConnectedToInternet) }
+            switch (request.url!.path, request.httpMethod!) {
+            case ("/auth/v1/token", "POST"):
+                return ["access_token": "test-access", "refresh_token": "test-refresh", "expires_in": 3600, "token_type": "bearer", "user": ["id": "one", "email": "test@example.com"]]
+            case ("/rest/v1/profiles", "GET"): return [cloud]
+            case ("/rest/v1/profiles", "POST"):
+                uploaded = try JSONSerialization.jsonObject(with: Self.body(request)) as? [String: Any]
+                return [cloud]
+            case ("/auth/v1/logout", "POST"): return [:]
+            default: throw URLError(.badURL)
+            }
+        }
+        let config = URLSessionConfiguration.ephemeral
+        config.protocolClasses = [DossierAccountProtocol.self]
+        app.accountSession = AccountSession(urlSession: URLSession(configuration: config), restoreSession: false) { [weak app] previous, next in
+            try await app?.switchAccount(from: previous, to: next)
+        }
+        await app.accountSession.signIn(email: "test@example.com", password: "test-password")
+        XCTAssertTrue(app.isSignedIn)
+        XCTAssertFalse(app.accountSession.hasPendingAccountChange)
+        XCTAssertTrue(app.state.journal.isEmpty)
+        await app.prepareAccount()
+        XCTAssertEqual(app.state.birth, birth)
+        XCTAssertTrue(app.hasNatalDossier)
+        let beforeEdit = try XCTUnwrap(app.natalDossier)
+        offline = true
+        var edited = birth; edited.hour = 10
+        try await app.updateBirth(edited)
+        XCTAssertEqual(app.state.birth, edited)
+        XCTAssertEqual(app.state.profileNeedsUpload, true)
+        XCTAssertNotNil(app.cloudProfileStatus)
+        XCTAssertNotEqual(app.natalDossier?.payload, beforeEdit.payload)
+        let afterEdit = app.natalDossier?.createdAt
+        offline = false
+        await app.syncBirthProfile()
+        XCTAssertEqual(app.state.profileNeedsUpload, false)
+        XCTAssertNil(app.cloudProfileStatus)
+        XCTAssertEqual(uploaded?["id"] as? String, "one")
+        XCTAssertEqual(uploaded?["birth_date"] as? String, "1995-08-15T02:30:00Z")
+        XCTAssertNil(uploaded?["mingPan"])
+        XCTAssertEqual(app.natalDossier?.createdAt, afterEdit)
+        await app.accountSession.signOut()
+        XCTAssertFalse(app.isSignedIn)
+        XCTAssertNil(app.natalDossier)
+        XCTAssertEqual(app.state.journal.first?.note, "guest-original")
+    }
+
+    private static func body(_ request: URLRequest) throws -> Data {
+        if let data = request.httpBody { return data }
+        let stream = try XCTUnwrap(request.httpBodyStream)
+        stream.open(); defer { stream.close() }
+        var output = Data(); var buffer = [UInt8](repeating: 0, count: 4096)
+        while stream.hasBytesAvailable {
+            let count = stream.read(&buffer, maxLength: buffer.count)
+            if count <= 0 { break }
+            output.append(buffer, count: count)
+        }
+        return output
+    }
+}
+
+private final class DossierAccountProtocol: URLProtocol {
+    static var handler: ((URLRequest) throws -> Any)?
+    override class func canInit(with request: URLRequest) -> Bool { true }
+    override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }
+    override func startLoading() {
+        do {
+            let object = try XCTUnwrap(Self.handler)(request)
+            let data = try JSONSerialization.data(withJSONObject: object)
+            let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: ["Content-Type": "application/json"])!
+            client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+            client?.urlProtocol(self, didLoad: data)
+            client?.urlProtocolDidFinishLoading(self)
+        } catch { client?.urlProtocol(self, didFailWithError: error) }
+    }
+    override func stopLoading() {}
 }
