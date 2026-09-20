@@ -88,6 +88,9 @@ public enum ToolOrchestratorError: LocalizedError, Sendable, Equatable {
 }
 
 public struct ToolOrchestrator {
+    /// Shared with replay: a successfully delivered round must remain available
+    /// on retry. This is independent of the conversational text budget.
+    static let outputByteLimit = 60_000
     public static let allowedToolNames: Set<String> = [
         "get_domain",
         "get_bazi_star",
@@ -254,7 +257,7 @@ public struct ToolOrchestrator {
                     }
                     receipts.append(receipt)
                     let modelOutput = NatalEvidenceProjection.output(receipt.output, name:receipt.name, delivered:Array(messages.dropFirst(history.count)))
-                    guard modelOutput.utf16.count <= 32_000, outputBytes + modelOutput.utf8.count <= 60_000 else {
+                    guard modelOutput.utf16.count <= 32_000, outputBytes + modelOutput.utf8.count <= Self.outputByteLimit else {
                         try Self.appendFailureOutput(Self.errorOutput(SchemaValidationError(reason: "盘面已保存，但本次模型依据容量不足；不要重新起盘，也不要编造未读取的细节")), callID: call.id, messages: &messages, outputBytes: &outputBytes)
                         continue
                     }
@@ -288,10 +291,10 @@ public struct ToolOrchestrator {
     }
 
     private static func appendFailureOutput(_ output: String, callID: String, messages: inout [ChatMessage], outputBytes: inout Int) throws {
-        let bounded = output.utf16.count <= 32_000 && outputBytes + output.utf8.count <= 60_000
+        let bounded = output.utf16.count <= 32_000 && outputBytes + output.utf8.count <= Self.outputByteLimit
             ? output
             : errorOutput(SchemaValidationError(reason: "工具错误信息过长或超出本次容量，未取得有效计算结果"))
-        guard outputBytes + bounded.utf8.count <= 60_000 else {
+        guard outputBytes + bounded.utf8.count <= Self.outputByteLimit else {
             throw SchemaValidationError(reason: "本次工具输出已达到容量上限；已计算的盘面保留，请缩小问题后重试")
         }
         outputBytes += bounded.utf8.count

@@ -133,6 +133,6 @@ describe('professional liuyao audit: independently tabulated local facts', () =>
       syntheticChangingVoid: changingVoid, syntheticChangingMonthBreak: changingBroken,
       syntheticHiddenClash: hiddenClash, syntheticMonthCombination: monthCombined,
     };
-    report.knownUnimplemented = ['flying-hidden relationships','return generation/control','advance/retreat','dark movement versus day break','comprehensive strength and use-god resolution','conditional event timing'];
+    report.knownUnimplemented = ['comprehensive strength and use-god resolution','final dark movement/day break and hidden release adjudication','conditional event timing'];
   });
 });

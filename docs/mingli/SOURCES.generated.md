@@ -1551,6 +1551,15 @@ Updated: 2026-04-30
 - Confidence: high_for_conditional_distinction_transcription_only
 - Status: grounded_requirement_not_implemented
 
+### liuyao.scoped-conditional-relations
+
+- Domain: liuyao
+- Claim: 本位变爻回头生克、所选七组进退与飞伏方向分开计算；旬空/月破不会抹掉进退结构。日冲静爻按日月与明动的支持/冲突保留暗动、日破、冲空候选；综合旺衰/墓绝未决不伪造净分数或出伏结论。每个条件保留真/假/未决及可查验盘面指针。
+- Sources: `liuyao-zengshan-buyi`
+- Repo refs: `native/Engine/src/divination/conditionalRules.ts`, `native/Engine/src/divination/__tests__/ConditionalRules.test.ts`, `native/Engine/validation/research-divination/core-rule-sources.json`
+- Confidence: high_for_structural_directions_conditional_for_adjudication
+- Status: conditional_rules_implemented_final_strength_and_timing_pending
+
 ### liuyao.six-spirits-not-standalone-verdict
 
 - Domain: liuyao

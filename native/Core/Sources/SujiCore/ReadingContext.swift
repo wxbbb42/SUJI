@@ -92,7 +92,7 @@ public enum ReadingPrompt {
             let receiptStart = messages.count
             for receipt in entry.toolReceipts ?? [] where receipt.context == context {
                 let modelOutput = NatalEvidenceProjection.output(receipt.output,name:receipt.name,delivered:Array(messages.dropFirst(receiptStart)))
-                guard modelOutput.utf16.count <= 32_000, receiptBytes + modelOutput.utf8.count <= 40_000 else { continue }
+                guard modelOutput.utf16.count <= 32_000, receiptBytes + modelOutput.utf8.count <= ToolOrchestrator.outputByteLimit else { continue }
                 receiptBytes += modelOutput.utf8.count
                 messages.append(.assistantToolCalls([receipt.call]))
                 messages.append(.toolResult(ChatToolResult(callID: receipt.callID, output: modelOutput)))

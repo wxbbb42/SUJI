@@ -61,8 +61,8 @@ The fresh read-only review found a P1 late-zi calendar inconsistency. This takes
 - [x] Return target and actual trine/opposite palace facts, keeping empty resident-star arrays unchanged and borrowed-reference provenance explicit. Test reordered arrays, empty/nonempty and sparse legacy payloads.
 - [x] Return each natal transformation's source stem, star, target palace and source ID. Archive the read edition and explicitly record Ren 天府/左辅 and leap-month differences. Fix the old test's overstatement of agreement.
 - [x] Index star brightness, body/empty flags, scoped transformations, methods and sources in standalone and domain tools. Add named-palace binding and wrong-palace/transit/negation counterexamples.
-- [ ] Finish D1 independent rereview, full Core/Engine verification, push and exact-head CI.
-- [ ] D2: independent nominal-age/decadal vectors; separate annual projection from natal cache, explicit school provenance and boundary tests. No borrowing Bazi timing as Ziwei timing.
+- [x] Finish D1 independent rereview, full Core/Engine verification, push and exact-head CI.
+- [x] D2: independent nominal-age/decadal vectors; separate annual projection from natal cache, explicit school provenance and boundary tests. No borrowing Bazi timing as Ziwei timing.
 - [ ] D3: interpretation evidence for transformation scope, empty-palace overclaims and dynamic layers, with actual end-to-end cases. Palace-stem flying and flow-month remain separate scope decisions requiring grounded rules.
 
 Liuyao B source reread also uncovered a research-excerpt bug: prior root-page chapter28/32 excerpts hit the table of contents. `core-rule-sources.json` records actual chapter offsets/hashes from the same full-source hash. This corrects evidence extraction, not the still-pending B implementation.
@@ -76,6 +76,23 @@ Selected policy: modern iztro-default decade convention, first decade at 命宫 
 - [x] Add `get_ziwei_timing`, defaulting to the question instant; optional explicit Gregorian `date` uses Beijing noon and declares it. Return lunar-year age, active decade, 太岁所在本命宫, separately scoped annual and decade-stem transformations. Keep natal stars unchanged; do not claim 小限、流月、流曜 or palace-stem flying.
 - [x] RED/GREEN: before/after lunar New Year including 23:00; LiChun counterexample; same star 生年化科 and 流年化忌; minor-star 化科; invalid dates; persisted snapshot and timezone independence.
 - [x] Native allowlist, scoped scalar evidence index, real tool transport/replay and Node/JSC parity. Source archive/registry and scope descriptions updated.
-- [ ] Independent review, full local checks, push and exact-head CI.
+- [x] Independent review, full local checks, push and exact-head CI.
 
 D2 local acceptance: 636 Engine /235 Swift Core /15 backend tests; independent review and deployed authenticated 9-tool smoke passed. Native mixed-tool replay35,513bytes; no natal recalculation. Commit and exact-head CI pending. D3 and core B/C/E/F remain open.
+
+D1 remote acceptance: run35492092036 succeeded (engine, swift-core, native-app) at exact f59facfddaae3887dcb71063fa9eb16357ac8995. D2 accepted: 5857c5ebe520f7fc590e0e7153c60af12bcad95e remote hash matched; run35492560471 succeeded in engine, swift-core and native-app.
+
+## Batch B — conditional Liuyao relationship chains
+
+Source choice: read 增删卜易 electronic chapters17/20/22 and root chapters28/29, archived in `core-rule-sources.json`. Chapter29 lists seven advance pairs; do not add 戌丑 under that source. Preserve independent object contexts from A.
+
+- [x] Test first: 申月戊午日遯→姤, changed亥水 returns control to original午火 despite午临日; direction is changed→original, never every changed line attacking all originals.
+- [x] Test all seven forward/reverse branch pairs; retain structural进退 even when changed line is empty/broken, and distinguish when it can apply from the mere match. Exclude unlisted戌丑 and stationary changed-palace decorations.
+- [x] Test 姤二亥飞生寅伏 / 遯初辰飞克子伏. Return identity, direction and separate enabling/opposing conditions including day/month/moving generation, clash/control of flying, and flying emptiness/month break. Comprehensive strength and 墓绝 must not be fabricated from monthState.
+- [x] Test 静旺日冲 / 静弱日冲, moving-line exclusion, 冲空, and 寅月己未日坤→师: month克丑 plus同类日扶 coexist. Return competing conditional暗动/日破 cases; do not classify by monthState alone or invent a net-strength threshold.
+- [x] Bind each condition to precise original/changed/hidden fact pointers. Include sources once, keep true/false/unresolved separate, preserve incomplete adjudication rather than hide it in a score.
+- [ ] Native index and actual cast transport/replay; check limits before accepting richer results. Independent review, source registry, full checks and exact-head CI.
+
+This batch closes structural and conditional rule gaps only; question-dependent final取用 and event timing remain E, interpretation claims F. Additional 三合、六合六冲、反吟伏吟、墓绝 require their own grounded decisions before final core acceptance.
+
+B local verification: 645 Engine /237 Core /15 backend tests pass,18 Node/JSC fixtures. Exhaustive 4,096 casts validate 12,288 returning and3,584 flying-hidden directions. Lossless verifier prefixes reduce the large 大畜+奇门 case from132,867 to110,541 UTF-16 units. Actual live/replay test found mismatched60KB/40KB receipt budgets; both now share the existing60KB live limit, backend limits unchanged. See `docs/mingli/validation/liuyao-conditional-2026-09-20.md`. Independent review cleared, including repeated cached-chart message count. Push/exact-head CI remain pending.

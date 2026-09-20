@@ -206,3 +206,11 @@ This does not complete D2/D3 or the other core batches. Fine-grained brightness/
 - 两领域+本命宫+时间层的原生真实结果共35,513字节，完整receipt重放和证据恢复通过。
 - Supabase函数已部署。真实测试账户通过9工具定义、新工具调用、缓存本命结果回传与DeepSeek续答、SSE/鉴权/配额；账户和配额行已清理。不将该smoke等同完整解释验收。
 - 详见 `docs/mingli/validation/ziwei-timing-2026-09-20.md`；自动改稿对时间层多段事实的绑定仍待D3/F。
+
+D2 exact head `5857c5ebe520f7fc590e0e7153c60af12bcad95e`: [run 35492560471](https://github.com/wxbbb42/SUJI/actions/runs/35492560471) succeeded in engine, swift-core and native-app.
+
+### 2026-09-20 六爻条件作用链 B
+
+回头生克、七组进退、飞伏及静爻日冲条件已补；4,096卦值穷举核对12,288回头关系与3,584飞伏关系。完整原生盘面和证据测试发现并修复核验容量及重试丢盘：核验共享前缀保留所有事实，重放与首次交付共享60KB盘面预算，后端限制不变。大畜+奇门48,543字节完整保存、重放且不重起盘。
+
+本地43套645项Engine、237项Swift Core、15项后端测试通过；typecheck/build/native-only/diff通过，18个Node/JSC fixtures。详见 [B验收记录](../docs/mingli/validation/liuyao-conditional-2026-09-20.md)。这不完成全局旺衰、取用或自然语言解释验收。

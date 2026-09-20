@@ -2,6 +2,7 @@
  * 六爻卜卦类型定义
  */
 import type { RuleSource } from '../rules/provenance';
+import type { lineRules } from './conditionalRules';
 
 export type Yao = '阴' | '阳';
 export type WuXing = '金' | '木' | '水' | '火' | '土';
@@ -116,6 +117,7 @@ export interface RelatedLine {
 }
 
 export interface HexagramLine {
+  rules?: ReturnType<typeof lineRules>;
   position: number;
   value: 6 | 7 | 8 | 9;
   ganZhi: string;

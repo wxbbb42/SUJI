@@ -2,6 +2,18 @@ import XCTest
 @testable import SujiCore
 
 final class DivinationEvidenceTests: XCTestCase {
+    func testConditionalRelationsKeepDirectionsStatesAndNoVerdict() {
+        let facts = ReadingVerificationEvidence.facts(history("cast_liuyao", #"{"lines":[{"rules":{"returning":{"relation":"回头克","from":"/lines/0/changed","to":"/lines/0","assessmentStatus":"structural-relation","sourceId":"liuyao-changing-relations-v1","conditions":[{"id":"changed-void","state":"not-matched","factPaths":["/lines/0/changed/context/isVoid"]},{"id":"combined-effectiveness","state":"unresolved","factPaths":[]}]},"dayClash":{"kind":"static-day-clash","candidates":["暗动","日破"],"voidClash":false,"conditions":[{"id":"day-support","state":"matched","factPaths":["/lines/0/context/day/elementRelation"]}]}}}]}"#))
+        let indexed = Dictionary(uniqueKeysWithValues:facts.map { ($0.factKey,$0) })
+        XCTAssertEqual(indexed["liuyao.line1.rules.returning.relation"]?.value,.string("回头克"))
+        XCTAssertEqual(indexed["liuyao.line1.rules.returning.from"]?.value,.string("/lines/0/changed"))
+        XCTAssertEqual(indexed["liuyao.line1.rules.returning.condition.changed-void"]?.value,.string("not-matched"))
+        XCTAssertEqual(indexed["liuyao.line1.rules.returning.condition.combined-effectiveness"]?.pointer,"/lines/0/rules/returning/conditions/1/state")
+        XCTAssertEqual(indexed["liuyao.line1.rules.dayClash.candidates"]?.value,.array([.string("暗动"),.string("日破")]))
+        XCTAssertEqual(indexed["liuyao.line1.rules.dayClash.voidClash"]?.value,.bool(false))
+        XCTAssertEqual(indexed["liuyao.line1.rules.dayClash.condition.day-support"]?.value,.string("matched"))
+        XCTAssertFalse(facts.contains { $0.factKey.hasSuffix("verdict") })
+    }
     private func history(_ name: String, _ raw: String) -> [ChatMessage] {
         [.assistantToolCalls([.init(id: "receipt", name: name, arguments: [:])]), .toolResult(.init(callID: "receipt", output: raw))]
     }
@@ -49,14 +61,39 @@ final class DivinationEvidenceTests: XCTestCase {
     }
 
     func testCombinedRealChartsAndEvidenceFitBackendContextLimits() async throws {
+        for values in [[6,9,9,9,9,9], [9,9,9,6,6,9]] { try await assertCombinedCharts(values:values) }
+    }
+
+    func testRepeatedStableChartIndicesFitMessageLimit() async throws {
+        let native = URL(fileURLWithPath:#filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+        let bridge = try MingliBridge(scriptURL:native.appendingPathComponent("Resources/mingli.js"))
+        let raw = try await bridge.request(#"{"command":"tool","name":"setup_qimen","arguments":{"question":"核对本次奇门盘","questionType":"general"},"now":"2026-09-19T04:00:00Z"}"#)
+        let root = try JSONDecoder().decode(JSONValue.self,from:raw)
+        let output = ReadingVerificationEvidence.encoded(try XCTUnwrap(ReadingVerificationEvidence.pointer("/result",in:root)))
+        XCTAssertLessThanOrEqual(output.utf8.count * 4,ToolOrchestrator.outputByteLimit)
+        var messages = [ChatMessage(role:.system,content:ReadingPrompt.instruction(tone:"清晰",mode:"起卦",referenceDate:Date(timeIntervalSince1970:1_789_790_400),hasBirth:false))]
+        for index in 0..<4 {
+            messages.append(.assistantToolCalls([.init(id:"cached_qimen_\(index)",name:"setup_qimen",arguments:["question":"核对本次奇门盘"])]))
+            messages.append(.toolResult(.init(callID:"cached_qimen_\(index)",output:output)))
+        }
+        let review = ReadingVerifier.messages(draft:"本次只核对盘面。",history:messages,question:"核对本次奇门盘")
+        XCTAssertLessThanOrEqual(review.count,120)
+        XCTAssertLessThanOrEqual(review.reduce(0) { $0 + ($1.content?.utf16.count ?? 0) },120_000)
+        XCTAssertLessThan(try JSONEncoder().encode(review).count + 1024,262_144)
+        for message in review { XCTAssertLessThanOrEqual(message.content?.utf16.count ?? 0,32_000) }
+        try assertIndexRestoresFacts(review:review,history:messages)
+    }
+
+    private func assertCombinedCharts(values: [Int]) async throws {
         let native = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         defer { try? FileManager.default.removeItem(at: directory) }
         let script = try String(contentsOf: native.appendingPathComponent("Resources/mingli.js"), encoding: .utf8)
         let seeded = directory.appendingPathComponent("engine.js")
-        // Test-only fair-coin sequence [6,9,9,9,9,9]: all-moving 姤, including a hidden line.
-        try (script + "\nlet coinCalls=0; Math.random=()=>coinCalls++<3?0:0.75;").write(to: seeded, atomically: true, encoding: .utf8)
+        // Test-only coins: 姤 and maximum-size all-moving 大畜 (two hidden lines).
+        let draws = values.flatMap { value in Array(repeating:value == 6 ? 0.0 : 0.75,count:3) }
+        try (script + "\nlet coinCalls=0; const draws=" + ReadingVerificationEvidence.encoded(draws) + "; Math.random=()=>draws[coinCalls++];").write(to: seeded, atomically: true, encoding: .utf8)
         let bridge = try MingliBridge(scriptURL: seeded)
         let now = Date(timeIntervalSince1970: 1_789_790_400)
         let question = "用六爻和奇门分别解释这次盘面，请保留各自依据。" + String(repeating: "需要比较盘面细节。", count: 120)
@@ -71,26 +108,62 @@ final class DivinationEvidenceTests: XCTestCase {
             messages.append(.assistantToolCalls([.init(id: id, name: name, arguments: ["question": .string(question)])]))
             messages.append(.toolResult(.init(callID: id, output: output)))
         }
+        let calls = messages.flatMap { $0.toolCalls ?? [] }
+        let expectedOutputs = messages.filter { $0.role == .tool }.map { $0.content! }
+        let outputs = Dictionary(uniqueKeysWithValues:zip(calls.map(\.id),expectedOutputs))
+        let definitions = calls.map { ChatToolDefinition(name:$0.name,description:$0.name,parameters:["type":"object","properties":["question":["type":"string"]],"required":["question"]]) }
+        var round = 0
+        let context = try ToolContext(birth:nil,engineRevision:"conditional-rules-test",referenceDate:now,mode:"起卦")
+        let orchestrator = ToolOrchestrator(complete:{ _,_ in round += 1; return round == 1 ? .toolCalls(calls) : .text("ready") },execute:{ call in .init(output:outputs[call.id]!,evidence:[call.id]) })
+        let delivery = try await orchestrator.run(history:Array(messages.prefix(1)),definitions:definitions,context:context)
+        XCTAssertEqual(delivery.receipts.map(\.output),expectedOutputs)
+        XCTAssertEqual(delivery.messages.filter { $0.role == .tool }.map(\.content),expectedOutputs)
+        var entry = ConversationEntry(role:"user",text:question)
+        entry.toolReceipts = delivery.receipts
+        let replay = ReadingPrompt.history(from:[entry],currentUserID:entry.id,context:context)
+        XCTAssertEqual(replay.filter { $0.role == .tool }.map(\.content),expectedOutputs)
+        let retry = ToolOrchestrator(complete:{ _,_ in .text("ready") },execute:{ _ in XCTFail("Retry must retain the original casts"); return .init(output:"{}") })
+        let retried = try await retry.run(history:replay,definitions:definitions,cachedReceipts:delivery.receipts,context:context)
+        XCTAssertEqual(retried.evidence,calls.map(\.id))
         let review = ReadingVerifier.messages(draft: String(repeating: "本次仅列出盘面事实和条件。", count: 60), history: messages, question: question)
+        try assertIndexRestoresFacts(review:review,history:messages)
         let total = review.reduce(0) { $0 + ($1.content?.utf16.count ?? 0) + ($1.toolCalls ?? []).reduce(0) { $0 + ReadingVerificationEvidence.encoded($1.arguments).utf16.count } }
         XCTAssertLessThanOrEqual(total, 120_000, "Backend rejects a valid two-chart review when the fact index repeats too much metadata")
         XCTAssertLessThanOrEqual(review.count, 120)
+        XCTAssertLessThan(try JSONEncoder().encode(review).count + 1024,262_144)
         for message in review { XCTAssertLessThanOrEqual(message.content?.utf16.count ?? 0, 32_000) }
-        print("Divination evidence capacity: \(total) UTF-16 code units, \(review.count) messages")
+        print("Divination evidence capacity: \(total) UTF-16 code units, \(review.count) messages, casts \(expectedOutputs.reduce(0) { $0 + $1.utf8.count }) bytes")
     }
 
     func testCompactIndexPreservesEveryFactAndItsToolIdentity() throws {
         let messages = history("cast_liuyao", #"{"castGanZhi":{"day":"甲子"},"lines":[{"context":{"isVoid":false},"changed":{"context":{"isVoid":true}}}]}"#)
-        let facts = ReadingVerificationEvidence.facts(messages)
         let review = ReadingVerifier.messages(draft: "核对盘面", history: messages, question: "盘面事实")
-        let index = try XCTUnwrap(review.first { $0.content?.hasPrefix("显式字段索引") == true }?.content)
-        let raw = try XCTUnwrap(index.components(separatedBy: "\n").last)
-        let envelope = try JSONDecoder().decode(JSONValue.self, from: Data(raw.utf8))
-        XCTAssertEqual(ReadingVerificationEvidence.pointer("/toolCallID", in: envelope), .string("receipt"))
-        XCTAssertEqual(ReadingVerificationEvidence.pointer("/columns", in: envelope), .array([.string("factKey"), .string("pointer"), .string("value")]))
-        for (index, fact) in facts.enumerated() {
-            XCTAssertEqual(ReadingVerificationEvidence.pointer("/facts/\(index)", in: envelope), .array([.string(fact.factKey), .string(fact.pointer), fact.value]))
+        try assertIndexRestoresFacts(review:review,history:messages)
+    }
+
+    private func assertIndexRestoresFacts(review: [ChatMessage], history: [ChatMessage]) throws {
+        let facts = ReadingVerificationEvidence.facts(history)
+        var restored: [String:JSONValue] = [:]
+        for message in review where message.content?.hasPrefix("显式字段索引") == true {
+            let raw = try XCTUnwrap(message.content?.components(separatedBy:"\n").last)
+            let envelope = try JSONDecoder().decode(JSONValue.self,from:Data(raw.utf8))
+            XCTAssertEqual(ReadingVerificationEvidence.pointer("/columns",in:envelope),.array([.string("factKeySuffix"),.string("pointerSuffix"),.string("value")]))
+            guard case let .array(groups) = ReadingVerificationEvidence.pointer("/groups",in:envelope) else { return XCTFail("Missing index groups") }
+            for group in groups {
+                guard case let .string(id) = ReadingVerificationEvidence.pointer("/toolCallID",in:group),
+                      case let .string(keyPrefix) = ReadingVerificationEvidence.pointer("/factKeyPrefix",in:group),
+                      case let .string(pathPrefix) = ReadingVerificationEvidence.pointer("/pointerPrefix",in:group),
+                      case let .array(rows) = ReadingVerificationEvidence.pointer("/facts",in:group) else { return XCTFail("Missing lossless prefixes") }
+                for row in rows {
+                    guard case let .array(values) = row, values.count == 3,
+                          case let .string(key) = values[0], case let .string(path) = values[1] else { return XCTFail("Malformed fact row") }
+                    XCTAssertNil(restored[id + ":" + keyPrefix + key])
+                    restored[id + ":" + keyPrefix + key] = .array([.string(pathPrefix + path),values[2]])
+                }
+            }
         }
+        XCTAssertEqual(restored.count,facts.count)
+        for fact in facts { XCTAssertEqual(restored[fact.toolCallID + ":" + fact.factKey],.array([.string(fact.pointer),fact.value])) }
     }
 
     func testMalformedContextAndProvenanceCannotSmuggleObjectsIntoScalarFacts() {

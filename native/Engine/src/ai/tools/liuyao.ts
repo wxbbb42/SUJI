@@ -12,7 +12,7 @@ export const liuyaoTools: ToolDefinition[] = [
     type: 'function',
     function: {
       name: 'cast_liuyao',
-      description: '为单一具体事件起一卦（六爻易经卜卦）。用于"该不该 X / 会不会 Y / X 这件事的结果"等决策类问题。返回本变卦、动爻、纳甲、世应、六神和用神候选；本爻、变爻、伏神各自的context包含旬空及月日临值、生克、冲合，不可混用对象。monthState只是月建五行关系，尚非综合旺衰。ruleSources提供规则版本及出处；证据不足时应期保持未定。',
+      description: '为单一具体事件起六爻卦。返回本变卦、动爻、纳甲、世应、六神和用神候选。本爻/变爻/伏神的context各自独立；rules提供回头生克、所选七组进退、飞伏与静爻日冲候选。conditions含matched/not-matched/unresolved及原始factPaths；conditionsFrom引用本盘同位共享条件。结构匹配不等于效力，暗动/日破候选和月建标签不等于综合旺衰；不能自动判伏出、吉凶或具体应期。ruleSources提供版本及出处。',
       parameters: {
         type: 'object',
         additionalProperties: false,

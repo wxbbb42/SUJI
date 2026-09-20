@@ -5,6 +5,7 @@ import { ganZhiForGua, liuQinForGua, yaoWuXingForGua, relationToMe } from './dat
 import { TRIGRAMS } from './data/trigrams';
 import { getCalendarPillars } from '@engine/calendar/precision';
 import { lineContext, LINE_CONTEXT_SOURCE } from './lineContext';
+import { lineRules, CONDITIONAL_RULE_SOURCES } from './conditionalRules';
 
 const BRANCHES = [...'子丑寅卯辰巳午未申酉戌亥'];
 const STEMS = [...'甲乙丙丁戊己庚辛壬癸'];
@@ -58,11 +59,12 @@ export class HexagramEngine {
         ...(!presentQin.has(hiddenQin) ? {hidden:{ganZhi:pureGzs[i],wuXing:pureWxs[i],liuQin:hiddenQin,context:lineContext(pureGzs[i],pureWxs[i],pillars.month,pillars.day,xunKong)}} : {}),
       };
     });
+    for (const line of lines) line.rules = lineRules(line,lines);
     const yongShen = this.selectYongShen(opts.questionType ?? 'general', opts.gender, liuQin, benGua, pillars.month, shiYao, lines);
     return {
       question:opts.question, questionType:opts.questionType ?? 'general', castTime:castTime.toISOString(), castGanZhi,
       benGua,bianGua,changingYao,liuQin,yongShen,lineValues,shiYao,yingYao,xunKong,lines,
-      ruleSources:[LINE_CONTEXT_SOURCE],
+      ruleSources:[LINE_CONTEXT_SOURCE,...CONDITIONAL_RULE_SOURCES],
       yingQi:{description:'未推定应期；月日、动变与用神条件不足以给出可靠的具体日期',factors:['不使用固定周数或月份作为预测期限']},
       method:{algorithm:'jingfang-najia-v1',calendar:'Beijing civil time; exact solar-term month',dayBoundary:'zi-hour',caveats:[
         '旺相休囚死仅表示月建五行关系，不等于综合旺衰或事件结果',

@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-20T05:43:05.079Z",
+  "generatedAt": "2026-09-20T05:55:51.240Z",
   "sourceCount": 50,
-  "claimCount": 58,
+  "claimCount": 59,
   "domains": {
     "academic": [
       {
@@ -1511,6 +1511,15 @@
       ],
       "status": "grounded_requirement_not_implemented",
       "confidence": "high_for_conditional_distinction_transcription_only"
+    },
+    {
+      "id": "liuyao.scoped-conditional-relations",
+      "domain": "liuyao",
+      "sourceIds": [
+        "liuyao-zengshan-buyi"
+      ],
+      "status": "conditional_rules_implemented_final_strength_and_timing_pending",
+      "confidence": "high_for_structural_directions_conditional_for_adjudication"
     },
     {
       "id": "liuyao.six-spirits-not-standalone-verdict",

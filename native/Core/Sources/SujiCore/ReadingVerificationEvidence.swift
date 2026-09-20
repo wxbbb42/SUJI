@@ -122,6 +122,19 @@ enum ReadingVerificationEvidence {
                             fields(layerKey + ".context." + scope, layerPath + "/context/" + scope, ["ganZhi", "branch", "element", "elementRelation", "sameBranch", "clash", "combination"])
                         }
                     }
+                    for rule in ["returning", "advanceRetreat", "flyingHidden", "dayClash"] {
+                        let ruleKey = key + ".rules." + rule, rulePath = path + "/rules/" + rule
+                        fields(ruleKey, rulePath, ["relation", "kind", "from", "to", "fromBranch", "toBranch", "assessmentStatus", "effectiveness", "sourceId", "conditionsFrom", "candidates", "voidClash", "movingGenerationPositions", "movingControlPositions", "flyingChallengedByPositions"])
+                        let conditionIDs: Set<String> = ["changed-void", "changed-month-break", "changed-day-clash", "combined-effectiveness", "changed-month-generation", "changed-day-support", "original-day-presence", "hidden-month-generation", "hidden-day-generation", "flying-generates-hidden", "moving-generates-hidden", "calendar-challenges-flying", "moving-challenges-flying", "flying-void", "flying-month-break", "hidden-month-clash", "hidden-day-clash", "hidden-month-control", "hidden-day-control", "flying-controls-hidden", "hidden-void", "hidden-combined-strength", "flying-combined-strength", "hidden-tomb-or-extinction", "flying-tomb-or-extinction", "static-line", "day-clash", "month-support", "day-support", "month-control", "moving-generation", "moving-control", "void-clash", "combined-strength", "moving-actors-effectiveness"]
+                        if case let .array(conditions) = pointer(rulePath + "/conditions", in: object) {
+                            for (index, condition) in conditions.enumerated() {
+                                guard case let .object(condition) = condition,
+                                      case let .string(id) = condition["id"], conditionIDs.contains(id),
+                                      case let .string(state) = condition["state"], ["matched", "not-matched", "unresolved"].contains(state) else { continue }
+                                add(ruleKey + ".condition." + id, rulePath + "/conditions/\(index)/state")
+                            }
+                        }
+                    }
                 }
             case "setup_qimen":
                 add("qimen.setupTime", "/setupTime")
