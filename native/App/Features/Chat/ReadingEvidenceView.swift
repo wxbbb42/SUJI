@@ -15,7 +15,12 @@ struct ReadingEvidenceView: View {
                         }.padding(.vertical, 8)
                     }
                     if let context = receipt.context {
-                        LabeledContent("提问时刻", value: timeLabel(context.referenceDate))
+                        LabeledContent(receipt.name.hasPrefix("reassess_") ? "原起盘时刻" : "提问时刻", value: timeLabel(context.referenceDate))
+                        if receipt.name.hasPrefix("reassess_") {
+                            LabeledContent("补充计算时刻", value: timeLabel(receipt.createdAt))
+                            Text("本记录沿用原盘，按补充资料重新核对候选与条件。原盘和先前分析分别保留。")
+                                .font(.footnote).foregroundStyle(SujiTheme.secondary)
+                        }
                         Text("按当时的出生资料与排盘规则计算；旧盘保留供核对，不随资料修改而改变。")
                             .font(.footnote).foregroundStyle(SujiTheme.secondary)
                     } else {
@@ -25,8 +30,8 @@ struct ReadingEvidenceView: View {
                     ForEach(Array(receipt.evidence.enumerated()), id: \.offset) { _, line in
                         Text(line).font(.subheadline).textSelection(.enabled)
                     }
-                    if receipt.name == "cast_liuyao", document["lines"].array.count == 6 { liuyao(document) }
-                    if receipt.name == "setup_qimen", document["palaces"].array.count == 9 { qimen(document) }
+                    if ["cast_liuyao", "reassess_liuyao"].contains(receipt.name), document["lines"].array.count == 6 { liuyao(document) }
+                    if ["setup_qimen", "reassess_qimen"].contains(receipt.name), document["palaces"].array.count == 9 { qimen(document) }
                     let source = document["bazi"]["tiaoHou"]
                     if !source["excerpt"].text.isEmpty {
                         Text("调候文献候选").font(.subheadline.weight(.medium))

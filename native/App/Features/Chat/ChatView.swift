@@ -62,6 +62,7 @@ import SujiCore
                                 if entry.role == "assistant", !entry.evidence.isEmpty {
                                     DisclosureGroup("参照的线索") { VStack(alignment: .leading, spacing: 12) { ForEach(entry.evidence, id: \.self) { Text($0).font(.footnote).foregroundStyle(SujiTheme.secondary) } }.frame(maxWidth: .infinity, alignment: .leading).padding(.top, 12) }.font(.footnote)
                                 }
+                                if entry.role == "user" { supplementActions(entry) }
                                 toolResults(replyTools(for: entry))
                                 if !receipts.isEmpty {
                                     evidenceLink(receipts, position: "bottom")
@@ -171,6 +172,23 @@ import SujiCore
         }
     }
 
+    @ViewBuilder private func supplementActions(_ entry: ConversationEntry) -> some View {
+        let receipts = (entry.toolReceipts ?? []).filter {
+            ["cast_liuyao", "setup_qimen", "reassess_liuyao", "reassess_qimen"].contains($0.name)
+                && $0.context != nil && isSuccessfulCalculation($0.output)
+        }
+        ForEach(receipts, id: \.callID) { receipt in
+            let method = ["cast_liuyao", "reassess_liuyao"].contains(receipt.name) ? "六爻" : "奇门"
+            Button("补充这次占问 · " + method) {
+                focused = false
+                session.supplement(entryID: entry.id, callID: receipt.callID, store: store)
+            }
+            .font(.subheadline).frame(minHeight: 44).disabled(session.working)
+            .accessibilityIdentifier("cast.supplement." + receipt.callID)
+            .accessibilityHint("修改同一件事的对象、事项或时间范围，沿用已保存的原盘")
+        }
+    }
+
     private func restoreConversationMode() {
         let previous = store.state.conversations.last(where: { $0.role == "user" })?.analysisMode
         mode = previous.flatMap { ["倾诉", "命理", "起卦"].contains($0) ? $0 : nil } ?? "倾诉"
@@ -218,7 +236,10 @@ import SujiCore
     private func replyReceipts(for entry: ConversationEntry) -> [ToolReceipt] {
         guard entry.role == "assistant", let index = store.state.conversations.firstIndex(where: { $0.id == entry.id }), index > 0,
               store.state.conversations[index - 1].role == "user" else { return [] }
-        return store.state.conversations[index - 1].toolReceipts ?? []
+        let source = store.state.conversations[index - 1]
+        let receipts = source.toolReceipts ?? []
+        if let original = source.castSupplement?.original { return [original] + receipts }
+        return receipts
     }
     private var unansweredToolEntries: [ConversationEntry] {
         let entries = store.state.conversations

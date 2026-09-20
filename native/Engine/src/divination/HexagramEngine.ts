@@ -81,6 +81,15 @@ export class HexagramEngine {
     };
   }
 
+  /** Rebind question-dependent references to saved facts; never cast or calculate a calendar. */
+  reassessQuestion(original: HexagramReading, opts: Pick<CastOptions, 'question' | 'questionType' | 'questionContext'>): HexagramReading {
+    const questionType = opts.questionType ?? 'general';
+    const questionContext = opts.questionContext ?? {};
+    const yongShen = selectQuestionObjects(questionType, questionContext, original.lines, TRIGRAMS[original.benGua.palace].wuXing, original.castGanZhi);
+    return {...original, question:opts.question, questionType, questionContext, yongShen,
+      roleRelations:roleRelations(yongShen,original.lines), yingQi:conditionalTiming(yongShen,original.lines,questionContext)};
+  }
+
   private castSingleYao(): 6|7|8|9 {
     return (Array.from({length:3}, () => Math.random() < 0.5 ? 2 : 3).reduce<number>((a,b)=>a+b,0)) as 6|7|8|9;
   }

@@ -20,7 +20,7 @@ import SujiCore
                 Section {
                     Text(request.originalQuestion).textSelection(.enabled)
                 } header: { Text("你的原问题") } footer: {
-                    Text("请核对以下资料，确认后开始起盘。重试会沿用这次资料和盘面。")
+                    Text(request.reusesOriginal ? "请补充同一件事的资料。确认后沿用原盘，另存一份核对结果。若改问另一件事，请返回发起新提问。" : "请核对以下资料，确认后开始起盘。重试会沿用这次资料和盘面。")
                 }
                 ForEach($drafts) { $draft in
                     Section(draft.methodName + " · 占问资料") {
@@ -57,16 +57,16 @@ import SujiCore
                 }
                 Section {
                     LabeledContent("提问时间") { Text(request.referenceDate, format: .dateTime.year().month().day().hour().minute()) }
-                    Text("按原提问时刻起盘；确认资料不会改变起盘时间。资料明确后，取用与应期仍须分别核对。")
+                    Text(request.reusesOriginal ? "沿用这个时刻已经保存的盘面；本次补充不改变原爻、九宫与干支。" : "按原提问时刻起盘；确认资料不会改变起盘时间。资料明确后，取用与应期仍须分别核对。")
                         .font(.footnote).foregroundStyle(SujiTheme.secondary)
                     if let failure = gate.validationFailure { Text(failure).font(.footnote).foregroundStyle(SujiTheme.secondary) }
-                    Button("确认资料并起盘") { gate.confirm(id: request.id, drafts: drafts) }
+                    Button(request.reusesOriginal ? "确认补充并沿用原盘" : "确认资料并起盘") { gate.confirm(id: request.id, drafts: drafts) }
                         .disabled(drafts.contains { $0.validationMessage != nil })
                         .accessibilityIdentifier("cast.confirm")
                 }
             }
-            .navigationTitle("确认占问").navigationBarTitleDisplayMode(.inline)
-            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("暂不起盘", action: cancel).accessibilityIdentifier("cast.cancel") } }
+            .navigationTitle(request.reusesOriginal ? "补充这次占问" : "确认占问").navigationBarTitleDisplayMode(.inline)
+            .toolbar { ToolbarItem(placement: .cancellationAction) { Button(request.reusesOriginal ? "取消补充" : "暂不起盘", action: cancel).accessibilityIdentifier("cast.cancel") } }
         }
         .interactiveDismissDisabled()
         .onDisappear { gate.cancel(id: request.id) }

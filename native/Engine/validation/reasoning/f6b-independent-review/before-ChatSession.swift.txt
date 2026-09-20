@@ -343,7 +343,6 @@ import SujiCore
                         try link.validate(userID: userID, entries: store.state.conversations, context: context)
                     }
                     try Task.checkCancellation()
-                    try Self.checkScope(store, revision: revision, birth: birth)
                     try persist(confirmations: confirmed, on: userID, store: store)
                     confirmation = confirmed[0]
                 }

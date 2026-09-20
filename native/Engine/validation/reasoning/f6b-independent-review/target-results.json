@@ -1,0 +1,213 @@
+{
+  "accepted" : 18,
+  "cases" : 18,
+  "results" : [
+    {
+      "accepted" : true,
+      "arguments" : {
+        "event" : "身体情况",
+        "question" : "补充亲属情况",
+        "questionType" : "health",
+        "subject" : "parent",
+        "timeHorizon" : "near"
+      },
+      "layer" : "hidden",
+      "referenceOnly" : false
+    },
+    {
+      "accepted" : true,
+      "arguments" : {
+        "question" : "补充亲属情况",
+        "questionType" : "health",
+        "subject" : "parent",
+        "timeHorizon" : "near"
+      },
+      "layer" : "hidden",
+      "referenceOnly" : true
+    },
+    {
+      "accepted" : true,
+      "arguments" : {
+        "event" : "身体情况",
+        "question" : "补充亲属情况",
+        "questionType" : "health",
+        "subject" : "parent",
+        "timeHorizon" : "far"
+      },
+      "layer" : "hidden",
+      "referenceOnly" : false
+    },
+    {
+      "accepted" : true,
+      "arguments" : {
+        "question" : "补充亲属情况",
+        "questionType" : "health",
+        "subject" : "parent",
+        "timeHorizon" : "far"
+      },
+      "layer" : "hidden",
+      "referenceOnly" : true
+    },
+    {
+      "accepted" : true,
+      "arguments" : {
+        "event" : "身体情况",
+        "question" : "补充亲属情况",
+        "questionType" : "health",
+        "subject" : "parent",
+        "timeHorizon" : "unspecified"
+      },
+      "layer" : "hidden",
+      "referenceOnly" : false
+    },
+    {
+      "accepted" : true,
+      "arguments" : {
+        "question" : "补充亲属情况",
+        "questionType" : "health",
+        "subject" : "parent",
+        "timeHorizon" : "unspecified"
+      },
+      "layer" : "hidden",
+      "referenceOnly" : true
+    },
+    {
+      "accepted" : true,
+      "arguments" : {
+        "event" : "身体情况",
+        "question" : "补充亲属情况",
+        "questionType" : "health",
+        "subject" : "wife",
+        "timeHorizon" : "near"
+      },
+      "layer" : "month",
+      "referenceOnly" : false
+    },
+    {
+      "accepted" : true,
+      "arguments" : {
+        "question" : "补充亲属情况",
+        "questionType" : "health",
+        "subject" : "wife",
+        "timeHorizon" : "near"
+      },
+      "layer" : "month",
+      "referenceOnly" : true
+    },
+    {
+      "accepted" : true,
+      "arguments" : {
+        "event" : "身体情况",
+        "question" : "补充亲属情况",
+        "questionType" : "health",
+        "subject" : "wife",
+        "timeHorizon" : "far"
+      },
+      "layer" : "month",
+      "referenceOnly" : false
+    },
+    {
+      "accepted" : true,
+      "arguments" : {
+        "question" : "补充亲属情况",
+        "questionType" : "health",
+        "subject" : "wife",
+        "timeHorizon" : "far"
+      },
+      "layer" : "month",
+      "referenceOnly" : true
+    },
+    {
+      "accepted" : true,
+      "arguments" : {
+        "event" : "身体情况",
+        "question" : "补充亲属情况",
+        "questionType" : "health",
+        "subject" : "wife",
+        "timeHorizon" : "unspecified"
+      },
+      "layer" : "month",
+      "referenceOnly" : false
+    },
+    {
+      "accepted" : true,
+      "arguments" : {
+        "question" : "补充亲属情况",
+        "questionType" : "health",
+        "subject" : "wife",
+        "timeHorizon" : "unspecified"
+      },
+      "layer" : "month",
+      "referenceOnly" : true
+    },
+    {
+      "accepted" : true,
+      "arguments" : {
+        "event" : "身体情况",
+        "question" : "补充亲属情况",
+        "questionType" : "health",
+        "subject" : "parent",
+        "timeHorizon" : "near"
+      },
+      "layer" : "day",
+      "referenceOnly" : false
+    },
+    {
+      "accepted" : true,
+      "arguments" : {
+        "question" : "补充亲属情况",
+        "questionType" : "health",
+        "subject" : "parent",
+        "timeHorizon" : "near"
+      },
+      "layer" : "day",
+      "referenceOnly" : true
+    },
+    {
+      "accepted" : true,
+      "arguments" : {
+        "event" : "身体情况",
+        "question" : "补充亲属情况",
+        "questionType" : "health",
+        "subject" : "parent",
+        "timeHorizon" : "far"
+      },
+      "layer" : "day",
+      "referenceOnly" : false
+    },
+    {
+      "accepted" : true,
+      "arguments" : {
+        "question" : "补充亲属情况",
+        "questionType" : "health",
+        "subject" : "parent",
+        "timeHorizon" : "far"
+      },
+      "layer" : "day",
+      "referenceOnly" : true
+    },
+    {
+      "accepted" : true,
+      "arguments" : {
+        "event" : "身体情况",
+        "question" : "补充亲属情况",
+        "questionType" : "health",
+        "subject" : "parent",
+        "timeHorizon" : "unspecified"
+      },
+      "layer" : "day",
+      "referenceOnly" : false
+    },
+    {
+      "accepted" : true,
+      "arguments" : {
+        "question" : "补充亲属情况",
+        "questionType" : "health",
+        "subject" : "parent",
+        "timeHorizon" : "unspecified"
+      },
+      "layer" : "day",
+      "referenceOnly" : true
+    }
+  ]
+}

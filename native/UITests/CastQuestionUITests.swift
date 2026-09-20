@@ -34,6 +34,35 @@ final class CastQuestionUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["audit.cast.saved"].label.contains("sign office lease"))
         capture("f6-confirmed-actual-engine", app: app)
     }
+    func testSupplementFromSavedChartConfirmsAndShowsOriginalEvidence() {
+        let app = launch()
+        XCTAssertTrue(app.navigationBars["确认占问"].waitForExistence(timeout: 10))
+        let originalEvent = app.descendants(matching: .any).matching(identifier: "cast.event.setup_qimen").firstMatch
+        originalEvent.tap(); originalEvent.typeText("office lease")
+        app.swipeUp()
+        let confirm = app.buttons["cast.confirm"]
+        reveal(confirm, app: app); XCTAssertTrue(confirm.isEnabled); confirm.tap()
+        XCTAssertTrue(app.staticTexts["audit.cast.saved"].waitForExistence(timeout: 10))
+        let supplement = app.buttons["cast.supplement.f4-ui-omission"]
+        reveal(supplement, app: app); XCTAssertTrue(supplement.isHittable); supplement.tap()
+        XCTAssertTrue(app.navigationBars["补充这次占问"].waitForExistence(timeout: 10))
+        capture("f6b-supplement-confirmation", app: app)
+        let event = app.descendants(matching: .any).matching(identifier: "cast.event.setup_qimen").firstMatch
+        for _ in 0..<8 { if event.isHittable { break }; app.swipeDown() }
+        event.tap(); event.typeText("lease signing details")
+        app.swipeUp(); reveal(confirm, app: app)
+        XCTAssertEqual(confirm.label, "确认补充并沿用原盘"); confirm.tap()
+        let revised = app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "这是对同一次占问的补充，沿用原盘")).firstMatch
+        XCTAssertTrue(revised.waitForExistence(timeout: 10))
+        capture("f6b-preserved-chart-result", app: app)
+        let evidence = app.buttons["reading.evidence.bottom"]
+        reveal(evidence, app: app); evidence.tap()
+        XCTAssertTrue(app.navigationBars["计算依据"].waitForExistence(timeout: 5))
+        let detail = app.staticTexts["六爻 · 原盘补充"].exists ? app.staticTexts["六爻 · 原盘补充"] : app.staticTexts["奇门 · 原盘补充"]
+        reveal(detail, app: app); XCTAssertTrue(detail.exists)
+        capture("f6b-source-and-supplement-evidence", app: app)
+    }
+
     func testCancelAtAccessibilitySizeNeverCasts() {
         let app = launch(large: true)
         XCTAssertTrue(app.buttons["cast.cancel"].waitForExistence(timeout: 10))

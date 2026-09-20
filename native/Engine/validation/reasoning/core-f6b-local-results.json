@@ -1,0 +1,63 @@
+{
+  "scope": "F6b explicit original-chart supplements; not core G/H acceptance",
+  "baseCommit": "c27cb423cbb2d99ea7638b18fe7c4a67c1ab8ecd",
+  "tests": {
+    "engine": 725,
+    "engineSuites": 52,
+    "core": 342,
+    "coreTimezone": "America/Los_Angeles",
+    "backend": 15,
+    "nativeUnit": 29,
+    "nativeUI": 3
+  },
+  "commands": {
+    "engine": "npm test --prefix native/Engine",
+    "core": "TZ=America/Los_Angeles swift test --package-path native/Core",
+    "backend": "npm test --prefix supabase",
+    "native": "xcodebuild test -project native/Suji.xcodeproj -scheme Suji -destination platform=iOS Simulator,id=09FF0B1D-9E60-4F2A-9465-3B156C88BD28 -only-testing:SujiTests -only-testing:SujiUITests/CastQuestionUITests -collect-test-diagnostics never"
+  },
+  "localEvidence": [
+    "/tmp/suji-f6b-engine-final.log",
+    "/tmp/suji-f6b-core-final.log",
+    "/tmp/suji-f6b-backend.log",
+    "/tmp/suji-f6b-native-final.log",
+    "/tmp/SujiF6bFinal.xcresult",
+    "/tmp/SujiF6bScreenshots2",
+    "/tmp/SujiF6bFinalScreenshots",
+    "/tmp/suji-f6b-native-failed-retry.log",
+    "/tmp/suji-f6b-native-retry-final.log",
+    "/tmp/suji-f6b-core-localized.log"
+  ],
+  "limitations": [
+    "Synthetic inputs; no new online provider or deployed Supabase E2E",
+    "No automatic follow-up lineage inference",
+    "No final object selection, overall efficacy, outcomes or event dates",
+    "Cross-engine-version original charts are preserved but rejected for supplementation"
+  ],
+  "sourceHashes": {
+    "native/Engine/bridge.ts": "ca92da44f2a4c94ed123f3eccedbfb6fa3eba9a089c7dae75f9ee2d751a094fc",
+    "native/Engine/src/divination/reassessQuestion.ts": "1f286a25e25720d751976bd5728e097436b797fb8ba3ab9e87b702216e4dcb93",
+    "native/Engine/src/divination/HexagramEngine.ts": "ac6a823c51f4ca08148f2a4e02deb071d5806635495448c88fa14e6fef456b5c",
+    "native/Engine/src/qimen/QimenEngine.ts": "37c77e829550d1dd0b67f9b343d9317b6de6c9f5c7df676ab1b29820c58a9193",
+    "native/Core/Sources/SujiCore/CastQuestionBinding.swift": "332ab9a329964af9385130cdb039195d804a311686c1b6914f9c36309ba4af5e",
+    "native/Core/Sources/SujiCore/CastSupplement.swift": "6cf32c890d3ef984edc8e4375fa507b858fd6399aa4572e939f16e63ef0391a1",
+    "native/App/Services/ChatSession.swift": "655f4ef44e74dedad5b0eeeb00c838289a87a1e43c83874c6c2a3e3cd019c4e7",
+    "native/App/Services/CastQuestionConfirmation.swift": "1b4041aa3412b7c4d5b02257b5fe782e6eb54f6b16cc7a3640396a50444ecbd3",
+    "native/App/Features/Chat/ChatView.swift": "18b9503021f492e0634c86285fe7e52715098208cff2a8d4dc18cff3a83ecd95",
+    "native/Resources/mingli.js": "7821c3addb85c44709cc1a7d25a9c1ea0878df0c4bb263ad231bff20c15424f5"
+  },
+  "nativeAdditionalCheck": "Four native supplement tests passed after verifying the nonmetadata trap is active, including failed reassessment restoration. Full prior native run had 28 tests; one new unique test adds 29 total.",
+  "independentReview": {
+    "directory": "native/Engine/validation/reasoning/f6b-independent-review",
+    "validCombinations": 768,
+    "hiddenMonthDayCases": 18,
+    "rejectedCorruptions": 6,
+    "scopeRace": "no new-account confirmation or save",
+    "engineTimeTrap": "both methods, zero Date constructions and no randomness"
+  },
+  "testCorrections": [
+    "Initial UI switch tap did not enable reference-only; use verified event-entry setup",
+    "Retain SwiftData ModelContainer lifetime",
+    "esbuild exported run accessor is read-only; replace entire namespace and prove trap via forbidden calendar request"
+  ]
+}

@@ -157,6 +157,17 @@ export class QimenEngine {
     return { ...partialChart, geJu, monthGanZhi, ...facts, ruleSources:[...facts.ruleSources,QIMEN_QUESTION_SOURCE] };
   }
 
+  /** Rebind references to the saved nine palaces, preserving both original pillar identities. */
+  reassessQuestion(original: QimenChart, opts: Pick<SetupOptions, 'question' | 'questionType' | 'questionContext'>): QimenChart {
+    const questionContext = opts.questionContext ?? {};
+    const day = original.dayGanZhi!, hour = original.hourGanZhi!;
+    const selection = qimenQuestionObjects(opts.questionType,questionContext,original.palaces,{day,hour});
+    const dayGan = day[0] as TianGan, hourGan = hour[0] as TianGan;
+    const yongShen = {...this.selectYongShen(opts.questionType,original.palaces,hourGan,dayGan,
+      computeXunShou(hourGan,hour[1]),computeXunShou(dayGan,day[1])),...selection};
+    return {...original,question:opts.question,questionType:opts.questionType,questionContext,yongShen,yingQi:unresolvedQimenTiming(selection)};
+  }
+
   /** 按问题类别列出初始参考点，不能据单一同宫关系断吉凶。 */
   private selectYongShen(
     qt: QuestionType,

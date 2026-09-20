@@ -1,3 +1,4 @@
+import { reassessQuestion } from './src/divination/reassessQuestion';
 import { BaziEngine } from './src/bazi/BaziEngine';
 import { ZiweiEngine } from './src/ziwei/ZiweiEngine';
 import { validMonthlyBasis } from './src/ziwei/monthly';
@@ -73,6 +74,14 @@ function natalCharts(input: any): ReturnType<typeof charts> {
 
 export async function dispatch(input: any): Promise<any> {
   if (!input || typeof input !== 'object' || Array.isArray(input)) throw new Error('无效引擎请求');
+  // No current-time read, calendar or original cast is needed for an explicit supplement.
+  if (input.command === 'reassess-question') {
+    const definition = ALL_TOOLS.find(tool => tool.function.name === input.name);
+    if (!definition || !['cast_liuyao','setup_qimen'].includes(input.name)) throw new Error('无效的原盘方法');
+    validateToolArguments(definition,input.arguments);
+    const result = reassessQuestion(input,ENGINE_REVISION);
+    return {result,evidence:buildEvidenceFromToolCalls([{call:{id:input.sourceCallID,name:input.name,arguments:input.arguments},result}])};
+  }
   if (input.now !== undefined && (typeof input.now !== 'string' || !/T.*(?:Z|[+-]\d{2}:\d{2})$/.test(input.now))) throw new Error('参考时刻须包含时区');
   const now = input.now ? new Date(input.now) : new Date();
   if (!Number.isFinite(now.getTime())) throw new Error('参考时刻无效');
