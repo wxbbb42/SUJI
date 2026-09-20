@@ -123,10 +123,11 @@ final class MingliDetailsUITests: XCTestCase {
 
     func testChatPlaceholderLightAndDark() {
         app.launchArguments.removeAll { $0 == "--mingli-detail-fixtures" }
+        app.launchArguments += ["--notebook-fixtures"]
         for dark in [false, true] {
             if dark { app.launchArguments += ["--test-dark"] }
             app.launch()
-            XCTAssertTrue(app.buttons["onboarding.begin"].waitForExistence(timeout: 20)); app.buttons["onboarding.begin"].tap()
+            XCTAssertTrue(app.tabBars.buttons["问道"].waitForExistence(timeout: 20))
             app.tabBars.buttons["问道"].tap()
             let input = app.textFields["chat.input"]
             XCTAssertTrue(input.waitForExistence(timeout: 5)); XCTAssertEqual(input.label, "写下此刻的心事")

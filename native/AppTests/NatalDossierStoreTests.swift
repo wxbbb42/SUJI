@@ -8,6 +8,18 @@ import SujiCore
     private func store(_ container: ModelContainer, user: String = "one") throws -> AppStore {
         try AppStore(context: container.mainContext, scriptURL: XCTUnwrap(Bundle.main.url(forResource: "mingli", withExtension: "js")), userID: user)
     }
+    func testSimultaneousFirstRequestsCreateOneDossier() async throws {
+        let container = try ModelContainer(for: SavedState.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        let app = try store(container)
+        app.state.birth = birth; try app.saveThrowing()
+        async let first = app.ensureNatalDossier()
+        async let second = app.ensureNatalDossier()
+        let results = try await [first, second]
+        XCTAssertEqual(results[0].createdAt, results[1].createdAt)
+        XCTAssertEqual(results[0].payload, results[1].payload)
+        XCTAssertTrue(app.hasNatalDossier)
+        XCTAssertEqual(try container.mainContext.fetch(FetchDescriptor<SavedState>()).filter { $0.key.hasPrefix("natal:") }.count, 1)
+    }
     func testReusesSavedChartAcrossLaunchesConcurrentRequestsAndNewQuestionTimes() async throws {
         let container = try ModelContainer(for: SavedState.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
         let first = try store(container)
@@ -109,9 +121,16 @@ import SujiCore
         XCTAssertTrue(app.isSignedIn)
         XCTAssertFalse(app.accountSession.hasPendingAccountChange)
         XCTAssertTrue(app.state.journal.isEmpty)
+        offline = true
+        await app.prepareAccount()
+        XCTAssertNil(app.state.birth)
+        XCTAssertFalse(app.hasNatalDossier)
+        XCTAssertNotNil(app.cloudProfileStatus)
+        offline = false
         await app.prepareAccount()
         XCTAssertEqual(app.state.birth, birth)
         XCTAssertTrue(app.hasNatalDossier)
+        XCTAssertNil(app.cloudProfileStatus)
         let beforeEdit = try XCTUnwrap(app.natalDossier)
         offline = true
         var edited = birth; edited.hour = 10

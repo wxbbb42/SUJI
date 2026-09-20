@@ -6,7 +6,7 @@ final class MingliAuditUITests: XCTestCase {
     override func setUpWithError() throws {
         continueAfterFailure = false
         app = XCUIApplication()
-        app.launchArguments = ["--ui-testing", "-AppleLanguages", "(zh-Hans)", "-AppleLocale", "zh_CN"]
+        app.launchArguments = ["--ui-testing", "--notebook-fixtures", "-AppleLanguages", "(zh-Hans)", "-AppleLocale", "zh_CN"]
     }
 
     private func capture(_ name: String) {
@@ -18,11 +18,18 @@ final class MingliAuditUITests: XCTestCase {
 
     private func begin() {
         app.launch()
-        XCTAssertTrue(app.buttons["onboarding.begin"].waitForExistence(timeout: 20))
-        app.buttons["onboarding.begin"].tap()
         XCTAssertTrue(app.tabBars.buttons["我的"].waitForExistence(timeout: 10))
         app.tabBars.buttons["我的"].tap()
         XCTAssertTrue(app.buttons["profile.addBirth"].waitForExistence(timeout: 10))
+    }
+
+    private func saveBirth() {
+        let confirm = app.switches["birth.confirm"]
+        if confirm.exists {
+            for _ in 0..<8 { if confirm.isHittable { break }; app.swipeUp() }
+            confirm.tap()
+        }
+        app.buttons["birth.save"].tap()
     }
 
     private func tapRow(_ title: String) {
@@ -55,7 +62,7 @@ final class MingliAuditUITests: XCTestCase {
         app.buttons["profile.addBirth"].tap()
         XCTAssertTrue(app.buttons["birth.save"].waitForExistence(timeout: 5))
         capture("01-birth-editor")
-        app.buttons["birth.save"].tap()
+        saveBirth()
         XCTAssertTrue(app.staticTexts["你的底色"].waitForExistence(timeout: 20))
         capture("02-profile-reading")
 
@@ -119,7 +126,7 @@ final class MingliAuditUITests: XCTestCase {
         tapRow("关系里的我们")
         app.buttons["填写对方的出生资料"].tap()
         XCTAssertTrue(app.buttons["birth.save"].waitForExistence(timeout: 5))
-        app.buttons["birth.save"].tap()
+        saveBirth()
         XCTAssertTrue(app.staticTexts["传统关系线索"].waitForExistence(timeout: 15))
         XCTAssertTrue(text(containing: "你的日柱：").exists)
         XCTAssertTrue(text(containing: "日干关系：").exists)
@@ -143,7 +150,7 @@ final class MingliAuditUITests: XCTestCase {
         begin()
         app.buttons["profile.addBirth"].tap()
         XCTAssertTrue(app.buttons["birth.save"].waitForExistence(timeout: 5))
-        app.buttons["birth.save"].tap()
+        saveBirth()
         XCTAssertTrue(app.staticTexts["你的底色"].waitForExistence(timeout: 20))
         tapRow("命盘手稿")
         XCTAssertTrue(app.navigationBars["命盘手稿"].waitForExistence(timeout: 5))
@@ -168,7 +175,7 @@ final class MingliAuditUITests: XCTestCase {
         app.tabBars.buttons["我的"].tap()
         app.buttons["profile.addBirth"].tap()
         XCTAssertTrue(app.buttons["birth.save"].waitForExistence(timeout: 5))
-        app.buttons["birth.save"].tap()
+        saveBirth()
         XCTAssertTrue(app.staticTexts["你的底色"].waitForExistence(timeout: 20)); capture("25-dark-profile")
         tapRow("命盘手稿")
         app.buttons["紫微"].tap(); capture("26-dark-ziwei")

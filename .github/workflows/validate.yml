@@ -49,7 +49,8 @@ jobs:
             -only-testing:SujiTests/AppPersistenceTests \
             -only-testing:SujiTests/StoreRegressionTests \
             -only-testing:SujiTests/NatalDossierStoreTests \
-            -only-testing:SujiUITests/SujiUITests/testAccountGateBlocksNotebookBeforeLogin
+            -only-testing:SujiUITests/SujiUITests/testAccountGateBlocksNotebookBeforeLogin \
+            -only-testing:SujiUITests/SujiUITests/testBirthFormRequiresConfirmationAndBuildsDossier
       - name: Export UI screenshots
         if: always()
         run: xcrun xcresulttool export attachments --path /tmp/SujiNative.xcresult --output-path /tmp/SujiNativeScreenshots

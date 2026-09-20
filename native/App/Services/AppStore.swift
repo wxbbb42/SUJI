@@ -184,7 +184,11 @@ struct Document {
         do { try saveThrowing() }
         catch { context.rollback(); state = old; throw error }
         profile = nil
-        _ = try await ensureNatalDossier()
+        do { _ = try await ensureNatalDossier() }
+        catch {
+            if scopeRevision == scope, state.birth == birth { dossierError = error.localizedDescription }
+            throw error
+        }
         guard scope == scopeRevision, state.birth == birth else { throw CancellationError() }
         state.hasOnboarded = true
         try saveThrowing()
@@ -231,6 +235,7 @@ struct Document {
         preparedScope = scopeKey; preparingAccount = true
         defer { if scopeRevision == scope { preparingAccount = false } }
         if state.birth == nil, state.profileNeedsUpload != true {
+            cloudProfileStatus = nil
             do {
                 if let cloud = try await accountSession.fetchProfile() {
                     guard scopeRevision == scope, state.birth == nil else { return }

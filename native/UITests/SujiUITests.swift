@@ -24,6 +24,22 @@ final class SujiUITests: XCTestCase {
         app.buttons["重置"].tap()
         XCTAssertTrue(app.buttons["发送重置邮件"].exists)
     }
+    func testBirthFormRequiresConfirmationAndBuildsDossier() {
+        begin()
+        app.tabBars.buttons["我的"].tap()
+        app.buttons["profile.addBirth"].tap()
+        let save = app.buttons["birth.save"]
+        XCTAssertTrue(save.waitForExistence(timeout: 5))
+        XCTAssertFalse(save.isEnabled)
+        let confirm = app.switches["birth.confirm"]
+        for _ in 0..<8 { if confirm.isHittable { break }; app.swipeUp() }
+        confirm.tap()
+        XCTAssertTrue(save.isEnabled)
+        capture("02-birth-confirmed")
+        save.tap()
+        XCTAssertTrue(app.staticTexts["你的底色"].waitForExistence(timeout: 20))
+        capture("03-natal-dossier-ready")
+    }
     private func capture(_ name: String) {
         let attachment = XCTAttachment(screenshot: app.screenshot())
         attachment.name = name; attachment.lifetime = .keepAlways; add(attachment)
@@ -75,6 +91,7 @@ final class SujiUITests: XCTestCase {
         app.tabBars.buttons["我的"].tap(); capture("09-profile-empty")
         app.buttons["profile.addBirth"].tap()
         XCTAssertTrue(app.buttons["birth.save"].waitForExistence(timeout: 5)); capture("10-birth-editor")
+        for _ in 0..<8 { if app.switches["birth.confirm"].isHittable { break }; app.swipeUp() }
         app.switches["birth.confirm"].tap()
         app.buttons["birth.save"].tap()
         XCTAssertTrue(app.staticTexts["你的底色"].waitForExistence(timeout: 20)); capture("11-profile")
@@ -123,6 +140,7 @@ final class SujiUITests: XCTestCase {
         for _ in 0..<4 { if app.buttons["profile.addBirth"].isHittable { break }; app.swipeUp() }
         app.buttons["profile.addBirth"].tap()
         XCTAssertTrue(app.buttons["birth.save"].waitForExistence(timeout: 5))
+        for _ in 0..<8 { if app.switches["birth.confirm"].isHittable { break }; app.swipeUp() }
         app.switches["birth.confirm"].tap()
         app.buttons["birth.save"].tap()
         XCTAssertTrue(app.staticTexts["你的底色"].waitForExistence(timeout: 20))
