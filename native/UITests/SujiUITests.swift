@@ -33,7 +33,7 @@ final class SujiUITests: XCTestCase {
         XCTAssertFalse(save.isEnabled)
         let confirm = app.switches["birth.confirm"]
         for _ in 0..<8 { if confirm.isHittable { break }; app.swipeUp() }
-        confirm.tap()
+        confirm.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
         XCTAssertTrue(save.isEnabled)
         capture("02-birth-confirmed")
         save.tap()
@@ -92,7 +92,7 @@ final class SujiUITests: XCTestCase {
         app.buttons["profile.addBirth"].tap()
         XCTAssertTrue(app.buttons["birth.save"].waitForExistence(timeout: 5)); capture("10-birth-editor")
         for _ in 0..<8 { if app.switches["birth.confirm"].isHittable { break }; app.swipeUp() }
-        app.switches["birth.confirm"].tap()
+        app.switches["birth.confirm"].coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
         app.buttons["birth.save"].tap()
         XCTAssertTrue(app.staticTexts["你的底色"].waitForExistence(timeout: 20)); capture("11-profile")
         app.swipeUp()
@@ -141,7 +141,7 @@ final class SujiUITests: XCTestCase {
         app.buttons["profile.addBirth"].tap()
         XCTAssertTrue(app.buttons["birth.save"].waitForExistence(timeout: 5))
         for _ in 0..<8 { if app.switches["birth.confirm"].isHittable { break }; app.swipeUp() }
-        app.switches["birth.confirm"].tap()
+        app.switches["birth.confirm"].coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
         app.buttons["birth.save"].tap()
         XCTAssertTrue(app.staticTexts["你的底色"].waitForExistence(timeout: 20))
         app.swipeUp(); capture("29-dark-large-profile-reading")

@@ -27,7 +27,7 @@ final class MingliAuditUITests: XCTestCase {
         let confirm = app.switches["birth.confirm"]
         if confirm.exists {
             for _ in 0..<8 { if confirm.isHittable { break }; app.swipeUp() }
-            confirm.tap()
+            confirm.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
         }
         app.buttons["birth.save"].tap()
     }
