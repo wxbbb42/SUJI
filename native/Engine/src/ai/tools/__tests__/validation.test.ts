@@ -38,6 +38,11 @@ describe('bounded local tool contract', () => {
     expect(() => check('setup_qimen', { question })).toThrow();
   });
 
+  it('bounds explicit Liuyao context and rejects invented identities',()=>{
+    expect(()=>check('cast_liuyao',{question:'问母亲',subject:'parent',event:'母亲近况',timeHorizon:'near'})).not.toThrow();
+    for(const args of [{subject:'boss'},{event:' '},{event:'事'.repeat(201)},{timeHorizon:'next-week'}])expect(()=>check('cast_liuyao',{question:'问事',...args})).toThrow();
+  });
+
   it('requires plain object arguments and valid enums', () => {
     expect(() => check('get_today_context', [])).toThrow();
     expect(() => check('get_ziwei_palace', { palace: '不存在宫' })).toThrow();

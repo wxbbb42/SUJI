@@ -1,19 +1,16 @@
 /** 京房八宫纳甲。规则与校勘边界见 docs/mingli/validation/divination-research.md。 */
-import type { CastOptions, HexagramReading, HexagramLine, Yao, GuaInfo, LiuQin, YongShenAnalysis, WuXing, QuestionType } from './types';
+import type { CastOptions, HexagramReading, HexagramLine, Yao } from './types';
 import { findGuaByYao, GUA_64 } from './data/gua64';
 import { ganZhiForGua, liuQinForGua, yaoWuXingForGua, relationToMe } from './data/liuqin';
 import { TRIGRAMS } from './data/trigrams';
 import { getCalendarPillars } from '@engine/calendar/precision';
 import { lineContext, LINE_CONTEXT_SOURCE } from './lineContext';
 import { lineRules, CONDITIONAL_RULE_SOURCES } from './conditionalRules';
+import {selectQuestionObjects,conditionalTiming,QUESTION_RULE_SOURCE} from './questionJudgment';
 
 const BRANCHES = [...'子丑寅卯辰巳午未申酉戌亥'];
 const STEMS = [...'甲乙丙丁戊己庚辛壬癸'];
 const SIX_SPIRITS = ['青龙', '朱雀', '勾陈', '腾蛇', '白虎', '玄武'];
-const SHENG: Record<WuXing, WuXing> = { 木:'火', 火:'土', 土:'金', 金:'水', 水:'木' };
-const KE: Record<WuXing, WuXing> = { 木:'土', 土:'水', 水:'火', 火:'金', 金:'木' };
-const BRANCH_ELEMENTS: WuXing[] = ['水','土','木','木','土','火','火','土','金','金','土','水'];
-
 export class HexagramEngine {
   cast(opts: CastOptions): HexagramReading {
     const castTime = opts.castTime ?? new Date();
@@ -60,12 +57,12 @@ export class HexagramEngine {
       };
     });
     for (const line of lines) line.rules = lineRules(line,lines);
-    const yongShen = this.selectYongShen(opts.questionType ?? 'general', opts.gender, liuQin, benGua, pillars.month, shiYao, lines);
+    const yongShen = selectQuestionObjects(opts.questionType ?? 'general',opts.questionContext??{},lines,palaceElement,pillars);
     return {
       question:opts.question, questionType:opts.questionType ?? 'general', castTime:castTime.toISOString(), castGanZhi,
       benGua,bianGua,changingYao,liuQin,yongShen,lineValues,shiYao,yingYao,xunKong,lines,
-      ruleSources:[LINE_CONTEXT_SOURCE,...CONDITIONAL_RULE_SOURCES],
-      yingQi:{description:'未推定应期；月日、动变与用神条件不足以给出可靠的具体日期',factors:['不使用固定周数或月份作为预测期限']},
+      questionContext:opts.questionContext??{},ruleSources:[LINE_CONTEXT_SOURCE,...CONDITIONAL_RULE_SOURCES,QUESTION_RULE_SOURCE],
+      yingQi:conditionalTiming(yongShen,lines,opts.questionContext??{}),
       method:{algorithm:'jingfang-najia-v1',calendar:'Beijing civil time; exact solar-term month',dayBoundary:'zi-hour',caveats:[
         '旺相休囚死仅表示月建五行关系，不等于综合旺衰或事件结果',
         '用神按提问类别初选；多个候选爻全部保留，需结合具体所问再判断',
@@ -78,23 +75,4 @@ export class HexagramEngine {
     return (Array.from({length:3}, () => Math.random() < 0.5 ? 2 : 3).reduce<number>((a,b)=>a+b,0)) as 6|7|8|9;
   }
 
-  private selectYongShen(qt:QuestionType, gender:'男'|'女'|undefined, liuQin:Record<1|2|3|4|5|6,LiuQin>, gua:GuaInfo, month:string, shiYao:number, lines:HexagramLine[]):YongShenAnalysis {
-    const byCategory:Partial<Record<QuestionType,LiuQin>> = {career:'官鬼',wealth:'妻财',kids:'子孙',parents:'父母'};
-    const target = qt==='marriage' && gender ? (gender==='男' ? '妻财' : '官鬼') : byCategory[qt];
-    const type = target ?? liuQin[shiYao as 1|2|3|4|5|6];
-    const candidates = target ? lines.filter(l=>l.liuQin===target) : lines.filter(l=>l.isShi);
-    const chosen = candidates[0];
-    if (!chosen) {
-      const hidden = lines.find(l=>l.hidden?.liuQin===type)?.hidden;
-      return {type,yaoIndex:0,wuXing:hidden?.wuXing ?? TRIGRAMS[gua.palace].wuXing,state:'不上卦',candidateYaoIndices:[],interactions:[hidden ? `用神伏藏：${hidden.ganZhi}，需结合飞伏生克判断` : '未找到用神，暂不判定']};
-    }
-    const monthWx=BRANCH_ELEMENTS[BRANCHES.indexOf(month[1])], wx=chosen.wuXing;
-    const state=monthWx===wx?'旺':SHENG[monthWx]===wx?'相':SHENG[wx]===monthWx?'休':KE[wx]===monthWx?'囚':'死';
-    return {type,yaoIndex:chosen.position,wuXing:wx,state,candidateYaoIndices:candidates.map(l=>l.position),interactions:[
-      target ? `按问题类别初选${target}` : '以世爻代表求问者；具体用神仍需明确所问对象',
-      `月建${month}五行关系：${state}（非综合旺衰）`,
-      ...(candidates.length>1 ? ['多个用神候选，当前列出初爻起首项，不代表最终取用'] : []),
-      ...(chosen.isVoid?['临旬空']:[]),...(chosen.monthClash?['临月破']:[]),...(chosen.dayClash?['日冲']:[]),...(chosen.dayCombination?['日合']:[]),
-    ]};
-  }
 }

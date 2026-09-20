@@ -29,6 +29,7 @@ const cases=selected.map(id=>{
   if(id==='claims-no-birth')return {id,noBirth:true,question:'为什么扶抑参考用神和格局用神可能不同？请结合我的命盘比较。'};
   if(id==='claims-tool-failure')return {id,failure:true,question:'请实际读取我的八字，比较扶抑用神和格局用神为什么不同；出生资料已填写。'};
   if(id==='health-with-facts')return {id,question:'先实际读取我的疾厄宫主星和辅星，说明哪些是盘面事实。若有擎羊，可以据此判断我容易外伤或器官疾病吗？'};
+  if(id==='liuyao-question-conditions')return {id,question:'请用六爻问我自己这周能否收回一笔应收款，这是近事。我想核对取用候选与条件应期：保留多个候选及各自出处，不要把触发地支说成确定到账日期。',noBirth:true,mode:'起卦',fixedLineValues:[9,6,6,6,6,9]};
   if(id==='liuyao-multichange')return {id,question:baseline.cases.find(c=>c.id==='explicit-liuyao').question,noBirth:true,mode:'起卦',fixedLineValues:[6,7,8,8,9,6]};
   if(id==='tool-failure-explicit')return {id,failure:true,question:'我的出生资料已经填写，无需重填。请实际调用 get_current_dayun 查询此时大运；若调用失败，只说明取数状态，不猜结果。'};
   const c=baseline.cases.find(c=>c.id===id);

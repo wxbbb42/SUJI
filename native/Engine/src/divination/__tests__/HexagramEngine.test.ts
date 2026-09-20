@@ -31,8 +31,8 @@ describe('HexagramEngine cast',()=>{
   });
   it('辰月 fire is resting in the month-element relation, not April-as-巳 fire 旺',()=>{
     const r=engine.cast({question:'事业走势如何',questionType:'career',castTime,lineValues:[7,7,7,7,7,7]});
-    expect(r.benGua.name).toBe('乾为天');expect(r.yongShen.type).toBe('官鬼');expect(r.yongShen.yaoIndex).toBe(4);
-    expect(r.yongShen.wuXing).toBe('火');expect(r.yongShen.state).toBe('休');
-    expect(r.yongShen.interactions).toContain('月建壬辰五行关系：休（非综合旺衰）');
+    expect(r.benGua.name).toBe('乾为天');expect(r.yongShen.type).toBe('官鬼');expect(r.yongShen.candidates.map(c=>c.id)).toEqual(['original-4']);
+    expect(r.lines[3].wuXing).toBe('火');expect(r.lines[3].context.monthState).toBe('休');
+    expect(r.lines[3].context.assessmentStatus).toBe('calendar-relations-only');
   });
 });

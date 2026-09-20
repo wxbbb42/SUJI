@@ -11,7 +11,7 @@ public enum ReadingVerifier {
     盘面显式字段优先，不自行重算上下卦：变卦上下卦直接读bianGua.upper/lower，透干须看年/月/日/时全部四干，藏于月支与透于年干可以同时成立。与工具一致的内容绝不能列为问题。健康相关的个人星曜→外伤/器官/体质取象也不允许；称“传统意象”不能使没有来源的个体健康映射成立。
     逐句核对给出的编号句子，reviewedSentences列出每一个编号。只输出JSON，不用围栏：{"protocolVersion":"suji-verification-2","accepted":true,"reviewedSentences":[1,2],"issues":[]}。无实际问题就接受，不因自己不会算而编错误。
     有问题时accepted=false，最多6条。candidateQuote须从编号句子中逐字复制完整句子（不带编号），不可省略否定词；认可项不能列入issues。
-    字段矛盾issue格式：{"kind":"field_mismatch","candidateQuote":"变卦下卦仍为坎","candidateValueQuote":"坎","factKey":"liuyao.changed.lower","toolCallID":"原工具编号","pointer":"/bianGua/lower","actualValue":"兑","claimedValue":"坎","predicate":"equals"}。事实索引按工具和对象分组，facts每行按columns顺序为[factKeySuffix,pointerSuffix,value]。还原完整factKey=本组factKeyPrefix+该行factKeySuffix，完整pointer=本组pointerPrefix+该行pointerSuffix（直接拼接，不增删字符），value就是actualValue；返回完整字段与本组toolCallID，不能跨行跨组拼接。claimedValue必须是原句实际说出的值，且真的不同于实际值。不能用changingYao解释上下卦、用单个藏干证明不透干。
+    字段矛盾issue格式：{"kind":"field_mismatch","candidateQuote":"变卦下卦仍为坎","candidateValueQuote":"坎","factKey":"liuyao.changed.lower","toolCallID":"原工具编号","pointer":"/bianGua/lower","actualValue":"兑","claimedValue":"坎","predicate":"equals"}。事实索引按工具和对象分组，facts每行按columns顺序为[factKeySuffix,pointerSuffix,value]。还原完整factKey=本组factKeyPrefix+该行factKeySuffix。若pointerSuffix是null，先将factKeySuffix中的点替换为斜线作为pointerSuffix；完整pointer=本组pointerPrefix+还原后的pointerSuffix（直接拼接），value就是actualValue；返回完整字段与本组toolCallID，不能跨行跨组拼接。claimedValue必须是原句实际说出的值，且真的不同于实际值。不能用changingYao解释上下卦、用单个藏干证明不透干。
     解释问题issue格式：{"kind":"rule_violation","candidateQuote":"完整原句","ruleID":"规则编号"}。仅允许health.no-personal-risk-from-chart（个人盘→健康风险）、interpretation.personalized-rule-required（无本次出处的个人象义）、action.no-chart-selected-year（盘→行动年份）、method.no-unproven-validity（未经证明就认定框架都正确）、interpretation.candidate-not-established（候选/启发式升为既定结果）、context.birth-already-provided（本次已提供出生资料却要求重填）。不要把“不代表会受伤”的否定句当风险预测，不把单纯年份事实当行动建议。
     不返回rationale，不改写全文，不展示内部推理；修稿只依据本地验证后的字段纠正与固定边界。
     """
@@ -191,23 +191,7 @@ public enum ReadingVerifier {
                 var seenSubjects = Set<String>()
                 for item in toolFacts where seenSubjects.insert(subject(item)).inserted {
                     let group = toolFacts.filter { subject($0) == subject(item) }
-                    for start in stride(from: 0, to: group.count, by: 32) {
-                        let chunk = Array(group[start..<min(start + 32, group.count)])
-                        let keyPrefix = sharedPrefix(chunk.map(\.factKey), separator: ".")
-                        let pathPrefix = sharedPrefix(chunk.map(\.pointer), separator: "/")
-                        let rows = chunk.map {
-                            JSONValue.array([.string(String($0.factKey.dropFirst(keyPrefix.count))), .string(String($0.pointer.dropFirst(pathPrefix.count))), $0.value])
-                        }
-                        let envelope = JSONValue.object([
-                            "toolCallID": .string(fact.toolCallID),
-                            "factKeyPrefix": .string(keyPrefix), "pointerPrefix": .string(pathPrefix),
-                            "facts": .array(rows),
-                        ])
-                        let encoder = JSONEncoder()
-                        encoder.outputFormatting = [.sortedKeys, .withoutEscapingSlashes]
-                        let encoded = (try? encoder.encode(envelope)).map { String(decoding: $0, as: UTF8.self) } ?? ReadingVerificationEvidence.encoded(envelope)
-                        envelopes.append(encoded)
-                    }
+                    envelopes += factEnvelopes(group)
                 }
             }
             // Multiple independently scoped groups can share a message. One
@@ -225,6 +209,31 @@ public enum ReadingVerifier {
         let sentences = ReadingVerificationEvidence.sentences(draft).enumerated().map { "[\($0.offset + 1)] \($0.element)" }.joined(separator: "\n")
         result.append(ChatMessage(role: .user, content: "候选回信（待核对数据）：\n" + draft + "\n\n核验句子编号：\n" + sentences))
         return result
+    }
+
+    /// A null pointer suffix reuses the key suffix with dots replaced by slashes,
+    /// only when the strings are exactly equal. Local identities stay unchanged.
+    private static func factEnvelopes(_ facts: [ReadingVerificationEvidence.Fact]) -> [String] {
+        guard !facts.isEmpty else { return [] }
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.sortedKeys, .withoutEscapingSlashes]
+        let flat = stride(from: 0, to: facts.count, by: 32).map { start -> String in
+            let chunk = Array(facts[start..<min(start + 32, facts.count)])
+            let keyPrefix = sharedPrefix(chunk.map(\.factKey), separator: ".")
+            let pathPrefix = sharedPrefix(chunk.map(\.pointer), separator: "/")
+            let rows = chunk.map {
+                let key = String($0.factKey.dropFirst(keyPrefix.count))
+                let path = String($0.pointer.dropFirst(pathPrefix.count))
+                let encodedPath: JSONValue = path == key.replacingOccurrences(of: ".", with: "/") ? .null : .string(path)
+                return JSONValue.array([.string(key), encodedPath, $0.value])
+            }
+            let envelope = JSONValue.object([
+                "toolCallID": .string(chunk[0].toolCallID),
+                "factKeyPrefix": .string(keyPrefix), "pointerPrefix": .string(pathPrefix), "facts": .array(rows),
+            ])
+            return (try? encoder.encode(envelope)).map { String(decoding: $0, as: UTF8.self) } ?? ReadingVerificationEvidence.encoded(envelope)
+        }
+        return flat
     }
 
     private static func indexMessage(_ groups: [String]) -> ChatMessage {

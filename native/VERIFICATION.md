@@ -222,3 +222,11 @@ B exact head `5134662ffd9c7a658ab5c3aff09b0cfb8ba47a26`: [run 35493371399](https
 正格新增逐柱根气/生扶/月令、克合约束、隔位救应与保护相神候选、月冲及合解/通关条件。返回源文档哈希和逐字摘录，保留效力未定。原生格局解释按具体柱位给出有限例子，错误对象/出处/效力升格反例拒绝通过。
 
 本地44套654项Engine、240项Swift Core通过，18个运行时fixtures；typecheck/build/native-only/diff通过。四领域真实结果完整交付、回执、重放和核验预算继续通过。详见 [C验证记录](../docs/mingli/validation/bazi-conditional-2026-09-20.md)；不宣称完成全局成败裁定。
+
+C exact head `9c0f578acfd80259ba18de9c907a0e795dc90303`: [run35493977209](https://github.com/wxbbb42/SUJI/actions/runs/35493977209) passed engine, swift-core and native-app.
+
+### 2026-09-20 六爻对象与条件应期 E1
+
+取用不再默认首爻；明确对象身份、缺项、原变伏与日月候选，返回源绑定的条件触发支且不确定具体日期。独立复核36,864组选用及53,920条条件未见方向/对象错误。原生卡片适配候选状态及历史回执。
+
+本地46套666项Engine、241项Swift Core，18fixtures及typecheck/build/native-only/diff通过。最大允许问题/事件边界曾触发122,435字符核验超限；无损共享重复后缀后最大109,558，完整双盘55,635字节保存重放。见 [E1记录](../docs/mingli/validation/liuyao-question-conditions-2026-09-20.md)。奇门E2、D3/F及剩余核心条件仍未验收。

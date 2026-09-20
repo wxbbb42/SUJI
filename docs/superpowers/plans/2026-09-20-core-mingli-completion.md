@@ -22,7 +22,7 @@
 
 - [x] A. Liuyao original/changed/hidden objects each carry their own month/day/void/clash/combination facts; Qimen hour void, scoped horse, directional door pressure and star/month relationship; native fact index binds these precisely.
 - [x] B. Liuyao returning generation/control, flying/hidden, advance/retreat, conditional dark movement/day break with explicit satisfied/conflicting/unresolved conditions and classical counterexamples.
-- [ ] C. Bazi rescue damage, support/root/season context and branch rescue conditions; do not replace unresolved global competition with a score.
+- [x] C. Bazi rescue damage, support/root/season context and branch rescue conditions; do not replace unresolved global competition with a score.
 - [ ] D. Fresh Ziwei review and closure of demonstrated gaps: school policy boundaries, palace/star/transform relationships and natal versus dynamic layers; independent boundary and structural examples.
 - [ ] E. Question-object selection and conditional timing: candidate identities, selection/exclusion evidence, missing relationship/event/time scope, conflicts retained; no first-candidate-as-verdict behavior.
 - [ ] F. Interpretation acceptance: fact references, rule provenance, incorrect-object/overclaim counterexamples, targeted end-to-end readings. Persist actual failures and residual limitations.
@@ -105,8 +105,27 @@ Read archived Ziping abstract chapters and foundations (hashes in returned sourc
 - [x] Bind candidate/helper identities to stem or hidden-stem column. Return exact/same-element roots separately from generating support, month state, incoming control/combination and intermediary positions. Keep calendar facts distinct from outcome.
 - [x] Return direct rescue and helper-protection candidates, including remote pairs as unresolved. Preserve every candidate and opponent, not first-match verdict. Associate each with its own support and constraints.
 - [x] Return monthly clash pairs plus precise combination/mediation candidates and obstruction facts; do not erase the clash or call partial三合 transformed.
-- [ ] Source-grounded native indexing and framework reading, real transport/replay, independent recheck, full checks and exact-head CI.
+- [x] Source-grounded native indexing and framework reading, real transport/replay, independent recheck, full checks and exact-head CI.
 
 B accepted: exact5134662ffd9c7a658ab5c3aff09b0cfb8ba47a26 pushed; run35493371399 succeeded in engine,swift-core,native-app.
 
 C local verification: 654 Engine /240 Swift Core tests pass,18 fixtures, typecheck/build/native-only/diff pass. Independent source review cleared. Native review caught an empty-list evidence omission; actual-chart RED/GREEN now preserves the empty rescue list in both catalog and persisted reading. Exact-head CI pending; global competition and final efficacy remain separate unresolved scope.
+
+## Batch E1 — Liuyao object candidates and conditional timing
+
+- [x] Explicit question subject/event/time-horizon metadata. Preserve missing/contradictory context; gender alone never determines relationship roles. No arbitrary first candidate or fixed score.
+- [x] Original/hidden/month/day candidates retain identity and selection reasons; changed-line matches remain dependent references, not freely substituted primary objects. Retain all same-role lines and exclusion reasons.
+- [x] Source-bound conditional static/moving, month-break, void and combination timing triggers. Return branch conditions only, shared unresolved prerequisites and each candidate's opposing facts. No Gregorian prediction or auto-recast; hidden/calendar objects do not inherit original-line motion.
+- [x] Independent literal tables, all64 gua candidate membership, ambiguity/代占/hidden/changed counterexamples; native allowlist, transport/replay/capacity and review.
+
+E2 remains Qimen question objects and conditional timing. D3/F and other grounded core-scope decisions remain open after E1.
+
+C accepted: 9c0f578acfd80259ba18de9c907a0e795dc90303 matches remote; run35493977209 passed engine, swift-core and native-app. This accepts the documented conditional scope, not comprehensive global efficacy adjudication.
+
+E1 local validation: 666 Engine /241 Swift tests. Independent reviewer cleared object/trigger rules and UI/capacity fixes. Real DeepSeek replay failed interpretation and safely fell back; archived in core-e1-results/review.json. This does NOT accept F. Final dynamic adjudication and cross-turn clarification are still open. Exact-head CI pending.
+
+## Batch F1 — prioritize observed live calendar hallucination
+
+- [ ] Bind Liuyao month/day/hour and Qimen day/hour/month to their own explicit cast context; wrong system, negation and ambiguous multi-tool values must not authorize corrections.
+- [ ] Local deterministic correction for narrowly bound calendrical mismatches, including the actual E1 pre-LiChun failure; source/tool values only, no separate calendar recomputation.
+- [ ] Counterexample tests, real provider replay and full validation. Fine-grained line relations and Ziwei D3 remain next.

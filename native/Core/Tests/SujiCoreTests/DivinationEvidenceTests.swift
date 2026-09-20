@@ -2,6 +2,20 @@ import XCTest
 @testable import SujiCore
 
 final class DivinationEvidenceTests: XCTestCase {
+    func testQuestionObjectAndTimingIndexPreservesCandidatesAndUnresolvedPremises() {
+        let facts = ReadingVerificationEvidence.facts(history("cast_liuyao", #"{"questionContext":{"subject":"parent","event":"untrusted narrative","timeHorizon":"near"},"yongShen":{"selectionStatus":"candidates-only","selectedCandidateId":null,"missingContext":["event"],"candidates":[{"id":"hidden-2","layer":"hidden","position":2,"objectPath":"/lines/1/hidden","contextPath":"/lines/1/hidden/context","reason":"absent-visible-pure-palace-role"}],"excluded":[{"objectPath":"/lines/0","reason":"different-role"}]},"yingQi":{"assessmentStatus":"conditional-triggers-only","outcomeEstablished":false,"unresolved":["selected-object"],"branchesByCandidate":[{"candidateId":"hidden-2","objectPath":"/lines/1/hidden","unresolved":["hidden-emergence"],"rules":[{"id":"void-fill-clash","branches":["寅","申"],"factPaths":["/lines/1/hidden/context/isVoid"]}]}]}}"#))
+        let indexed = Dictionary(uniqueKeysWithValues:facts.map { ($0.factKey,$0) })
+        XCTAssertEqual(indexed["liuyao.question.subject"]?.value,.string("parent"))
+        XCTAssertNil(indexed["liuyao.question.event"])
+        XCTAssertEqual(indexed["liuyao.yongShen.selectionStatus"]?.value,.string("candidates-only"))
+        XCTAssertEqual(indexed["liuyao.yongShen.candidate1.objectPath"]?.value,.string("/lines/1/hidden"))
+        XCTAssertEqual(indexed["liuyao.yongShen.excluded1.reason"]?.pointer,"/yongShen/excluded/0/reason")
+        XCTAssertEqual(indexed["liuyao.timing.outcomeEstablished"]?.value,.bool(false))
+        XCTAssertEqual(indexed["liuyao.timing.candidate1.unresolved"]?.value,.array([.string("hidden-emergence")]))
+        XCTAssertEqual(indexed["liuyao.timing.candidate1.rule1.branches"]?.pointer,"/yingQi/branchesByCandidate/0/rules/0/branches")
+        XCTAssertEqual(indexed["liuyao.timing.candidate1.rule1.factPaths"]?.value,.array([.string("/lines/1/hidden/context/isVoid")]))
+    }
+
     func testConditionalRelationsKeepDirectionsStatesAndNoVerdict() {
         let facts = ReadingVerificationEvidence.facts(history("cast_liuyao", #"{"lines":[{"rules":{"returning":{"relation":"回头克","from":"/lines/0/changed","to":"/lines/0","assessmentStatus":"structural-relation","sourceId":"liuyao-changing-relations-v1","conditions":[{"id":"changed-void","state":"not-matched","factPaths":["/lines/0/changed/context/isVoid"]},{"id":"combined-effectiveness","state":"unresolved","factPaths":[]}]},"dayClash":{"kind":"static-day-clash","candidates":["暗动","日破"],"voidClash":false,"conditions":[{"id":"day-support","state":"matched","factPaths":["/lines/0/context/day/elementRelation"]}]}}}]}"#))
         let indexed = Dictionary(uniqueKeysWithValues:facts.map { ($0.factKey,$0) })
@@ -62,6 +76,8 @@ final class DivinationEvidenceTests: XCTestCase {
 
     func testCombinedRealChartsAndEvidenceFitBackendContextLimits() async throws {
         for values in [[6,9,9,9,9,9], [9,9,9,6,6,9]] { try await assertCombinedCharts(values:values) }
+        try await assertCombinedCharts(values:[9,6,6,6,6,9],questionType:"wealth",subject:"self")
+        try await assertCombinedCharts(values:[9,9,9,6,6,9],questionType:"kids",subject:"child")
     }
 
     func testRepeatedStableChartIndicesFitMessageLimit() async throws {
@@ -84,7 +100,7 @@ final class DivinationEvidenceTests: XCTestCase {
         try assertIndexRestoresFacts(review:review,history:messages)
     }
 
-    private func assertCombinedCharts(values: [Int]) async throws {
+    private func assertCombinedCharts(values: [Int],questionType:String = "parents",subject:String = "parent") async throws {
         let native = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
@@ -96,16 +112,17 @@ final class DivinationEvidenceTests: XCTestCase {
         try (script + "\nlet coinCalls=0; const draws=" + ReadingVerificationEvidence.encoded(draws) + "; Math.random=()=>draws[coinCalls++];").write(to: seeded, atomically: true, encoding: .utf8)
         let bridge = try MingliBridge(scriptURL: seeded)
         let now = Date(timeIntervalSince1970: 1_789_790_400)
-        let question = "用六爻和奇门分别解释这次盘面，请保留各自依据。" + String(repeating: "需要比较盘面细节。", count: 120)
+        let question = String(("用六爻和奇门分别解释这次盘面，请保留各自依据。" + String(repeating: "需要比较盘面细节。", count: 180)).prefix(1600))
         var messages = [ChatMessage(role: .system, content: ReadingPrompt.instruction(tone: "清晰", mode: "起卦", referenceDate: now, hasBirth: true))]
         for (index, name) in ["cast_liuyao", "setup_qimen"].enumerated() {
             let id = String(repeating: index == 0 ? "a" : "b", count: 32)
-            let request: [String: Any] = ["command": "tool", "name": name, "arguments": ["question": question, "questionType": "general"], "now": "2026-09-19T04:00:00Z"]
+            let arguments = name == "cast_liuyao" ? ["question": question, "questionType": questionType, "subject": subject, "event": String(repeating:"事",count:200), "timeHorizon": "near"] : ["question": question, "questionType": "general"]
+            let request: [String: Any] = ["command": "tool", "name": name, "arguments": arguments, "now": "2026-09-19T04:00:00Z"]
             let raw = try await bridge.request(String(decoding: JSONSerialization.data(withJSONObject: request), as: UTF8.self))
             let root = try JSONDecoder().decode(JSONValue.self, from: raw)
             let output = ReadingVerificationEvidence.encoded(try XCTUnwrap(ReadingVerificationEvidence.pointer("/result", in: root)))
             XCTAssertLessThanOrEqual(output.utf16.count, 32_000)
-            messages.append(.assistantToolCalls([.init(id: id, name: name, arguments: ["question": .string(question)])]))
+            messages.append(.assistantToolCalls([.init(id: id, name: name, arguments: .object(arguments.mapValues(JSONValue.string)))]))
             messages.append(.toolResult(.init(callID: id, output: output)))
         }
         let calls = messages.flatMap { $0.toolCalls ?? [] }
@@ -156,7 +173,11 @@ final class DivinationEvidenceTests: XCTestCase {
                       case let .array(rows) = ReadingVerificationEvidence.pointer("/facts",in:group) else { return XCTFail("Missing lossless prefixes") }
                 for row in rows {
                     guard case let .array(values) = row, values.count == 3,
-                          case let .string(key) = values[0], case let .string(path) = values[1] else { return XCTFail("Malformed fact row") }
+                          case let .string(key) = values[0] else { return XCTFail("Malformed fact row") }
+                    let path: String
+                    if values[1] == .null { path = key.replacingOccurrences(of:".",with:"/") }
+                    else if case let .string(explicit) = values[1] { path = explicit }
+                    else { return XCTFail("Malformed pointer suffix") }
                     XCTAssertNil(restored[id + ":" + keyPrefix + key])
                     restored[id + ":" + keyPrefix + key] = .array([.string(pathPrefix + path),values[2]])
                 }

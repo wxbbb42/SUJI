@@ -28,3 +28,9 @@ describe('cast_liuyao handler', () => {
     expect(r.questionType).toBe('general');
   });
 });
+
+it('passes explicit question context without inferring subject from gender',async()=>{
+ const r=await liuyaoHandlers.cast_liuyao({question:'我母亲的状况',questionType:'health',subject:'parent',event:'问母亲状况',timeHorizon:'near',gender:'男'},CTX) as any;
+ expect(r.questionContext).toEqual({subject:'parent',event:'问母亲状况',timeHorizon:'near'});
+ expect(r.yongShen.type).toBe('父母');expect(r.yingQi.timeScale).toBe('day-hour-reference');
+});

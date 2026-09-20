@@ -245,11 +245,23 @@ struct HexagramResultView: View {
                     Image(systemName: "arrow.right").foregroundStyle(SujiTheme.secondary).padding(.top, 40).accessibilityHidden(true)
                     hexagram(document["bianGua"], changes: false)
                 }
-                Text("用神：\(document["yongShen"]["type"].text) · \(document["yongShen"]["state"].text)").font(.subheadline)
+                Text(selectionSummary).font(.subheadline)
                 Text(document["yingQi"]["description"].text).font(.subheadline).lineSpacing(6)
                 Text("起卦是一种整理问题的文化仪式，不代表事情一定如此发生。").font(.footnote).foregroundStyle(SujiTheme.secondary)
             }.padding(.top, 14)
         }.font(.subheadline)
+    }
+    private var selectionSummary: String {
+        let selection = document["yongShen"]
+        if selection["selectionStatus"].text == "requires-clarification" {
+            return "取用待明确：请补充所问对象与具体事件。"
+        }
+        if selection["selectionStatus"].text == "candidates-only" {
+            let role = selection["type"].text
+            return "取用候选：\(role) · \(selection["candidates"].array.count)处参考，尚未定用"
+        }
+        let role = selection["type"].text, state = selection["state"].text
+        return role.isEmpty ? "取用尚未明确" : "旧记录取用参考：" + role + (state.isEmpty ? "" : " · 月令关系：" + state)
     }
     private func hexagram(_ gua: Document, changes: Bool) -> some View {
         VStack(spacing: 10) {

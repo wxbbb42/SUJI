@@ -134,7 +134,25 @@ enum ReadingVerificationEvidence {
                 add("liuyao.castTime", "/castTime")
                 fields("liuyao.calendar", "/castGanZhi", ["month", "day", "hour"])
                 fields("liuyao.method", "/method", ["algorithm", "calendar", "dayBoundary", "caveats"])
-                fields("liuyao.yongShen", "/yongShen", ["type", "yaoIndex", "wuXing", "state", "candidateYaoIndices"])
+                fields("liuyao.question", "/questionContext", ["subject", "timeHorizon"])
+                fields("liuyao.yongShen", "/yongShen", ["type", "yaoIndex", "wuXing", "state", "candidateYaoIndices", "selectionStatus", "selectionEstablished", "missingContext", "querentReference", "sourceId", "candidates", "related", "excluded"])
+                for (collection, label) in [("candidates", "candidate"), ("related", "related"), ("excluded", "excluded")] {
+                    if case let .array(items) = pointer("/yongShen/" + collection,in:object) {
+                        for index in items.indices {
+                            fields("liuyao.yongShen.\(label)\(index + 1)","/yongShen/\(collection)/\(index)",["id", "layer", "position", "objectPath", "contextPath", "reason"])
+                        }
+                    }
+                }
+                fields("liuyao.timing", "/yingQi", ["assessmentStatus", "outcomeEstablished", "sourceId", "timeScale", "unresolved", "branchesByCandidate"])
+                if case let .array(candidates) = pointer("/yingQi/branchesByCandidate",in:object) {
+                    for index in candidates.indices {
+                        let k = "liuyao.timing.candidate\(index + 1)",p = "/yingQi/branchesByCandidate/\(index)"
+                        fields(k,p,["candidateId", "objectPath", "conditionsPath", "unresolved", "rules"])
+                        if case let .array(rules) = pointer(p + "/rules",in:object) {
+                            for rule in rules.indices { fields(k + ".rule\(rule + 1)",p + "/rules/\(rule)",["id", "branches", "factPaths"]) }
+                        }
+                    }
+                }
                 sources("liuyao")
                 for key in ["name", "upper", "lower"] {
                     add("liuyao.original." + key, "/benGua/" + key)

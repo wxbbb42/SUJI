@@ -3,6 +3,7 @@
  */
 import type { RuleSource } from '../rules/provenance';
 import type { lineRules } from './conditionalRules';
+import type {QuestionContext,selectQuestionObjects,conditionalTiming} from './questionJudgment';
 
 export type Yao = '阴' | '阳';
 export type WuXing = '金' | '木' | '水' | '火' | '土';
@@ -45,29 +46,20 @@ export type QuestionType =
 export interface CastOptions {
   question: string;
   questionType?: QuestionType;
-  gender?: '男' | '女';      // marriage 时区分用神
+  gender?: '男' | '女';      // Legacy input; never determines relationship role
+  questionContext?: QuestionContext;
   castTime?: Date;            // 默认 now
   /** 初爻到上爻，保存后可重放同一卦；6老阴/7少阳/8少阴/9老阳。 */
   lineValues?: (6 | 7 | 8 | 9)[];
 }
 
-export interface YongShenAnalysis {
-  type: LiuQin;
-  yaoIndex: number;         // 1-6
-  wuXing: WuXing;
-  state: '旺' | '相' | '休' | '囚' | '死' | '不上卦';
-  interactions: string[];
-  candidateYaoIndices?: number[];
-}
-
-export interface YingQiAnalysis {
-  description: string;
-  factors: string[];
-}
+export type YongShenAnalysis = ReturnType<typeof selectQuestionObjects>;
+export type YingQiAnalysis = ReturnType<typeof conditionalTiming>;
 
 export interface HexagramReading {
   question: string;
   questionType: QuestionType;
+  questionContext: QuestionContext;
   castTime: string;         // ISO
   castGanZhi: {
     day: string;

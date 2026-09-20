@@ -11,6 +11,7 @@ export function validateToolArguments(definition: ToolDefinition, input: unknown
   validate(input, definition.function.parameters as Schema, 'arguments');
   const args = input as Record<string, unknown>;
   if (typeof args.question === 'string' && !args.question.trim()) throw new Error('问题不能为空');
+  if (typeof args.event === 'string' && !args.event.trim()) throw new Error('事件不能为空');
   if (definition.function.name !== 'get_timing') return;
   if (args.yearRange !== undefined) {
     const range = args.yearRange;

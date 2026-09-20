@@ -49,7 +49,7 @@ describe('calendar, casting identity and missing evidence',()=>{
   it('keeps evidence uncertainty rather than fabricated weeks',()=>{
     const r=engine.cast({question:'test',castTime,lineValues:[7,7,7,7,7,7]});
     expect(r.yingQi.description).toMatch(/未推定/);expect(r.yingQi.description).not.toMatch(/1-2/);
-    expect(r.yongShen.yaoIndex).toBe(r.shiYao);
+    expect(r.yongShen.candidates).toEqual([]);expect(r.yongShen.querentReference).toBe('/lines/5');
   });
   it('rejects malformed coin input instead of recasting it',()=>{
     expect(()=>engine.cast({question:'x',castTime,lineValues:[6]})).toThrow(/six/);

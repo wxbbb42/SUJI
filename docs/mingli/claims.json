@@ -770,16 +770,19 @@
     {
       "id": "liuyao.yingqi-requires-conditional-chain",
       "domain": "liuyao",
-      "claim": "《增删卜易》各门类应期总注按静动、旺衰、空破、合墓与克神条件分述应期，并区分远近年月日时。需先明确问题对象和取用，再给适用前提、冲突与未决条件；不能按一个地支找下次日期或固定几周后便报结论。当前yingQi明确未推定，初选用神的首爻也不代表完整取用。该条为待实现规则契约，来源为未校纸本的电子转录。",
+      "claim": "《增删卜易》应期总注的静值冲、动值合、月破填合、旬空填冲及月/变六合待两侧冲开，现按候选对象返回触发支与原始事实路径。原爻、伏神、日月和依附变爻身份分开；未知所问人、事件及远近范围明确列缺项。性别不替代伴侣角色，多爻不按首项或固定分数定用。所选对象、综合效力、吉凶及应期单位尚未裁定，不推出公历日期或必然事件。",
       "sourceIds": [
         "liuyao-zengshan-buyi"
       ],
       "repoRefs": [
         "docs/mingli/validation/liuyao-professional-audit.md",
-        "native/Engine/validation/research-divination/liuyao-professional-sources.json"
+        "native/Engine/validation/research-divination/liuyao-professional-sources.json",
+        "native/Engine/src/divination/questionJudgment.ts",
+        "native/Engine/src/divination/__tests__/QuestionJudgment.test.ts",
+        "native/Engine/validation/research-divination/question-judgment-sources.json"
       ],
-      "confidence": "medium_for_textual_rules_low_for_complete_implementation",
-      "status": "grounded_requirement_not_implemented"
+      "confidence": "high_for_scoped_trigger_arithmetic_not_final_adjudication",
+      "status": "conditional_branch_triggers_implemented_object_adjudication_pending"
     },
     {
       "id": "liuyao.six-spirits-not-standalone-verdict",
