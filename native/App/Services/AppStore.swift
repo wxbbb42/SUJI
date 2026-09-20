@@ -20,7 +20,7 @@ struct Document {
     var array: [Document] { (value as? [Any] ?? []).map(Document.init) }
     var strings: [String] { value as? [String] ?? [] }
     var dictionary: [String: Any] { value as? [String: Any] ?? [:] }
-    var json: String { (try? JSONSerialization.data(withJSONObject: value, options: [.sortedKeys, .fragmentsAllowed])).map { String(decoding: $0, as: UTF8.self) } ?? "null" }
+    var json: String { (try? JSONSerialization.data(withJSONObject: value, options: [.sortedKeys, .fragmentsAllowed, .withoutEscapingSlashes])).map { String(decoding: $0, as: UTF8.self) } ?? "null" }
 }
 
 @MainActor @Observable final class AppStore {

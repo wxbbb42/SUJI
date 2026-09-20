@@ -1,5 +1,5 @@
 /** 京房八宫纳甲。规则与校勘边界见 docs/mingli/validation/divination-research.md。 */
-import type { CastOptions, HexagramReading, HexagramLine, Yao } from './types';
+import type { CastOptions, HexagramReading, HexagramLine, Yao, WuXing } from './types';
 import { findGuaByYao, GUA_64 } from './data/gua64';
 import { ganZhiForGua, liuQinForGua, yaoWuXingForGua, relationToMe } from './data/liuqin';
 import { TRIGRAMS } from './data/trigrams';
@@ -7,6 +7,7 @@ import { getCalendarPillars } from '@engine/calendar/precision';
 import { lineContext, LINE_CONTEXT_SOURCE } from './lineContext';
 import { lineRules, CONDITIONAL_RULE_SOURCES } from './conditionalRules';
 import {selectQuestionObjects,conditionalTiming,QUESTION_RULE_SOURCE} from './questionJudgment';
+import { guaRelations } from './guaRelations';
 
 const BRANCHES = [...'子丑寅卯辰巳午未申酉戌亥'];
 const STEMS = [...'甲乙丙丁戊己庚辛壬癸'];
@@ -40,9 +41,14 @@ export class HexagramEngine {
     const pure = palaceSequence[0], pureGzs = ganZhiForGua(pure), pureWxs = yaoWuXingForGua(pure), pureQin = liuQinForGua(pure);
     const palaceElement = TRIGRAMS[benGua.palace].wuXing;
     const presentQin = new Set(Object.values(liuQin));
+    // Same policy applies to every context; keep object-specific values in place.
+    const contextFacts = (ganZhi:string,element:WuXing) => {
+      const {assessmentStatus:_status,sourceIds:_sources,...facts} = lineContext(ganZhi,element,pillars.month,pillars.day,xunKong);
+      return facts;
+    };
     const lines: HexagramLine[] = lineValues.map((value, i) => {
       const position = i+1;
-      const context = lineContext(gzs[i],wxs[i],pillars.month,pillars.day,xunKong);
+      const context = contextFacts(gzs[i],wxs[i]);
       const qin = liuQin[position as 1|2|3|4|5|6], hiddenQin = pureQin[position as 1|2|3|4|5|6];
       return {
         position, value, ganZhi:gzs[i], wuXing:wxs[i], liuQin:qin,
@@ -52,8 +58,8 @@ export class HexagramEngine {
         dayClash:context.day.clash,
         dayCombination:context.day.combination,
         // 变爻六亲仍以本卦宫五行为我，不改用变卦宫。
-        ...(changingYao.includes(position) ? {changed:{ganZhi:changedGzs[i],wuXing:changedWxs[i],liuQin:relationToMe(palaceElement,changedWxs[i]),context:lineContext(changedGzs[i],changedWxs[i],pillars.month,pillars.day,xunKong)}} : {}),
-        ...(!presentQin.has(hiddenQin) ? {hidden:{ganZhi:pureGzs[i],wuXing:pureWxs[i],liuQin:hiddenQin,context:lineContext(pureGzs[i],pureWxs[i],pillars.month,pillars.day,xunKong)}} : {}),
+        ...(changingYao.includes(position) ? {changed:{ganZhi:changedGzs[i],wuXing:changedWxs[i],liuQin:relationToMe(palaceElement,changedWxs[i]),context:contextFacts(changedGzs[i],changedWxs[i])}} : {}),
+        ...(!presentQin.has(hiddenQin) ? {hidden:{ganZhi:pureGzs[i],wuXing:pureWxs[i],liuQin:hiddenQin,context:contextFacts(pureGzs[i],pureWxs[i])}} : {}),
       };
     });
     for (const line of lines) line.rules = lineRules(line,lines);
@@ -61,6 +67,8 @@ export class HexagramEngine {
     return {
       question:opts.question, questionType:opts.questionType ?? 'general', castTime:castTime.toISOString(), castGanZhi,
       benGua,bianGua,changingYao,liuQin,yongShen,lineValues,shiYao,yingYao,xunKong,lines,
+      guaRelations:guaRelations(benGua,bianGua,changingYao),
+      lineContextPolicy:{assessmentStatus:'calendar-relations-only',sourceIds:[LINE_CONTEXT_SOURCE.id]},
       questionContext:opts.questionContext??{},ruleSources:[LINE_CONTEXT_SOURCE,...CONDITIONAL_RULE_SOURCES,QUESTION_RULE_SOURCE],
       yingQi:conditionalTiming(yongShen,lines,opts.questionContext??{}),
       method:{algorithm:'jingfang-najia-v1',calendar:'Beijing civil time; exact solar-term month',dayBoundary:'zi-hour',caveats:[

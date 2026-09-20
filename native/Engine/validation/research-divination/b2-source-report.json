@@ -1,0 +1,286 @@
+{
+  "sourceCharts": 9,
+  "moving": 18,
+  "sources": [
+    {
+      "chapter": 19,
+      "sha256": "087c35339f209c6d1359c01d8a918a535eb6151729973fc09ef960c1195f3fdf"
+    },
+    {
+      "chapter": 20,
+      "sha256": "8aec9b6625a18b4c487e45e92c9de662929597fa74a3653ce9ed9dd2d0b7e49b"
+    }
+  ],
+  "cases": [
+    {
+      "chapter": 19,
+      "original": "地火明夷",
+      "resulting": "雷山小过",
+      "values": [
+        9,
+        8,
+        7,
+        6,
+        8,
+        8
+      ],
+      "transition": "other-change",
+      "expectedOriginal": [
+        "卯",
+        "丑",
+        "亥",
+        "丑",
+        "亥",
+        "酉"
+      ],
+      "expectedResulting": [
+        "辰",
+        "午",
+        "申",
+        "午",
+        "申",
+        "戌"
+      ]
+    },
+    {
+      "chapter": 19,
+      "original": "离为火",
+      "resulting": "火山旅",
+      "values": [
+        9,
+        8,
+        7,
+        7,
+        8,
+        7
+      ],
+      "transition": "六冲变六合",
+      "expectedOriginal": [
+        "卯",
+        "丑",
+        "亥",
+        "酉",
+        "未",
+        "巳"
+      ],
+      "expectedResulting": [
+        "辰",
+        "午",
+        "申",
+        "酉",
+        "未",
+        "巳"
+      ]
+    },
+    {
+      "chapter": 19,
+      "original": "泽水困",
+      "resulting": "水泽节",
+      "values": [
+        6,
+        7,
+        8,
+        9,
+        7,
+        8
+      ],
+      "transition": "六合变六合",
+      "expectedOriginal": [
+        "寅",
+        "辰",
+        "午",
+        "亥",
+        "酉",
+        "未"
+      ],
+      "expectedResulting": [
+        "巳",
+        "卯",
+        "丑",
+        "申",
+        "戌",
+        "子"
+      ]
+    },
+    {
+      "chapter": 19,
+      "original": "离为火",
+      "resulting": "坤为地",
+      "values": [
+        9,
+        8,
+        9,
+        9,
+        8,
+        9
+      ],
+      "transition": "六冲变六冲",
+      "expectedOriginal": [
+        "卯",
+        "丑",
+        "亥",
+        "酉",
+        "未",
+        "巳"
+      ],
+      "expectedResulting": [
+        "未",
+        "巳",
+        "卯",
+        "丑",
+        "亥",
+        "酉"
+      ]
+    },
+    {
+      "chapter": 20,
+      "original": "风雷益",
+      "resulting": "风雷益",
+      "values": [
+        7,
+        8,
+        8,
+        8,
+        7,
+        7
+      ],
+      "transition": "static",
+      "expectedOriginal": [
+        "子",
+        "寅",
+        "辰",
+        "未",
+        "巳",
+        "卯"
+      ],
+      "expectedResulting": [
+        "子",
+        "寅",
+        "辰",
+        "未",
+        "巳",
+        "卯"
+      ]
+    },
+    {
+      "chapter": 20,
+      "original": "雷风恒",
+      "resulting": "雷地豫",
+      "values": [
+        8,
+        9,
+        9,
+        7,
+        8,
+        8
+      ],
+      "transition": "other-change",
+      "expectedOriginal": [
+        "丑",
+        "亥",
+        "酉",
+        "午",
+        "申",
+        "戌"
+      ],
+      "expectedResulting": [
+        "未",
+        "巳",
+        "卯",
+        "午",
+        "申",
+        "戌"
+      ]
+    },
+    {
+      "chapter": 20,
+      "original": "坤为地",
+      "resulting": "坤为地",
+      "values": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "transition": "static",
+      "expectedOriginal": [
+        "未",
+        "巳",
+        "卯",
+        "丑",
+        "亥",
+        "酉"
+      ],
+      "expectedResulting": [
+        "未",
+        "巳",
+        "卯",
+        "丑",
+        "亥",
+        "酉"
+      ]
+    },
+    {
+      "chapter": 20,
+      "original": "天地否",
+      "resulting": "乾为天",
+      "values": [
+        6,
+        6,
+        6,
+        7,
+        7,
+        7
+      ],
+      "transition": "六合变六冲",
+      "expectedOriginal": [
+        "未",
+        "巳",
+        "卯",
+        "午",
+        "申",
+        "戌"
+      ],
+      "expectedResulting": [
+        "子",
+        "寅",
+        "辰",
+        "午",
+        "申",
+        "戌"
+      ]
+    },
+    {
+      "chapter": 20,
+      "original": "巽为风",
+      "resulting": "坤为地",
+      "values": [
+        8,
+        9,
+        9,
+        8,
+        9,
+        9
+      ],
+      "transition": "六冲变六冲",
+      "expectedOriginal": [
+        "丑",
+        "亥",
+        "酉",
+        "未",
+        "巳",
+        "卯"
+      ],
+      "expectedResulting": [
+        "未",
+        "巳",
+        "卯",
+        "丑",
+        "亥",
+        "酉"
+      ]
+    }
+  ]
+}

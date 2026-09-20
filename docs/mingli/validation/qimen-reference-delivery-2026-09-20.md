@@ -31,3 +31,5 @@
 这些状态是`locally-rendered-qimen`／`qimen-reference-unavailable`，不记为模型自由文字正确率。第一例planner漏传用户已说出的具体event，报告如实呈现记录缺项；这仍是问题上下文提取的缺口，不能算已补齐。此后仅改两处本地措辞：“门生门”去重复前缀、“仍需明确”改为“本次计算记录尚缺”，避免把提取遗漏归咎于用户；保留上述实际报告，不覆盖历史。
 
 E2b条件应期、跨问澄清、完整取用、混合体系解读及F2六爻仍未验收。阻止模型编造不等于补全专业断法。远端提交及CI结果待补。
+
+Remote acceptance: exact commit `d35fc865283a3a7c4ed3fcbadc02e6d16e5d28a1` matches branch; [run35498534151](https://github.com/wxbbb42/SUJI/actions/runs/35498534151) passed engine, swift-core and native-app. This accepts F4’s bounded reference-delivery change only; full core acceptance remains open.

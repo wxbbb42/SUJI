@@ -1,5 +1,6 @@
-import type { HexagramLine, LineContext, WuXing } from './types';
+import type { HexagramLine, LineContextFacts, WuXing } from './types';
 import type { RuleSource } from '../rules/provenance';
+import { returningBranch } from './guaRelations';
 
 const SHENG:Record<WuXing,WuXing> = {木:'火',火:'土',土:'金',金:'水',水:'木'};
 const KE:Record<WuXing,WuXing> = {木:'土',土:'水',水:'火',火:'金',金:'木'};
@@ -65,6 +66,7 @@ export function lineRules(line:HexagramLine,lines:HexagramLine[]) {
     check('combined-effectiveness',undefined),
   ]:[];
   const returning=changing?{
+    ...returningBranch(line),
     relation:relation(changing.wuXing,line.wuXing,['比和','回头生','回头克','本爻生变','本爻克变']),
     from:changedPath,to:path,assessmentStatus:'structural-relation',sourceId:'liuyao-changing-relations-v1',
     conditionsFrom:path+'/rules/advanceRetreat/conditions',
@@ -115,7 +117,7 @@ function hiddenRules(line:HexagramLine,lines:HexagramLine[],path:string) {
 }
 
 function dayClashRules(line:HexagramLine,lines:HexagramLine[],path:string) {
-  const ctx:LineContext=line.context,moving=actors(lines,line,line.wuXing);
+  const ctx:LineContextFacts=line.context,moving=actors(lines,line,line.wuXing);
   const monthSupport=supported(ctx.month.elementRelation),daySupport=supported(ctx.day.elementRelation);
   const candidates:string[]=[];
   if (!line.isChanging) {

@@ -34,10 +34,11 @@ test('hidden 寅 under flying 亥 has its own month and day clash', () => {
 
 test('a month combination and a controlling month are separate facts, not a verdict', () => {
   mockMonth='乙丑';
-  expect(cast([8,7,8,8,7,8]).lines[5].context).toMatchObject({
+  const r=cast([8,7,8,8,7,8]);
+  expect(r.lines[5].context).toMatchObject({
     monthState:'死',month:{ganZhi:'乙丑',combination:true,elementRelation:'克爻'},day:{sameBranch:true,elementRelation:'同类'},
-    assessmentStatus:'calendar-relations-only',sourceIds:['liuyao-calendar-relations-v1'],
   });
+  expect(r.lineContextPolicy).toMatchObject({assessmentStatus:'calendar-relations-only',sourceIds:['liuyao-calendar-relations-v1']});
 });
 
 test('the classical 申月戊午日 example retains day presence and month-generation of the changed line', () => {

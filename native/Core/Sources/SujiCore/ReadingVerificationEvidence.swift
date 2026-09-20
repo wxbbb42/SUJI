@@ -135,6 +135,18 @@ enum ReadingVerificationEvidence {
                 fields("liuyao.calendar", "/castGanZhi", ["month", "day", "hour"])
                 fields("liuyao.method", "/method", ["algorithm", "calendar", "dayBoundary", "caveats"])
                 fields("liuyao.question", "/questionContext", ["subject", "timeHorizon"])
+                fields("liuyao.lineContextPolicy", "/lineContextPolicy", ["assessmentStatus", "sourceIds"])
+                fields("liuyao.guaRelations", "/guaRelations", ["assessmentStatus", "outcomeEstablished", "sourceId"])
+                fields("liuyao.guaRelations.transition", "/guaRelations/transition", ["hasChange", "kind", "fromKind", "toKind", "factPaths"])
+                for side in ["original", "resulting"] {
+                    let key = "liuyao.guaRelations." + side, path = "/guaRelations/" + side
+                    fields(key, path, ["guaPath", "kind", "ganZhi"])
+                    if case let .array(pairs) = pointer(path + "/pairs", in: object) {
+                        for index in pairs.indices {
+                            fields(key + ".pair\(index + 1)", path + "/pairs/\(index)", ["positions", "relation"])
+                        }
+                    }
+                }
                 fields("liuyao.yongShen", "/yongShen", ["type", "yaoIndex", "wuXing", "state", "candidateYaoIndices", "selectionStatus", "selectionEstablished", "missingContext", "querentReference", "sourceId", "candidates", "related", "excluded"])
                 for (collection, label) in [("candidates", "candidate"), ("related", "related"), ("excluded", "excluded")] {
                     if case let .array(items) = pointer("/yongShen/" + collection,in:object) {
@@ -174,6 +186,7 @@ enum ReadingVerificationEvidence {
                     for rule in ["returning", "advanceRetreat", "flyingHidden", "dayClash"] {
                         let ruleKey = key + ".rules." + rule, rulePath = path + "/rules/" + rule
                         fields(ruleKey, rulePath, ["relation", "kind", "from", "to", "fromBranch", "toBranch", "assessmentStatus", "effectiveness", "sourceId", "conditionsFrom", "candidates", "voidClash", "movingGenerationPositions", "movingControlPositions", "flyingChallengedByPositions"])
+                        if rule == "returning" { fields(ruleKey, rulePath, ["branchRelation", "branchSourceId"]) }
                         let conditionIDs: Set<String> = ["changed-void", "changed-month-break", "changed-day-clash", "combined-effectiveness", "changed-month-generation", "changed-day-support", "original-day-presence", "hidden-month-generation", "hidden-day-generation", "flying-generates-hidden", "moving-generates-hidden", "calendar-challenges-flying", "moving-challenges-flying", "flying-void", "flying-month-break", "hidden-month-clash", "hidden-day-clash", "hidden-month-control", "hidden-day-control", "flying-controls-hidden", "hidden-void", "hidden-combined-strength", "flying-combined-strength", "hidden-tomb-or-extinction", "flying-tomb-or-extinction", "static-line", "day-clash", "month-support", "day-support", "month-control", "moving-generation", "moving-control", "void-clash", "combined-strength", "moving-actors-effectiveness"]
                         if case let .array(conditions) = pointer(rulePath + "/conditions", in: object) {
                             for (index, condition) in conditions.enumerated() {
@@ -270,7 +283,7 @@ enum ReadingVerificationEvidence {
     }
 
     static func encoded<T: Encodable>(_ value: T) -> String {
-        let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
+        let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys, .withoutEscapingSlashes]
         return (try? String(decoding: encoder.encode(value), as: UTF8.self)) ?? "null"
     }
 }

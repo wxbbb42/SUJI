@@ -13,7 +13,7 @@ export const liuyaoTools: ToolDefinition[] = [
     type: 'function',
     function: {
       name: 'cast_liuyao',
-      description: '为单一具体事件起六爻卦。返回本变卦、动爻、纳甲、世应、六神和用神候选。本爻/变爻/伏神的context各自独立；rules提供回头生克、所选七组进退、飞伏与静爻日冲候选。conditions含matched/not-matched/unresolved及原始factPaths；conditionsFrom引用本盘同位共享条件。结构匹配不等于效力，暗动/日破候选和月建标签不等于综合旺衰；不能自动判伏出、吉凶或具体应期。questionContext记录明确所问对象/事件/远近；yongShen的candidates/related/excluded保留身份与理由，selectedCandidateId=null，不自动定用。yingQi只有条件触发支和未决前提，不是日期预测。请先澄清对象后起卦，同一问题补充资料不得重起卦。ruleSources提供版本及出处。',
+      description: '为单一具体事件起六爻卦。返回本变卦、动爻、纳甲、世应、六神和用神候选。本爻/变爻/伏神的context事实各自独立，共用lineContextPolicy的范围和出处；rules提供回头生克、动化合冲、所选七组进退、飞伏与静爻日冲候选。guaRelations按内外对应爻判断六合/六冲及变化；完整变卦纳甲不表示静爻也发动，静卦的transition=static。支冲与回头克分别核对，冲合结构不直接判吉凶。conditions含matched/not-matched/unresolved及原始factPaths；conditionsFrom引用本盘同位共享条件。结构匹配不等于效力，暗动/日破候选和月建标签不等于综合旺衰；不能自动判伏出、吉凶或具体应期。questionContext记录明确所问对象/事件/远近；yongShen的candidates/related/excluded保留身份与理由，selectedCandidateId=null，不自动定用。yingQi只有条件触发支和未决前提，不是日期预测。请先澄清对象后起卦，同一问题补充资料不得重起卦。ruleSources提供版本及出处。',
       parameters: {
         type: 'object',
         additionalProperties: false,

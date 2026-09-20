@@ -2,6 +2,73 @@ import XCTest
 @testable import SujiCore
 
 final class DivinationEvidenceTests: XCTestCase {
+    func testLiuyaoWholeChartPairsAndMovingClashesKeepSeparateEvidence() throws {
+        let messages = history("cast_liuyao", #"{"guaRelations":{"assessmentStatus":"structural-only","outcomeEstablished":false,"sourceId":"liuyao-calendar-relations-v1","original":{"guaPath":"/benGua","kind":"六冲","ganZhi":["己卯","己丑","己亥","己酉","己未","己巳"],"pairs":[{"positions":[1,4],"relation":"六冲"}]},"resulting":{"guaPath":"/bianGua","kind":"六合","ganZhi":["丙辰","丙午","丙申","己酉","己未","己巳"],"pairs":[{"positions":[1,4],"relation":"六合"}]},"transition":{"hasChange":true,"fromKind":"六冲","toKind":"六合","kind":"六冲变六合","factPaths":["/changingYao","/guaRelations/original/kind","/guaRelations/resulting/kind"]},"verdict":"必成"},"lines":[{"rules":{"returning":{"branchRelation":"neither","branchSourceId":"liuyao-calendar-relations-v1","from":"/lines/0/changed","to":"/lines/0","sourceId":"liuyao-calendar-relations-v1","assessmentStatus":"structural-relation","conditionsFrom":"/lines/0/rules/advanceRetreat/conditions"}}}]}"#)
+        let indexed = Dictionary(uniqueKeysWithValues:ReadingVerificationEvidence.facts(messages).map { ($0.factKey,$0) })
+        XCTAssertEqual(indexed["liuyao.guaRelations.outcomeEstablished"]?.value,.bool(false))
+        XCTAssertEqual(indexed["liuyao.guaRelations.original.ganZhi"]?.value,.array(["己卯","己丑","己亥","己酉","己未","己巳"].map(JSONValue.string)))
+        XCTAssertEqual(indexed["liuyao.guaRelations.resulting.pair1.positions"]?.value,.array([.integer(1),.integer(4)]))
+        XCTAssertEqual(indexed["liuyao.guaRelations.resulting.pair1.relation"]?.pointer,"/guaRelations/resulting/pairs/0/relation")
+        XCTAssertEqual(indexed["liuyao.guaRelations.original.pair1.positions"]?.pointer,"/guaRelations/original/pairs/0/positions")
+        XCTAssertEqual(indexed["liuyao.guaRelations.transition.kind"]?.value,.string("六冲变六合"))
+        XCTAssertEqual(indexed["liuyao.line1.rules.returning.branchRelation"]?.value,.string("neither"))
+        XCTAssertEqual(indexed["liuyao.line1.rules.returning.branchSourceId"]?.value,.string("liuyao-calendar-relations-v1"))
+        XCTAssertEqual(indexed["liuyao.line1.rules.returning.from"]?.pointer,"/lines/0/rules/returning/from")
+        XCTAssertNil(indexed["liuyao.line2.rules.returning.clash"])
+        XCTAssertNil(indexed["liuyao.guaRelations.verdict"])
+        try assertIndexRestoresFacts(review:ReadingVerifier.messages(draft:"核对整卦及动爻",history:messages,question:"核对"),history:messages)
+    }
+
+    func testLiuyaoChartIndexRejectsNestedInterpretationsAndKeepsStaticTransition() {
+        let facts = ReadingVerificationEvidence.facts(history("cast_liuyao", #"{"guaRelations":{"outcomeEstablished":{"prediction":"必成"},"original":{"kind":{"text":"六合"},"ganZhi":[{"prediction":"必中"}],"pairs":[{"branches":[["子","丑"]],"relation":{"prediction":"必成"}}]},"transition":{"hasChange":false,"kind":"static"}},"lines":[{"rules":{"returning":{"branchRelation":{"text":"冲散"}}}}]}"#))
+        XCTAssertEqual(Set(facts.map(\.factKey)),Set(["liuyao.guaRelations.transition.hasChange","liuyao.guaRelations.transition.kind"]))
+        XCTAssertEqual(facts.first(where: { $0.factKey.hasSuffix("hasChange") })?.value,.bool(false))
+    }
+
+    func testLiuyaoGuaRelationsSurviveActualJavaScriptCoreTransportAndReplay() async throws {
+        let native = URL(fileURLWithPath:#filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at:directory,withIntermediateDirectories:true)
+        defer { try? FileManager.default.removeItem(at:directory) }
+        let script = try String(contentsOf:native.appendingPathComponent("Resources/mingli.js"),encoding:.utf8)
+        let cases: [([Int],String,String)] = [([9,8,7,7,8,7],"六冲","六冲变六合"),([8,9,9,7,8,8],"ordinary","other-change"),([8,8,8,8,8,8],"六冲","static")]
+        for (values,originalKind,transition) in cases {
+            // Inject coin results at the random source, without adding a model-controlled seed/API.
+            let draws = values.flatMap { value in Array(repeating:0.75,count:value-6) + Array(repeating:0.0,count:9-value) }
+            let seeded = directory.appendingPathComponent("engine.js")
+            try (script + "\nlet coinCalls=0; const draws=" + ReadingVerificationEvidence.encoded(draws) + "; Math.random=()=>draws[coinCalls++];").write(to:seeded,atomically:true,encoding:.utf8)
+            let bridge = try MingliBridge(scriptURL:seeded)
+            let raw = try await bridge.request(#"{"command":"tool","name":"cast_liuyao","arguments":{"question":"核对原卦与变卦的结构"},"now":"2026-09-19T04:00:00Z"}"#)
+            let root = try JSONDecoder().decode(JSONValue.self,from:raw)
+            let result = try XCTUnwrap(ReadingVerificationEvidence.pointer("/result",in:root))
+            XCTAssertEqual(ReadingVerificationEvidence.pointer("/lineValues",in:result),.array(values.map { .integer(Int64($0)) }))
+            XCTAssertEqual(ReadingVerificationEvidence.pointer("/guaRelations/original/kind",in:result),.string(originalKind))
+            XCTAssertEqual(ReadingVerificationEvidence.pointer("/guaRelations/transition/kind",in:result),.string(transition))
+            if transition == "六冲变六合" {
+                XCTAssertEqual(ReadingVerificationEvidence.pointer("/guaRelations/resulting/pairs/1/positions",in:result),.array([.integer(2),.integer(5)]))
+                XCTAssertNil(ReadingVerificationEvidence.pointer("/lines/1/changed",in:result))
+            } else if transition == "other-change" {
+                XCTAssertEqual(ReadingVerificationEvidence.pointer("/lines/2/rules/returning/branchRelation",in:result),.string("六冲"))
+                XCTAssertEqual(ReadingVerificationEvidence.pointer("/lines/2/rules/returning/relation",in:result),.string("本爻克变"))
+            }
+            XCTAssertEqual(ReadingVerificationEvidence.pointer("/lineContextPolicy/assessmentStatus",in:result),.string("calendar-relations-only"))
+            XCTAssertEqual(ReadingVerificationEvidence.pointer("/lineContextPolicy/sourceIds",in:result),.array([.string("liuyao-calendar-relations-v1")]))
+            let output = ReadingVerificationEvidence.encoded(result)
+            let messages = history("cast_liuyao",output)
+            let facts = ReadingVerificationEvidence.facts(messages)
+            XCTAssertEqual(facts.first(where:{$0.factKey == "liuyao.lineContextPolicy.assessmentStatus"})?.pointer,"/lineContextPolicy/assessmentStatus")
+            XCTAssertEqual(facts.first(where:{$0.factKey == "liuyao.lineContextPolicy.sourceIds"})?.value,.array([.string("liuyao-calendar-relations-v1")]))
+            XCTAssertEqual(facts.first(where:{$0.factKey == "liuyao.guaRelations.transition.kind"})?.value,.string(transition))
+            try assertIndexRestoresFacts(review:ReadingVerifier.messages(draft:"只核对结构",history:messages,question:"核对结构"),history:messages)
+            let context = try ToolContext(birth:nil,engineRevision:"b2-test",referenceDate:Date(timeIntervalSince1970:1_789_790_400),mode:"起卦")
+            let receipt = ToolReceipt(callID:"receipt",name:"cast_liuyao",arguments:["question":"核对原卦与变卦的结构"],output:output,evidence:["receipt"],context:context)
+            var entry = ConversationEntry(role:"user",text:"核对原卦与变卦的结构")
+            entry.toolReceipts = [receipt]
+            let replay = ReadingPrompt.history(from:[entry],currentUserID:entry.id,context:context)
+            XCTAssertEqual(replay.first(where:{$0.role == .tool})?.content,output)
+        }
+    }
+
     func testQimenEarthHostingIsIndependentOfSkyHostingAndArrayOrder() throws {
         let messages = history("setup_qimen", #"{"palaces":[{"id":7,"diPanGan":"壬","hostedTianPanGan":"庚"},{"id":2,"diPanGan":"乙","tianPanGan":"丁","hostedDiPanGan":"庚"},{"id":5,"diPanGan":"庚","tianPanGan":"庚"}]}"#)
         let indexed = Dictionary(uniqueKeysWithValues:ReadingVerificationEvidence.facts(messages).map { ($0.factKey,$0) })
@@ -107,6 +174,11 @@ final class DivinationEvidenceTests: XCTestCase {
         try await assertCombinedCharts(values:[9,9,9,6,6,9],questionType:"kids",subject:"child")
     }
 
+    func testLiuyaoCapacityAtIndependentWorstCaseDatesPreservesBothCasts() async throws {
+        try await assertCombinedCharts(values:[6,6,9,9,6,6],questionType:"career",subject:"self",instant:"2026-09-11T04:00:00Z")
+        try await assertCombinedCharts(values:[6,6,6,6,9,9],questionType:"parents",subject:"parent",instant:"2026-09-12T04:00:00Z")
+    }
+
     func testRepeatedStableChartIndicesFitMessageLimit() async throws {
         let native = URL(fileURLWithPath:#filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
         let bridge = try MingliBridge(scriptURL:native.appendingPathComponent("Resources/mingli.js"))
@@ -127,7 +199,7 @@ final class DivinationEvidenceTests: XCTestCase {
         try assertIndexRestoresFacts(review:review,history:messages)
     }
 
-    private func assertCombinedCharts(values: [Int],questionType:String = "parents",subject:String = "parent") async throws {
+    private func assertCombinedCharts(values: [Int],questionType:String = "parents",subject:String = "parent",instant:String = "2026-09-19T04:00:00Z") async throws {
         let native = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
@@ -138,13 +210,13 @@ final class DivinationEvidenceTests: XCTestCase {
         let draws = values.flatMap { value in Array(repeating:value == 6 ? 0.0 : 0.75,count:3) }
         try (script + "\nlet coinCalls=0; const draws=" + ReadingVerificationEvidence.encoded(draws) + "; Math.random=()=>draws[coinCalls++];").write(to: seeded, atomically: true, encoding: .utf8)
         let bridge = try MingliBridge(scriptURL: seeded)
-        let now = Date(timeIntervalSince1970: 1_789_790_400)
+        let now = try XCTUnwrap(ISO8601DateFormatter().date(from:instant))
         let question = String(("用六爻和奇门分别解释这次盘面，请保留各自依据。" + String(repeating: "需要比较盘面细节。", count: 180)).prefix(1600))
         var messages = [ChatMessage(role: .system, content: ReadingPrompt.instruction(tone: "清晰", mode: "起卦", referenceDate: now, hasBirth: true))]
         for (index, name) in ["cast_liuyao", "setup_qimen"].enumerated() {
             let id = String(repeating: index == 0 ? "a" : "b", count: 32)
             let arguments = ["question": question, "questionType": name == "cast_liuyao" ? questionType : "career", "subject": subject, "event": String(repeating:"事",count:200), "timeHorizon": "near"]
-            let request: [String: Any] = ["command": "tool", "name": name, "arguments": arguments, "now": "2026-09-19T04:00:00Z"]
+            let request: [String: Any] = ["command": "tool", "name": name, "arguments": arguments, "now": instant]
             let raw = try await bridge.request(String(decoding: JSONSerialization.data(withJSONObject: request), as: UTF8.self))
             let root = try JSONDecoder().decode(JSONValue.self, from: raw)
             let output = ReadingVerificationEvidence.encoded(try XCTUnwrap(ReadingVerificationEvidence.pointer("/result", in: root)))

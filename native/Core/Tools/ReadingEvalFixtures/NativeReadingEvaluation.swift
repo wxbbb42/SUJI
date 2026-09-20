@@ -26,7 +26,7 @@ enum NativeReadingEvaluation {
         try JSONSerialization.jsonObject(with: JSONEncoder().encode(value), options: [.fragmentsAllowed])
     }
     static func json(_ value: Any) throws -> String {
-        String(decoding: try JSONSerialization.data(withJSONObject: value, options: [.sortedKeys, .fragmentsAllowed]), as: UTF8.self)
+        String(decoding: try JSONSerialization.data(withJSONObject: value, options: [.sortedKeys, .fragmentsAllowed, .withoutEscapingSlashes]), as: UTF8.self)
     }
     static func run() async throws {
         guard let flag = CommandLine.arguments.firstIndex(of: "--live-native"), CommandLine.arguments.count == flag + 3 else {

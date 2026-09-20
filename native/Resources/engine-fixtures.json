@@ -16,7 +16,7 @@
     },
     "result": {
       "schemaVersion": 1,
-      "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
+      "engineRevision": "df6b754ac6cee1e29502181660e6b12ac4f2a050667001580005e3742702e521",
       "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
       "calendarPolicy": {
         "version": "suji-calendar-2",
@@ -4881,7 +4881,7 @@
           }
         ],
         "provenance": {
-          "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
+          "engineRevision": "df6b754ac6cee1e29502181660e6b12ac4f2a050667001580005e3742702e521",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -12587,7 +12587,7 @@
         },
         "readingBoundary": "两种体系分别解释，不能把相似意象当作相互验证。",
         "provenance": {
-          "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
+          "engineRevision": "df6b754ac6cee1e29502181660e6b12ac4f2a050667001580005e3742702e521",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -12770,7 +12770,7 @@
     },
     "result": {
       "schemaVersion": 1,
-      "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
+      "engineRevision": "df6b754ac6cee1e29502181660e6b12ac4f2a050667001580005e3742702e521",
       "birthKey": "[2023,4,6,23,59,\"女\",121.47,\"Asia/Shanghai\"]",
       "calendarPolicy": {
         "version": "suji-calendar-2",
@@ -14684,7 +14684,7 @@
     },
     "result": {
       "schemaVersion": 1,
-      "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
+      "engineRevision": "df6b754ac6cee1e29502181660e6b12ac4f2a050667001580005e3742702e521",
       "birthKey": "[2024,2,9,23,59,\"女\",121.47,\"Asia/Shanghai\"]",
       "calendarPolicy": {
         "version": "suji-calendar-2",
@@ -16933,7 +16933,7 @@
         "note": "本宫无主星；须结合对宫与三方四正，不等于此领域不存在。",
         "sihua": [],
         "provenance": {
-          "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
+          "engineRevision": "df6b754ac6cee1e29502181660e6b12ac4f2a050667001580005e3742702e521",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -16994,7 +16994,7 @@
       },
       "natal": {
         "schemaVersion": 1,
-        "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
+        "engineRevision": "df6b754ac6cee1e29502181660e6b12ac4f2a050667001580005e3742702e521",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "calendarPolicy": {
           "version": "suji-calendar-2",
@@ -21127,7 +21127,7 @@
       },
       "natal": {
         "schemaVersion": 1,
-        "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
+        "engineRevision": "df6b754ac6cee1e29502181660e6b12ac4f2a050667001580005e3742702e521",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "calendarPolicy": {
           "version": "suji-calendar-2",
@@ -23294,7 +23294,7 @@
         ],
         "referenceMode": "question-instant",
         "provenance": {
-          "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
+          "engineRevision": "df6b754ac6cee1e29502181660e6b12ac4f2a050667001580005e3742702e521",
           "referenceDate": "2024-02-09T15:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -23359,7 +23359,7 @@
       },
       "natal": {
         "schemaVersion": 1,
-        "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
+        "engineRevision": "df6b754ac6cee1e29502181660e6b12ac4f2a050667001580005e3742702e521",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "calendarPolicy": {
           "version": "suji-calendar-2",
@@ -25528,7 +25528,7 @@
         ],
         "referenceMode": "explicit-date-noon",
         "provenance": {
-          "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
+          "engineRevision": "df6b754ac6cee1e29502181660e6b12ac4f2a050667001580005e3742702e521",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",

@@ -33,6 +33,6 @@ describe('HexagramEngine cast',()=>{
     const r=engine.cast({question:'事业走势如何',questionType:'career',castTime,lineValues:[7,7,7,7,7,7]});
     expect(r.benGua.name).toBe('乾为天');expect(r.yongShen.type).toBe('官鬼');expect(r.yongShen.candidates.map(c=>c.id)).toEqual(['original-4']);
     expect(r.lines[3].wuXing).toBe('火');expect(r.lines[3].context.monthState).toBe('休');
-    expect(r.lines[3].context.assessmentStatus).toBe('calendar-relations-only');
+    expect((r as any).lineContextPolicy?.assessmentStatus).toBe('calendar-relations-only');
   });
 });

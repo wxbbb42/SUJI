@@ -3,6 +3,7 @@
  */
 import type { RuleSource } from '../rules/provenance';
 import type { lineRules } from './conditionalRules';
+import type { guaRelations } from './guaRelations';
 import type {QuestionContext,selectQuestionObjects,conditionalTiming} from './questionJudgment';
 
 export type Yao = '阴' | '阳';
@@ -77,6 +78,9 @@ export interface HexagramReading {
   yingYao: number;
   xunKong: string[];
   lines: HexagramLine[];
+  /** Shared only by original/changed/hidden context facts, not rule effectiveness. */
+  lineContextPolicy: { assessmentStatus:'calendar-relations-only'; sourceIds:string[] };
+  guaRelations: ReturnType<typeof guaRelations>;
   ruleSources: RuleSource[];
   method: { algorithm: string; calendar: string; dayBoundary: string; caveats: string[] };
 }
@@ -105,7 +109,7 @@ export interface RelatedLine {
   ganZhi: string;
   wuXing: WuXing;
   liuQin: LiuQin;
-  context: LineContext;
+  context: LineContextFacts;
 }
 
 export interface HexagramLine {
@@ -123,7 +127,9 @@ export interface HexagramLine {
   monthClash: boolean;
   dayClash: boolean;
   dayCombination: boolean;
-  context: LineContext;
+  context: LineContextFacts;
   changed?: RelatedLine;
   hidden?: RelatedLine;
 }
+
+export type LineContextFacts = Omit<LineContext, 'assessmentStatus' | 'sourceIds'>;
