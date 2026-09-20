@@ -1,0 +1,37 @@
+{
+  "method": "Python zoneinfo/IANA; independent of Date parsing and production fixed UTC+8",
+  "zoneVersions": {
+    "/usr/share/zoneinfo/+VERSION": "2026c",
+    "/usr/share/zoneinfo/tzdata.zi": "# version 2026c-rearguard"
+  },
+  "cases": [
+    {
+      "id": "elizabeth-ii",
+      "zone": "Europe/London",
+      "offsetHours": 1.0,
+      "normalizedInstant": "1926-04-21T01:40:00+00:00",
+      "matchesRecordedOffsetAndInstant": true
+    },
+    {
+      "id": "elvis-presley",
+      "zone": "America/Chicago",
+      "offsetHours": -6.0,
+      "normalizedInstant": "1935-01-08T10:35:00+00:00",
+      "matchesRecordedOffsetAndInstant": true
+    },
+    {
+      "id": "diana",
+      "zone": "Europe/London",
+      "offsetHours": 1.0,
+      "normalizedInstant": "1961-07-01T18:45:00+00:00",
+      "matchesRecordedOffsetAndInstant": true
+    },
+    {
+      "id": "john-f-kennedy",
+      "zone": "America/New_York",
+      "offsetHours": -5.0,
+      "normalizedInstant": "1917-05-29T20:00:00+00:00",
+      "matchesRecordedOffsetAndInstant": true
+    }
+  ]
+}

@@ -95,12 +95,17 @@ export interface QimenMethodMeta {
   centerPolicy?: string;
   dayBoundary?: string;
   solarTermClock?: string;
+  /** Optional when reading legacy charts; new engine output always supplies these. */
+  clockPolicy?: 'beijing-standard' | 'apparent-solar';
+  timezone?: 'UTC+08:00';
+  longitude?: number;
   caveats: string[];
 }
 
 /** 起局选项 */
 export interface SetupOptions {
   setupTime?: Date;
+  /** Explicit current divination longitude selects apparent solar time; omitted uses Beijing standard time. */
   longitude?: number;
   question: string;
   questionType: QuestionType;
@@ -112,7 +117,8 @@ export interface QimenChart {
   question: string;
   questionType: QuestionType;
   setupTime: string;          // ISO
-  trueSolarTime: string;
+  calculationTime: string;    // ISO projection read as UTC+08:00 fields for day/hour; not a new physical instant
+  trueSolarTime?: string;     // Only supplied for explicitly selected apparent solar time
   jieqi: string;              // 节气名（如"谷雨"）
   yinYangDun: YinYangDun;
   juNumber: JuNumber;

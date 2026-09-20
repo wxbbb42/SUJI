@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-19T06:18:25.371Z",
+  "generatedAt": "2026-09-20T03:41:56.530Z",
   "sourceCount": 49,
-  "claimCount": 46,
+  "claimCount": 54,
   "domains": {
     "academic": [
       {
@@ -1187,8 +1187,8 @@
         "bazi-ziping-zhenquan",
         "bazi-ditiansui"
       ],
-      "status": "classical_grounded_qing-zhuo-pending",
-      "confidence": "high_for_four-criteria_principle_medium_for_qing-zhuo-integration"
+      "status": "engineering_proxy_with_classical_motivation",
+      "confidence": "high_for_textual_principle_low_for_proxy_completeness"
     },
     {
       "id": "bazi.geju.xiangshen-required",
@@ -1247,6 +1247,16 @@
       "confidence": "high_for_classical_classification_medium_for_per-path-implementation"
     },
     {
+      "id": "bazi.long-life-stage-is-not-verdict",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan",
+        "bazi-sanming-tonghui"
+      ],
+      "status": "selected_convention_with_interpretation_boundary",
+      "confidence": "high_for_selected_table_low_for_cross_school_consensus"
+    },
+    {
       "id": "bazi.open-phase.thresholds-borrowed",
       "domain": "bazi",
       "sourceIds": [
@@ -1255,6 +1265,15 @@
       ],
       "status": "engineering_threshold_borrowed_from_open_source",
       "confidence": "high_for_engineering_choice_no_classical_basis"
+    },
+    {
+      "id": "bazi.peer-occurrence-is-not-day-self",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "implemented_position_identity_with_regression",
+      "confidence": "high_for_identity_rule_limited_for_global_interpretation"
     },
     {
       "id": "bazi.phase-registry.source-enforcement",
@@ -1273,6 +1292,15 @@
       ],
       "status": "classical_grounded_with_engineering_proxy",
       "confidence": "medium_phase2_starter_approximation"
+    },
+    {
+      "id": "bazi.rescue-binds-to-position",
+      "domain": "bazi",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "status": "implemented_position_identity_with_regression",
+      "confidence": "high_for_position_binding_partial_for_rescue_conditions"
     },
     {
       "id": "bazi.rizhushuruo.five-tier-structural",
@@ -1388,7 +1416,7 @@
       "sourceIds": [
         "bazi-ziping-zhenquan"
       ],
-      "status": "classical_grounded",
+      "status": "engineering_candidate_with_textual_motivation",
       "confidence": "high_for_priority_principle_medium_for_zhongqi-vs-yuqi-order"
     },
     {
@@ -1457,6 +1485,42 @@
       "confidence": "high"
     },
     {
+      "id": "liuyao.changed-hidden-need-own-context",
+      "domain": "liuyao",
+      "sourceIds": [
+        "liuyao-zengshan-buyi"
+      ],
+      "status": "grounded_requirement_not_implemented",
+      "confidence": "high_for_object_distinction_partial_for_complete_conditions"
+    },
+    {
+      "id": "liuyao.day-clash-requires-strength-and-motion",
+      "domain": "liuyao",
+      "sourceIds": [
+        "liuyao-zengshan-buyi"
+      ],
+      "status": "grounded_requirement_not_implemented",
+      "confidence": "high_for_conditional_distinction_transcription_only"
+    },
+    {
+      "id": "liuyao.six-spirits-not-standalone-verdict",
+      "domain": "liuyao",
+      "sourceIds": [
+        "liuyao-zengshan-buyi"
+      ],
+      "status": "verified_table_not_predictive_validation",
+      "confidence": "high_for_table_and_textual_boundary"
+    },
+    {
+      "id": "liuyao.yingqi-requires-conditional-chain",
+      "domain": "liuyao",
+      "sourceIds": [
+        "liuyao-zengshan-buyi"
+      ],
+      "status": "grounded_requirement_not_implemented",
+      "confidence": "medium_for_textual_rules_low_for_complete_implementation"
+    },
+    {
       "id": "product.no-absolute-fortune-claims",
       "domain": "product-framing",
       "sourceIds": [
@@ -1476,6 +1540,15 @@
       ],
       "status": "active_policy",
       "confidence": "high_as_process_policy"
+    },
+    {
+      "id": "qimen.star-season-not-palace-element-state",
+      "domain": "qimen",
+      "sourceIds": [
+        "qimen-yanbo-diaosou-ge"
+      ],
+      "status": "grounded_requirement_not_implemented",
+      "confidence": "high_for_scope_distinction_contested_textual_variants"
     },
     {
       "id": "ziwei.four-transformations.by-year-stem",

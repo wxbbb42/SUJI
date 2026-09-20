@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-05-08",
+  "updatedAt": "2026-09-20",
   "claims": [
     {
       "id": "bazi.yongshen-priority.product-decision",
@@ -112,7 +112,7 @@
     {
       "id": "bazi.siling.table.contested",
       "domain": "bazi",
-      "claim": "月令人元司事/司令表用于描述节气后不同藏干当值，但《三命通会》卷二同页正文、玉井引表与当前代码表存在天数差异；进入算法解释时必须标明采用版本，不能把当前表默认为唯一古籍定本。",
+      "claim": "月令人元司事/司令表用于描述节气后不同藏干当值，但《三命通会》卷二同页正文、玉井引表与当前代码表存在天数差异；进入算法解释时必须标明采用版本，不能把当前表默认为唯一古籍定本。 2026-09-20复核：代码寅7/7/16、卯10/20，与所存卷二正文寅5/5/20、卯7/23不符；SiLing尚未进入生产bridge输入图，不应计为当前算法覆盖，也不应在未定版本前直接替换表格。",
       "sourceIds": [
         "bazi-sanming-tonghui",
         "bazi-yuanhai-ziping"
@@ -120,7 +120,8 @@
       "repoRefs": [
         "native/Engine/src/bazi/SiLing.ts",
         "docs/mingli/reading-notes/2026-04-29-reading-log.md",
-        "docs/mingli/reading-notes/2026-04-30-yuanhai-ziping-first-pass.md"
+        "docs/mingli/reading-notes/2026-04-30-yuanhai-ziping-first-pass.md",
+        "docs/mingli/validation/bazi-professional-audit.md"
       ],
       "confidence": "high_for_disagreement_low_for_single_table",
       "status": "contested"
@@ -596,7 +597,9 @@
       "id": "bazi.xiangshen.definition",
       "domain": "bazi",
       "claim": "相神（XiangShen）= 月令用神之外、全局赖以成格的关键字；不限于固定十神表，可为任一柱的干或支。一格必有相神，相神不存在则成格存疑。《子平真诠》论相神紧要：'月令既得用神，则别位亦必有相，若君之有相，辅者是也'；'凡全局之格，赖此一字而成者，均谓之相也'；'伤用神甚于伤身，伤相甚于伤用'。native/Engine/src/bazi/structural.ts XIANGSHEN_DEFAULT 表给出 per-格局 默认相神十神映射（正官→财生官+印护官、七杀→食制+印化、正财→食生财+官护财 等），由 scanXiangShen() 在 computeGeJuV2 中扫描透干 + 藏干命中。",
-      "sourceIds": ["bazi-ziping-zhenquan"],
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
       "repoRefs": [
         "native/Engine/src/bazi/structural.ts",
         "native/Engine/src/bazi/__tests__/structural.test.ts",
@@ -609,7 +612,9 @@
       "id": "bazi.xiangshen.cheng-po-rule",
       "domain": "bazi",
       "claim": "相神被合/冲/破即触发破格判定，且优先级高于'用神被破'本身：'伤用神甚于伤身，伤相甚于伤用'（《子平真诠》论相神紧要）。当前 native/Engine/src/bazi/structural.ts computeGeJuV2 的 chengBai 三态以 yongBroken + jiStems + jiuYing 三元组判，相神层只用于评级（XiangShenInfo 缺位 → jibie 不可为 'shang'）；'相神被破'的精确实现（合 vs 冲 vs 害是否等价）待印刷版与徐乐吾评注核。",
-      "sourceIds": ["bazi-ziping-zhenquan"],
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
       "repoRefs": [
         "native/Engine/src/bazi/structural.ts",
         "docs/mingli/reading-notes/ziping-zhenquan-xiangshen.md"
@@ -621,7 +626,9 @@
       "id": "bazi.jiuying.path-classification",
       "domain": "bazi",
       "claim": "救应路径分四类（与 native/Engine/src/bazi/types.ts JiuYingInfo.path 枚举一致）：去清（qu-qing，去病留用神）/ 食制（shi-zhi，以食伤制忌神）/ 印化（yin-hua，以印化忌神）/ 合凶（he-sha，以合去凶神），其余归 other。一个破格场景可同时存在多条救应路径。出处：《子平真诠》论用神成败救应：'用神专寻月令，以四柱配之，必有成败'；'成中有败，必是带忌；败中有成，全凭救应'。native/Engine/src/bazi/structural.ts scanJiuYing() 对每个透干忌神依次扫三条路径（qu-qing / shi-zhi / yin-hua），he-sha 路径作为 qu-qing 在七杀格语境下的别名暂未独立扫描。",
-      "sourceIds": ["bazi-ziping-zhenquan"],
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
       "repoRefs": [
         "native/Engine/src/bazi/types.ts",
         "native/Engine/src/bazi/structural.ts",
@@ -634,21 +641,26 @@
     {
       "id": "bazi.yongshen.priority-chain",
       "domain": "bazi",
-      "claim": "取格优先级链：(1) 月令本气透干 → (2) 月令中气透干 → (3) 月令余气透干 → (4) 月支参与的三合/三会成局 → (5) 建禄/月劫处理（本气未透则月令本气仍为用）。专气支（子午卯酉）只取本气，不走中/余气路径。出处：《子平真诠》论用神变化：'用神既主月令矣，然月令所藏不一，而用神遂有变化'；'八字非用神不立，用神非变化不灵'。native/Engine/src/bazi/structural.ts selectYongShen() 实现五段优先链，YongShenSelection.basis 枚举（yueling-benqi-tougan / yueling-zhongqi-tougan / yueling-yuqi-tougan / sanhe / sanhui / jianlu-yueliu）一一对应。",
-      "sourceIds": ["bazi-ziping-zhenquan"],
+      "claim": "取格优先级链：(1) 月令本气透干 → (2) 月令中气透干 → (3) 月令余气透干 → (4) 月支参与的三合/三会成局 → (5) 建禄/月劫处理（本气未透则月令本气仍为用）。专气支（子午卯酉）只取本气，不走中/余气路径。出处：《子平真诠》论用神变化：'用神既主月令矣，然月令所藏不一，而用神遂有变化'；'八字非用神不立，用神非变化不灵'。native/Engine/src/bazi/structural.ts selectYongShen() 实现五段优先链，YongShenSelection.basis 枚举（yueling-benqi-tougan / yueling-zhongqi-tougan / yueling-yuqi-tougan / sanhe / sanhui / jianlu-yueliu）一一对应。 本优先链是对文字原则的有限工程实现；即使三支齐全，也只形成取格候选，不证明合化已成。未编码的季候、根气、制化与全局条件不得由classical_grounded标签代替。",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
       "repoRefs": [
         "native/Engine/src/bazi/structural.ts",
         "native/Engine/src/bazi/__tests__/structural.test.ts",
-        "docs/mingli/reading-notes/ziping-zhenquan-xiangshen.md"
+        "docs/mingli/reading-notes/ziping-zhenquan-xiangshen.md",
+        "docs/mingli/validation/bazi-professional-audit.md"
       ],
       "confidence": "high_for_priority_principle_medium_for_zhongqi-vs-yuqi-order",
-      "status": "classical_grounded"
+      "status": "engineering_candidate_with_textual_motivation"
     },
     {
       "id": "bazi.yongshen.bianhua-trigger",
       "domain": "bazi",
       "claim": "用神变化触发条件：(1) 月令本气不透干；(2) 月令本气透干但被合化/冲克失效；(3) 月支参与三合/三会改变五行；(4) 子午卯酉为专气支，原则上不变化（除非被冲）。化气格（日主自身被合化为他党）应与用神变化区分实现 — 化气是日主级，用神变化是月令所成格的级。native/Engine/src/bazi/structural.ts 中 detectHuaQi() 与 selectYongShen() 分别承担两个判断，YongShenSelection.bianhua=true 仅在 basis ∈ {zhongqi/yuqi/sanhe/sanhui} 时设。出处：《子平真诠》论用神变化：'然月令所藏不一，而用神遂有变化'。",
-      "sourceIds": ["bazi-ziping-zhenquan"],
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
       "repoRefs": [
         "native/Engine/src/bazi/structural.ts",
         "native/Engine/src/bazi/__tests__/structural.test.ts",
@@ -660,15 +672,138 @@
     {
       "id": "bazi.geju.rank-criteria",
       "domain": "bazi",
-      "claim": "格局高低（GeJuRank: shang / zhong / xia）判定基于'有情/无情、有力/无力、清/浊、相神是否破'四要素：成格 + 用神有力（通根 ≥ 中根）+ 相神齐 + 八字清纯 = 上；成格但相神不全或 jiuying 救应 = 中；破格无救 = 下。格名本身（正官/七杀/正财...）不决定高低。出处：《子平真诠》论用神格局高低：'八字既有用神，必有格局，有格局必有高低'；'其理之大纲，亦在有情、有力无力之间而已'。native/Engine/src/bazi/structural.ts rankGeJu() 实现该四要素的布尔门：chengBai='cheng' + xiangShen!=null + 用神中根/强根 + 透干忌神=0 → 'shang'；chengBai='po' → 'xia'；其余 → 'zhong'。'有情/无情'与'清/浊'的细化判定留下一阶段接《滴天髓·清浊论》。",
-      "sourceIds": ["bazi-ziping-zhenquan", "bazi-ditiansui"],
+      "claim": "《子平真诠》论格局高低强调有情有力与配置，不凭格名定高低。当前rankGeJu以候选成败、相神是否出现、工程根力档、透干忌神数生成shang/zhong/xia，这是有限工程代理，未实现完整有情有力、相神受伤、进退气或全局竞争；不得把布尔门或数字阈值升级成古籍已验证结论。输出保留heuristic-candidate。本轮修复两处柱位遗漏会改变该候选标签，不构成对命运高低的断定。",
+      "sourceIds": [
+        "bazi-ziping-zhenquan",
+        "bazi-ditiansui"
+      ],
       "repoRefs": [
         "native/Engine/src/bazi/structural.ts",
         "native/Engine/src/bazi/__tests__/structural.test.ts",
-        "docs/mingli/reading-notes/ziping-zhenquan-xiangshen.md"
+        "docs/mingli/reading-notes/ziping-zhenquan-xiangshen.md",
+        "docs/mingli/validation/bazi-professional-audit.md"
       ],
-      "confidence": "high_for_four-criteria_principle_medium_for_qing-zhuo-integration",
-      "status": "classical_grounded_qing-zhuo-pending"
+      "confidence": "high_for_textual_principle_low_for_proxy_completeness",
+      "status": "engineering_proxy_with_classical_motivation"
+    },
+    {
+      "id": "bazi.peer-occurrence-is-not-day-self",
+      "domain": "bazi",
+      "claim": "其他柱与日干同名仍属比肩，扫描透干只能排除日柱本人，不能按干名删除所有同名干。《子平真诠评注》论格局高低有“财格忌比劫争财”，成败救应又有“财逢劫而透食以化之”。因此须记录他柱比肩并继续检查制化，不能由比肩一项判定财富或全格必败。2026-09-20已以甲子、戊辰、甲申、甲子反例修复柱位遗漏；经典电子转录未校纸本。",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "repoRefs": [
+        "native/Engine/src/bazi/structural.ts",
+        "native/Engine/src/bazi/__tests__/professionalAudit.test.ts",
+        "docs/mingli/validation/bazi-professional-audit.md"
+      ],
+      "confidence": "high_for_identity_rule_limited_for_global_interpretation",
+      "status": "implemented_position_identity_with_regression"
+    },
+    {
+      "id": "bazi.rescue-binds-to-position",
+      "domain": "bazi",
+      "claim": "工程相邻救应必须绑定忌神和救应的具体柱位，同名干不共用一次获救证据。《子平真诠评注》强调位置配合次序及相神受伤；当前仅实现少量透干候选，未覆盖全局有情有力、根气、地支救应与救应被制。癸酉、戊午、庚申、癸未中年癸获得月戊候选，不可据此认定时癸也被月戊相邻制化；这不主张所有隔位作用均不存在。",
+      "sourceIds": [
+        "bazi-ziping-zhenquan"
+      ],
+      "repoRefs": [
+        "native/Engine/src/bazi/structural.ts",
+        "native/Engine/src/bazi/types.ts",
+        "docs/mingli/validation/bazi-professional-audit.md"
+      ],
+      "confidence": "high_for_position_binding_partial_for_rescue_conditions",
+      "status": "implemented_position_identity_with_regression"
+    },
+    {
+      "id": "bazi.long-life-stage-is-not-verdict",
+      "domain": "bazi",
+      "claim": "十二长生按本版阳顺阴逆、土随火表计算。表格身份不等于综合身强弱、吉凶或寿命判断。《子平真诠评注》论阴阳生死的原文与评注对五行/十干应用分层不同，不能合并为无争议共识；《三命通会》卷二明言见生旺未必吉、见休囚死绝未必凶，须查制化生扶。已独立核对120个标签，尚未校印本。",
+      "sourceIds": [
+        "bazi-ziping-zhenquan",
+        "bazi-sanming-tonghui"
+      ],
+      "repoRefs": [
+        "native/Engine/src/bazi/__tests__/professionalTables.test.ts",
+        "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+        "docs/mingli/source-texts/bazi/sanming-tonghui/juan-2.md",
+        "docs/mingli/validation/bazi-professional-audit.md"
+      ],
+      "confidence": "high_for_selected_table_low_for_cross_school_consensus",
+      "status": "selected_convention_with_interpretation_boundary"
+    },
+    {
+      "id": "liuyao.day-clash-requires-strength-and-motion",
+      "domain": "liuyao",
+      "claim": "日冲是支冲事实，不能直接等同暗动或日破。《增删卜易》日辰章、暗动章区分旺相静爻被冲与休囚静爻被冲，并讨论冲空、冲合；完整判断需月日生扶、原爻动静、旬空及其他作用。当前dayClash仅记录相冲，尚未实现这些条件判别；不得让模型补称引擎已经算出暗动。",
+      "sourceIds": [
+        "liuyao-zengshan-buyi"
+      ],
+      "repoRefs": [
+        "docs/mingli/validation/liuyao-professional-audit.md",
+        "native/Engine/validation/research-divination/liuyao-professional-sources.json",
+        "native/Engine/src/divination/__tests__/ProfessionalLiuyaoAudit.test.ts"
+      ],
+      "confidence": "high_for_conditional_distinction_transcription_only",
+      "status": "grounded_requirement_not_implemented"
+    },
+    {
+      "id": "liuyao.changed-hidden-need-own-context",
+      "domain": "liuyao",
+      "claim": "本爻、变爻、伏神是不同对象，各自须核对旬空、月破、日月生克冲合，不能继承本爻布尔值。申月戊午日遁二爻动变姤古例的世午临日、申月生变亥、亥水回头克午是一条带对象链；当前仅返回丙午变辛亥等基础字段，未生成该链。飞伏关系还需出伏条件。古例只给月支干支日，不可虚构其公历年代或把古籍验辞当预测准确率。",
+      "sourceIds": [
+        "liuyao-zengshan-buyi"
+      ],
+      "repoRefs": [
+        "docs/mingli/validation/liuyao-professional-audit.md",
+        "native/Engine/validation/research-divination/liuyao-professional-sources.json",
+        "native/Engine/src/divination/__tests__/ProfessionalLiuyaoAudit.test.ts"
+      ],
+      "confidence": "high_for_object_distinction_partial_for_complete_conditions",
+      "status": "grounded_requirement_not_implemented"
+    },
+    {
+      "id": "liuyao.yingqi-requires-conditional-chain",
+      "domain": "liuyao",
+      "claim": "《增删卜易》各门类应期总注按静动、旺衰、空破、合墓与克神条件分述应期，并区分远近年月日时。需先明确问题对象和取用，再给适用前提、冲突与未决条件；不能按一个地支找下次日期或固定几周后便报结论。当前yingQi明确未推定，初选用神的首爻也不代表完整取用。该条为待实现规则契约，来源为未校纸本的电子转录。",
+      "sourceIds": [
+        "liuyao-zengshan-buyi"
+      ],
+      "repoRefs": [
+        "docs/mingli/validation/liuyao-professional-audit.md",
+        "native/Engine/validation/research-divination/liuyao-professional-sources.json"
+      ],
+      "confidence": "medium_for_textual_rules_low_for_complete_implementation",
+      "status": "grounded_requirement_not_implemented"
+    },
+    {
+      "id": "liuyao.six-spirits-not-standalone-verdict",
+      "domain": "liuyao",
+      "claim": "《增删卜易》六神章反对单以青龙为吉、白虎为凶等附象断生死。按日干顺排六神的标签正确，不表示用神和日月动变已判定，更不支持据六神推断健康、生死或具体事件。当前六神表经60日×64卦独立核对；这证明标签计算，不证明古籍验辞。",
+      "sourceIds": [
+        "liuyao-zengshan-buyi"
+      ],
+      "repoRefs": [
+        "docs/mingli/validation/liuyao-professional-audit.md",
+        "native/Engine/validation/research-divination/liuyao-professional-sources.json"
+      ],
+      "confidence": "high_for_table_and_textual_boundary",
+      "status": "verified_table_not_predictive_validation"
+    },
+    {
+      "id": "qimen.star-season-not-palace-element-state",
+      "domain": "qimen",
+      "claim": "《烟波钓叟歌》星与月令旺相休囚废的关系，和宫五行相对某干的生克状态不是同一计算。当前yongShen.state仅为宫位五行关系，不能宣称已实现月令九星旺衰。转录的“同行即为我/相”等有异文，正式实现应锁定版本与规则方向并以正反例复核，不能套普通五行同类为旺表后称为原文。",
+      "sourceIds": [
+        "qimen-yanbo-diaosou-ge"
+      ],
+      "repoRefs": [
+        "docs/mingli/validation/qimen-professional-audit.md",
+        "native/Engine/src/qimen/QimenEngine.ts"
+      ],
+      "confidence": "high_for_scope_distinction_contested_textual_variants",
+      "status": "grounded_requirement_not_implemented"
     }
   ]
 }

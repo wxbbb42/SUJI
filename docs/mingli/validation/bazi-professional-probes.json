@@ -1,0 +1,121 @@
+{
+  "scope": "synthetic historical dates; traditional engineering candidates, not verified biographies or forecast accuracy",
+  "baseCommit": "805683f",
+  "probes": [
+    {
+      "date": "1984-04-20T00:30:00+08:00",
+      "gender": "男",
+      "solarCorrection": false,
+      "before": {
+        "pillars": [
+          "甲子",
+          "戊辰",
+          "甲申",
+          "甲子"
+        ],
+        "name": "偏财格",
+        "chengBai": "cheng",
+        "jibie": "zhong",
+        "jiuYing": null,
+        "assessmentStatus": "heuristic-candidate"
+      },
+      "after": {
+        "pillars": [
+          "甲子",
+          "戊辰",
+          "甲申",
+          "甲子"
+        ],
+        "name": "偏财格",
+        "chengBai": "po",
+        "jibie": "xia",
+        "jiuYing": null,
+        "assessmentStatus": "heuristic-candidate"
+      }
+    },
+    {
+      "date": "1993-06-08T13:30:00+08:00",
+      "gender": "男",
+      "solarCorrection": false,
+      "before": {
+        "pillars": [
+          "癸酉",
+          "戊午",
+          "庚申",
+          "癸未"
+        ],
+        "name": "正官格",
+        "chengBai": "jiuying",
+        "jibie": "zhong",
+        "jiuYing": [
+          {
+            "trigger": "忌神 癸（伤官）透出",
+            "triggerGan": "癸",
+            "remedy": "戊 与 癸 紧邻五合，为合忌候选；是否去留须复核",
+            "path": "qu-qing",
+            "source": "《子平真诠》论用神成败救应"
+          },
+          {
+            "trigger": "忌神 癸（伤官）透出",
+            "triggerGan": "癸",
+            "remedy": "戊（偏印）克癸（伤官），为制伤候选",
+            "path": "yin-hua",
+            "source": "《子平真诠》论用神成败救应"
+          },
+          {
+            "trigger": "忌神 癸（伤官）透出",
+            "triggerGan": "癸",
+            "remedy": "戊 与 癸 紧邻五合，为合忌候选；是否去留须复核",
+            "path": "qu-qing",
+            "source": "《子平真诠》论用神成败救应"
+          },
+          {
+            "trigger": "忌神 癸（伤官）透出",
+            "triggerGan": "癸",
+            "remedy": "戊（偏印）克癸（伤官），为制伤候选",
+            "path": "yin-hua",
+            "source": "《子平真诠》论用神成败救应"
+          }
+        ],
+        "assessmentStatus": "heuristic-candidate"
+      },
+      "after": {
+        "pillars": [
+          "癸酉",
+          "戊午",
+          "庚申",
+          "癸未"
+        ],
+        "name": "正官格",
+        "chengBai": "po",
+        "jibie": "xia",
+        "jiuYing": [
+          {
+            "trigger": "忌神 癸（伤官）透出",
+            "triggerGan": "癸",
+            "triggerPosition": 0,
+            "remedyPosition": 1,
+            "remedy": "戊 与 癸 紧邻五合，为合忌候选；是否去留须复核",
+            "path": "qu-qing",
+            "source": "《子平真诠》论用神成败救应"
+          },
+          {
+            "trigger": "忌神 癸（伤官）透出",
+            "triggerGan": "癸",
+            "triggerPosition": 0,
+            "remedyPosition": 1,
+            "remedy": "戊（偏印）克癸（伤官），为制伤候选",
+            "path": "yin-hua",
+            "source": "《子平真诠》论用神成败救应"
+          }
+        ],
+        "assessmentStatus": "heuristic-candidate"
+      }
+    }
+  ],
+  "shippingBridgeInputs": {
+    "InsightEngine": true,
+    "SiLing": false,
+    "multiSchoolVote": false
+  }
+}

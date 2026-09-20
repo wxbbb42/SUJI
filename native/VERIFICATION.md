@@ -4,6 +4,19 @@ Date: 2026-09-19. Branch: `codex/swiftui-rebuild`; original Expo baseline: `0857
 
 This is a native implementation and simulator verification record, not an App Store release certificate. Screens run in SwiftUI, deterministic TypeScript code runs locally in JavaScriptCore, and native services own persistence, audio, credentials and networking.
 
+## Professional calculation audit before further UI work — 2026-09-20
+
+Baseline `805683f`. Fixed two Bazi occurrence-identity defects (same-named peer stems were discarded, and one adjacent rescue covered a remote repeated stem). Qimen now uses explicit Beijing standard time when no divination longitude is supplied; explicit apparent-solar inputs remain supported. Clock policy and projection provenance are returned. No UI, Swift Core source, backend or model-prompt changes.
+
+- Typecheck and **36 suites / 588 Engine tests passed** (`/tmp/suji-professional-engine-all.log`), including 89 newly added tests. Each production fix has observed failing-before/passing-after regressions and positive/negative controls.
+- Independent Astronomy Engine 2.1.19 / Gregorian JDN references: **2,400 Jie instants / 4,800 four-pillar comparisons** at ±120 seconds, zero differences. Maximum term-time disagreement is **62.355 seconds**; this is not second-level boundary certification or resolution of the 2057 lunar discrepancy.
+- **62 public historical birth comparisons** match independent expectations and now run in CI. Four IANA historical time-zone conversions match the recorded UTC offsets. Family-memory/conflicting times and ±30-minute sensitivity are retained; no biographies were fit and no public data was sent to a model.
+- **432 Bazi table comparisons**, Liuyao **3,840** day-cycle and **9,216** month/day charts, 64-hexagram hidden-line checks, fair three-coin enumeration and four independent Qimen hand charts are documented with source limits. This verifies selected calculation rules, not interpretation completeness or predictive accuracy.
+- Engine revision `3919ab954fc0715af1e3371d19cea6c2cab5b494d78d6e0497109282304d4852`; bundle SHA256 `bd0338c88ac5a3ec35f0959bbe5b76319c41eefa2cb5a767b2c627a2db8e201a`. The production bundle passes both new Qimen midnight cases; bundle, 11 parity fixtures and notices regenerate byte-for-byte.
+- Knowledge registration validates **49 sources / 54 claims**, adding eight conditional grounding entries and correcting overbroad engineering-rule descriptions. These repository entries do not imply new runtime retrieval or implementation of missing rules.
+- SwiftUI-only guard passed. Local Swift/Xcode is blocked by the Xcode license gate; no license was accepted and no new local Swift/UI pass is claimed. Current-commit macOS GitHub Actions runs Swift Core plus JavaScriptCore parity after push; verify its commit identity separately from earlier successful builds.
+- Full scoring, exact cases, reproduction and remaining professional gaps: [professional audit](../docs/mingli/validation/professional-audit-2026-09-20.md). Bazi 60/100, Liuyao and Qimen 50/100 use equally weighted calculation-auditability and interpretation-completeness judgments, not statistical accuracy.
+
 ## Auditable strength evidence and multiple reading topics — 2026-09-20
 
 Prompt `suji-grounded-reading-10`; existing closed-claim/document protocol versions retained. The engine now emits per-pillar arithmetic and separate month/root-matrix evidence. Integer tenths fix an actual 1990-03-15 12:00 tie that floating-point accumulation incorrectly classified as weak. Original weights and the `>=` threshold remain unchanged; this is not a complete traditional strength model.

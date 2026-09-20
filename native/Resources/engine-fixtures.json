@@ -1717,7 +1717,7 @@
         "question": "换个城市生活",
         "questionType": "career",
         "setupTime": "2026-09-19T04:00:00.000Z",
-        "trueSolarTime": "2026-09-19T03:51:40.608Z",
+        "calculationTime": "2026-09-19T04:00:00.000Z",
         "jieqi": "白露",
         "yinYangDun": "阴",
         "juNumber": 9,
@@ -1975,13 +1975,16 @@
           "level": "standard",
           "algorithm": "zhuanpan-qimen-chai-bu-v1",
           "centerPolicy": "fixed-kun-2; tian-qin-follows-tian-rui",
-          "dayBoundary": "zi-hour on apparent-solar clock",
           "solarTermClock": "physical-instant",
           "caveats": [
             "采用拆补法和中五固定寄坤二，不混用置闰法或阴阳分寄法",
             "用神按问题类别初选；旺衰仅为宫位五行关系，应期证据不足时不报期限",
-            "格局识别只覆盖当前数据表可判定的常用格局"
-          ]
+            "格局识别只覆盖当前数据表可判定的常用格局",
+            "未指定本次占测经度，按北京时间标准时（UTC+08:00）起局，不作真太阳时修正"
+          ],
+          "clockPolicy": "beijing-standard",
+          "timezone": "UTC+08:00",
+          "dayBoundary": "zi-hour on Beijing-standard clock"
         },
         "fuTou": "甲午",
         "dayGanZhi": "丙申",
@@ -1995,7 +1998,7 @@
         "zhiShiSourcePalaceId": 6,
         "tianQinPalaceId": 2,
         "provenance": {
-          "engineRevision": "6ac5ff6a948b2b2d20459b81d5fbfb0cba8f1807986032be3bf86ccac2ca6b09",
+          "engineRevision": "3919ab954fc0715af1e3371d19cea6c2cab5b494d78d6e0497109282304d4852",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -7860,7 +7863,7 @@
         },
         "readingBoundary": "两种体系分别解释，不能把相似意象当作相互验证。",
         "provenance": {
-          "engineRevision": "6ac5ff6a948b2b2d20459b81d5fbfb0cba8f1807986032be3bf86ccac2ca6b09",
+          "engineRevision": "3919ab954fc0715af1e3371d19cea6c2cab5b494d78d6e0497109282304d4852",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",

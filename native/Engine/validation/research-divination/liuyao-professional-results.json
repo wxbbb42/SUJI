@@ -1,0 +1,1014 @@
+{
+  "scope": "Controlled GanZhi inputs; not an astronomical/calendar or historical-date oracle.",
+  "najiaOracle": "bopo/najia 9cf119169d7eb8e48febc05274aebf3f7106d647 archived independent-results.json",
+  "xunAndSpirit": {
+    "charts": 3840,
+    "linePositions": 23040,
+    "mismatches": []
+  },
+  "monthDayPairs": {
+    "charts": 9216,
+    "linePositions": 55296,
+    "mismatches": []
+  },
+  "hiddenPositions": {
+    "charts": 64,
+    "positions": 384,
+    "hidden": 56,
+    "mismatches": []
+  },
+  "coinOutcomeCounts": {
+    "equallyLikelyCoinTriples": 8,
+    "counts": {
+      "6": 1,
+      "7": 3,
+      "8": 3,
+      "9": 1
+    },
+    "movingProbability": "1/4 per line, assuming independent fair RNG comparisons"
+  },
+  "examples": {
+    "classicalDunToGou": {
+      "provenance": "增删卜易/17 申月戊午日, traditional coordinates only. Returned castTime is a synthetic test anchor.",
+      "reading": {
+        "question": "独立规则审计：合成输入",
+        "questionType": "health",
+        "castTime": "2026-09-19T04:00:00.000Z",
+        "castGanZhi": {
+          "day": "戊午",
+          "month": "庚申",
+          "hour": "甲子"
+        },
+        "benGua": {
+          "name": "天山遯",
+          "code": 33,
+          "upper": "乾",
+          "lower": "艮",
+          "palace": "乾",
+          "yao": [
+            "阴",
+            "阴",
+            "阳",
+            "阳",
+            "阳",
+            "阳"
+          ]
+        },
+        "bianGua": {
+          "name": "天风姤",
+          "code": 44,
+          "upper": "乾",
+          "lower": "巽",
+          "palace": "乾",
+          "yao": [
+            "阴",
+            "阳",
+            "阳",
+            "阳",
+            "阳",
+            "阳"
+          ]
+        },
+        "changingYao": [
+          2
+        ],
+        "liuQin": {
+          "1": "父母",
+          "2": "官鬼",
+          "3": "兄弟",
+          "4": "官鬼",
+          "5": "兄弟",
+          "6": "父母"
+        },
+        "yongShen": {
+          "type": "官鬼",
+          "yaoIndex": 2,
+          "wuXing": "火",
+          "state": "囚",
+          "candidateYaoIndices": [
+            2
+          ],
+          "interactions": [
+            "以世爻代表求问者；具体用神仍需明确所问对象",
+            "月建庚申五行关系：囚（非综合旺衰）"
+          ]
+        },
+        "lineValues": [
+          8,
+          6,
+          7,
+          7,
+          7,
+          7
+        ],
+        "shiYao": 2,
+        "yingYao": 5,
+        "xunKong": [
+          "子",
+          "丑"
+        ],
+        "lines": [
+          {
+            "position": 1,
+            "value": 8,
+            "ganZhi": "丙辰",
+            "wuXing": "土",
+            "liuQin": "父母",
+            "liuShen": "勾陈",
+            "isShi": false,
+            "isYing": false,
+            "isChanging": false,
+            "isVoid": false,
+            "monthClash": false,
+            "dayClash": false,
+            "dayCombination": false,
+            "hidden": {
+              "ganZhi": "甲子",
+              "wuXing": "水",
+              "liuQin": "子孙"
+            }
+          },
+          {
+            "position": 2,
+            "value": 6,
+            "ganZhi": "丙午",
+            "wuXing": "火",
+            "liuQin": "官鬼",
+            "liuShen": "腾蛇",
+            "isShi": true,
+            "isYing": false,
+            "isChanging": true,
+            "isVoid": false,
+            "monthClash": false,
+            "dayClash": false,
+            "dayCombination": false,
+            "changed": {
+              "ganZhi": "辛亥",
+              "wuXing": "水",
+              "liuQin": "子孙"
+            },
+            "hidden": {
+              "ganZhi": "甲寅",
+              "wuXing": "木",
+              "liuQin": "妻财"
+            }
+          },
+          {
+            "position": 3,
+            "value": 7,
+            "ganZhi": "丙申",
+            "wuXing": "金",
+            "liuQin": "兄弟",
+            "liuShen": "白虎",
+            "isShi": false,
+            "isYing": false,
+            "isChanging": false,
+            "isVoid": false,
+            "monthClash": false,
+            "dayClash": false,
+            "dayCombination": false
+          },
+          {
+            "position": 4,
+            "value": 7,
+            "ganZhi": "壬午",
+            "wuXing": "火",
+            "liuQin": "官鬼",
+            "liuShen": "玄武",
+            "isShi": false,
+            "isYing": false,
+            "isChanging": false,
+            "isVoid": false,
+            "monthClash": false,
+            "dayClash": false,
+            "dayCombination": false
+          },
+          {
+            "position": 5,
+            "value": 7,
+            "ganZhi": "壬申",
+            "wuXing": "金",
+            "liuQin": "兄弟",
+            "liuShen": "青龙",
+            "isShi": false,
+            "isYing": true,
+            "isChanging": false,
+            "isVoid": false,
+            "monthClash": false,
+            "dayClash": false,
+            "dayCombination": false
+          },
+          {
+            "position": 6,
+            "value": 7,
+            "ganZhi": "壬戌",
+            "wuXing": "土",
+            "liuQin": "父母",
+            "liuShen": "朱雀",
+            "isShi": false,
+            "isYing": false,
+            "isChanging": false,
+            "isVoid": false,
+            "monthClash": false,
+            "dayClash": false,
+            "dayCombination": false
+          }
+        ],
+        "yingQi": {
+          "description": "未推定应期；月日、动变与用神条件不足以给出可靠的具体日期",
+          "factors": [
+            "不使用固定周数或月份作为预测期限"
+          ]
+        },
+        "method": {
+          "algorithm": "jingfang-najia-v1",
+          "calendar": "Beijing civil time; exact solar-term month",
+          "dayBoundary": "zi-hour",
+          "caveats": [
+            "旺相休囚死仅表示月建五行关系，不等于综合旺衰或事件结果",
+            "用神按提问类别初选；多个候选爻全部保留，需结合具体所问再判断",
+            "旬空、月破、日冲和伏神是排盘事实，不自动判定吉凶或应期"
+          ]
+        }
+      }
+    },
+    "syntheticChangingVoid": {
+      "question": "独立规则审计：合成输入",
+      "questionType": "general",
+      "castTime": "2026-09-19T04:00:00.000Z",
+      "castGanZhi": {
+        "day": "甲子",
+        "month": "庚申",
+        "hour": "甲子"
+      },
+      "benGua": {
+        "name": "天山遯",
+        "code": 33,
+        "upper": "乾",
+        "lower": "艮",
+        "palace": "乾",
+        "yao": [
+          "阴",
+          "阴",
+          "阳",
+          "阳",
+          "阳",
+          "阳"
+        ]
+      },
+      "bianGua": {
+        "name": "天风姤",
+        "code": 44,
+        "upper": "乾",
+        "lower": "巽",
+        "palace": "乾",
+        "yao": [
+          "阴",
+          "阳",
+          "阳",
+          "阳",
+          "阳",
+          "阳"
+        ]
+      },
+      "changingYao": [
+        2
+      ],
+      "liuQin": {
+        "1": "父母",
+        "2": "官鬼",
+        "3": "兄弟",
+        "4": "官鬼",
+        "5": "兄弟",
+        "6": "父母"
+      },
+      "yongShen": {
+        "type": "官鬼",
+        "yaoIndex": 2,
+        "wuXing": "火",
+        "state": "囚",
+        "candidateYaoIndices": [
+          2
+        ],
+        "interactions": [
+          "以世爻代表求问者；具体用神仍需明确所问对象",
+          "月建庚申五行关系：囚（非综合旺衰）",
+          "日冲"
+        ]
+      },
+      "lineValues": [
+        8,
+        6,
+        7,
+        7,
+        7,
+        7
+      ],
+      "shiYao": 2,
+      "yingYao": 5,
+      "xunKong": [
+        "戌",
+        "亥"
+      ],
+      "lines": [
+        {
+          "position": 1,
+          "value": 8,
+          "ganZhi": "丙辰",
+          "wuXing": "土",
+          "liuQin": "父母",
+          "liuShen": "青龙",
+          "isShi": false,
+          "isYing": false,
+          "isChanging": false,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false,
+          "hidden": {
+            "ganZhi": "甲子",
+            "wuXing": "水",
+            "liuQin": "子孙"
+          }
+        },
+        {
+          "position": 2,
+          "value": 6,
+          "ganZhi": "丙午",
+          "wuXing": "火",
+          "liuQin": "官鬼",
+          "liuShen": "朱雀",
+          "isShi": true,
+          "isYing": false,
+          "isChanging": true,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": true,
+          "dayCombination": false,
+          "changed": {
+            "ganZhi": "辛亥",
+            "wuXing": "水",
+            "liuQin": "子孙"
+          },
+          "hidden": {
+            "ganZhi": "甲寅",
+            "wuXing": "木",
+            "liuQin": "妻财"
+          }
+        },
+        {
+          "position": 3,
+          "value": 7,
+          "ganZhi": "丙申",
+          "wuXing": "金",
+          "liuQin": "兄弟",
+          "liuShen": "勾陈",
+          "isShi": false,
+          "isYing": false,
+          "isChanging": false,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false
+        },
+        {
+          "position": 4,
+          "value": 7,
+          "ganZhi": "壬午",
+          "wuXing": "火",
+          "liuQin": "官鬼",
+          "liuShen": "腾蛇",
+          "isShi": false,
+          "isYing": false,
+          "isChanging": false,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": true,
+          "dayCombination": false
+        },
+        {
+          "position": 5,
+          "value": 7,
+          "ganZhi": "壬申",
+          "wuXing": "金",
+          "liuQin": "兄弟",
+          "liuShen": "白虎",
+          "isShi": false,
+          "isYing": true,
+          "isChanging": false,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false
+        },
+        {
+          "position": 6,
+          "value": 7,
+          "ganZhi": "壬戌",
+          "wuXing": "土",
+          "liuQin": "父母",
+          "liuShen": "玄武",
+          "isShi": false,
+          "isYing": false,
+          "isChanging": false,
+          "isVoid": true,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false
+        }
+      ],
+      "yingQi": {
+        "description": "未推定应期；月日、动变与用神条件不足以给出可靠的具体日期",
+        "factors": [
+          "不使用固定周数或月份作为预测期限"
+        ]
+      },
+      "method": {
+        "algorithm": "jingfang-najia-v1",
+        "calendar": "Beijing civil time; exact solar-term month",
+        "dayBoundary": "zi-hour",
+        "caveats": [
+          "旺相休囚死仅表示月建五行关系，不等于综合旺衰或事件结果",
+          "用神按提问类别初选；多个候选爻全部保留，需结合具体所问再判断",
+          "旬空、月破、日冲和伏神是排盘事实，不自动判定吉凶或应期"
+        ]
+      }
+    },
+    "syntheticChangingMonthBreak": {
+      "question": "独立规则审计：合成输入",
+      "questionType": "general",
+      "castTime": "2026-09-19T04:00:00.000Z",
+      "castGanZhi": {
+        "day": "甲子",
+        "month": "己未",
+        "hour": "甲子"
+      },
+      "benGua": {
+        "name": "乾为天",
+        "code": 1,
+        "upper": "乾",
+        "lower": "乾",
+        "palace": "乾",
+        "yao": [
+          "阳",
+          "阳",
+          "阳",
+          "阳",
+          "阳",
+          "阳"
+        ]
+      },
+      "bianGua": {
+        "name": "天风姤",
+        "code": 44,
+        "upper": "乾",
+        "lower": "巽",
+        "palace": "乾",
+        "yao": [
+          "阴",
+          "阳",
+          "阳",
+          "阳",
+          "阳",
+          "阳"
+        ]
+      },
+      "changingYao": [
+        1
+      ],
+      "liuQin": {
+        "1": "子孙",
+        "2": "妻财",
+        "3": "父母",
+        "4": "官鬼",
+        "5": "兄弟",
+        "6": "父母"
+      },
+      "yongShen": {
+        "type": "父母",
+        "yaoIndex": 6,
+        "wuXing": "土",
+        "state": "旺",
+        "candidateYaoIndices": [
+          6
+        ],
+        "interactions": [
+          "以世爻代表求问者；具体用神仍需明确所问对象",
+          "月建己未五行关系：旺（非综合旺衰）",
+          "临旬空"
+        ]
+      },
+      "lineValues": [
+        9,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "shiYao": 6,
+      "yingYao": 3,
+      "xunKong": [
+        "戌",
+        "亥"
+      ],
+      "lines": [
+        {
+          "position": 1,
+          "value": 9,
+          "ganZhi": "甲子",
+          "wuXing": "水",
+          "liuQin": "子孙",
+          "liuShen": "青龙",
+          "isShi": false,
+          "isYing": false,
+          "isChanging": true,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false,
+          "changed": {
+            "ganZhi": "辛丑",
+            "wuXing": "土",
+            "liuQin": "父母"
+          }
+        },
+        {
+          "position": 2,
+          "value": 7,
+          "ganZhi": "甲寅",
+          "wuXing": "木",
+          "liuQin": "妻财",
+          "liuShen": "朱雀",
+          "isShi": false,
+          "isYing": false,
+          "isChanging": false,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false
+        },
+        {
+          "position": 3,
+          "value": 7,
+          "ganZhi": "甲辰",
+          "wuXing": "土",
+          "liuQin": "父母",
+          "liuShen": "勾陈",
+          "isShi": false,
+          "isYing": true,
+          "isChanging": false,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false
+        },
+        {
+          "position": 4,
+          "value": 7,
+          "ganZhi": "壬午",
+          "wuXing": "火",
+          "liuQin": "官鬼",
+          "liuShen": "腾蛇",
+          "isShi": false,
+          "isYing": false,
+          "isChanging": false,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": true,
+          "dayCombination": false
+        },
+        {
+          "position": 5,
+          "value": 7,
+          "ganZhi": "壬申",
+          "wuXing": "金",
+          "liuQin": "兄弟",
+          "liuShen": "白虎",
+          "isShi": false,
+          "isYing": false,
+          "isChanging": false,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false
+        },
+        {
+          "position": 6,
+          "value": 7,
+          "ganZhi": "壬戌",
+          "wuXing": "土",
+          "liuQin": "父母",
+          "liuShen": "玄武",
+          "isShi": true,
+          "isYing": false,
+          "isChanging": false,
+          "isVoid": true,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false
+        }
+      ],
+      "yingQi": {
+        "description": "未推定应期；月日、动变与用神条件不足以给出可靠的具体日期",
+        "factors": [
+          "不使用固定周数或月份作为预测期限"
+        ]
+      },
+      "method": {
+        "algorithm": "jingfang-najia-v1",
+        "calendar": "Beijing civil time; exact solar-term month",
+        "dayBoundary": "zi-hour",
+        "caveats": [
+          "旺相休囚死仅表示月建五行关系，不等于综合旺衰或事件结果",
+          "用神按提问类别初选；多个候选爻全部保留，需结合具体所问再判断",
+          "旬空、月破、日冲和伏神是排盘事实，不自动判定吉凶或应期"
+        ]
+      }
+    },
+    "syntheticHiddenClash": {
+      "question": "独立规则审计：合成输入",
+      "questionType": "wealth",
+      "castTime": "2026-09-19T04:00:00.000Z",
+      "castGanZhi": {
+        "day": "甲申",
+        "month": "庚申",
+        "hour": "甲子"
+      },
+      "benGua": {
+        "name": "天风姤",
+        "code": 44,
+        "upper": "乾",
+        "lower": "巽",
+        "palace": "乾",
+        "yao": [
+          "阴",
+          "阳",
+          "阳",
+          "阳",
+          "阳",
+          "阳"
+        ]
+      },
+      "bianGua": {
+        "name": "天风姤",
+        "code": 44,
+        "upper": "乾",
+        "lower": "巽",
+        "palace": "乾",
+        "yao": [
+          "阴",
+          "阳",
+          "阳",
+          "阳",
+          "阳",
+          "阳"
+        ]
+      },
+      "changingYao": [],
+      "liuQin": {
+        "1": "父母",
+        "2": "子孙",
+        "3": "兄弟",
+        "4": "官鬼",
+        "5": "兄弟",
+        "6": "父母"
+      },
+      "yongShen": {
+        "type": "妻财",
+        "yaoIndex": 0,
+        "wuXing": "木",
+        "state": "不上卦",
+        "candidateYaoIndices": [],
+        "interactions": [
+          "用神伏藏：甲寅，需结合飞伏生克判断"
+        ]
+      },
+      "lineValues": [
+        8,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "shiYao": 1,
+      "yingYao": 4,
+      "xunKong": [
+        "午",
+        "未"
+      ],
+      "lines": [
+        {
+          "position": 1,
+          "value": 8,
+          "ganZhi": "辛丑",
+          "wuXing": "土",
+          "liuQin": "父母",
+          "liuShen": "青龙",
+          "isShi": true,
+          "isYing": false,
+          "isChanging": false,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false
+        },
+        {
+          "position": 2,
+          "value": 7,
+          "ganZhi": "辛亥",
+          "wuXing": "水",
+          "liuQin": "子孙",
+          "liuShen": "朱雀",
+          "isShi": false,
+          "isYing": false,
+          "isChanging": false,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false,
+          "hidden": {
+            "ganZhi": "甲寅",
+            "wuXing": "木",
+            "liuQin": "妻财"
+          }
+        },
+        {
+          "position": 3,
+          "value": 7,
+          "ganZhi": "辛酉",
+          "wuXing": "金",
+          "liuQin": "兄弟",
+          "liuShen": "勾陈",
+          "isShi": false,
+          "isYing": false,
+          "isChanging": false,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false
+        },
+        {
+          "position": 4,
+          "value": 7,
+          "ganZhi": "壬午",
+          "wuXing": "火",
+          "liuQin": "官鬼",
+          "liuShen": "腾蛇",
+          "isShi": false,
+          "isYing": true,
+          "isChanging": false,
+          "isVoid": true,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false
+        },
+        {
+          "position": 5,
+          "value": 7,
+          "ganZhi": "壬申",
+          "wuXing": "金",
+          "liuQin": "兄弟",
+          "liuShen": "白虎",
+          "isShi": false,
+          "isYing": false,
+          "isChanging": false,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false
+        },
+        {
+          "position": 6,
+          "value": 7,
+          "ganZhi": "壬戌",
+          "wuXing": "土",
+          "liuQin": "父母",
+          "liuShen": "玄武",
+          "isShi": false,
+          "isYing": false,
+          "isChanging": false,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false
+        }
+      ],
+      "yingQi": {
+        "description": "未推定应期；月日、动变与用神条件不足以给出可靠的具体日期",
+        "factors": [
+          "不使用固定周数或月份作为预测期限"
+        ]
+      },
+      "method": {
+        "algorithm": "jingfang-najia-v1",
+        "calendar": "Beijing civil time; exact solar-term month",
+        "dayBoundary": "zi-hour",
+        "caveats": [
+          "旺相休囚死仅表示月建五行关系，不等于综合旺衰或事件结果",
+          "用神按提问类别初选；多个候选爻全部保留，需结合具体所问再判断",
+          "旬空、月破、日冲和伏神是排盘事实，不自动判定吉凶或应期"
+        ]
+      }
+    },
+    "syntheticMonthCombination": {
+      "question": "独立规则审计：合成输入",
+      "questionType": "general",
+      "castTime": "2026-09-19T04:00:00.000Z",
+      "castGanZhi": {
+        "day": "甲子",
+        "month": "乙丑",
+        "hour": "甲子"
+      },
+      "benGua": {
+        "name": "坎为水",
+        "code": 29,
+        "upper": "坎",
+        "lower": "坎",
+        "palace": "坎",
+        "yao": [
+          "阴",
+          "阳",
+          "阴",
+          "阴",
+          "阳",
+          "阴"
+        ]
+      },
+      "bianGua": {
+        "name": "坎为水",
+        "code": 29,
+        "upper": "坎",
+        "lower": "坎",
+        "palace": "坎",
+        "yao": [
+          "阴",
+          "阳",
+          "阴",
+          "阴",
+          "阳",
+          "阴"
+        ]
+      },
+      "changingYao": [],
+      "liuQin": {
+        "1": "子孙",
+        "2": "官鬼",
+        "3": "妻财",
+        "4": "父母",
+        "5": "官鬼",
+        "6": "兄弟"
+      },
+      "yongShen": {
+        "type": "兄弟",
+        "yaoIndex": 6,
+        "wuXing": "水",
+        "state": "死",
+        "candidateYaoIndices": [
+          6
+        ],
+        "interactions": [
+          "以世爻代表求问者；具体用神仍需明确所问对象",
+          "月建乙丑五行关系：死（非综合旺衰）"
+        ]
+      },
+      "lineValues": [
+        8,
+        7,
+        8,
+        8,
+        7,
+        8
+      ],
+      "shiYao": 6,
+      "yingYao": 3,
+      "xunKong": [
+        "戌",
+        "亥"
+      ],
+      "lines": [
+        {
+          "position": 1,
+          "value": 8,
+          "ganZhi": "戊寅",
+          "wuXing": "木",
+          "liuQin": "子孙",
+          "liuShen": "青龙",
+          "isShi": false,
+          "isYing": false,
+          "isChanging": false,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false
+        },
+        {
+          "position": 2,
+          "value": 7,
+          "ganZhi": "戊辰",
+          "wuXing": "土",
+          "liuQin": "官鬼",
+          "liuShen": "朱雀",
+          "isShi": false,
+          "isYing": false,
+          "isChanging": false,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false
+        },
+        {
+          "position": 3,
+          "value": 8,
+          "ganZhi": "戊午",
+          "wuXing": "火",
+          "liuQin": "妻财",
+          "liuShen": "勾陈",
+          "isShi": false,
+          "isYing": true,
+          "isChanging": false,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": true,
+          "dayCombination": false
+        },
+        {
+          "position": 4,
+          "value": 8,
+          "ganZhi": "戊申",
+          "wuXing": "金",
+          "liuQin": "父母",
+          "liuShen": "腾蛇",
+          "isShi": false,
+          "isYing": false,
+          "isChanging": false,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false
+        },
+        {
+          "position": 5,
+          "value": 7,
+          "ganZhi": "戊戌",
+          "wuXing": "土",
+          "liuQin": "官鬼",
+          "liuShen": "白虎",
+          "isShi": false,
+          "isYing": false,
+          "isChanging": false,
+          "isVoid": true,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false
+        },
+        {
+          "position": 6,
+          "value": 8,
+          "ganZhi": "戊子",
+          "wuXing": "水",
+          "liuQin": "兄弟",
+          "liuShen": "玄武",
+          "isShi": true,
+          "isYing": false,
+          "isChanging": false,
+          "isVoid": false,
+          "monthClash": false,
+          "dayClash": false,
+          "dayCombination": false
+        }
+      ],
+      "yingQi": {
+        "description": "未推定应期；月日、动变与用神条件不足以给出可靠的具体日期",
+        "factors": [
+          "不使用固定周数或月份作为预测期限"
+        ]
+      },
+      "method": {
+        "algorithm": "jingfang-najia-v1",
+        "calendar": "Beijing civil time; exact solar-term month",
+        "dayBoundary": "zi-hour",
+        "caveats": [
+          "旺相休囚死仅表示月建五行关系，不等于综合旺衰或事件结果",
+          "用神按提问类别初选；多个候选爻全部保留，需结合具体所问再判断",
+          "旬空、月破、日冲和伏神是排盘事实，不自动判定吉凶或应期"
+        ]
+      }
+    }
+  },
+  "knownUnimplemented": [
+    "per-line month/day five-element relationships",
+    "month combination",
+    "changed/hidden void and clash status",
+    "flying-hidden relationships",
+    "return generation/control",
+    "advance/retreat",
+    "dark movement versus day break",
+    "comprehensive strength and use-god resolution",
+    "conditional event timing"
+  ],
+  "auditDate": "2026-09-20",
+  "reviewBaseline": "805683f",
+  "command": "SUJI_LIUYAO_AUDIT_OUTPUT=/tmp/suji-liuyao-professional-audit-results.json npm test --prefix native/Engine -- --runTestsByPath src/divination/__tests__/ProfessionalLiuyaoAudit.test.ts"
+}

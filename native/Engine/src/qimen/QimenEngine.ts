@@ -1,7 +1,7 @@
 /**
  * 奇门遁甲起局引擎
  *
- * - 真太阳时校正
+ * - 默认北京时间标准时；显式传入占测经度时才作真太阳时校正
  * - 精确物理时刻节气与日时干支计算
  * - 阴/阳遁 + 上中下元定局
  * - 起 9 宫地盘（自然数序流转）+ 真旋天盘 + 排八门 / 九星 / 八神
@@ -36,7 +36,6 @@ const QIMEN_METHOD: QimenMethodMeta = {
   level: 'standard',
   algorithm: 'zhuanpan-qimen-chai-bu-v1',
   centerPolicy: 'fixed-kun-2; tian-qin-follows-tian-rui',
-  dayBoundary: 'zi-hour on apparent-solar clock',
   solarTermClock: 'physical-instant',
   caveats: [
     '采用拆补法和中五固定寄坤二，不混用置闰法或阴阳分寄法',
@@ -64,13 +63,26 @@ const KE: Record<'金' | '木' | '水' | '火' | '土', '金' | '木' | '水' | 
 export class QimenEngine {
   setup(opts: SetupOptions): QimenChart {
     const setupTime = opts.setupTime ?? new Date();
-    const longitude = opts.longitude ?? 116.4;
+    const longitude = opts.longitude;
 
     if (!Number.isFinite(setupTime.getTime())) throw new Error('invalid setupTime');
-    if (!Number.isFinite(longitude) || longitude < -180 || longitude > 180) throw new Error('invalid longitude');
+    if (longitude !== undefined && (!Number.isFinite(longitude) || longitude < -180 || longitude > 180)) throw new Error('invalid longitude');
 
-    // 1. 真太阳时
-    const trueSolar = toTrueSolarTime(setupTime, longitude);
+    // 1. 缺少本次占测地点时按明确的北京时间标准时口径起局，不猜地点。
+    const calculationTime = longitude === undefined ? setupTime : toTrueSolarTime(setupTime, longitude);
+    const method: QimenMethodMeta = {
+      ...QIMEN_METHOD,
+      clockPolicy: longitude === undefined ? 'beijing-standard' : 'apparent-solar',
+      timezone: 'UTC+08:00',
+      dayBoundary: longitude === undefined ? 'zi-hour on Beijing-standard clock' : 'zi-hour on apparent-solar clock',
+      ...(longitude === undefined ? {} : { longitude }),
+      caveats: [
+        ...QIMEN_METHOD.caveats,
+        longitude === undefined
+          ? '未指定本次占测经度，按北京时间标准时（UTC+08:00）起局，不作真太阳时修正'
+          : `按显式指定的本次占测经度${longitude}°修正日时钟面；节气仍按真实物理时刻`,
+      ],
+    };
 
     // 2. 节气
     const jieqi = currentSolarTerm(setupTime);
@@ -81,7 +93,7 @@ export class QimenEngine {
       throw new Error(`unknown jieqi: ${jieqi}`);
     }
     const yinYangDun: YinYangDun = jieqiJu.dun;
-    const pillars = computeTimePillars(trueSolar);
+    const pillars = computeTimePillars(calculationTime);
     const {yuan,fuTou} = computeYuanFromDay(pillars.dayGan+pillars.dayZhi);
     const juNumber: JuNumber = yuan === '上' ? jieqiJu.upper :
                                 yuan === '中' ? jieqiJu.middle :
@@ -111,7 +123,8 @@ export class QimenEngine {
       question: opts.question,
       questionType: opts.questionType,
       setupTime: setupTime.toISOString(),
-      trueSolarTime: trueSolar.toISOString(),
+      calculationTime: calculationTime.toISOString(),
+      ...(longitude === undefined ? {} : { trueSolarTime: calculationTime.toISOString() }),
       jieqi,
       yinYangDun,
       juNumber,
@@ -120,7 +133,7 @@ export class QimenEngine {
       yongShen,
       geJu: [] as GeJu[],
       yingQi,
-      method: QIMEN_METHOD,
+      method,
       fuTou, dayGanZhi:pillars.dayGan+pillars.dayZhi, hourGanZhi:pillars.hourGan+pillars.hourZhi,
       zhiFuStar:rotation.zhiFuStar,zhiFuPalaceId,zhiFuSourcePalaceId:rotation.zhiFuSourcePalaceId,
       zhiShiMen:doors.zhiShiMen,zhiShiPalaceId:doors.zhiShiPalaceId,zhiShiRawPalaceId:doors.zhiShiRawPalaceId,zhiShiSourcePalaceId:doors.zhiShiSourcePalaceId,

@@ -13,7 +13,7 @@ export const qimenTools: ToolDefinition[] = [
     type: 'function',
     function: {
       name: 'setup_qimen',
-      description: '为战略级重大决策起一局奇门盘（"要不要换城市/移民/换行业/创业"等）。返回拆补法转盘的 9 宫、值符值使、用神初选、格局与方法说明。应期证据不足时不会给出固定期限；派别差异和取用限制必须保留。',
+      description: '为战略级重大决策起一局奇门盘（"要不要换城市/移民/换行业/创业"等）。按本次提问物理时刻的北京时间标准时（UTC+08:00）起局，子初23:00换日；没有本次占测地点，不作真太阳时修正，不借用出生地。返回拆补法转盘的 9 宫、值符值使、用神初选、格局与方法说明。应期证据不足时不会给出固定期限；派别差异和取用限制必须保留。',
       parameters: {
         type: 'object',
         additionalProperties: false,

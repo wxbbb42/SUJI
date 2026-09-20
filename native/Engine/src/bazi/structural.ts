@@ -690,17 +690,21 @@ function scanXiangShen(
 }
 
 /** 扫描忌神：忌神十神是否在四柱透干中出现（透干比藏干威胁更大） */
+interface ExposedStem { gan: TianGan; position: number }
+
 function scanJiShenTransparent(
   yong: ShiShen,
   dayGan: TianGan,
   stems: [TianGan, TianGan, TianGan, TianGan],
-): TianGan[] {
+): ExposedStem[] {
   const jiList = JISHEN_DEFAULT[yong];
-  const out: TianGan[] = [];
-  for (const g of stems) {
-    if (g === dayGan) continue;
+  const out: ExposedStem[] = [];
+  for (const [position, g] of stems.entries()) {
+    // The day master is one pillar. A same-named stem on another pillar is
+    // an exposed 比肩 and must still enter the wealth-threat scan.
+    if (position === 2) continue;
     const ss = computeShiShenOf(dayGan, g);
-    if (jiList.includes(ss)) out.push(g);
+    if (jiList.includes(ss)) out.push({ gan: g, position });
   }
   return out;
 }
@@ -778,24 +782,26 @@ export function computeShiShenRelations(
  */
 function scanJiuYing(
   yong: ShiShen,
-  jiShenStems: TianGan[],
+  jiShenStems: ExposedStem[],
   dayGan: TianGan,
   stems: [TianGan, TianGan, TianGan, TianGan],
 ): JiuYingInfo[] {
   if (jiShenStems.length === 0) return [];
   const out: JiuYingInfo[] = [];
-  const allStems = stems.filter((_, i) => i !== 2);
-  const adjacent = (a: TianGan, b: TianGan) => stems.some((g, i) => i !== 2 && g === a &&
-    stems.some((other, j) => j !== 2 && other === b && Math.abs(i - j) === 1));
+  const allStems = stems.map((gan, position) => ({ gan, position })).filter(({ position }) => position !== 2);
+  const adjacent = (a: ExposedStem, b: ExposedStem) => Math.abs(a.position - b.position) === 1;
 
-  for (const ji of jiShenStems) {
+  for (const threat of jiShenStems) {
+    const { gan: ji, position: triggerPosition } = threat;
     // (1) qu-qing / he-sha: 忌神被五合
-    const heHit = allStems.find((g) => g !== ji && isGanHe(g, ji) && adjacent(g, ji));
+    const heHit = allStems.find((g) => isGanHe(g.gan, ji) && adjacent(g, threat));
     if (heHit) {
       out.push({
         trigger: `忌神 ${ji}（${computeShiShenOf(dayGan, ji)}）透出`,
         triggerGan: ji,
-        remedy: `${heHit} 与 ${ji} 紧邻五合，为合忌候选；是否去留须复核`,
+        triggerPosition,
+        remedyPosition: heHit.position,
+        remedy: `${heHit.gan} 与 ${ji} 紧邻五合，为合忌候选；是否去留须复核`,
         path: 'qu-qing',
         source: '《子平真诠》论用神成败救应',
       });
@@ -803,14 +809,16 @@ function scanJiuYing(
 
     // (2) shi-zhi: 食伤干克忌神
     const shiZhi = allStems.find((g) => {
-      const ss = computeShiShenOf(dayGan, g);
-      return (ss === '食神' || ss === '伤官') && ganKe(g, ji) && adjacent(g, ji);
+      const ss = computeShiShenOf(dayGan, g.gan);
+      return (ss === '食神' || ss === '伤官') && ganKe(g.gan, ji) && adjacent(g, threat);
     });
     if (shiZhi) {
       out.push({
         trigger: `忌神 ${ji}（${computeShiShenOf(dayGan, ji)}）透出`,
         triggerGan: ji,
-        remedy: `${shiZhi}（${computeShiShenOf(dayGan, shiZhi)}）制忌神`,
+        triggerPosition,
+        remedyPosition: shiZhi.position,
+        remedy: `${shiZhi.gan}（${computeShiShenOf(dayGan, shiZhi.gan)}）制忌神`,
         path: 'shi-zhi',
         source: '《子平真诠》论用神成败救应',
       });
@@ -818,19 +826,21 @@ function scanJiuYing(
 
     // (3) yin-hua: 印透出（伤官见官 → 印护官；七杀逢印 → 印化杀）
     const yin = allStems.find((g) => {
-      const ss = computeShiShenOf(dayGan, g);
+      const ss = computeShiShenOf(dayGan, g.gan);
       if (ss !== '正印' && ss !== '偏印') return false;
       // 印制伤官 and 官杀生印 are different relations. An arbitrary 印
       // cannot "化" the 财 that actually overcomes it.
-      return adjacent(g, ji) && (ganKe(g, ji) || SHENG[GAN_WUXING[ji]] === GAN_WUXING[g]);
+      return adjacent(g, threat) && (ganKe(g.gan, ji) || SHENG[GAN_WUXING[ji]] === GAN_WUXING[g.gan]);
     });
     if (yin && (yong === '正官' || yong === '七杀' || yong === '伤官')) {
       out.push({
         trigger: `忌神 ${ji}（${computeShiShenOf(dayGan, ji)}）透出`,
         triggerGan: ji,
-        remedy: ganKe(yin, ji)
-          ? `${yin}（${computeShiShenOf(dayGan, yin)}）克${ji}（${computeShiShenOf(dayGan, ji)}），为制伤候选`
-          : `${ji}（${computeShiShenOf(dayGan, ji)}）生${yin}（${computeShiShenOf(dayGan, yin)}），为印通关候选`,
+        triggerPosition,
+        remedyPosition: yin.position,
+        remedy: ganKe(yin.gan, ji)
+          ? `${yin.gan}（${computeShiShenOf(dayGan, yin.gan)}）克${ji}（${computeShiShenOf(dayGan, ji)}），为制伤候选`
+          : `${ji}（${computeShiShenOf(dayGan, ji)}）生${yin.gan}（${computeShiShenOf(dayGan, yin.gan)}），为印通关候选`,
         path: 'yin-hua',
         source: '《子平真诠》论用神成败救应',
       });
@@ -1131,7 +1141,7 @@ export function computeGeJuV2(
     chengBai = 'po';
   } else if (jiStems.length === 0) {
     chengBai = 'cheng';
-  } else if (jiStems.every(ji => jiuYing.some(remedy => remedy.triggerGan === ji))) {
+  } else if (jiStems.every(ji => jiuYing.some(remedy => remedy.triggerPosition === ji.position && remedy.triggerGan === ji.gan))) {
     chengBai = 'jiuying';
   } else {
     chengBai = 'po';

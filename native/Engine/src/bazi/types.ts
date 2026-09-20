@@ -504,7 +504,9 @@ export interface XiangShenInfo {
 
 /** 救应路径 */
 export interface JiuYingInfo {
-  triggerGan?: TianGan;        // Actual stem addressed, so one remedy cannot cover another threat.
+  triggerGan?: TianGan;
+  triggerPosition?: number;    // 0 year / 1 month / 2 day / 3 hour; bind to one occurrence.
+  remedyPosition?: number;     // Actual exposed remedy column; not every same-named stem.
   trigger: string;             // 触发破格的条件
   remedy: string;              // 救应字
   path?: 'qu-qing' | 'shi-zhi' | 'yin-hua' | 'he-sha' | 'other';

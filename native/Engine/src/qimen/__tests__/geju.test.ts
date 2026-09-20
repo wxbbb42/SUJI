@@ -33,6 +33,7 @@ function makeChart(palaceOverrides: Array<Partial<Palace>>): QimenChart {
     question: '',
     questionType: 'general',
     setupTime: '',
+    calculationTime: '',
     trueSolarTime: '',
     jieqi: '冬至',
     yinYangDun: '阳',
