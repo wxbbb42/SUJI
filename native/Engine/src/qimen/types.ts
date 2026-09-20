@@ -4,6 +4,8 @@
 
 import type { TianGan, DiZhi, WuXing } from '@engine/bazi/types';
 import type { RuleSource } from '../rules/provenance';
+import type { QuestionContext } from '../divination/questionJudgment';
+import type { qimenQuestionObjects, unresolvedQimenTiming } from './questionObjects';
 
 export type { TianGan, DiZhi, WuXing };
 export type YinYangDun = '阳' | '阴';
@@ -37,6 +39,7 @@ export interface Palace {
   bamen: BamenName | null;     // 中宫无门
   jiuxing: JiuxingName | null;
   bashen: BashenName | null;
+  hostedDiPanGan?: TianGan;   // 固定寄坤的中宫地盘干，与随天禽转动的天盘寄干分开
   hostedTianPanGan?: TianGan;
   hostsTianQin?: boolean;
   doorRelation?: DoorRelation;
@@ -84,14 +87,14 @@ export interface BashenInfo {
 }
 
 /** 用神 */
-export interface YongShenAnalysis {
+export interface YongShenAnalysis extends Partial<Omit<ReturnType<typeof qimenQuestionObjects>, 'selectionStatus'>> {
   type: string;              // '庚'、'乙'、'时干' 等
   palaceId: 1|2|3|4|5|6|7|8|9;
   state: '旺' | '相' | '休' | '囚' | '死' | '不上卦';
   summary: string;           // '庚临艮宫，得生门 + 天任 + 九地'
   interactions: string[];
   references?: {label:string;palaceId:number}[];
-  selectionStatus?: 'initial-reference';
+  selectionStatus?: 'initial-reference' | 'candidates-only' | 'requires-clarification';
 }
 
 /** 格局 */
@@ -105,7 +108,7 @@ export interface GeJu {
 }
 
 /** 应期 */
-export interface YingQiAnalysis {
+export interface YingQiAnalysis extends Partial<ReturnType<typeof unresolvedQimenTiming>> {
   description: string;
   factors: string[];
 }
@@ -132,6 +135,7 @@ export interface SetupOptions {
   question: string;
   questionType: QuestionType;
   gender?: '男' | '女';
+  questionContext?: QuestionContext;
 }
 
 /** 完整奇门盘 */
@@ -139,6 +143,7 @@ export interface QimenChart {
   question: string;
   questionType: QuestionType;
   setupTime: string;          // ISO
+  questionContext?: QuestionContext;
   calculationTime: string;    // ISO projection read as UTC+08:00 fields for day/hour; not a new physical instant
   trueSolarTime?: string;     // Only supplied for explicitly selected apparent solar time
   jieqi: string;              // 节气名（如"谷雨"）

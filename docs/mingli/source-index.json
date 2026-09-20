@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-20T06:26:30.367Z",
-  "sourceCount": 50,
-  "claimCount": 60,
+  "generatedAt": "2026-09-20T07:13:51.105Z",
+  "sourceCount": 51,
+  "claimCount": 61,
   "domains": {
     "academic": [
       {
@@ -736,6 +736,18 @@
           "时旬空与地支宫位",
           "时支驿马",
           "时家选用时标"
+        ]
+      },
+      {
+        "id": "suji-qimen-reference-policy",
+        "title": "SUJI奇门初始参考点产品约定",
+        "tier": "C",
+        "type": "internal_product_policy",
+        "priority": "P0",
+        "status": "explicit_product_convention_not_classical_rule",
+        "usage": [
+          "对象身份与盘层投影",
+          "初始参考候选边界"
         ]
       },
       {
@@ -1575,6 +1587,15 @@
       ],
       "status": "scoped_facts_implemented_independently_tabulated",
       "confidence": "high_for_selected_table_not_predictive"
+    },
+    {
+      "id": "qimen.question-reference-identities",
+      "domain": "qimen",
+      "sourceIds": [
+        "suji-qimen-reference-policy"
+      ],
+      "status": "product_reference_implemented_timing_unresolved",
+      "confidence": "high_for_receipt_projection_not_final_selection"
     },
     {
       "id": "qimen.require-three-source-verification",

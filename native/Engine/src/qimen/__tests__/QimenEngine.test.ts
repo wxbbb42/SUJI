@@ -73,7 +73,7 @@ describe('QimenEngine yongShen selection', () => {
     });
     expect(r.yongShen.type).toBe('己');
     expect(r.yongShen.references?.some(v=>v.label==='开门')).toBe(true);
-    expect(r.yongShen.selectionStatus).toBe('initial-reference');
+    expect(r.yongShen.selectionStatus).toBe('requires-clarification');
   });
 
   it('yongShen has palaceId, state, summary', () => {
@@ -95,7 +95,7 @@ describe('QimenEngine yongShen selection', () => {
     expect(r.yongShen.type).toBe('甲');
     const carrier = r.palaces.find(p=>p.id!==5&&(p.tianPanGan==='戊'||p.hostedTianPanGan==='戊'))!;
     expect(r.yongShen.palaceId).toBe(carrier.id);
-    expect(r.yongShen.references).toContainEqual({label:'求问者（日干甲）',palaceId:carrier.id});
+    expect(r.yongShen.references).toContainEqual({label:'日干甲参考',palaceId:carrier.id});
   });
 
   it('事件与关系保留不同参考角色，不根据性别预设固定庚乙伴侣', () => {

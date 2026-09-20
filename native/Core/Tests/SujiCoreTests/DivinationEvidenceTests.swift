@@ -2,6 +2,33 @@ import XCTest
 @testable import SujiCore
 
 final class DivinationEvidenceTests: XCTestCase {
+    func testQimenEarthHostingIsIndependentOfSkyHostingAndArrayOrder() throws {
+        let messages = history("setup_qimen", #"{"palaces":[{"id":7,"diPanGan":"壬","hostedTianPanGan":"庚"},{"id":2,"diPanGan":"乙","tianPanGan":"丁","hostedDiPanGan":"庚"},{"id":5,"diPanGan":"庚","tianPanGan":"庚"}]}"#)
+        let indexed = Dictionary(uniqueKeysWithValues:ReadingVerificationEvidence.facts(messages).map { ($0.factKey,$0) })
+        XCTAssertEqual(indexed["qimen.palace2.hostedDiPanGan"]?.value,.string("庚"))
+        XCTAssertEqual(indexed["qimen.palace2.hostedDiPanGan"]?.pointer,"/palaces/1/hostedDiPanGan")
+        XCTAssertEqual(indexed["qimen.palace7.hostedTianPanGan"]?.pointer,"/palaces/0/hostedTianPanGan")
+        XCTAssertNil(indexed["qimen.palace2.hostedTianPanGan"])
+        try assertIndexRestoresFacts(review:ReadingVerifier.messages(draft:"核对两层寄干",history:messages,question:"核对"),history:messages)
+    }
+    func testQimenQuestionObjectsKeepScopedPointersNullAndUnresolvedTiming() throws {
+        let messages = history("setup_qimen", #"{"questionContext":{"subject":"parent","event":"untrusted narrative","timeHorizon":"near"},"yongShen":{"selectionStatus":"requires-clarification","selectionEstablished":false,"selectedCandidateId":null,"missingContext":["proxy-perspective"],"sourceId":"qimen-question-references-v1","candidates":[{"id":"hour-stem","role":"hour-reference","symbol":"甲","calendarPath":"/hourGanZhi","carrierStem":"庚","carrierMethod":"own-pillar-xun","occurrences":[{"palaceId":8,"plate":"hosted-sky","objectPath":"/palaces/0/hostedTianPanGan","isEffectiveSky":true,"elementRelation":{"stemElement":"木","palaceElement":"土","relation":"干克宫","assessmentStatus":"stem-palace-only"}},{"palaceId":5,"plate":"center-record","objectPath":"/palaces/1/tianPanGan","isEffectiveSky":false}]}]},"yingQi":{"assessmentStatus":"unresolved","outcomeEstablished":false,"sourceId":"qimen-question-references-v1","timeScale":"unresolved","unresolved":["time-unit"],"triggers":[],"dates":[],"observedFactPaths":["/hourVoid","/horse"]},"ruleSources":[{"id":"qimen-question-references-v1","editionStatus":"product-policy"}]}"#)
+        let indexed = Dictionary(uniqueKeysWithValues:ReadingVerificationEvidence.facts(messages).map { ($0.factKey,$0) })
+        XCTAssertEqual(indexed["qimen.question.subject"]?.value,.string("parent"))
+        XCTAssertNil(indexed["qimen.question.event"])
+        XCTAssertEqual(indexed["qimen.yongShen.selectedCandidateId"]?.value,.null)
+        XCTAssertEqual(indexed["qimen.yongShen.selectionEstablished"]?.value,.bool(false))
+        XCTAssertEqual(indexed["qimen.yongShen.candidate1.carrierStem"]?.value,.string("庚"))
+        XCTAssertEqual(indexed["qimen.yongShen.candidate1.occurrence1.objectPath"]?.value,.string("/palaces/0/hostedTianPanGan"))
+        XCTAssertEqual(indexed["qimen.yongShen.candidate1.occurrence1.elementRelation.relation"]?.pointer,"/yongShen/candidates/0/occurrences/0/elementRelation/relation")
+        XCTAssertEqual(indexed["qimen.yongShen.candidate1.occurrence2.isEffectiveSky"]?.value,.bool(false))
+        XCTAssertNil(indexed["qimen.yongShen.candidate1.occurrence2.elementRelation.relation"])
+        XCTAssertEqual(indexed["qimen.timing.outcomeEstablished"]?.value,.bool(false))
+        XCTAssertEqual(indexed["qimen.timing.triggers"]?.value,.array([]))
+        XCTAssertEqual(indexed["qimen.timing.dates"]?.value,.array([]))
+        XCTAssertEqual(indexed["qimen.ruleSource1.editionStatus"]?.value,.string("product-policy"))
+        try assertIndexRestoresFacts(review:ReadingVerifier.messages(draft:"核对候选身份",history:messages,question:"核对"),history:messages)
+    }
     func testQuestionObjectAndTimingIndexPreservesCandidatesAndUnresolvedPremises() {
         let facts = ReadingVerificationEvidence.facts(history("cast_liuyao", #"{"questionContext":{"subject":"parent","event":"untrusted narrative","timeHorizon":"near"},"yongShen":{"selectionStatus":"candidates-only","selectedCandidateId":null,"missingContext":["event"],"candidates":[{"id":"hidden-2","layer":"hidden","position":2,"objectPath":"/lines/1/hidden","contextPath":"/lines/1/hidden/context","reason":"absent-visible-pure-palace-role"}],"excluded":[{"objectPath":"/lines/0","reason":"different-role"}]},"yingQi":{"assessmentStatus":"conditional-triggers-only","outcomeEstablished":false,"unresolved":["selected-object"],"branchesByCandidate":[{"candidateId":"hidden-2","objectPath":"/lines/1/hidden","unresolved":["hidden-emergence"],"rules":[{"id":"void-fill-clash","branches":["寅","申"],"factPaths":["/lines/1/hidden/context/isVoid"]}]}]}}"#))
         let indexed = Dictionary(uniqueKeysWithValues:facts.map { ($0.factKey,$0) })
@@ -116,7 +143,7 @@ final class DivinationEvidenceTests: XCTestCase {
         var messages = [ChatMessage(role: .system, content: ReadingPrompt.instruction(tone: "清晰", mode: "起卦", referenceDate: now, hasBirth: true))]
         for (index, name) in ["cast_liuyao", "setup_qimen"].enumerated() {
             let id = String(repeating: index == 0 ? "a" : "b", count: 32)
-            let arguments = name == "cast_liuyao" ? ["question": question, "questionType": questionType, "subject": subject, "event": String(repeating:"事",count:200), "timeHorizon": "near"] : ["question": question, "questionType": "general"]
+            let arguments = ["question": question, "questionType": name == "cast_liuyao" ? questionType : "career", "subject": subject, "event": String(repeating:"事",count:200), "timeHorizon": "near"]
             let request: [String: Any] = ["command": "tool", "name": name, "arguments": arguments, "now": "2026-09-19T04:00:00Z"]
             let raw = try await bridge.request(String(decoding: JSONSerialization.data(withJSONObject: request), as: UTF8.self))
             let root = try JSONDecoder().decode(JSONValue.self, from: raw)
@@ -158,6 +185,17 @@ final class DivinationEvidenceTests: XCTestCase {
         try assertIndexRestoresFacts(review:review,history:messages)
     }
 
+    func testSharedIndexRetainsAgreeingAndConflictingReceiptIdentities() throws {
+        var messages:[ChatMessage]=[]
+        for (id,stem) in [("a","甲"),("b","甲"),("c","乙")] {
+            messages += [.assistantToolCalls([.init(id:id,name:"setup_qimen",arguments:[:])]),.toolResult(.init(callID:id,output:"{\"dayGanZhi\":\"\(stem)子\"}"))]
+        }
+        let review=ReadingVerifier.messages(draft:"核对事实",history:messages,question:"核对")
+        XCTAssertTrue(review.contains { $0.content?.contains("\"toolCallIDs\":[\"a\",\"b\"]") == true })
+        XCTAssertEqual(review.filter { $0.role == .tool }.count,3)
+        try assertIndexRestoresFacts(review:review,history:messages)
+    }
+
     private func assertIndexRestoresFacts(review: [ChatMessage], history: [ChatMessage]) throws {
         let facts = ReadingVerificationEvidence.facts(history)
         var restored: [String:JSONValue] = [:]
@@ -167,8 +205,14 @@ final class DivinationEvidenceTests: XCTestCase {
             XCTAssertEqual(ReadingVerificationEvidence.pointer("/columns",in:envelope),.array([.string("factKeySuffix"),.string("pointerSuffix"),.string("value")]))
             guard case let .array(groups) = ReadingVerificationEvidence.pointer("/groups",in:envelope) else { return XCTFail("Missing index groups") }
             for group in groups {
-                guard case let .string(id) = ReadingVerificationEvidence.pointer("/toolCallID",in:group),
-                      case let .string(keyPrefix) = ReadingVerificationEvidence.pointer("/factKeyPrefix",in:group),
+                let ids:[String]
+                if case let .string(id) = ReadingVerificationEvidence.pointer("/toolCallID",in:group) { ids=[id] }
+                else if case let .array(values) = ReadingVerificationEvidence.pointer("/toolCallIDs",in:group) {
+                    ids = values.compactMap { if case let .string(id) = $0 { return id }; return nil }
+                    XCTAssertEqual(ids.count,values.count)
+                    XCTAssertEqual(Set(ids).count,ids.count)
+                } else { return XCTFail("Missing receipt identity") }
+                guard case let .string(keyPrefix) = ReadingVerificationEvidence.pointer("/factKeyPrefix",in:group),
                       case let .string(pathPrefix) = ReadingVerificationEvidence.pointer("/pointerPrefix",in:group),
                       case let .array(rows) = ReadingVerificationEvidence.pointer("/facts",in:group) else { return XCTFail("Missing lossless prefixes") }
                 for row in rows {
@@ -178,8 +222,10 @@ final class DivinationEvidenceTests: XCTestCase {
                     if values[1] == .null { path = key.replacingOccurrences(of:".",with:"/") }
                     else if case let .string(explicit) = values[1] { path = explicit }
                     else { return XCTFail("Malformed pointer suffix") }
-                    XCTAssertNil(restored[id + ":" + keyPrefix + key])
-                    restored[id + ":" + keyPrefix + key] = .array([.string(pathPrefix + path),values[2]])
+                    for id in ids {
+                        XCTAssertNil(restored[id + ":" + keyPrefix + key])
+                        restored[id + ":" + keyPrefix + key] = .array([.string(pathPrefix + path),values[2]])
+                    }
                 }
             }
         }

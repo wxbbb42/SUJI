@@ -10,6 +10,11 @@ describe('qimenTools', () => {
 });
 
 describe('setup_qimen handler', () => {
+  it('forwards explicit question context without using gender as a substitute', async () => {
+    const r = await qimenHandlers.setup_qimen({question:'代问父亲签约',questionType:'event',subject:'parent',event:'签约',timeHorizon:'near',gender:'女'},CTX) as any;
+    expect(r.questionContext).toEqual({subject:'parent',event:'签约',timeHorizon:'near'});
+    expect(r.yongShen.missingContext).toEqual(['proxy-perspective']);
+  });
   it('returns a QimenChart', async () => {
     const r = await qimenHandlers.setup_qimen(
       { question: '我要不要换城市', questionType: 'event' }, CTX,

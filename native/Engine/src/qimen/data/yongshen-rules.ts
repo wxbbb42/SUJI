@@ -10,7 +10,7 @@ export interface YongShenRule {
   description:string;
 }
 
-// 采用常见时家“日干为求问者、时干为所问之事”的取象口径。
+// 产品初始参考约定：日干/时干角色尚须按具体事项判定，非已校勘古籍规则。
 // 开门事业、生门财、六合关系、禽芮病象/天心医药仅作象意参考。
 // 不把八字“官星/印星”未经定义套进奇门，也不由用户性别推断伴侣角色。
 // 来源范围和未完成的断法见 docs/mingli/validation/divination-research.md。

@@ -97,11 +97,31 @@ struct ReadingEvidenceView: View {
                     if !palace["hostedTianPanGan"].text.isEmpty {
                         Text("天禽寄干 · " + palace["hostedTianPanGan"].text).font(.footnote)
                     }
+                    if !palace["hostedDiPanGan"].text.isEmpty {
+                        Text("地盘寄干 · " + palace["hostedDiPanGan"].text).font(.footnote)
+                    }
                 }.padding(.vertical, 8).accessibilityElement(children: .combine)
                     .accessibilityIdentifier("evidence.qimen.palace." + String(Int(palace["id"].number)))
             }
         }
-        Text("取用初选 · " + data["yongShen"]["summary"].text).font(.footnote)
+        if !data["yongShen"]["candidates"].array.isEmpty {
+            Text("取用参考 · 尚未定用").font(.subheadline)
+            ForEach(Array(data["yongShen"]["candidates"].array.enumerated()), id: \.offset) { _, candidate in
+                let role = ["day-reference":"日干参考", "hour-reference":"时干参考", "category-reference":"事项参考"][candidate["role"].text] ?? "参考"
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(role + " · " + candidate["symbol"].text).font(.footnote)
+                    if candidate["carrierMethod"].text == "own-pillar-xun" {
+                        Text("甲隐于本柱旬仪" + candidate["carrierStem"].text + "，按此定位").font(.caption)
+                    }
+                    ForEach(Array(candidate["occurrences"].array.enumerated()), id: \.offset) { _, occurrence in
+                        let plate = ["earth":"地盘", "hosted-earth":"地盘寄干", "sky":"天盘", "hosted-sky":"天禽寄干", "center-record":"中宫留存记录", "door":"门", "deity":"神", "star":"星"][occurrence["plate"].text] ?? "参考"
+                        Text("\(plate) · \(Int(occurrence["palaceId"].number))宫").font(.caption).foregroundStyle(SujiTheme.secondary)
+                    }
+                }.accessibilityElement(children: .combine)
+            }
+        } else {
+            Text("旧记录取用参考 · " + data["yongShen"]["summary"].text).font(.footnote)
+        }
         Text(data["yingQi"]["description"].text).font(.footnote).foregroundStyle(SujiTheme.secondary)
         method(data)
     }

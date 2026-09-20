@@ -290,10 +290,19 @@ struct QimenResultView: View {
                             Text(palace["bamen"].text).font(.headline)
                             Text(palace["jiuxing"].text + " " + palace["bashen"].text).font(.caption2)
                             Text(palace["tianPanGan"].text + " / " + palace["diPanGan"].text).font(.caption2).foregroundStyle(SujiTheme.secondary)
+                            if !palace["hostedTianPanGan"].text.isEmpty {
+                                Text("天禽寄干 " + palace["hostedTianPanGan"].text).font(.caption2).foregroundStyle(SujiTheme.secondary)
+                            }
+                            if !palace["hostedDiPanGan"].text.isEmpty {
+                                Text("地盘寄干 " + palace["hostedDiPanGan"].text).font(.caption2).foregroundStyle(SujiTheme.secondary)
+                            }
                         }.frame(maxWidth: .infinity, alignment: .leading).padding(10).background(SujiTheme.surface, in: RoundedRectangle(cornerRadius: 10))
                     }
                 }
                 Text("上南下北 · 左东右西").font(.caption2).foregroundStyle(SujiTheme.secondary)
+                if !document["yongShen"]["candidates"].array.isEmpty {
+                    Text("取用参考 · \(document["yongShen"]["candidates"].array.count)类候选，尚未定用").font(.footnote)
+                }
                 Text(document["method"]["caveats"].strings.joined(separator: "；")).font(.footnote).foregroundStyle(SujiTheme.secondary)
             }.padding(.top, 16)
         }.font(.subheadline)

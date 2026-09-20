@@ -37,8 +37,9 @@ function sky(p: Palace): TianGan[] {
   return [...new Set([p.tianPanGan, p.hostedTianPanGan].filter((value): value is TianGan => Boolean(value)))];
 }
 function earth(chart: QimenChart, p: Palace): TianGan[] {
-  const center = p.id === 2 && chart.method.centerPolicy?.startsWith('fixed-kun-2')
-    ? chart.palaces.find(item => item.id === 5)?.diPanGan : null;
+  // Older persisted receipts have no explicit earth-hosting field.
+  const center = p.hostedDiPanGan ?? (p.id === 2 && chart.method.centerPolicy?.startsWith('fixed-kun-2')
+    ? chart.palaces.find(item => item.id === 5)?.diPanGan : null);
   return [...new Set([p.diPanGan, center].filter((value): value is TianGan => Boolean(value)))];
 }
 function matching(chart: QimenChart, predicate: (p: Palace) => boolean): number[] | null {

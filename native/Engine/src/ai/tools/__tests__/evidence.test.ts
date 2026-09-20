@@ -24,12 +24,16 @@ describe('buildEvidenceFromToolCalls', () => {
     expect(evidence).toEqual([
       '节气 · 谷雨',
       '阳遁 · 5局',
-      '用神 · 庚临艮宫（生门 · 天任 · 九地）',
+      '旧取用参考 · 庚临艮宫（生门 · 天任 · 九地）',
       '格局 · 飞鸟跌穴',
       '格局 · 青龙返首',
       '应期 · 约 1-3 个月内见分晓',
       '方法 · mvp',
     ]);
+  });
+
+  it('shows all candidate roles without promoting the legacy primary summary', () => {
+    expect(buildEvidenceFromToolCalls([{call:call('setup_qimen'),result:{yongShen:{summary:'单宫不可裁决',candidates:[{id:'day-stem'},{id:'hour-stem'},{id:'category-door-生门'}]}}}])).toEqual(['取用参考 · 3类候选，尚未定用']);
   });
 
   it('deduplicates and skips failed tool results', () => {

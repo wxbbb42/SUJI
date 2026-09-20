@@ -63,7 +63,7 @@ The fresh read-only review found a P1 late-zi calendar inconsistency. This takes
 - [x] Index star brightness, body/empty flags, scoped transformations, methods and sources in standalone and domain tools. Add named-palace binding and wrong-palace/transit/negation counterexamples.
 - [x] Finish D1 independent rereview, full Core/Engine verification, push and exact-head CI.
 - [x] D2: independent nominal-age/decadal vectors; separate annual projection from natal cache, explicit school provenance and boundary tests. No borrowing Bazi timing as Ziwei timing.
-- [ ] D3: interpretation evidence for transformation scope, empty-palace overclaims and dynamic layers, with actual end-to-end cases. Palace-stem flying and flow-month remain separate scope decisions requiring grounded rules.
+- [x] D3: interpretation evidence for transformation scope, empty-palace overclaims and dynamic layers, with actual end-to-end cases. Palace-stem flying and flow-month remain separate scope decisions requiring grounded rules.
 
 Liuyao B source reread also uncovered a research-excerpt bug: prior root-page chapter28/32 excerpts hit the table of contents. `core-rule-sources.json` records actual chapter offsets/hashes from the same full-source hash. This corrects evidence extraction, not the still-pending B implementation.
 
@@ -139,7 +139,7 @@ F1 local scope accepted: 250 Swift Core tests, nine targeted tests, independent3
 - [x] Bind each transformation to its explicit natal/annual/decadal scope, named star, actual target palace and source identity. Named star brightness is a different field; never borrow another star or palace.
 - [x] Detect only explicit current-scope literal mismatches. Mixed correct layers coexist. Negations/questions/reported/hypothetical/old values and conflicting tool outputs do not authorize a rewrite.
 - [x] Empty main-star palace does not erase actual minor stars; demonstrate with returned arrays. Preserve opposite-palace reference rather than move stars into the empty palace.
-- [ ] Test independent literal contradictions, real native natal+timing outputs and model replay; retain failures. Review, full validation, push and exact-head CI before accepting D3.
+- [x] Test independent literal contradictions, real native natal+timing outputs and model replay; retain failures. Review, full validation, push and exact-head CI before accepting D3.
 
 F1 remote accepted in its narrow scope: exact `4da3a3b85ebac190aa9db29f28f1dcf4aa287600` matches remote; run35495103778 passed engine, swift-core and native-app.
 
@@ -152,3 +152,7 @@ Read the actual Dunjia Yanyi and Daoisms finance pages; neither qualifies as a c
 - [ ] E2a: explicit subject/event/horizon, all candidate identities including hosted stems and甲旬仪, missing context and per-object fact pointers. Distinguish product initial-reference convention from classical rule provenance; no first candidate as adjudication.
 - [ ] E2b: select a readable, explicit timing convention; encode supported/opposing/unresolved conditions and object/source identity. Do not transplant Liuyao timing or infer a date from a palace number. No precise deadline without an adjudicated event and time unit.
 - [ ] Independent fixed vectors and ambiguity/代占/hosted-counterexamples; native allowlist, actual transport/replay/capacity, semantic review and remote checks.
+
+D3 remote accepted within the documented bounded assertion scope: exact `10ab339a21ecef69211b3a8c53189362c75f1a72`, run35495982293 passed engine, swift-core and native-app. This does not complete broader D/E/F/G or authorize extensions.
+
+E2a local:676 Engine /263 Core tests; identity/source/empty/null transport, multi-receipt lossless index and capacity checks pass. Added explicit fixed-Kun earth hosting, distinct from rotating Tianqin sky hosting; independent2,922-chart /12,962-pointer probe preserves all legacy geju. Actual DeepSeek reports include zero-receipt false acceptance, omitted sky-host stem, then wrong earth palace (戊 said4, actual3). Reports remain immutable; E2a structure is ready for remote checks, F is not accepted. Next F3 must bind direct/reverse plate assertions and new explicit hosted labels, reproducing the real false acceptance. See `docs/mingli/validation/qimen-question-objects-2026-09-20.md`.

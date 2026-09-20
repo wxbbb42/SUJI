@@ -38,9 +38,10 @@ describe('bounded local tool contract', () => {
     expect(() => check('setup_qimen', { question })).toThrow();
   });
 
-  it('bounds explicit Liuyao context and rejects invented identities',()=>{
-    expect(()=>check('cast_liuyao',{question:'问母亲',subject:'parent',event:'母亲近况',timeHorizon:'near'})).not.toThrow();
-    for(const args of [{subject:'boss'},{event:' '},{event:'事'.repeat(201)},{timeHorizon:'next-week'}])expect(()=>check('cast_liuyao',{question:'问事',...args})).toThrow();
+  it.each(['cast_liuyao','setup_qimen'])('bounds explicit context and rejects invented identities: %s',name=>{
+    expect(()=>check(name,{question:'问母亲',subject:'parent',event:'母亲近况',timeHorizon:'near'})).not.toThrow();
+    expect(()=>check(name,{question:'问'.repeat(1600),subject:'self',event:'事'.repeat(200),timeHorizon:'far'})).not.toThrow();
+    for(const args of [{subject:'boss'},{event:' '},{event:'事'.repeat(201)},{timeHorizon:'next-week'}])expect(()=>check(name,{question:'问事',...args})).toThrow();
   });
 
   it('requires plain object arguments and valid enums', () => {

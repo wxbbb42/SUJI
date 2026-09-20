@@ -16,7 +16,7 @@
     },
     "result": {
       "schemaVersion": 1,
-      "engineRevision": "3e830c79e659bde82e1edbbae5dbfbccdd9b57f103741fc2be723708c26995dc",
+      "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
       "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
       "calendarPolicy": {
         "version": "suji-calendar-2",
@@ -4198,6 +4198,7 @@
       "result": {
         "question": "换个城市生活",
         "questionType": "career",
+        "questionContext": {},
         "setupTime": "2026-09-19T04:00:00.000Z",
         "calculationTime": "2026-09-19T04:00:00.000Z",
         "jieqi": "白露",
@@ -4246,6 +4247,7 @@
             "bamen": "死门",
             "jiuxing": "天芮",
             "bashen": "太阴",
+            "hostedDiPanGan": "壬",
             "hostsTianQin": true,
             "hostedTianPanGan": "壬",
             "doorRelation": {
@@ -4482,19 +4484,17 @@
           "type": "丙",
           "palaceId": 2,
           "state": "休",
-          "summary": "求问者（日干）丙临坤宫，休（死门 · 天芮 · 太阴）",
+          "summary": "日干参考丙在坤宫；未定用",
           "interactions": [
-            "宫位五行判休",
-            "求问者日干与开门、值符作为事业参考点；不以庚固定代表官星",
-            "这些位置是取象参考点，不是最终用神裁定或吉凶结论"
+            "宫位五行判休（单处参考，非综合旺衰）"
           ],
           "references": [
             {
-              "label": "求问者（日干丙）",
+              "label": "日干丙参考",
               "palaceId": 2
             },
             {
-              "label": "所问之事（时干甲）",
+              "label": "时干甲参考",
               "palaceId": 6
             },
             {
@@ -4506,7 +4506,109 @@
               "palaceId": 6
             }
           ],
-          "selectionStatus": "initial-reference"
+          "selectionStatus": "requires-clarification",
+          "selectionEstablished": false,
+          "selectedCandidateId": null,
+          "candidates": [
+            {
+              "id": "day-stem",
+              "role": "day-reference",
+              "symbol": "丙",
+              "calendarPath": "/dayGanZhi",
+              "carrierStem": "丙",
+              "carrierMethod": "direct-stem",
+              "occurrences": [
+                {
+                  "palaceId": 2,
+                  "plate": "earth",
+                  "objectPath": "/palaces/1/diPanGan",
+                  "isEffectiveSky": false,
+                  "elementRelation": {
+                    "stemElement": "火",
+                    "palaceElement": "土",
+                    "relation": "干生宫",
+                    "assessmentStatus": "stem-palace-only"
+                  }
+                },
+                {
+                  "palaceId": 2,
+                  "plate": "sky",
+                  "objectPath": "/palaces/1/tianPanGan",
+                  "isEffectiveSky": true,
+                  "elementRelation": {
+                    "stemElement": "火",
+                    "palaceElement": "土",
+                    "relation": "干生宫",
+                    "assessmentStatus": "stem-palace-only"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "hour-stem",
+              "role": "hour-reference",
+              "symbol": "甲",
+              "calendarPath": "/hourGanZhi",
+              "carrierStem": "辛",
+              "carrierMethod": "own-pillar-xun",
+              "occurrences": [
+                {
+                  "palaceId": 6,
+                  "plate": "earth",
+                  "objectPath": "/palaces/5/diPanGan",
+                  "isEffectiveSky": false,
+                  "elementRelation": {
+                    "stemElement": "木",
+                    "palaceElement": "金",
+                    "relation": "宫克干",
+                    "assessmentStatus": "stem-palace-only"
+                  }
+                },
+                {
+                  "palaceId": 6,
+                  "plate": "sky",
+                  "objectPath": "/palaces/5/tianPanGan",
+                  "isEffectiveSky": true,
+                  "elementRelation": {
+                    "stemElement": "木",
+                    "palaceElement": "金",
+                    "relation": "宫克干",
+                    "assessmentStatus": "stem-palace-only"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "category-door-开门",
+              "role": "category-reference",
+              "symbol": "开门",
+              "occurrences": [
+                {
+                  "palaceId": 6,
+                  "plate": "door",
+                  "objectPath": "/palaces/5/bamen"
+                }
+              ]
+            },
+            {
+              "id": "category-deity-值符",
+              "role": "category-reference",
+              "symbol": "值符",
+              "occurrences": [
+                {
+                  "palaceId": 6,
+                  "plate": "deity",
+                  "objectPath": "/palaces/5/bashen"
+                }
+              ]
+            }
+          ],
+          "missingContext": [
+            "subject",
+            "event",
+            "time-horizon"
+          ],
+          "sourceId": "qimen-question-references-v1"
         },
         "geJu": [
           {
@@ -4618,10 +4720,28 @@
           }
         ],
         "yingQi": {
-          "description": "尚不能确定应期；需明确事件条件，并综合空亡、动静与应期规则",
+          "description": "尚不能确定应期；对象、事件成败及奇门应期规则待定",
           "factors": [
-            "用神：求问者（日干）丙临坤宫，休（死门 · 天芮 · 太阴）",
-            "当前取用与宫位关系不足以推出具体期限"
+            "不以宫数定天数，不套用六爻应期"
+          ],
+          "assessmentStatus": "unresolved",
+          "outcomeEstablished": false,
+          "sourceId": "qimen-question-references-v1",
+          "timeScale": "unresolved",
+          "triggers": [],
+          "dates": [],
+          "unresolved": [
+            "selected-object",
+            "event-outcome",
+            "qimen-timing-convention",
+            "time-unit",
+            "subject",
+            "event",
+            "time-horizon"
+          ],
+          "observedFactPaths": [
+            "/hourVoid",
+            "/horse"
           ]
         },
         "method": {
@@ -4631,7 +4751,7 @@
           "solarTermClock": "physical-instant",
           "caveats": [
             "采用拆补法和中五固定寄坤二，不混用置闰法或阴阳分寄法",
-            "用神按问题类别初选；旺衰仅为宫位五行关系，应期证据不足时不报期限",
+            "尚未定用；干宫关系非综合旺衰，应期规则未完备",
             "格局识别只覆盖当前数据表可判定的常用格局",
             "未指定本次占测经度，按北京时间标准时（UTC+08:00）起局，不作真太阳时修正"
           ],
@@ -4740,10 +4860,28 @@
               "同行句正文作「我」，本版采所注「相」，并以随后的天蓬例互校",
               "土月按辰戌丑未节月支，不另混入四季土王分日；不是宫干生克或综合吉凶"
             ]
+          },
+          {
+            "id": "qimen-question-references-v1",
+            "version": "1",
+            "title": "SUJI奇门问题参考点约定",
+            "editionStatus": "product-policy",
+            "scope": "日时干及类别候选分盘层；未定用",
+            "references": [
+              {
+                "url": "https://github.com/wxbbb42/SUJI/blob/10ab339a21ecef69211b3a8c53189362c75f1a72/native/Engine/src/qimen/data/yongshen-rules.ts",
+                "locator": "产品映射，非古籍"
+              }
+            ],
+            "limitations": [
+              "不由代占或性别自动取用",
+              "甲按本柱旬仪定位，生克用原干；中宫非有效天盘",
+              "不选首项；不由远近或宫数定应期"
+            ]
           }
         ],
         "provenance": {
-          "engineRevision": "3e830c79e659bde82e1edbbae5dbfbccdd9b57f103741fc2be723708c26995dc",
+          "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -4769,7 +4907,7 @@
         "方法 · zhuanpan-qimen-chai-bu-v1",
         "节气 · 白露",
         "阴遁 · 9局",
-        "用神 · 求问者（日干）丙临坤宫，休（死门 · 天…",
+        "取用参考 · 4类候选，尚未定用",
         "格局 · 伏吟",
         "格局 · 八门伏吟"
       ]
@@ -12449,7 +12587,7 @@
         },
         "readingBoundary": "两种体系分别解释，不能把相似意象当作相互验证。",
         "provenance": {
-          "engineRevision": "3e830c79e659bde82e1edbbae5dbfbccdd9b57f103741fc2be723708c26995dc",
+          "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -12632,7 +12770,7 @@
     },
     "result": {
       "schemaVersion": 1,
-      "engineRevision": "3e830c79e659bde82e1edbbae5dbfbccdd9b57f103741fc2be723708c26995dc",
+      "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
       "birthKey": "[2023,4,6,23,59,\"女\",121.47,\"Asia/Shanghai\"]",
       "calendarPolicy": {
         "version": "suji-calendar-2",
@@ -14546,7 +14684,7 @@
     },
     "result": {
       "schemaVersion": 1,
-      "engineRevision": "3e830c79e659bde82e1edbbae5dbfbccdd9b57f103741fc2be723708c26995dc",
+      "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
       "birthKey": "[2024,2,9,23,59,\"女\",121.47,\"Asia/Shanghai\"]",
       "calendarPolicy": {
         "version": "suji-calendar-2",
@@ -16795,7 +16933,7 @@
         "note": "本宫无主星；须结合对宫与三方四正，不等于此领域不存在。",
         "sihua": [],
         "provenance": {
-          "engineRevision": "3e830c79e659bde82e1edbbae5dbfbccdd9b57f103741fc2be723708c26995dc",
+          "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -16856,7 +16994,7 @@
       },
       "natal": {
         "schemaVersion": 1,
-        "engineRevision": "3e830c79e659bde82e1edbbae5dbfbccdd9b57f103741fc2be723708c26995dc",
+        "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "calendarPolicy": {
           "version": "suji-calendar-2",
@@ -20989,7 +21127,7 @@
       },
       "natal": {
         "schemaVersion": 1,
-        "engineRevision": "3e830c79e659bde82e1edbbae5dbfbccdd9b57f103741fc2be723708c26995dc",
+        "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "calendarPolicy": {
           "version": "suji-calendar-2",
@@ -23156,7 +23294,7 @@
         ],
         "referenceMode": "question-instant",
         "provenance": {
-          "engineRevision": "3e830c79e659bde82e1edbbae5dbfbccdd9b57f103741fc2be723708c26995dc",
+          "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
           "referenceDate": "2024-02-09T15:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -23221,7 +23359,7 @@
       },
       "natal": {
         "schemaVersion": 1,
-        "engineRevision": "3e830c79e659bde82e1edbbae5dbfbccdd9b57f103741fc2be723708c26995dc",
+        "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "calendarPolicy": {
           "version": "suji-calendar-2",
@@ -25390,7 +25528,7 @@
         ],
         "referenceMode": "explicit-date-noon",
         "provenance": {
-          "engineRevision": "3e830c79e659bde82e1edbbae5dbfbccdd9b57f103741fc2be723708c26995dc",
+          "engineRevision": "ea8ebc1c6e8f5204f1a7ed9afad93dc1843ef86eb79fd182a3d28e1284b24756",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",

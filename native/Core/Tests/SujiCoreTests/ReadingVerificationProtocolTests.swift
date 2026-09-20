@@ -203,6 +203,20 @@ final class ReadingVerificationProtocolTests: XCTestCase {
         guard case .revise = ReadingVerifier.feedback(verdict([rule(draft, id: "interpretation.candidate-not-established")], draft: draft), draft: draft, history: history) else { return XCTFail("Do not weaken actual candidate-upgrade rejection") }
     }
 
+    func testQimenCandidateGuardUsesItsOwnUnambiguousReceiptAndOnlyAssertions() {
+        let qimen: [ChatMessage] = [.assistantToolCalls([.init(id:"question",name:"setup_qimen",arguments:[:])]),.toolResult(.init(callID:"question",output:#"{"yongShen":{"selectionEstablished":false,"selectedCandidateId":null,"selectionStatus":"candidates-only"}}"#))]
+        let draft = "奇门用神已经确定为日干"
+        guard case .revise = ReadingVerifier.feedback(verdict([rule(draft,id:"interpretation.candidate-not-established")],draft:draft),draft:draft,history:qimen) else { return XCTFail("Qimen candidate state must support its own correction") }
+        XCTAssertFalse(ReadingVerifier.deterministicIssues(in:draft,history:qimen).isEmpty)
+        assertInvalid(verdict([rule(draft,id:"interpretation.candidate-not-established")],draft:draft),draft:draft,history:history)
+        for safe in ["奇门用神尚未确定为日干", "奇门用神已经确定为日干？", "奇门用神已经确定为日干的说法不正确", "如果奇门用神已经确定为日干", "之前奇门用神已经确定为日干", "有人说奇门用神已经确定为日干", "八字用神已经确定为日干", "并未证明奇门用神已经确定为日干", "奇门用神已经确定为日干的判断缺乏依据", "否认奇门用神已经确定为日干", "奇门用神已经确定为日干只是示例"] {
+            XCTAssertTrue(ReadingVerifier.deterministicIssues(in:safe,history:qimen).isEmpty,safe)
+            assertInvalid(verdict([rule(safe,id:"interpretation.candidate-not-established")],draft:safe),draft:safe,history:qimen)
+        }
+        let conflicting = qimen + [.assistantToolCalls([.init(id:"other",name:"setup_qimen",arguments:[:])]),.toolResult(.init(callID:"other",output:#"{"yongShen":{"selectionEstablished":true}}"#))]
+        XCTAssertTrue(ReadingVerifier.deterministicIssues(in:draft,history:conflicting).isEmpty)
+    }
+
     func testMethodRuleDoesNotInvertAnExplicitLimitation() {
         let draft = "框架不同不能证明两种算法都正确"
         assertInvalid(verdict([rule(draft, id: "method.no-unproven-validity")], draft: draft), draft: draft)

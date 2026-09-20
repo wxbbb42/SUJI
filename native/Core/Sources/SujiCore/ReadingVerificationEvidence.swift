@@ -16,8 +16,8 @@ enum ReadingVerificationEvidence {
             guard let id = message.toolCallID, let name = calls[id], let raw = message.content,
                   let object = try? JSONDecoder().decode(JSONValue.self, from: Data(raw.utf8)),
                   case let .object(root) = object, root["error"] == nil else { continue }
-            func add(_ key: String, _ path: String) {
-                guard let value = pointer(path, in: object), value != .null else { return }
+            func add(_ key: String, _ path: String, preserveNull: Bool = false) {
+                guard let value = pointer(path, in: object), preserveNull || value != .null else { return }
                 facts.append(Fact(factKey: key, toolCallID: id, pointer: path, value: value))
             }
             func fields(_ prefix: String, _ path: String, _ keys: [String]) {
@@ -191,7 +191,25 @@ enum ReadingVerificationEvidence {
                 fields("qimen.method", "/method", ["algorithm", "centerPolicy", "dayBoundary", "solarTermClock", "clockPolicy", "timezone", "longitude", "caveats"])
                 fields("qimen.hourVoid", "/hourVoid", ["scope", "ganZhi", "xun", "branches", "sourceId"])
                 fields("qimen.horse", "/horse", ["scope", "ganZhi", "branch", "palaceId", "sourceId"])
-                fields("qimen.yongShen", "/yongShen", ["type", "palaceId", "state", "selectionStatus"])
+                fields("qimen.question", "/questionContext", ["subject", "timeHorizon"])
+                fields("qimen.yongShen", "/yongShen", ["type", "palaceId", "state", "selectionStatus", "selectionEstablished", "missingContext", "sourceId", "candidates"])
+                if pointer("/yongShen/selectedCandidateId", in: object) == .null {
+                    add("qimen.yongShen.selectedCandidateId", "/yongShen/selectedCandidateId", preserveNull: true)
+                }
+                if case let .array(candidates) = pointer("/yongShen/candidates", in: object) {
+                    for index in candidates.indices {
+                        let k = "qimen.yongShen.candidate\(index + 1)", p = "/yongShen/candidates/\(index)"
+                        fields(k, p, ["id", "role", "symbol", "calendarPath", "carrierStem", "carrierMethod", "occurrences"])
+                        if case let .array(occurrences) = pointer(p + "/occurrences", in: object) {
+                            for occurrence in occurrences.indices {
+                                let key = k + ".occurrence\(occurrence + 1)", path = p + "/occurrences/\(occurrence)"
+                                fields(key, path, ["palaceId", "plate", "objectPath", "isEffectiveSky"])
+                                fields(key + ".elementRelation", path + "/elementRelation", ["stemElement", "palaceElement", "relation", "assessmentStatus"])
+                            }
+                        }
+                    }
+                }
+                fields("qimen.timing", "/yingQi", ["assessmentStatus", "outcomeEstablished", "sourceId", "timeScale", "unresolved", "triggers", "dates", "observedFactPaths"])
                 sources("qimen")
                 if case let .array(emptyPalaces) = pointer("/hourVoid/palaces", in: object) {
                     for (index, emptyPalace) in emptyPalaces.enumerated() {
@@ -203,7 +221,7 @@ enum ReadingVerificationEvidence {
                     for (index, palace) in palaces.enumerated() {
                         guard case let .object(p) = palace, case let .integer(id) = p["id"] else { continue }
                         let key = "qimen.palace\(id)", path = "/palaces/\(index)"
-                        fields(key, path, ["tianPanGan", "diPanGan", "bashen", "bamen", "jiuxing", "hostedTianPanGan", "wuXing", "hostsTianQin"])
+                        fields(key, path, ["tianPanGan", "diPanGan", "bashen", "bamen", "jiuxing", "hostedDiPanGan", "hostedTianPanGan", "wuXing", "hostsTianQin"])
                         fields(key + ".doorRelation", path + "/doorRelation", ["door", "doorElement", "palaceElement", "relation", "isPressure", "sourceId", "assessmentStatus"])
                         for scope in ["starSeason", "hostedStarSeason"] {
                             fields(key + "." + scope, path + "/" + scope, ["scope", "star", "element", "monthGanZhi", "monthBranch", "monthElement", "state", "sourceId", "assessmentStatus"])

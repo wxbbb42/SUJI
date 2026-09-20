@@ -57,7 +57,8 @@ function evidenceFromTool(call: ToolCall, result: unknown): string[] {
       if (r.method?.algorithm) uniqPush(lines, `方法 · ${compact(r.method.algorithm, 48)}`);
       if (r.jieqi) uniqPush(lines, `节气 · ${compact(r.jieqi)}`);
       if (r.yinYangDun && r.juNumber) uniqPush(lines, `${r.yinYangDun}遁 · ${r.juNumber}局`);
-      if (r.yongShen?.summary) uniqPush(lines, `用神 · ${compact(r.yongShen.summary, 20)}`);
+      if (Array.isArray(r.yongShen?.candidates)) uniqPush(lines, `取用参考 · ${r.yongShen.candidates.length}类候选，尚未定用`);
+      else if (r.yongShen?.summary) uniqPush(lines, `旧取用参考 · ${compact(r.yongShen.summary, 20)}`);
       if (Array.isArray(r.geJu)) {
         for (const g of r.geJu.slice(0, 2)) {
           if (g?.name) uniqPush(lines, `格局 · ${compact(g.name)}`);

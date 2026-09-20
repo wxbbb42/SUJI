@@ -17,7 +17,7 @@ import { toTrueSolarTime } from '@engine/bazi/TrueSolarTime';
 import type {
   QimenChart, Palace, SetupOptions, YinYangDun, JuNumber,
   TianGan, BamenName, BashenName, JiuxingName, GeJu,
-  QuestionType, YongShenAnalysis, YingQiAnalysis, QimenMethodMeta,
+  QuestionType, YongShenAnalysis, QimenMethodMeta,
 } from './types';
 import { PALACES_BASE } from './data/palaces';
 import { rotateBamen } from './helpers/bamen';
@@ -33,6 +33,7 @@ import { computeTimePillars } from './helpers/timeGanZhi';
 import { currentSolarTerm } from './helpers/solarTerms';
 import { getCalendarPillars } from '@engine/calendar/precision';
 import { qimenFacts } from './facts';
+import { qimenQuestionObjects, unresolvedQimenTiming, QIMEN_QUESTION_SOURCE } from './questionObjects';
 
 const QIMEN_METHOD: QimenMethodMeta = {
   level: 'standard',
@@ -41,7 +42,7 @@ const QIMEN_METHOD: QimenMethodMeta = {
   solarTermClock: 'physical-instant',
   caveats: [
     '采用拆补法和中五固定寄坤二，不混用置闰法或阴阳分寄法',
-    '用神按问题类别初选；旺衰仅为宫位五行关系，应期证据不足时不报期限',
+    '尚未定用；干宫关系非综合旺衰，应期规则未完备',
     '格局识别只覆盖当前数据表可判定的常用格局',
   ],
 };
@@ -114,16 +115,24 @@ export class QimenEngine {
     const doors = rotateBamen(diPan,xunShou,timeGan,yinYangDun);
 
     // 7. 排八门 / 九星 / 八神
-    const palaces = this.buildPalaces(diPan, tianPan, tianJiuxing, zhiFuPalaceId, yinYangDun, doors.bamen).map(p => ({...p, ...(p.id===rotation.tianQinPalaceId ? {hostsTianQin:true,hostedTianPanGan:rotation.hostedTianPanGan} : {})}));
+    const palaces = this.buildPalaces(diPan, tianPan, tianJiuxing, zhiFuPalaceId, yinYangDun, doors.bamen).map(p => ({
+      ...p,
+      ...(p.id===2 && method.centerPolicy?.startsWith('fixed-kun-2') ? {hostedDiPanGan:diPan.get(5)!} : {}),
+      ...(p.id===rotation.tianQinPalaceId ? {hostsTianQin:true,hostedTianPanGan:rotation.hostedTianPanGan} : {}),
+    }));
 
     // 8. 用神 + 应期
-    const yongShen = this.selectYongShen(opts.questionType, palaces, timeGan, pillars.dayGan, xunShou, computeXunShou(pillars.dayGan,pillars.dayZhi));
-    const yingQi = this.computeYingQi(yongShen);
+    const questionContext = { ...opts.questionContext };
+    const selection = qimenQuestionObjects(opts.questionType, questionContext, palaces, {day:pillars.dayGan+pillars.dayZhi,hour:pillars.hourGan+pillars.hourZhi});
+    // Legacy summary fields remain readable, but never select one of the new candidates.
+    const yongShen = { ...this.selectYongShen(opts.questionType, palaces, timeGan, pillars.dayGan, xunShou, computeXunShou(pillars.dayGan,pillars.dayZhi)), ...selection };
+    const yingQi = unresolvedQimenTiming(selection);
 
     // 9. 格局识别
     const partialChart: QimenChart = {
       question: opts.question,
       questionType: opts.questionType,
+      questionContext,
       setupTime: setupTime.toISOString(),
       calculationTime: calculationTime.toISOString(),
       ...(longitude === undefined ? {} : { trueSolarTime: calculationTime.toISOString() }),
@@ -144,7 +153,8 @@ export class QimenEngine {
     const geJu = detectGeJu(partialChart);
     // Month changes at the physical solar-term instant, even on an apparent-solar hour clock.
     const monthGanZhi = getCalendarPillars(setupTime).month;
-    return { ...partialChart, geJu, monthGanZhi, ...qimenFacts(pillars.hourGan+pillars.hourZhi,monthGanZhi,palaces) };
+    const facts=qimenFacts(pillars.hourGan+pillars.hourZhi,monthGanZhi,palaces);
+    return { ...partialChart, geJu, monthGanZhi, ...facts, ruleSources:[...facts.ruleSources,QIMEN_QUESTION_SOURCE] };
   }
 
   /** 按问题类别列出初始参考点，不能据单一同宫关系断吉凶。 */
@@ -158,7 +168,7 @@ export class QimenEngine {
   ): YongShenAnalysis {
     const rule = YONGSHEN_RULES[qt];
     const targetGan = rule.primaryGan==='day' ? dayGan : timeGan;
-    const role = rule.primaryGan==='day' ? '求问者（日干）' : '所问之事（时干）';
+    const role = rule.primaryGan==='day' ? '日干参考' : '时干参考';
     const locateStem = (gan:TianGan,xun:TianGan) => {
       const visible = gan==='甲' ? xun : gan;
       return palaces.find(p=>p.id!==5&&(p.tianPanGan===visible||p.hostedTianPanGan===visible));
@@ -166,8 +176,8 @@ export class QimenEngine {
     const palace=locateStem(targetGan,rule.primaryGan==='day'?dayXunShou:hourXunShou);
     const references: NonNullable<YongShenAnalysis['references']> = [];
     const dayPalace=locateStem(dayGan,dayXunShou),hourPalace=locateStem(timeGan,hourXunShou);
-    if(dayPalace) references.push({label:`求问者（日干${dayGan}）`,palaceId:dayPalace.id});
-    if(hourPalace) references.push({label:`所问之事（时干${timeGan}）`,palaceId:hourPalace.id});
+    if(dayPalace) references.push({label:`日干${dayGan}参考`,palaceId:dayPalace.id});
+    if(hourPalace) references.push({label:`时干${timeGan}参考`,palaceId:hourPalace.id});
     for(const p of palaces){
       if(rule.secondaryMen&&p.bamen===rule.secondaryMen)references.push({label:rule.secondaryMen,palaceId:p.id});
       if(rule.secondaryShen&&p.bashen===rule.secondaryShen)references.push({label:rule.secondaryShen,palaceId:p.id});
@@ -178,25 +188,15 @@ export class QimenEngine {
       throw new Error(`reference stem ${targetGan} missing from outer and hosted plates`);
     }
 
-    // 记录门 / 神 / 星是否同宫，不计算虚构的分数。
-    const interactions: string[] = [rule.description,'这些位置是取象参考点，不是最终用神裁定或吉凶结论'];
-    if (rule.secondaryMen && palace.bamen === rule.secondaryMen) {
-      interactions.push(`临${rule.secondaryMen}（同宫参考）`);
-    }
-    if (rule.secondaryShen && palace.bashen === rule.secondaryShen) {
-      interactions.push(`临${rule.secondaryShen}（同宫参考）`);
-    }
-    if (rule.secondaryStar && palace.jiuxing === rule.secondaryStar) {
-      interactions.push(`临${rule.secondaryStar}星（同宫参考）`);
-    }
+    // Keep only the legacy single-palace relation; the complete object set is in candidates.
     const state = this.computeYongShenState(targetGan as TianGan, palace);
-    interactions.unshift(`宫位五行判${state}`);
+    const interactions = [`宫位五行判${state}（单处参考，非综合旺衰）`];
 
     return {
       type: targetGan,
       palaceId: palace.id,
       state,
-      summary: `${role}${targetGan}临${palace.name}，${state}（${palace.bamen ?? '无门'} · ${palace.jiuxing} · ${palace.bashen ?? '无神'}）`,
+      summary: `${role}${targetGan}在${palace.name}；未定用`,
       interactions,
       references,
       selectionStatus: 'initial-reference',
@@ -211,20 +211,6 @@ export class QimenEngine {
     if (SHENG[ganWx] === palaceWx) return '休';
     if (KE[ganWx] === palaceWx) return '囚';
     return '死';
-  }
-
-  /** 应期推算（MVP 简化） */
-  private computeYingQi(yongShen: YongShenAnalysis): YingQiAnalysis {
-    if (yongShen.state === '不上卦') {
-      return {
-        description: '用神不上卦，应期难定',
-        factors: ['用神未在 9 宫显现'],
-      };
-    }
-    return {
-      description: '尚不能确定应期；需明确事件条件，并综合空亡、动静与应期规则',
-      factors: [`用神：${yongShen.summary}`, '当前取用与宫位关系不足以推出具体期限'],
-    };
   }
 
   /** 排八门 / 九星 / 八神 */

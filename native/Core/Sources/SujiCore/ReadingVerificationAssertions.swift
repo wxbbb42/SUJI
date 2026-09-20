@@ -120,6 +120,16 @@ enum ReadingVerificationAssertions {
             if has(sentence, "这不是谁算错了") { return true }
             return affirmative.contains { !has($0, "可能|条件|才能") && has($0, "都正确|都没有错|都没算错|双方正确|各自正确|两者都对|各自成立") }
         case "interpretation.candidate-not-established":
+            if has(sentence, "奇门|起局") {
+                guard !denied(sentence), !has(sentence, "六爻|八字|紫微|紫薇|[？?]|吗|是否|是不是|之前|此前|上次|曾经|说|声称|不正确|不成立|错误|未定|尚未") else { return false }
+                let receipts = Dictionary(grouping: facts.filter { $0.factKey.hasPrefix("qimen.") }, by: \.toolCallID)
+                guard !receipts.isEmpty, receipts.values.allSatisfy({ receipt in
+                    receipt.contains { $0.factKey == "qimen.yongShen.selectionEstablished" && $0.value == .bool(false) }
+                    && receipt.contains { $0.factKey == "qimen.yongShen.selectedCandidateId" && $0.value == .null }
+                }) else { return false }
+                let target = "(?:日干|时干|[甲乙丙丁戊己庚辛壬癸])"
+                return has(sentence, "^\\s*(?:本次|这次|本盘)?(?:奇门|起局)(?:的)?用神(?:已经确定(?:为" + target + ")?|已经成立|确定成立|(?:确定为|已定为)" + target + ")\\s*$")
+            }
             let candidate = facts.contains { fact in
                 ["bazi.pattern.status", "bazi.strength.status"].contains(fact.factKey) && has(ReadingVerificationEvidence.encoded(fact.value), "candidate|heuristic")
             }

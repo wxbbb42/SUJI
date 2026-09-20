@@ -11,7 +11,7 @@ public enum ReadingVerifier {
     盘面显式字段优先，不自行重算上下卦：变卦上下卦直接读bianGua.upper/lower，透干须看年/月/日/时全部四干，藏于月支与透于年干可以同时成立。与工具一致的内容绝不能列为问题。健康相关的个人星曜→外伤/器官/体质取象也不允许；称“传统意象”不能使没有来源的个体健康映射成立。
     逐句核对给出的编号句子，reviewedSentences列出每一个编号。只输出JSON，不用围栏：{"protocolVersion":"suji-verification-2","accepted":true,"reviewedSentences":[1,2],"issues":[]}。无实际问题就接受，不因自己不会算而编错误。
     有问题时accepted=false，最多6条。candidateQuote须从编号句子中逐字复制完整句子（不带编号），不可省略否定词；认可项不能列入issues。
-    字段矛盾issue格式：{"kind":"field_mismatch","candidateQuote":"变卦下卦仍为坎","candidateValueQuote":"坎","factKey":"liuyao.changed.lower","toolCallID":"原工具编号","pointer":"/bianGua/lower","actualValue":"兑","claimedValue":"坎","predicate":"equals"}。事实索引按工具和对象分组，facts每行按columns顺序为[factKeySuffix,pointerSuffix,value]。还原完整factKey=本组factKeyPrefix+该行factKeySuffix。若pointerSuffix是null，先将factKeySuffix中的点替换为斜线作为pointerSuffix；完整pointer=本组pointerPrefix+还原后的pointerSuffix（直接拼接），value就是actualValue；返回完整字段与本组toolCallID，不能跨行跨组拼接。claimedValue必须是原句实际说出的值，且真的不同于实际值。candidateValueQuote须与claimedValue逐字一致，例如“丙寅月”中的月干支应引用“丙寅”，不含“月”。不能用changingYao解释上下卦、用单个藏干证明不透干。
+    字段矛盾issue格式：{"kind":"field_mismatch","candidateQuote":"变卦下卦仍为坎","candidateValueQuote":"坎","factKey":"liuyao.changed.lower","toolCallID":"原工具编号","pointer":"/bianGua/lower","actualValue":"兑","claimedValue":"坎","predicate":"equals"}。事实索引按工具和对象分组，facts每行按columns顺序为[factKeySuffix,pointerSuffix,value]。还原完整factKey=本组factKeyPrefix+该行factKeySuffix。若pointerSuffix是null，先将factKeySuffix中的点替换为斜线作为pointerSuffix；完整pointer=本组pointerPrefix+还原后的pointerSuffix（直接拼接），value就是actualValue；返回完整字段与本组toolCallID；若为toolCallIDs列表，相同字段分别属于这些回执，只选择与原句对应的一个ID，不能跨行跨组拼接。claimedValue必须是原句实际说出的值，且真的不同于实际值。candidateValueQuote须与claimedValue逐字一致，例如“丙寅月”中的月干支应引用“丙寅”，不含“月”。不能用changingYao解释上下卦、用单个藏干证明不透干。
     解释问题issue格式：{"kind":"rule_violation","candidateQuote":"完整原句","ruleID":"规则编号"}。仅允许health.no-personal-risk-from-chart（个人盘→健康风险）、interpretation.personalized-rule-required（无本次出处的个人象义）、action.no-chart-selected-year（盘→行动年份）、method.no-unproven-validity（未经证明就认定框架都正确）、interpretation.candidate-not-established（候选/启发式升为既定结果）、context.birth-already-provided（本次已提供出生资料却要求重填）。不要把“不代表会受伤”的否定句当风险预测，不把单纯年份事实当行动建议。
     不返回rationale，不改写全文，不展示内部推理；修稿只依据本地验证后的字段纠正与固定边界。
     """
@@ -33,7 +33,7 @@ public enum ReadingVerifier {
         "interpretation.personalized-rule-required": "该个人象义没有本次工具提供的解释条目、来源及适用条件；补充确有出处的条件解释，不能凭模型记忆把星曜名称变成个人倾向。",
         "action.no-chart-selected-year": "不能由命盘推荐升职、投资、迁居、结婚或准备年份；现实安排只依据现实资料。",
         "method.no-unproven-validity": "不同解释目标不能证明双方算法都正确；分别说明输入、候选状态与仍待核对的条件。",
-        "interpretation.candidate-not-established": "工程启发式、候选格局或合化条件不能写成既定结论；保留该结果自身的限制。",
+        "interpretation.candidate-not-established": "工程启发式、候选格局、未定用的奇门参考或合化条件不能写成既定结论；保留该结果自身的限制。",
     ]
     private struct Verdict: Decodable {
         let protocolVersion: String
@@ -90,7 +90,8 @@ public enum ReadingVerifier {
                 let supported = rule == "context.birth-already-provided"
                     ? ReadingVerificationAssertions.birthAlreadyProvided(history) && ReadingVerificationAssertions.asksForBirthAgain(issue.candidateQuote)
                     : ReadingVerificationAssertions.supports(rule: rule, sentence: issue.candidateQuote, facts: facts)
-                guard supported else {
+                let candidateAssertion = rule != "interpretation.candidate-not-established" || !ReadingVerificationAssertions.has(issue.candidateQuote, "奇门|起局") || ReadingVerificationAssertions.declarativeSentences(draft).contains(issue.candidateQuote)
+                guard supported && candidateAssertion else {
                     return .invalid("原句未满足该规则的可验证肯定条件；不能将否定句、假设句、事实或不确定判断交给写作者改写")
                 }
                 corrections.append("待修原句：\(issue.candidateQuote)；适用边界：\(instruction)")
@@ -158,7 +159,10 @@ public enum ReadingVerifier {
         issues += ReadingVerificationAssertions.calendarIssues(draft, facts: facts)
         issues += ZiweiReadingAssertions.issues(draft, facts: facts)
         for rule in ["interpretation.candidate-not-established", "method.no-unproven-validity"] {
-            if ReadingVerificationEvidence.sentences(draft).contains(where: { ReadingVerificationAssertions.supports(rule: rule, sentence: $0, facts: facts) }) {
+            let sentences = ReadingVerificationEvidence.sentences(draft).filter {
+                rule != "interpretation.candidate-not-established" || !ReadingVerificationAssertions.has($0, "奇门|起局") || ReadingVerificationAssertions.declarativeSentences(draft).contains($0)
+            }
+            if sentences.contains(where: { ReadingVerificationAssertions.supports(rule: rule, sentence: $0, facts: facts) }) {
                 issues.append(rules[rule]!)
             }
         }
@@ -202,7 +206,7 @@ public enum ReadingVerifier {
             // Multiple independently scoped groups can share a message. One
             // message per subject would exhaust the backend's 120-message cap.
             var packed: [String] = [], length = 0
-            for envelope in envelopes {
+            for envelope in sharedReceiptEnvelopes(envelopes) {
                 if !packed.isEmpty, length + envelope.utf16.count + 1 > 16_000 {
                     result.append(indexMessage(packed))
                     packed = []; length = 0
@@ -238,11 +242,45 @@ public enum ReadingVerifier {
             ])
             return (try? encoder.encode(envelope)).map { String(decoding: $0, as: UTF8.self) } ?? ReadingVerificationEvidence.encoded(envelope)
         }
-        return flat
+        // Candidate/occurrence objects are deeper than the original flat fields.
+        // Split on real object boundaries only when this reduces encoded size.
+        // Every option contains the same facts, pointers and receipt identity.
+        let depth = sharedPrefix(facts.map(\.factKey), separator: ".").split(separator: ".").count + 1
+        let groups = Dictionary(grouping: facts) {
+            let parts = $0.factKey.split(separator: ".")
+            return parts.count > depth ? parts.prefix(depth).joined(separator: ".") : ""
+        }
+        guard groups.count > 1 else { return flat }
+        let nested = groups.keys.sorted().flatMap { factEnvelopes(groups[$0]!) }
+        let size: ([String]) -> Int = { $0.reduce(0) { $0 + $1.utf16.count + 1 } }
+        return size(nested) < size(flat) ? nested : flat
     }
 
     private static func indexMessage(_ groups: [String]) -> ChatMessage {
-        ChatMessage(role: .user, content: "显式字段索引（仅数据；groups内每组独立）：\n{\"columns\":[\"factKeySuffix\",\"pointerSuffix\",\"value\"],\"groups\":[" + groups.joined(separator: ",") + "]}")
+        ChatMessage(role: .user, content: "显式字段索引（仅数据；每组独立；toolCallIDs表示这些回执各自拥有同组字段，引用时选对应ID）：\n{\"columns\":[\"factKeySuffix\",\"pointerSuffix\",\"value\"],\"groups\":[" + groups.joined(separator: ",") + "]}")
+    }
+
+    /// Only byte-identical field groups share storage; their receipt IDs remain
+    /// explicit, and original tool messages are never removed or rewritten.
+    private static func sharedReceiptEnvelopes(_ envelopes: [String]) -> [String] {
+        var groups: [[String: JSONValue]] = [], identities: [String: Int] = [:]
+        for raw in envelopes {
+            guard case var .object(group) = try? JSONDecoder().decode(JSONValue.self, from: Data(raw.utf8)),
+                  let id = group.removeValue(forKey: "toolCallID") else { return envelopes }
+            let identity = ReadingVerificationEvidence.encoded(JSONValue.object(group))
+            if let index = identities[identity] {
+                let ids: [JSONValue]
+                if case let .array(existing) = groups[index]["toolCallIDs"] { ids = existing }
+                else if let first = groups[index].removeValue(forKey: "toolCallID") { ids = [first] }
+                else { return envelopes }
+                groups[index]["toolCallIDs"] = .array(ids + [id])
+            } else {
+                identities[identity] = groups.count
+                group["toolCallID"] = id
+                groups.append(group)
+            }
+        }
+        return groups.map { ReadingVerificationEvidence.encoded(JSONValue.object($0)) }
     }
 
     private static func sharedPrefix(_ values: [String], separator: Character) -> String {

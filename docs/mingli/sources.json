@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-04-30",
+  "updatedAt": "2026-09-20",
   "purpose": "Ground 有时/SUJI 的命理、占卜、产品解释与设计决策。每条 source 必须有稳定 id，后续所有规则、prompt、UI copy、设计原则都引用 source id，而不是裸写书名。",
   "sourceTiers": {
     "A": "经典/原典/通行古籍，优先用于算法规则和术语定义；需要版本校勘。",
@@ -1279,6 +1279,26 @@
       ],
       "url": "https://github.com/deminzhang/qimen-go/tree/4d3f58fa0f401b5b3a337f119138e99e90685dda",
       "notes": "ganzhi.go SHA256 0dd04c5c2f290e87822ff85770f203467c1a7a69ced56990d808c718aa14b401。仅取固定表，不作为天文独立证据或古籍定本。"
+    },
+    {
+      "id": "suji-qimen-reference-policy",
+      "title": "SUJI奇门初始参考点产品约定",
+      "domain": [
+        "qimen"
+      ],
+      "tier": "C",
+      "sourceType": "internal_product_policy",
+      "currentUsage": [
+        "对象身份与盘层投影",
+        "初始参考候选边界"
+      ],
+      "ingestStatus": "explicit_product_convention_not_classical_rule",
+      "ingestPriority": "P0",
+      "repoRefs": [
+        "native/Engine/src/qimen/questionObjects.ts",
+        "docs/mingli/validation/qimen-selection-source-review-2026-09-20.md"
+      ],
+      "notes": "只为产品的有限参考映射和既有盘面投影负责；不证明最终取用或应期成立。未将网页搜索摘要作为古籍引文。"
     }
   ]
 }

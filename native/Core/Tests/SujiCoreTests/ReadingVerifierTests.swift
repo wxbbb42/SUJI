@@ -2,6 +2,21 @@ import XCTest
 @testable import SujiCore
 
 final class ReadingVerifierTests: XCTestCase {
+    func testExplicitQimenRequestIsAvailableInDivinationModeWithoutSubstitutingLiuyao() throws {
+        let data = Data(#"[{"function":{"name":"cast_liuyao","description":"liuyao","parameters":{}}},{"function":{"name":"setup_qimen","description":"qimen","parameters":{}}}]"#.utf8)
+        let question = "请用奇门问我自己近期能否签下新办公室租约，这是近事。先只核对盘面。"
+        let names = try ReadingIntent.definitions(from:data,mode:"起卦",question:question,hasBirth:false).map(\.name)
+        XCTAssertEqual(names,["setup_qimen"])
+        for plain in ["问这次租约", "不要用奇门，给我起六爻", "奇门和六爻有什么区别"] {
+            XCTAssertEqual(try ReadingIntent.definitions(from:data,mode:"起卦",question:plain,hasBirth:false).map(\.name),["cast_liuyao"])
+        }
+        for both in ["请用奇门和六爻分别分析这次租约", "用六爻和奇门分别解释这次盘面"] {
+            XCTAssertEqual(try ReadingIntent.definitions(from:data,mode:"起卦",question:both,hasBirth:false).map(\.name),["cast_liuyao","setup_qimen"])
+        }
+        for discussion in ["用奇门起局是什么意思？", "什么是奇门", "请介绍奇门起局的方法", "奇门和六爻有什么区别"] {
+            XCTAssertFalse(ReadingIntent.allowsQimen(discussion),discussion)
+        }
+    }
     private let accepted = #"{"protocolVersion":"suji-verification-2","accepted":true,"reviewedSentences":[1],"issues":[]}"#
     private let rejected = #"{"protocolVersion":"suji-verification-2","accepted":false,"reviewedSentences":[1],"issues":[{"kind":"field_mismatch","candidateQuote":"年柱为甲辰","candidateValueQuote":"甲辰","factKey":"calendar.year","toolCallID":"a","pointer":"/yearGanZhi","actualValue":"癸卯","claimedValue":"甲辰","predicate":"equals"}]}"#
     private var history: [ChatMessage] {

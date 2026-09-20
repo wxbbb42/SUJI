@@ -903,6 +903,21 @@
       ],
       "confidence": "high_for_scoped_relations_not_final_strength_or_adjudication",
       "status": "conditional_facts_with_source_and_counterexample_checks"
+    },
+    {
+      "id": "qimen.question-reference-identities",
+      "domain": "qimen",
+      "claim": "日干、时干和类别星门神保留独立候选ID，不以同干同宫合并角色。每处地盘、外宫天盘、天禽寄干及中宫记录有原始路径；中宫非有效天盘。甲按各自干支旬仪定位，干宫五行用原干，非旬仪。所问人、事件、远近资料不能自动裁定用神，代占与类别冲突保留，性别不代替伴侣身份。当前仅产品参考约定；应期triggers/dates为空，年月日时单位及完整应期规则未定。",
+      "sourceIds": [
+        "suji-qimen-reference-policy"
+      ],
+      "repoRefs": [
+        "native/Engine/src/qimen/questionObjects.ts",
+        "native/Engine/src/qimen/__tests__/QuestionObjects.test.ts",
+        "native/Core/Tests/SujiCoreTests/DivinationEvidenceTests.swift"
+      ],
+      "confidence": "high_for_receipt_projection_not_final_selection",
+      "status": "product_reference_implemented_timing_unresolved"
     }
   ]
 }
