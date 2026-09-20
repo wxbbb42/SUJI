@@ -34,6 +34,7 @@ const cases=selected.map(id=>{
   if(id==='qimen-question-conditions')return {id,question:'请用奇门问我自己近期能否签下新办公室租约，这是近事。先只核对盘面：日干、时干和事项参考各在哪一层哪一宫，天禽寄干有没有漏掉？哪些属于产品参考约定，是否已经定用或能确定签约日期？请保留各自依据和未决条件。',noBirth:true,mode:'起卦'};
   if(id==='qimen-jia-reference')return {id,question:'请用奇门，代问父亲远期采购设备这件事，按求财类别先核对日干、时干、生门及两层寄干位置。时干若是甲请分清本柱旬仪，不要自行定用或给采购日期。',noBirth:true,mode:'起卦',referenceDate:'2026-09-19T04:00:00.789Z'};
   if(id==='qimen-tool-failure')return {id,question:'请用奇门问我自己近期签约。先起局核对日干、时干，如果工具失败就说明没有取得记录。',noBirth:true,mode:'起卦',failure:true};
+  if(id==='liuyao-tool-failure')return {id,question:'请用六爻问我自己近期能否收款。如果工具失败就说明没有取得卦记录。',noBirth:true,mode:'起卦',failure:true};
   if(id==='liuyao-multichange')return {id,question:baseline.cases.find(c=>c.id==='explicit-liuyao').question,noBirth:true,mode:'起卦',fixedLineValues:[6,7,8,8,9,6]};
   if(id==='tool-failure-explicit')return {id,failure:true,question:'我的出生资料已经填写，无需重填。请实际调用 get_current_dayun 查询此时大运；若调用失败，只说明取数状态，不猜结果。'};
   const c=baseline.cases.find(c=>c.id===id);

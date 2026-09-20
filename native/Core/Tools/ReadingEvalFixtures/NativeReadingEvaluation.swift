@@ -164,6 +164,17 @@ enum NativeReadingEvaluation {
                             record["answer"] = QimenReferenceReading.unavailableReply(receipts: result.receipts)
                             record["status"] = "qimen-reference-unavailable"
                         }
+                    } else if LiuyaoReferenceReading.isExclusiveRequest(definitions: available, question: question) {
+                        record["executionPath"] = "liuyao-reference"
+                        record["referenceProtocolVersion"] = LiuyaoReferenceReading.protocolVersion
+                        if let report = LiuyaoReferenceReading.render(receipts: result.receipts, context: context) {
+                            record["referenceReport"] = try object(report)
+                            record["answer"] = report.text
+                            record["status"] = "locally-rendered-liuyao"
+                        } else {
+                            record["answer"] = LiuyaoReferenceReading.unavailableReply(receipts: result.receipts)
+                            record["status"] = "liuyao-reference-unavailable"
+                        }
                     } else {
                         record["executionPath"] = "verified-prose"
                         var draft = ""

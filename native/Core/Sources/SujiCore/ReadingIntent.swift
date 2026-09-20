@@ -23,8 +23,12 @@ public enum ReadingIntent {
         requestsMethod(question, method: "奇门", other: "六爻")
     }
 
+    static func normalizedMethods(_ question: String) -> String {
+        question.replacingOccurrences(of:"奇門",with:"奇门").replacingOccurrences(of:"與",with:"与").replacingOccurrences(of:"術",with:"术")
+    }
+
     private static func requestsMethod(_ question: String, method: String, other: String) -> Bool {
-        let text = question.filter { !$0.isWhitespace }
+        let text = normalizedMethods(question).filter { !$0.isWhitespace }
         let negated = "(不要|不用|不想|禁止|不做|不许|无需|勿|拒绝|避免|不需要|别)[^，,。；;！？\\n]{0,16}(" + method + "|起卦|起盘|排盘|起局)"
         guard text.range(of: negated, options: .regularExpression) == nil else { return false }
         let discussion = "(?:什么是|介绍|解释|讲解|学习)(?:用)?" + method + "(?:起局|排盘|起盘)?|" + method + "(?:起局|排盘|起盘)?[”’\\\"]?(?:是什么|是什么意思|的含义|怎么|如何)|" + method + "[^，,。；;！？]{0,12}(?:区别|含义)"

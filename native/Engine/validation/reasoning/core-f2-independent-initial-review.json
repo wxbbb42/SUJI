@@ -1,0 +1,27 @@
+{
+  "acceptedMutations": [
+    "wrong-source-references",
+    "changed-void-borrows-other-line",
+    "wrong-condition-state",
+    "timing-wrong-context-path"
+  ],
+  "actualGates": {
+    "不要奇门，只用六爻": false,
+    "六爻和紫微一起看": false,
+    "六爻结合八字": false,
+    "用六爻与奇门看": false,
+    "用六爻與奇門看": true,
+    "解释什么是六爻": true,
+    "请用六爻问收款": true
+  },
+  "allMovingDarkMentions": [],
+  "badEvidence": 0,
+  "evidenceFields": 566006,
+  "firstNil": [],
+  "nilCount": 0,
+  "records": 1280,
+  "rendered": 1280,
+  "probeNotes": [
+    "The first branchRelation probe accidentally kept its existing 六合 value; omitted from findings."
+  ]
+}

@@ -36,7 +36,7 @@ Swift证据索引保留分类、两组纳甲、对应爻对、false值、原始�
 - Native RED：新索引字段缺失失败；GREEN：两项索引正反测试通过。实际JSC测试另在旧bundle上观察到新字段缺失，再重新打包。
 - 最终全量检查：689项Engine测试／48套、283项Swift Core测试、18组Node/JSC fixtures通过；typecheck、bundle重建、AppStore Swift语法解析、native-only和diff检查通过。原生App构建以远端CI为准。
 - 独立复核：另写纳甲与支对表穷举4,096卦变、12,288个动爻身份；从原文解析9个卦图、18个动爻，两个原文hash匹配；与前一提交比较128卦，1,264个本变伏context值一致，9,048条对象／条件指针均可解析。脚本和报告存于`native/Engine/validation/research-divination/b2-*`，从仓库根目录运行，临时输出写入`/tmp`。
-- 提交和远端CI：待核实。
+- 已推送`a93f07ffc66fc24a36efff4c3b94c89f472fc272`，远端分支hash匹配；[CI35499556906](https://github.com/wxbbb42/SUJI/actions/runs/35499556906)的engine、swift-core、native-app全部通过。
 
 容量回归：首次全量Swift检查发现最大工具结果34,552 UTF-16字符、双盘审核125,072字符，超过32,000／120,000限制，原样记录为失败。修复将支关系并入同位回头关系并保留独立branchSourceId；每个整卦对仅保留爻位和关系，具体支取自该侧纳甲数组；公共出处仅传一次。App、实际评估器和证据编码器不再对JSON斜线作冗余转义，解码值不变，既有存档原文不改。没有提高后端容量上限或丢弃原始盘面。
 

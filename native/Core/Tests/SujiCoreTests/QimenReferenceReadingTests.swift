@@ -176,12 +176,12 @@ final class QimenReferenceReadingTests: XCTestCase {
         let definition = ChatToolDefinition(name:"setup_qimen",description:"",parameters:["type":"object"])
         let orchestrator = ToolOrchestrator(complete: { messages,_ in
             if messages.contains(where: { $0.role == .tool }) { return .text("ready") }
-            return .toolCalls([ChatToolCall(id:"retry",name:"setup_qimen",arguments:["question":"模型改写，不能更换原问题"])])
+            return .toolCalls((0..<8).map { ChatToolCall(id:"retry-\($0)",name:"setup_qimen",arguments:["question":"模型改写，不能更换原问题"]) })
         },execute: { _ in
             XCTFail("Retry must not recalculate"); return ToolExecutionResult(output:"{}")
         },persistReceipt: { _ in XCTFail("Retry must not save a new chart") })
         let result = try await orchestrator.run(history:[],definitions:[definition],cachedReceipts:[receipt],context:context)
-        XCTAssertEqual(result.receipts.count,1)
+        XCTAssertEqual(result.receipts.count,8)
         XCTAssertEqual(result.receipts[0].arguments,receipt.arguments)
         XCTAssertEqual(result.receipts[0].createdAt,receipt.createdAt)
         let report = try XCTUnwrap(QimenReferenceReading.render(receipts:[receipt] + result.receipts,context:context))

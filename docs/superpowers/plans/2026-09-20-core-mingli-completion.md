@@ -189,6 +189,20 @@ Read ch19/20 from the immutable `core-rule-sources.json` archive. Adopt the expl
 - [x] Original and resulting complete 纳甲 arrays are separate chart projections. Only actual moving positions get `lines.changed`; static casts never claim a transition. Verify乾→泰、旅→贲、离→旅、困→节、否→乾、离→坤.
 - [x] Add moving same-position branch combination/clash independently of five-element returning control. Source20恒→豫酉→卯 clashes but does not return-control; source20酉月乙未坤 retains monthly presence and day generation despite six-clash structure.
 - [x] Bind source, scope and pair pointers through native evidence; legacy sparse data, actual transport, multi-receipt capacity and Node/JSC parity. Do not claim effective合化/冲散 or final outcomes.
-- [ ] Independent review, full local checks, push and exact-head CI. 三合、反伏、墓绝、元忌仇 and broader F remain separate open work.
+- [x] Independent review, full local checks, push and exact-head CI. 三合、反伏、墓绝、元忌仇 and broader F remain separate open work.
 
 B2 local: 689 Engine /283 Core tests and18 Node/JSC fixtures pass. Independent4,096-cast structure,9 original diagrams,128-chart context preservation and9,728-case capacity probes pass; two independent capacity regressions fixed with permanent RED/GREEN tests. Combined sample maximum59,758/60,000 bytes is not a global guarantee. Review cleared; exact-head push/CI pending.
+
+## Batch F2 — Liuyao object-bound reference delivery
+
+The archived F1 final provider draft invents 丑戌合, confuses selection/timing provenance and discusses暗动 for an all-moving cast. Extend the receipt-based delivery used by F4 to exclusive Liuyao requests. Render chart/calendar, separate original/changed/hidden facts, actual moving-return and day-clash conditions, all object candidates and their conditional timing branches from allowlisted values. Each section carries exact original receipt pointers/values and the applicable source. This fixes presentation grounding; it does not accept comprehensive event adjudication.
+
+- [x] RED/GREEN with actual F1 all-moving values and source-bound branches, moving versus static day-clash, original/changed/hidden identity, full changed projection versus actual moving positions.
+- [x] Reject missing/unsupported sources, wrong object pointers, conflicting/stale/cross-context receipts. Empty candidates and calendar/hidden candidates keep their own identity; no substituted primary changed object or invented event signal.
+- [x] Shipping ChatSession and live evaluator use the same exclusive-request gate and compiler. Mixed-system requests remain mixed. Cached retries preserve original receipts and do not recast.
+- [x] Independent review, full Core/native verification and one real provider planner/tool/local-render trial; retain model extraction failures.
+- [ ] Commit/push, verify exact head.
+
+B2 remote accepted at `a93f07ffc66fc24a36efff4c3b94c89f472fc272`, remote hash matched, run35499556906 passed engine/swift-core/native-app. F2 and broader core completion remain open.
+
+F2 local:294 Core tests and18 parity fixtures pass. Independent5,376 receipts /2,446,086 evidence fields have zero mismatches. Final eight mutation and eight intent probes pass; nine-receipt retry defect reproduced and fixed in both Liuyao and Qimen. Four real provider calls yield one source-bound report and one honest no-receipt failure; synthetic authentication/quota, not deployed E2E. Exact-head CI pending.

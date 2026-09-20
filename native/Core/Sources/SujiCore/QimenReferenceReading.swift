@@ -35,7 +35,8 @@ public enum QimenReferenceReading {
     }
 
     public static func render(receipts: [ToolReceipt], context: ToolContext) -> Report? {
-        guard context.isValid, context.mode != "倾诉", !receipts.isEmpty, receipts.count <= 4 else { return nil }
+        // One persisted cast plus up to eight reused planner calls.
+        guard context.isValid, context.mode != "倾诉", !receipts.isEmpty, receipts.count <= 9 else { return nil }
         var roots: [JSONValue] = []
         for receipt in receipts {
             guard receipt.name == "setup_qimen", receipt.context == context,

@@ -106,6 +106,7 @@ import SujiCore
                 // context checks above. A retry planner may need no new calls.
                 var frameworkReceipts = cachedReceipts
                 var qimenReferenceRequest = false
+                var liuyaoReferenceRequest = false
                 var history = [ChatMessage(role: .system, content: instruction)]
                 history.append(contentsOf: ReadingPrompt.history(from: historyEntries, currentUserID: userID, context: context))
 
@@ -114,6 +115,7 @@ import SujiCore
                     activity = "正在整理线索"
                     let definitions = try await loadDefinitions(mode: effectiveMode, question: originalQuestion, birth: birth, store: store)
                     qimenReferenceRequest = QimenReferenceReading.isExclusiveRequest(definitions: definitions, question: originalQuestion)
+                    liuyaoReferenceRequest = LiuyaoReferenceReading.isExclusiveRequest(definitions: definitions, question: originalQuestion)
                     try Self.checkScope(store, revision: revision, birth: birth)
                     history[0].content = instruction + "\n" + ReadingPrompt.plannerInstruction(question: originalQuestion, mode: effectiveMode, focus: focus)
                     let frameworkCallID = "bazi-" + UUID().uuidString
@@ -200,6 +202,12 @@ import SujiCore
                     try Self.checkScope(store, revision: revision, birth: birth)
                     partial = QimenReferenceReading.render(receipts: frameworkReceipts, context: context)?.text
                         ?? QimenReferenceReading.unavailableReply(receipts: frameworkReceipts)
+                } else if liuyaoReferenceRequest {
+                    activity = "正在整理六爻依据"
+                    try Task.checkCancellation()
+                    try Self.checkScope(store, revision: revision, birth: birth)
+                    partial = LiuyaoReferenceReading.render(receipts: frameworkReceipts, context: context)?.text
+                        ?? LiuyaoReferenceReading.unavailableReply(receipts: frameworkReceipts)
                 } else {
                     activity = "正在写回信"
                     var draft = ""
