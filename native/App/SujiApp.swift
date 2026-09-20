@@ -53,7 +53,62 @@ struct RootView: View {
     @Environment(\.scenePhase) private var phase
     @State private var sheet: RootSheet?
     @State private var notificationRoute = NotificationRoute.shared
+    @State private var initialized = false
     var body: some View {
+        Group {
+            if !initialized {
+                ProgressView("正在打开你的册页…")
+            } else if notebookFixture {
+                mainTabs
+            } else if !store.isSignedIn {
+                NavigationStack { AccountView(session: store.accountSession, onboarding: true) }
+            } else if store.preparingAccount {
+                ProgressView("正在读取你的资料…")
+            } else if store.state.birth == nil {
+                BirthEditor(existing: nil, required: true) { birth in try await store.updateBirth(birth) }
+            } else if !store.hasNatalDossier {
+                DossierSetupView()
+            } else {
+                mainTabs
+            }
+        }
+        .background(SujiTheme.paper)
+        .sheet(item: $sheet) { item in sheetContent(item) }
+        .alert("请留意", isPresented: Binding(get: { store.error != nil }, set: { if !$0 { store.error = nil } })) {
+            Button("知道了", role: .cancel) { store.error = nil }
+        } message: { Text(store.error ?? "") }
+        .onChange(of: store.state.appearance, initial: true) { _, value in SujiTheme.appearance.name = value }
+        .task {
+            consumePendingNotificationRoute()
+            await store.accountSession.initialize()
+            await store.prepareAccount()
+            initialized = true
+            await store.refresh()
+            await ReminderService.shared.refreshFromSavedPreferences()
+        }
+        .task(id: store.scopeKey) { await store.prepareAccount() }
+        .onChange(of: store.isSignedIn) { _, signedIn in
+            sheet = nil
+            if signedIn { Task { await store.prepareAccount() } }
+        }
+        .onChange(of: phase) { _, value in if value == .active { Task { await store.refresh(); await store.syncBirthProfile(); await ReminderService.shared.refreshFromSavedPreferences() } } }
+        .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in Task { await store.refresh() } }
+        .onReceive(NotificationCenter.default.publisher(for: .NSSystemTimeZoneDidChange)) { _ in Task { await store.refresh() } }
+        .onChange(of: notificationRoute.todayRequestGeneration) { _, _ in consumePendingNotificationRoute() }
+        .onOpenURL { url in
+            guard url.scheme == "suji-native" else { return }
+            if url.host == "today" { openToday() }
+            else if url.host == "auth", url.path == "/reset" { sheet = .recovery(url) }
+        }
+    }
+    private var notebookFixture: Bool {
+#if DEBUG
+        ProcessInfo.processInfo.arguments.contains("--ui-testing") && ProcessInfo.processInfo.arguments.contains("--notebook-fixtures")
+#else
+        false
+#endif
+    }
+    private var mainTabs: some View {
         @Bindable var store = store
         TabView(selection: $store.selectedTab) {
             TodayView(date: store.today, lunarDate: store.calendarInfo?["lunarDate"].text ?? "", ganZhi: store.calendarInfo?["ganZhi"].text ?? "", solarTerm: store.calendarInfo?["solarTerm"].text ?? "", quote: store.ritual?.quote ?? store.content.quote, action: store.ritual?.action ?? store.content.action, isRevealed: store.ritual != nil, onReveal: { store.revealToday() }, onJournal: { sheet = .journal }, onHistory: { sheet = .history }, onShare: { sheet = .share }, onReflect: { sheet = .reflection })
@@ -62,7 +117,8 @@ struct RootView: View {
             CalmView().tabItem { Label("静心", systemImage: "water.waves") }.tag(2)
             ProfileView().tabItem { Label("我的", systemImage: "person.crop.circle") }.tag(3)
         }
-        .sheet(item: $sheet) { item in
+    }
+    @ViewBuilder private func sheetContent(_ item: RootSheet) -> some View {
             switch item {
             case .journal: JournalComposer()
             case .history: RitualHistoryView()
@@ -78,31 +134,6 @@ struct RootView: View {
                         .toolbar { ToolbarItem(placement: .confirmationAction) { Button("完成") { sheet = nil } } }
                 }
             }
-        }
-        .fullScreenCover(isPresented: Binding(get: { !store.state.hasOnboarded && sheet == nil }, set: { _ in })) {
-            OnboardingView { store.state.hasOnboarded = true; store.save() }
-        }
-        .alert("请留意", isPresented: Binding(get: { store.error != nil }, set: { if !$0 { store.error = nil } })) {
-            Button("知道了", role: .cancel) { store.error = nil }
-        } message: { Text(store.error ?? "") }
-        .onChange(of: store.state.appearance, initial: true) { _, value in
-            SujiTheme.appearance.name = value
-        }
-        .task {
-            consumePendingNotificationRoute()
-            await store.accountSession.initialize()
-            await store.refresh()
-            await ReminderService.shared.refreshFromSavedPreferences()
-        }
-        .onChange(of: phase) { _, value in if value == .active { Task { await store.refresh(); await ReminderService.shared.refreshFromSavedPreferences() } } }
-        .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in Task { await store.refresh() } }
-        .onReceive(NotificationCenter.default.publisher(for: .NSSystemTimeZoneDidChange)) { _ in Task { await store.refresh() } }
-        .onChange(of: notificationRoute.todayRequestGeneration) { _, _ in consumePendingNotificationRoute() }
-        .onOpenURL { url in
-            guard url.scheme == "suji-native" else { return }
-            if url.host == "today" { openToday() }
-            else if url.host == "auth", url.path == "/reset" { sheet = .recovery(url) }
-        }
     }
     private func consumePendingNotificationRoute() {
         if notificationRoute.consumeToday() { openToday() }
@@ -116,26 +147,24 @@ private enum RootSheet: Identifiable {
     }
 }
 
-struct OnboardingView: View {
-    var begin: () -> Void
+struct DossierSetupView: View {
+    @Environment(AppStore.self) private var store
+    @State private var editing = false
     var body: some View {
-        ZStack {
-            SujiTheme.paper.ignoresSafeArea()
-            GeometryReader { geometry in
-            ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
-                HStack { Text("有时").font(SujiTheme.serif(24)); Spacer(); Text("岁 吉 · SUJI").font(.caption).tracking(3).foregroundStyle(SujiTheme.secondary) }
-                Spacer()
-                SujiBotanical().frame(width: 108, height: 148).padding(.bottom, 6)
-                Text("万物有时，\n你也一样。").font(SujiTheme.serif(43)).lineSpacing(14).minimumScaleFactor(0.7)
-                Text("撕开新的一天。\n给心事留白，给自己一点时间。").font(.body).lineSpacing(9).foregroundStyle(SujiTheme.secondary)
-                Spacer()
-                Button(action: begin) { HStack { Text("开启今日"); Spacer(); Image(systemName: "arrow.right") }.font(.headline).padding(22).background(SujiTheme.ink, in: Capsule()).foregroundStyle(SujiTheme.paper) }
-                    .accessibilityIdentifier("onboarding.begin")
-                Text("无需注册，从这一刻开始。").font(.footnote).foregroundStyle(SujiTheme.secondary).frame(maxWidth: .infinity)
-            }.padding(32).frame(minHeight: geometry.size.height)
-            }
-            }
-        }.foregroundStyle(SujiTheme.ink)
+        NavigationStack {
+            VStack(spacing: 24) {
+                if store.computing { ProgressView("正在建立本命档案…") }
+                else {
+                    Text("建立你的档案").font(SujiTheme.serif(28))
+                    Text(store.dossierError ?? "根据出生资料整理八字与紫微本命盘，完成后即可进入册页。")
+                        .foregroundStyle(.secondary)
+                    Button("重新建档") { Task { await store.calculateProfile() } }.buttonStyle(.borderedProminent)
+                    Button("检查出生资料") { editing = true }
+                }
+                NavigationLink("账户与登录") { AccountView(session: store.accountSession) }
+            }.padding(28)
+                .sheet(isPresented: $editing) { BirthEditor(existing: store.state.birth) { birth in try await store.updateBirth(birth) } }
+                .task { await store.calculateProfile() }
+        }
     }
 }

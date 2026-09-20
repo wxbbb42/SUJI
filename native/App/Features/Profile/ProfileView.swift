@@ -38,6 +38,20 @@ struct ProfileView: View {
                         }.padding(24).frame(maxWidth: .infinity, alignment: .leading).background(SujiTheme.surface, in: RoundedRectangle(cornerRadius: 24))
                     }
                     if store.computing { ProgressView("正在整理你的册页…").frame(maxWidth: .infinity).padding() }
+                    if store.hasNatalDossier {
+                        Label("本命档案已建立 · 八字 / 紫微", systemImage: "checkmark.seal")
+                            .font(.footnote).foregroundStyle(SujiTheme.secondary)
+                        Text("问答会沿用这份本命盘。修改出生资料或排盘规则更新后，会重新建档。")
+                            .font(.footnote).foregroundStyle(SujiTheme.secondary)
+                    }
+                    if let status = store.cloudProfileStatus {
+                        Text(status).font(.footnote).foregroundStyle(SujiTheme.secondary)
+                        Button("重试同步") { Task { await store.prepareAccount(); await store.syncBirthProfile() } }
+                    }
+                    if let error = store.dossierError {
+                        Text(error).font(.footnote).foregroundStyle(SujiTheme.secondary)
+                        Button("重新读取档案") { Task { await store.calculateProfile() } }
+                    }
                     if let profile = store.profile {
                         PersonalitySection(personality: profile["personality"], riZhu: profile["mingPan"]["riZhu"])
                         NavigationLink { ChartDetailView(profile: profile) } label: { profileRow("命盘手稿", subtitle: "四柱 · 五行 · 紫微十二宫", symbol: "square.grid.3x3") }
@@ -89,7 +103,9 @@ struct PersonalitySection: View {
 
 struct BirthEditor: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(AppStore.self) private var store
     var existing: BirthProfile?
+    var required = false
     var onSave: (BirthProfile) async throws -> Void
     @State private var date = BirthProfile(year: 1995, month: 1, day: 1, hour: 12, minute: 0, gender: "女", city: "上海", longitude: 121.47).date!
     @State private var gender = "女"
@@ -97,6 +113,8 @@ struct BirthEditor: View {
     @State private var longitude = 121.47
     @State private var saving = false
     @State private var error: String?
+    @State private var confirmedBirth = false
+    @State private var showingAccount = false
     private var earliestBirth: Date { ISO8601DateFormatter().date(from: "1901-01-01T00:00:00+08:00")! }
     private let cities: [(String, Double)] = [("上海",121.47),("北京",116.40),("杭州",120.16),("成都",104.07),("广州",113.26),("深圳",114.06),("西安",108.94),("重庆",106.55),("武汉",114.31),("天津",117.20)]
     var body: some View {
@@ -118,13 +136,23 @@ struct BirthEditor: View {
                             .accessibilityLabel("出生地经度，东经为正西经为负")
                     }
                 } header: { Text("出生地点与时间口径") } footer: { Text("八字日柱和时柱按经度与均时差校正；年柱、月柱按民用时间与精确节气判断。紫微按填写的民用北京时间排盘。常用城市经度是市中心近似值，可自行修正。") }
-                if let error { Section { Text(error).foregroundStyle(.red) } }
-                Section { Text("资料保存在本机。登录并主动使用个性化 AI 解读时，相关命盘内容会经有时的服务发送给 DeepSeek。").font(.footnote).foregroundStyle(.secondary) }
-            }.navigationTitle("出生资料").navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .cancellationAction) { Button("取消") { dismiss() }.disabled(saving) }
-                    ToolbarItem(placement: .confirmationAction) { Button(saving ? "整理中…" : "保存") { Task { await save() } }.disabled(saving).accessibilityIdentifier("birth.save") }
+                if existing == nil {
+                    Section { Toggle("已核对出生日期、时刻和地点", isOn: $confirmedBirth).accessibilityIdentifier("birth.confirm") }
                 }
+                if let error { Section { Text(error).foregroundStyle(.red) } }
+                if required, let status = store.cloudProfileStatus {
+                    Section { Text(status).font(.footnote); Button("重试读取云端资料") { Task { await store.prepareAccount() } } }
+                }
+                Section { Text("保存后会建立本机本命档案，并将出生资料同步到账户。日签、日记与对话仍保存在本机。主动使用个性化 AI 解读时，相关命盘内容会经有时的服务发送给 DeepSeek。").font(.footnote).foregroundStyle(.secondary) }
+            }.navigationTitle(required ? "建立你的档案" : "出生资料").navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        if required { Button("账户") { showingAccount = true } }
+                        else { Button("取消") { dismiss() }.disabled(saving) }
+                    }
+                    ToolbarItem(placement: .confirmationAction) { Button(saving ? "整理中…" : required ? "建立档案" : "保存") { Task { await save() } }.disabled(saving || (existing == nil && !confirmedBirth) || city.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty).accessibilityIdentifier("birth.save") }
+                }
+                .sheet(isPresented: $showingAccount) { NavigationStack { AccountView(session: store.accountSession).toolbar { ToolbarItem(placement: .confirmationAction) { Button("完成") { showingAccount = false } } } } }
         }.onAppear {
             if let existing { date = existing.date ?? date; gender = existing.gender; city = existing.city; longitude = existing.longitude }
         }
@@ -134,7 +162,7 @@ struct BirthEditor: View {
         var calendar = Calendar(identifier: .gregorian); calendar.timeZone = TimeZone(secondsFromGMT: 8 * 3600)!
         let c = calendar.dateComponents([.year,.month,.day,.hour,.minute], from: date)
         let birth = BirthProfile(year: c.year!, month: c.month!, day: c.day!, hour: c.hour!, minute: c.minute!, gender: gender, city: city, longitude: longitude)
-        do { try birth.validated(); try await onSave(birth); dismiss() } catch { self.error = error.localizedDescription }
+        do { try birth.validated(); try await onSave(birth); if !required { dismiss() } } catch { self.error = error.localizedDescription }
     }
 }
 

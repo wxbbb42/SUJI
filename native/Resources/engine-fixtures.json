@@ -1998,7 +1998,7 @@
         "zhiShiSourcePalaceId": 6,
         "tianQinPalaceId": 2,
         "provenance": {
-          "engineRevision": "3919ab954fc0715af1e3371d19cea6c2cab5b494d78d6e0497109282304d4852",
+          "engineRevision": "536b18af085ef0e139c44857d83afa04f85de6786c72bef38d7160c340208dad",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -7863,7 +7863,7 @@
         },
         "readingBoundary": "两种体系分别解释，不能把相似意象当作相互验证。",
         "provenance": {
-          "engineRevision": "3919ab954fc0715af1e3371d19cea6c2cab5b494d78d6e0497109282304d4852",
+          "engineRevision": "536b18af085ef0e139c44857d83afa04f85de6786c72bef38d7160c340208dad",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",

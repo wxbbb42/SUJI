@@ -140,15 +140,7 @@ import UIKit
     func confirmPendingAccountChange() async {
         await run {
             guard let pendingSession = self.pendingSession else { return }
-            let previousUserID = self.user?.id
-            try await self.onScopeTransition(previousUserID, pendingSession.user.id)
-            do {
-                try self.persist(pendingSession)
-            } catch {
-                do { try await self.onScopeTransition(pendingSession.user.id, previousUserID) }
-                catch { throw AccountFailure("钥匙串保存失败，且无法恢复之前的册页空间。请重新打开 App 后检查资料。") }
-                throw error
-            }
+            try await self.activate(pendingSession)
             self.pendingSession = nil
             self.pendingUser = nil
             self.notice = "已切换到 \(pendingSession.user.email ?? "这个账户")。"
@@ -173,14 +165,15 @@ import UIKit
                 catch { remoteFailure = error }
             } else { remoteFailure = nil }
             self.notice = remoteFailure == nil
-                ? "已退出账户，本机册页已切换到本地空间。"
-                : "本机已退出并切换到本地册页。云端注销暂时未完成，服务端令牌会按有效期失效。"
+                ? "已退出账户，资料已保留。再次登录后可继续使用。"
+                : "本机已退出。云端注销暂时未完成，服务端令牌会按有效期失效。"
         }
     }
 
     func fetchProfile() async throws -> SupabaseProfile? {
         guard let user else { throw AccountFailure("请先登录。") }
         let token = try await validAccessToken()
+        guard self.user?.id == user.id else { throw CancellationError() }
         return try await configuredClient().fetchProfile(userID: user.id, accessToken: token)
     }
 
@@ -191,9 +184,11 @@ import UIKit
             gender: state.birth?.gender,
             birthCity: state.birth?.city,
             birthLongitude: state.birth?.longitude,
-            hasOnboarded: state.hasOnboarded
+            hasOnboarded: state.hasOnboarded,
+            clearBirth: state.birth == nil
         )
         let token = try await validAccessToken()
+        guard self.user?.id == user.id else { throw CancellationError() }
         return try await configuredClient().upsertProfile(userID: user.id, patch: patch, accessToken: token)
     }
 
@@ -206,6 +201,7 @@ import UIKit
             updated.birth = birth
         }
         updated.hasOnboarded = profile.hasOnboarded
+        updated.profileNeedsUpload = false
         return updated
     }
 
@@ -213,9 +209,22 @@ import UIKit
         if session.user.id == user?.id {
             try persist(session)
             notice = "登录已更新。"
+        } else if user == nil {
+            try await activate(session)
         } else {
             pendingSession = session
             pendingUser = session.user
+        }
+    }
+
+    private func activate(_ session: SupabaseAuthSession) async throws {
+        let previousUserID = user?.id
+        try await onScopeTransition(previousUserID, session.user.id)
+        do { try persist(session) }
+        catch {
+            do { try await onScopeTransition(session.user.id, previousUserID) }
+            catch { throw AccountFailure("钥匙串保存失败，且无法恢复之前的册页空间。请重新打开 App 后检查资料。") }
+            throw error
         }
     }
 

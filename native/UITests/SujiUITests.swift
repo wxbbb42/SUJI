@@ -5,14 +5,24 @@ final class SujiUITests: XCTestCase {
     override func setUpWithError() throws {
         continueAfterFailure = false
         app = XCUIApplication()
-        app.launchArguments = ["--ui-testing", "-AppleLanguages", "(zh-Hans)", "-AppleLocale", "zh_CN"]
+        app.launchArguments = ["--ui-testing", "--notebook-fixtures", "-AppleLanguages", "(zh-Hans)", "-AppleLocale", "zh_CN"]
     }
     private func begin() {
         app.launch()
-        XCTAssertTrue(app.buttons["onboarding.begin"].waitForExistence(timeout: 15))
-        capture("01-onboarding")
-        app.buttons["onboarding.begin"].tap()
         XCTAssertTrue(app.buttons["ritual.reveal"].waitForExistence(timeout: 10))
+    }
+    func testAccountGateBlocksNotebookBeforeLogin() {
+        app.launchArguments.removeAll { $0 == "--notebook-fixtures" }
+        app.launch()
+        XCTAssertTrue(app.navigationBars["欢迎来到有时"].waitForExistence(timeout: 15))
+        XCTAssertTrue(app.textFields["邮箱地址"].exists)
+        XCTAssertFalse(app.tabBars.buttons["今日"].exists)
+        XCTAssertFalse(app.buttons["ritual.reveal"].exists)
+        capture("01-account-required")
+        app.buttons["注册"].tap()
+        XCTAssertTrue(app.buttons["创建账户"].exists)
+        app.buttons["重置"].tap()
+        XCTAssertTrue(app.buttons["发送重置邮件"].exists)
     }
     private func capture(_ name: String) {
         let attachment = XCTAttachment(screenshot: app.screenshot())
@@ -65,6 +75,7 @@ final class SujiUITests: XCTestCase {
         app.tabBars.buttons["我的"].tap(); capture("09-profile-empty")
         app.buttons["profile.addBirth"].tap()
         XCTAssertTrue(app.buttons["birth.save"].waitForExistence(timeout: 5)); capture("10-birth-editor")
+        app.switches["birth.confirm"].tap()
         app.buttons["birth.save"].tap()
         XCTAssertTrue(app.staticTexts["你的底色"].waitForExistence(timeout: 20)); capture("11-profile")
         app.swipeUp()
@@ -112,6 +123,7 @@ final class SujiUITests: XCTestCase {
         for _ in 0..<4 { if app.buttons["profile.addBirth"].isHittable { break }; app.swipeUp() }
         app.buttons["profile.addBirth"].tap()
         XCTAssertTrue(app.buttons["birth.save"].waitForExistence(timeout: 5))
+        app.switches["birth.confirm"].tap()
         app.buttons["birth.save"].tap()
         XCTAssertTrue(app.staticTexts["你的底色"].waitForExistence(timeout: 20))
         app.swipeUp(); capture("29-dark-large-profile-reading")

@@ -97,6 +97,7 @@ public struct AppState: Codable, Sendable {
     public var hasOnboarded = false
     public var birth: BirthProfile?
     public var previousBirth: BirthProfile?
+    public var profileNeedsUpload: Bool?
     public var rituals: [RitualEntry] = []
     public var journal: [JournalEntry] = []
     public var conversations: [ConversationEntry] = []

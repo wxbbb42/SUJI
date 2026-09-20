@@ -55,12 +55,18 @@ struct SettingsView: View {
                 } catch { message = error.localizedDescription }
             }
             .confirmationDialog("用这份备份替换本机册页？", isPresented: $confirmImport, titleVisibility: .visible) {
-                Button("替换册页", role: .destructive) { if let pendingImport { store.state = pendingImport; store.save(); Task { await store.refresh() } }; pendingImport = nil }
+                Button("替换册页", role: .destructive) {
+                    if let pendingImport {
+                        do { try store.replaceNotebook(pendingImport); Task { await store.refresh() } }
+                        catch { message = error.localizedDescription }
+                    }
+                    pendingImport = nil
+                }
                 Button("取消", role: .cancel) { pendingImport = nil }
             }
-            .confirmationDialog("删除当前册页资料？此操作无法撤销。", isPresented: $confirmDelete, titleVisibility: .visible) {
+            .confirmationDialog("删除当前册页及云端出生资料？此操作无法撤销。", isPresented: $confirmDelete, titleVisibility: .visible) {
                 Button("删除当前册页", role: .destructive) {
-                    do { try KeychainStore.write(nil, name: store.aiKeyName); store.state = AppState(); store.save(); Task { await store.refresh() } } catch { message = error.localizedDescription }
+                    do { try KeychainStore.write(nil, name: store.aiKeyName); try store.replaceNotebook(AppState(), uploadBirth: true); Task { await store.refresh(); await store.syncBirthProfile() } } catch { message = error.localizedDescription }
                 }
             }
             .alert("设置", isPresented: Binding(get: { message != nil }, set: { if !$0 { message = nil } })) { Button("好", role: .cancel) {} } message: { Text(message ?? "") }

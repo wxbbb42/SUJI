@@ -10,17 +10,28 @@ struct AccountView: View {
     @State private var pendingProfile: SupabaseProfile?
     @State private var confirmPush = false
     @State private var confirmSignOut = false
+    @State private var legacyNotebook: AppState?
+    @State private var confirmLegacyImport = false
+    private let onboarding: Bool
 
-    init(session: AccountSession) {
+    init(session: AccountSession, onboarding: Bool = false) {
         _session = State(initialValue: session)
+        self.onboarding = onboarding
     }
 
     var body: some View {
         Form {
+            if onboarding {
+                Section {
+                    Text("万物有时，你也一样。").font(SujiTheme.serif(26))
+                    Text("先登录或创建账户，再填写出生资料。我们会为你建立专属的八字与紫微档案，今后的提问沿用这份本命盘。")
+                        .foregroundStyle(.secondary)
+                }
+            }
             if !session.isConfigured {
                 Section {
-                    Label("本地模式", systemImage: "iphone")
-                    Text("此安装包没有账户服务配置。你仍可使用全部本地功能，并通过册页备份自行迁移。")
+                    Label("账户服务暂不可用", systemImage: "person.crop.circle.badge.exclamationmark")
+                    Text("此安装包缺少账户服务配置，请更新应用后登录。已有的本机资料会保留。")
                         .foregroundStyle(.secondary)
                 } header: { Text("账户") }
             } else if let user = session.user {
@@ -31,7 +42,7 @@ struct AccountView: View {
             }
 
             Section {
-                Text("账户同步只包含出生资料和引导状态。日签、日记与对话保存在本机；主动使用 AI 时，相关内容会经有时的服务发送给 DeepSeek。")
+                Text("出生资料会随账户同步，本命盘在这台设备建档后反复使用。日签、日记与对话保存在本机；主动使用 AI 时，相关内容会经有时的服务发送给 DeepSeek。")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                 Text("切换账户前，App 会先切换到独立的本机册页空间，避免不同账户看到彼此的私密记录。")
@@ -39,11 +50,19 @@ struct AccountView: View {
                     .foregroundStyle(.secondary)
             } header: { Text("同步边界") }
         }
-        .navigationTitle("账户与云端资料")
+        .navigationTitle(onboarding ? "欢迎来到有时" : "账户与云端资料")
         .navigationBarTitleDisplayMode(.inline)
         .disabled(session.busy)
         .overlay { if session.busy { ProgressView().controlSize(.large) } }
-        .task { await session.initialize() }
+        .task { await session.initialize(); legacyNotebook = try? store.legacyNotebook() }
+        .confirmationDialog("将旧本机册页导入当前账户？", isPresented: $confirmLegacyImport, titleVisibility: .visible) {
+            Button("导入并替换当前册页", role: .destructive) {
+                guard let legacyNotebook else { return }
+                do { try store.replaceNotebook(legacyNotebook); Task { await store.refresh() } }
+                catch { session.error = error.localizedDescription }
+            }
+            Button("取消", role: .cancel) {}
+        } message: { Text("旧版未登录时保存的出生资料、日签、日记和对话会复制到当前账户，替换当前册页。旧本机原件仍保留；如当前账户已有记录，请先导出备份。") }
         .confirmationDialog("切换本机册页空间？", isPresented: Binding(get: { session.hasPendingAccountChange }, set: { _ in }), titleVisibility: .visible) {
             Button("切换并登录") { Task { await session.confirmPendingAccountChange() } }
             Button("取消", role: .cancel) { Task { await session.cancelPendingAccountChange() } }
@@ -63,7 +82,7 @@ struct AccountView: View {
             Text("会写入出生资料和是否完成引导，不会同步日签、日记或对话。")
         }
         .confirmationDialog("退出这个账户？", isPresented: $confirmSignOut, titleVisibility: .visible) {
-            Button("退出并切换到本地册页", role: .destructive) { Task { await session.signOut() } }
+            Button("退出登录", role: .destructive) { Task { await session.signOut() } }
             Button("取消", role: .cancel) {}
         }
         .alert("账户", isPresented: Binding(get: { session.error != nil || session.notice != nil }, set: { if !$0 { session.error = nil; session.notice = nil } })) {
@@ -113,8 +132,11 @@ struct AccountView: View {
 
     private var syncSection: some View {
         Section {
+            if let status = store.cloudProfileStatus { Text(status).font(.footnote).foregroundStyle(.secondary) }
+            if store.state.profileNeedsUpload == true { Button("重试同步出生资料") { Task { await store.syncBirthProfile() } } }
             Button("查看并恢复云端个人资料", systemImage: "arrow.down.circle") { pullProfile() }
             Button("将本机个人资料保存到云端", systemImage: "arrow.up.circle") { confirmPush = true }
+            if legacyNotebook != nil { Button("导入旧版未登录册页") { confirmLegacyImport = true } }
         } header: { Text("手动同步") } footer: {
             Text("恢复前会再次列出被覆盖字段并要求确认。云端没有对话、日签和日记，登录也不会恢复这些内容。")
         }
@@ -132,8 +154,7 @@ struct AccountView: View {
     private func applyPendingProfile() {
         guard let profile = pendingProfile else { return }
         do {
-            store.state = try session.applying(profile, to: store.state)
-            store.save()
+            try store.replaceNotebook(session.applying(profile, to: store.state))
             pendingProfile = nil
             session.notice = "云端个人资料已恢复。"
             Task { await store.refresh() }
@@ -146,8 +167,12 @@ struct AccountView: View {
     private func pushProfile() {
         Task {
             do {
-                _ = try await session.pushProfile(from: store.state)
-                session.notice = "本机个人资料已保存到云端。"
+                store.state.profileNeedsUpload = true
+                try store.saveThrowing()
+                let scope = store.scopeRevision
+                await store.syncBirthProfile()
+                guard scope == store.scopeRevision else { return }
+                if store.state.profileNeedsUpload != true { session.notice = "本机个人资料已保存到云端。" }
             } catch { session.error = error.localizedDescription }
         }
     }

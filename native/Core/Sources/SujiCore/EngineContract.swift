@@ -6,8 +6,8 @@ public enum EngineContract {
         let decoder = JSONDecoder()
         do {
             switch command {
-            case "profile":
-                let result = try decoder.decode(Profile.self, from: data)
+            case "profile", "natal":
+                let result = try decoder.decode(NatalCharts.self, from: data)
                 guard date(result.mingPan.qiYun.startDate) != nil, date(result.mingPan.qiYun.termDate) != nil,
                       !result.mingPan.daYunList.isEmpty,
                       result.ziweiPan.palaces.count == 12,
@@ -17,7 +17,15 @@ public enum EngineContract {
                       !result.mingPan.calculationPolicy.version.isEmpty else { throw Failure.invalid }
                 for pillar in result.mingPan.siZhu.all { try pillar.ganZhi.validate() }
                 for period in result.mingPan.daYunList { try period.validate() }
-                try result.forecast.validate()
+                if command == "profile" {
+                    try decoder.decode(ForecastResponse.self, from: data).forecast.validate()
+                } else {
+                    let metadata = try decoder.decode(NatalMetadata.self, from: data)
+                    guard metadata.schemaVersion == 1, metadata.engineRevision.count == 64,
+                          metadata.engineRevision.allSatisfy({ $0.isHexDigit }), !metadata.birthKey.isEmpty,
+                          metadata.calendarPolicy.version == result.mingPan.calculationPolicy.version,
+                          !metadata.personality.coreTraits.isEmpty else { throw Failure.invalid }
+                }
             case "forecast":
                 try decoder.decode(ForecastResponse.self, from: data).forecast.validate()
             case "candidates":
@@ -84,7 +92,9 @@ public enum EngineContract {
     private struct Star: Decodable { let name: String; let brightness: String?; let sihua: [String]? }
     private struct Palace: Decodable { let name: String; let position: String; let ganZhi: String; let isShenGong: Bool; let mainStars: [Star]; let minorStars: [Star] }
     private struct Ziwei: Decodable { let palaces: [Palace]; let fiveElementsClass: String }
-    private struct Profile: Decodable { let mingPan: MingPan; let ziweiPan: Ziwei; let forecast: Forecast }
+    private struct NatalCharts: Decodable { let mingPan: MingPan; let ziweiPan: Ziwei }
+    private struct Personality: Decodable { let coreTraits: [String] }
+    private struct NatalMetadata: Decodable { let schemaVersion: Int; let engineRevision: String; let birthKey: String; let calendarPolicy: Policy; let personality: Personality }
     private struct ForecastResponse: Decodable { let forecast: Forecast }
     private struct Forecast: Decodable {
         let year: Int; let daYun: DaYun?; let daYunStatus: String; let referenceDate: String

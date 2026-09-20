@@ -35,6 +35,37 @@ function charts(b: Birth) {
   const date = dateOf(b);
   return { mingPan: bazi.calculate(date, b.gender, b.longitude), ziweiPan: ziwei.compute(b) };
 }
+function birthKey(b: Birth): string {
+  dateOf(b);
+  return JSON.stringify([b.year,b.month,b.day,b.hour,b.minute,b.gender,b.longitude,b.timeZoneID ?? 'Asia/Shanghai']);
+}
+
+// Only native-owned, integrity-checked local records are supplied here. Model
+// tool arguments and imported notebooks cannot supply a natal snapshot.
+function natalCharts(input: any): ReturnType<typeof charts> {
+  if (input.natal === undefined) return charts(input.birth);
+  const n = input.natal;
+  const key = birthKey(input.birth);
+  const date = dateOf(input.birth);
+  if (!n || n.schemaVersion !== 1 || n.engineRevision !== ENGINE_REVISION || n.birthKey !== key ||
+      n.calendarPolicy?.version !== CALENDAR_POLICY.version ||
+      n.mingPan?.calculationPolicy?.version !== CALENDAR_POLICY.version ||
+      !n.mingPan?.qiYun || !n.mingPan?.daYunList?.length ||
+      !['year','month','day','hour'].every(p => n.mingPan?.siZhu?.[p]?.ganZhi?.gan && n.mingPan?.siZhu?.[p]?.ganZhi?.zhi) ||
+      !Array.isArray(n.ziweiPan?.palaces) || n.ziweiPan.palaces.length !== 12 || !n.personality ||
+      new Date(n.mingPan.birthDateTime).getTime() !== date.getTime() ||
+      new Date(n.ziweiPan.birthDateTime).getTime() !== date.getTime() ||
+      n.mingPan.gender !== input.birth.gender || n.ziweiPan.gender !== input.birth.gender) {
+    throw new Error('本命档案已失效，请重新建立档案');
+  }
+  // Rehydrate Date fields after persistent JSON storage. Copy so handlers do
+  // not mutate the saved snapshot across questions or reference instants.
+  const copy = JSON.parse(JSON.stringify(n));
+  return {
+    mingPan: {...copy.mingPan,birthDateTime:new Date(copy.mingPan.birthDateTime)},
+    ziweiPan: {...copy.ziweiPan,birthDateTime:new Date(copy.ziweiPan.birthDateTime)},
+  };
+}
 
 export async function dispatch(input: any): Promise<any> {
   if (!input || typeof input !== 'object' || Array.isArray(input)) throw new Error('无效引擎请求');
@@ -56,15 +87,20 @@ export async function dispatch(input: any): Promise<any> {
       if (input.day && d.toISOString().slice(0,10) !== input.day) throw new Error('日历日期无效');
       return { ...getTodayInfo(d), solarTerm: currentSolarTerm(d) };
     }
-    case 'profile': {
+    case 'natal': {
       const { mingPan, ziweiPan } = charts(input.birth);
+      return { schemaVersion:1, engineRevision:ENGINE_REVISION, birthKey:birthKey(input.birth), calendarPolicy:CALENDAR_POLICY,
+        mingPan, ziweiPan, personality:new InsightEngine(mingPan).getPersonalityInsight() };
+    }
+    case 'profile': {
+      const { mingPan, ziweiPan } = natalCharts(input);
       const insight = new InsightEngine(mingPan);
       const timing = new DayunEngine(mingPan);
       const year = yearOf(input.year ?? currentYear);
-      return { mingPan, ziweiPan, personality: insight.getPersonalityInsight(), daily: insight.getDailyInsight(now), timing: insight.getTimingInsight(year,referenceFor(year)), forecast: {...timing.getYearForecast(year,referenceFor(year)), annualCycle:annualCycle(year,now), requestReferenceDate:now.toISOString()} };
+      return { mingPan, ziweiPan, personality: input.natal?.personality ?? insight.getPersonalityInsight(), daily: insight.getDailyInsight(now), timing: insight.getTimingInsight(year,referenceFor(year)), forecast: {...timing.getYearForecast(year,referenceFor(year)), annualCycle:annualCycle(year,now), requestReferenceDate:now.toISOString()} };
     }
     case 'forecast': {
-      const mingPan = bazi.calculate(dateOf(input.birth), input.birth.gender, input.birth.longitude);
+      const { mingPan } = natalCharts(input);
       const year = yearOf(input.year);
       return { timing: new InsightEngine(mingPan).getTimingInsight(year,referenceFor(year)), forecast: {...new DayunEngine(mingPan).getYearForecast(year,referenceFor(year)), annualCycle:annualCycle(year,now), requestReferenceDate:now.toISOString()} };
     }
@@ -74,7 +110,8 @@ export async function dispatch(input: any): Promise<any> {
       if (!handler) throw new Error(`未知工具：${input.name}`);
       const definition = ALL_TOOLS.find(tool => tool.function.name === input.name)!;
       validateToolArguments(definition, input.arguments ?? {});
-      const ctx = input.birth ? charts(input.birth) : { mingPan: null, ziweiPan: null };
+      const isCast = ['cast_liuyao', 'setup_qimen'].includes(input.name);
+      const ctx = input.birth && !isCast ? natalCharts(input) : { mingPan: null, ziweiPan: null };
       if (!input.birth && !['cast_liuyao', 'setup_qimen'].includes(input.name)) throw new Error('请先在「我的」填写出生资料');
       assertCalendarRange(now);
       const raw = await handler(input.arguments ?? {}, {...ctx, now});
@@ -86,7 +123,7 @@ export async function dispatch(input: any): Promise<any> {
       return { result, evidence: buildEvidenceFromToolCalls([{call:{ id: input.id ?? 'native', name: input.name, arguments: input.arguments ?? {} }, result}]) };
     }
     case 'relationship': {
-      const a = charts(input.birth).mingPan;
+      const a = natalCharts(input).mingPan;
       const b = charts(input.partner).mingPan;
       const { dayGanCompatibility, dayZhiCompatibility } = new MarriageEngine(a,b).getMatchResult();
       return { dayGanCompatibility, dayZhiCompatibility, first: a.riZhu, second: b.riZhu, firstDayPillar:a.siZhu.day.ganZhi, secondDayPillar:b.siZhu.day.ganZhi, note: '传统干支关系仅提供文化视角，不能衡量两个人相处的质量。' };
