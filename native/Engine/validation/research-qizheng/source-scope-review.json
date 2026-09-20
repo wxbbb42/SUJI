@@ -1,0 +1,447 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-20",
+  "status": "bounded-source-review-not-production-method-selection",
+  "scope": "七政四余与中国二十八宿；不研究宿曜27宿关系、生肖或现代命运效验。",
+  "sources": [
+    {
+      "id": "zhangguo",
+      "title": "張果星宗",
+      "url": "https://zh.wikisource.org/wiki/張果星宗",
+      "pageId": 795610,
+      "readArtifact": "sources/張果星宗.txt",
+      "encoding": "UTF-8",
+      "byteLength": 585718,
+      "unicodeCodePointLength": 196496,
+      "sha256": "76d337da01356290cf583d657d269fc1ee78fbd21c8d2912ed3e514411dcf524",
+      "apiResponseSha256": "32223ba4c25add3a7b26c2d93da47d43b44b74633075ed949876eeccce6c5dc8",
+      "revisionId": null,
+      "acquisition": "Parent fetched MediaWiki API raw revision body on 2026-09-20; existing local file examined, no additional network fetch.",
+      "editionLimitation": "Wikisource transcription, not a checked facsimile. API response omitted revision ID and timestamp. Exact archived bytes, not page title or current live page, define this review."
+    },
+    {
+      "id": "suyuan-preface",
+      "title": "星命溯源 (四庫全書本)",
+      "url": "https://zh.wikisource.org/wiki/星命溯源 (四庫全書本)",
+      "pageId": 260653,
+      "readArtifact": "sources/星命溯源 (四庫全書本).txt",
+      "encoding": "UTF-8",
+      "byteLength": 2704,
+      "unicodeCodePointLength": 1158,
+      "sha256": "7486c2e6144870c5cb672c3510b0652ba494724c7ee9030e9dcd49aae5cddfb6",
+      "apiResponseSha256": "edb5dec4db647893068069235be2b47eb6193b2c9ade056eccb1608e674c2359",
+      "revisionId": null,
+      "acquisition": "Parent fetched MediaWiki API raw revision body on 2026-09-20; existing local file examined, no additional network fetch.",
+      "editionLimitation": "Wikisource transcription, not a checked facsimile. API response omitted revision ID and timestamp. Exact archived bytes, not page title or current live page, define this review."
+    },
+    {
+      "id": "suyuan-1",
+      "title": "星命溯源 (四庫全書本)/卷1",
+      "url": "https://zh.wikisource.org/wiki/星命溯源 (四庫全書本)/卷1",
+      "pageId": 260635,
+      "readArtifact": "sources/星命溯源 (四庫全書本)-卷1.txt",
+      "encoding": "UTF-8",
+      "byteLength": 10993,
+      "unicodeCodePointLength": 3887,
+      "sha256": "f586a3b508d0a2c8b670f0fde74a80ded35a7e9132d6a44a85dd44cb7841f1da",
+      "apiResponseSha256": "1551f9f4a41c135e3f1f89c073b1a9bcd282bfc9a99866c0b75616f7227635eb",
+      "revisionId": null,
+      "acquisition": "Parent fetched MediaWiki API raw revision body on 2026-09-20; existing local file examined, no additional network fetch.",
+      "editionLimitation": "Wikisource transcription, not a checked facsimile. API response omitted revision ID and timestamp. Exact archived bytes, not page title or current live page, define this review."
+    }
+  ],
+  "offsetConvention": "Python Unicode code points, zero based half-open; also UTF-8 byte offsets and one-based starting lines. Excerpts preserve punctuation, spelling, question marks and errors verbatim.",
+  "excerpts": [
+    {
+      "id": "toc-only-anchoring",
+      "source": "zhangguo",
+      "startCodePointInclusive": 23,
+      "endCodePointExclusive": 313,
+      "startByteInclusive": 63,
+      "endByteExclusive": 931,
+      "startLineOneBased": 4,
+      "sha256": "32495a3677442d0ab132498a959e9c40dd1dea469a86ca0c6a988e5b1ade93f2",
+      "text": "入门起例、六甲纳音属、天干、地支、方位、卦宫、年上起月、日上起时、宫分所属、度数所属、度数所在、太阳行度、太阴行度、晨昏度论、星曜行度、安命度法、十二宫例、定限度法、年分诀、行度诀、定小限例、定童限例歌、入门看法、洪蒙未判图说、太极巳判图、两仪两曜图、刻漏制度、定太阳出没、昼夜辨时、昼夜百刻日永日短之图、定寅时诀、猫眼辨时、气候本始、二十四气七十二候之图、置闰之法、东方七宿、北方七宿、西方七宿、南方七宿、璇玑玉衡图说、晦朔弦望图说、五行所主图、七政之图、天地四时图说、度数所在过宫图说、宫度偏正垣图说、星辰入垣图、星辰升殿图、星辰庙旺图、星辰喜乐图、星辰贵格图、星辰贱格图。\n"
+    },
+    {
+      "id": "widths",
+      "source": "zhangguo",
+      "startCodePointInclusive": 1463,
+      "endCodePointExclusive": 1653,
+      "startByteInclusive": 4285,
+      "endByteExclusive": 4843,
+      "startLineOneBased": 51,
+      "sha256": "33c3a5b91e07de0cc0ad74ec69aaff3b1cc6d581b39030c979b6c1cb4d2848de",
+      "text": "　　度数所属\n　　角木蛟十二，\n　　亢金龙九度，\n　　氐土貉十六，\n　　房日兔五属六宿、心月狐十八，尾火虎、箕水豹九兮廿四，斗木獬、牛金牛亦六十数，女土蝠九度，虚日鼠、危月燕十五，室火猪十七，壁水俞九兮十八，奎木狼、娄金狗十二，胃土雉十五，昴日鸡十止十六，毕月乌、觜火猴借半，参水猿数十，井木犴卅一二度，鬼金羊十二，柳土獐、星日马六度，张月鹿十六，翼火蛇十九，轸水蚓十七。\n　　\n"
+    },
+    {
+      "id": "palace-crossings",
+      "source": "zhangguo",
+      "startCodePointInclusive": 1653,
+      "endCodePointExclusive": 1841,
+      "startByteInclusive": 4843,
+      "endByteExclusive": 5375,
+      "startLineOneBased": 57,
+      "sha256": "d0062aceaaf3bd13dce6b9a95943f789a5da06fc7a4f2e38e0c2d4d333b21137",
+      "text": "　　度数所在\n　　角、亢、氐初总在辰，\n　　氐一、房、心、尾卯存，\n　　尾三、箕、斗在寅位。\n　　斗四、牛、女丑宫真。\n　　女二、虚、危同在子。\n　　危十二度亥宫行\n　　室、壁奎兮都在亥，\n　　奎一、娄、胃戌宫亲。\n　　胃三、昴、毕同躔酉。\n　　毕六、觜、参、井在申。\n　　井八、鬼、柳俱在未。\n　　柳三、星、张午位迎。\n　　张十五兮、翼、轸巳，\n　　轸十还归在于辰。\n　　\n"
+    },
+    {
+      "id": "solar-season-table",
+      "source": "zhangguo",
+      "startCodePointInclusive": 1841,
+      "endCodePointExclusive": 2067,
+      "startByteInclusive": 5375,
+      "endByteExclusive": 6001,
+      "startLineOneBased": 73,
+      "sha256": "81a01cd0dfd13f9b3b39a6ce9eda0360cde086a97d1ac8a4c91a1d798aee0053",
+      "text": "　　太阳行度\n　　立春虚一起，\n　　雨水危九求，\n　　惊蛰室六度，\n　　春分壁三游，\n　　清明奎九下，\n　　谷雨娄六留，\n　　立夏胃八边，\n　　小满昴八收，\n　　芒种毕十一，\n　　夏至参九头，\n　　小暑井十三，\n　　大暑井念九，\n　　立秋柳十度，\n　　处暑张五有，\n　　白露翼二立，\n　　秋分翼十七，\n　　寒露轸十三，\n　　霜降角十及，\n　　立冬氐二行，\n　　小雪房二至，\n　　大雪尾六临，\n　　冬至箕四逼，\n　　小寒斗十连，\n　　大寒牛二直。\n　　\n"
+    },
+    {
+      "id": "lunar-month-table",
+      "source": "zhangguo",
+      "startCodePointInclusive": 2067,
+      "endCodePointExclusive": 2213,
+      "startByteInclusive": 6001,
+      "endByteExclusive": 6411,
+      "startLineOneBased": 99,
+      "sha256": "09f4085f53d1b40cd199a23226c0f0f643680b841a4094a75e795aa020f8b528",
+      "text": "　　太阴行度\n　　欲识太阴行度时，\n　　正月之节起于危，\n　　每日常行十三度，\n　　三日两宫次第移，\n　　二奎、三胃、四从毕，\n　　五井、六柳、张居七，\n　　八月翼宿以为初，\n　　龙角秋季任游历，\n　　十月房宿作元辰，\n　　建子箕子细寻觅，\n　　丑月牵牛切要知，\n　　周天之度无差忒。\n　　\n"
+    },
+    {
+      "id": "dawn-dusk",
+      "source": "zhangguo",
+      "startCodePointInclusive": 2213,
+      "endCodePointExclusive": 2476,
+      "startByteInclusive": 6411,
+      "endByteExclusive": 7190,
+      "startLineOneBased": 113,
+      "sha256": "9c63c9473a161bff490b7d5822951581cf5a8126f277556f0f096cd13062bf48",
+      "text": "　　晨昏度论、朔后为昏度望后为晨度\n　　昏度者酉宫也。凡初一至十五六日生，皆从酉上起，每一时挨一度，酉、戌、亥三时顺数，申、未、午、巳、辰、卯、寅、丑、子九时逆数。晨度者卯宫也，凡十五六至三十日生，皆从卯宫起，每一时挨一度，卯、辰、巳、午、未、申、酉、戌、亥九时顺数，寅、丑、子三时逆数。\n　　\n　　初一至初四日，月行最疾，一昼夜行十四度有余。初五至初八日，月行平，一昼夜行十三度有余。初九至十九日，月行迟，一昼夜行十二度有余。二十至廿三日，月行小疾，一昼夜行十三度有余。二十四至三十日，月行大疾，一昼夜行十四度有余。\n　　\n"
+    },
+    {
+      "id": "mean-rates",
+      "source": "zhangguo",
+      "startCodePointInclusive": 2476,
+      "endCodePointExclusive": 2841,
+      "startByteInclusive": 7190,
+      "endByteExclusive": 8277,
+      "startLineOneBased": 118,
+      "sha256": "5b920f2ce9e7abc7dc8f6bca169d641d309dde100d611d7387c3fc132996df4d",
+      "text": "　　星曜行度\n　　太阳一日行一度，一月行一宫，一年行一周天。太阴一日行十三度，两日半行一宫，一月行一周天。岁星顺或五日行一度，大约一年一宫，十二年一周天。荧惑顺或日半行一度，大约两月一宫，二年行一周天。镇星顺或十日行一度，大约二十八月一宫，二十八年一周天。太白顺或一日行一度，大约一月一宫，一年一周天。辰星顺或一日行一度，大约一月一宫，一年一周天。紫气二十九日行一度，大约二十九月一宫，二十九年一周天。月孛九日行一度，九个月一宫，九年一周天。罗?十八日行一度，十八月一宫，十八年一周天。计都十八日行一度，十八月一宫，十八年一周天。已上日、月、木、火、土、金、水、气、孛九星，顺行度逆行宫也。惟罗计二星顺行宫、逆行度也。凡木、火、土、金、水纔有迟留、伏逆，晨夕，次见之论于中。太阴躔度，有朔后行昏度，望后行晨度，宜仔细推详。\n　　\n"
+    },
+    {
+      "id": "mansions-order",
+      "source": "zhangguo",
+      "startCodePointInclusive": 7147,
+      "endCodePointExclusive": 7259,
+      "startByteInclusive": 20879,
+      "endByteExclusive": 21191,
+      "startLineOneBased": 274,
+      "sha256": "abd64605a95296942feb803a1fd45acf61664c1010625d831df9c1506b448153",
+      "text": "　　东方七宿\n　　角亢氐房心尾箕、以应青龙之象。\n　　\n　　北方七宿\n　　斗牛女虚危室壁、以应元武之象。\n　　\n　　西方七宿\n　　奎娄胃昴毕觜参、以应白虎之象。\n　　\n　　南方七宿\n　　井鬼柳星张翼轸、以应朱雀之象。\n　　\n"
+    },
+    {
+      "id": "traditional-units",
+      "source": "zhangguo",
+      "startCodePointInclusive": 7933,
+      "endCodePointExclusive": 8004,
+      "startByteInclusive": 23173,
+      "endByteExclusive": 23380,
+      "startLineOneBased": 302,
+      "sha256": "e04f25b604dbcbd5ac1040070936764e23dafa66bd3cd5ca911f11c9392ac3d5",
+      "text": "【度数所在过宫图】缺图\n　　图说：度数过宫，周天三百六十五度四分，度之一分配十二宫，其过宫，分秒具于图中，百秒为一分，百分为一度。\n　　\n　　"
+    },
+    {
+      "id": "missing-chart",
+      "source": "zhangguo",
+      "startCodePointInclusive": 21272,
+      "endCodePointExclusive": 21319,
+      "startByteInclusive": 61530,
+      "endByteExclusive": 61659,
+      "startLineOneBased": 1057,
+      "sha256": "cbb94137ef7f19d29fdc2dcdb58f47cb2a8401615355fd2e84cb6578f8c662c9",
+      "text": "　　逐年行限度法：缺图\n　　\n　　钦天监校正授时过宫度图：缺图\n　　\n　　命度图：缺图\n　　\n"
+    },
+    {
+      "id": "sun-formula",
+      "source": "zhangguo",
+      "startCodePointInclusive": 149505,
+      "endCodePointExclusive": 149942,
+      "startByteInclusive": 445023,
+      "endByteExclusive": 446332,
+      "startLineOneBased": 1568,
+      "sha256": "86d1c602d0bfc237322d97c25e118e0bb94bb4c42dd0a599a7ca943d0038eb93",
+      "text": "【太阳算法日篇】置积日减一算以三百六十五日，二十五分五十杪为一周，天之数除之。冬至行盈度夏至行缩度，渐盈渐缩不可概论，今以盈缩中间率行一度算之。冬至：日行一度五分、时行八分七十四杪小寒：日行一度四分、时行八分七十六杪大寒：日行一度三分、时行八分四十八杪立春：日行一度二分、时行八分四十九杪雨水：日行一度一分、时行八分四十一杪惊蛰：日行一度一分、时行八分二十三杪春分：日行一度、时行八分清明：日行九十九分、时行八分二十四杪谷雨：日行九十八分、时行八分十八杪立夏：日行九十七分、时行八分八杪小满：日行九十六分、时行八分芒种：日行九十五分、时行七分九十六杪夏至：日行九十五分、时行七分九十六杪小暑：日行九十六分、时行八分大暑：日行九十七分、时行八分立秋：日行九十八分、谷雨同处暑：日行九十九分、清明同白露：日行一度、惊蛰同秋分：日行一度、春分同寒露：日行一度一分、雨水同霜降：日行一度二分、立春同立冬：日行一度三分、大寒同小雪：日行一度四分、小寒同大雪：日行一度五分、冬至同\n　　"
+    },
+    {
+      "id": "moon-formula",
+      "source": "zhangguo",
+      "startCodePointInclusive": 153184,
+      "endCodePointExclusive": 153332,
+      "startByteInclusive": 456054,
+      "endByteExclusive": 456496,
+      "startLineOneBased": 1570,
+      "sha256": "1f030af1406ac731fdb1b72d9c0645462edabc6daa9f15bd3f97a9baa00acd99",
+      "text": "《太阴算法月篇】置积日减二算以三千二百二十四，一之为顺行减积日，行余不满顺行数者以九因之，以中数二百四十八数除之，除不尽者为残，分在一百二十四已下，入疾历二百二十四以上入迟历。疾行：一日行十四度半强。平行：一日行十三度半强。迟行：一日行十二度半强。二十七日有奇行，一周天更行，二日与日合朔。\n　　"
+    },
+    {
+      "id": "qi-formula",
+      "source": "zhangguo",
+      "startCodePointInclusive": 156481,
+      "endCodePointExclusive": 156562,
+      "startByteInclusive": 465941,
+      "endByteExclusive": 466182,
+      "startLineOneBased": 1572,
+      "sha256": "d1988a491c8079247cdb21795be4bb14e0fc2f2e58df4a94bac6cb25b94d6ffc",
+      "text": "【紫气算法气星篇】置积日减一千二百八十八以一万，二百二十八大数除之不尽为残，分转一当十以二百八十为一度，二十八为一分，次下除为秒。平行：一日行三分五十七秒。\n　　"
+    },
+    {
+      "id": "qi-definition",
+      "source": "zhangguo",
+      "startCodePointInclusive": 156562,
+      "endCodePointExclusive": 156817,
+      "startByteInclusive": 466182,
+      "endByteExclusive": 466945,
+      "startLineOneBased": 1573,
+      "sha256": "1479be79d3e3835c1108e125c5bf7d852e82b406e12de7a100820d19656003e0",
+      "text": "【紫气总论】天乙紫气续木之余，在天无象、以木德最厚，立此名以追步，其余光用之效久不废，其行度无伏见迟疾退留，自奎宿十一度至十五度为正庙。或言觜宿庙又言牛宿庙躔室牛为旺尾，箕为乐。若人身命宫值之，更在庙旺无凶照破，处世富贵福寿双全，仁慈道德好善乐贤能，解计孛火土之难。若临陷没亦九流僧道，其星为孤星，主人心孤身寡，一生好静为人之寿星，又为文人解宿，但守身命为人豁达之操，对照则为福德，但癸人见之减力，六辛人为天禄。情性清慈、吉祥之曜，主道艺之流，若人生时临照、主富贵长寿，遇凶而不成灾，凡二十九年行一周天。\n　　"
+    },
+    {
+      "id": "bo-formula",
+      "source": "zhangguo",
+      "startCodePointInclusive": 159644,
+      "endCodePointExclusive": 159748,
+      "startByteInclusive": 475420,
+      "endByteExclusive": 475730,
+      "startLineOneBased": 1576,
+      "sha256": "8d80997d0121b3713531411e6275efb94dd7da5c45fdb8e189a64ac9166822da",
+      "text": "【月孛算法孛星篇】置积日加一千二百三十五以三千二百二十五大数除之，商数一千五十列上位，其余不尽者为残分，用七因之，上位商数以二十一因之，加八下位以六十二为一度，不满者不入分秒，平行一日行十一分二十九秒。\n　　"
+    },
+    {
+      "id": "bo-definition",
+      "source": "zhangguo",
+      "startCodePointInclusive": 159748,
+      "endCodePointExclusive": 159999,
+      "startByteInclusive": 475730,
+      "endByteExclusive": 476481,
+      "startLineOneBased": 1577,
+      "sha256": "524bc4cb6156c929ee86eefc1de02e56d7b4c45323aee809490e371d47117b23",
+      "text": "【月孛总论】太乙月孛乃水之余，在天无象古人以水星。在天其行最疾为福为祸最多，立此名以推步，其余光用之有验，久而不差。其行度无伏见迟疾，自井宿十九度 至二十一度为庙躔，柳宿初度至六度为偏庙，虚危参为乐躔胃为旺。若人身命值之更在庙旺宫，皆为禄主果断雄武亦大贵人，喜行阴宫。夜生忌于他星同、只宜独行、为灾为福力大。如遇火土罗计同宫、变福为祸，君子遇之时有不仁，女人见之淫荡无禁，在疾厄宫主隐癖之疾，六丁人为囚星，六乙人为天禄。此星多暗昧不明，兴危亡之灾。主头风之疾，遇凶则助凶，遇吉则助吉，大约九年行一周天。"
+    },
+    {
+      "id": "rahu-formula",
+      "source": "zhangguo",
+      "startCodePointInclusive": 163667,
+      "endCodePointExclusive": 163760,
+      "startByteInclusive": 487469,
+      "endByteExclusive": 487748,
+      "startLineOneBased": 1583,
+      "sha256": "7aa5b40c5225587187a0e0201ae572d273641e7ca266e136c7bc1b5abd7a47cf",
+      "text": "【罗喉算法罗星篇】置积日加五百六十以六，六千七百九十四逆游数除之，逆游数别列上位记之，其余不尽者为残分，以五因之却加入上位，逆数二以九十三为一度，又不满者入分秒。平行：日行五分三十七秒。"
+    },
+    {
+      "id": "rahu-definition",
+      "source": "zhangguo",
+      "startCodePointInclusive": 163760,
+      "endCodePointExclusive": 164056,
+      "startByteInclusive": 487748,
+      "endByteExclusive": 488632,
+      "startLineOneBased": 1583,
+      "sha256": "2c166fda563283c3da81fb584dc3589dc827e71b7a5ffbaf417c9ae29175969f",
+      "text": "【罗喉总论】天首罗喉续火之余，乃历家之交，初故曰罗?。对照则曰计都，交初交终乃日交会之次，交深则有蚀。古人以日月交蚀国家见之尚有祸福，凡人命限见之岂无休咎，在天无象，其行度无伏顺留逆，罗喉阳曜利于昼在午宫，星宿三度至五度为正庙，箕宿为乐，在双女阴阳宫为正庙，轸宿十二度至十五度为正旺，昴心二宿亦为次旺，若人身命二宫值之，更在庙旺之宫，可为雄锐贵品之格，主人特达慷慨性不受触。若陷没与火土孛同宫，多主为刑暴屠沽之流，贵命见之则有武断之威，小人不宜见之，六乙人为囚星，六癸人为天禄。此星性急宿怨、交仇不能兴义，能作妖孽。主血光斩截，招寒热瘴气，不逢忌曜贵而有横逆行隐而不见，十八年行一周天。\n　　"
+    },
+    {
+      "id": "ketu-formula",
+      "source": "zhangguo",
+      "startCodePointInclusive": 166493,
+      "endCodePointExclusive": 166665,
+      "startByteInclusive": 495923,
+      "endByteExclusive": 496437,
+      "startLineOneBased": 1587,
+      "sha256": "166aab2830ae8eddf595c625c8b18eda0ffa813e9ecca50addbaeb5a8ca86aa2",
+      "text": "【计都算法计星篇】将罗喉定度加半周天数。计都总论天尾计都续土之余，乃历家之交终。故计都对时则罗?交，初交终计都阴曜利于夜，在双女宫轸宿十三度至十六度为正庙，双鱼宫壁宿四度至十度亦为庙昴，心二宿为乐尾娄二宿为旺，六甲人为囚星，六壬人为天禄。计都常与罗喉相对号天尾，含蓄毒恶主风痨血气灾，咎逆行于天逢，日月则蚀，一十八年一周天罗喉过，宫计都亦过宫。"
+    },
+    {
+      "id": "body-degree",
+      "source": "zhangguo",
+      "startCodePointInclusive": 103440,
+      "endCodePointExclusive": 103945,
+      "startByteInclusive": 307068,
+      "endByteExclusive": 308581,
+      "startLineOneBased": 1471,
+      "sha256": "94d5df5886be86f4f40823f3400f912fb55c21517ad76e9ba02899097c0e7c1c",
+      "text": "【身度主论】人之生也有命斯有身命，主既本于太阳则身主当系于太阴，故以月离之度为身度主矣。盖吾身之生得身度主星之元气，故始诞之时月纬之度最为要紧，是以身主切于命主而身度主，尤切于身主也假如有同年同月隔日，同时有同年同月同日，异时者本日之星，其度则一推日时之异，月纬之度不同，即身寓之度不同也。或有同宿而异度者固无不同移时之间同，过其宿则不同者必矣。况一日有十三度之移，因此知身度当为尤重也。身度之宫自有贵贱，可分身宫所寓之度亦有贤愚之判，凡身度居身命财田官福妻妾迁移之宫者上也。如身度居兄弟子息奴仆疾厄相貌之，宫者次之，谓宫有高低之列于是乎有贵贱之分，身度之主若升殿入垣不值侵凌之曜，更为救援资助星之势。盛者必主光明正直，身有荣贵之象，若身主受制惟有余气代之，更有援星救之者犹可望其荣贵，或身主失度退留迟弱。又值凌犯之曜救之者怯必因之而流于下愚，福田由是而亏矣。若身主受制退留或遭凌犯，余气又弱略有星救者尚不与议损中求益也，大抵膺爵禄享荣华则在于身，故田财官福虽好身星落陷将何以承其福禄，使若得之亦不能长久矣。此专论身度主也，此谓太阴为身之度，主余气代之者如水为身度，主失陷得孛星高强者亦可代之援者救援也。\n　　"
+    },
+    {
+      "id": "moon-identity",
+      "source": "zhangguo",
+      "startCodePointInclusive": 21459,
+      "endCodePointExclusive": 21539,
+      "startByteInclusive": 62071,
+      "endByteExclusive": 62307,
+      "startLineOneBased": 1065,
+      "sha256": "eb2fccf6fdec526555e1b73625619acad961fb457b4f6a04655f22f8dbd85bdf",
+      "text": "先观主曜，即命度主也，次察身星，即月躔处也，当以二十八宿为本，以三百六十五度为本源，十一曜为用。以木、火、土、金、水、日、月、气、孛、罗、计为用神。\n　　\n　　"
+    },
+    {
+      "id": "moon-comet-conflict",
+      "source": "zhangguo",
+      "startCodePointInclusive": 43405,
+      "endCodePointExclusive": 43507,
+      "startByteInclusive": 127435,
+      "endByteExclusive": 127739,
+      "startLineOneBased": 1251,
+      "sha256": "8b995a0c44a3fe4aca417c757d716aec480658de1f076d5e6f6c503385974845",
+      "text": "除旧换新　月孛乃天上之彗星，有除旧换新之象，所照之地，则有变易更改，其星为扫?，所以扫除尘秽，更新改旧。在亥正月生，或在丑十一月生是也，盖十二月一阳方生更改之，始在丑，次正月为一岁之始，日在亥次故也，或孛"
+    },
+    {
+      "id": "life-body-verses",
+      "source": "zhangguo",
+      "startCodePointInclusive": 192941,
+      "endCodePointExclusive": 193007,
+      "startByteInclusive": 575087,
+      "endByteExclusive": 575285,
+      "startLineOneBased": 1667,
+      "sha256": "9d693cfd5078faef90f580d7054642e49f6a56cb9a77374eff83aa166878be4e",
+      "text": "命度歌命度真要诀、先看太阳何度入、命宫三十六有奇、阔狭浅深随度立。身度歌身度真要诀、命宫更缓身犹急、二十七日一周天、行度有乎迟与疾。"
+    },
+    {
+      "id": "jupiter-formula",
+      "source": "zhangguo",
+      "startCodePointInclusive": 127332,
+      "endCodePointExclusive": 127515,
+      "startByteInclusive": 378620,
+      "endByteExclusive": 379167,
+      "startLineOneBased": 1529,
+      "sha256": "a6b4d267fca112d124243befed08c07ee253098b13a3d2e70e4c308c2bf33867",
+      "text": "【岁星算法木星篇】置积日减七十四以周天数，三百九十八日八十八分六十一杪去之，看余日多少入在何段下，太阳中定星度，又以余日数去之，不满者为定度。晨伏：十七日行四度去日十三度，五十分晨见东方。顺：二百十三日行十七度七十六分。留：二百十三日行十七度十六分。晨逆：四千六百九十四分一十杪行四度九十一分八十五杪。夕退同上：留同上。顺同上。夕伏：十七日行四度须与日月同度。\n　　"
+    },
+    {
+      "id": "mars-formula",
+      "source": "zhangguo",
+      "startCodePointInclusive": 130962,
+      "endCodePointExclusive": 131165,
+      "startByteInclusive": 389492,
+      "endByteExclusive": 390101,
+      "startLineOneBased": 1535,
+      "sha256": "f1178783ab74b99595b6d3b6ba21f12460c6b512ff8dc1b3d6dd2b5e8ba7043b",
+      "text": "【荧惑算法火星篇】置积日数加二百二十二日，以七百六十九日九十二分九十六秒为伏见留，退一终之数除之，不满者为余日，看有多少下，太阳中定星加以周天，以余日数去之，看在何段便知定度所在。约二年行一小周天。晨伏：七十一日行，五十一度去日二十度，晨见东方。顺：三百八十日行，六百十四度九十分。留：八日不行。晨逆：三十日九十八分四十八秒行，八度五十五分六十八秒。夕逆：三十日。顺：二百八十日　夕伏　七十一日行度并同前。"
+    },
+    {
+      "id": "editorial-attribution",
+      "source": "suyuan-preface",
+      "startCodePointInclusive": 203,
+      "endCodePointExclusive": 807,
+      "startByteInclusive": 377,
+      "endByteExclusive": 2133,
+      "startLineOneBased": 8,
+      "sha256": "3590d1de7d418fab11544c099c308cf187699633b28619dd068c4bee5490cfdf",
+      "text": "{{SK notes|臣}}等謹案星命溯源五卷不著編輯者名氏第一卷為通元遺書雜録唐張果之說凡三篇第二卷為果憕問答稱明李憕遇張果所口授凡四篇第三卷為元妙經觧稱張果撰元鄭希誠註第四卷為觀星要訣第五卷為觀星心傳口訣補遺均不云誰作詳其題詞似要訣為鄭希誠編補遺又術士掇拾增希誠所未備也考明皇雜録載果多神怪之迹不言其知禄命獨是編以五星推命之學依托于果術者遂以果老五星自名一家考韓愈作李虚中墓誌稱其推命尚止用年月日不用時則開元天寳之間且無八字似不應有五星然王充論衡稱天施氣而衆星布精天所施氣而衆星之氣在其中矣人禀氣而生含氣而長得貴則貴得賤則賤貴或秩有髙下富或貲有多少皆星位尊卑大小之所授也是漢末巳以星位言禄命又韓愈三星行云我生之辰月宿南斗牛奮其角箕張其口杜牧自作墓誌銘曰余生于角星昴畢于角為第八宫曰病厄宫亦曰八殺宫土星在焉火星繼木星王楊晞曰木在張于角為第十一福徳宫木為福徳大君子救其旁無虞也余曰自湖守不週歳遷舍人木還福于角足矣土火還死于角宜哉是唐時實以五星宫度推休咎其托名于果亦有所因爾希誠自署其官曰主簿其籍曰瑞安其號曰滄洲始末未詳憕自稱中都人其遇果在{{YL|嘉靖二年}}九月尤怪妄不足辨總之術家務神其說而已然世所傳五星之書以此為鼻祖别有所謂果老星宗者葢因此本而廣之其後又有天官五星術與此頗異據理而論化氣當從天官正氣當從果老二家之術可互㕘其論星度乘除生尅及兼取值年神煞亦未可盡廢也{{YL|乾隆四十六年}}十二月恭校上\n"
+    },
+    {
+      "id": "volume-body-opening",
+      "source": "suyuan-1",
+      "startCodePointInclusive": 256,
+      "endCodePointExclusive": 626,
+      "startByteInclusive": 469,
+      "endByteExclusive": 1549,
+      "startLineOneBased": 11,
+      "sha256": "0ca890a63b386abbc2ee0f29aa2cea7dd9d0d6668a4d493aec810d656c1a4156",
+      "text": "　　太上洪荒之世清濁未分混沌如卵精神盛極著而成形則有人矣两儀四象三才五行備不知體生不知用且隂陽得位風雷鼓舞化生萬物邇莫能知逮夫聖人之生辯龍馬之圖而立極因神{{SKchar|1841}}之文以用事始知五星光燦羣曜熒輝遂别辰宿於乾坤配人身於天地灾祥休咎因是言之夫人之生育於乾坤覆載於坎離大無不周小無不具天干生而氣聚崇勲地支成而元居嵗駕故將宫命以定三元審元辰而言九事生煞作吉㐫之根向背為貴賤之本先看明暗升沉順逆衰旺掩蝕衝制失次入垣次看朝拱夾輔分㑹引從漏截守岐方以格局考評貴賤夫隂陽拱夾得地是豈凡夫如逢經緯驛馬相扶更㑹斗貴印符侍從必獲萬鍾之禄八位之權失位失時亦作空門髙貴客俗縁不斷決作見紫見緋人福禄夾身三元總㑹無傷無耗不是貧才食禄相隨田財俱旺富可言其無比田可連於阡陌若值四耗侵凌八虚空陷必主破祖㤀家尤忌傷財刼盜奔忙勞碌没齒貧窮計羅乃首尾之星作攔截之"
+    }
+  ],
+  "findings": [
+    {
+      "id": "actual-body-not-title",
+      "evidence": [
+        "toc-only-anchoring",
+        "missing-chart",
+        "editorial-attribution",
+        "volume-body-opening"
+      ],
+      "conclusion": "張果星宗确有算法正文，不能称仅目录；但安命度法全文件只出现一次且在目录，安命专章并未据此找到。命度图、授时过宫度图明确缺图。星命溯源首页为提要/卷目，卷1实际为通元遗书格局与解释文字，非四余历元算法。提要自述作者不著名、张果托名、果老星宗在该本基础扩充，不能当作唐代作者原稿已核定。"
+    },
+    {
+      "id": "seven-celestial-vs-old-calculation",
+      "evidence": [
+        "mean-rates",
+        "sun-formula",
+        "moon-formula",
+        "jupiter-formula",
+        "mars-formula"
+      ],
+      "conclusion": "七曜对象可对应日月与五行星；本传本给粗行速及分段伏见留退算法，明确古法有太阳盈缩/月行迟疾，不能概括为所有星匀速。该文字并非可直接调用现代天文经纬坐标的定义；现代星历替换应作为显式产品计算政策，非宣称复原原算法。火星文有顺三百八十日行六百十四度九十分等疑文；木星留段仍称行十七度十六分，原样保留等待校勘。"
+    },
+    {
+      "id": "four-residuals-insufficient-epoch",
+      "evidence": [
+        "qi-formula",
+        "bo-formula",
+        "rahu-formula",
+        "ketu-formula",
+        "mean-rates"
+      ],
+      "conclusion": "四余确有算法正文，但各起于置积日；已检查全文件全部积日命中，未找到积日历元定义，且加减常数不能自行当作公历/JD历元。紫气算法一万，二百二十八、分转一当十、二十八为一分；月孛商数一千五十列上位、加八下位；罗喉加五百六十以六，六千七百九十四/逆数二等文本需校勘。不能自行删字、补字、加小数或拟合人物事件。"
+    },
+    {
+      "id": "rates-disagree",
+      "evidence": [
+        "mean-rates",
+        "qi-formula",
+        "qi-definition",
+        "traditional-units"
+      ],
+      "conclusion": "入门紫气二十九日一度，算法平行一日三分五十七秒；依本书100分/度、100秒/分，后者0.0357古度/日约28.0112日/古度，与29日/古度不同。算法除数10228若读为日数，接近28×365.25而不是29×365.25。此为传文内部检查而非校正证据。不得选一值并宣称唯一传统公式。"
+    },
+    {
+      "id": "residual-identities",
+      "evidence": [
+        "qi-definition",
+        "bo-definition",
+        "moon-comet-conflict",
+        "rahu-definition",
+        "ketu-formula"
+      ],
+      "conclusion": "紫气/孛总论称在天无象、立名推步；孛另一段却称天上彗星，存在表述层次或传文冲突。不能据此指定某颗真实彗星或未经论证指定月球远地点。罗喉明确历家交初，计都交终且加半周天相对，支持交点轴概念；这里不足以裁定现代升/降交点对应、真/平交点、赤黄道坐标与历元。"
+    },
+    {
+      "id": "unequal-mansions-units",
+      "evidence": [
+        "widths",
+        "palace-crossings",
+        "mansions-order",
+        "traditional-units"
+      ],
+      "conclusion": "正文明确28宿顺序，角十二亢九氐十六等不等宽，故等分28扇区无根据。度数所属后半串行标点疑损，不能静默拆成一张完整正确数表。过宫图缺失；周天三百六十五度四分，度之一分配十二宫断句有歧义，常见365¼解读必须另校，不能机械取365.04。百分一度、百秒一分明确异于现代60进制角分秒。选定全周单位后才可用360/C做单位换算，换算不是赤道/黄道投影。全文未找到距星一词，未取得28颗现代星表身份、历元、坐标；不可称边界已选定。"
+    },
+    {
+      "id": "ming-and-shen-not-one",
+      "evidence": [
+        "moon-identity",
+        "body-degree",
+        "life-body-verses",
+        "missing-chart",
+        "lunar-month-table",
+        "moon-formula"
+      ],
+      "conclusion": "先天心法次察身星即月躔处；身度主论以月离之度为身度主；命度歌先看太阳何度入，命度不可直接等同出生月亮所在宿。身度歌二十七日一周天说的是月行周期，不是删成27宿。正文太阴行度确有月份起宿/日行13度近似口诀，晨昏修正亦在；它不是仅凭农历月日即可获得精确出生月亮天文入宿的证据。首版用出生月亮所在宿对象名，不先冠命宿/命度。"
+    }
+  ],
+  "recommendations": [
+    "可立即固定首版对象名：出生月亮所在宿；共享七曜坐标层。现代天文引擎的参考系、历元、时间尺度、地心/站心选择单独版本化，不能从本传本补全。",
+    "28宿名称顺序可列候选；宿界需另取可校勘距星/宿度源并统一坐标系和历元，再决定传统古度显示。此份研究不产出生产宿界常数。",
+    "四余均保留研究状态；罗计候选交点轴与半周天相对规则有文据，但映射与真平选项待定。紫气/月孛先获得积日历元及可校原版算法，或明确采用另一个有出处的现代流派公式。",
+    "安命与十二宫须找到实际算法正文/缺图或指定另本，不凭目录、现代西占Ascendant或月宿结果自动补法。",
+    "原典规则、现代天文复算一致性、命运解释效验是不同证据层；本报告只完成有限正文归档与方法边界审查。"
+  ],
+  "unresolvedChoices": [
+    "张果星宗可核版次与缺图、疑文校勘",
+    "28距星表/宿度表及历元、赤黄道口径",
+    "现代星历替代古历是否为首版公开政策",
+    "罗计升降对应、真平交点、参考坐标；紫气月孛积日历元与公式",
+    "安命度/十二宫的明确流派算法"
+  ],
+  "extraLinkedChaptersFetched": 0,
+  "productionCodeChanged": false,
+  "sourceOutcomeValidityClaimed": false
+}

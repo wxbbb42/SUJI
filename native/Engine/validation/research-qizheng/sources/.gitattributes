@@ -1,0 +1,5 @@
+# Preserve external source bytes: report hashes and excerpt offsets include
+# original spacing and line endings. Whitespace checks still apply to our code.
+*.txt -text -whitespace
+*.tsv -text -whitespace
+*.json -text

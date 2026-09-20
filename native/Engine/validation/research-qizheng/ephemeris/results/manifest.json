@@ -1,0 +1,20 @@
+{
+  "candidate.json.gz": {
+    "uncompressedBytes": 1606431,
+    "compressedBytes": 300123,
+    "uncompressedSHA256": "cbea79635ded63dfc5683d7f1c568ff579f8e7a283a09238f00ec6d0b2b7e95d",
+    "compressedSHA256": "d6ca1c3efc0c41de395f09906dc6953d2c0f6599231d7692a4c2a5374b84da0b"
+  },
+  "reference.json.gz": {
+    "uncompressedBytes": 4148640,
+    "compressedBytes": 964604,
+    "uncompressedSHA256": "cb49b3eabcf13a6135fa37859f78e1c77c3a5ef04fe3930d4dfff161581af23d",
+    "compressedSHA256": "d5660302bc7cc692ec84bd81522dd3a63c7ab3b1684fc7bd3cd204bc129e1c17"
+  },
+  "jsc.json.gz": {
+    "uncompressedBytes": 1047790,
+    "compressedBytes": 258603,
+    "uncompressedSHA256": "95c0d8c0d5384b1ce7089c474306e066da8b9383e1c5ff3b43ce6a564de4430e",
+    "compressedSHA256": "b30030e0e95a3b1e6ec7fdbb110b9b1eee3d9029e435ffa0abc275d48e39425a"
+  }
+}

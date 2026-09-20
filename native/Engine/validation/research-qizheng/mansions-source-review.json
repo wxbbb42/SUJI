@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-20",
+  "status": "research-only-no-production-boundary-table",
+  "sources": [
+    {
+      "id": "zhao-li-2009",
+      "title": "二十八宿的形成与演变",
+      "authors": [
+        "赵永恒",
+        "李勇"
+      ],
+      "publication": "中国科技史杂志30(1), 2009, 110–119",
+      "url": "https://www.lamost.org/~yzhao/history/xiu28.html",
+      "retrievedHTMLSHA256": "cd5e12d0261dd8ab1a0e41190e9fdec4afe66e10084109169544320727571c98",
+      "retrievedEncoding": "gb2312",
+      "excerptConvention": "HTMLParser text nodes, strip each and concatenate; selected short quotations only",
+      "excerpts": [
+        "二十八宿中的恒星的坐标和自行数据使用依巴谷星表[8]。",
+        "按照宿度的定义，某宿的范围是从本宿的起点直到下一宿的起点。",
+        "包括对宿中距星的调整。"
+      ],
+      "supportedUse": "宿界相邻起点、岁差与距星沿革，文中所述Hipparcos与P03研究方法",
+      "notAdopted": "该文关于起源年代的论证、完整28星表、七政四余流派规则；网页没有提供可直接采用的完整现代距星表。"
+    },
+    {
+      "id": "wikipedia-28-92223725",
+      "title": "二十八宿",
+      "url": "https://zh.wikipedia.org/w/index.php?title=二十八宿&oldid=92223725",
+      "revisionID": 92223725,
+      "revisionTimestamp": "2026-04-09T16:38:30Z",
+      "artifact": "sources/二十八宿-wikipedia-92223725.txt",
+      "sha256": "12f7d5306ecad75ae06a76d180ba39c3782420b3acd9a488dbd0e40e95a63910",
+      "attribution": "Wikipedia contributors, CC BY-SA 4.0; permanent revision and its history retain attribution",
+      "supportedUse": "历史距星表及明清调整的文献线索；明确奎觜参有改定，列出旧觜φ1 Ori、旧参δ Ori与1752年后λ Ori、ζ Ori的对应。",
+      "limitation": "二手文献线索；所引冯时著作与黄一农1991论文尚未取得原页核验，不能称已校定传统版本。"
+    },
+    {
+      "id": "ridpath-chinese",
+      "title": "Star Tales – Chinese constellations",
+      "author": "Ian Ridpath",
+      "url": "http://www.ianridpath.com/startales/chinese.html",
+      "retrievedHTMLSHA256": "6d323a3d661c415823b374832d1156d241b575c4e61e0e447a809f83ec1b1249",
+      "supportedUse": "不等宽月宿与历史图形变动的通俗天文学说明",
+      "tableWidthsAsDisplayed": [
+        12,
+        9,
+        16,
+        5,
+        5,
+        18,
+        11,
+        26,
+        8,
+        12,
+        10,
+        17,
+        16,
+        9,
+        16,
+        12,
+        14,
+        11,
+        16,
+        2,
+        9,
+        33,
+        4,
+        15,
+        7,
+        18,
+        18,
+        17
+      ],
+      "displayedWidthsSum": 366,
+      "limitation": "表头写degrees，但未给可用坐标历元/距星表，且总和366；不将其当作360度生产边界，也不为它猜定古度换算。"
+    },
+    {
+      "id": "hipparcos-4",
+      "title": "The Hipparcos and Tycho Catalogues (ESA 1997), I/239/hip_main",
+      "url": "https://vizier.cds.unistra.fr/viz-bin/asu-tsv?-source=I%2F239%2Fhip_main&HIP=26176%2C25930%2C26207%2C26727&-out=HIP%2CRAICRS%2CDEICRS%2CpmRA%2CpmDE",
+      "artifact": "sources/orion-hipparcos.tsv",
+      "sha256": "4d7080a140b519b8b132df82c98c397637fdbd7a958a617b1c7621aabeb8939b",
+      "frame": "ICRS",
+      "positionEpoch": "J1991.25",
+      "properMotionUnit": "mas/year; pmRA includes cos(dec)",
+      "limitation": "头部另有J2000显示坐标系行，实际RAICRS/DEICRS列明确定义为J1991.25；不能把星表历元与参考系标签混淆。"
+    },
+    {
+      "id": "simbad-4",
+      "title": "SIMBAD identifier and J2000 ICRS coordinate query",
+      "url": "http://simbad.cds.unistra.fr/simbad/sim-tap/sync",
+      "query": "SELECT i.id, b.main_id, b.ra, b.dec FROM ident AS i JOIN basic AS b ON i.oidref = b.oid WHERE i.id IN ('HIP 26176','HIP 25930','HIP 26207','HIP 26727')",
+      "artifact": "sources/orion-simbad.json",
+      "sha256": "137d01b31fb466433dc93116283c40dc8b708bdde87d628baaae9401f58926f2",
+      "frame": "ICRS",
+      "positionEpoch": "J2000 as returned metadata",
+      "supportedUse": "核验HIP25930=δ Ori、26176=φ1 Ori、26207=λ Ori、26727=ζ Ori；构建实际距星逆序反例。"
+    }
+  ],
+  "decisions": [
+    "推荐独立星宿首版采用明确声明的现代天文赤道入宿政策，以经校对的同一套距星身份和同历元坐标做计算；古籍固定宿度另列流派，不混合。推荐尚不等于已接受完整星表。",
+    "不能把星官中最亮的一颗自动当成距星，也不能只看到某宿一就推回所有历史时期。",
+    "觜参反例只核验同参考系下真实星位与历史身份选择的影响，不输出用户本命宿，不把J1991.25列冒充J2000。",
+    "生产归宿先核验28宿在选定顺序下一周覆盖且不重叠；不对逆序负差直接模360掩盖错误。",
+    "完整28距星身份/坐标、星表许可/版本、星位传播及视位置口径、古度显示、四余和命度仍待核定。"
+  ],
+  "networkLimitations": "部分HTTPS仍TLS失败；LAMOST、Wikipedia、VizieR已获取正文/数据，Ridpath与SIMBAD的公开HTTP端点可读；黄一农论文原链接与公开Drive链接未成功取得，不据二手引用宣称读过原文。"
+}
