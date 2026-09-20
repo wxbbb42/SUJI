@@ -89,11 +89,13 @@ public enum ReadingPrompt {
             guard let role = ChatRole(rawValue: entry.role), role == .user || role == .assistant else { continue }
             messages.append(ChatMessage(role: role, content: entry.id == currentUserID ? boundedQuestion(entry.text) : String(entry.text.prefix(3_000))))
             guard entry.id == currentUserID, let context else { continue }
+            let receiptStart = messages.count
             for receipt in entry.toolReceipts ?? [] where receipt.context == context {
-                guard receipt.output.utf16.count <= 32_000, receiptBytes + receipt.output.utf8.count <= 40_000 else { continue }
-                receiptBytes += receipt.output.utf8.count
+                let modelOutput = NatalEvidenceProjection.output(receipt.output,name:receipt.name,delivered:Array(messages.dropFirst(receiptStart)))
+                guard modelOutput.utf16.count <= 32_000, receiptBytes + modelOutput.utf8.count <= 40_000 else { continue }
+                receiptBytes += modelOutput.utf8.count
                 messages.append(.assistantToolCalls([receipt.call]))
-                messages.append(.toolResult(ChatToolResult(callID: receipt.callID, output: receipt.output)))
+                messages.append(.toolResult(ChatToolResult(callID: receipt.callID, output: modelOutput)))
             }
         }
         return messages

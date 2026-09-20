@@ -1,6 +1,7 @@
 /** Typed surface used by SUJI; upstream lunar-javascript 1.7.7 ships JavaScript only. */
 declare module 'lunar-javascript' {
   export interface SolarDate {
+    next(days: number, onlyWorkday?: boolean): SolarDate;
     getYear(): number; getMonth(): number; getDay(): number;
     getHour(): number; getMinute(): number; getSecond(): number;
     getLunar(): LunarDate; toYmd(): string; toYmdHms(): string;

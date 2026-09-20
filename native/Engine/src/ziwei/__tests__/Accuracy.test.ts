@@ -34,7 +34,7 @@ describe('date, conventions, and normalized four transformations',()=>{
       expect(p.shenGongPosition).toBe(branches[(2+month-1+hour)%12]);
     }
   });
-  it('all ten stem tables agree with Quanshu 四化口诀; output always has 化 prefix',()=>{
+  it('pins the selected ten stem table, including Ren 左辅科 (the read Quanshu edition has 天府科)',()=>{
     const expected=[
       ['廉贞','破军','武曲','太阳'],['天机','天梁','紫微','太阴'],['天同','天机','文昌','廉贞'],
       ['太阴','天同','天机','巨门'],['贪狼','太阴','右弼','天机'],['武曲','贪狼','天梁','文曲'],

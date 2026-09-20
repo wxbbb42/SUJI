@@ -159,7 +159,7 @@
     {
       "id": "ziwei.ming-shen-placement.rule",
       "domain": "ziwei",
-      "claim": "紫微命宫从寅上起正月顺数至生月，再从生月起子时逆数至生时；身宫从生月起子时顺数至生时。闰月处理需另做版本/实现核对。",
+      "claim": "紫微命宫从寅上起正月顺数至生月，再从生月起子时逆数至生时；身宫从生月起子时顺数至生时。闰月处理需另做版本/实现核对。 当前选定闰月分前后15日与23点完整换日，已用144组普通月命身和5个独立晚子边界例验证；此政策不等同所读原文闰月一律取次月。",
       "sourceIds": [
         "ziwei-doushu-quanshu",
         "ziwei-iztro"
@@ -169,22 +169,24 @@
         "docs/mingli/reading-notes/2026-04-29-reading-log.md"
       ],
       "confidence": "medium",
-      "status": "text_cited_needs_fixture"
+      "status": "independent_counting_fixtures_and_boundary_regression"
     },
     {
       "id": "ziwei.four-transformations.by-year-stem",
       "domain": "ziwei",
-      "claim": "紫微四化（禄、权、科、忌）按生年天干取星，例如《紫微斗数全书》卷二给出“甲廉破武阳”等口诀；工程实现需与 iztro 输出和至少一处独立排盘源对照。",
+      "claim": "生年四化按出生农历年干取星，当前锁定iztro 2.5.8默认表。卷二电子本壬句为梁紫府武（天府化科），当前选择左辅化科；十干规则已作固定表测试，不声称各传本全部一致。",
       "sourceIds": [
         "ziwei-doushu-quanshu",
         "ziwei-iztro"
       ],
       "repoRefs": [
         "native/Engine/src/ziwei/ZiweiEngine.ts",
-        "docs/mingli/reading-notes/2026-04-29-reading-log.md"
+        "docs/mingli/reading-notes/2026-04-29-reading-log.md",
+        "native/Engine/src/ziwei/__tests__/Accuracy.test.ts",
+        "native/Engine/validation/research-divination/ziwei-core-sources.json"
       ],
       "confidence": "medium",
-      "status": "text_cited_needs_fixture"
+      "status": "selected_policy_with_documented_variant"
     },
     {
       "id": "ziwei.interpretation.requires-context",
@@ -836,6 +838,21 @@
       ],
       "confidence": "high_for_selected_direction_with_textual_variants",
       "status": "selected_direction_implemented_with_counterexamples"
+    },
+    {
+      "id": "ziwei.scoped-palace-context",
+      "domain": "ziwei",
+      "claim": "工具按实际地支+4/+8/+6返回三方四正，空宫仅参照对宫，保留本宫空值和星曜实际位置；四化明确生年干、目标宫、星曜及规则来源。",
+      "sourceIds": [
+        "ziwei-iztro",
+        "ziwei-doushu-quanshu"
+      ],
+      "repoRefs": [
+        "native/Engine/src/ziwei/context.ts",
+        "native/Engine/src/ziwei/__tests__/PalaceContext.test.ts"
+      ],
+      "confidence": "high_for_geometry_scoped_to_selected_table",
+      "status": "implemented_with_counterexamples"
     }
   ]
 }

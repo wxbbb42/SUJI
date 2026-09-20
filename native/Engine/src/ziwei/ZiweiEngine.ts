@@ -46,12 +46,13 @@ export class ZiweiEngine {
     for (const key of Object.keys(globalRules.mutagens)) delete globalRules.mutagens[key as keyof typeof globalRules.mutagens];
     for (const key of Object.keys(globalRules.brightness)) delete globalRules.brightness[key as keyof typeof globalRules.brightness];
     astro.config({yearDivide:'normal',horoscopeDivide:'normal',ageDivide:'normal',dayDivide:'forward',algorithm:'default'});
-    const dateStr = `${input.year}-${input.month}-${input.day}`;
+    // iztro's late-zi index advances the star day but leaves month/year behind
+    // (and skips the leap-month split). Our selected full zi-hour rollover must
+    // advance the calendar exactly once, including the raw date used by decades.
+    // The input range applies to civil birth; its derived chart date may be 2101-01-01.
+    const chartSolar = input.hour === 23 ? solar.next(1) : solar;
     const hourIndex = this.hourToIndex(input.hour);
-
-    const astrolabe: IFunctionalAstrolabe = input.isLunar
-      ? astro.byLunar(dateStr, hourIndex, input.gender, input.isLeapMonth ?? false, true, 'zh-CN')
-      : astro.bySolar(dateStr, hourIndex, input.gender, true, 'zh-CN');
+    const astrolabe: IFunctionalAstrolabe = astro.bySolar(chartSolar.toYmd(), hourIndex, input.gender, true, 'zh-CN');
 
     const palaces: Palace[] = astrolabe.palaces.map((p: any) => ({
       name: this.normalizePalaceName(p.name),
@@ -72,7 +73,12 @@ export class ZiweiEngine {
       mingGongPosition: astrolabe.earthlyBranchOfSoulPalace ?? this.findMingGongPosition(palaces),
       shenGongPosition: astrolabe.earthlyBranchOfBodyPalace ?? (palaces.find(p => p.isShenGong)?.position ?? ''),
       fiveElementsClass: astrolabe.fiveElementsClass ?? '',
-      method: {algorithm:'iztro-2.5.8-default',dayBoundary:'zi-hour',yearBoundary:'lunar-new-year',leapMonth:'split-at-day-15',caveats:[
+      natalYear: {
+        lunarYear:astrolabe.rawDates.lunarDate.lunarYear,
+        ganZhi:astrolabe.rawDates.chineseDate.yearly.join(''),
+        stem:astrolabe.rawDates.chineseDate.yearly[0], branch:astrolabe.rawDates.chineseDate.yearly[1],
+      },
+      method: {algorithm:'iztro-2.5.8-default',dayBoundary:'zi-hour',yearBoundary:'lunar-new-year',leapMonth:'split-at-day-15',calculationDate:chartSolar.toYmd(),civilTimeZone:'UTC+08:00',caveats:[
         '采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则',
         '四化使用默认十干表；亮度、四化和闰月规则存在传本差异',
         '排盘一致性不等于对现实事件的预测效度',
@@ -90,10 +96,9 @@ export class ZiweiEngine {
     return (name.endsWith('宫') ? name : name + '宫') as PalaceName;
   }
 
-  /** iztro 区分早子0与晚子12；默认 forward 晚子按次日安星。 */
+  /** 23点已经完整推进计算日期，传子时0避免库再次加日。 */
   private hourToIndex(hour: number): number {
-    if (hour === 23) return 12;
-    if (hour === 0) return 0;
+    if (hour === 23 || hour === 0) return 0;
     return Math.floor((hour + 1) / 2);
   }
 

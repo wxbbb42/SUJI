@@ -44,6 +44,8 @@ const requests = [
   {command:'calendar',day:'2026-02-05'},
   {command:'tool',name:'get_domain',birth,arguments:{domain:'事业'},now:'2026-09-19T04:00:00Z'},
   {command:'forecast',birth,year:2027,now:'2026-09-19T04:00:00Z'},
+  ...[{year:2023,month:4,day:6}, {year:2024,month:2,day:9}].map(date => ({command:'natal',birth:{...birth,...date,hour:23,minute:59}})),
+  {command:'tool',name:'get_ziwei_palace',birth,arguments:{palace:'命宫',withSihua:true},now:'2026-09-19T04:00:00Z'},
 ];
 const savedNatal=JSON.parse(JSON.stringify(await context.SujiNative.dispatch({command:'natal',birth})));
 requests.push({command:'profile',birth,natal:savedNatal,now:'2026-09-19T04:00:00Z'});

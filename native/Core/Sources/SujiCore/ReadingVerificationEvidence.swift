@@ -35,16 +35,42 @@ enum ReadingVerificationEvidence {
                     add(prefix + "." + key, path + "/" + key)
                 }
             }
-            func sources(_ prefix: String) {
-                guard case let .array(sources) = root["ruleSources"] else { return }
+            func sources(_ prefix: String, _ base: String = "") {
+                guard case let .array(sources) = pointer(base + "/ruleSources", in: object) else { return }
                 for (index, source) in sources.enumerated() {
-                    let key = "\(prefix).ruleSource\(index + 1)", path = "/ruleSources/\(index)"
+                    let key = "\(prefix).ruleSource\(index + 1)", path = base + "/ruleSources/\(index)"
                     fields(key, path, ["id", "version", "title", "editionStatus", "scope", "limitations"])
                     guard case let .object(source) = source, case let .array(references) = source["references"] else { continue }
                     for reference in references.indices {
                         fields("\(key).reference\(reference + 1)", "\(path)/references/\(reference)", ["url", "locator", "sha256", "quote"])
                     }
                 }
+            }
+            func ziwei(_ base: String) {
+                func palace(_ path: String) {
+                    guard case let .string(name) = pointer(path + "/palace", in: object),
+                          ["命宫", "兄弟宫", "夫妻宫", "子女宫", "财帛宫", "疾厄宫", "迁移宫", "仆役宫", "官禄宫", "田宅宫", "福德宫", "父母宫"].contains(name) else { return }
+                    let key = "ziwei." + name
+                    fields(key, path, ["palace", "position", "ganZhi", "mainStars", "minorStars", "isShenGong", "emptyMainPalace", "relation", "sihua"])
+                    if case let .array(stars) = pointer(path + "/starDetails", in: object) {
+                        for index in stars.indices {
+                            fields("\(key).star\(index + 1)", path + "/starDetails/\(index)", ["name", "group", "type", "source", "brightness", "sihua"])
+                        }
+                    }
+                    if case let .array(transformations) = pointer(path + "/natalTransformations", in: object) {
+                        for index in transformations.indices {
+                            fields("\(key).transformation\(index + 1)", path + "/natalTransformations/\(index)", ["scope", "sourceStem", "star", "transformation", "targetPalace", "targetPosition", "sourceId"])
+                        }
+                    }
+                }
+                palace(base)
+                if case let .array(related) = pointer(base + "/relatedPalaces", in: object) {
+                    for index in related.indices { palace(base + "/relatedPalaces/\(index)") }
+                }
+                fields("ziwei.emptyPalaceReference", base + "/emptyPalaceReference", ["status", "sourcePalace", "sourcePosition", "mainStars"])
+                fields("ziwei.natalYear", base + "/natalYear", ["lunarYear", "ganZhi", "stem", "branch"])
+                fields("ziwei.method", base + "/method", ["algorithm", "dayBoundary", "yearBoundary", "leapMonth", "calculationDate", "civilTimeZone", "caveats"])
+                sources("ziwei", base)
             }
             switch name {
             case "get_today_context":
@@ -55,9 +81,9 @@ enum ReadingVerificationEvidence {
                     add("bazi.\(column).tenGod", "/bazi/pillars/\(column)/shiShen")
                 }
                 for (key, path) in [("pattern.status", "patternAnalysis/assessmentStatus"), ("pattern.stem", "patternAnalysis/yongShenGan"), ("pattern.element", "patternAnalysis/yongShen"), ("strength.status", "strengthReference/suggestionStatus"), ("strength.method", "strengthReference/suggestionBasis"), ("strength.element", "strengthReference/yongShen"), ("tiaohou.automatic", "tiaoHou/automatedSelection")] { add("bazi." + key, "/bazi/" + path) }
-                for key in ["palace", "ganZhi", "mainStars", "minorStars"] { add("ziwei." + key, "/ziwei/" + key) }
+                ziwei("/ziwei")
             case "get_ziwei_palace":
-                for key in ["palace", "ganZhi", "mainStars", "minorStars"] { add("ziwei." + key, "/" + key) }
+                ziwei("")
             case "cast_liuyao":
                 add("liuyao.castTime", "/castTime")
                 fields("liuyao.calendar", "/castGanZhi", ["month", "day", "hour"])

@@ -34,7 +34,8 @@ export interface ZiweiPan {
   mingGongPosition: string;  // 命宫地支位
   shenGongPosition: string;  // 身宫地支位
   fiveElementsClass: string; // 五行局（水二局/木三局/...）
-  method?: { algorithm: string; dayBoundary: string; leapMonth: string; yearBoundary: string; caveats: string[] };
+  natalYear?: { lunarYear:number; ganZhi:string; stem:string; branch:string };
+  method?: { algorithm: string; dayBoundary: string; leapMonth: string; yearBoundary: string; calculationDate?: string; civilTimeZone?: string; caveats: string[] };
 }
 
 export interface ZiweiBirthInput {

@@ -16,7 +16,7 @@
     },
     "result": {
       "schemaVersion": 1,
-      "engineRevision": "842183824dbeafc930cf631e5679c5ee315ea6f253a85672035ea002e5d9d5bb",
+      "engineRevision": "e8130373b69f1ba85d96a7e6246490829ebf4a3faa3eb01674cd43b82b6f0852",
       "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
       "calendarPolicy": {
         "version": "suji-calendar-2",
@@ -1527,11 +1527,19 @@
         "mingGongPosition": "戌",
         "shenGongPosition": "午",
         "fiveElementsClass": "土五局",
+        "natalYear": {
+          "lunarYear": 1995,
+          "ganZhi": "乙亥",
+          "stem": "乙",
+          "branch": "亥"
+        },
         "method": {
           "algorithm": "iztro-2.5.8-default",
           "dayBoundary": "zi-hour",
           "yearBoundary": "lunar-new-year",
           "leapMonth": "split-at-day-15",
+          "calculationDate": "1995-08-15",
+          "civilTimeZone": "UTC+08:00",
           "caveats": [
             "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
             "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",
@@ -3119,11 +3127,19 @@
         "mingGongPosition": "戌",
         "shenGongPosition": "午",
         "fiveElementsClass": "土五局",
+        "natalYear": {
+          "lunarYear": 1995,
+          "ganZhi": "乙亥",
+          "stem": "乙",
+          "branch": "亥"
+        },
         "method": {
           "algorithm": "iztro-2.5.8-default",
           "dayBoundary": "zi-hour",
           "yearBoundary": "lunar-new-year",
           "leapMonth": "split-at-day-15",
+          "calculationDate": "1995-08-15",
+          "civilTimeZone": "UTC+08:00",
           "caveats": [
             "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
             "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",
@@ -3833,7 +3849,7 @@
           }
         ],
         "provenance": {
-          "engineRevision": "842183824dbeafc930cf631e5679c5ee315ea6f253a85672035ea002e5d9d5bb",
+          "engineRevision": "e8130373b69f1ba85d96a7e6246490829ebf4a3faa3eb01674cd43b82b6f0852",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -5524,11 +5540,19 @@
         "mingGongPosition": "申",
         "shenGongPosition": "申",
         "fiveElementsClass": "水二局",
+        "natalYear": {
+          "lunarYear": 1995,
+          "ganZhi": "乙亥",
+          "stem": "乙",
+          "branch": "亥"
+        },
         "method": {
           "algorithm": "iztro-2.5.8-default",
           "dayBoundary": "zi-hour",
           "yearBoundary": "lunar-new-year",
           "leapMonth": "split-at-day-15",
+          "calculationDate": "1995-08-15",
+          "civilTimeZone": "UTC+08:00",
           "caveats": [
             "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
             "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",
@@ -7095,11 +7119,19 @@
         "mingGongPosition": "申",
         "shenGongPosition": "申",
         "fiveElementsClass": "水二局",
+        "natalYear": {
+          "lunarYear": 1995,
+          "ganZhi": "乙亥",
+          "stem": "乙",
+          "branch": "亥"
+        },
         "method": {
           "algorithm": "iztro-2.5.8-default",
           "dayBoundary": "zi-hour",
           "yearBoundary": "lunar-new-year",
           "leapMonth": "split-at-day-15",
+          "calculationDate": "1995-08-16",
+          "civilTimeZone": "UTC+08:00",
           "caveats": [
             "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
             "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",
@@ -8712,11 +8744,19 @@
         "mingGongPosition": "丑",
         "shenGongPosition": "卯",
         "fiveElementsClass": "火六局",
+        "natalYear": {
+          "lunarYear": 2000,
+          "ganZhi": "庚辰",
+          "stem": "庚",
+          "branch": "辰"
+        },
         "method": {
           "algorithm": "iztro-2.5.8-default",
           "dayBoundary": "zi-hour",
           "yearBoundary": "lunar-new-year",
           "leapMonth": "split-at-day-15",
+          "calculationDate": "2000-02-29",
+          "civilTimeZone": "UTC+08:00",
           "caveats": [
             "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
             "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",
@@ -9671,18 +9711,256 @@
             "阴煞"
           ],
           "isShenGong": false,
+          "emptyMainPalace": false,
+          "starDetails": [
+            {
+              "name": "太阳",
+              "brightness": "旺",
+              "type": "major",
+              "source": "major",
+              "group": "main"
+            },
+            {
+              "name": "巨门",
+              "brightness": "庙",
+              "type": "major",
+              "source": "major",
+              "group": "main"
+            },
+            {
+              "name": "文曲",
+              "brightness": "平",
+              "type": "soft",
+              "source": "minor",
+              "group": "minor"
+            },
+            {
+              "name": "陀罗",
+              "brightness": "陷",
+              "type": "tough",
+              "source": "minor",
+              "group": "minor"
+            },
+            {
+              "name": "解神",
+              "type": "helper",
+              "source": "adjective",
+              "group": "minor"
+            },
+            {
+              "name": "天巫",
+              "type": "helper",
+              "source": "adjective",
+              "group": "minor"
+            },
+            {
+              "name": "孤辰",
+              "type": "helper",
+              "source": "adjective",
+              "group": "minor"
+            },
+            {
+              "name": "阴煞",
+              "type": "helper",
+              "source": "adjective",
+              "group": "minor"
+            }
+          ],
+          "natalTransformations": [],
+          "relatedPalaces": [
+            {
+              "relation": "trine-4",
+              "palace": "财帛宫",
+              "position": "午",
+              "ganZhi": "壬午",
+              "mainStars": [],
+              "mainStarsDetailed": [],
+              "minorStars": [
+                "恩光",
+                "天厨",
+                "截路"
+              ],
+              "isShenGong": true,
+              "emptyMainPalace": true,
+              "starDetails": [
+                {
+                  "name": "恩光",
+                  "type": "helper",
+                  "source": "adjective",
+                  "group": "minor"
+                },
+                {
+                  "name": "天厨",
+                  "type": "helper",
+                  "source": "adjective",
+                  "group": "minor"
+                },
+                {
+                  "name": "截路",
+                  "type": "helper",
+                  "source": "adjective",
+                  "group": "minor"
+                }
+              ],
+              "natalTransformations": []
+            },
+            {
+              "relation": "trine-8",
+              "palace": "命宫",
+              "position": "戌",
+              "ganZhi": "丙戌",
+              "mainStars": [],
+              "mainStarsDetailed": [],
+              "minorStars": [
+                "左辅",
+                "天喜",
+                "寡宿"
+              ],
+              "isShenGong": false,
+              "emptyMainPalace": true,
+              "starDetails": [
+                {
+                  "name": "左辅",
+                  "brightness": "",
+                  "type": "soft",
+                  "source": "minor",
+                  "group": "minor"
+                },
+                {
+                  "name": "天喜",
+                  "type": "helper",
+                  "source": "adjective",
+                  "group": "minor"
+                },
+                {
+                  "name": "寡宿",
+                  "type": "helper",
+                  "source": "adjective",
+                  "group": "minor"
+                }
+              ],
+              "natalTransformations": []
+            },
+            {
+              "relation": "opposite",
+              "palace": "夫妻宫",
+              "position": "申",
+              "ganZhi": "甲申",
+              "mainStars": [],
+              "mainStarsDetailed": [],
+              "minorStars": [
+                "天钺",
+                "铃星",
+                "天贵",
+                "天福",
+                "天德"
+              ],
+              "isShenGong": false,
+              "emptyMainPalace": true,
+              "starDetails": [
+                {
+                  "name": "天钺",
+                  "brightness": "",
+                  "type": "soft",
+                  "source": "minor",
+                  "group": "minor"
+                },
+                {
+                  "name": "铃星",
+                  "brightness": "陷",
+                  "type": "tough",
+                  "source": "minor",
+                  "group": "minor"
+                },
+                {
+                  "name": "天贵",
+                  "type": "helper",
+                  "source": "adjective",
+                  "group": "minor"
+                },
+                {
+                  "name": "天福",
+                  "type": "helper",
+                  "source": "adjective",
+                  "group": "minor"
+                },
+                {
+                  "name": "天德",
+                  "type": "helper",
+                  "source": "adjective",
+                  "group": "minor"
+                }
+              ],
+              "natalTransformations": []
+            }
+          ],
+          "emptyPalaceReference": {
+            "status": "not-needed"
+          },
+          "natalYear": {
+            "lunarYear": 1995,
+            "ganZhi": "乙亥",
+            "stem": "乙",
+            "branch": "亥"
+          },
+          "ruleSources": [
+            {
+              "id": "ziwei-palace-context-v1",
+              "version": "1",
+              "title": "紫微宫位三方四正与对宫参照",
+              "editionStatus": "pinned-engineering-reference",
+              "scope": "本宫及地支位移4、8、6的关联宫；参照不改变星曜实际落宫",
+              "references": [
+                {
+                  "url": "https://unpkg.com/iztro@2.5.8/lib/astro/analyzer.js",
+                  "locator": "getSurroundedPalaces",
+                  "sha256": "ce88ebcac850ff6810678b783b0ffba12e762b6dc0f42653be57ad30e043e865"
+                }
+              ],
+              "limitations": [
+                "空宫保留为空，列对宫主星供参照；不移入本宫，不自动判借星强度或吉凶",
+                "三方位移相对于目标宫，不把每个目标的关联宫一律叫本命财帛或官禄"
+              ]
+            },
+            {
+              "id": "ziwei-sihua-selected-v1",
+              "version": "1",
+              "title": "生年四化：iztro 2.5.8默认表及全书异文",
+              "editionStatus": "electronic-transcription-not-print-collated",
+              "scope": "生年干四化，明确来源干、实际星曜与落宫；不等同宫干飞化或流年四化",
+              "references": [
+                {
+                  "url": "https://unpkg.com/iztro@2.5.8/lib/data/heavenlyStems.js",
+                  "locator": "mutagen",
+                  "sha256": "4eb6ee5e3a09db4ede931053de526ab258d0d76908922a1f980d7f996f226191"
+                },
+                {
+                  "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷二",
+                  "locator": "安禄权科忌四星变化诀",
+                  "sha256": "1e255c6ae99e6f89ae124ab342554ef1347fc8e68fb8908cba7290d1a38cbb72",
+                  "quote": "壬梁紫府武宿是，癸破巨阴贪狼停。"
+                }
+              ],
+              "limitations": [
+                "本产品默认壬年左辅化科；所读电子本为壬年天府化科，保留异文而不声称十干全同",
+                "闰月原文取次月，本产品采用前15日当月、后15日次月；晚子按完整次日月年处理",
+                "电子转录未做纸本校勘；结构正确不等于现实预测有效"
+              ]
+            }
+          ],
           "method": {
             "algorithm": "iztro-2.5.8-default",
             "dayBoundary": "zi-hour",
             "yearBoundary": "lunar-new-year",
             "leapMonth": "split-at-day-15",
+            "calculationDate": "1995-08-15",
+            "civilTimeZone": "UTC+08:00",
             "caveats": [
               "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
               "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",
               "排盘一致性不等于对现实事件的预测效度"
             ]
           },
-          "emptyMainPalace": false,
           "sihua": []
         },
         "shensha": {
@@ -9698,7 +9976,7 @@
         },
         "readingBoundary": "两种体系分别解释，不能把相似意象当作相互验证。",
         "provenance": {
-          "engineRevision": "842183824dbeafc930cf631e5679c5ee315ea6f253a85672035ea002e5d9d5bb",
+          "engineRevision": "e8130373b69f1ba85d96a7e6246490829ebf4a3faa3eb01674cd43b82b6f0852",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -9726,6 +10004,8 @@
             "dayBoundary": "zi-hour",
             "yearBoundary": "lunar-new-year",
             "leapMonth": "split-at-day-15",
+            "calculationDate": "1995-08-15",
+            "civilTimeZone": "UTC+08:00",
             "caveats": [
               "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
               "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",
@@ -9864,6 +10144,3474 @@
   },
   {
     "request": {
+      "command": "natal",
+      "birth": {
+        "year": 2023,
+        "month": 4,
+        "day": 6,
+        "hour": 23,
+        "minute": 59,
+        "gender": "女",
+        "city": "上海",
+        "longitude": 121.47,
+        "timeZoneID": "Asia/Shanghai"
+      }
+    },
+    "result": {
+      "schemaVersion": 1,
+      "engineRevision": "e8130373b69f1ba85d96a7e6246490829ebf4a3faa3eb01674cd43b82b6f0852",
+      "birthKey": "[2023,4,6,23,59,\"女\",121.47,\"Asia/Shanghai\"]",
+      "calendarPolicy": {
+        "version": "suji-calendar-2",
+        "provider": "lunar-javascript@1.7.7",
+        "timezone": "UTC+08:00",
+        "yearBoundary": "exact-lichun",
+        "monthBoundary": "exact-jie",
+        "dayBoundary": "zi-hour-23:00",
+        "lunarDayBoundary": "civil-midnight",
+        "solarTimeScope": "day-and-hour-only",
+        "yun": "year-polarity-gender; jie; three-days-per-year; sect-2-minute-conversion",
+        "supportedCivilYears": [
+          1901,
+          2100
+        ]
+      },
+      "mingPan": {
+        "birthDateTime": "2023-04-06T15:59:00.000Z",
+        "gender": "女",
+        "siZhu": {
+          "year": {
+            "ganZhi": {
+              "gan": "癸",
+              "zhi": "卯",
+              "ganWuXing": "水",
+              "zhiWuXing": "木",
+              "ganYinYang": "阴",
+              "zhiYinYang": "阴",
+              "naYin": "金箔金",
+              "naYinWuXing": "金"
+            },
+            "shiShen": "偏印",
+            "cangGan": [
+              {
+                "gan": "乙",
+                "wuXing": "木",
+                "shiShen": "比肩",
+                "weight": 1
+              }
+            ],
+            "changSheng": "临官"
+          },
+          "month": {
+            "ganZhi": {
+              "gan": "丙",
+              "zhi": "辰",
+              "ganWuXing": "火",
+              "zhiWuXing": "土",
+              "ganYinYang": "阳",
+              "zhiYinYang": "阳",
+              "naYin": "沙中土",
+              "naYinWuXing": "土"
+            },
+            "shiShen": "伤官",
+            "cangGan": [
+              {
+                "gan": "戊",
+                "wuXing": "土",
+                "shiShen": "正财",
+                "weight": 0.6
+              },
+              {
+                "gan": "乙",
+                "wuXing": "木",
+                "shiShen": "比肩",
+                "weight": 0.2
+              },
+              {
+                "gan": "癸",
+                "wuXing": "水",
+                "shiShen": "偏印",
+                "weight": 0.2
+              }
+            ],
+            "changSheng": "冠带"
+          },
+          "day": {
+            "ganZhi": {
+              "gan": "乙",
+              "zhi": "未",
+              "ganWuXing": "木",
+              "zhiWuXing": "土",
+              "ganYinYang": "阴",
+              "zhiYinYang": "阴",
+              "naYin": "沙中金",
+              "naYinWuXing": "金"
+            },
+            "shiShen": "比肩",
+            "cangGan": [
+              {
+                "gan": "己",
+                "wuXing": "土",
+                "shiShen": "偏财",
+                "weight": 0.6
+              },
+              {
+                "gan": "丁",
+                "wuXing": "火",
+                "shiShen": "食神",
+                "weight": 0.2
+              },
+              {
+                "gan": "乙",
+                "wuXing": "木",
+                "shiShen": "比肩",
+                "weight": 0.2
+              }
+            ],
+            "changSheng": "养"
+          },
+          "hour": {
+            "ganZhi": {
+              "gan": "丙",
+              "zhi": "子",
+              "ganWuXing": "火",
+              "zhiWuXing": "水",
+              "ganYinYang": "阳",
+              "zhiYinYang": "阳",
+              "naYin": "涧下水",
+              "naYinWuXing": "水"
+            },
+            "shiShen": "伤官",
+            "cangGan": [
+              {
+                "gan": "癸",
+                "wuXing": "水",
+                "shiShen": "偏印",
+                "weight": 1
+              }
+            ],
+            "changSheng": "病"
+          }
+        },
+        "riZhu": {
+          "gan": "乙",
+          "wuXing": "木",
+          "yinYang": "阴",
+          "description": "藤蔓之木，柔韧适应，善于合作，亲和力强"
+        },
+        "wuXingStrength": {
+          "strongest": "木",
+          "weakest": "金",
+          "riZhuStrong": true,
+          "yongShen": "金",
+          "xiShen": "土",
+          "jiShen": "木",
+          "suggestionBasis": "fuyi-heuristic",
+          "suggestionStatus": "not-empirically-validated",
+          "tiaohouApplied": false,
+          "evidence": {
+            "version": "weighted-count-v1",
+            "basis": "engineering-heuristic",
+            "dayMaster": "乙",
+            "dayElement": "木",
+            "monthBranch": "辰",
+            "contributions": [
+              {
+                "pillar": "year",
+                "source": "stem",
+                "gan": "癸",
+                "zhi": "卯",
+                "element": "水",
+                "weight": 1,
+                "relation": "resource",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "stem",
+                "gan": "丙",
+                "zhi": "辰",
+                "element": "火",
+                "weight": 1,
+                "relation": "output",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "stem",
+                "gan": "乙",
+                "zhi": "未",
+                "element": "木",
+                "weight": 1,
+                "relation": "peer",
+                "isDayMaster": true
+              },
+              {
+                "pillar": "hour",
+                "source": "stem",
+                "gan": "丙",
+                "zhi": "子",
+                "element": "火",
+                "weight": 1,
+                "relation": "output",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "year",
+                "source": "hidden-stem",
+                "gan": "乙",
+                "zhi": "卯",
+                "element": "木",
+                "weight": 1,
+                "relation": "peer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "hidden-stem",
+                "gan": "戊",
+                "zhi": "辰",
+                "element": "土",
+                "weight": 0.6,
+                "relation": "wealth",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "hidden-stem",
+                "gan": "乙",
+                "zhi": "辰",
+                "element": "木",
+                "weight": 0.2,
+                "relation": "peer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "hidden-stem",
+                "gan": "癸",
+                "zhi": "辰",
+                "element": "水",
+                "weight": 0.2,
+                "relation": "resource",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "hidden-stem",
+                "gan": "己",
+                "zhi": "未",
+                "element": "土",
+                "weight": 0.6,
+                "relation": "wealth",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "hidden-stem",
+                "gan": "丁",
+                "zhi": "未",
+                "element": "火",
+                "weight": 0.2,
+                "relation": "output",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "hidden-stem",
+                "gan": "乙",
+                "zhi": "未",
+                "element": "木",
+                "weight": 0.2,
+                "relation": "peer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "hour",
+                "source": "hidden-stem",
+                "gan": "癸",
+                "zhi": "子",
+                "element": "水",
+                "weight": 1,
+                "relation": "resource",
+                "isDayMaster": false
+              }
+            ],
+            "elementTotals": {
+              "金": 0,
+              "木": 2.4,
+              "水": 2.2,
+              "火": 2.2,
+              "土": 1.2
+            },
+            "relationTotals": {
+              "peer": 2.4,
+              "resource": 2.2,
+              "output": 2.2,
+              "wealth": 1.2,
+              "officer": 0
+            },
+            "supportTotal": 4.6,
+            "drainTotal": 3.4,
+            "total": 8,
+            "dayMasterContribution": 1,
+            "supportExcludingDayMaster": 3.6,
+            "threshold": "supportTotal >= drainTotal",
+            "monthWeightApplied": false,
+            "strongestElements": [
+              "木"
+            ],
+            "weakestElements": [
+              "金"
+            ],
+            "tieBreakOrder": [
+              "金",
+              "木",
+              "水",
+              "火",
+              "土"
+            ],
+            "limitations": [
+              "四天干各计1，四支藏干每支合计1，总计8；这是固定权重计数，不是实测五行力量。",
+              "日干本人计入同类一次；supportExcludingDayMaster只说明其余帮扶，未被用于兼容强弱与取用。",
+              "同我与生我合为帮扶；我生为泄、我克为耗、克我为制约，三者合为另一侧；关系本身不等于喜忌。",
+              "本计数未对月令加权，也未求解通根层次、司令、合化、刑冲或调候；不能替代完整传统旺衰辨析。",
+              "两侧相等时按>=归入兼容偏强；五行并列按金木水火土选旧字段，同时保留全部并列项。"
+            ]
+          }
+        },
+        "tiaoHou": {
+          "ruleId": "qiongtong.乙辰",
+          "dayStem": "乙",
+          "monthBranch": "辰",
+          "solarMonthOrdinal": 3,
+          "reviewStatus": "transcription-checked",
+          "candidateStems": [
+            "癸",
+            "丙"
+          ],
+          "conditions": [
+            "只记录月段通论，未自动判别全局例外",
+            "候选仅表示此转录本中的传统论述；全局条件与印刷底本尚未完全核验，不自动选定用神。"
+          ],
+          "sourceDocument": "docs/mingli/source-texts/bazi/qiongtong-baojian/yimu.md",
+          "sourceAnchor": "yimu.md:50",
+          "excerpt": "阳气愈炽，先癸后丙",
+          "sourceSha256": "19d4349e4c0eab50880d23a6b1c88e54f498eb6e83c8e4ce5901790d7fc2b0da",
+          "editionStatus": "online-transcription-unverified-against-printed-edition",
+          "automatedSelection": false
+        },
+        "riZhuStructure": {
+          "deLing": false,
+          "shiLing": true,
+          "yueLingState": "囚",
+          "rootStrength": {
+            "bijieRoot": 1.7,
+            "yinRoot": 1.2,
+            "totalRoot": 2.9,
+            "label": "强根",
+            "details": [
+              {
+                "zhi": "卯",
+                "position": "年",
+                "hiddenGan": "乙",
+                "tier": "ben",
+                "weight": 1,
+                "kind": "bijie"
+              },
+              {
+                "zhi": "辰",
+                "position": "月",
+                "hiddenGan": "乙",
+                "tier": "zhong",
+                "weight": 0.5,
+                "kind": "bijie"
+              },
+              {
+                "zhi": "辰",
+                "position": "月",
+                "hiddenGan": "癸",
+                "tier": "yu",
+                "weight": 0.2,
+                "kind": "yin"
+              },
+              {
+                "zhi": "未",
+                "position": "日",
+                "hiddenGan": "乙",
+                "tier": "yu",
+                "weight": 0.2,
+                "kind": "bijie"
+              },
+              {
+                "zhi": "子",
+                "position": "时",
+                "hiddenGan": "癸",
+                "tier": "ben",
+                "weight": 1,
+                "kind": "yin"
+              }
+            ]
+          },
+          "zuoRen": false,
+          "zuoGen": true,
+          "qingZhuo": "banqing",
+          "hanNuanZaoShi": {
+            "han": false,
+            "nuan": false,
+            "zao": false,
+            "shi": false
+          },
+          "strength": "zhonghe",
+          "evidence": {
+            "version": "month-root-matrix-v1",
+            "basis": "engineering-heuristic",
+            "monthBranch": "辰",
+            "monthMainQi": "戊",
+            "monthMainElement": "土",
+            "monthRelation": "wealth",
+            "monthMethod": "month-branch-main-qi",
+            "sameElementRoots": [
+              {
+                "zhi": "卯",
+                "position": "年",
+                "hiddenGan": "乙",
+                "tier": "ben",
+                "weight": 1,
+                "kind": "bijie"
+              },
+              {
+                "zhi": "辰",
+                "position": "月",
+                "hiddenGan": "乙",
+                "tier": "zhong",
+                "weight": 0.5,
+                "kind": "bijie"
+              },
+              {
+                "zhi": "未",
+                "position": "日",
+                "hiddenGan": "乙",
+                "tier": "yu",
+                "weight": 0.2,
+                "kind": "bijie"
+              }
+            ],
+            "resourceSupport": [
+              {
+                "zhi": "辰",
+                "position": "月",
+                "hiddenGan": "癸",
+                "tier": "yu",
+                "weight": 0.2,
+                "kind": "yin"
+              },
+              {
+                "zhi": "子",
+                "position": "时",
+                "hiddenGan": "癸",
+                "tier": "ben",
+                "weight": 1,
+                "kind": "yin"
+              }
+            ],
+            "hasSameElementRoot": true,
+            "hasResourceSupport": true,
+            "daySeatSameElementRoot": true,
+            "daySeatResourceSupport": false,
+            "rootWeightBasis": "open-source-engineering-weights",
+            "rootWeights": {
+              "ben": 1,
+              "zhong": 0.5,
+              "yu": 0.2
+            },
+            "rootLabelBands": [
+              {
+                "label": "无根",
+                "lowerInclusive": 0,
+                "upperExclusive": 0.3
+              },
+              {
+                "label": "微根",
+                "lowerInclusive": 0.3,
+                "upperExclusive": 0.7
+              },
+              {
+                "label": "弱根",
+                "lowerInclusive": 0.7,
+                "upperExclusive": 1.5
+              },
+              {
+                "label": "中根",
+                "lowerInclusive": 1.5,
+                "upperExclusive": 2.5
+              },
+              {
+                "label": "强根",
+                "lowerInclusive": 2.5,
+                "upperExclusive": null
+              }
+            ],
+            "strengthRule": "shi-ling-medium-or-strong-root",
+            "exposedStemsUsedForStrength": false,
+            "sourceRefs": [
+              "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md:200",
+              "docs/mingli/source-texts/bazi/ditianshui-chanwei/tongshen-17-shuaiwang-zhonghe.md:20",
+              "https://github.com/XiaoChu-1208/bazi-life-curves/blob/ad8fdeceac3d74b9682ce1df362e7a497dc91d2c/scripts/_bazi_core.py#L192-L283"
+            ],
+            "limitations": [
+              "月令五态仅按月支本气查表，未按交节后日数判司令，辰戌丑未也未区分月内用事。",
+              "得令包含旺与相，失令仅指囚与死，休在此矩阵按中性处理；这是本实现约定。",
+              "兼容根力标签合计同五行藏干与印支持；无根档也可能含非零余气，须以实际条目区分。",
+              "本中余权重1/0.5/0.2与分档阈值是开源工程参数，未获独立实证校准。",
+              "五档强弱未考虑其余透干、制化刑冲会合及调候，不能替代完整传统旺衰辨析。",
+              "经典引文来自待核印刷底本的电子转录，支持定性辨析，不为工程数值与矩阵背书。"
+            ]
+          }
+        },
+        "branchRelations": [
+          {
+            "type": "半合候选",
+            "branches": [
+              "子",
+              "辰"
+            ],
+            "result": "水",
+            "positions": [
+              "时支",
+              "月支"
+            ],
+            "requiredBranches": [
+              "申",
+              "子",
+              "辰"
+            ],
+            "missingBranches": [
+              "申"
+            ],
+            "completeness": "partial",
+            "outcomeEstablished": false
+          },
+          {
+            "type": "半合候选",
+            "branches": [
+              "卯",
+              "未"
+            ],
+            "result": "木",
+            "positions": [
+              "年支",
+              "日支"
+            ],
+            "requiredBranches": [
+              "亥",
+              "卯",
+              "未"
+            ],
+            "missingBranches": [
+              "亥"
+            ],
+            "completeness": "partial",
+            "outcomeEstablished": false
+          },
+          {
+            "type": "三会候选",
+            "branches": [
+              "卯",
+              "辰"
+            ],
+            "result": "木",
+            "positions": [
+              "年支",
+              "月支"
+            ],
+            "requiredBranches": [
+              "寅",
+              "卯",
+              "辰"
+            ],
+            "missingBranches": [
+              "寅"
+            ],
+            "completeness": "partial",
+            "outcomeEstablished": false
+          },
+          {
+            "type": "六害",
+            "branches": [
+              "子",
+              "未"
+            ],
+            "positions": [
+              "日支-时支"
+            ]
+          },
+          {
+            "type": "六害",
+            "branches": [
+              "卯",
+              "辰"
+            ],
+            "positions": [
+              "年支-月支"
+            ]
+          },
+          {
+            "type": "相刑",
+            "branches": [
+              "子",
+              "卯"
+            ],
+            "positions": [
+              "年支-时支"
+            ]
+          },
+          {
+            "type": "相刑",
+            "branches": [
+              "卯",
+              "子"
+            ],
+            "positions": [
+              "年支-时支"
+            ]
+          }
+        ],
+        "stemRelations": [],
+        "shiShenRelations": [
+          {
+            "source": {
+              "gan": "癸",
+              "shiShen": "偏印",
+              "position": 0
+            },
+            "target": {
+              "gan": "丙",
+              "shiShen": "伤官",
+              "position": 1
+            },
+            "relation": "克",
+            "adjacent": true,
+            "pattern": "印制伤官",
+            "outcomeEstablished": false
+          },
+          {
+            "source": {
+              "gan": "癸",
+              "shiShen": "偏印",
+              "position": 0
+            },
+            "target": {
+              "gan": "丙",
+              "shiShen": "伤官",
+              "position": 3
+            },
+            "relation": "克",
+            "adjacent": false,
+            "pattern": "印制伤官",
+            "outcomeEstablished": false
+          }
+        ],
+        "geJu": {
+          "name": "比肩结构（格局待辨）",
+          "category": "正格",
+          "strength": "中",
+          "description": "比肩结构（格局待辨）",
+          "modernMeaning": "比肩结构（格局待辨）"
+        },
+        "geJuV2": {
+          "phaseId": "bijie-pending",
+          "name": "比肩结构（格局待辨）",
+          "category": "zhengge",
+          "yongShen": "木",
+          "xiangShen": null,
+          "chengBai": "cheng",
+          "jiuYing": null,
+          "jibie": "zhong",
+          "evidence": [
+            "bazi.yongshen.priority-chain",
+            "bazi.yongshen.bianhua-trigger"
+          ],
+          "assessmentStatus": "heuristic-candidate",
+          "conditions": [
+            "成败与等级是当前结构规则的候选输出，不是完整古籍格局裁定",
+            "隔位五合不自动合去用神；相邻合一留一不自动判全格破败"
+          ],
+          "yongShenGan": "乙",
+          "yongShenShiShen": "比肩",
+          "selectionBasis": "yueling-zhongqi-tougan"
+        },
+        "kongWang": [
+          "辰",
+          "巳"
+        ],
+        "trueSolarTimeDesc": "经度 121.5°，真太阳时比北京时间快 3分28秒",
+        "shenSha": [
+          {
+            "name": "天乙贵人",
+            "type": "吉",
+            "position": "时柱",
+            "description": "四柱最吉之神，逢凶化吉，一生多得贵人援手，化险为夷，运势平稳",
+            "modernMeaning": "你天生具有吸引贵人的气场，困难时刻往往有人在关键节点伸出援手"
+          },
+          {
+            "name": "桃花",
+            "type": "中性",
+            "position": "时柱",
+            "description": "桃花贵人，魅力十足，人缘出众，感情丰富；需防感情泛滥或桃花劫",
+            "modernMeaning": "你天生有吸引人的气质，社交能力强，感情生活容易丰富多彩"
+          },
+          {
+            "name": "华盖",
+            "type": "中性",
+            "position": "日柱",
+            "description": "主孤独清高，有宗教信仰或艺术哲学天赋，喜独处，精神世界丰富",
+            "modernMeaning": "你有强烈的精神追求，独处时往往能激发最深刻的灵感与创造力"
+          },
+          {
+            "name": "将星",
+            "type": "吉",
+            "position": "年柱",
+            "description": "将帅之星，主权威与领导力，统率四方，适合担任要职或团队领袖",
+            "modernMeaning": "你天生有领导气质，团队中往往自然成为核心与决策人物"
+          },
+          {
+            "name": "禄神",
+            "type": "吉",
+            "position": "年柱",
+            "description": "禄星临命，衣食无忧，仕途顺畅，职业稳定，财运平稳有保障",
+            "modernMeaning": "你有稳定的谋生能力，职场中自然能找到立足之地"
+          },
+          {
+            "name": "红鸾",
+            "type": "吉",
+            "position": "时柱",
+            "description": "婚姻感情之星，主感情顺遂，婚缘美满，易逢喜庆之事",
+            "modernMeaning": "你的感情生活容易获得美好结果，婚姻运势较为顺遂"
+          }
+        ],
+        "daYunDirection": "顺行",
+        "daYunStartAge": 9,
+        "daYunList": [
+          {
+            "startAge": 9,
+            "endAge": 18,
+            "startDate": "2032-12-18T05:59:00.000Z",
+            "endDate": "2042-12-18T05:59:00.000Z",
+            "ganZhi": {
+              "gan": "丁",
+              "zhi": "巳",
+              "ganWuXing": "火",
+              "zhiWuXing": "火",
+              "ganYinYang": "阴",
+              "zhiYinYang": "阴",
+              "naYin": "沙中土",
+              "naYinWuXing": "土"
+            },
+            "shiShen": "食神",
+            "zhiShiShen": "伤官",
+            "period": "9–18岁（整岁参考，以交运日期为准）"
+          },
+          {
+            "startAge": 19,
+            "endAge": 28,
+            "startDate": "2042-12-18T05:59:00.000Z",
+            "endDate": "2052-12-18T05:59:00.000Z",
+            "ganZhi": {
+              "gan": "戊",
+              "zhi": "午",
+              "ganWuXing": "土",
+              "zhiWuXing": "火",
+              "ganYinYang": "阳",
+              "zhiYinYang": "阳",
+              "naYin": "天上火",
+              "naYinWuXing": "火"
+            },
+            "shiShen": "正财",
+            "zhiShiShen": "食神",
+            "period": "19–28岁（整岁参考，以交运日期为准）"
+          },
+          {
+            "startAge": 29,
+            "endAge": 38,
+            "startDate": "2052-12-18T05:59:00.000Z",
+            "endDate": "2062-12-18T05:59:00.000Z",
+            "ganZhi": {
+              "gan": "己",
+              "zhi": "未",
+              "ganWuXing": "土",
+              "zhiWuXing": "土",
+              "ganYinYang": "阴",
+              "zhiYinYang": "阴",
+              "naYin": "天上火",
+              "naYinWuXing": "火"
+            },
+            "shiShen": "偏财",
+            "zhiShiShen": "偏财",
+            "period": "29–38岁（整岁参考，以交运日期为准）"
+          },
+          {
+            "startAge": 39,
+            "endAge": 48,
+            "startDate": "2062-12-18T05:59:00.000Z",
+            "endDate": "2072-12-18T05:59:00.000Z",
+            "ganZhi": {
+              "gan": "庚",
+              "zhi": "申",
+              "ganWuXing": "金",
+              "zhiWuXing": "金",
+              "ganYinYang": "阳",
+              "zhiYinYang": "阳",
+              "naYin": "石榴木",
+              "naYinWuXing": "木"
+            },
+            "shiShen": "正官",
+            "zhiShiShen": "正官",
+            "period": "39–48岁（整岁参考，以交运日期为准）"
+          },
+          {
+            "startAge": 49,
+            "endAge": 58,
+            "startDate": "2072-12-18T05:59:00.000Z",
+            "endDate": "2082-12-18T05:59:00.000Z",
+            "ganZhi": {
+              "gan": "辛",
+              "zhi": "酉",
+              "ganWuXing": "金",
+              "zhiWuXing": "金",
+              "ganYinYang": "阴",
+              "zhiYinYang": "阴",
+              "naYin": "石榴木",
+              "naYinWuXing": "木"
+            },
+            "shiShen": "七杀",
+            "zhiShiShen": "七杀",
+            "period": "49–58岁（整岁参考，以交运日期为准）"
+          },
+          {
+            "startAge": 59,
+            "endAge": 68,
+            "startDate": "2082-12-18T05:59:00.000Z",
+            "endDate": "2092-12-18T05:59:00.000Z",
+            "ganZhi": {
+              "gan": "壬",
+              "zhi": "戌",
+              "ganWuXing": "水",
+              "zhiWuXing": "土",
+              "ganYinYang": "阳",
+              "zhiYinYang": "阳",
+              "naYin": "大海水",
+              "naYinWuXing": "水"
+            },
+            "shiShen": "正印",
+            "zhiShiShen": "正财",
+            "period": "59–68岁（整岁参考，以交运日期为准）"
+          },
+          {
+            "startAge": 69,
+            "endAge": 78,
+            "startDate": "2092-12-18T05:59:00.000Z",
+            "endDate": "2102-12-18T05:59:00.000Z",
+            "ganZhi": {
+              "gan": "癸",
+              "zhi": "亥",
+              "ganWuXing": "水",
+              "zhiWuXing": "水",
+              "ganYinYang": "阴",
+              "zhiYinYang": "阴",
+              "naYin": "大海水",
+              "naYinWuXing": "水"
+            },
+            "shiShen": "偏印",
+            "zhiShiShen": "正印",
+            "period": "69–78岁（整岁参考，以交运日期为准）"
+          },
+          {
+            "startAge": 79,
+            "endAge": 88,
+            "startDate": "2102-12-18T05:59:00.000Z",
+            "endDate": "2112-12-18T05:59:00.000Z",
+            "ganZhi": {
+              "gan": "甲",
+              "zhi": "子",
+              "ganWuXing": "木",
+              "zhiWuXing": "水",
+              "ganYinYang": "阳",
+              "zhiYinYang": "阳",
+              "naYin": "海中金",
+              "naYinWuXing": "金"
+            },
+            "shiShen": "劫财",
+            "zhiShiShen": "偏印",
+            "period": "79–88岁（整岁参考，以交运日期为准）"
+          },
+          {
+            "startAge": 89,
+            "endAge": 98,
+            "startDate": "2112-12-18T05:59:00.000Z",
+            "endDate": "2122-12-18T05:59:00.000Z",
+            "ganZhi": {
+              "gan": "乙",
+              "zhi": "丑",
+              "ganWuXing": "木",
+              "zhiWuXing": "土",
+              "ganYinYang": "阴",
+              "zhiYinYang": "阴",
+              "naYin": "海中金",
+              "naYinWuXing": "金"
+            },
+            "shiShen": "比肩",
+            "zhiShiShen": "偏财",
+            "period": "89–98岁（整岁参考，以交运日期为准）"
+          },
+          {
+            "startAge": 99,
+            "endAge": 108,
+            "startDate": "2122-12-18T05:59:00.000Z",
+            "endDate": "2132-12-18T05:59:00.000Z",
+            "ganZhi": {
+              "gan": "丙",
+              "zhi": "寅",
+              "ganWuXing": "火",
+              "zhiWuXing": "木",
+              "ganYinYang": "阳",
+              "zhiYinYang": "阳",
+              "naYin": "炉中火",
+              "naYinWuXing": "火"
+            },
+            "shiShen": "伤官",
+            "zhiShiShen": "劫财",
+            "period": "99–108岁（整岁参考，以交运日期为准）"
+          }
+        ],
+        "qiYun": {
+          "years": 9,
+          "months": 8,
+          "days": 11,
+          "hours": 14,
+          "startDate": "2032-12-18T05:59:00.000Z",
+          "termDate": "2023-05-05T18:18:46.000Z",
+          "termName": "立夏",
+          "sect": 2
+        },
+        "calculationPolicy": {
+          "version": "suji-calendar-2",
+          "provider": "lunar-javascript@1.7.7",
+          "timezone": "UTC+08:00",
+          "yearBoundary": "exact-lichun",
+          "monthBoundary": "exact-jie",
+          "dayBoundary": "zi-hour-23:00",
+          "lunarDayBoundary": "civil-midnight",
+          "solarTimeScope": "day-and-hour-only",
+          "yun": "year-polarity-gender; jie; three-days-per-year; sect-2-minute-conversion",
+          "supportedCivilYears": [
+            1901,
+            2100
+          ],
+          "civilBirthTime": "2023-04-06T15:59:00.000Z",
+          "effectiveSolarTime": "2023-04-06T16:02:27.746Z",
+          "solarTimeApplied": true,
+          "longitude": 121.47,
+          "warnings": []
+        },
+        "interpretationPolicy": {
+          "strengthYongShen": "扶抑参考（工程启发式，调候另列来源候选）",
+          "structureYongShen": "月令格局用神（子平真诠口径）",
+          "status": "traditional-interpretation-not-empirical-prediction"
+        },
+        "lunarDate": "二〇二三年闰二月十六",
+        "solarTerm": "清明",
+        "yearNaYin": "金箔金",
+        "taiYuan": {
+          "gan": "丁",
+          "zhi": "未",
+          "ganWuXing": "火",
+          "zhiWuXing": "土",
+          "ganYinYang": "阴",
+          "zhiYinYang": "阴",
+          "naYin": "天河水",
+          "naYinWuXing": "水"
+        },
+        "mingGong": {
+          "gan": "乙",
+          "zhi": "丑",
+          "ganWuXing": "木",
+          "zhiWuXing": "土",
+          "ganYinYang": "阴",
+          "zhiYinYang": "阴",
+          "naYin": "海中金",
+          "naYinWuXing": "金"
+        }
+      },
+      "ziweiPan": {
+        "birthDateTime": "2023-04-06T15:59:00.000Z",
+        "gender": "女",
+        "palaces": [
+          {
+            "name": "夫妻宫",
+            "position": "寅",
+            "ganZhi": "甲寅",
+            "mainStars": [
+              {
+                "name": "紫微",
+                "brightness": "旺",
+                "type": "major",
+                "source": "major"
+              },
+              {
+                "name": "天府",
+                "brightness": "庙",
+                "type": "major",
+                "source": "major"
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "封诰",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天巫",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "兄弟宫",
+            "position": "卯",
+            "ganZhi": "乙卯",
+            "mainStars": [
+              {
+                "name": "太阴",
+                "brightness": "陷",
+                "type": "major",
+                "source": "major",
+                "sihua": [
+                  "化科"
+                ]
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "天魁",
+                "brightness": "",
+                "type": "soft",
+                "source": "minor"
+              },
+              {
+                "name": "天姚",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天哭",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "命宫",
+            "position": "辰",
+            "ganZhi": "丙辰",
+            "mainStars": [
+              {
+                "name": "贪狼",
+                "brightness": "庙",
+                "type": "major",
+                "source": "major",
+                "sihua": [
+                  "化忌"
+                ]
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "文曲",
+                "brightness": "得",
+                "type": "soft",
+                "source": "minor"
+              },
+              {
+                "name": "八座",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天月",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天空",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": true
+          },
+          {
+            "name": "父母宫",
+            "position": "巳",
+            "ganZhi": "丁巳",
+            "mainStars": [
+              {
+                "name": "巨门",
+                "brightness": "旺",
+                "type": "major",
+                "source": "major",
+                "sihua": [
+                  "化权"
+                ]
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "天钺",
+                "brightness": "",
+                "type": "soft",
+                "source": "minor"
+              },
+              {
+                "name": "天马",
+                "brightness": "",
+                "type": "other",
+                "source": "minor"
+              },
+              {
+                "name": "天福",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "旬空",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "孤辰",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "蜚廉",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "破碎",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "福德宫",
+            "position": "午",
+            "ganZhi": "戊午",
+            "mainStars": [
+              {
+                "name": "廉贞",
+                "brightness": "平",
+                "type": "major",
+                "source": "major"
+              },
+              {
+                "name": "天相",
+                "brightness": "庙",
+                "type": "major",
+                "source": "major"
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "左辅",
+                "brightness": "",
+                "type": "soft",
+                "source": "minor"
+              },
+              {
+                "name": "天喜",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "台辅",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天官",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "田宅宫",
+            "position": "未",
+            "ganZhi": "己未",
+            "mainStars": [
+              {
+                "name": "天梁",
+                "brightness": "旺",
+                "type": "major",
+                "source": "major"
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "天贵",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "龙池",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "凤阁",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天才",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天寿",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "华盖",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "年解",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "官禄宫",
+            "position": "申",
+            "ganZhi": "庚申",
+            "mainStars": [
+              {
+                "name": "七杀",
+                "brightness": "庙",
+                "type": "major",
+                "source": "major"
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "右弼",
+                "brightness": "",
+                "type": "soft",
+                "source": "minor"
+              },
+              {
+                "name": "月德",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "仆役宫",
+            "position": "酉",
+            "ganZhi": "辛酉",
+            "mainStars": [
+              {
+                "name": "天同",
+                "brightness": "平",
+                "type": "major",
+                "source": "major"
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "火星",
+                "brightness": "得",
+                "type": "tough",
+                "source": "minor"
+              },
+              {
+                "name": "天虚",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天伤",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "迁移宫",
+            "position": "戌",
+            "ganZhi": "壬戌",
+            "mainStars": [
+              {
+                "name": "武曲",
+                "brightness": "庙",
+                "type": "major",
+                "source": "major"
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "文昌",
+                "brightness": "陷",
+                "type": "soft",
+                "source": "minor"
+              },
+              {
+                "name": "铃星",
+                "brightness": "庙",
+                "type": "tough",
+                "source": "minor"
+              },
+              {
+                "name": "解神",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "三台",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "阴煞",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "疾厄宫",
+            "position": "亥",
+            "ganZhi": "癸亥",
+            "mainStars": [
+              {
+                "name": "太阳",
+                "brightness": "陷",
+                "type": "major",
+                "source": "major"
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "地空",
+                "brightness": "",
+                "type": "tough",
+                "source": "minor"
+              },
+              {
+                "name": "地劫",
+                "brightness": "",
+                "type": "tough",
+                "source": "minor"
+              },
+              {
+                "name": "陀罗",
+                "brightness": "陷",
+                "type": "tough",
+                "source": "minor"
+              },
+              {
+                "name": "天厨",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天刑",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天使",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "财帛宫",
+            "position": "子",
+            "ganZhi": "甲子",
+            "mainStars": [
+              {
+                "name": "破军",
+                "brightness": "庙",
+                "type": "major",
+                "source": "major",
+                "sihua": [
+                  "化禄"
+                ]
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "禄存",
+                "brightness": "",
+                "type": "other",
+                "source": "minor"
+              },
+              {
+                "name": "红鸾",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "咸池",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天德",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "截路",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "子女宫",
+            "position": "丑",
+            "ganZhi": "乙丑",
+            "mainStars": [
+              {
+                "name": "天机",
+                "brightness": "陷",
+                "type": "major",
+                "source": "major"
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "擎羊",
+                "brightness": "庙",
+                "type": "tough",
+                "source": "minor"
+              },
+              {
+                "name": "恩光",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "空亡",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "寡宿",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          }
+        ],
+        "mingGongPosition": "辰",
+        "shenGongPosition": "辰",
+        "fiveElementsClass": "土五局",
+        "natalYear": {
+          "lunarYear": 2023,
+          "ganZhi": "癸卯",
+          "stem": "癸",
+          "branch": "卯"
+        },
+        "method": {
+          "algorithm": "iztro-2.5.8-default",
+          "dayBoundary": "zi-hour",
+          "yearBoundary": "lunar-new-year",
+          "leapMonth": "split-at-day-15",
+          "calculationDate": "2023-04-07",
+          "civilTimeZone": "UTC+08:00",
+          "caveats": [
+            "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
+            "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",
+            "排盘一致性不等于对现实事件的预测效度"
+          ]
+        }
+      },
+      "personality": {
+        "coreTraits": [
+          "你是那种知道自己要什么的人，有强烈的自我驱动力",
+          "比肩结构（格局待辨）",
+          "可观察自己在思想前卫方面的倾向",
+          "可观察自己在表达能力强方面的倾向"
+        ],
+        "strengths": [
+          "创新突破能力强",
+          "才华横溢且独树一帜",
+          "你天生具有吸引贵人的气场，困难时刻往往有人在关键节点伸出援手",
+          "你天生有领导气质，团队中往往自然成为核心与决策人物",
+          "你有稳定的谋生能力，职场中自然能找到立足之地"
+        ],
+        "challenges": [
+          "内心有打破常规的冲动，在体制内易感压抑",
+          "情绪化表达有时会引起误会",
+          "有时会因为急于成长而忽略脚下的稳定"
+        ],
+        "communicationStyle": "你表达直接，思路清晰，善于用逻辑说服人",
+        "emotionalPattern": "你情感充沛，目标感强，内心有一股向上的力量，但有时难以彻底放松",
+        "careerAptitude": [
+          "规划与战略",
+          "环保与自然领域"
+        ],
+        "relationshipStyle": "你在感情中有很强的吸引力，但也有自己的原则——你愿意付出，但不会失去自我"
+      }
+    }
+  },
+  {
+    "request": {
+      "command": "natal",
+      "birth": {
+        "year": 2024,
+        "month": 2,
+        "day": 9,
+        "hour": 23,
+        "minute": 59,
+        "gender": "女",
+        "city": "上海",
+        "longitude": 121.47,
+        "timeZoneID": "Asia/Shanghai"
+      }
+    },
+    "result": {
+      "schemaVersion": 1,
+      "engineRevision": "e8130373b69f1ba85d96a7e6246490829ebf4a3faa3eb01674cd43b82b6f0852",
+      "birthKey": "[2024,2,9,23,59,\"女\",121.47,\"Asia/Shanghai\"]",
+      "calendarPolicy": {
+        "version": "suji-calendar-2",
+        "provider": "lunar-javascript@1.7.7",
+        "timezone": "UTC+08:00",
+        "yearBoundary": "exact-lichun",
+        "monthBoundary": "exact-jie",
+        "dayBoundary": "zi-hour-23:00",
+        "lunarDayBoundary": "civil-midnight",
+        "solarTimeScope": "day-and-hour-only",
+        "yun": "year-polarity-gender; jie; three-days-per-year; sect-2-minute-conversion",
+        "supportedCivilYears": [
+          1901,
+          2100
+        ]
+      },
+      "mingPan": {
+        "birthDateTime": "2024-02-09T15:59:00.000Z",
+        "gender": "女",
+        "siZhu": {
+          "year": {
+            "ganZhi": {
+              "gan": "甲",
+              "zhi": "辰",
+              "ganWuXing": "木",
+              "zhiWuXing": "土",
+              "ganYinYang": "阳",
+              "zhiYinYang": "阳",
+              "naYin": "覆灯火",
+              "naYinWuXing": "火"
+            },
+            "shiShen": "比肩",
+            "cangGan": [
+              {
+                "gan": "戊",
+                "wuXing": "土",
+                "shiShen": "偏财",
+                "weight": 0.6
+              },
+              {
+                "gan": "乙",
+                "wuXing": "木",
+                "shiShen": "劫财",
+                "weight": 0.2
+              },
+              {
+                "gan": "癸",
+                "wuXing": "水",
+                "shiShen": "正印",
+                "weight": 0.2
+              }
+            ],
+            "changSheng": "衰"
+          },
+          "month": {
+            "ganZhi": {
+              "gan": "丙",
+              "zhi": "寅",
+              "ganWuXing": "火",
+              "zhiWuXing": "木",
+              "ganYinYang": "阳",
+              "zhiYinYang": "阳",
+              "naYin": "炉中火",
+              "naYinWuXing": "火"
+            },
+            "shiShen": "食神",
+            "cangGan": [
+              {
+                "gan": "甲",
+                "wuXing": "木",
+                "shiShen": "比肩",
+                "weight": 0.6
+              },
+              {
+                "gan": "丙",
+                "wuXing": "火",
+                "shiShen": "食神",
+                "weight": 0.2
+              },
+              {
+                "gan": "戊",
+                "wuXing": "土",
+                "shiShen": "偏财",
+                "weight": 0.2
+              }
+            ],
+            "changSheng": "临官"
+          },
+          "day": {
+            "ganZhi": {
+              "gan": "甲",
+              "zhi": "辰",
+              "ganWuXing": "木",
+              "zhiWuXing": "土",
+              "ganYinYang": "阳",
+              "zhiYinYang": "阳",
+              "naYin": "覆灯火",
+              "naYinWuXing": "火"
+            },
+            "shiShen": "比肩",
+            "cangGan": [
+              {
+                "gan": "戊",
+                "wuXing": "土",
+                "shiShen": "偏财",
+                "weight": 0.6
+              },
+              {
+                "gan": "乙",
+                "wuXing": "木",
+                "shiShen": "劫财",
+                "weight": 0.2
+              },
+              {
+                "gan": "癸",
+                "wuXing": "水",
+                "shiShen": "正印",
+                "weight": 0.2
+              }
+            ],
+            "changSheng": "衰"
+          },
+          "hour": {
+            "ganZhi": {
+              "gan": "甲",
+              "zhi": "子",
+              "ganWuXing": "木",
+              "zhiWuXing": "水",
+              "ganYinYang": "阳",
+              "zhiYinYang": "阳",
+              "naYin": "海中金",
+              "naYinWuXing": "金"
+            },
+            "shiShen": "比肩",
+            "cangGan": [
+              {
+                "gan": "癸",
+                "wuXing": "水",
+                "shiShen": "正印",
+                "weight": 1
+              }
+            ],
+            "changSheng": "沐浴"
+          }
+        },
+        "riZhu": {
+          "gan": "甲",
+          "wuXing": "木",
+          "yinYang": "阳",
+          "description": "栋梁之木，正直进取，领导力强，理想主义"
+        },
+        "wuXingStrength": {
+          "strongest": "木",
+          "weakest": "金",
+          "riZhuStrong": true,
+          "yongShen": "金",
+          "xiShen": "土",
+          "jiShen": "木",
+          "suggestionBasis": "fuyi-heuristic",
+          "suggestionStatus": "not-empirically-validated",
+          "tiaohouApplied": false,
+          "evidence": {
+            "version": "weighted-count-v1",
+            "basis": "engineering-heuristic",
+            "dayMaster": "甲",
+            "dayElement": "木",
+            "monthBranch": "寅",
+            "contributions": [
+              {
+                "pillar": "year",
+                "source": "stem",
+                "gan": "甲",
+                "zhi": "辰",
+                "element": "木",
+                "weight": 1,
+                "relation": "peer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "stem",
+                "gan": "丙",
+                "zhi": "寅",
+                "element": "火",
+                "weight": 1,
+                "relation": "output",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "stem",
+                "gan": "甲",
+                "zhi": "辰",
+                "element": "木",
+                "weight": 1,
+                "relation": "peer",
+                "isDayMaster": true
+              },
+              {
+                "pillar": "hour",
+                "source": "stem",
+                "gan": "甲",
+                "zhi": "子",
+                "element": "木",
+                "weight": 1,
+                "relation": "peer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "year",
+                "source": "hidden-stem",
+                "gan": "戊",
+                "zhi": "辰",
+                "element": "土",
+                "weight": 0.6,
+                "relation": "wealth",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "year",
+                "source": "hidden-stem",
+                "gan": "乙",
+                "zhi": "辰",
+                "element": "木",
+                "weight": 0.2,
+                "relation": "peer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "year",
+                "source": "hidden-stem",
+                "gan": "癸",
+                "zhi": "辰",
+                "element": "水",
+                "weight": 0.2,
+                "relation": "resource",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "hidden-stem",
+                "gan": "甲",
+                "zhi": "寅",
+                "element": "木",
+                "weight": 0.6,
+                "relation": "peer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "hidden-stem",
+                "gan": "丙",
+                "zhi": "寅",
+                "element": "火",
+                "weight": 0.2,
+                "relation": "output",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "month",
+                "source": "hidden-stem",
+                "gan": "戊",
+                "zhi": "寅",
+                "element": "土",
+                "weight": 0.2,
+                "relation": "wealth",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "hidden-stem",
+                "gan": "戊",
+                "zhi": "辰",
+                "element": "土",
+                "weight": 0.6,
+                "relation": "wealth",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "hidden-stem",
+                "gan": "乙",
+                "zhi": "辰",
+                "element": "木",
+                "weight": 0.2,
+                "relation": "peer",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "day",
+                "source": "hidden-stem",
+                "gan": "癸",
+                "zhi": "辰",
+                "element": "水",
+                "weight": 0.2,
+                "relation": "resource",
+                "isDayMaster": false
+              },
+              {
+                "pillar": "hour",
+                "source": "hidden-stem",
+                "gan": "癸",
+                "zhi": "子",
+                "element": "水",
+                "weight": 1,
+                "relation": "resource",
+                "isDayMaster": false
+              }
+            ],
+            "elementTotals": {
+              "金": 0,
+              "木": 4,
+              "水": 1.4,
+              "火": 1.2,
+              "土": 1.4
+            },
+            "relationTotals": {
+              "peer": 4,
+              "resource": 1.4,
+              "output": 1.2,
+              "wealth": 1.4,
+              "officer": 0
+            },
+            "supportTotal": 5.4,
+            "drainTotal": 2.6,
+            "total": 8,
+            "dayMasterContribution": 1,
+            "supportExcludingDayMaster": 4.4,
+            "threshold": "supportTotal >= drainTotal",
+            "monthWeightApplied": false,
+            "strongestElements": [
+              "木"
+            ],
+            "weakestElements": [
+              "金"
+            ],
+            "tieBreakOrder": [
+              "金",
+              "木",
+              "水",
+              "火",
+              "土"
+            ],
+            "limitations": [
+              "四天干各计1，四支藏干每支合计1，总计8；这是固定权重计数，不是实测五行力量。",
+              "日干本人计入同类一次；supportExcludingDayMaster只说明其余帮扶，未被用于兼容强弱与取用。",
+              "同我与生我合为帮扶；我生为泄、我克为耗、克我为制约，三者合为另一侧；关系本身不等于喜忌。",
+              "本计数未对月令加权，也未求解通根层次、司令、合化、刑冲或调候；不能替代完整传统旺衰辨析。",
+              "两侧相等时按>=归入兼容偏强；五行并列按金木水火土选旧字段，同时保留全部并列项。"
+            ]
+          }
+        },
+        "tiaoHou": {
+          "ruleId": "qiongtong.甲寅",
+          "dayStem": "甲",
+          "monthBranch": "寅",
+          "solarMonthOrdinal": 1,
+          "reviewStatus": "transcription-checked",
+          "candidateStems": [
+            "丙",
+            "癸"
+          ],
+          "conditions": [
+            "只记录初春余寒通论；须再核四柱寒暖及后续变例",
+            "候选仅表示此转录本中的传统论述；全局条件与印刷底本尚未完全核验，不自动选定用神。"
+          ],
+          "sourceDocument": "docs/mingli/source-texts/bazi/qiongtong-baojian/jiamu.md",
+          "sourceAnchor": "jiamu.md:38",
+          "excerpt": "初春尚有余寒，得丙癸逢",
+          "sourceSha256": "84393a67854fc642ef5fdad1b810ccb843ec5fc794fe6afb9857c33132071651",
+          "editionStatus": "online-transcription-unverified-against-printed-edition",
+          "automatedSelection": false
+        },
+        "riZhuStructure": {
+          "deLing": true,
+          "shiLing": false,
+          "yueLingState": "旺",
+          "rootStrength": {
+            "bijieRoot": 2,
+            "yinRoot": 1.4,
+            "totalRoot": 3.4,
+            "label": "强根",
+            "details": [
+              {
+                "zhi": "辰",
+                "position": "年",
+                "hiddenGan": "乙",
+                "tier": "zhong",
+                "weight": 0.5,
+                "kind": "bijie"
+              },
+              {
+                "zhi": "辰",
+                "position": "年",
+                "hiddenGan": "癸",
+                "tier": "yu",
+                "weight": 0.2,
+                "kind": "yin"
+              },
+              {
+                "zhi": "寅",
+                "position": "月",
+                "hiddenGan": "甲",
+                "tier": "ben",
+                "weight": 1,
+                "kind": "bijie"
+              },
+              {
+                "zhi": "辰",
+                "position": "日",
+                "hiddenGan": "乙",
+                "tier": "zhong",
+                "weight": 0.5,
+                "kind": "bijie"
+              },
+              {
+                "zhi": "辰",
+                "position": "日",
+                "hiddenGan": "癸",
+                "tier": "yu",
+                "weight": 0.2,
+                "kind": "yin"
+              },
+              {
+                "zhi": "子",
+                "position": "时",
+                "hiddenGan": "癸",
+                "tier": "ben",
+                "weight": 1,
+                "kind": "yin"
+              }
+            ]
+          },
+          "zuoRen": false,
+          "zuoGen": true,
+          "qingZhuo": "banqing",
+          "hanNuanZaoShi": {
+            "han": false,
+            "nuan": false,
+            "zao": false,
+            "shi": false
+          },
+          "strength": "taiwang",
+          "evidence": {
+            "version": "month-root-matrix-v1",
+            "basis": "engineering-heuristic",
+            "monthBranch": "寅",
+            "monthMainQi": "甲",
+            "monthMainElement": "木",
+            "monthRelation": "peer",
+            "monthMethod": "month-branch-main-qi",
+            "sameElementRoots": [
+              {
+                "zhi": "辰",
+                "position": "年",
+                "hiddenGan": "乙",
+                "tier": "zhong",
+                "weight": 0.5,
+                "kind": "bijie"
+              },
+              {
+                "zhi": "寅",
+                "position": "月",
+                "hiddenGan": "甲",
+                "tier": "ben",
+                "weight": 1,
+                "kind": "bijie"
+              },
+              {
+                "zhi": "辰",
+                "position": "日",
+                "hiddenGan": "乙",
+                "tier": "zhong",
+                "weight": 0.5,
+                "kind": "bijie"
+              }
+            ],
+            "resourceSupport": [
+              {
+                "zhi": "辰",
+                "position": "年",
+                "hiddenGan": "癸",
+                "tier": "yu",
+                "weight": 0.2,
+                "kind": "yin"
+              },
+              {
+                "zhi": "辰",
+                "position": "日",
+                "hiddenGan": "癸",
+                "tier": "yu",
+                "weight": 0.2,
+                "kind": "yin"
+              },
+              {
+                "zhi": "子",
+                "position": "时",
+                "hiddenGan": "癸",
+                "tier": "ben",
+                "weight": 1,
+                "kind": "yin"
+              }
+            ],
+            "hasSameElementRoot": true,
+            "hasResourceSupport": true,
+            "daySeatSameElementRoot": true,
+            "daySeatResourceSupport": true,
+            "rootWeightBasis": "open-source-engineering-weights",
+            "rootWeights": {
+              "ben": 1,
+              "zhong": 0.5,
+              "yu": 0.2
+            },
+            "rootLabelBands": [
+              {
+                "label": "无根",
+                "lowerInclusive": 0,
+                "upperExclusive": 0.3
+              },
+              {
+                "label": "微根",
+                "lowerInclusive": 0.3,
+                "upperExclusive": 0.7
+              },
+              {
+                "label": "弱根",
+                "lowerInclusive": 0.7,
+                "upperExclusive": 1.5
+              },
+              {
+                "label": "中根",
+                "lowerInclusive": 1.5,
+                "upperExclusive": 2.5
+              },
+              {
+                "label": "强根",
+                "lowerInclusive": 2.5,
+                "upperExclusive": null
+              }
+            ],
+            "strengthRule": "de-ling-strong-root-with-seat-support",
+            "exposedStemsUsedForStrength": false,
+            "sourceRefs": [
+              "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md:200",
+              "docs/mingli/source-texts/bazi/ditianshui-chanwei/tongshen-17-shuaiwang-zhonghe.md:20",
+              "https://github.com/XiaoChu-1208/bazi-life-curves/blob/ad8fdeceac3d74b9682ce1df362e7a497dc91d2c/scripts/_bazi_core.py#L192-L283"
+            ],
+            "limitations": [
+              "月令五态仅按月支本气查表，未按交节后日数判司令，辰戌丑未也未区分月内用事。",
+              "得令包含旺与相，失令仅指囚与死，休在此矩阵按中性处理；这是本实现约定。",
+              "兼容根力标签合计同五行藏干与印支持；无根档也可能含非零余气，须以实际条目区分。",
+              "本中余权重1/0.5/0.2与分档阈值是开源工程参数，未获独立实证校准。",
+              "五档强弱未考虑其余透干、制化刑冲会合及调候，不能替代完整传统旺衰辨析。",
+              "经典引文来自待核印刷底本的电子转录，支持定性辨析，不为工程数值与矩阵背书。"
+            ]
+          }
+        },
+        "branchRelations": [
+          {
+            "type": "半合候选",
+            "branches": [
+              "子",
+              "辰"
+            ],
+            "result": "水",
+            "positions": [
+              "时支",
+              "年支"
+            ],
+            "requiredBranches": [
+              "申",
+              "子",
+              "辰"
+            ],
+            "missingBranches": [
+              "申"
+            ],
+            "completeness": "partial",
+            "outcomeEstablished": false
+          },
+          {
+            "type": "三会候选",
+            "branches": [
+              "寅",
+              "辰"
+            ],
+            "result": "木",
+            "positions": [
+              "月支",
+              "年支"
+            ],
+            "requiredBranches": [
+              "寅",
+              "卯",
+              "辰"
+            ],
+            "missingBranches": [
+              "卯"
+            ],
+            "completeness": "partial",
+            "outcomeEstablished": false
+          },
+          {
+            "type": "相刑",
+            "branches": [
+              "辰",
+              "辰"
+            ],
+            "positions": [
+              "年支-日支"
+            ]
+          }
+        ],
+        "stemRelations": [],
+        "shiShenRelations": [],
+        "geJu": {
+          "name": "建禄格",
+          "category": "正格",
+          "strength": "中",
+          "description": "建禄格",
+          "modernMeaning": "建禄格"
+        },
+        "geJuV2": {
+          "phaseId": "jianlu-ge",
+          "name": "建禄格",
+          "category": "zhengge",
+          "yongShen": "木",
+          "xiangShen": null,
+          "chengBai": "cheng",
+          "jiuYing": null,
+          "jibie": "zhong",
+          "evidence": [
+            "bazi.yongshen.priority-chain"
+          ],
+          "assessmentStatus": "heuristic-candidate",
+          "conditions": [
+            "成败与等级是当前结构规则的候选输出，不是完整古籍格局裁定",
+            "隔位五合不自动合去用神；相邻合一留一不自动判全格破败"
+          ],
+          "yongShenGan": "甲",
+          "yongShenShiShen": "比肩",
+          "selectionBasis": "yueling-benqi-tougan"
+        },
+        "kongWang": [
+          "寅",
+          "卯"
+        ],
+        "trueSolarTimeDesc": "经度 121.5°，真太阳时比北京时间慢 8分19秒",
+        "shenSha": [
+          {
+            "name": "月德贵人",
+            "type": "吉",
+            "position": "月柱",
+            "description": "月令月德，天赋仁德之性，心善积福，官非不侵，有贵人护持",
+            "modernMeaning": "你有温润的人格魅力，善举往往能转化为自身的好运"
+          },
+          {
+            "name": "驿马",
+            "type": "中性",
+            "position": "月柱",
+            "description": "主变动迁移，奔波忙碌，适合出差行旅与异地发展；逢合则受羁绊",
+            "modernMeaning": "你适合在流动变化中寻找机会，外出闯荡比守株待兔更有收获"
+          },
+          {
+            "name": "华盖",
+            "type": "中性",
+            "position": "年柱",
+            "description": "主孤独清高，有宗教信仰或艺术哲学天赋，喜独处，精神世界丰富",
+            "modernMeaning": "你有强烈的精神追求，独处时往往能激发最深刻的灵感与创造力"
+          },
+          {
+            "name": "华盖",
+            "type": "中性",
+            "position": "日柱",
+            "description": "主孤独清高，有宗教信仰或艺术哲学天赋，喜独处，精神世界丰富",
+            "modernMeaning": "你有强烈的精神追求，独处时往往能激发最深刻的灵感与创造力"
+          },
+          {
+            "name": "将星",
+            "type": "吉",
+            "position": "时柱",
+            "description": "将帅之星，主权威与领导力，统率四方，适合担任要职或团队领袖",
+            "modernMeaning": "你天生有领导气质，团队中往往自然成为核心与决策人物"
+          },
+          {
+            "name": "禄神",
+            "type": "吉",
+            "position": "月柱",
+            "description": "禄星临命，衣食无忧，仕途顺畅，职业稳定，财运平稳有保障",
+            "modernMeaning": "你有稳定的谋生能力，职场中自然能找到立足之地"
+          },
+          {
+            "name": "金舆",
+            "type": "吉",
+            "position": "年柱",
+            "description": "主富贵荣华，出行有车马之利，财运丰厚，生活优越，易得配偶助力",
+            "modernMeaning": "你有享受优质生活的运势，伴侣往往能给你带来实质帮助"
+          },
+          {
+            "name": "金舆",
+            "type": "吉",
+            "position": "日柱",
+            "description": "主富贵荣华，出行有车马之利，财运丰厚，生活优越，易得配偶助力",
+            "modernMeaning": "你有享受优质生活的运势，伴侣往往能给你带来实质帮助"
+          }
+        ],
+        "daYunDirection": "逆行",
+        "daYunStartAge": 1,
+        "daYunList": [
+          {
+            "startAge": 1,
+            "endAge": 10,
+            "startDate": "2025-11-17T07:59:00.000Z",
+            "endDate": "2035-11-17T07:59:00.000Z",
+            "ganZhi": {
+              "gan": "乙",
+              "zhi": "丑",
+              "ganWuXing": "木",
+              "zhiWuXing": "土",
+              "ganYinYang": "阴",
+              "zhiYinYang": "阴",
+              "naYin": "海中金",
+              "naYinWuXing": "金"
+            },
+            "shiShen": "劫财",
+            "zhiShiShen": "正财",
+            "period": "1–10岁（整岁参考，以交运日期为准）"
+          },
+          {
+            "startAge": 11,
+            "endAge": 20,
+            "startDate": "2035-11-17T07:59:00.000Z",
+            "endDate": "2045-11-17T07:59:00.000Z",
+            "ganZhi": {
+              "gan": "甲",
+              "zhi": "子",
+              "ganWuXing": "木",
+              "zhiWuXing": "水",
+              "ganYinYang": "阳",
+              "zhiYinYang": "阳",
+              "naYin": "海中金",
+              "naYinWuXing": "金"
+            },
+            "shiShen": "比肩",
+            "zhiShiShen": "正印",
+            "period": "11–20岁（整岁参考，以交运日期为准）"
+          },
+          {
+            "startAge": 21,
+            "endAge": 30,
+            "startDate": "2045-11-17T07:59:00.000Z",
+            "endDate": "2055-11-17T07:59:00.000Z",
+            "ganZhi": {
+              "gan": "癸",
+              "zhi": "亥",
+              "ganWuXing": "水",
+              "zhiWuXing": "水",
+              "ganYinYang": "阴",
+              "zhiYinYang": "阴",
+              "naYin": "大海水",
+              "naYinWuXing": "水"
+            },
+            "shiShen": "正印",
+            "zhiShiShen": "偏印",
+            "period": "21–30岁（整岁参考，以交运日期为准）"
+          },
+          {
+            "startAge": 31,
+            "endAge": 40,
+            "startDate": "2055-11-17T07:59:00.000Z",
+            "endDate": "2065-11-17T07:59:00.000Z",
+            "ganZhi": {
+              "gan": "壬",
+              "zhi": "戌",
+              "ganWuXing": "水",
+              "zhiWuXing": "土",
+              "ganYinYang": "阳",
+              "zhiYinYang": "阳",
+              "naYin": "大海水",
+              "naYinWuXing": "水"
+            },
+            "shiShen": "偏印",
+            "zhiShiShen": "偏财",
+            "period": "31–40岁（整岁参考，以交运日期为准）"
+          },
+          {
+            "startAge": 41,
+            "endAge": 50,
+            "startDate": "2065-11-17T07:59:00.000Z",
+            "endDate": "2075-11-17T07:59:00.000Z",
+            "ganZhi": {
+              "gan": "辛",
+              "zhi": "酉",
+              "ganWuXing": "金",
+              "zhiWuXing": "金",
+              "ganYinYang": "阴",
+              "zhiYinYang": "阴",
+              "naYin": "石榴木",
+              "naYinWuXing": "木"
+            },
+            "shiShen": "正官",
+            "zhiShiShen": "正官",
+            "period": "41–50岁（整岁参考，以交运日期为准）"
+          },
+          {
+            "startAge": 51,
+            "endAge": 60,
+            "startDate": "2075-11-17T07:59:00.000Z",
+            "endDate": "2085-11-17T07:59:00.000Z",
+            "ganZhi": {
+              "gan": "庚",
+              "zhi": "申",
+              "ganWuXing": "金",
+              "zhiWuXing": "金",
+              "ganYinYang": "阳",
+              "zhiYinYang": "阳",
+              "naYin": "石榴木",
+              "naYinWuXing": "木"
+            },
+            "shiShen": "七杀",
+            "zhiShiShen": "七杀",
+            "period": "51–60岁（整岁参考，以交运日期为准）"
+          },
+          {
+            "startAge": 61,
+            "endAge": 70,
+            "startDate": "2085-11-17T07:59:00.000Z",
+            "endDate": "2095-11-17T07:59:00.000Z",
+            "ganZhi": {
+              "gan": "己",
+              "zhi": "未",
+              "ganWuXing": "土",
+              "zhiWuXing": "土",
+              "ganYinYang": "阴",
+              "zhiYinYang": "阴",
+              "naYin": "天上火",
+              "naYinWuXing": "火"
+            },
+            "shiShen": "正财",
+            "zhiShiShen": "正财",
+            "period": "61–70岁（整岁参考，以交运日期为准）"
+          },
+          {
+            "startAge": 71,
+            "endAge": 80,
+            "startDate": "2095-11-17T07:59:00.000Z",
+            "endDate": "2105-11-17T07:59:00.000Z",
+            "ganZhi": {
+              "gan": "戊",
+              "zhi": "午",
+              "ganWuXing": "土",
+              "zhiWuXing": "火",
+              "ganYinYang": "阳",
+              "zhiYinYang": "阳",
+              "naYin": "天上火",
+              "naYinWuXing": "火"
+            },
+            "shiShen": "偏财",
+            "zhiShiShen": "伤官",
+            "period": "71–80岁（整岁参考，以交运日期为准）"
+          },
+          {
+            "startAge": 81,
+            "endAge": 90,
+            "startDate": "2105-11-17T07:59:00.000Z",
+            "endDate": "2115-11-17T07:59:00.000Z",
+            "ganZhi": {
+              "gan": "丁",
+              "zhi": "巳",
+              "ganWuXing": "火",
+              "zhiWuXing": "火",
+              "ganYinYang": "阴",
+              "zhiYinYang": "阴",
+              "naYin": "沙中土",
+              "naYinWuXing": "土"
+            },
+            "shiShen": "伤官",
+            "zhiShiShen": "食神",
+            "period": "81–90岁（整岁参考，以交运日期为准）"
+          },
+          {
+            "startAge": 91,
+            "endAge": 100,
+            "startDate": "2115-11-17T07:59:00.000Z",
+            "endDate": "2125-11-17T07:59:00.000Z",
+            "ganZhi": {
+              "gan": "丙",
+              "zhi": "辰",
+              "ganWuXing": "火",
+              "zhiWuXing": "土",
+              "ganYinYang": "阳",
+              "zhiYinYang": "阳",
+              "naYin": "沙中土",
+              "naYinWuXing": "土"
+            },
+            "shiShen": "食神",
+            "zhiShiShen": "偏财",
+            "period": "91–100岁（整岁参考，以交运日期为准）"
+          }
+        ],
+        "qiYun": {
+          "years": 1,
+          "months": 9,
+          "days": 7,
+          "hours": 16,
+          "startDate": "2025-11-17T07:59:00.000Z",
+          "termDate": "2024-02-04T08:27:07.000Z",
+          "termName": "立春",
+          "sect": 2
+        },
+        "calculationPolicy": {
+          "version": "suji-calendar-2",
+          "provider": "lunar-javascript@1.7.7",
+          "timezone": "UTC+08:00",
+          "yearBoundary": "exact-lichun",
+          "monthBoundary": "exact-jie",
+          "dayBoundary": "zi-hour-23:00",
+          "lunarDayBoundary": "civil-midnight",
+          "solarTimeScope": "day-and-hour-only",
+          "yun": "year-polarity-gender; jie; three-days-per-year; sect-2-minute-conversion",
+          "supportedCivilYears": [
+            1901,
+            2100
+          ],
+          "civilBirthTime": "2024-02-09T15:59:00.000Z",
+          "effectiveSolarTime": "2024-02-09T15:50:40.881Z",
+          "solarTimeApplied": true,
+          "longitude": 121.47,
+          "warnings": []
+        },
+        "interpretationPolicy": {
+          "strengthYongShen": "扶抑参考（工程启发式，调候另列来源候选）",
+          "structureYongShen": "月令格局用神（子平真诠口径）",
+          "status": "traditional-interpretation-not-empirical-prediction"
+        },
+        "lunarDate": "二〇二三年腊月三十",
+        "solarTerm": "立春",
+        "yearNaYin": "覆灯火",
+        "taiYuan": {
+          "gan": "丁",
+          "zhi": "巳",
+          "ganWuXing": "火",
+          "zhiWuXing": "火",
+          "ganYinYang": "阴",
+          "zhiYinYang": "阴",
+          "naYin": "沙中土",
+          "naYinWuXing": "土"
+        },
+        "mingGong": {
+          "gan": "丁",
+          "zhi": "卯",
+          "ganWuXing": "火",
+          "zhiWuXing": "木",
+          "ganYinYang": "阴",
+          "zhiYinYang": "阴",
+          "naYin": "炉中火",
+          "naYinWuXing": "火"
+        }
+      },
+      "ziweiPan": {
+        "birthDateTime": "2024-02-09T15:59:00.000Z",
+        "gender": "女",
+        "palaces": [
+          {
+            "name": "命宫",
+            "position": "寅",
+            "ganZhi": "丙寅",
+            "mainStars": [],
+            "minorStars": [
+              {
+                "name": "禄存",
+                "brightness": "",
+                "type": "other",
+                "source": "minor"
+              },
+              {
+                "name": "天马",
+                "brightness": "",
+                "type": "other",
+                "source": "minor"
+              },
+              {
+                "name": "火星",
+                "brightness": "庙",
+                "type": "tough",
+                "source": "minor"
+              },
+              {
+                "name": "封诰",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "旬空",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "阴煞",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天哭",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": true
+          },
+          {
+            "name": "父母宫",
+            "position": "卯",
+            "ganZhi": "丁卯",
+            "mainStars": [],
+            "minorStars": [
+              {
+                "name": "擎羊",
+                "brightness": "陷",
+                "type": "tough",
+                "source": "minor"
+              },
+              {
+                "name": "天贵",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "福德宫",
+            "position": "辰",
+            "ganZhi": "戊辰",
+            "mainStars": [
+              {
+                "name": "天同",
+                "brightness": "平",
+                "type": "major",
+                "source": "major"
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "左辅",
+                "brightness": "",
+                "type": "soft",
+                "source": "minor"
+              },
+              {
+                "name": "文曲",
+                "brightness": "得",
+                "type": "soft",
+                "source": "minor"
+              },
+              {
+                "name": "三台",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "华盖",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "田宅宫",
+            "position": "巳",
+            "ganZhi": "己巳",
+            "mainStars": [
+              {
+                "name": "武曲",
+                "brightness": "平",
+                "type": "major",
+                "source": "major",
+                "sihua": [
+                  "化科"
+                ]
+              },
+              {
+                "name": "破军",
+                "brightness": "平",
+                "type": "major",
+                "source": "major",
+                "sihua": [
+                  "化权"
+                ]
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "天喜",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天巫",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天厨",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天空",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "孤辰",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "官禄宫",
+            "position": "午",
+            "ganZhi": "庚午",
+            "mainStars": [
+              {
+                "name": "太阳",
+                "brightness": "旺",
+                "type": "major",
+                "source": "major",
+                "sihua": [
+                  "化忌"
+                ]
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "凤阁",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天才",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天寿",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "台辅",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "蜚廉",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "年解",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "仆役宫",
+            "position": "未",
+            "ganZhi": "辛未",
+            "mainStars": [
+              {
+                "name": "天府",
+                "brightness": "庙",
+                "type": "major",
+                "source": "major"
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "天钺",
+                "brightness": "",
+                "type": "soft",
+                "source": "minor"
+              },
+              {
+                "name": "天官",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天伤",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "迁移宫",
+            "position": "申",
+            "ganZhi": "壬申",
+            "mainStars": [
+              {
+                "name": "天机",
+                "brightness": "得",
+                "type": "major",
+                "source": "major"
+              },
+              {
+                "name": "太阴",
+                "brightness": "利",
+                "type": "major",
+                "source": "major"
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "解神",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "龙池",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "截路",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "疾厄宫",
+            "position": "酉",
+            "ganZhi": "癸酉",
+            "mainStars": [
+              {
+                "name": "紫微",
+                "brightness": "旺",
+                "type": "major",
+                "source": "major"
+              },
+              {
+                "name": "贪狼",
+                "brightness": "利",
+                "type": "major",
+                "source": "major"
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "咸池",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "恩光",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天福",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "月德",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "空亡",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天刑",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天使",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "财帛宫",
+            "position": "戌",
+            "ganZhi": "甲戌",
+            "mainStars": [
+              {
+                "name": "巨门",
+                "brightness": "陷",
+                "type": "major",
+                "source": "major"
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "右弼",
+                "brightness": "",
+                "type": "soft",
+                "source": "minor"
+              },
+              {
+                "name": "文昌",
+                "brightness": "陷",
+                "type": "soft",
+                "source": "minor"
+              },
+              {
+                "name": "铃星",
+                "brightness": "庙",
+                "type": "tough",
+                "source": "minor"
+              },
+              {
+                "name": "八座",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天月",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天虚",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "子女宫",
+            "position": "亥",
+            "ganZhi": "乙亥",
+            "mainStars": [
+              {
+                "name": "天相",
+                "brightness": "得",
+                "type": "major",
+                "source": "major"
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "地空",
+                "brightness": "",
+                "type": "tough",
+                "source": "minor"
+              },
+              {
+                "name": "地劫",
+                "brightness": "",
+                "type": "tough",
+                "source": "minor"
+              },
+              {
+                "name": "红鸾",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          },
+          {
+            "name": "夫妻宫",
+            "position": "子",
+            "ganZhi": "丙子",
+            "mainStars": [
+              {
+                "name": "天梁",
+                "brightness": "庙",
+                "type": "major",
+                "source": "major"
+              }
+            ],
+            "minorStars": [],
+            "isShenGong": false
+          },
+          {
+            "name": "兄弟宫",
+            "position": "丑",
+            "ganZhi": "丁丑",
+            "mainStars": [
+              {
+                "name": "廉贞",
+                "brightness": "利",
+                "type": "major",
+                "source": "major",
+                "sihua": [
+                  "化禄"
+                ]
+              },
+              {
+                "name": "七杀",
+                "brightness": "庙",
+                "type": "major",
+                "source": "major"
+              }
+            ],
+            "minorStars": [
+              {
+                "name": "天魁",
+                "brightness": "",
+                "type": "soft",
+                "source": "minor"
+              },
+              {
+                "name": "陀罗",
+                "brightness": "庙",
+                "type": "tough",
+                "source": "minor"
+              },
+              {
+                "name": "天姚",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "天德",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "寡宿",
+                "type": "helper",
+                "source": "adjective"
+              },
+              {
+                "name": "破碎",
+                "type": "helper",
+                "source": "adjective"
+              }
+            ],
+            "isShenGong": false
+          }
+        ],
+        "mingGongPosition": "寅",
+        "shenGongPosition": "寅",
+        "fiveElementsClass": "火六局",
+        "natalYear": {
+          "lunarYear": 2024,
+          "ganZhi": "甲辰",
+          "stem": "甲",
+          "branch": "辰"
+        },
+        "method": {
+          "algorithm": "iztro-2.5.8-default",
+          "dayBoundary": "zi-hour",
+          "yearBoundary": "lunar-new-year",
+          "leapMonth": "split-at-day-15",
+          "calculationDate": "2024-02-10",
+          "civilTimeZone": "UTC+08:00",
+          "caveats": [
+            "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
+            "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",
+            "排盘一致性不等于对现实事件的预测效度"
+          ]
+        }
+      },
+      "personality": {
+        "coreTraits": [
+          "你是那种知道自己要什么的人，有强烈的自我驱动力",
+          "建禄格",
+          "可观察自己在创造力丰富方面的倾向",
+          "可观察自己在善于表达方面的倾向"
+        ],
+        "strengths": [
+          "有艺术天赋",
+          "能把内心感受转化为有价值的东西",
+          "你有温润的人格魅力，善举往往能转化为自身的好运",
+          "你天生有领导气质，团队中往往自然成为核心与决策人物",
+          "你有稳定的谋生能力，职场中自然能找到立足之地"
+        ],
+        "challenges": [
+          "有时过于随性，缺乏紧迫感",
+          "容易沉浸舒适区",
+          "有时会因为急于成长而忽略脚下的稳定"
+        ],
+        "communicationStyle": "你表达直接，思路清晰，善于用逻辑说服人",
+        "emotionalPattern": "你情感充沛，目标感强，内心有一股向上的力量，但有时难以彻底放松",
+        "careerAptitude": [
+          "规划与战略",
+          "环保与自然领域"
+        ],
+        "relationshipStyle": "你在关系中有主导倾向，需要另一半给你足够的空间，同时也欣赏你的强度"
+      }
+    }
+  },
+  {
+    "request": {
+      "command": "tool",
+      "name": "get_ziwei_palace",
+      "birth": {
+        "year": 1995,
+        "month": 8,
+        "day": 15,
+        "hour": 19,
+        "minute": 30,
+        "gender": "女",
+        "city": "上海",
+        "longitude": 121.47,
+        "timeZoneID": "Asia/Shanghai"
+      },
+      "arguments": {
+        "palace": "命宫",
+        "withSihua": true
+      },
+      "now": "2026-09-19T04:00:00Z"
+    },
+    "result": {
+      "result": {
+        "palace": "命宫",
+        "position": "戌",
+        "ganZhi": "丙戌",
+        "mainStars": [],
+        "mainStarsDetailed": [],
+        "minorStars": [
+          "左辅",
+          "天喜",
+          "寡宿"
+        ],
+        "isShenGong": false,
+        "emptyMainPalace": true,
+        "starDetails": [
+          {
+            "name": "左辅",
+            "brightness": "",
+            "type": "soft",
+            "source": "minor",
+            "group": "minor"
+          },
+          {
+            "name": "天喜",
+            "type": "helper",
+            "source": "adjective",
+            "group": "minor"
+          },
+          {
+            "name": "寡宿",
+            "type": "helper",
+            "source": "adjective",
+            "group": "minor"
+          }
+        ],
+        "natalTransformations": [],
+        "relatedPalaces": [
+          {
+            "relation": "trine-4",
+            "palace": "官禄宫",
+            "position": "寅",
+            "ganZhi": "戊寅",
+            "mainStars": [
+              "太阳",
+              "巨门"
+            ],
+            "mainStarsDetailed": [
+              "太阳(旺)",
+              "巨门(庙)"
+            ],
+            "minorStars": [
+              "文曲",
+              "陀罗",
+              "解神",
+              "天巫",
+              "孤辰",
+              "阴煞"
+            ],
+            "isShenGong": false,
+            "emptyMainPalace": false,
+            "starDetails": [
+              {
+                "name": "太阳",
+                "brightness": "旺",
+                "type": "major",
+                "source": "major",
+                "group": "main"
+              },
+              {
+                "name": "巨门",
+                "brightness": "庙",
+                "type": "major",
+                "source": "major",
+                "group": "main"
+              },
+              {
+                "name": "文曲",
+                "brightness": "平",
+                "type": "soft",
+                "source": "minor",
+                "group": "minor"
+              },
+              {
+                "name": "陀罗",
+                "brightness": "陷",
+                "type": "tough",
+                "source": "minor",
+                "group": "minor"
+              },
+              {
+                "name": "解神",
+                "type": "helper",
+                "source": "adjective",
+                "group": "minor"
+              },
+              {
+                "name": "天巫",
+                "type": "helper",
+                "source": "adjective",
+                "group": "minor"
+              },
+              {
+                "name": "孤辰",
+                "type": "helper",
+                "source": "adjective",
+                "group": "minor"
+              },
+              {
+                "name": "阴煞",
+                "type": "helper",
+                "source": "adjective",
+                "group": "minor"
+              }
+            ],
+            "natalTransformations": []
+          },
+          {
+            "relation": "trine-8",
+            "palace": "财帛宫",
+            "position": "午",
+            "ganZhi": "壬午",
+            "mainStars": [],
+            "mainStarsDetailed": [],
+            "minorStars": [
+              "恩光",
+              "天厨",
+              "截路"
+            ],
+            "isShenGong": true,
+            "emptyMainPalace": true,
+            "starDetails": [
+              {
+                "name": "恩光",
+                "type": "helper",
+                "source": "adjective",
+                "group": "minor"
+              },
+              {
+                "name": "天厨",
+                "type": "helper",
+                "source": "adjective",
+                "group": "minor"
+              },
+              {
+                "name": "截路",
+                "type": "helper",
+                "source": "adjective",
+                "group": "minor"
+              }
+            ],
+            "natalTransformations": []
+          },
+          {
+            "relation": "opposite",
+            "palace": "迁移宫",
+            "position": "辰",
+            "ganZhi": "庚辰",
+            "mainStars": [
+              "天机",
+              "天梁"
+            ],
+            "mainStarsDetailed": [
+              "天机(利)",
+              "天梁(庙)"
+            ],
+            "minorStars": [
+              "右弼",
+              "擎羊",
+              "红鸾",
+              "台辅",
+              "天官",
+              "月德"
+            ],
+            "isShenGong": false,
+            "emptyMainPalace": false,
+            "starDetails": [
+              {
+                "name": "天机",
+                "brightness": "利",
+                "type": "major",
+                "source": "major",
+                "sihua": [
+                  "化禄"
+                ],
+                "group": "main"
+              },
+              {
+                "name": "天梁",
+                "brightness": "庙",
+                "type": "major",
+                "source": "major",
+                "sihua": [
+                  "化权"
+                ],
+                "group": "main"
+              },
+              {
+                "name": "右弼",
+                "brightness": "",
+                "type": "soft",
+                "source": "minor",
+                "group": "minor"
+              },
+              {
+                "name": "擎羊",
+                "brightness": "庙",
+                "type": "tough",
+                "source": "minor",
+                "group": "minor"
+              },
+              {
+                "name": "红鸾",
+                "type": "helper",
+                "source": "adjective",
+                "group": "minor"
+              },
+              {
+                "name": "台辅",
+                "type": "helper",
+                "source": "adjective",
+                "group": "minor"
+              },
+              {
+                "name": "天官",
+                "type": "helper",
+                "source": "adjective",
+                "group": "minor"
+              },
+              {
+                "name": "月德",
+                "type": "helper",
+                "source": "adjective",
+                "group": "minor"
+              }
+            ],
+            "natalTransformations": [
+              {
+                "scope": "natal-year-stem",
+                "sourceStem": "乙",
+                "star": "天机",
+                "transformation": "化禄",
+                "targetPalace": "迁移宫",
+                "targetPosition": "辰",
+                "sourceId": "ziwei-sihua-selected-v1"
+              },
+              {
+                "scope": "natal-year-stem",
+                "sourceStem": "乙",
+                "star": "天梁",
+                "transformation": "化权",
+                "targetPalace": "迁移宫",
+                "targetPosition": "辰",
+                "sourceId": "ziwei-sihua-selected-v1"
+              }
+            ]
+          }
+        ],
+        "emptyPalaceReference": {
+          "status": "opposite-reference",
+          "sourcePalace": "迁移宫",
+          "sourcePosition": "辰",
+          "mainStars": [
+            "天机",
+            "天梁"
+          ]
+        },
+        "natalYear": {
+          "lunarYear": 1995,
+          "ganZhi": "乙亥",
+          "stem": "乙",
+          "branch": "亥"
+        },
+        "ruleSources": [
+          {
+            "id": "ziwei-palace-context-v1",
+            "version": "1",
+            "title": "紫微宫位三方四正与对宫参照",
+            "editionStatus": "pinned-engineering-reference",
+            "scope": "本宫及地支位移4、8、6的关联宫；参照不改变星曜实际落宫",
+            "references": [
+              {
+                "url": "https://unpkg.com/iztro@2.5.8/lib/astro/analyzer.js",
+                "locator": "getSurroundedPalaces",
+                "sha256": "ce88ebcac850ff6810678b783b0ffba12e762b6dc0f42653be57ad30e043e865"
+              }
+            ],
+            "limitations": [
+              "空宫保留为空，列对宫主星供参照；不移入本宫，不自动判借星强度或吉凶",
+              "三方位移相对于目标宫，不把每个目标的关联宫一律叫本命财帛或官禄"
+            ]
+          },
+          {
+            "id": "ziwei-sihua-selected-v1",
+            "version": "1",
+            "title": "生年四化：iztro 2.5.8默认表及全书异文",
+            "editionStatus": "electronic-transcription-not-print-collated",
+            "scope": "生年干四化，明确来源干、实际星曜与落宫；不等同宫干飞化或流年四化",
+            "references": [
+              {
+                "url": "https://unpkg.com/iztro@2.5.8/lib/data/heavenlyStems.js",
+                "locator": "mutagen",
+                "sha256": "4eb6ee5e3a09db4ede931053de526ab258d0d76908922a1f980d7f996f226191"
+              },
+              {
+                "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷二",
+                "locator": "安禄权科忌四星变化诀",
+                "sha256": "1e255c6ae99e6f89ae124ab342554ef1347fc8e68fb8908cba7290d1a38cbb72",
+                "quote": "壬梁紫府武宿是，癸破巨阴贪狼停。"
+              }
+            ],
+            "limitations": [
+              "本产品默认壬年左辅化科；所读电子本为壬年天府化科，保留异文而不声称十干全同",
+              "闰月原文取次月，本产品采用前15日当月、后15日次月；晚子按完整次日月年处理",
+              "电子转录未做纸本校勘；结构正确不等于现实预测有效"
+            ]
+          }
+        ],
+        "method": {
+          "algorithm": "iztro-2.5.8-default",
+          "dayBoundary": "zi-hour",
+          "yearBoundary": "lunar-new-year",
+          "leapMonth": "split-at-day-15",
+          "calculationDate": "1995-08-15",
+          "civilTimeZone": "UTC+08:00",
+          "caveats": [
+            "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
+            "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",
+            "排盘一致性不等于对现实事件的预测效度"
+          ]
+        },
+        "note": "本宫无主星；须结合对宫与三方四正，不等于此领域不存在。",
+        "sihua": [],
+        "provenance": {
+          "engineRevision": "e8130373b69f1ba85d96a7e6246490829ebf4a3faa3eb01674cd43b82b6f0852",
+          "referenceDate": "2026-09-19T04:00:00.000Z",
+          "calendarPolicy": {
+            "version": "suji-calendar-2",
+            "provider": "lunar-javascript@1.7.7",
+            "timezone": "UTC+08:00",
+            "yearBoundary": "exact-lichun",
+            "monthBoundary": "exact-jie",
+            "dayBoundary": "zi-hour-23:00",
+            "lunarDayBoundary": "civil-midnight",
+            "solarTimeScope": "day-and-hour-only",
+            "yun": "year-polarity-gender; jie; three-days-per-year; sect-2-minute-conversion",
+            "supportedCivilYears": [
+              1901,
+              2100
+            ]
+          },
+          "interpretation": "干支、星曜与盘面为规则计算；强弱评分、用神取舍及文字为指定流派或产品启发式，不是事件概率。",
+          "baziPolicy": {
+            "strengthYongShen": "扶抑参考（工程启发式，调候另列来源候选）",
+            "structureYongShen": "月令格局用神（子平真诠口径）",
+            "status": "traditional-interpretation-not-empirical-prediction"
+          },
+          "ziweiPolicy": {
+            "algorithm": "iztro-2.5.8-default",
+            "dayBoundary": "zi-hour",
+            "yearBoundary": "lunar-new-year",
+            "leapMonth": "split-at-day-15",
+            "calculationDate": "1995-08-15",
+            "civilTimeZone": "UTC+08:00",
+            "caveats": [
+              "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
+              "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",
+              "排盘一致性不等于对现实事件的预测效度"
+            ]
+          }
+        }
+      },
+      "evidence": [
+        "计算时刻 · 2026-09-19T04:00:00.000Z",
+        "历法 · 北京时间；精确交节；子初换日",
+        "紫微 · 命宫"
+      ]
+    }
+  },
+  {
+    "request": {
       "command": "profile",
       "birth": {
         "year": 1995,
@@ -9878,7 +13626,7 @@
       },
       "natal": {
         "schemaVersion": 1,
-        "engineRevision": "842183824dbeafc930cf631e5679c5ee315ea6f253a85672035ea002e5d9d5bb",
+        "engineRevision": "e8130373b69f1ba85d96a7e6246490829ebf4a3faa3eb01674cd43b82b6f0852",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "calendarPolicy": {
           "version": "suji-calendar-2",
@@ -11389,11 +15137,19 @@
           "mingGongPosition": "戌",
           "shenGongPosition": "午",
           "fiveElementsClass": "土五局",
+          "natalYear": {
+            "lunarYear": 1995,
+            "ganZhi": "乙亥",
+            "stem": "乙",
+            "branch": "亥"
+          },
           "method": {
             "algorithm": "iztro-2.5.8-default",
             "dayBoundary": "zi-hour",
             "yearBoundary": "lunar-new-year",
             "leapMonth": "split-at-day-15",
+            "calculationDate": "1995-08-15",
+            "civilTimeZone": "UTC+08:00",
             "caveats": [
               "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
               "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",
@@ -12929,11 +16685,19 @@
         "mingGongPosition": "戌",
         "shenGongPosition": "午",
         "fiveElementsClass": "土五局",
+        "natalYear": {
+          "lunarYear": 1995,
+          "ganZhi": "乙亥",
+          "stem": "乙",
+          "branch": "亥"
+        },
         "method": {
           "algorithm": "iztro-2.5.8-default",
           "dayBoundary": "zi-hour",
           "yearBoundary": "lunar-new-year",
           "leapMonth": "split-at-day-15",
+          "calculationDate": "1995-08-15",
+          "civilTimeZone": "UTC+08:00",
           "caveats": [
             "采用子初23点换日、农历正月换年、闰月前15日当月后15日次月；不同流派可能另取规则",
             "四化使用默认十干表；亮度、四化和闰月规则存在传本差异",

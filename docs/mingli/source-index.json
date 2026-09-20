@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-20T05:08:26.422Z",
+  "generatedAt": "2026-09-20T05:24:54.867Z",
   "sourceCount": 50,
-  "claimCount": 56,
+  "claimCount": 57,
   "domains": {
     "academic": [
       {
@@ -985,13 +985,10 @@
         "tier": "A",
         "type": "classic_text",
         "priority": "P0",
-        "status": "candidate",
+        "status": "selected_excerpts_archived",
         "usage": [
-          "待 ingest：十二宫",
-          "十四主星",
-          "安星法",
-          "诸星赋性",
-          "格局/组合"
+          "卷二身命/十二宫/五虎遁/四化/大限方向节选核对",
+          "四化壬干、闰月与大限起法传本差异记录"
         ]
       },
       {
@@ -1588,7 +1585,7 @@
         "ziwei-doushu-quanshu",
         "ziwei-iztro"
       ],
-      "status": "text_cited_needs_fixture",
+      "status": "selected_policy_with_documented_variant",
       "confidence": "medium"
     },
     {
@@ -1607,8 +1604,18 @@
         "ziwei-doushu-quanshu",
         "ziwei-iztro"
       ],
-      "status": "text_cited_needs_fixture",
+      "status": "independent_counting_fixtures_and_boundary_regression",
       "confidence": "medium"
+    },
+    {
+      "id": "ziwei.scoped-palace-context",
+      "domain": "ziwei",
+      "sourceIds": [
+        "ziwei-iztro",
+        "ziwei-doushu-quanshu"
+      ],
+      "status": "implemented_with_counterexamples",
+      "confidence": "high_for_geometry_scoped_to_selected_table"
     },
     {
       "id": "ziwei.use-library-for-charting",

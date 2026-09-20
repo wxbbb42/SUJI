@@ -186,3 +186,15 @@ The original rebuild changed no production schema and made no live AI/auth succe
 Separate Liuyao original/changed/hidden calendar context and scoped Qimen void/horse/door/star-season facts are implemented, with returned provenance and native evidence indexing. Local checks pass: 609 Engine tests, 226 Swift Core tests (including 13 Node/JSC fixtures), 14 backend tests, TypeScript typecheck, regenerated bundle and native-only guard. The local Swift toolchain now runs; these are executed tests, not syntax-only results.
 
 Independent review reproduced an oversized two-chart verifier request. Compact lossless rows reduce the regression example from 129,308 to 83,574 UTF-16 characters; malformed nested source metadata is excluded. Both review findings were rechecked as resolved. New natural-language assertion bindings and the remaining rule chains are still open in the [core plan](../docs/superpowers/plans/2026-09-20-core-mingli-completion.md); this batch does not establish complete automatic interpretation. Exact-commit remote CI is recorded after push.
+
+Batch A exact head `0c3ae1fe418569c3f88f82f91cbd382d5d335d98`: [run 35491117669](https://github.com/wxbbb42/SUJI/actions/runs/35491117669) succeeded in engine, swift-core and native-app.
+
+## Core completion, Batch D1 — 2026-09-20
+
+Ziwei late-zi chart dates now roll the whole lunar month/year forward while retaining the original civil birth instant. Added independent leap-half/month-end/New-Year vectors, trine/opposite palace context and scoped natal transformations. Source excerpts record the selected Ren transformation and leap-month policies separately from the read Quanshu edition. See [review evidence](../docs/mingli/validation/ziwei-core-2026-09-20.md).
+
+Local executed validation: 41 Engine suites / 624 tests, 233 Swift Core tests under America/Los_Angeles, typecheck/build, native-only guard and diff check pass. The bundle includes 16 Node/JSC runtime parity fixtures. No backend code changed; the previous 14-test backend result is not a new live service test.
+
+Independent review caught missing-star-array compatibility and a 74,484-byte four-domain delivery exceeding the existing 60KB limit. Identical natal subtrees now use references to already delivered values in the same run, while full receipts remain intact. Four real charts with 29-character tool IDs deliver 37,648–38,729 bytes; verifier messages encode to at most 128,000 bytes. Replay initially dropped two domain tools under its 40KB budget; a RED/GREEN receipt→history→orchestration test now preserves all four and their evidence. Sources rejected by the model budget, earlier questions, unequal data and reference chains are excluded.
+
+This does not complete D2/D3 or the other core batches. Fine-grained brightness/transformation assertion bindings and dynamic Ziwei layers still require acceptance. Exact-head remote D1 CI remains pending until the new push.

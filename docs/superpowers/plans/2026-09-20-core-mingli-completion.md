@@ -20,7 +20,7 @@
 
 ## Acceptance ledger / dependency order
 
-- [ ] A. Liuyao original/changed/hidden objects each carry their own month/day/void/clash/combination facts; Qimen hour void, scoped horse, directional door pressure and star/month relationship; native fact index binds these precisely.
+- [x] A. Liuyao original/changed/hidden objects each carry their own month/day/void/clash/combination facts; Qimen hour void, scoped horse, directional door pressure and star/month relationship; native fact index binds these precisely.
 - [ ] B. Liuyao returning generation/control, flying/hidden, advance/retreat, conditional dark movement/day break with explicit satisfied/conflicting/unresolved conditions and classical counterexamples.
 - [ ] C. Bazi rescue damage, support/root/season context and branch rescue conditions; do not replace unresolved global competition with a score.
 - [ ] D. Fresh Ziwei review and closure of demonstrated gaps: school policy boundaries, palace/star/transform relationships and natal versus dynamic layers; independent boundary and structural examples.
@@ -40,7 +40,7 @@
 - [x] Write failing Qimen tests using hand charts A–D from the audit: hour void branches/palaces, hour horse, D door-pressure palaces `[1,2,3,6]`; include palace-controls-door as a negative example, half/full emptiness and no center duplication.
 - [x] Implement scoped facts. Obtain the solar-term month from the physical instant, not the apparent-clock projection. Check nine-star/month states against a fixed independent five-by-five table; include 天芮土 in 酉月=旺, not ordinary month-strength 休.
 - [x] Add native fact-index tests for changed/hidden pointers, false booleans, sparse optional legacy payloads, nonsequential palace arrays, source/version fields, cast month/day and method metadata. Add only allowlisted scalar/array facts; never index arbitrary model-generated prose as facts.
-- [ ] Run targeted Jest, full Engine typecheck/test/build, Swift parse; push for Core/App/macOS CI. Update evidence report with observed counts and provenance before marking A accepted.
+- [x] Run targeted Jest, full Engine typecheck/test/build, Swift Core; push for Core/App/macOS CI. Update evidence report with observed counts and provenance before marking A accepted.
 
 ## Later batches
 
@@ -49,3 +49,20 @@ Each of B–F gets a detailed test-first implementation section after its source
 ## Progress evidence
 
 2026-09-20 Batch A implemented; full local checks: 609 Engine tests, 226 Swift Core tests including 13 Node/JSC parity fixtures, 14 backend tests, typecheck/build/native-only check pass. Independent code review found and then cleared aggregate verifier capacity and nested metadata shape defects; fixes had observed RED/GREEN tests. Source registry: 50 sources / 56 claims. Remote exact-commit CI remains pending before A acceptance. See `docs/mingli/validation/core-facts-acceptance-2026-09-20.md`. No completion claim for B–H.
+
+Batch A accepted after remote run [35491117669](https://github.com/wxbbb42/SUJI/actions/runs/35491117669) succeeded for exact head `0c3ae1fe418569c3f88f82f91cbd382d5d335d98`: engine, swift-core, native-app all green.
+
+## Batch D1 — prioritize independently demonstrated Ziwei error
+
+The fresh read-only review found a P1 late-zi calendar inconsistency. This takes priority over adding Liuyao rules. Selected policy remains full 23:00 rollover; no universal school claim.
+
+- [x] Observe RED for independent leap-15/16, ordinary month-end and lunar-year-end expectations, original birth identity, lunar input and the last accepted civil date.
+- [x] Normalize the effective solar date before iztro and use early-zi index0. Preserve original civil birth identity. The raw astrolabe uses the effective lunar year consistently.
+- [x] Return target and actual trine/opposite palace facts, keeping empty resident-star arrays unchanged and borrowed-reference provenance explicit. Test reordered arrays, empty/nonempty and sparse legacy payloads.
+- [x] Return each natal transformation's source stem, star, target palace and source ID. Archive the read edition and explicitly record Ren 天府/左辅 and leap-month differences. Fix the old test's overstatement of agreement.
+- [x] Index star brightness, body/empty flags, scoped transformations, methods and sources in standalone and domain tools. Add named-palace binding and wrong-palace/transit/negation counterexamples.
+- [ ] Finish D1 independent rereview, full Core/Engine verification, push and exact-head CI.
+- [ ] D2: independent nominal-age/decadal vectors; separate annual projection from natal cache, explicit school provenance and boundary tests. No borrowing Bazi timing as Ziwei timing.
+- [ ] D3: interpretation evidence for transformation scope, empty-palace overclaims and dynamic layers, with actual end-to-end cases. Palace-stem flying and flow-month remain separate scope decisions requiring grounded rules.
+
+Liuyao B source reread also uncovered a research-excerpt bug: prior root-page chapter28/32 excerpts hit the table of contents. `core-rule-sources.json` records actual chapter offsets/hashes from the same full-source hash. This corrects evidence extraction, not the still-pending B implementation.

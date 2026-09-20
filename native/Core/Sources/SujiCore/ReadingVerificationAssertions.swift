@@ -46,6 +46,14 @@ enum ReadingVerificationAssertions {
             !denied(clause) && has(clause, "(?:" + anchor + ")" + link + value)
         }
         let parts = clauses(sentence)
+        if key.first == "ziwei", key.count == 3, key[1].hasSuffix("宫") {
+            // Require the actual named natal palace, never a generic "主星" or
+            // a transit/borrowed/opposite relation that changes the subject.
+            guard !has(sentence, "流年|流月|大限|小限|借星|借入") else { return false }
+            let field = ["ganZhi": "干支|宫干支", "position": "地支|地支位", "mainStars": "主星", "minorStars": "辅星", "sihua": "生年四化"][key[2]]
+            guard let field else { return false }
+            return parts.contains { bound($0, NSRegularExpression.escapedPattern(for: key[1]) + "(?:的)?(?:" + field + ")") }
+        }
         if key.first == "liuyao", key.count == 3, ["original", "changed"].contains(key[1]) {
             let field = ["upper": "上卦|上", "lower": "下卦|下", "name": "卦名"][key[2]]
             guard let field else { return false }
@@ -79,7 +87,6 @@ enum ReadingVerificationAssertions {
             "liuyao.lineValues": "爻值|六爻数值", "liuyao.changingYao": "动爻", "liuyao.xunKong": "旬空",
             "qimen.zhiShiPalaceId": "值使", "qimen.zhiFuPalaceId": "值符",
             "qimen.zhiFuStar": "值符星|值符", "qimen.zhiShiMen": "值使门|值使", "qimen.juNumber": "局数", "qimen.yuan": "三元|元", "qimen.jieqi": "节气",
-            "ziwei.palace": "宫位", "ziwei.ganZhi": "宫干支", "ziwei.mainStars": "主星", "ziwei.minorStars": "辅星",
         ]
         guard let anchor = anchors[fact.factKey] else { return false }
         return parts.contains { bound($0, anchor) }

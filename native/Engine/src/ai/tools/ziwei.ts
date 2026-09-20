@@ -2,13 +2,14 @@
  * 紫微侧工具实现
  */
 import type { ToolDefinition, ToolHandler } from './types';
+import { palaceFacts, palaceContext } from '../../ziwei/context';
 
 export const ziweiTools: ToolDefinition[] = [
   {
     type: 'function',
     function: {
       name: 'get_ziwei_palace',
-      description: '查紫微 12 宫某宫的主星、辅星、四化。常用宫名：命宫、夫妻宫、子女宫、财帛宫、官禄宫、田宅宫、福德宫、迁移宫、疾厄宫、父母宫、兄弟宫、仆役宫。',
+      description: '查紫微本命某宫及三方四正的实际星曜、亮度、身宫、生年四化来源。空宫提供对宫参照，不移动星曜。不含宫干飞化或流年四化。',
       parameters: {
         type: 'object',
         additionalProperties: false,
@@ -47,23 +48,11 @@ export const ziweiHandlers: Record<string, ToolHandler> = {
       return { palace, error: 'palace_not_found' };
     }
 
-    const mainStars: string[] = (target.mainStars ?? []).map((s: any) => s.name);
-    const mainStarsDetailed: string[] = (target.mainStars ?? []).map((s: any) =>
-      `${s.name}${s.brightness ? `(${s.brightness})` : ''}`
-    );
-    const minorStars: string[] = (target.minorStars ?? []).map((s: any) => s.name);
-
     const result: any = {
-      palace,
-      position: target.position,
-      ganZhi: target.ganZhi,
-      mainStars,
-      mainStarsDetailed,
-      minorStars,
-      isShenGong: target.isShenGong,
+      ...palaceFacts(target, ziweiPan),
+      ...palaceContext(target, ziweiPan),
       method: ziweiPan.method,
-      emptyMainPalace: mainStars.length === 0,
-      note: mainStars.length === 0 ? "本宫无主星；须结合对宫与三方四正，不等于此领域不存在。" : undefined,
+      note: (target.mainStars ?? []).length === 0 ? "本宫无主星；须结合对宫与三方四正，不等于此领域不存在。" : undefined,
     };
 
     if (withSihua || withFlying) {

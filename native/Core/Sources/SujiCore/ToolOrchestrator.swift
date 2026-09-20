@@ -141,7 +141,7 @@ public struct ToolOrchestrator {
 
         var messages = history
         var receipts: [ToolReceipt] = []
-        var evidence: [String] = cachedReceipts.filter { receipt in history.contains { $0.role == .tool && $0.content == receipt.output } }.flatMap(\.evidence)
+        var evidence: [String] = cachedReceipts.filter { NatalEvidenceProjection.wasDelivered($0,in:history) }.flatMap(\.evidence)
         var totalCalls = 0
         var outputBytes = history.filter { $0.role == .tool }.reduce(0) { $0 + ($1.content?.utf8.count ?? 0) }
         var seenCallIDs = Set(history.flatMap { $0.toolCalls ?? [] }.map(\.id))
@@ -252,13 +252,14 @@ public struct ToolOrchestrator {
                         if Self.stableChartTools.contains(receipt.name) { cachedCharts[receipt.name] = receipt }
                     }
                     receipts.append(receipt)
-                    guard receipt.output.utf16.count <= 32_000, outputBytes + receipt.output.utf8.count <= 60_000 else {
+                    let modelOutput = NatalEvidenceProjection.output(receipt.output, name:receipt.name, delivered:Array(messages.dropFirst(history.count)))
+                    guard modelOutput.utf16.count <= 32_000, outputBytes + modelOutput.utf8.count <= 60_000 else {
                         try Self.appendFailureOutput(Self.errorOutput(SchemaValidationError(reason: "盘面已保存，但本次模型依据容量不足；不要重新起盘，也不要编造未读取的细节")), callID: call.id, messages: &messages, outputBytes: &outputBytes)
                         continue
                     }
                     evidence.append(contentsOf: receipt.evidence)
-                    outputBytes += receipt.output.utf8.count
-                    messages.append(.toolResult(ChatToolResult(callID: call.id, output: receipt.output)))
+                    outputBytes += modelOutput.utf8.count
+                    messages.append(.toolResult(ChatToolResult(callID: call.id, output: modelOutput)))
                 }
             }
         }

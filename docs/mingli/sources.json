@@ -1069,20 +1069,18 @@
       "author": "通行本题陈希夷/罗洪先等，版本复杂，待校勘",
       "period": "明清通行本体系",
       "currentUsage": [
-        "待 ingest：十二宫",
-        "十四主星",
-        "安星法",
-        "诸星赋性",
-        "格局/组合"
+        "卷二身命/十二宫/五虎遁/四化/大限方向节选核对",
+        "四化壬干、闰月与大限起法传本差异记录"
       ],
       "repoRefs": [
         "native/Engine/src/ziwei/ZiweiEngine.ts",
-        "native/Engine/src/ai/tools/ziwei.ts"
+        "native/Engine/src/ai/tools/ziwei.ts",
+        "native/Engine/validation/research-divination/ziwei-core-sources.json"
       ],
-      "ingestStatus": "candidate",
+      "ingestStatus": "selected_excerpts_archived",
       "ingestPriority": "P0",
       "licenseNote": "优先找公共领域扫描/点校版本；记录具体版本，不混用门派文本。",
-      "notes": "紫微古籍 source 的首要候选，需要尽快补版本与摘录。"
+      "notes": "2026-09-20读取Wikisource卷二电子本并归档哈希与节选，未校纸本。壬句为梁紫府武，与选定默认左辅化科不同；闰月取次月、大限从命前/后一宫的文句亦不能宣称等同当前现代算法。"
     },
     {
       "id": "ziwei-iztro",

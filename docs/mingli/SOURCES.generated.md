@@ -1040,12 +1040,12 @@ Updated: 2026-04-30
 - Period: 明清通行本体系
 - Tier: A
 - Type: classic_text
-- Status: candidate
+- Status: selected_excerpts_archived
 - Priority: P0
-- Current usage: 待 ingest：十二宫；十四主星；安星法；诸星赋性；格局/组合
-- Repo refs: `native/Engine/src/ziwei/ZiweiEngine.ts`, `native/Engine/src/ai/tools/ziwei.ts`
+- Current usage: 卷二身命/十二宫/五虎遁/四化/大限方向节选核对；四化壬干、闰月与大限起法传本差异记录
+- Repo refs: `native/Engine/src/ziwei/ZiweiEngine.ts`, `native/Engine/src/ai/tools/ziwei.ts`, `native/Engine/validation/research-divination/ziwei-core-sources.json`
 - License note: 优先找公共领域扫描/点校版本；记录具体版本，不混用门派文本。
-- Notes: 紫微古籍 source 的首要候选，需要尽快补版本与摘录。
+- Notes: 2026-09-20读取Wikisource卷二电子本并归档哈希与节选，未校纸本。壬句为梁紫府武，与选定默认左辅化科不同；闰月取次月、大限从命前/后一宫的文句亦不能宣称等同当前现代算法。
 
 #### ziwei-iztro
 
@@ -1617,11 +1617,11 @@ Updated: 2026-04-30
 ### ziwei.four-transformations.by-year-stem
 
 - Domain: ziwei
-- Claim: 紫微四化（禄、权、科、忌）按生年天干取星，例如《紫微斗数全书》卷二给出“甲廉破武阳”等口诀；工程实现需与 iztro 输出和至少一处独立排盘源对照。
+- Claim: 生年四化按出生农历年干取星，当前锁定iztro 2.5.8默认表。卷二电子本壬句为梁紫府武（天府化科），当前选择左辅化科；十干规则已作固定表测试，不声称各传本全部一致。
 - Sources: `ziwei-doushu-quanshu`, `ziwei-iztro`
-- Repo refs: `native/Engine/src/ziwei/ZiweiEngine.ts`, `docs/mingli/reading-notes/2026-04-29-reading-log.md`
+- Repo refs: `native/Engine/src/ziwei/ZiweiEngine.ts`, `docs/mingli/reading-notes/2026-04-29-reading-log.md`, `native/Engine/src/ziwei/__tests__/Accuracy.test.ts`, `native/Engine/validation/research-divination/ziwei-core-sources.json`
 - Confidence: medium
-- Status: text_cited_needs_fixture
+- Status: selected_policy_with_documented_variant
 
 ### ziwei.interpretation.requires-context
 
@@ -1635,11 +1635,20 @@ Updated: 2026-04-30
 ### ziwei.ming-shen-placement.rule
 
 - Domain: ziwei
-- Claim: 紫微命宫从寅上起正月顺数至生月，再从生月起子时逆数至生时；身宫从生月起子时顺数至生时。闰月处理需另做版本/实现核对。
+- Claim: 紫微命宫从寅上起正月顺数至生月，再从生月起子时逆数至生时；身宫从生月起子时顺数至生时。闰月处理需另做版本/实现核对。 当前选定闰月分前后15日与23点完整换日，已用144组普通月命身和5个独立晚子边界例验证；此政策不等同所读原文闰月一律取次月。
 - Sources: `ziwei-doushu-quanshu`, `ziwei-iztro`
 - Repo refs: `native/Engine/src/ziwei/ZiweiEngine.ts`, `docs/mingli/reading-notes/2026-04-29-reading-log.md`
 - Confidence: medium
-- Status: text_cited_needs_fixture
+- Status: independent_counting_fixtures_and_boundary_regression
+
+### ziwei.scoped-palace-context
+
+- Domain: ziwei
+- Claim: 工具按实际地支+4/+8/+6返回三方四正，空宫仅参照对宫，保留本宫空值和星曜实际位置；四化明确生年干、目标宫、星曜及规则来源。
+- Sources: `ziwei-iztro`, `ziwei-doushu-quanshu`
+- Repo refs: `native/Engine/src/ziwei/context.ts`, `native/Engine/src/ziwei/__tests__/PalaceContext.test.ts`
+- Confidence: high_for_geometry_scoped_to_selected_table
+- Status: implemented_with_counterexamples
 
 ### ziwei.use-library-for-charting
 
