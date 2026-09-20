@@ -1,5 +1,6 @@
 import { BaziEngine } from './src/bazi/BaziEngine';
 import { ZiweiEngine } from './src/ziwei/ZiweiEngine';
+import { validMonthlyBasis } from './src/ziwei/monthly';
 import { InsightEngine } from './src/bazi/InsightEngine';
 import { DayunEngine } from './src/bazi/DayunEngine';
 import { MarriageEngine } from './src/marriage/MarriageEngine';
@@ -53,6 +54,7 @@ function natalCharts(input: any): ReturnType<typeof charts> {
       !n.mingPan?.qiYun || !n.mingPan?.daYunList?.length ||
       !['year','month','day','hour'].every(p => n.mingPan?.siZhu?.[p]?.ganZhi?.gan && n.mingPan?.siZhu?.[p]?.ganZhi?.zhi) ||
       !Array.isArray(n.ziweiPan?.palaces) || n.ziweiPan.palaces.length !== 12 || !n.personality ||
+      !validMonthlyBasis(n.ziweiPan?.monthlyBasis) ||
       !n.ziweiPan?.natalYear || n.ziweiPan?.decadalSchedule?.periods?.length !== 12 ||
       n.ziweiPan?.palaceFlights?.algorithm !== 'suji-ziwei-palace-flights-1' || n.ziweiPan?.palaceFlights?.edges?.length !== 48 ||
       new Date(n.mingPan.birthDateTime).getTime() !== date.getTime() ||

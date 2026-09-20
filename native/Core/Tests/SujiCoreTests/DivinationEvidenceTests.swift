@@ -268,6 +268,18 @@ final class DivinationEvidenceTests: XCTestCase {
         try assertIndexRestoresFacts(review:review,history:messages)
     }
 
+    func testRepeatedFieldLayoutsPreserveValuesAndAllReceiptCoordinates() throws {
+        let edges: [JSONValue] = (0..<24).map { index in
+            ["scope":"natal-palace-stem","sourcePalace":"夫妻宫","sourcePosition":"辰","sourceStem":"丙","star":.string(index % 2 == 0 ? "天同" : "文昌"),"transformation":"化禄","targetPalace":"福德宫","targetPosition":"午","isSelf":.bool(index % 2 == 0),"sourceId":"ziwei-palace-flights-selected-v1"]
+        }
+        let output = ReadingVerificationEvidence.encoded(JSONValue.object(["palace":"夫妻宫","mainStars":[],"palaceFlights":["incoming":.array(edges),"outgoing":[]]]))
+        let messages = history("get_ziwei_palace",output)
+        let review = ReadingVerifier.messages(draft:"核对来源",history:messages,question:"核对")
+        XCTAssertTrue(review.contains { $0.content?.contains("\"layouts\"") == true })
+        try assertIndexRestoresFacts(review:review,history:messages)
+        XCTAssertEqual(review.filter { $0.role == .tool }.map(\.content),messages.filter { $0.role == .tool }.map(\.content))
+    }
+
     private func assertIndexRestoresFacts(review: [ChatMessage], history: [ChatMessage]) throws {
         let facts = ReadingVerificationEvidence.facts(history)
         var restored: [String:JSONValue] = [:]
@@ -285,8 +297,19 @@ final class DivinationEvidenceTests: XCTestCase {
                     XCTAssertEqual(Set(ids).count,ids.count)
                 } else { return XCTFail("Missing receipt identity") }
                 guard case let .string(keyPrefix) = ReadingVerificationEvidence.pointer("/factKeyPrefix",in:group),
-                      case let .string(pathPrefix) = ReadingVerificationEvidence.pointer("/pointerPrefix",in:group),
-                      case let .array(rows) = ReadingVerificationEvidence.pointer("/facts",in:group) else { return XCTFail("Missing lossless prefixes") }
+                      case let .string(pathPrefix) = ReadingVerificationEvidence.pointer("/pointerPrefix",in:group) else { return XCTFail("Missing lossless prefixes") }
+                let rows: [JSONValue]
+                if case let .array(inline) = ReadingVerificationEvidence.pointer("/facts",in:group) { rows = inline }
+                else {
+                    guard case let .integer(index) = ReadingVerificationEvidence.pointer("/layout",in:group),
+                          case let .array(layout) = ReadingVerificationEvidence.pointer("/layouts/\(index)",in:envelope),
+                          case let .array(values) = ReadingVerificationEvidence.pointer("/values",in:group),
+                          values.count == layout.count else { return XCTFail("Missing exact field layout") }
+                    rows = try zip(layout,values).map { fields,value in
+                        guard case let .array(pair) = fields, pair.count == 2 else { throw NSError(domain:"Invalid layout",code:1) }
+                        return .array(pair+[value])
+                    }
+                }
                 for row in rows {
                     guard case let .array(values) = row, values.count == 3,
                           case let .string(key) = values[0] else { return XCTFail("Malformed fact row") }

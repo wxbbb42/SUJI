@@ -130,13 +130,25 @@ enum ReadingVerificationEvidence {
                 fields("ziwei.timing.activeDecade", "/activeDecade", ["index", "startAge", "endAge", "startLunarYear", "endLunarYear", "palace", "position", "ganZhi"])
                 fields("ziwei.timing.annual", "/annual", ["lunarYear", "ganZhi", "stem", "branch", "appliesToBirth"])
                 fields("ziwei.timing.annual.taiSui", "/annual/taiSui", ["position", "natalPalace"])
-                for (layer, path) in [("annual", "/annual/transformations"), ("decadal", "/decadalTransformations")] {
+                for (layer, path) in [("annual", "/annual/transformations"), ("decadal", "/decadalTransformations"), ("monthly", "/monthly/transformations")] {
                     if case let .array(transformations) = pointer(path, in: object) {
                         for index in transformations.indices {
                             fields("ziwei.timing.\(layer).transformation\(index + 1)", "\(path)/\(index)", ["scope", "sourceStem", "star", "transformation", "targetPalace", "targetPosition", "sourceId"])
                         }
                     }
                 }
+                fields("ziwei.timing.monthly", "/monthly", ["status", "reason", "scope", "assessmentStatus", "appliesToBirth", "sourceId", "ganZhi", "stem", "branch", "transformations"])
+                fields("ziwei.timing.monthly.calendar", "/monthly/calendar", ["lunarYear", "month", "day", "isLeapMonth", "effectiveMonth"])
+                fields("ziwei.timing.monthly.birthBasis", "/monthly/birthBasis", ["algorithm", "lunarMonth", "lunarDay", "isLeapMonth", "effectiveMonth", "hourBranch"])
+                for field in ["douJun", "mingGong"] {
+                    fields("ziwei.timing.monthly." + field, "/monthly/" + field, ["position", "natalPalace"])
+                }
+                if case let .array(palaces) = pointer("/monthly/palaces", in: object) {
+                    for index in palaces.indices {
+                        fields("ziwei.timing.monthly.palace\(index + 1)", "/monthly/palaces/\(index)", ["palace", "position", "natalPalace"])
+                    }
+                }
+                fields("ziwei.timing.monthly.method", "/monthly/method", ["algorithm", "monthBoundary", "leapMonth", "stemMethod", "palaceMethod"])
                 fields("ziwei.timing.method", "/method", ["algorithm", "civilTimeZone", "dayBoundary", "yearBoundary", "ageConvention"])
                 sources("ziwei.timing")
             case "cast_liuyao":

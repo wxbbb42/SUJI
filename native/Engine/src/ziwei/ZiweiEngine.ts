@@ -68,6 +68,8 @@ export class ZiweiEngine {
       isShenGong: p.isBodyPalace ?? false,
     }));
 
+    const birthLunar = chartSolar.getLunar();
+    const birthMonth = Math.abs(birthLunar.getMonth());
     const pan: ZiweiPan = {
       birthDateTime: new Date(`${solarDate}T${String(input.hour).padStart(2,'0')}:${String(input.minute ?? 0).padStart(2,'0')}:00+08:00`),
       gender: input.gender,
@@ -75,6 +77,12 @@ export class ZiweiEngine {
       mingGongPosition: astrolabe.earthlyBranchOfSoulPalace ?? this.findMingGongPosition(palaces),
       shenGongPosition: astrolabe.earthlyBranchOfBodyPalace ?? (palaces.find(p => p.isShenGong)?.position ?? ''),
       fiveElementsClass: astrolabe.fiveElementsClass ?? '',
+      monthlyBasis: {
+        algorithm:'suji-ziwei-monthly-basis-1',lunarMonth:birthMonth,lunarDay:birthLunar.getDay(),
+        isLeapMonth:birthLunar.getMonth()<0,
+        effectiveMonth:birthMonth+(birthLunar.getMonth()<0 && birthLunar.getDay()>15 ? 1 : 0),
+        hourBranch:'子丑寅卯辰巳午未申酉戌亥'[hourIndex],
+      },
       natalYear: {
         lunarYear:astrolabe.rawDates.lunarDate.lunarYear,
         ganZhi:astrolabe.rawDates.chineseDate.yearly.join(''),

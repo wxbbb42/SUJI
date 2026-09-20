@@ -949,6 +949,23 @@
       ],
       "confidence": "high_for_selected_engineering_structure_not_event_prediction",
       "status": "selected_structure_independent_vectors_and_native_delivery_verified"
+    },
+    {
+      "id": "ziwei.cached-birth-basis-and-lunar-month",
+      "domain": "ziwei",
+      "claim": "出生档案固定保存农历生月日、闰月与生时；所选iztro2.5.8 normal流月按太岁起正月逆至生月、顺至生时得斗君，再顺布每月。出生和查询闰月均以前15日当月、16日起次月，实际次月不再顺延；完整23点换日先统一历日。月干取农历年五虎遁，独立于八字节月和流月所在本命宫干。流月宫名仅为覆盖层，月干四化仍指向实际本命星宫，不改本命、宫干、生年、大限和流年四化。全书支持斗君口诀但另有闰月异文，不宣称统一流派或完整应事判断。",
+      "sourceIds": [
+        "ziwei-iztro",
+        "ziwei-doushu-quanshu"
+      ],
+      "repoRefs": [
+        "native/Engine/src/ziwei/monthly.ts",
+        "native/Engine/src/ziwei/__tests__/Monthly.test.ts",
+        "native/Engine/validation/research-divination/ziwei-monthly-source.json",
+        "native/Engine/validation/research-divination/ziwei-monthly-independent-oracle.json"
+      ],
+      "confidence": "high_for_selected_lunar_month_structure_not_event_prediction",
+      "status": "selected_structure_independent_calendar_vectors_and_scope_counterexamples"
     }
   ]
 }

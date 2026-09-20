@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-20T09:03:05.335Z",
+  "generatedAt": "2026-09-20T09:24:32.752Z",
   "sourceCount": 51,
-  "claimCount": 63,
+  "claimCount": 64,
   "domains": {
     "academic": [
       {
@@ -1625,6 +1625,16 @@
       ],
       "status": "selected_version_implemented_independent_matrix_tested",
       "confidence": "high_for_scope_distinction_contested_textual_variants"
+    },
+    {
+      "id": "ziwei.cached-birth-basis-and-lunar-month",
+      "domain": "ziwei",
+      "sourceIds": [
+        "ziwei-iztro",
+        "ziwei-doushu-quanshu"
+      ],
+      "status": "selected_structure_independent_calendar_vectors_and_scope_counterexamples",
+      "confidence": "high_for_selected_lunar_month_structure_not_event_prediction"
     },
     {
       "id": "ziwei.cached-decades-and-annual-layers",

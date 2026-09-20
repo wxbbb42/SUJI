@@ -45,14 +45,14 @@ export const ziweiTools: ToolDefinition[] = [
   },
   {
     type:'function',function:{name:'get_ziwei_timing',
-      description:'从固定紫微档案查大限和流年：虚岁、当前大限宫干四化、流年干四化、太岁所在本命宫。农历正月换年，与八字 get_timing 分开；不含小限、流月、流曜或完整宫干飞化。',
-      parameters:{type:'object',additionalProperties:false,properties:{date:{type:'string',minLength:10,maxLength:10,description:'可选公历日期 YYYY-MM-DD（1901–2100），按北京时间当日12:00查询。不传使用提问时刻，含子初23点换日。农历年前后须明确具体日期。'}}},
+      description:'从固定紫微档案查大限和流年：虚岁、当前大限宫干四化、流年干四化、太岁所在本命宫。农历正月换年，与八字 get_timing 分开；查流月时传withMonthly=true，返回斗君、流月十二宫与农历月干四化。出生和查询闰月前15日当月、后15日次月；结构不自动判应期。不含小限、流日或流曜。',
+      parameters:{type:'object',additionalProperties:false,properties:{withMonthly:{type:'boolean',description:'需要流月时传true；从固定出生月时资料计算所问农历月，月干用农历年五虎遁，不是节月或流月所在本命宫干。'},date:{type:'string',minLength:10,maxLength:10,description:'可选公历日期 YYYY-MM-DD（1901–2100），按北京时间当日12:00查询。不传使用提问时刻，含子初23点换日。农历年前后须明确具体日期。'}}},
     },
   },
 ];
 
 export const ziweiHandlers: Record<string, ToolHandler> = {
-  get_ziwei_timing: ({date}, {ziweiPan,now}) => {
+  get_ziwei_timing: ({date,withMonthly}, {ziweiPan,now}) => {
     if (!ziweiPan) return {error:'no_ziwei_chart'};
     let reference = now;
     if (date!==undefined) {
@@ -61,7 +61,7 @@ export const ziweiHandlers: Record<string, ToolHandler> = {
       assertCalendarRange(reference);
       if (beijingDateString(reference)!==date) throw new Error('紫微查询日期无效');
     }
-    return {...ziweiTiming(ziweiPan,reference),referenceMode:date===undefined?'question-instant':'explicit-date-noon'};
+    return {...ziweiTiming(ziweiPan,reference,withMonthly===true),referenceMode:date===undefined?'question-instant':'explicit-date-noon'};
   },
   get_ziwei_palace: ({ palace, withSihua, withFlying, withPalaceFlights }, { ziweiPan }) => {
     if (!ziweiPan) {

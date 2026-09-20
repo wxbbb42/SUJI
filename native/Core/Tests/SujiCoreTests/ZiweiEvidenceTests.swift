@@ -13,13 +13,18 @@ final class ZiweiEvidenceTests: XCTestCase {
             try await assertNatalAndTimingDelivery(birth:["year":1989,"month":8,"day":15,"hour":7,"minute":30,"gender":gender,"longitude":120],palaces:["财帛宫","命宫"],draft:String(repeating:"这个关系只记录宫干和星曜落宫，不推定现实事件。",count:80),question:String(repeating:"核对来源和落宫。",count:200))
         }
     }
-    private func assertNatalAndTimingDelivery(birth:[String:Any],palaces:[String],draft:String="核对时间层",question:String="核对本命和2025年紫微时间层") async throws {
+    func testMonthlyAndPalaceFlightReadingFitsActualRequestAndReplay() async throws {
+        for (year,hour,gender,palaces) in [(1989,7,"男",["财帛宫","命宫"]),(1986,14,"男",["夫妻宫","父母宫"]),(1986,14,"女",["夫妻宫","父母宫"])] {
+        try await assertNatalAndTimingDelivery(birth:["year":year,"month":8,"day":15,"hour":hour,"minute":30,"gender":gender,"longitude":120],palaces:palaces,draft:String(repeating:"这个关系只记录宫干和星曜落宫，不推定现实事件。",count:80),question:String(repeating:"核对来源和落宫。",count:200),withMonthly:true)
+        }
+    }
+    private func assertNatalAndTimingDelivery(birth:[String:Any],palaces:[String],draft:String="核对时间层",question:String="核对本命和2025年紫微时间层",withMonthly:Bool=false) async throws {
         let native = URL(fileURLWithPath:#filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
         let bridge = try MingliBridge(scriptURL:native.appendingPathComponent("Resources/mingli.js"))
         let request = try JSONSerialization.data(withJSONObject:["command":"natal","birth":birth])
         let natalData = try await bridge.request(String(decoding:request,as:UTF8.self))
         let natal = try JSONSerialization.jsonObject(with:natalData)
-        let callArguments: [(String,[String:JSONValue])] = [("get_domain",["domain":"事业"]),("get_domain",["domain":"婚姻"]),("get_ziwei_palace",["palace":.string(palaces[0]),"withPalaceFlights":true]),("get_ziwei_palace",["palace":.string(palaces[1]),"withPalaceFlights":true]),("get_ziwei_timing",["date":"2025-01-29"])]
+        let callArguments: [(String,[String:JSONValue])] = [("get_domain",["domain":"事业"]),("get_domain",["domain":"婚姻"]),("get_ziwei_palace",["palace":.string(palaces[0]),"withPalaceFlights":true]),("get_ziwei_palace",["palace":.string(palaces[1]),"withPalaceFlights":true]),("get_ziwei_timing",["date":"2025-01-29","withMonthly":.bool(withMonthly)])]
         let calls = callArguments.enumerated().map { ChatToolCall(id:"call_" + String(repeating:"z",count:23) + String($0.offset),name:$0.element.0,arguments:.object($0.element.1)) }
         var outputs: [String:String] = [:]
         for call in calls {
@@ -47,6 +52,10 @@ final class ZiweiEvidenceTests: XCTestCase {
         XCTAssertEqual(facts.first { $0.factKey == "ziwei.palaceFlights.outgoing1.scope" }?.value,.string("natal-palace-stem"))
         XCTAssertEqual(facts.first { $0.factKey == "ziwei.timing.annual.ganZhi" }?.value,.string("乙巳"))
         if palaces[0] == "命宫" { XCTAssertEqual(facts.first { $0.factKey == "ziwei.timing.natalYear.ganZhi" }?.value,.string("癸卯")) }
+        if withMonthly {
+            XCTAssertEqual(facts.first { $0.factKey == "ziwei.timing.monthly.ganZhi" }?.value,"戊寅")
+            XCTAssertEqual(facts.first { $0.factKey == "ziwei.timing.monthly.transformation1.scope" }?.value,"monthly-month-stem")
+        }
         let review = ReadingVerifier.messages(draft:draft,history:restored,question:entry.text)
         let contentSize = review.reduce(0) { $0 + ($1.content?.utf16.count ?? 0) }
         let argumentSize = calls.reduce(0) { $0 + ReadingVerificationEvidence.encoded($1.arguments).utf16.count }

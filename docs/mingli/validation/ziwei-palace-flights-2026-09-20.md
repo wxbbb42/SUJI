@@ -39,4 +39,4 @@
 
 实际Swift评估器有两次试验：第一次1次provider请求即HTTP503，无回执；隔后重试3次请求，模型正确使用新参数查命宫和迁移宫，取得两份包含飞化的回执，但写回信时仍HTTP503。原报告为`core-d4-results.json`和`core-d4-retry-results.json`，核对摘要在`core-d4-live-review.json`。未取得可验收解读，不能记作模型语义通过。认证与配额是合成替身，不是部署后鉴权或SwiftUI E2E。
 
-Engine694项、typecheck/build通过，生成19组Node/JSC对照；Swift最终全量299项通过，native-only和diff检查通过。独立最终复核通过；提交及远端CI待补。本批没有进入七政四余或星宿。
+Engine694项、typecheck/build通过，生成19组Node/JSC对照；Swift最终全量299项通过，native-only和diff检查通过。独立最终复核通过；提交`83e2bd958ab150c2938d1e80992a35baa9dbad35`已推送且远端哈希一致，[CI35501350775](https://github.com/wxbbb42/SUJI/actions/runs/35501350775)的engine、swift-core、native-app全部通过。本批没有进入七政四余或星宿。

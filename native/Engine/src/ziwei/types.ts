@@ -37,7 +37,17 @@ export interface ZiweiPan {
   natalYear?: { lunarYear:number; ganZhi:string; stem:string; branch:string };
   decadalSchedule?: DecadalSchedule;
   palaceFlights?: PalaceFlightGraph;
+  monthlyBasis?: ZiweiMonthlyBasis;
   method?: { algorithm: string; dayBoundary: string; leapMonth: string; yearBoundary: string; calculationDate?: string; civilTimeZone?: string; caveats: string[] };
+}
+
+export interface ZiweiMonthlyBasis {
+  algorithm:'suji-ziwei-monthly-basis-1';
+  lunarMonth:number;
+  lunarDay:number;
+  isLeapMonth:boolean;
+  effectiveMonth:number;
+  hourBranch:string;
 }
 
 export interface PalaceFlight {

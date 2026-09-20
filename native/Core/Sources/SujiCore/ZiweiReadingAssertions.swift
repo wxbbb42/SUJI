@@ -27,17 +27,49 @@ enum ZiweiReadingAssertions {
         let path = fact.pointer.split(separator: "/").dropLast().joined(separator: "/")
         return facts.first { $0.toolCallID == fact.toolCallID && $0.factKey == prefix + field && $0.pointer == "/" + path + "/" + field }
     }
+    private static func singleMonthlyContext(_ facts:[Fact]) -> Bool {
+        let ids = Set(facts.filter { $0.factKey.hasPrefix("ziwei.timing.monthly.") }.map(\.toolCallID))
+        var identities = Set<String>()
+        for id in ids {
+            let owned = facts.filter { $0.toolCallID == id }
+            func value(_ path:String) -> JSONValue? { owned.first { $0.pointer == "/monthly/"+path }?.value }
+            guard case let .integer(year) = value("calendar/lunarYear"), (1900...2101).contains(year),
+                  case let .integer(month) = value("calendar/month"), (1...12).contains(month),
+                  case let .integer(day) = value("calendar/day"), (1...30).contains(day),
+                  case let .bool(leap) = value("calendar/isLeapMonth"),
+                  case let .integer(effective) = value("calendar/effectiveMonth"), effective == month+(leap && day>15 ? 1 : 0),
+                  case let .string(stem) = value("stem"), stem.count == 1, "甲乙丙丁戊己庚辛壬癸".contains(stem),
+                  case let .string(ganZhi) = value("ganZhi"), ganZhi.count == 2, ganZhi.hasPrefix(stem) else { return false }
+            identities.insert("\(year)/\(month)/\(leap)/\(effective)/\(ganZhi)")
+        }
+        return identities.count == 1
+    }
     private static func transformations(_ facts: [Fact]) -> [Transformation] {
-        facts.compactMap { fact in
+        let monthlyContext = singleMonthlyContext(facts)
+        return facts.compactMap { fact in
             guard fact.factKey.hasPrefix("ziwei."), fact.factKey.hasSuffix(".transformation"),
                   let value = string(fact), ["化禄","化权","化科","化忌"].contains(value),
                   let scope = string(sibling(fact,"scope",facts)),
-                  ["natal-year-stem","annual-year-stem","decadal-palace-stem"].contains(scope),
+                  ["natal-year-stem","annual-year-stem","decadal-palace-stem","monthly-month-stem"].contains(scope),
                   let star = string(sibling(fact,"star",facts)), !star.isEmpty,
                   let palace = sibling(fact,"targetPalace",facts), let palaceName = string(palace),
                   palaces.components(separatedBy:"|").contains(palaceName),
                   let source = string(sibling(fact,"sourceId",facts)),
-                  source == (scope == "natal-year-stem" ? "ziwei-sihua-selected-v1" : "ziwei-timing-selected-v1") else { return nil }
+                  source == (scope == "natal-year-stem" ? "ziwei-sihua-selected-v1" : scope == "monthly-month-stem" ? "ziwei-monthly-selected-v1" : "ziwei-timing-selected-v1") else { return nil }
+            if scope == "monthly-month-stem" {
+                let owned = facts.filter { $0.toolCallID == fact.toolCallID }
+                func value(_ path:String) -> JSONValue? { owned.first { $0.pointer == path }?.value }
+                guard monthlyContext, fact.pointer.hasPrefix("/monthly/transformations/"),
+                      value("/monthly/status") == .string("available"), value("/monthly/appliesToBirth") == .bool(true),
+                      value("/monthly/scope") == .string("lunar-month"),value("/monthly/sourceId") == .string(source),
+                      value("/monthly/stem") == sibling(fact,"sourceStem",facts)?.value,
+                      value("/monthly/method/algorithm") == .string("suji-ziwei-monthly-1"),
+                      value("/monthly/method/monthBoundary") == .string("lunar-month"),
+                      value("/monthly/method/leapMonth") == .string("split-at-day-15"),
+                      value("/monthly/method/stemMethod") == .string("lunar-year-five-tiger"),
+                      value("/monthly/method/palaceMethod") == .string("dou-jun"),
+                      owned.contains(where: { $0.pointer.hasPrefix("/ruleSources/") && $0.factKey.hasSuffix(".id") && $0.value == .string(source) && string(sibling($0,"version",owned)) == "1" }) else { return nil }
+            }
             return Transformation(scope:scope,star:star,value:fact,palace:palace)
         }
     }
@@ -50,12 +82,17 @@ enum ZiweiReadingAssertions {
             return Brightness(palace:key[1],star:star,value:fact)
         }
     }
+    /// Only an unqualified current-month statement is in the automatic repair
+    /// scope. A date/month supplied in another sentence must not be discarded.
+    static func monthlyContextIsCurrent(_ text:String) -> Bool {
+        !ReadingVerificationAssertions.has(text,"[0-9]{4}年|去年|前年|来年|明年|昨天|明天|上次|上一|前一|曾经|过去|之前|此前|未来|旧盘|[0-9０-９一二三四五六七八九十〇零两壹贰叁肆伍陆柒捌玖拾]+月|正月|腊月|臘月|冬月|閏|闰|上月|下月|上个月|下个月|前月|后月|前一个月|后一个月|某月|另一个月|其他月|不同月份|[0-9]{4}[-/][0-9]{1,2}|[0-9]{1,2}/[0-9]{1,2}")
+    }
     private static func eligible(_ text: String) -> Bool {
         !ReadingVerificationAssertions.conditional(text) && !ReadingVerificationAssertions.denied(text)
             && !excludedContext(text)
     }
     private static func excludedContext(_ text: String) -> Bool {
-        ReadingVerificationAssertions.has(text,"[？?]|吗|是否|是不是|[0-9]{4}年|假定|说|记载|书中|原文|认为|声称|提到|表示|指出|错|不成立|未成立|未确定|不属实|上次|上一|前一|去年|昨天|明年|明天|曾经|过去|之前|此前|未来|旧盘|借入|借星")
+        ReadingVerificationAssertions.has(text,"[？?]|吗|是否|是不是|[0-9]{4}年|假定|说|记载|书中|原文|认为|声称|提到|表示|指出|错|不成立|未成立|未确定|不属实|上次|上一|前一|上月|下月|上个月|下个月|去年|昨天|明年|明天|曾经|过去|之前|此前|未来|旧盘|借入|借星")
     }
     private static func clauses(_ sentence: String) -> [String] {
         guard eligible(sentence) else { return [] }
@@ -67,6 +104,13 @@ enum ZiweiReadingAssertions {
         return (1..<match.numberOfRanges).map { Range(match.range(at:$0),in:text).map { String(text[$0]) } ?? "" }
     }
     private static func claim(_ clause: String, _ record: Transformation) -> (value: String, palace: String)? {
+        if record.scope == "monthly-month-stem" {
+            // The returned destination is a natal palace, not the overlay's
+            // same-named flow palace. Ambiguous destination wording stays out.
+            let star = NSRegularExpression.escapedPattern(for:record.star)
+            guard let values = captures(clause,"^(?:紫微(?:斗数)?)?流月(?:月干)?" + star + "(?:星)?(化[禄权科忌])(?:落(?:在)?本命(" + palaces + "))?$"), values.count == 2 else { return nil }
+            return (values[0],values[1])
+        }
         let scope = ["natal-year-stem":"(?:生年|本命)","annual-year-stem":"流年","decadal-palace-stem":"大限"][record.scope]!
         let star = NSRegularExpression.escapedPattern(for:record.star)
         let ownPalace = NSRegularExpression.escapedPattern(for:string(record.palace)!)
@@ -94,6 +138,7 @@ enum ZiweiReadingAssertions {
         let transformations = transformations(facts), stars = brightness(facts)
         let consistentTransformations = Set(unique(transformations).map(\.identity))
         for record in transformations where consistentTransformations.contains(record.identity) {
+            if record.scope == "monthly-month-stem" && !monthlyContextIsCurrent(sentence) { continue }
             for clause in clauses(sentence) {
                 guard let assertion = claim(clause,record) else { continue }
                 if fact.toolCallID == record.value.toolCallID && fact.pointer == record.value.pointer && assertion.value == quote { return true }
@@ -114,6 +159,7 @@ enum ZiweiReadingAssertions {
         for sentence in ReadingVerificationAssertions.declarativeSentences(draft) {
             for clause in clauses(sentence) {
                 for record in transformations {
+                    if record.scope == "monthly-month-stem" && !monthlyContextIsCurrent(draft) { continue }
                     guard let assertion = claim(clause,record) else { continue }
                     if assertion.value != string(record.value) { issues.append(correction(record.value,clause)) }
                     if !assertion.palace.isEmpty && assertion.palace != string(record.palace) { issues.append(correction(record.palace,clause)) }

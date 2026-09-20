@@ -216,8 +216,29 @@ Selected convention: pinned iztro2.5.8 FunctionalPalace.fliesTo/selfMutaged/muta
 - [x] Explicit `withPalaceFlights` option on existing palace tool projects incoming/outgoing edges for only the requested宫. Legacy `withFlying` keeps its existing生年四化 alias meaning. Domain summaries do not automatically expand48 edges.
 - [x] Native allowlist includes directed identities and original pointers, including empty incoming sets and false self flags; verify transport/replay, capacity and runtime parity. Source archive/claims distinguish natal-palace, natal-year, decade and annual layers.
 - [x] Independent source and final code review, full local verification.
-- [ ] Commit/push and exact-head CI. Broader D/E/F remain open.
+- [x] Commit/push and exact-head CI. Broader D/E/F remain open.
 
 F2 remote accepted at `278b8ea3d7dbeff41bd21afd21a6132f2e53710f`, matching remote; run35500445792 passed engine,swift-core,native-app. D4 remains pending final review and remote checks.
 
 D4 local:694 Engine /299 Core tests pass,19 parity fixtures. Independent48 literal edges pass;96-chart compatibility probe passes4,608 edges. Two capacity regressions observed RED/GREEN; final12 large queries preserve all distinct facts and314 exact references with full prompts/draft. Provider planning used the new option but writing ended503, no live interpretation acceptance. See ziwei-palace-flights-2026-09-20.md.
+
+## Batch D5 — lunar-month projection from fixed birth basis
+
+Source review confirms the selected iztro2.5.8/lunar-lite0.2.8 normal convention: 太岁起正月逆至生月、起子顺至生时得斗君，顺行每月一宫；birth and query leap days1–15 retain the month, days16+ use the next month. Monthly stems use lunar-year 五虎遁, not Bazi solar-term months or the natal stem of the monthly palace. The Quanshu electronic text supports the counting mnemonic, but its birth leap rule differs; retain this distinction. This is a structural overlay, not full event adjudication.
+
+- [x] Independent literal RED/GREEN for twelve month palaces, month stems and four transformations; birth/query leap15/16, late-zi rollover, lunar New Year versus LiChun, prebirth and sparse-cache counterexamples.
+- [x] Store birth lunar month/day/leap/hour basis in the account-scoped natal dossier. Optional `withMonthly` on `get_ziwei_timing` projects only the question month, keeping natal, decade, annual, palace-stem and monthly identities separate. No natal recomputation or star relocation.
+- [x] Native original-path fact index and exact-scope interpretation counterexamples; actual tool transport/replay/capacity and Node/JSC parity.
+- [x] Archive versioned sources, independent literal oracle and limitations; full local checks.
+- [x] Final independent review (24 monthly counterexamples,4,120 exact index records,129 exact references).
+- [ ] Commit/push and exact-head CI.
+
+Broader D/E/F/G remain open; no extension implementation.
+
+D4 remote accepted at `83e2bd958ab150c2938d1e80992a35baa9dbad35`, matching remote; run35501350775 passed engine,swift-core,native-app. The failed live writing trial remains a limitation, not semantic acceptance.
+
+D5 local: 711 Engine /309 Core tests pass,20 runtime fixtures. Independent HKO25 dates,26 upstream compatibility cases,30 production structural cases pass; raw upstream23h timestamps differ and are not adopted. Final12 large five-tool requests pass actual backend offline validation,113885 UTF16 max including arguments,542 exact concrete references, no fact-value loss or source-removal authentication. Shared field layouts restore each original receipt/key/pointer/value. Live4calls/2receipts returned matching month transformations but falsely accepted “农历月序号从6月进到7月” where only the calculation month changes; immutable report retained. This accepts neither broad text accuracy nor core completion. See ziwei-monthly-2026-09-20.md.
+
+## Batch F5 — actual lunar month versus selected calculation month (pending)
+
+The D5 provider answer correctly lists both leap-six dates but later describes the selected effective-month transition as a real lunar month change. Preserve original calendars, selected school convention and separate date scopes. Use this actual false acceptance as a permanent regression before choosing a bounded receipt-based month description or another precisely scoped repair. Do not treat model accepted status as semantic evidence; do not broaden auto-rewrite across ambiguous date contexts.

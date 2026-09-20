@@ -1,0 +1,142 @@
+{
+  "report": "core-d5-results.json",
+  "syntheticBirth": {
+    "city": "合成资料",
+    "day": 15,
+    "gender": "女",
+    "hour": 10,
+    "longitude": 120,
+    "minute": 0,
+    "month": 8,
+    "timeZoneID": "Asia/Shanghai",
+    "year": 1990
+  },
+  "providerRequests": 4,
+  "providerVerdict": "accepted",
+  "receipts": 2,
+  "manualAcceptance": "not_accepted_for_complete_month_description",
+  "checks": [
+    {
+      "date": "2025-08-08",
+      "calendar": {
+        "day": 15,
+        "effectiveMonth": 6,
+        "isLeapMonth": true,
+        "lunarYear": 2025,
+        "month": 6
+      },
+      "mingGong": {
+        "natalPalace": "财帛宫",
+        "position": "戌"
+      },
+      "ganZhi": "癸未",
+      "transformations": [
+        {
+          "scope": "monthly-month-stem",
+          "sourceId": "ziwei-monthly-selected-v1",
+          "sourceStem": "癸",
+          "star": "破军",
+          "targetPalace": "迁移宫",
+          "targetPosition": "申",
+          "transformation": "化禄"
+        },
+        {
+          "scope": "monthly-month-stem",
+          "sourceId": "ziwei-monthly-selected-v1",
+          "sourceStem": "癸",
+          "star": "巨门",
+          "targetPalace": "兄弟宫",
+          "targetPosition": "丑",
+          "transformation": "化权"
+        },
+        {
+          "scope": "monthly-month-stem",
+          "sourceId": "ziwei-monthly-selected-v1",
+          "sourceStem": "癸",
+          "star": "太阴",
+          "targetPalace": "子女宫",
+          "targetPosition": "亥",
+          "transformation": "化科"
+        },
+        {
+          "scope": "monthly-month-stem",
+          "sourceId": "ziwei-monthly-selected-v1",
+          "sourceStem": "癸",
+          "star": "贪狼",
+          "targetPalace": "夫妻宫",
+          "targetPosition": "子",
+          "transformation": "化忌"
+        }
+      ]
+    },
+    {
+      "date": "2025-08-09",
+      "calendar": {
+        "day": 16,
+        "effectiveMonth": 7,
+        "isLeapMonth": true,
+        "lunarYear": 2025,
+        "month": 6
+      },
+      "mingGong": {
+        "natalPalace": "子女宫",
+        "position": "亥"
+      },
+      "ganZhi": "甲申",
+      "transformations": [
+        {
+          "scope": "monthly-month-stem",
+          "sourceId": "ziwei-monthly-selected-v1",
+          "sourceStem": "甲",
+          "star": "廉贞",
+          "targetPalace": "财帛宫",
+          "targetPosition": "戌",
+          "transformation": "化禄"
+        },
+        {
+          "scope": "monthly-month-stem",
+          "sourceId": "ziwei-monthly-selected-v1",
+          "sourceStem": "甲",
+          "star": "破军",
+          "targetPalace": "迁移宫",
+          "targetPosition": "申",
+          "transformation": "化权"
+        },
+        {
+          "scope": "monthly-month-stem",
+          "sourceId": "ziwei-monthly-selected-v1",
+          "sourceStem": "甲",
+          "star": "武曲",
+          "targetPalace": "命宫",
+          "targetPosition": "寅",
+          "transformation": "化科"
+        },
+        {
+          "scope": "monthly-month-stem",
+          "sourceId": "ziwei-monthly-selected-v1",
+          "sourceStem": "甲",
+          "star": "太阳",
+          "targetPalace": "父母宫",
+          "targetPosition": "卯",
+          "transformation": "化忌"
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "quote": "农历月序号从6月进到7月",
+      "problem": "Both returned calendar.month values are6 and isLeapMonth=true; only effectiveMonth changes6→7 under selected split rule. Earlier dates are correct, but summary must say the selected calculation month changes, not the actual lunar calendar month."
+    },
+    {
+      "quote": "effectiveMonth为6",
+      "problem": "Implementation field exposed in user answer; factual distinction should use plain Chinese."
+    }
+  ],
+  "limits": [
+    "Monthly dates,斗君,月干支,and all8monthly transformations manually match both original receipts.",
+    "Current literal verifier intentionally does not auto-rewrite multi-month comparisons; accepted provider verdict is not general semantic proof.",
+    "Real provider via shipping Swift and backend handler; auth and quota synthetic, not deployed E2E."
+  ],
+  "next": "F5: source-bound distinction between actual lunar month and effective calculation month; preserve this immutable false-acceptance example."
+}

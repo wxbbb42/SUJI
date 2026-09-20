@@ -3,7 +3,8 @@ import { assertCalendarRange, beijingDateParts, beijingDateString, lunarCalendar
 import type { RuleSource } from '../rules/provenance';
 import type { DecadalSchedule, ZiweiPan } from './types';
 
-import { TRANSFORM_STARS, TRANSFORMATIONS } from './transformations';
+import { temporalTransformations } from './transformations';
+import { ziweiMonthly, ZIWEI_MONTHLY_SOURCE } from './monthly';
 
 const BRANCHES = '子丑寅卯辰巳午未申酉戌亥';
 const STEMS = '甲乙丙丁戊己庚辛壬癸';
@@ -45,18 +46,8 @@ export function decadalSchedule(pan:ZiweiPan):DecadalSchedule {
   };
 }
 
-function transformations(pan:ZiweiPan,stem:string,scope:'annual-year-stem'|'decadal-palace-stem') {
-  const stars = TRANSFORM_STARS[stem];
-  if (!stars) throw new Error('紫微四化来源干无效');
-  return stars.map((star,i)=>{
-    const palace = pan.palaces.find(p=>[...(p.mainStars??[]),...(p.minorStars??[])].some(s=>s.name===star));
-    if (!palace) throw new Error(`紫微档案缺少四化星：${star}`);
-    return {scope,sourceStem:stem,star,transformation:TRANSFORMATIONS[i],targetPalace:palace.name,targetPosition:palace.position,sourceId:ZIWEI_TIMING_SOURCE.id};
-  });
-}
-
 /** Temporal overlay only: no natal engine call and no edits to the cached pan. */
-export function ziweiTiming(pan:ZiweiPan,reference:Date) {
+export function ziweiTiming(pan:ZiweiPan,reference:Date,withMonthly=false) {
   assertCalendarRange(reference);
   const schedule = pan.decadalSchedule, birth = new Date(pan.birthDateTime).getTime();
   if (!pan.natalYear || !schedule || schedule.periods.length!==12 || !Number.isFinite(birth)) throw new Error('紫微档案缺少有效大限资料，请重新建档');
@@ -74,11 +65,12 @@ export function ziweiTiming(pan:ZiweiPan,reference:Date) {
     referenceDate:reference.toISOString(),civilDate:beijingDateString(reference),calculationDate:effective.toYmd(),
     nominalAge,status,natalYear:{...pan.natalYear},direction:schedule.direction,startAge:schedule.startAge,
     activeDecade:activeDecade?{...activeDecade}:null,
-    decadalTransformations:activeDecade?transformations(pan,activeDecade.ganZhi[0],'decadal-palace-stem'):[],
+    decadalTransformations:activeDecade?temporalTransformations(pan,activeDecade.ganZhi[0],'decadal-palace-stem',ZIWEI_TIMING_SOURCE.id):[],
     annual:{lunarYear,ganZhi:stem+branch,stem,branch,appliesToBirth:!beforeBirth,
       taiSui:{position:branch,natalPalace:taiSui.name},
-      transformations:beforeBirth?[]:transformations(pan,stem,'annual-year-stem')},
+      transformations:beforeBirth?[]:temporalTransformations(pan,stem,'annual-year-stem',ZIWEI_TIMING_SOURCE.id)},
+    ...(withMonthly ? {monthly:ziweiMonthly(pan,effective,beforeBirth)} : {}),
     method:{algorithm:'suji-ziwei-timing-1',civilTimeZone:'UTC+08:00',dayBoundary:'zi-hour',yearBoundary:'lunar-new-year',ageConvention:'lunar-nominal'},
-    calendarWarnings:lunarCalendarWarnings(reference),ruleSources:[ZIWEI_TIMING_SOURCE],
+    calendarWarnings:lunarCalendarWarnings(reference),ruleSources:[ZIWEI_TIMING_SOURCE,...(withMonthly ? [ZIWEI_MONTHLY_SOURCE] : [])],
   };
 }
