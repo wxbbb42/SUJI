@@ -1,0 +1,275 @@
+[
+  {
+    "case" : "nested-json-types-and-prototype-keys",
+    "equal" : true,
+    "variants" : 13
+  },
+  {
+    "case" : "unpacked-value-0",
+    "equal" : true
+  },
+  {
+    "case" : "unpacked-value-1",
+    "equal" : true
+  },
+  {
+    "case" : "unpacked-value-2",
+    "equal" : true
+  },
+  {
+    "case" : "unpacked-value-3",
+    "equal" : true
+  },
+  {
+    "case" : "unpacked-value-4",
+    "equal" : true
+  },
+  {
+    "case" : "unpacked-value-5",
+    "equal" : true
+  },
+  {
+    "case" : "unpacked-value-6",
+    "equal" : true
+  },
+  {
+    "case" : "unpacked-value-7",
+    "equal" : true
+  },
+  {
+    "case" : "unpacked-value-8",
+    "equal" : true
+  },
+  {
+    "case" : "unpacked-value-9",
+    "equal" : true
+  },
+  {
+    "case" : "unpacked-value-10",
+    "equal" : true
+  },
+  {
+    "case" : "unpacked-value-11",
+    "equal" : true
+  },
+  {
+    "case" : "unpacked-value-12",
+    "equal" : true
+  },
+  {
+    "case" : "root-marker",
+    "encoderNoOp" : true,
+    "expandRejected" : true
+  },
+  {
+    "case" : "nested-marker",
+    "encoderNoOp" : true,
+    "expandRejected" : true
+  },
+  {
+    "case" : "nested-metadata",
+    "encoderNoOp" : true,
+    "expandRejected" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "layout-metadata-missing",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "layout-metadata-null",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "layout-version-wrong",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "layout-format-wrong",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "layout-extra-key",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "layouts-empty",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "layouts-duplicate",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "layouts-unused",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "layout-empty-fields",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "layout-duplicate-field",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "layout-empty-name",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "layout-non-string",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "layout-reserved-name",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "layout-nested-metadata-name",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "marker-not-array",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "marker-empty-row",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "marker-negative-index",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "marker-huge-index",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "marker-float-index",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "marker-long-row",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "marker-short-row",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "marker-extra-object-key",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "partial-unpacking",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "nested-metadata-marker",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "marker-in-excluded-dictionary",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "marker-in-question-reference",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "root-marker-with-layouts",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "layout-unsorted-fields",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "mutationChanged" : true
+  },
+  {
+    "authenticated" : false,
+    "case" : "well-shaped-value-tamper",
+    "expandAccepted" : true
+  }
+]

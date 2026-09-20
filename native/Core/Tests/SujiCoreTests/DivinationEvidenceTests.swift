@@ -228,7 +228,11 @@ final class DivinationEvidenceTests: XCTestCase {
         try await assertCombinedCharts(values:[9,9,6,6,9,9],questionType:"kids",subject:"child",instant:"2026-09-20T04:00:00Z",callIDLength:200,event:"事"+String(repeating:"\u{1}",count:199))
     }
 
-    private func assertCombinedCharts(values: [Int],questionType:String = "parents",subject:String = "parent",instant:String = "2026-09-19T04:00:00Z",callIDLength:Int = 32,event:String = String(repeating:"事",count:200)) async throws {
+    func testIndependentLargestEscapedRequestPreservesOriginalReceiptsAndMargin() async throws {
+        try await assertCombinedCharts(values:[6,6,6,6,9,9],questionType:"parents",subject:"parent",instant:"2026-09-12T04:00:00Z",callIDLength:200,event:"事"+String(repeating:"\u{1}",count:199),questionText:String(repeating:"问",count:1600),draftText:String(repeating:"这只说明盘面关系，尚未裁定效力或事件结果。",count:80))
+    }
+
+    private func assertCombinedCharts(values: [Int],questionType:String = "parents",subject:String = "parent",instant:String = "2026-09-19T04:00:00Z",callIDLength:Int = 32,event:String = String(repeating:"事",count:200),questionText:String? = nil,draftText:String? = nil) async throws {
         let native = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
@@ -240,7 +244,7 @@ final class DivinationEvidenceTests: XCTestCase {
         try (script + "\nlet coinCalls=0; const draws=" + ReadingVerificationEvidence.encoded(draws) + "; Math.random=()=>draws[coinCalls++];").write(to: seeded, atomically: true, encoding: .utf8)
         let bridge = try MingliBridge(scriptURL: seeded)
         let now = try XCTUnwrap(ISO8601DateFormatter().date(from:instant))
-        let question = String(("用六爻和奇门分别解释这次盘面，请保留各自依据。" + String(repeating: "需要比较盘面细节。", count: 180)).prefix(1600))
+        let question = questionText ?? String(("用六爻和奇门分别解释这次盘面，请保留各自依据。" + String(repeating: "需要比较盘面细节。", count: 180)).prefix(1600))
         var messages = [ChatMessage(role: .system, content: ReadingPrompt.instruction(tone: "清晰", mode: "起卦", referenceDate: now, hasBirth: true))]
         for (index, name) in ["cast_liuyao", "setup_qimen"].enumerated() {
             let id = String(repeating: index == 0 ? "a" : "b", count: callIDLength)
@@ -264,6 +268,7 @@ final class DivinationEvidenceTests: XCTestCase {
         let modelOutputs=delivery.messages.filter { $0.role == .tool }.map { $0.content! }
         for (call,modelOutput) in zip(calls,modelOutputs) {
             XCTAssertLessThanOrEqual(modelOutput.utf16.count,32_000)
+            XCTAssertLessThanOrEqual(modelOutput.utf16.count,29_000,"Reviewed worst cases need room below the per-message limit")
             var projected=try XCTUnwrap(try JSONSerialization.jsonObject(with:Data(modelOutput.utf8)) as? [String:Any])
             if projected.removeValue(forKey:"questionFromArguments") != nil { projected["question"]=question }
             let restored=try XCTUnwrap(LiuyaoConditionTransport.expand(JSONDecoder().decode(JSONValue.self,from:JSONSerialization.data(withJSONObject:projected))))
@@ -278,14 +283,16 @@ final class DivinationEvidenceTests: XCTestCase {
         let retry = ToolOrchestrator(complete:{ _,_ in .text("ready") },execute:{ _ in XCTFail("Retry must retain the original casts"); return .init(output:"{}") })
         let retried = try await retry.run(history:replay,definitions:definitions,cachedReceipts:delivery.receipts,context:context)
         XCTAssertEqual(retried.evidence,calls.map(\.id))
-        let review = ReadingVerifier.messages(draft: String(repeating: "本次仅列出盘面事实和条件。", count: 60), history: delivery.messages, question: question)
+        let review = ReadingVerifier.messages(draft: draftText ?? String(repeating: "本次仅列出盘面事实和条件。", count: 60), history: delivery.messages, question: question)
         try assertIndexRestoresFacts(review:review,history:delivery.messages)
         let total = review.reduce(0) { $0 + ($1.content?.utf16.count ?? 0) + ($1.toolCalls ?? []).reduce(0) { $0 + ReadingVerificationEvidence.encoded($1.arguments).utf16.count } }
         XCTAssertLessThanOrEqual(total, 120_000, "Backend rejects a valid two-chart review when the fact index repeats too much metadata")
+        XCTAssertLessThanOrEqual(total, 117_500,"Reviewed worst cases need at least 2,500 UTF-16 units of context margin")
         XCTAssertLessThanOrEqual(review.count, 120)
-        XCTAssertLessThan(try JSONEncoder().encode(review).count + 1024,262_144)
+        let requestBytes=try JSONEncoder().encode(review).count + 1024
+        XCTAssertLessThan(requestBytes,262_144)
         for message in review { XCTAssertLessThanOrEqual(message.content?.utf16.count ?? 0, 32_000) }
-        print("Divination evidence capacity: \(total) UTF-16 code units, \(review.count) messages, casts \(modelOutputs.reduce(0) { $0 + $1.utf8.count }) bytes")
+        print("Divination evidence capacity: \(total) UTF-16 code units, \(review.count) messages, cast UTF-16 \(modelOutputs.map { $0.utf16.count }), casts \(modelOutputs.reduce(0) { $0 + $1.utf8.count }) bytes, request \(requestBytes) bytes")
     }
 
     func testCompactIndexPreservesEveryFactAndItsToolIdentity() throws {

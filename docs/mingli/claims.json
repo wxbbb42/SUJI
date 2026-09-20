@@ -999,6 +999,23 @@
       ],
       "confidence": "high_for_selected_object_bound_references_not_efficacy",
       "status": "scoped_table_and_observable_conditions_with_source_counterexamples"
+    },
+    {
+      "id": "liuyao.scoped-moving-trigram-fanfu",
+      "domain": "liuyao",
+      "claim": "实际动爻仅与本位化爻核同干、同支、支冲，异干不取消同支。变动内外卦分别以完整纳甲三支投影核全同、全冲，其静态位置不得变成实际化爻；未变卦体为unchanged。另列易林乾巽、坎离、震兑、艮坤方位对照，保留增删异文，不合成无条件反吟伏吟判词。用神、旺衰、效力、结果未决。",
+      "sourceIds": [
+        "liuyao-zengshan-buyi",
+        "liuyao-yilin-buyi-fanfu-directions"
+      ],
+      "repoRefs": [
+        "native/Engine/src/divination/fanfu.ts",
+        "native/Engine/src/divination/__tests__/Fanfu.test.ts",
+        "native/Core/Sources/SujiCore/LiuyaoFanfuTrace.swift",
+        "native/Engine/validation/research-divination/triad-fanfu-source-review.json"
+      ],
+      "confidence": "high_for_selected_structural_observations_not_efficacy",
+      "status": "source_vectors_exhaustive_structural_counterexamples_and_native_binding"
     }
   ]
 }

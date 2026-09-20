@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-20T11:35:33.625Z",
-  "sourceCount": 52,
-  "claimCount": 66,
+  "generatedAt": "2026-09-20T12:04:53.637Z",
+  "sourceCount": 53,
+  "claimCount": 67,
   "domains": {
     "academic": [
       {
@@ -470,6 +470,17 @@
         "status": "scoped_electronic_excerpt_reviewed_not_print_collated",
         "usage": [
           "仅以“离火墓于戌、绝于亥”补证所选五行表的火行"
+        ]
+      },
+      {
+        "id": "liuyao-yilin-buyi-fanfu-directions",
+        "title": "易林补遗（卷一反吟方位对照）",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P0",
+        "status": "scoped_electronic_excerpt_reviewed_not_print_collated",
+        "usage": [
+          "仅选乾巽、坎离、震兑、艮坤方位对照；保留卦犯与爻犯范围差异"
         ]
       },
       {
@@ -1572,6 +1583,16 @@
       ],
       "status": "conditional_rules_implemented_final_strength_and_timing_pending",
       "confidence": "high_for_structural_directions_conditional_for_adjudication"
+    },
+    {
+      "id": "liuyao.scoped-moving-trigram-fanfu",
+      "domain": "liuyao",
+      "sourceIds": [
+        "liuyao-zengshan-buyi",
+        "liuyao-yilin-buyi-fanfu-directions"
+      ],
+      "status": "source_vectors_exhaustive_structural_counterexamples_and_native_binding",
+      "confidence": "high_for_selected_structural_observations_not_efficacy"
     },
     {
       "id": "liuyao.six-spirits-not-standalone-verdict",

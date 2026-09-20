@@ -1,0 +1,98 @@
+{
+  "native/Engine/validation/reasoning/b5a-independent-review/README.md": {
+    "bytes": 8063,
+    "sha256": "663f5d71ebac266c614613b737f4cd10a675018e809bb7d90f06356341b2ec34"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/bulk-evidence-manifest.json": {
+    "bytes": 60442,
+    "sha256": "8ee4e9151b4131ff2e6faf57abc8f27ab50489bf34db03a4c268c450da3841c2"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/bulk-evidence.tar.xz": {
+    "bytes": 543652,
+    "sha256": "a0548d95767b8c6f0a88aa70e70b036dfdda2fdb069e80e6039941e891b31b4f"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/engine-source-probe.cjs": {
+    "bytes": 6828,
+    "sha256": "5956314bffff8cc58cbe18bb8f9f1b4cdda7bacf3e0fc4f3f09975e8cbc9e8b1"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/engine-source-report.json": {
+    "bytes": 10011,
+    "sha256": "22756b55403508c21403a1a249080da5483e111b2e56967bdc121a071b23a299"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/escaped-budget-construction.mjs": {
+    "bytes": 1685,
+    "sha256": "94ce50bfc9da3ea272ae2e2ebdcc8a1797d0e6ef880fe7e6a0962e13f056f850"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/final-native-capacity-probe.swift": {
+    "bytes": 9039,
+    "sha256": "8d0d9d84405b7241d16235215abc9337c28af37a9a5404d9cd8332987b717b69"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/final-native-capacity-report.json": {
+    "bytes": 53604,
+    "sha256": "1df5584f0a30798fc4b5aed8b3000a40919f536cf17934f68b942fcfd515882b"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/final-wire-decoder-report.json": {
+    "bytes": 16151,
+    "sha256": "deec4851c6f301bb8be89c8ce84d98fa918c68a2236051af44811a373d56a49e"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/final-wire-decoder.mjs": {
+    "bytes": 5709,
+    "sha256": "6177ff594326cd2c514632c33318f5595e958da58fcb811b0c5dc78fa30c7702"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/initial-escaped-budget-report.json": {
+    "bytes": 946,
+    "sha256": "a2ead4ab307715d0944646746fdfe9d8b259ad220ec8c8ba7ee9b12f6cbdddff"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/initial-native-capacity-report.json": {
+    "bytes": 50018,
+    "sha256": "a2c19184930d4980a9f7e40a6547b5d33bf6e848ddaef0260c57e188b203b6cf"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/layout-corruption-probe.swift": {
+    "bytes": 7388,
+    "sha256": "55e719d2fe770f8c4ac2095e08386e4f7e51ad2bcf35183430b209059006c022"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/layout-corruption-report.json": {
+    "bytes": 5614,
+    "sha256": "7ab1b39a2102669094b120c8aa6c38b7125a330025ff6aa3b529cdf4137df159"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/layout-synthetic-values.json": {
+    "bytes": 3827,
+    "sha256": "709f1b2b229ca84bfd1dfad9ab000d4d864d045a36cecf263a075d6d42980af8"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/native-capacity-probe.swift": {
+    "bytes": 9047,
+    "sha256": "751a95e67cf9f341225e1e006cb7b6730114a4b117e32c6f0c159c7c0cf10a11"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/native-corruption-probe.swift": {
+    "bytes": 5578,
+    "sha256": "362d67feea3fb6352e66b2bc9c703e1d005678eafa86981c6eea6fc57f5e3cfb"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/native-corruption-report.json": {
+    "bytes": 3391,
+    "sha256": "63557383bc9186db988bc568f589c1b8197cc3d74dd5dec6db97b844429606b6"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/regenerate-fixtures.cjs": {
+    "bytes": 1023,
+    "sha256": "92d094d108cf5eac7f29f84db974887f4fd3959af8fc010d3d1ba77a617a0e71"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/review-results.json": {
+    "bytes": 1891,
+    "sha256": "895c9b24a2ca9c42967dcb7741da99ee6fabfb0adb080f3e2f99e78707884848"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/source-hashes-final.json": {
+    "bytes": 6389,
+    "sha256": "faa6e8cf53fc975f19ac5ff8afded5314de5ea6712769a685042ea8ae4378485"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/source-hashes-initial.json": {
+    "bytes": 6086,
+    "sha256": "f8da369df03ace7c182d15d84950a6e1e53e9b0fa9d61d905c393398ce7033a2"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/synthetic-layout-decoder-report.json": {
+    "bytes": 287,
+    "sha256": "833a1eaa493d124eb89b8b47b054fd8f24284035980ac6aeb39fd9c20aa5e76a"
+  },
+  "native/Engine/validation/reasoning/b5a-independent-review/synthetic-layout-decoder.cjs": {
+    "bytes": 1740,
+    "sha256": "a9fb939f526b5759c4189a9fe1639cfb94148313b48e46d55cc3f89b19f8036b"
+  }
+}

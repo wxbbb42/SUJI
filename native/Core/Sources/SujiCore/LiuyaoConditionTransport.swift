@@ -1,13 +1,121 @@
 import Foundation
 
-/// A lossless wire layout for repeated condition keys/IDs, never a saved-chart
+/// Lossless wire layouts for repeated object fields and condition IDs, never a saved-chart
 /// schema. Original JSON pointers are interpreted after expanding this layout.
 enum LiuyaoConditionTransport {
     private static let key = "ruleConditionRows"
+    private static let layoutKey = "liuyaoObjectRows"
+    private static let rowKey = "$row"
+    private static let layoutDescription = "Recursively replace each {\"$row\":[i,...values]} with Object.fromEntries(layouts[i].map((key,j)=>[key,values[j]])). Expand nested rows first; arrays retain order. Exclude root keys liuyaoObjectRows, ruleConditionRows, questionFromArguments; then expand ruleConditionRows. Use original JSON pointers after expansion."
     private static let columns: JSONValue = ["idIndex", "stateIndex", "factPathIndices"]
     private static let states: [JSONValue] = ["matched", "not-matched", "unresolved"]
     private static let description = "At /lines/*/rules/*/conditions expand each row by columns to {id:ids[idIndex],state:states[stateIndex],factPaths:factPathIndices.map(i=>paths[i])}. All indices are zero-based; follow original evidence pointers after expansion. Other fields are unchanged."
     private enum Invalid: Error { case record }
+
+    /// Share repeated object field names, including calendar contexts and source
+    /// records. Every value stays in this message; no chart fact is omitted.
+    /// The condition dictionary and same-call question reference remain plain.
+    static func encodeLayouts(_ raw: String) -> String {
+        guard let value=try? JSONDecoder().decode(JSONValue.self,from:Data(raw.utf8)),
+              case var .object(root)=value,!hasReservedLayoutKey(value) else { return raw }
+        var counts:[[String]:Int]=[:],order:[[String]]=[]
+        func collect(_ value:JSONValue) {
+            switch value {
+            case let .array(items): items.forEach(collect)
+            case let .object(object):
+                let keys=object.keys.sorted()
+                if counts[keys] == nil { order.append(keys) }
+                counts[keys,default:0] += 1
+                keys.forEach { collect(object[$0]!) }
+            default: break
+            }
+        }
+        let payloadKeys=root.keys.filter { ![key,"questionFromArguments"].contains($0) }.sorted()
+        payloadKeys.forEach { collect(root[$0]!) }
+        // Conservative field-name savings estimate; the final full encoding
+        // must also shrink in both backend accounting units.
+        let layouts=order.filter { keys in
+            let count=counts[keys]!,bytes=ReadingVerificationEvidence.encoded(keys).utf8.count
+            return !keys.isEmpty && keys.allSatisfy({ !$0.isEmpty }) && count >= 2 && (count-1)*bytes > count*17+10
+        }
+        guard !layouts.isEmpty else { return raw }
+        func pack(_ value:JSONValue) -> JSONValue {
+            switch value {
+            case let .array(items): return .array(items.map(pack))
+            case let .object(object):
+                let keys=object.keys.sorted()
+                if let index=layouts.firstIndex(of:keys) {
+                    return .object([rowKey:.array([.integer(Int64(index))]+keys.map { pack(object[$0]!) })])
+                }
+                return .object(object.mapValues(pack))
+            default: return value
+            }
+        }
+        payloadKeys.forEach { root[$0]=pack(root[$0]!) }
+        root[layoutKey] = ["version":1,"layouts":.array(layouts.map { .array($0.map(JSONValue.string)) }),"format":.string(layoutDescription)]
+        let packed=ReadingVerificationEvidence.encoded(JSONValue.object(root))
+        return packed.utf16.count < raw.utf16.count && packed.utf8.count < raw.utf8.count ? packed : raw
+    }
+
+    private static func hasReservedLayoutKey(_ value:JSONValue) -> Bool {
+        switch value {
+        case let .array(items): return items.contains(where:hasReservedLayoutKey)
+        case let .object(object):
+            return object[rowKey] != nil || object[layoutKey] != nil || object.values.contains(where:hasReservedLayoutKey)
+        default: return false
+        }
+    }
+
+    private static func expandLayouts(_ value:JSONValue) -> JSONValue? {
+        guard case var .object(root)=value else {
+            if hasReservedLayoutKey(value) { return nil };return value
+        }
+        guard let metadata=root[layoutKey] else {
+            if hasReservedLayoutKey(value) { return nil };return value
+        }
+        guard root[rowKey] == nil,case let .object(format)=metadata,
+              Set(format.keys) == Set(["version","layouts","format"]),format["version"] == .integer(1),
+              format["format"] == .string(layoutDescription),case let .array(rawLayouts)=format["layouts"],!rawLayouts.isEmpty else { return nil }
+        var layouts:[[String]]=[]
+        for layout in rawLayouts {
+            guard case let .array(fields)=layout,!fields.isEmpty else { return nil }
+            let keys=fields.compactMap { if case let .string(key)=$0,!key.isEmpty { return key };return nil }
+            guard keys.count == fields.count,Set(keys).count == keys.count,keys == keys.sorted(),
+                  !keys.contains(rowKey),!keys.contains(layoutKey),!layouts.contains(keys) else { return nil }
+            layouts.append(keys)
+        }
+        var used=Array(repeating:0,count:layouts.count)
+        func expand(_ value:JSONValue) throws -> JSONValue {
+            switch value {
+            case let .array(items): return .array(try items.map(expand))
+            case let .object(object):
+                guard object[layoutKey] == nil else { throw Invalid.record }
+                if let marker=object[rowKey] {
+                    guard object.count == 1,case let .array(row)=marker,
+                          case let .integer(i)=row.first,i >= 0,i < layouts.count else { throw Invalid.record }
+                    let index=Int(i),keys=layouts[index]
+                    guard row.count == keys.count+1 else { throw Invalid.record }
+                    used[index] += 1
+                    return .object(Dictionary(uniqueKeysWithValues:try zip(keys,row.dropFirst()).map { ($0,try expand($1)) }))
+                }
+                // A declared layout cannot be partly packed: damaged rows must
+                // not masquerade as unrelated legacy objects.
+                guard !layouts.contains(object.keys.sorted()) else { throw Invalid.record }
+                return .object(try object.mapValues(expand))
+            default: return value
+            }
+        }
+        do {
+            for field in root.keys.sorted() where field != layoutKey {
+                if [key,"questionFromArguments"].contains(field) {
+                    guard !hasReservedLayoutKey(root[field]!) else { return nil }
+                } else { root[field]=try expand(root[field]!) }
+            }
+        } catch { return nil }
+        guard used.allSatisfy({ $0 >= 2 }) else { return nil }
+        root.removeValue(forKey:layoutKey)
+        return .object(root)
+    }
 
     static func encode(_ raw: String) -> String {
         guard let value=try? JSONDecoder().decode(JSONValue.self,from:Data(raw.utf8)),
@@ -36,6 +144,7 @@ enum LiuyaoConditionTransport {
     /// Reject the whole projected record on malformed metadata or rows, so a
     /// damaged condition cannot silently disappear from the verification index.
     static func expand(_ value: JSONValue) -> JSONValue? {
+        guard let value=expandLayouts(value) else { return nil }
         guard case var .object(root)=value else { return value }
         guard let metadata=root[key] else {
             // Packed rows without their dictionary are not legacy objects.

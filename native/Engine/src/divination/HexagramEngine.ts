@@ -10,6 +10,7 @@ import {selectQuestionObjects,conditionalTiming,QUESTION_RULE_SOURCE} from './qu
 import { guaRelations } from './guaRelations';
 import { roleRelations, ROLE_RELATION_SOURCE } from './roleRelations';
 import { tombExtinction, TOMB_EXTINCTION_SOURCE } from './tombExtinction';
+import { fanfu, FANFU_SOURCE } from './fanfu';
 
 const BRANCHES = [...'子丑寅卯辰巳午未申酉戌亥'];
 const STEMS = [...'甲乙丙丁戊己庚辛壬癸'];
@@ -66,14 +67,16 @@ export class HexagramEngine {
     });
     for (const line of lines) line.rules = lineRules(line,lines);
     const yongShen = selectQuestionObjects(opts.questionType ?? 'general',opts.questionContext??{},lines,palaceElement,pillars);
+    const guaFacts = guaRelations(benGua,bianGua,changingYao);
     return {
       question:opts.question, questionType:opts.questionType ?? 'general', castTime:castTime.toISOString(), castGanZhi,
       benGua,bianGua,changingYao,liuQin,yongShen,lineValues,shiYao,yingYao,xunKong,lines,
-      guaRelations:guaRelations(benGua,bianGua,changingYao),
+      guaRelations:guaFacts,
       roleRelations:roleRelations(yongShen,lines),
       tombExtinction:tombExtinction(lines),
+      fanfu:fanfu(benGua,bianGua,lines,guaFacts),
       lineContextPolicy:{assessmentStatus:'calendar-relations-only',sourceIds:[LINE_CONTEXT_SOURCE.id]},
-      questionContext:opts.questionContext??{},ruleSources:[LINE_CONTEXT_SOURCE,...CONDITIONAL_RULE_SOURCES,QUESTION_RULE_SOURCE,ROLE_RELATION_SOURCE,TOMB_EXTINCTION_SOURCE],
+      questionContext:opts.questionContext??{},ruleSources:[LINE_CONTEXT_SOURCE,...CONDITIONAL_RULE_SOURCES,QUESTION_RULE_SOURCE,ROLE_RELATION_SOURCE,TOMB_EXTINCTION_SOURCE,FANFU_SOURCE],
       yingQi:conditionalTiming(yongShen,lines,opts.questionContext??{}),
       method:{algorithm:'jingfang-najia-v1',calendar:'Beijing civil time; exact solar-term month',dayBoundary:'zi-hour',caveats:[
         '旺相休囚死仅表示月建五行关系，不等于综合旺衰或事件结果',

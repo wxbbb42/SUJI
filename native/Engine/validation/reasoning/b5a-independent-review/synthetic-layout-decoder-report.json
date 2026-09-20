@@ -1,0 +1,8 @@
+{
+  "pass": true,
+  "rows": 13,
+  "variants": 13,
+  "prototypeKeysPreservedAsData": true,
+  "emptyArrayObjectNullDistinct": true,
+  "scope": "Standalone inverse via recursive Object.fromEntries; exact deep equality of synthetic original and packed JSON, no production inverse imports."
+}

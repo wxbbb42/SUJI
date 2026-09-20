@@ -1,0 +1,134 @@
+{
+  "date": "2026-09-20",
+  "batch": "B5a scoped Liuyao fanfu",
+  "baseCommit": "56ee94ee9227484ae536ce10076285d0fb995f2b",
+  "status": "local-verified-remote-pending",
+  "counts": {
+    "engine": 764,
+    "engineSuites": 54,
+    "core": 364,
+    "backend": 15,
+    "nativeUnit": 28,
+    "nativeUI": 3,
+    "sources": 53,
+    "claims": 67
+  },
+  "commands": [
+    "npm run typecheck --prefix native/Engine",
+    "npm test --prefix native/Engine",
+    "npm run build --prefix native/Engine",
+    "TZ=America/Los_Angeles swift test --package-path native/Core",
+    "npm test --prefix supabase",
+    "xcodebuild -project native/Suji.xcodeproj -scheme Suji -destination platform=iOS Simulator,id=09FF0B1D-9E60-4F2A-9465-3B156C88BD28 test (AppPersistenceTests,StoreRegressionTests,NatalDossierStoreTests,CastQuestionConfirmationTests,CastSupplementSessionTests,CastQuestionUITests)",
+    "python3 native/scripts/check-native-only.py",
+    "node scripts/ingest-mingli-kb.mjs",
+    "git diff --check"
+  ],
+  "evidenceLogs": {
+    "engine": {
+      "localPath": "/tmp/suji-b5a-engine-full.log",
+      "sha256": "d6c96884811d616f199a2c6c4a3425fcde2608bbbf701a6356d5db03ce527287"
+    },
+    "core": {
+      "localPath": "/tmp/suji-b5a-core-accepted.log",
+      "sha256": "0dfa99b4c051a25efe916f0feb56d39980288beb2b092ae2f93db7a1c25ec4d7"
+    },
+    "backend": {
+      "localPath": "/tmp/suji-b5a-backend.log",
+      "sha256": "edccf68960ce9cff7d21017d1e3e171e7987c764b77f60d39c804033b158fd78"
+    },
+    "native": {
+      "localPath": "/tmp/suji-b5a-native-final.log",
+      "sha256": "61257485d8b1ecd9852bd1ec9e19b6c2f30ff4e0a3f6b1b7b4895f504a0ecfb3"
+    },
+    "initial_core_capacity_red": {
+      "localPath": "/tmp/suji-b5a-core-full.log",
+      "sha256": "59c365f6495f727eea7877563aedb8580446840be5d23d07953a38a9c667f518"
+    },
+    "small_special_key_fixture_red": {
+      "localPath": "/tmp/suji-b5a-core-final.log",
+      "sha256": "9a194f9097a2dd665483b5eddf95f265a872f635329fb68ab6374cff90151c80"
+    },
+    "transport_final": {
+      "localPath": "/tmp/suji-b5a-transport-final.log",
+      "sha256": "79dbddd246984671d0e0d51aa648dd11d1cd63342d451663c848a52ea4315d00"
+    },
+    "fanfu_native": {
+      "localPath": "/tmp/suji-b5a-fanfu-final.log",
+      "sha256": "cddfab6a5d27fcfe4fc51ad9eabe6f2ff199ad7c540612cc42ce1ade2bfc7687"
+    }
+  },
+  "nativeResult": {
+    "devicesAndConfigurations": [
+      {
+        "device": {
+          "architecture": "arm64",
+          "deviceId": "09FF0B1D-9E60-4F2A-9465-3B156C88BD28",
+          "deviceName": "iPhone 17 Pro",
+          "modelName": "iPhone 17 Pro",
+          "osBuildNumber": "23F77",
+          "osVersion": "26.5",
+          "platform": "iOS Simulator"
+        },
+        "expectedFailures": 0,
+        "failedTests": 0,
+        "passedTests": 31,
+        "skippedTests": 0,
+        "testPlanConfiguration": {
+          "configurationId": "1",
+          "configurationName": "Test Scheme Action"
+        }
+      }
+    ],
+    "environmentDescription": "Suji · Built with macOS 27.0",
+    "expectedFailures": 0,
+    "failedTests": 0,
+    "finishTime": 1789906787.138,
+    "passedTests": 31,
+    "result": "Passed",
+    "runtimeWarnings": [],
+    "skippedTests": 0,
+    "startTime": 1789906716.468,
+    "statistics": [],
+    "testFailures": [],
+    "title": "Test - Suji",
+    "topInsights": [
+      {
+        "category": "Longest Test Runs",
+        "impact": "23% of duration",
+        "text": "1 longest test run with outlier durations exceeding 0.57s (three standard deviations)"
+      }
+    ],
+    "totalTestCount": 31
+  },
+  "resources": {
+    "native/Resources/mingli.js": "3f9d2adeb7acf23ff9a12969fc707aba1539af8a8c3b81d2a67bcf6258b3a1e1",
+    "native/Resources/engine-fixtures.json": "a468473b8df41c638ba1b302b4cc7855496808cd8f8dcbaaf82b2dfc35c89c41"
+  },
+  "independentReview": "native/Engine/validation/reasoning/b5a-independent-review/README.md",
+  "limits": [
+    "Selected electronic transcription conventions, not print collation or unified schools.",
+    "Structural observations only; no final selection, efficacy, event outcome or prediction date.",
+    "Full original receipts preserved; repeated object keys compacted only for delivery.",
+    "Sampled capacity is not universal multi-chart capacity proof.",
+    "No new real provider inference; local actual wire validation is separate.",
+    "B5b, Qimen E2b and overall core/extension acceptance remain open."
+  ],
+  "independentResults": {
+    "enginePatterns": 4096,
+    "sourceDiagrams": 5,
+    "actualRequests": 48,
+    "fullChartRoundTrips": 96,
+    "objectRows": 6851,
+    "conditionRows": 4694,
+    "emptyConditionPaths": 862,
+    "indexMessages": 336,
+    "nativeSourceCases": 30,
+    "layoutCases": 46,
+    "maxTotalUTF16IncludingArguments": 116997,
+    "maxMessageUTF16": 26719,
+    "maxBodyBytes": 172003,
+    "maxToolBytes": 52008,
+    "outstandingFindings": 0
+  }
+}

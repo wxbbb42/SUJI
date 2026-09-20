@@ -1323,6 +1323,28 @@
       "ingestPriority": "P0",
       "licenseNote": "古籍电子转录；记录原始URL、正文和SHA256；未校印本。",
       "notes": "不采其与增删不同的土逢巳不可论生效力断法，不据此引入卦变方位、吉凶或完整长生体系。作者、刊年和定本未在本批校勘，不补写。"
+    },
+    {
+      "id": "liuyao-yilin-buyi-fanfu-directions",
+      "title": "易林补遗（卷一反吟方位对照）",
+      "domain": [
+        "liuyao"
+      ],
+      "tradition": "选定卦体方位规则，与支冲分列",
+      "tier": "A",
+      "sourceType": "classic_text",
+      "currentUsage": [
+        "仅选乾巽、坎离、震兑、艮坤方位对照；保留卦犯与爻犯范围差异"
+      ],
+      "repoRefs": [
+        "native/Engine/src/divination/fanfu.ts",
+        "native/Engine/validation/research-divination/triad-fanfu-source-review.json"
+      ],
+      "ingestStatus": "scoped_electronic_excerpt_reviewed_not_print_collated",
+      "ingestPriority": "P0",
+      "licenseNote": "古籍电子转录；原始正文和SHA256存于fanfu-additional-source-review.json，未校印本。",
+      "notes": "不采静态八纯卦伏吟或卦内上下相冲的命名作为动态判定。与增删电子本乾坤、坤震表述有异，分别保留，不推断吉凶或日期。",
+      "url": "https://zh.wikisource.org/wiki/易林補遺/1"
     }
   ]
 }

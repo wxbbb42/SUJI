@@ -164,6 +164,17 @@ enum ReadingVerificationEvidence {
                         fields("liuyao.tombExtinction.object\(index+1)", "/tombExtinction/objects/\(index)", ["objectPath", "month", "day", "ownChange", "flying", "movingTombPositions", "movingExtinctionPositions", "supportingMovingPositions"])
                     }
                 }
+                fields("liuyao.fanfu", "/fanfu", ["sourceId", "assessmentStatus", "efficacyEstablished", "unresolved"])
+                if case let .array(rows) = pointer("/fanfu/lines",in:object) {
+                    for i in rows.indices {
+                        fields("liuyao.fanfu.line\(i+1)", "/fanfu/lines/\(i)", ["originalPath", "changedPath", "sameStem", "sameBranch", "branchClash"])
+                    }
+                }
+                if case let .array(rows) = pointer("/fanfu/trigrams",in:object) {
+                    for i in rows.indices {
+                        fields("liuyao.fanfu.trigram\(i+1)", "/fanfu/trigrams/\(i)", ["side", "from", "to", "movingPositions", "branchRelation", "directionalOpposition"])
+                    }
+                }
                 fields("liuyao.guaRelations", "/guaRelations", ["assessmentStatus", "outcomeEstablished", "sourceId"])
                 fields("liuyao.guaRelations.transition", "/guaRelations/transition", ["hasChange", "kind", "fromKind", "toKind", "factPaths"])
                 for side in ["original", "resulting"] {

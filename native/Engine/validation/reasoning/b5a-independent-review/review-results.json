@@ -1,0 +1,53 @@
+{
+  "reviewDate": "2026-09-20",
+  "reviewBase": "56ee94ee9227484ae536ce10076285d0fb995f2b",
+  "status": "pass-with-fixed-capacity-regression",
+  "sourceVerdict": "selected separate observations are supported with edition disagreements retained",
+  "codeVerdict": "independent structure/native inverse/corruption/capacity checks pass",
+  "outstandingFindings": [],
+  "productionFilesModifiedByReviewer": [],
+  "independentEnginePatterns": 4096,
+  "independentlyParsedSourceDiagrams": 5,
+  "nativeValidationBoundaries": {
+    "valid": 8,
+    "fanfuCorruptionsRejected": 20,
+    "sourceCorruptionsRejected": 2
+  },
+  "layoutChecks": 46,
+  "finalActualNativeRequests": 48,
+  "completeChartsIndependentlyRestored": 96,
+  "objectRowsRestored": 6851,
+  "conditionRowsRestored": 4694,
+  "emptyPathArraysRestored": 862,
+  "reviewIndexMessagesRestored": 336,
+  "allNativeInvariantsPassed": true,
+  "maxBackendUTF16IncludingArguments": 116997,
+  "maxNativeRequestBytes": 172003,
+  "maxToolMessageUTF16": 26719,
+  "maxPairedToolBytes": 52008,
+  "fixedFindings": [
+    {
+      "severity": "P2",
+      "id": "fanfu-addition-exceeds-tool-and-review-budget",
+      "initialActualProjectedToolUTF16": 32480,
+      "constructedWorstToolUTF16": 32888,
+      "constructedWorstFullRequestUTF16": 123187,
+      "originalEvidence": [
+        "initial-native-capacity-report.json",
+        "initial-escaped-budget-report.json"
+      ],
+      "finalEvidence": [
+        "final-native-capacity-report.json",
+        "final-wire-decoder-report.json"
+      ]
+    }
+  ],
+  "limitations": [
+    "electronic editions not print-collated",
+    "fixed modern source diagram timestamp; no historical date reconstruction",
+    "no source outcome or predictive/medical validation",
+    "no external provider invocation",
+    "bounded capacity matrix, not a formal proof over all accepted inputs"
+  ],
+  "details": "README.md"
+}

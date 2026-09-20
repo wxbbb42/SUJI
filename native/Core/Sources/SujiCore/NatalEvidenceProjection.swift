@@ -10,6 +10,14 @@ enum NatalEvidenceProjection {
             // Authenticate projected delivery against the full receipt and the
             // concrete earlier fields, rather than trusting only a call ID.
             if message.content == output(receipt.output,name:receipt.name,delivered:Array(history.prefix(index)),callID:receipt.callID) { return true }
+            // Histories delivered before object-layout sharing used only the
+            // condition dictionary. Authenticate that exact older projection
+            // against the same full receipt and original call arguments too.
+            if receipt.name == "cast_liuyao" {
+                let shared=castQuestion(receipt.output,name:receipt.name,delivered:Array(history.prefix(index)),callID:receipt.callID)
+                let legacy=shared.utf16.count > 28_000 ? LiuyaoConditionTransport.encode(shared) : shared
+                if message.content == legacy { return true }
+            }
         }
         return false
     }
@@ -17,7 +25,7 @@ enum NatalEvidenceProjection {
     static func output(_ output: String, name: String, delivered: [ChatMessage], callID: String? = nil) -> String {
         if ["cast_liuyao", "setup_qimen"].contains(name) {
             let shared=castQuestion(output, name:name, delivered:delivered, callID:callID)
-            return name == "cast_liuyao" && shared.utf16.count > 28_000 ? LiuyaoConditionTransport.encode(shared) : shared
+            return name == "cast_liuyao" && shared.utf16.count > 28_000 ? LiuyaoConditionTransport.encodeLayouts(LiuyaoConditionTransport.encode(shared)) : shared
         }
         let supported: Set<String> = ["get_domain", "get_ziwei_palace", "get_ziwei_timing"]
         guard supported.contains(name),

@@ -501,6 +501,18 @@ Updated: 2026-09-20
 - License note: 古籍电子转录；记录原始URL、正文和SHA256；未校印本。
 - Notes: 不采其与增删不同的土逢巳不可论生效力断法，不据此引入卦变方位、吉凶或完整长生体系。作者、刊年和定本未在本批校勘，不补写。
 
+#### liuyao-yilin-buyi-fanfu-directions
+
+- Title: 易林补遗（卷一反吟方位对照）
+- Tier: A
+- Type: classic_text
+- Status: scoped_electronic_excerpt_reviewed_not_print_collated
+- Priority: P0
+- Current usage: 仅选乾巽、坎离、震兑、艮坤方位对照；保留卦犯与爻犯范围差异
+- Repo refs: `native/Engine/src/divination/fanfu.ts`, `native/Engine/validation/research-divination/triad-fanfu-source-review.json`
+- License note: 古籍电子转录；原始正文和SHA256存于fanfu-additional-source-review.json，未校印本。
+- Notes: 不采静态八纯卦伏吟或卦内上下相冲的命名作为动态判定。与增删电子本乾坤、坤震表述有异，分别保留，不推断吉凶或日期。
+
 #### liuyao-zengshan-buyi
 
 - Title: 增删卜易
@@ -1609,6 +1621,15 @@ Updated: 2026-09-20
 - Repo refs: `native/Engine/src/divination/conditionalRules.ts`, `native/Engine/src/divination/__tests__/ConditionalRules.test.ts`, `native/Engine/validation/research-divination/core-rule-sources.json`
 - Confidence: high_for_structural_directions_conditional_for_adjudication
 - Status: conditional_rules_implemented_final_strength_and_timing_pending
+
+### liuyao.scoped-moving-trigram-fanfu
+
+- Domain: liuyao
+- Claim: 实际动爻仅与本位化爻核同干、同支、支冲，异干不取消同支。变动内外卦分别以完整纳甲三支投影核全同、全冲，其静态位置不得变成实际化爻；未变卦体为unchanged。另列易林乾巽、坎离、震兑、艮坤方位对照，保留增删异文，不合成无条件反吟伏吟判词。用神、旺衰、效力、结果未决。
+- Sources: `liuyao-zengshan-buyi`, `liuyao-yilin-buyi-fanfu-directions`
+- Repo refs: `native/Engine/src/divination/fanfu.ts`, `native/Engine/src/divination/__tests__/Fanfu.test.ts`, `native/Core/Sources/SujiCore/LiuyaoFanfuTrace.swift`, `native/Engine/validation/research-divination/triad-fanfu-source-review.json`
+- Confidence: high_for_selected_structural_observations_not_efficacy
+- Status: source_vectors_exhaustive_structural_counterexamples_and_native_binding
 
 ### liuyao.six-spirits-not-standalone-verdict
 

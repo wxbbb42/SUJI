@@ -1,0 +1,1450 @@
+{
+  "readAt": "2026-09-20",
+  "status": "bounded-independent-source-review-proposal-not-production-adoption",
+  "scope": "B5: selected structural conventions for 三合, moving-line/changed-trigram 反吟伏吟 and explicitly scoped 易林 directional trigram opposition. No production edits, calendar reconstruction, efficacy verdict, prediction or historical-outcome validation.",
+  "sourceIntegrity": "All three primary archived texts were actually read and their SHA256 recomputed. Root raw text is the same full-source hash as prior audits. Archive excerpts below retain raw spelling and markup; offsets count Unicode code points.",
+  "sources": [
+    {
+      "id": "zsgy-root",
+      "url": "https://zh.wikisource.org/wiki/增刪卜易",
+      "rawUrl": "https://zh.wikisource.org/w/index.php?title=%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93&action=raw",
+      "sha256": "897f963b938ec4582bc892465301b831a6439216f317841f44b888117704ca07",
+      "bytes": 326152,
+      "editionStatus": "electronic-transcription-not-print-collated",
+      "passages": [
+        {
+          "id": "root-current-future-clash",
+          "startUnicodeCodepoint": 23890,
+          "endUnicodeCodepoint": 24060,
+          "sha256": "4cd833b96c4db15b1b95f6f66bc27b4b84a0735490b128e3225e344101d6a418",
+          "text": "合遭破以無功。舊注爻相合﹐如兩人同心﹐事必克濟。若日月動爻沖克者﹐則爲合處逢沖。須防小人挑唆﹐合好之中﹐以生疑忌。只在自爲之事者﹐亦被旁人挑阻﹐我事難成。予得驗者﹐凡三合六合﹐𨿽不宜目下日月動爻沖克﹐又宜後來之月沖開。正所謂如逢合住﹐沖破成功。且如爻中寅與亥合﹐事若在申巳之日月方成其事﹐餘仿此。古之不動﹐宜爲之合﹐非也﹐兩爻皆動﹐始爲合。"
+        },
+        {
+          "id": "root-two-moving-short-prose",
+          "startUnicodeCodepoint": 25092,
+          "endUnicodeCodepoint": 25147,
+          "sha256": "9779123f3750a61a045dd151a4b3260dc386092b5b8f2a2a34f3c5cdf7a7bd13",
+          "text": "又如用爻臨巳字﹐卦中動出亥水﹐動克一火﹐若得卯木同動﹐亥卯未合成木局﹐反來生火﹐亦謂之貪合忘克忘沖﹐餘皆仿此。"
+        },
+        {
+          "id": "root-incomplete-fill-policy",
+          "startUnicodeCodepoint": 25219,
+          "endUnicodeCodepoint": 25711,
+          "sha256": "7b22e87018ff139ede1aa50ddaa648562178677143dd9a6bcd0a0920cd609d33",
+          "text": "並不並因多字眼﹐合非合因少支神。舊注卦爻旣成﹐未免有刑沖並合﹐然多一字不成其名﹐少一字亦不成刑沖並合之名也。且如子日卜卦﹐卦中有一子字而謂之並﹐若有二字則分開而太過也﹐名𨿽爲並﹐其實不能並之﹐二午則不沖﹐二卯則不刑﹐二巳則不克﹐此多一字﹐不成刑沖克害之名。\n<br>\n<br>野鶴曰﹕若爻中二子不合二丑﹐名爲合﹐不成者﹐亦有理也。若以日辰不能並爻出之二子不能沖爻中之二午者非也﹐日月如天﹐無處不沾雨露﹐不然何以爲之巡查六爻之善惡。\n<br>\n<br>卽如丑月壬子日占訟\n<br>\n<br>父母戌土⚊\n<br>兄弟申金⚊應\n<br>官鬼午火⚊\n<br>兄弟申金⚊\n<br>官鬼午火⚋世\n<br>父母辰土⚋\n<br>\n<br>斷﹕世臨午火﹐子日沖之﹐休囚爲日破﹐不爲暗動﹐今日若審﹐必有責罰﹐果於本日見官責杖二十﹐此卽卦見二午﹐豈可謂之一子不沖二午耶﹐又曰寅巳申爲三刑﹐若有寅巳二字﹐而無申字﹐或有寅申二字﹐而無巳字﹐但少一字﹐不成三刑﹐又曰亥卯未爲三合﹐卦有二﹐內少一字者﹐不成三合。\n<br>\n<br>野鶴曰﹕此二者皆非其說﹐殊不知虛一待用﹐待後時之月日可以塡之。\n<br>\n<br>"
+        },
+        {
+          "id": "root-cui-pi-ambiguous",
+          "startUnicodeCodepoint": 25913,
+          "endUnicodeCodepoint": 26138,
+          "sha256": "8ae90022fcf0be1939e8b68558a0cef361445bd0e9e6af06c970171784a7041d",
+          "text": "如酉月乙巳日占升遷得澤地萃之天地否\n<br>\n<br>父母未土ㄨ　　父母戌土⚊\n<br>兄弟酉金⚊應　兄弟申金⚊\n<br>子孫亥水⚊　　官鬼午火⚊\n<br>妻財卯木⚋　　妻財卯木⚋\n<br>官鬼巳火⚋世　官鬼巳火⚋\n<br>父母未土⚋　　父母未土⚋\n<br>\n<br>斷曰﹕巳火官星持世由臨日建﹐卜書曰官臨日月卽升﹐且巳日沖動亥月與發動之未爻﹐欲成三合﹐因少卯字﹐明年卯月必升﹐此乃虛一待用﹐果升於卯月﹐豈可謂之少一字不成三合耶。\n<br>\n<br>"
+        },
+        {
+          "id": "root-fu-qian",
+          "startUnicodeCodepoint": 27329,
+          "endUnicodeCodepoint": 27547,
+          "sha256": "672aad20accacc07e757d7561b5fa114629402c05af684df2a6b37bc9a28ec5d",
+          "text": "如未月戊辰日占年運\n<br>\n<br>子孫酉金⚋　　子孫酉金⚋\n<br>妻財亥水⚋　　妻財亥水⚋\n<br>兄弟丑土⚋應　兄弟丑土⚋\n<br>兄弟辰土ㄨ　　子孫申金⚊\n<br>官鬼寅木⚋　　父母午火⚋\n<br>妻財子水○世　兄弟辰土⚋\n<br>\n<br>斷曰﹕世爻子水是申子辰三合水局﹐不宜日月克世﹐世爻化回頭克﹐動爻辰土又克﹐此乃世爻休囚無气也﹐卯年占﹐卒於午年﹐應午年者﹐世臨歲破之年也﹐豈可謂之墓中人不沖不發耶。\n<br>\n<br>"
+        },
+        {
+          "id": "root-ge-jiaren",
+          "startUnicodeCodepoint": 57937,
+          "endUnicodeCodepoint": 58162,
+          "sha256": "85d408af1f88848fb3e32c6f0e943e56f14e4748b943b5b6b62305f560d49f3b",
+          "text": "如卯月癸未日占終身財福得革之家人\n<br>\n<br>官鬼未土ㄨ　　子孫卯木⚊\n<br>父母酉金⚊　　妻財巳火⚊\n<br>兄弟亥水○世　官鬼未土⚋\n<br>兄弟亥水⚊　　兄弟亥水⚊\n<br>官鬼丑土⚋　　官鬼丑土⚋\n<br>子孫卯木⚊應　子孫卯木⚊\n<br>\n<br>應外卦世與日月同爲三合﹐以爲吉卦﹐不宜世爻變鬼﹐又化回頭之克﹐上爻未土又克﹐目下𨿽則無妨﹐今年五月沖開其合﹐或是酉月沖開卯木﹐須防不測。果至巳月而生惡瘡﹐卒於酉月。\n<br>\n<br>"
+        },
+        {
+          "id": "root-yi-wuwang",
+          "startUnicodeCodepoint": 117821,
+          "endUnicodeCodepoint": 118120,
+          "sha256": "d3c9ff45d04c8906ac5101f43b582ce5bec968bde66d47783bced6dafc5c8656",
+          "text": "寅月戊午日占地得頤變無妄卦\n<br>\n<br>兄弟寅木⚊　　妻財戌土⚊\n<br>父母子水ㄨ　　官鬼申金⚊\n<br>妻財戌土ㄨ世　子孫午火⚊\n<br>妻財辰土⚋　　妻財辰土⚋\n<br>兄弟寅木⚋　　兄弟寅木⚋\n<br>父母子水⚊應　父母子水⚊\n<br>\n<br>斷曰﹕世爻戌土﹐春天休囚﹐化出午火子孫回頭生世﹐日月世爻其成三合﹐靑龍戲水﹐以化長生﹐水源極遠﹐只因申爲月破﹐戌土克子水﹐又被日神沖散﹐春夏有水﹐秋冬必動。彼曰﹕正是如此。予曰﹕不妨﹐不可求全責備﹐卦中日月世與子孫共成三合﹐死者安而生者樂﹐子孫昌盛﹐何愁不發﹐後竟葬之﹐辰年下葬﹐酉年孫中亞魁﹐及至子年﹐次孫又登鄕榜。\n<br>\n<br>"
+        },
+        {
+          "id": "root-guan-sheng",
+          "startUnicodeCodepoint": 48582,
+          "endUnicodeCodepoint": 48758,
+          "sha256": "2f7d317aeeb21a247533de65fe40eac23ee38422ee5ccd6737094f7a6c166dc7",
+          "text": "如辰月庚寅日占何日晴得觀之升\n<br>\n<br>妻財卯木○　　兄弟酉金⚋\n<br>官鬼巳火○　　子孫亥水⚋\n<br>父母未土⚋世　父母丑土⚋\n<br>妻財卯木ㄨ　　兄弟酉金⚊\n<br>官鬼巳火ㄨ　　子孫亥水⚊\n<br>父母未土⚋應　父母丑土⚋\n<br>\n<br>斷曰﹕卯木財現﹐明日必晴。但卦得內外反吟﹐晴而還雨﹐果於次日晴還又雨。\n<br>\n<br>"
+        },
+        {
+          "id": "root-dazhuang-zhen",
+          "startUnicodeCodepoint": 48811,
+          "endUnicodeCodepoint": 48995,
+          "sha256": "3a29b54f56fd343620373f5656806afe817d303e9f0243112042ddb7a4963ca1",
+          "text": "如辰月甲戌口占雨﹐得大壯變震卦。\n<br>\n<br>兄弟戌土⚋　　兄弟戌土⚋\n<br>子孫申金⚋　　子孫申金⚋\n<br>父母午火⚊世　父母午火⚊\n<br>兄弟辰土○　　兄弟辰土⚋\n<br>官鬼寅木○　　官鬼寅木⚋\n<br>妻財子水⚊應　妻財子水⚊\n<br>\n<br>占雨﹐父爻不動﹐兄鬼同動﹐木動生風﹐無雨而有風也。卽於本日申時沖開寅木﹐扳木狂風。\n<br>\n<br>"
+        },
+        {
+          "id": "root-xun-sheng",
+          "startUnicodeCodepoint": 118720,
+          "endUnicodeCodepoint": 118998,
+          "sha256": "7d5d6a5234cb48de84ac6b4fb9bbc4cfb7fff3b08046e2e5ac6faf566372723d",
+          "text": "如卯月戊子日占地得巽之升\n<br>\n<br>兄弟卯木○世　官鬼酉金⚋\n<br>子孫巳火○　　父母亥水⚋\n<br>妻財未土⚋　　妻財丑土⚋\n<br>官鬼酉金⚊應　官鬼酉金⚊\n<br>父母亥水⚊　　父母亥水⚊\n<br>妻財丑土⚋　　妻財丑土⚋\n<br>\n<br>世爲穴﹐世臨月建﹐日辰生之﹐是爲吉也﹐但不宜外卦反吟﹐世被酉金沖克﹐子孫被亥水沖克﹐不宜用之。彼曰﹕已買成矣。予曰﹕不葬何妨。又曰﹕地師言爲美地﹐後竟葬之。四年之內﹐二男一女﹐相繼而亡﹐自身又得半身不遂之疾﹐愚人不怨於已﹐反怨祖父棺材暴露﹐竟至二年後沒﹐應酉年者﹐謂之再沖之年。\n<br>\n<br>"
+        },
+        {
+          "id": "root-trigram-naming-ambiguity",
+          "startUnicodeCodepoint": 118572,
+          "endUnicodeCodepoint": 118710,
+          "sha256": "3ea5b62517529c24084ec3f2207fce1bf57a5a7319584a6aee23974073b3a03f",
+          "text": "應沖世合處逢沖﹐流移遷徒。反伏卦變化克﹐洪泛陵墓。擇地不但不喜六沖卦﹐應沖世者亦非吉也﹐倘應世相合﹐爻逢六合﹐世應子孫三合成局﹐卽爲美地。卦得反吟﹐遇沖開之年月必遷。卦得反吟﹐遇沖年沖月必變。內外反吟者乃卦變也﹐如巽變乾﹐坤變震之類﹐名爲化絕化克得此卦者﹐重則沖決﹐輕則遷徙。"
+        }
+      ],
+      "exclusions": [
+        "Opening 原剑增订说明 and its added 反吟伏吟 paragraph are modern editorial material, not primary 野鹤 text.",
+        "The root TOC/transclusion section lists 六合19 and 六冲20, but contains no complete dedicated 三合 chapter. Do not pretend the familiar four-formula 三合 chapter was read here."
+      ]
+    },
+    {
+      "id": "zsgy-25",
+      "url": "https://zh.wikisource.org/wiki/增刪卜易/25",
+      "rawUrl": "https://zh.wikisource.org/w/index.php?title=%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93/25&action=raw",
+      "sha256": "10c6f672b4b68ea46217d8f053a8668034a757d5899447fda3f0934b82537fa2",
+      "bytes": 4648,
+      "editionStatus": "electronic-transcription-not-print-collated",
+      "archive": "native/Engine/validation/research-divination/fanfu-source-review.json",
+      "text": "{{Header2\n | title = [[增刪卜易]]\n | author = 野鶴老人\n | section = 反伏章第二十五\n}}{{Textquality|50%}}\n<onlyinclude>\n卦有卦變，爻有爻變。卦變者內外動而反伏者同一卦也。如乾卦變坤卦。\n\n爻變者內外爻動而反伏者，非同一卦也。如升之觀是也。\n\n又有外卦反伏而內卦不動者，如觀之坤是也。\n\n又有內卦反伏而外卦不動者如巽之觀是也\n\n內卦反伏，內則不安。外卦反伏，外則不寧。內外反伏者，內外不寧之象也。皆主成而敗，敗而成，有而卽無，無而卽有，得而失，失而得，來而去，去而來，散而聚，聚而散，動而思靜，靜而思動。\n\n占功名者，用爻旺相，遷而又行往他處，去而仍復來。用神失陷有或降或升，或得或失矣。占財物聚散不常，買賣經營興衰往來不定。占墳墓宅捨，欲遷不遷，或遷之而再遷，或目下就有遷移之事，占以久遠之事者目前就有變動。占天時晴而卽雨，雨而又睛。占婚姻反復難成。占疾病愈而有病。占盜賊官非，見而又見。占出行，行至中途變反，卽使到彼，一事無成。占行人外卦反伏者，用神旺相必歸，不然變他處。在外之人而占家宅者，內卦反伏，家庭人口不安。占彼此之形勢者，內卦反伏，我亂他定，外卦反伏，他亂我定。反伏卦用神旺相不變沖克者𨿽則反復，事之必成，第恐用神而化回頭之沖克者，卽是卦變大凶之象，如卯月壬申日占隨官府上任。得比之井\n<pre>\n妻財子水⚋應　妻財子水⚋\n兄弟戌土⚊　　兄弟戌土⚊\n子孫申金⚋　　子孫申金⚋\n官鬼卯木ㄨ世　子孫酉金⚊\n父母巳火ㄨ　　妻財亥水⚊\n兄弟未土⚋　　兄弟丑土⚋\n</pre>\n\n斷曰：世臨官鬼值月建而旺，隨去必成，因內卦反伏，事有反復，不宜世爻絕於申日又化回頭沖克，此行不吉，不去者爲上，後有官府直接得缺，近於賊營，辭而不去，及至官府去後，忽又因他故而隨去矣，至七月城破與官府一同被害。與官府同害者，世爻與官鬼同受酉金之沖克也，不去而又去者，卦得反伏之故也。\n\n又如卯月己亥日占升遷，得臨變中孚。\n<pre>\n子孫酉金ㄨ　　官鬼卯木⚊\n妻財亥水ㄨ應　父母巳火⚊\n兄弟丑土⚋　　兄弟未土⚋\n兄弟丑土⚋　　兄弟丑土⚋\n官鬼卯木⚊世　官鬼卯木⚊\n父母巳火⚊　　父母巳火⚊\n</pre>\n\n斷曰：世臨卯木月建之官，又長生於亥日，世與官星同臨旺地，許之卽升，果於本月聞報，由江西升任山東，未及一載復任江西，應本月升者卯官而值月令升山東者，官臨卯木，復任江西者，外卦反伏，去之而復反也。\n\n反伏者有內外伏呤者，內外憂鬱呻吟之象。內卦動變伏吟，內則呻吟，外卦動變伏吟，外則憂鬱。占名者久困官途，淹畱任路。占利者財源耗散，無利可圖。占墳塋宅捨，欲遷而不能，守之而不利。占婚姻而不樂。占疾病呻吟。占口舌官非，事非難解。占出行總於動移。占行人在外憂鬱。占彼此之形勢者，內卦爲我，外卦爲他，內伏吟我心不遂，外伏吟他忌不安。然伏吟而較反吟者，反吟有沖有克，爻若受克，得禍不輕。伏吟之卦，用神旺相，沖開之年月，其志則伸，用神休囚，沖開之年月，憂鬱不吉。如申月癸巳占父外任平安。得到姤之恆卦：\n<pre>\n父母戌土○　　父母戌土⚋\n兄弟申金○　　兄弟申金⚋\n官鬼午火⚊應　官鬼午火⚊\n兄弟酉金⚊　　兄弟酉金⚊\n子孫亥水⚊　　子孫亥水⚊\n父母丑土⚋世　父母丑土⚋\n</pre>\n\n斷曰：巳火日辰生父母，當許在任平安，獨憂卦得伏吟，乃是不祥之象，任上必有事故，不得意以呻吟也。彼曰：開地方苗獨之變，可有妨礙否？予曰：日建生父，他事無礙。有問：何時歸來？予曰：伏吟欲歸而不能，辰年可歸，後知苗獨作亂，地方不祥，驚險異常，寅年占卦，辰年缺歸，午年又官者，占時遇巳日扶起午火之官，當日亥水克之而不盡，今午火官星值年依然旺矣。\n\n李我平曰：[[易林補遺/1|易林補遺]]有曰，爻有伏吟不吉，術者未聞卦有反吟最凶，占卜家誰覺？不看用神之衰旺竟以反吟爲畏途，今野鶴此論法，比之井卦，世途沖，事反伏，身受其殃。臨之中孚，世官得地，𨿽反伏，官連遷轉，教人之法，何等透澈。</onlyinclude>\n{{PD-old}}"
+    },
+    {
+      "id": "ylyb-1",
+      "url": "https://zh.wikisource.org/wiki/易林補遺/1",
+      "rawUrl": "https://zh.wikisource.org/w/index.php?title=易林補遺/1&action=raw",
+      "sha256": "abf77e78f3fbf77e33c2520e2a3525898894e5f5b0863fb5fa2c44619daab967",
+      "bytes": 42400,
+      "editionStatus": "electronic-transcription-not-print-collated",
+      "archive": "native/Engine/validation/research-divination/fanfu-additional-source-review.json",
+      "passages": [
+        {
+          "id": "yilin-fuyin",
+          "startUnicodeCodepoint": 1860,
+          "endUnicodeCodepoint": 2089,
+          "sha256": "8236f926469cd9696c5429fa77e8fb97e3f50c753e67f008a7064c9e053753d8",
+          "text": "爻有伏吟不吉，术者未開；卦有反吟最凶，星家谁覺?婦妹變随爲例，小畜之垢皆同，但识六爻克戰，那知二卦交冲。 \n\n奇门遁甲之中专忌伏吟反吟爲上。周易卦内豈不忌之?欲识伏吟反吟之法，当明卦按十二地支。地福诀云：子向北方坎，丑寅艮上山，卯起东方震，辰巳巽风间，午见南离火，未申坤地关，酉在兑方取，戌亥属干垣。凡卜諸事最忌伏吟反吟，伏吟者有二端：有卦象所犯，有爻辞所犯。卦犯者，如巽见巽、离见离、八纯卦皆是也。爻犯者，申變申、戌變戌之類，比如屯變泰、大有變噬嗑卦是也。"
+        },
+        {
+          "id": "yilin-fanyin",
+          "startUnicodeCodepoint": 2089,
+          "endUnicodeCodepoint": 2288,
+          "sha256": "f401c24362022b0f7cac8454e213e874e3cd2e3678bcab9e87a90690af28d040",
+          "text": "反吟者亦有二端：卦犯与爻犯者不同。卦犯者，冲我之卦是也。且如内干外巽，戌亥乃干宫之本，辰巳爲巽象之根，辰戌、巳亥皆冲，故曰反吟之論。以上坎见离、震逢兑、艮配坤，皆是彼我相冲反吟之卦。又開既济、未济、婦妹、小畜，谦、剥、垢、随此八卦者，皆内外反吟也，其祸犹轻，惟獨變出反吟其凶最重。比例歸妹變随、小畜之垢、未济之爲既济、谦之剥、剥之谦皆是的确反吟也。爻犯者，巳變亥、亥變巳之類，巽之坤、鼎之豫卦是也。"
+        },
+        {
+          "id": "yilin-triad-and-four-tables",
+          "startUnicodeCodepoint": 11309,
+          "endUnicodeCodepoint": 11877,
+          "sha256": "37c8f03bb9587657bf35978c6f7f470a5aa12cc987c75748960f4c221d9f80b9",
+          "text": "三合三刑亦有假真之論，六穿六合豈無生克之分?水会申辰，無鼠牙而不取，木成亥卯，少羊角以無妨。 \n\n凡成局者便爲三合，亦育可成不成之间，三合之局取中字爲主，前一字生而主發，後一字墓而主藏，主象有發有藏，故爲三合。其中有發而不藏者，事当有始無終，但有墓而無生者，事必先难後易。且如水局之論，用子爲主，生于申，墓于辰，若得三字歸完真三合也，如有申子二象無辰字者，虽成水局而少收藏。又如有子辰而缺申字者，亦成水局，嫌少根源。 \n\n故先难後易也，若有申辰二爻獨無子字，水象既無，焉能成局?又如木局無卯字者不成，有亥卯無未字也可合，有卯未無亥字亦成合，但缺一字者断爲半吉，若得三字皆全方爲全美，火金二局皆同。凡用爻值三合者，见贵謀事、嫁娶、求財、科甲、田蚕諸般逐意也。 \n\n寅巳申三全爲煞，丑戌未一缺非刑。 \n\n三刑者，必得三字全而爲刑，如缺一字不爲刑也。譬如用在寅爻變爲巳地，或卦中申動、或申日年占，便爲煞。又如有戌未而無丑、或有丑戌而無未，缺一字者豈得爲刑?又論刑之起例，刑者乃是四局而刑四類，木能刑水；水又刑木。唯金刚火强自刑其方，且如亥卯木局能刑亥子丑水類，其中亥刑亥、卯刑子、未刑丑是也。申子辰能刑寅卯辰，申刑寅，子刑卯，辰刑辰是也。寅午戌就刑巳午未，故此寅刑巳、午刑午、戌刑未是也。巳酉丑又当刑申酉戌，巳刑申、酉刑酉、丑刑戌是也。 \n\n"
+        },
+        {
+          "id": "yilin-clash-disagreement",
+          "startUnicodeCodepoint": 11223,
+          "endUnicodeCodepoint": 11307,
+          "sha256": "b0a82ac3926b29b6ed0e2642699a9cf800692d1da82ef6ddeec229754edfe7ed",
+          "text": "合处逢冲者，永不相合也。非惟不合，见冲反凶。凡爻遇絕者却，凡卦無此象也；若得動爻及變爻或日辰生起，便爲絕处逢生，比在卦不絕之爻，其功愈大，用神遇之最吉，忌神遇之最凶。 "
+        }
+      ]
+    },
+    {
+      "id": "zsgy-15",
+      "url": "https://zh.wikisource.org/wiki/增刪卜易/15",
+      "rawUrl": "https://zh.wikisource.org/w/index.php?title=%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93%2F15&action=raw",
+      "sha256": "0df8223b0c65616826c8caf86b592526b46b1dee51332e0c2707486f2d7ee4e5",
+      "editionStatus": "electronic-transcription-not-print-collated",
+      "text": "{{Header2\n | title = [[增刪卜易]]\n | author = 野鶴老人\n | section = 動變生克沖合章第十五\n}}{{Textquality|50%}}\n<onlyinclude>\n卦有動爻，動而必變，夫變出之爻能生克沖合本位之動爻，不能生克他爻，而他爻與本位之動爻，亦不能生克變爻。\n\n例：令子月卯日占得坤卦變火地晉\n<pre>\n子孫酉金ㄨ世　父母巳火⚊\n妻財亥水⚋　　兄弟未土⚋\n兄弟丑土ㄨ　　子孫酉金⚊\n官鬼卯木⚋應　官鬼卯木⚋\n父母巳火⚋　　父母巳火⚋\n兄弟未土⚋　　兄弟未土⚋\n</pre>\n\n酉金發動，酉爲動爻，變出巳火，巳爲變爻，變爻之巳火能回頭克本位之酉金，並不能克生他爻。四爻之丑土能動而生世爻之酉金，不能生變出之酉金，而變出之酉金亦不能生克他爻。然則變爻誰能制之？惟日月能生之、克之、沖之、令之何也？日月如天，能生克動爻、靜爻、變爻、飛爻、伏爻、而諸爻不能傷日月。黃金策曰：爻傷日月，徒受其名。旣如此卦子水月建能克世爻變出之巳火。卯爲日建能沖變出之酉金是也，餘仿此。</onlyinclude>\n{{PD-old}}",
+      "use": "Changed objects are not general cross-position actors; the explicitly scoped three-branch constellations below do not grant such authority."
+    }
+  ],
+  "selectedConvention": {
+    "name": "显式范围的六爻三支组合与动变反伏结构",
+    "assessmentStatus": "conditional-structure",
+    "efficacyEstablished": false,
+    "sourceIdsSuggested": {
+      "triads": "liuyao-triad-structure-v1",
+      "fanfu": "liuyao-fanfu-structure-v1"
+    },
+    "unresolved": [
+      "selected-object",
+      "member-strength",
+      "actor-effectiveness",
+      "combination-binding",
+      "transformation-efficacy",
+      "event-outcome"
+    ],
+    "separation": "三支齐备 is a branch-set observation, not 化局成功. Same-branch, same-stem, same-trigram, branch opposition and trigram directional opposition are distinct observations. Preserve all member identities and original contexts; do not overwrite 五行/六亲 or erase opposing facts.",
+    "triadTable": [
+      {
+        "element": "木",
+        "branches": [
+          "亥",
+          "卯",
+          "未"
+        ],
+        "center": "卯",
+        "basis": "Root multiple explicit 亥卯未 examples; 易林 full/missing-center discussion."
+      },
+      {
+        "element": "火",
+        "branches": [
+          "寅",
+          "午",
+          "戌"
+        ],
+        "center": "午",
+        "basis": "Root 寅月戊午 颐→无妄 explicitly says 日月世戌三合; 易林 four局刑四类 paragraph explicitly names 寅午戌."
+      },
+      {
+        "element": "金",
+        "branches": [
+          "巳",
+          "酉",
+          "丑"
+        ],
+        "center": "酉",
+        "basis": "易林 four局刑四类 paragraph explicitly names 巳酉丑. Root selected excerpts do not independently spell this full row; disclose compatible table completion from 易林."
+      },
+      {
+        "element": "水",
+        "branches": [
+          "申",
+          "子",
+          "辰"
+        ],
+        "center": "子",
+        "basis": "Root 未月戊辰年运 example explicitly says 申子辰水局; 易林 full/missing-center discussion."
+      }
+    ],
+    "triadMembershipPolicy": [
+      {
+        "scope": "moving-calendar",
+        "eligible": "Only actual original 明动 objects plus cast month and day branches. At least one actual original member is required; no calendar-only group. Group by the four named triads; keep duplicate branch identities separately.",
+        "basis": "Root references to 日月動爻 and 日月世三合; a transparent structural representation of these scopes.",
+        "limits": "Do not add hidden objects, nonmoving original branches, projected nonmoving changed positions or unrelated changed objects. Day-clashed static objects remain optional conditional-dark-movement witnesses, not silently 明动."
+      },
+      {
+        "scope": "calendar-original",
+        "eligible": "One explicitly identified original object, static or moving, plus both cast month and day; no other original or changed object. Only three distinct table branches establish complete-branch-set.",
+        "basis": "Root 日月世三合 examples are moving; extending the same branch-set reference to a static original anchor is a disclosed representation policy, not a quoted efficacy rule.",
+        "limits": "Do not allow this route to make all three visible static branches a moving combination. Do not add hidden calendar targets until separately sourced."
+      },
+      {
+        "scope": "inner-change",
+        "eligible": "Both original endpoints positions1 and3 must actually move; inspect their two original objects and only their actual own changed objects. All member paths remain explicit. Calendar is not imported into this scoped record.",
+        "basis": "Root 未月戊辰年运: original1子 + original3辰 + actual changed3申; actual changed1辰 is a duplicate branch.",
+        "limits": "This endpoint convention is a narrow generalization from a literal example, not a claim that the absent complete 三合 chapter was read. Never project changed2午 as an actor."
+      },
+      {
+        "scope": "outer-change",
+        "eligible": "Both original endpoints positions4 and6 must actually move; inspect their originals and actual own changed objects, exactly parallel to inner-change. No free changed object pool.",
+        "basis": "Root 卯月癸未革→家人: original4亥 + original6未 + actual changed6卯; actual changed4未 duplicates.",
+        "limits": "Other changed objects, other-half positions and static resulting decoration do not participate. This is a constellation reference, not an assertion changed6 can independently生克 original4."
+      }
+    ],
+    "triadStatusPolicy": [
+      "Three DISTINCT required branches -> complete-branch-set; two -> missing-one with exact missingBranch; fewer than two -> no candidate. Repeated copies cannot substitute for a missing branch.",
+      "Use branches in the literal table order. Each branch holds every contributing identity/path, including month/day and duplicate same-branch original/changed witnesses, without combinatorial duplication.",
+      "Do not use 易林 半吉 or its center-present pairs already成局 as the completion rule. Selected policy calls all two-branch sets incomplete; missingCenter distinguishes 申辰 from 申子/子辰 without granting success.",
+      "Record month/day clashes against each member; retain each member original context for void, month clash and generation/control. Original moving clash sources are independently eligible; actual changed clash/control is local to its own original only, per ch15.",
+      "A clash does not delete a complete structural set or establish release; root distinguishes current disruption from later unlocking. Future fill/冲 is a conditional factor, not a calculated date.",
+      "Optional conditional-dark-movement candidates must label their static original path, exact day-clash fact and unresolved dark-movement effectiveness; they cannot be merged into the confirmed 明动 pool."
+    ],
+    "fanfuPolicy": {
+      "lineScope": "Every actual moving original and its own actual changed object only. Return originalPath/changedPath, ganZhi, sameStem, sameBranch and branchClash. 同支 -> line-fuyin-reference; 六冲 -> line-fanyin-reference. Static originals have no line fanfu even when a full resulting projection has a matching/clashing branch.",
+      "lineClashPairs": [
+        [
+          "子",
+          "午"
+        ],
+        [
+          "丑",
+          "未"
+        ],
+        [
+          "寅",
+          "申"
+        ],
+        [
+          "卯",
+          "酉"
+        ],
+        [
+          "辰",
+          "戌"
+        ],
+        [
+          "巳",
+          "亥"
+        ]
+      ],
+      "sameBranchNotSameStem": "姤→恒 literal upper 壬申/壬戌 changes to 庚申/庚戌. Same ganZhi is not required. Actual stem equality can be reported separately but is not the selected fuyin criterion.",
+      "trigramBranchProjection": "For each lower/upper trigram whose name changes, compare all three original/resulting same-position najia branches. Retain projection paths under guaRelations plus the actual moving subset separately. Three same branches -> changed-trigram-fuyin-reference; three clashes -> changed-trigram-line-fanyin-reference. Unchanged trigram is neither despite same branches.",
+      "derivedLiteralBranchPatterns": {
+        "allThreeSameBranches": [
+          [
+            "乾",
+            "震"
+          ],
+          [
+            "震",
+            "乾"
+          ]
+        ],
+        "allThreeOpposedBranches": [
+          [
+            "坤",
+            "巽"
+          ],
+          [
+            "巽",
+            "坤"
+          ]
+        ]
+      },
+      "directionalTrigramOpposition": {
+        "pairs": [
+          [
+            "乾",
+            "巽"
+          ],
+          [
+            "坎",
+            "离"
+          ],
+          [
+            "震",
+            "兑"
+          ],
+          [
+            "艮",
+            "坤"
+          ]
+        ],
+        "source": "Explicitly selected 易林補遺/1 卦犯 directional convention, evaluated original lower->resulting lower and original upper->resulting upper only when that trigram changes.",
+        "label": "trigram-directional-fanyin-reference",
+        "limits": "Keep independent from changed-trigram branch-vector relation and moving-line relation. This is not inferred merely from 五行相克; 艮坤 share 土 but are a listed directional opposition. Conversely 坤巽 all branch clashes are not one of these four directional pairs."
+      },
+      "nonselectedTerminology": [
+        "易林 also calls static eight-pure inner=outer 卦伏吟 and eight internal opposing hexagrams 卦反吟. Do not label these as dynamic fanfu under this selected convention.",
+        "增删25 opening 乾變坤 and root ch118 坤變震 are not covered by the four 易林 directional pairs. Preserve the disagreement; never silently change the source to 乾巽 or redefine every克 as反吟.",
+        "The selected layer does not merge independent line/trigram findings into a single unqualified true/false 反吟/伏吟 verdict."
+      ],
+      "outcomeLimit": "旺相用神的临→中孚 and受回头冲克的比→井 are opposing transmitted examples. Fanfu structure alone never determines success, failure, illness outcome, return, movement or date."
+    }
+  },
+  "sourceDisagreements": [
+    {
+      "id": "fanfu-opening",
+      "observed": "增删25 literally says 乾卦變坤卦 and often uses 反伏 interchangeably; 易林 directional table says乾巽.",
+      "decision": "No correction without edition evidence. Implement separately named observations and keep this passage outside the positive classifier oracle."
+    },
+    {
+      "id": "root-trigram-ambiguity",
+      "observed": "Root ch118 calls 巽變乾、坤變震 examples of 内外反吟/化绝化克. 坤震 is not in 易林 four directional pairs.",
+      "decision": "Archive the original passage; no universal trigram table attributed to 增删."
+    },
+    {
+      "id": "static-fuyin",
+      "observed": "易林 calls 巽见巽、离见离、八纯卦 卦伏吟 even without an explicit change; 增删25 literal cases identify changed trigrams retaining branches.",
+      "decision": "Selected dynamic policy requires change; static eight-pure is a deliberate negative, while acknowledging the other usage."
+    },
+    {
+      "id": "two-branch-triad",
+      "observed": "易林 accepts center-present two-branch groups as 成局/半吉; 增删 root discusses 虚一待用 and future fill, while an abbreviated 亥卯同动 paragraph already says 木局 without specifying未.",
+      "decision": "Use complete vs missing branch only, with source distinctions; no half-good percentage or current effective化局."
+    },
+    {
+      "id": "cui-pi-transcription",
+      "observed": "The root heading is 酉月乙巳; prose says 巳日冲动亥月. Original visible static卯 also exists although prose says少卯.",
+      "decision": "Retain heading calendar and literal glyph-derived lines, but flag explanatory inconsistency; do not change month酉 to亥 or count static卯 freely. This is an exclusion/uncertainty vector, not full semantic acceptance."
+    },
+    {
+      "id": "clash-direction-time",
+      "observed": "易林 says 合处逢冲永不相合/反凶; root says current日月动爻冲克不宜 yet later冲开可成功.",
+      "decision": "Retain clash references and question/time scope unresolved, do not hardcode universal broken or released."
+    }
+  ],
+  "classicalVectors": [
+    {
+      "id": "ch25-bi-jing",
+      "source": "zsgy-25",
+      "monthBranch": "卯",
+      "dayGanZhi": "壬申",
+      "values": [
+        8,
+        6,
+        6,
+        8,
+        7,
+        8
+      ],
+      "original": "水地比",
+      "resulting": "水风井",
+      "originalTrigramsBottomUp": [
+        "坤",
+        "坎"
+      ],
+      "resultingTrigramsBottomUp": [
+        "巽",
+        "坎"
+      ],
+      "originalBranches": [
+        "未",
+        "巳",
+        "卯",
+        "申",
+        "戌",
+        "子"
+      ],
+      "resultingProjectionBranches": [
+        "丑",
+        "亥",
+        "酉",
+        "申",
+        "戌",
+        "子"
+      ],
+      "movingPositions": [
+        2,
+        3
+      ],
+      "expected": {
+        "lineClashPositions": [
+          2,
+          3
+        ],
+        "lineSamePositions": [],
+        "changedTrigramClashScopes": [
+          "inner"
+        ],
+        "changedTrigramSameScopes": [],
+        "directionalTrigramOppositionScopes": [],
+        "projectionClashPositions": [
+          1,
+          2,
+          3
+        ],
+        "neverActualChangedPositions": [
+          1,
+          4,
+          5,
+          6
+        ]
+      },
+      "notes": [
+        "源例内反伏；世三卯月建，同时日申绝及化酉回头冲克。不得抹去正反条件。"
+      ]
+    },
+    {
+      "id": "ch25-lin-zhongfu",
+      "source": "zsgy-25",
+      "monthBranch": "卯",
+      "dayGanZhi": "己亥",
+      "values": [
+        7,
+        7,
+        8,
+        8,
+        6,
+        6
+      ],
+      "original": "地泽临",
+      "resulting": "风泽中孚",
+      "originalTrigramsBottomUp": [
+        "兑",
+        "坤"
+      ],
+      "resultingTrigramsBottomUp": [
+        "兑",
+        "巽"
+      ],
+      "originalBranches": [
+        "巳",
+        "卯",
+        "丑",
+        "丑",
+        "亥",
+        "酉"
+      ],
+      "resultingProjectionBranches": [
+        "巳",
+        "卯",
+        "丑",
+        "未",
+        "巳",
+        "卯"
+      ],
+      "movingPositions": [
+        5,
+        6
+      ],
+      "expected": {
+        "lineClashPositions": [
+          5,
+          6
+        ],
+        "lineSamePositions": [],
+        "changedTrigramClashScopes": [
+          "outer"
+        ],
+        "changedTrigramSameScopes": [],
+        "directionalTrigramOppositionScopes": [],
+        "projectionClashPositions": [
+          4,
+          5,
+          6
+        ],
+        "neverActualChangedPositions": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "notes": [
+        "世二卯静，月卯同支且日亥生；外反伏不自动判事败。"
+      ]
+    },
+    {
+      "id": "ch25-gou-heng",
+      "source": "zsgy-25",
+      "monthBranch": "申",
+      "dayGanZhi": "癸巳",
+      "values": [
+        8,
+        7,
+        7,
+        7,
+        9,
+        9
+      ],
+      "original": "天风姤",
+      "resulting": "雷风恒",
+      "originalTrigramsBottomUp": [
+        "巽",
+        "乾"
+      ],
+      "resultingTrigramsBottomUp": [
+        "巽",
+        "震"
+      ],
+      "originalBranches": [
+        "丑",
+        "亥",
+        "酉",
+        "午",
+        "申",
+        "戌"
+      ],
+      "resultingProjectionBranches": [
+        "丑",
+        "亥",
+        "酉",
+        "午",
+        "申",
+        "戌"
+      ],
+      "movingPositions": [
+        5,
+        6
+      ],
+      "expected": {
+        "lineClashPositions": [],
+        "lineSamePositions": [
+          5,
+          6
+        ],
+        "changedTrigramClashScopes": [],
+        "changedTrigramSameScopes": [
+          "outer"
+        ],
+        "directionalTrigramOppositionScopes": [],
+        "movingOriginalGanZhi": [
+          "壬申",
+          "壬戌"
+        ],
+        "movingChangedGanZhi": [
+          "庚申",
+          "庚戌"
+        ],
+        "neverActualChangedPositions": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "notes": [
+        "Same branch despite changed stem. Lower unchanged巽 is not a dynamic伏吟 finding."
+      ]
+    },
+    {
+      "id": "root-guan-sheng",
+      "source": "root-guan-sheng",
+      "monthBranch": "辰",
+      "dayGanZhi": "庚寅",
+      "values": [
+        8,
+        6,
+        6,
+        8,
+        9,
+        9
+      ],
+      "original": "风地观",
+      "resulting": "地风升",
+      "originalTrigramsBottomUp": [
+        "坤",
+        "巽"
+      ],
+      "resultingTrigramsBottomUp": [
+        "巽",
+        "坤"
+      ],
+      "originalBranches": [
+        "未",
+        "巳",
+        "卯",
+        "未",
+        "巳",
+        "卯"
+      ],
+      "resultingProjectionBranches": [
+        "丑",
+        "亥",
+        "酉",
+        "丑",
+        "亥",
+        "酉"
+      ],
+      "movingPositions": [
+        2,
+        3,
+        5,
+        6
+      ],
+      "expected": {
+        "lineClashPositions": [
+          2,
+          3,
+          5,
+          6
+        ],
+        "lineSamePositions": [],
+        "changedTrigramClashScopes": [
+          "inner",
+          "outer"
+        ],
+        "changedTrigramSameScopes": [],
+        "directionalTrigramOppositionScopes": [],
+        "projectionClashPositions": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "neverActualChangedPositions": [
+          1,
+          4
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "root-dazhuang-zhen",
+      "source": "root-dazhuang-zhen",
+      "monthBranch": "辰",
+      "dayGanZhi": "甲戌",
+      "values": [
+        7,
+        9,
+        9,
+        7,
+        8,
+        8
+      ],
+      "original": "雷天大壮",
+      "resulting": "震为雷",
+      "originalTrigramsBottomUp": [
+        "乾",
+        "震"
+      ],
+      "resultingTrigramsBottomUp": [
+        "震",
+        "震"
+      ],
+      "originalBranches": [
+        "子",
+        "寅",
+        "辰",
+        "午",
+        "申",
+        "戌"
+      ],
+      "resultingProjectionBranches": [
+        "子",
+        "寅",
+        "辰",
+        "午",
+        "申",
+        "戌"
+      ],
+      "movingPositions": [
+        2,
+        3
+      ],
+      "expected": {
+        "lineClashPositions": [],
+        "lineSamePositions": [
+          2,
+          3
+        ],
+        "changedTrigramClashScopes": [],
+        "changedTrigramSameScopes": [
+          "inner"
+        ],
+        "directionalTrigramOppositionScopes": [],
+        "neverActualChangedPositions": [
+          1,
+          4,
+          5,
+          6
+        ]
+      },
+      "notes": [
+        "原文作甲戌口，保留文本；dayGanZhi only extracts explicit甲戌. Upper震 unchanged does not become another dynamic伏吟."
+      ]
+    },
+    {
+      "id": "root-xun-sheng",
+      "source": "root-xun-sheng",
+      "monthBranch": "卯",
+      "dayGanZhi": "戊子",
+      "values": [
+        8,
+        7,
+        7,
+        8,
+        9,
+        9
+      ],
+      "original": "巽为风",
+      "resulting": "地风升",
+      "originalTrigramsBottomUp": [
+        "巽",
+        "巽"
+      ],
+      "resultingTrigramsBottomUp": [
+        "巽",
+        "坤"
+      ],
+      "originalBranches": [
+        "丑",
+        "亥",
+        "酉",
+        "未",
+        "巳",
+        "卯"
+      ],
+      "resultingProjectionBranches": [
+        "丑",
+        "亥",
+        "酉",
+        "丑",
+        "亥",
+        "酉"
+      ],
+      "movingPositions": [
+        5,
+        6
+      ],
+      "expected": {
+        "lineClashPositions": [
+          5,
+          6
+        ],
+        "lineSamePositions": [],
+        "changedTrigramClashScopes": [
+          "outer"
+        ],
+        "changedTrigramSameScopes": [],
+        "directionalTrigramOppositionScopes": [],
+        "neverActualChangedPositions": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "root-fu-qian",
+      "source": "root-fu-qian",
+      "monthBranch": "未",
+      "dayGanZhi": "戊辰",
+      "values": [
+        9,
+        8,
+        6,
+        8,
+        8,
+        8
+      ],
+      "original": "地雷复",
+      "resulting": "地山谦",
+      "originalTrigramsBottomUp": [
+        "震",
+        "坤"
+      ],
+      "resultingTrigramsBottomUp": [
+        "艮",
+        "坤"
+      ],
+      "originalBranches": [
+        "子",
+        "寅",
+        "辰",
+        "丑",
+        "亥",
+        "酉"
+      ],
+      "resultingProjectionBranches": [
+        "辰",
+        "午",
+        "申",
+        "丑",
+        "亥",
+        "酉"
+      ],
+      "movingPositions": [
+        1,
+        3
+      ],
+      "expected": {
+        "triad": {
+          "scope": "inner-change",
+          "element": "水",
+          "branches": [
+            "申",
+            "子",
+            "辰"
+          ],
+          "status": "complete-branch-set",
+          "branchMembers": {
+            "申": [
+              "/lines/2/changed"
+            ],
+            "子": [
+              "/lines/0"
+            ],
+            "辰": [
+              "/lines/2",
+              "/lines/0/changed"
+            ]
+          }
+        },
+        "adverseFacts": [
+          "原初子受未月土克、辰日土克",
+          "原初子化辰土回头克",
+          "原三辰动克子；三合结构不能消除此条件"
+        ],
+        "forbiddenMembers": [
+          "/lines/1/changed"
+        ]
+      },
+      "notes": [
+        "原文此例未标卦名；按bottom 子○寅静阴辰ㄨ丑静阴亥静阴酉静阴还原复→谦。不是剥。"
+      ]
+    },
+    {
+      "id": "root-ge-jiaren",
+      "source": "root-ge-jiaren",
+      "monthBranch": "卯",
+      "dayGanZhi": "癸未",
+      "values": [
+        7,
+        8,
+        7,
+        9,
+        7,
+        6
+      ],
+      "original": "泽火革",
+      "resulting": "风火家人",
+      "originalTrigramsBottomUp": [
+        "离",
+        "兑"
+      ],
+      "resultingTrigramsBottomUp": [
+        "离",
+        "巽"
+      ],
+      "originalBranches": [
+        "卯",
+        "丑",
+        "亥",
+        "亥",
+        "酉",
+        "未"
+      ],
+      "resultingProjectionBranches": [
+        "卯",
+        "丑",
+        "亥",
+        "未",
+        "巳",
+        "卯"
+      ],
+      "movingPositions": [
+        4,
+        6
+      ],
+      "expected": {
+        "triad": {
+          "scope": "outer-change",
+          "element": "木",
+          "branches": [
+            "亥",
+            "卯",
+            "未"
+          ],
+          "status": "complete-branch-set",
+          "branchMembers": {
+            "亥": [
+              "/lines/3"
+            ],
+            "卯": [
+              "/lines/5/changed"
+            ],
+            "未": [
+              "/lines/5",
+              "/lines/3/changed"
+            ]
+          }
+        },
+        "calendarTriad": {
+          "anchor": "/lines/3",
+          "month": "卯",
+          "day": "未",
+          "element": "木",
+          "status": "complete-branch-set"
+        },
+        "adverseFacts": [
+          "原四亥化未土回头克",
+          "原六未土动克亥"
+        ],
+        "forbiddenMembers": [
+          "/lines/4/changed"
+        ]
+      },
+      "notes": [
+        "日月世的三合与化克并存；月卯不能抹去回头克。原文仅以原四世为论，静原三亥的calendar-original是另一个明确标注的表投影，不借原文断语背书。"
+      ]
+    },
+    {
+      "id": "root-yi-wuwang",
+      "source": "root-yi-wuwang",
+      "monthBranch": "寅",
+      "dayGanZhi": "戊午",
+      "values": [
+        7,
+        8,
+        8,
+        6,
+        6,
+        7
+      ],
+      "original": "山雷颐",
+      "resulting": "天雷无妄",
+      "originalTrigramsBottomUp": [
+        "震",
+        "艮"
+      ],
+      "resultingTrigramsBottomUp": [
+        "震",
+        "乾"
+      ],
+      "originalBranches": [
+        "子",
+        "寅",
+        "辰",
+        "戌",
+        "子",
+        "寅"
+      ],
+      "resultingProjectionBranches": [
+        "子",
+        "寅",
+        "辰",
+        "午",
+        "申",
+        "戌"
+      ],
+      "movingPositions": [
+        4,
+        5
+      ],
+      "expected": {
+        "calendarTriad": {
+          "anchor": "/lines/3",
+          "month": "寅",
+          "day": "午",
+          "element": "火",
+          "branches": [
+            "寅",
+            "午",
+            "戌"
+          ],
+          "status": "complete-branch-set"
+        },
+        "noEndpointChangeRoute": true,
+        "independentConflicts": [
+          "实际变五申为寅月冲",
+          "原五子受午日冲"
+        ],
+        "forbiddenMembers": [
+          "/lines/5/changed"
+        ]
+      },
+      "notes": [
+        "日月世三合明文；上爻六静，不能将结果投影戌当作实际变爻来凑另一局。"
+      ]
+    },
+    {
+      "id": "root-cui-pi-ambiguous",
+      "source": "root-cui-pi-ambiguous",
+      "monthBranch": "酉",
+      "dayGanZhi": "乙巳",
+      "values": [
+        8,
+        8,
+        8,
+        7,
+        7,
+        6
+      ],
+      "original": "泽地萃",
+      "resulting": "天地否",
+      "originalTrigramsBottomUp": [
+        "坤",
+        "兑"
+      ],
+      "resultingTrigramsBottomUp": [
+        "坤",
+        "乾"
+      ],
+      "originalBranches": [
+        "未",
+        "巳",
+        "卯",
+        "亥",
+        "酉",
+        "未"
+      ],
+      "resultingProjectionBranches": [
+        "未",
+        "巳",
+        "卯",
+        "午",
+        "申",
+        "戌"
+      ],
+      "movingPositions": [
+        6
+      ],
+      "expected": {
+        "notAcceptedAsUnambiguousCompleteTriad": true,
+        "strictMovingCalendarWoodBranches": [
+          "未"
+        ],
+        "conditionalDarkWoodBranches": [
+          "亥",
+          "未"
+        ],
+        "conditionalMissingBranch": "卯",
+        "conditionalDayClashedOriginalPath": "/lines/3",
+        "staticVisibleButNotEligibleOriginalPath": "/lines/2",
+        "unresolved": [
+          "day-clash-dark-movement-efficacy",
+          "heading酉月/prose亥月 discrepancy"
+        ],
+        "forbiddenMembers": [
+          "/lines/3/changed",
+          "/lines/4/changed"
+        ]
+      },
+      "notes": [
+        "Do not silently repair亥月 to亥爻 or month heading; literal line geometry is accepted, explanatory semantics retain uncertainty."
+      ]
+    }
+  ],
+  "structuralCounterexamples": [
+    {
+      "id": "yilin-guimei-sui",
+      "source": "ylyb-1",
+      "monthBranch": null,
+      "dayGanZhi": null,
+      "values": [
+        7,
+        9,
+        8,
+        7,
+        6,
+        8
+      ],
+      "original": "雷泽归妹",
+      "resulting": "泽雷随",
+      "originalTrigramsBottomUp": [
+        "兑",
+        "震"
+      ],
+      "resultingTrigramsBottomUp": [
+        "震",
+        "兑"
+      ],
+      "originalBranches": [
+        "巳",
+        "卯",
+        "丑",
+        "午",
+        "申",
+        "戌"
+      ],
+      "resultingProjectionBranches": [
+        "子",
+        "寅",
+        "辰",
+        "亥",
+        "酉",
+        "未"
+      ],
+      "movingPositions": [
+        2,
+        5
+      ],
+      "expected": {
+        "lineClashPositions": [],
+        "lineSamePositions": [],
+        "changedTrigramClashScopes": [],
+        "changedTrigramSameScopes": [],
+        "directionalTrigramOppositionScopes": [
+          "inner",
+          "outer"
+        ]
+      },
+      "notes": [
+        "Original source writes婦妹; normalized name归妹 is declared. No source month/day supplied; do not invent."
+      ]
+    },
+    {
+      "id": "yilin-xiaoxu-gou",
+      "source": "ylyb-1",
+      "monthBranch": null,
+      "dayGanZhi": null,
+      "values": [
+        9,
+        7,
+        7,
+        6,
+        7,
+        7
+      ],
+      "original": "风天小畜",
+      "resulting": "天风姤",
+      "originalTrigramsBottomUp": [
+        "乾",
+        "巽"
+      ],
+      "resultingTrigramsBottomUp": [
+        "巽",
+        "乾"
+      ],
+      "originalBranches": [
+        "子",
+        "寅",
+        "辰",
+        "未",
+        "巳",
+        "卯"
+      ],
+      "resultingProjectionBranches": [
+        "丑",
+        "亥",
+        "酉",
+        "午",
+        "申",
+        "戌"
+      ],
+      "movingPositions": [
+        1,
+        4
+      ],
+      "expected": {
+        "lineClashPositions": [],
+        "lineSamePositions": [],
+        "changedTrigramClashScopes": [],
+        "changedTrigramSameScopes": [],
+        "directionalTrigramOppositionScopes": [
+          "inner",
+          "outer"
+        ]
+      },
+      "notes": [
+        "Original source writes垢; normalized姤 is declared. Actual 子→丑、未→午 are六合, not line反吟 despite directional卦反吟."
+      ]
+    },
+    {
+      "id": "synthetic-static-qian",
+      "source": "explicit negative policy",
+      "monthBranch": null,
+      "dayGanZhi": null,
+      "values": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "original": "乾为天",
+      "resulting": "乾为天",
+      "originalTrigramsBottomUp": [
+        "乾",
+        "乾"
+      ],
+      "resultingTrigramsBottomUp": [
+        "乾",
+        "乾"
+      ],
+      "originalBranches": [
+        "子",
+        "寅",
+        "辰",
+        "午",
+        "申",
+        "戌"
+      ],
+      "resultingProjectionBranches": [
+        "子",
+        "寅",
+        "辰",
+        "午",
+        "申",
+        "戌"
+      ],
+      "movingPositions": [],
+      "expected": {
+        "lineClashPositions": [],
+        "lineSamePositions": [],
+        "changedTrigramClashScopes": [],
+        "changedTrigramSameScopes": [],
+        "directionalTrigramOppositionScopes": [],
+        "noDynamicFanfu": true
+      },
+      "notes": [
+        "易林 static八纯卦伏吟 usage exists but is outside selected dynamic convention."
+      ]
+    },
+    {
+      "id": "synthetic-qian-kun-opening-counterexample",
+      "source": "zsgy-25 ambiguous opening",
+      "monthBranch": null,
+      "dayGanZhi": null,
+      "values": [
+        9,
+        9,
+        9,
+        9,
+        9,
+        9
+      ],
+      "original": "乾为天",
+      "resulting": "坤为地",
+      "originalTrigramsBottomUp": [
+        "乾",
+        "乾"
+      ],
+      "resultingTrigramsBottomUp": [
+        "坤",
+        "坤"
+      ],
+      "originalBranches": [
+        "子",
+        "寅",
+        "辰",
+        "午",
+        "申",
+        "戌"
+      ],
+      "resultingProjectionBranches": [
+        "未",
+        "巳",
+        "卯",
+        "丑",
+        "亥",
+        "酉"
+      ],
+      "movingPositions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "expected": {
+        "lineClashPositions": [],
+        "lineSamePositions": [],
+        "changedTrigramClashScopes": [],
+        "changedTrigramSameScopes": [],
+        "directionalTrigramOppositionScopes": [],
+        "ambiguousOpeningNotNormalized": true
+      },
+      "notes": [
+        "This is not evidence the source did not call it反伏; it proves the selected classifiers do not pretend to reproduce that incompatible opening."
+      ]
+    },
+    {
+      "id": "synthetic-kun-gen-direction-not-control",
+      "source": "ylyb-1 explicit pair",
+      "monthBranch": null,
+      "dayGanZhi": null,
+      "values": [
+        8,
+        8,
+        6,
+        8,
+        8,
+        6
+      ],
+      "original": "坤为地",
+      "resulting": "艮为山",
+      "originalTrigramsBottomUp": [
+        "坤",
+        "坤"
+      ],
+      "resultingTrigramsBottomUp": [
+        "艮",
+        "艮"
+      ],
+      "originalBranches": [
+        "未",
+        "巳",
+        "卯",
+        "丑",
+        "亥",
+        "酉"
+      ],
+      "resultingProjectionBranches": [
+        "辰",
+        "午",
+        "申",
+        "戌",
+        "子",
+        "寅"
+      ],
+      "movingPositions": [
+        3,
+        6
+      ],
+      "expected": {
+        "lineClashPositions": [],
+        "lineSamePositions": [],
+        "changedTrigramClashScopes": [],
+        "changedTrigramSameScopes": [],
+        "directionalTrigramOppositionScopes": [
+          "inner",
+          "outer"
+        ],
+        "bothTrigramElements": "土"
+      },
+      "notes": [
+        "Directional opposition must not require element-control or same-position branch clash."
+      ]
+    },
+    {
+      "id": "synthetic-distinct-branches-required",
+      "kind": "literal-membership-counterexample",
+      "sourceCalendar": null,
+      "poolBranches": [
+        "申",
+        "申",
+        "辰"
+      ],
+      "tableBranches": [
+        "申",
+        "子",
+        "辰"
+      ],
+      "expected": {
+        "status": "missing-one",
+        "missingBranch": "子",
+        "missingCenter": true,
+        "efficacyEstablished": false
+      }
+    },
+    {
+      "id": "synthetic-center-is-not-completion",
+      "kind": "literal-membership-counterexample",
+      "sourceCalendar": null,
+      "poolBranches": [
+        "申",
+        "子"
+      ],
+      "tableBranches": [
+        "申",
+        "子",
+        "辰"
+      ],
+      "expected": {
+        "status": "missing-one",
+        "missingBranch": "辰",
+        "missingCenter": false,
+        "efficacyEstablished": false
+      },
+      "sourceDifference": "易林 could call this成局/半吉; selected common complete-set policy deliberately does not."
+    },
+    {
+      "id": "synthetic-unrelated-changed-forbidden",
+      "kind": "scope-counterexample",
+      "sourceCalendar": null,
+      "description": "A moving-calendar pool contains亥 and未; 卯 exists only as an unrelated changed object outside a qualified endpoint route.",
+      "expected": "missing-one卯; never borrow arbitrary changed objects from other positions/halves."
+    },
+    {
+      "id": "synthetic-hidden-not-free-actor",
+      "kind": "scope-counterexample",
+      "sourceCalendar": null,
+      "description": "A moving-calendar pool contains亥 and未; missing卯 appears only as a hidden object.",
+      "expected": "missing-one卯; hidden source never becomes a free triad actor."
+    }
+  ],
+  "implementationBoundaries": [
+    "No new chart, recast, calendar, hidden actor, event prediction or automatic target choice. Existing source receipt/calendar/lines are inputs.",
+    "The native layer should recompute admissible membership and exact paths independently. A source id or plausible three branches is insufficient to authenticate a cross-object claim.",
+    "Store full triad branch identities once per route, not every cartesian combination; duplicate provenance must remain lossless. Preserve all conflicting contexts instead of scores.",
+    "Existing guaRelations full resulting projection can support the trigram vector, but cannot create line.changed at a static position. Its projection paths must remain distinguishable from /lines/N/changed.",
+    "Reassessment must preserve this question-independent structural layer by value. Question-target selection can reference it later without rewriting original objects."
+  ],
+  "limitations": [
+    "Read electronic transcriptions only, not scanned/printed editions; mixed simplified/traditional forms and likely typos remain explicit.",
+    "No dedicated original 三合 chapter was available in these archives. The endpoint change routes are an explicitly selected narrow structural generalization of literal examples, not a claim of exhaustive classical formation law.",
+    "Calendar-original at a static anchor is an explicit table projection policy, not directly established efficacy from the moving classical cases. Hidden triad targets remain out of scope.",
+    "No unsupported classic dates have been converted to Gregorian dates. Missing source month/day coordinates remain null; synthetic cases are labeled separately.",
+    "Transmitted outcomes are context for counterexamples only, never empirical validation or medical claims."
+  ],
+  "independentConsistencyCheck": {
+    "status": "passed",
+    "glyphAndNajiaVectors": 15,
+    "method": "Hand-written literal fixtures checked against independent literal trigram-bit, inner/outer najia, branch-clash and directional-pair tables. No Engine code, bundle or dynamic implementation used. No efficacy or transmitted outcome asserted.",
+    "checked": [
+      "six bottom-up values -> original and resulting trigram glyphs",
+      "actual moving positions only",
+      "all six independently literal original/resulting branches",
+      "actual moving same-branch and branch-clash positions",
+      "changed-trigram full branch-vector relations",
+      "separate directional trigram opposition"
+    ]
+  }
+}

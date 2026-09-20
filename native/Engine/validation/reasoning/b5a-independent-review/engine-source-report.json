@@ -1,0 +1,380 @@
+{
+  "cases": 4096,
+  "method": "Independent modular Najia branch start/step reconstruction plus literal stems/trigram bits, branch delta6 clashes, named directional set; no production helper imports. Actual bundled Engine.",
+  "movingLines": 12288,
+  "unchanged": 1024,
+  "repeated": 256,
+  "opposed": 256,
+  "directional": 1024,
+  "directionPairs": {
+    "坤艮": 128,
+    "坎离": 128,
+    "巽乾": 128,
+    "乾巽": 128,
+    "震兑": 128,
+    "兑震": 128,
+    "离坎": 128,
+    "艮坤": 128
+  },
+  "relations": {
+    "neither": 6656,
+    "repeated": 256,
+    "opposed": 256,
+    "unchanged": 1024
+  },
+  "sourceCharts": 5,
+  "sourceCases": [
+    {
+      "id": "比之井",
+      "values": [
+        8,
+        6,
+        6,
+        8,
+        7,
+        8
+      ],
+      "original": "水地比",
+      "resulting": "水风井",
+      "fanfu": {
+        "sourceId": "liuyao-fanfu-selected-v1",
+        "assessmentStatus": "structural-only",
+        "efficacyEstablished": false,
+        "lines": [
+          {
+            "originalPath": "/lines/1",
+            "changedPath": "/lines/1/changed",
+            "sameStem": false,
+            "sameBranch": false,
+            "branchClash": true
+          },
+          {
+            "originalPath": "/lines/2",
+            "changedPath": "/lines/2/changed",
+            "sameStem": false,
+            "sameBranch": false,
+            "branchClash": true
+          }
+        ],
+        "trigrams": [
+          {
+            "side": "lower",
+            "from": "坤",
+            "to": "巽",
+            "movingPositions": [
+              2,
+              3
+            ],
+            "branchRelation": "opposed",
+            "directionalOpposition": false
+          },
+          {
+            "side": "upper",
+            "from": "坎",
+            "to": "坎",
+            "movingPositions": [],
+            "branchRelation": "unchanged",
+            "directionalOpposition": false
+          }
+        ],
+        "unresolved": [
+          "selected-object",
+          "target-strength",
+          "actor-effectiveness",
+          "event-outcome"
+        ]
+      }
+    },
+    {
+      "id": "临之中孚",
+      "values": [
+        7,
+        7,
+        8,
+        8,
+        6,
+        6
+      ],
+      "original": "地泽临",
+      "resulting": "风泽中孚",
+      "fanfu": {
+        "sourceId": "liuyao-fanfu-selected-v1",
+        "assessmentStatus": "structural-only",
+        "efficacyEstablished": false,
+        "lines": [
+          {
+            "originalPath": "/lines/4",
+            "changedPath": "/lines/4/changed",
+            "sameStem": false,
+            "sameBranch": false,
+            "branchClash": true
+          },
+          {
+            "originalPath": "/lines/5",
+            "changedPath": "/lines/5/changed",
+            "sameStem": false,
+            "sameBranch": false,
+            "branchClash": true
+          }
+        ],
+        "trigrams": [
+          {
+            "side": "lower",
+            "from": "兑",
+            "to": "兑",
+            "movingPositions": [],
+            "branchRelation": "unchanged",
+            "directionalOpposition": false
+          },
+          {
+            "side": "upper",
+            "from": "坤",
+            "to": "巽",
+            "movingPositions": [
+              5,
+              6
+            ],
+            "branchRelation": "opposed",
+            "directionalOpposition": false
+          }
+        ],
+        "unresolved": [
+          "selected-object",
+          "target-strength",
+          "actor-effectiveness",
+          "event-outcome"
+        ]
+      }
+    },
+    {
+      "id": "姤之恒",
+      "values": [
+        8,
+        7,
+        7,
+        7,
+        9,
+        9
+      ],
+      "original": "天风姤",
+      "resulting": "雷风恒",
+      "fanfu": {
+        "sourceId": "liuyao-fanfu-selected-v1",
+        "assessmentStatus": "structural-only",
+        "efficacyEstablished": false,
+        "lines": [
+          {
+            "originalPath": "/lines/4",
+            "changedPath": "/lines/4/changed",
+            "sameStem": false,
+            "sameBranch": true,
+            "branchClash": false
+          },
+          {
+            "originalPath": "/lines/5",
+            "changedPath": "/lines/5/changed",
+            "sameStem": false,
+            "sameBranch": true,
+            "branchClash": false
+          }
+        ],
+        "trigrams": [
+          {
+            "side": "lower",
+            "from": "巽",
+            "to": "巽",
+            "movingPositions": [],
+            "branchRelation": "unchanged",
+            "directionalOpposition": false
+          },
+          {
+            "side": "upper",
+            "from": "乾",
+            "to": "震",
+            "movingPositions": [
+              5,
+              6
+            ],
+            "branchRelation": "repeated",
+            "directionalOpposition": false
+          }
+        ],
+        "unresolved": [
+          "selected-object",
+          "target-strength",
+          "actor-effectiveness",
+          "event-outcome"
+        ]
+      }
+    },
+    {
+      "id": "root-xun-sheng",
+      "values": [
+        8,
+        7,
+        7,
+        8,
+        9,
+        9
+      ],
+      "original": "巽为风",
+      "resulting": "地风升",
+      "fanfu": {
+        "sourceId": "liuyao-fanfu-selected-v1",
+        "assessmentStatus": "structural-only",
+        "efficacyEstablished": false,
+        "lines": [
+          {
+            "originalPath": "/lines/4",
+            "changedPath": "/lines/4/changed",
+            "sameStem": false,
+            "sameBranch": false,
+            "branchClash": true
+          },
+          {
+            "originalPath": "/lines/5",
+            "changedPath": "/lines/5/changed",
+            "sameStem": false,
+            "sameBranch": false,
+            "branchClash": true
+          }
+        ],
+        "trigrams": [
+          {
+            "side": "lower",
+            "from": "巽",
+            "to": "巽",
+            "movingPositions": [],
+            "branchRelation": "unchanged",
+            "directionalOpposition": false
+          },
+          {
+            "side": "upper",
+            "from": "巽",
+            "to": "坤",
+            "movingPositions": [
+              5,
+              6
+            ],
+            "branchRelation": "opposed",
+            "directionalOpposition": false
+          }
+        ],
+        "unresolved": [
+          "selected-object",
+          "target-strength",
+          "actor-effectiveness",
+          "event-outcome"
+        ]
+      }
+    },
+    {
+      "id": "root-guan-sheng",
+      "values": [
+        8,
+        6,
+        6,
+        8,
+        9,
+        9
+      ],
+      "original": "风地观",
+      "resulting": "地风升",
+      "fanfu": {
+        "sourceId": "liuyao-fanfu-selected-v1",
+        "assessmentStatus": "structural-only",
+        "efficacyEstablished": false,
+        "lines": [
+          {
+            "originalPath": "/lines/1",
+            "changedPath": "/lines/1/changed",
+            "sameStem": false,
+            "sameBranch": false,
+            "branchClash": true
+          },
+          {
+            "originalPath": "/lines/2",
+            "changedPath": "/lines/2/changed",
+            "sameStem": false,
+            "sameBranch": false,
+            "branchClash": true
+          },
+          {
+            "originalPath": "/lines/4",
+            "changedPath": "/lines/4/changed",
+            "sameStem": false,
+            "sameBranch": false,
+            "branchClash": true
+          },
+          {
+            "originalPath": "/lines/5",
+            "changedPath": "/lines/5/changed",
+            "sameStem": false,
+            "sameBranch": false,
+            "branchClash": true
+          }
+        ],
+        "trigrams": [
+          {
+            "side": "lower",
+            "from": "坤",
+            "to": "巽",
+            "movingPositions": [
+              2,
+              3
+            ],
+            "branchRelation": "opposed",
+            "directionalOpposition": false
+          },
+          {
+            "side": "upper",
+            "from": "巽",
+            "to": "坤",
+            "movingPositions": [
+              5,
+              6
+            ],
+            "branchRelation": "opposed",
+            "directionalOpposition": false
+          }
+        ],
+        "unresolved": [
+          "selected-object",
+          "target-strength",
+          "actor-effectiveness",
+          "event-outcome"
+        ]
+      }
+    }
+  ],
+  "distinctions": {
+    "biJingMovingPositions": [
+      2,
+      3
+    ],
+    "biJingStaticProjectionChanges": true,
+    "gouHengSameBranchDifferentStem": true
+  },
+  "sourceDisagreements": [
+    {
+      "id": "fanfu-opening",
+      "observed": "增删25 literally says 乾卦變坤卦 and often uses 反伏 interchangeably; 易林 directional table says乾巽.",
+      "decision": "No correction without edition evidence. Implement separately named observations and keep this passage outside the positive classifier oracle."
+    },
+    {
+      "id": "root-trigram-ambiguity",
+      "observed": "Root ch118 calls 巽變乾、坤變震 examples of 内外反吟/化绝化克. 坤震 is not in 易林 four directional pairs.",
+      "decision": "Archive the original passage; no universal trigram table attributed to 增删."
+    },
+    {
+      "id": "static-fuyin",
+      "observed": "易林 calls 巽见巽、离见离、八纯卦 卦伏吟 even without an explicit change; 增删25 literal cases identify changed trigrams retaining branches.",
+      "decision": "Selected dynamic policy requires change; static eight-pure is a deliberate negative, while acknowledging the other usage."
+    }
+  ],
+  "limitations": [
+    "Source diagram checks use a modern fixed timestamp because fanfu is calendar-independent; no historical calendar reconstruction or outcome validation.",
+    "Electronic texts are not print-collated.",
+    "Static full projections are not actual changed objects."
+  ]
+}

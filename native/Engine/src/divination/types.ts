@@ -6,6 +6,7 @@ import type { lineRules } from './conditionalRules';
 import type { guaRelations } from './guaRelations';
 import type { roleRelations } from './roleRelations';
 import type { tombExtinction } from './tombExtinction';
+import type { fanfu } from './fanfu';
 import type {QuestionContext,selectQuestionObjects,conditionalTiming} from './questionJudgment';
 
 export type Yao = '阴' | '阳';
@@ -85,6 +86,7 @@ export interface HexagramReading {
   guaRelations: ReturnType<typeof guaRelations>;
   roleRelations: ReturnType<typeof roleRelations>;
   tombExtinction: ReturnType<typeof tombExtinction>;
+  fanfu: ReturnType<typeof fanfu>;
   ruleSources: RuleSource[];
   method: { algorithm: string; calendar: string; dayBoundary: string; caveats: string[] };
 }
