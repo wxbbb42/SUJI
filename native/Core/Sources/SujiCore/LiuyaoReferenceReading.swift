@@ -117,7 +117,10 @@ public enum LiuyaoReferenceReading {
             let hasFanfu = ReadingVerificationEvidence.pointer("/fanfu",in:root) != nil
             let hasFanfuSource = sources.contains { ReadingVerificationEvidence.pointer("/id",in:$0) == .string(LiuyaoFanfuTrace.sourceID) }
             guard hasFanfu == hasFanfuSource else { throw Incomplete.record }
-            let accepted=[calendarSource,questionSource,"liuyao-changing-relations-v1","liuyao-flying-hidden-v1","liuyao-day-clash-v1"] + (hasRoles ? [roleSource] : []) + (hasTombs ? [LiuyaoTombExtinctionTrace.sourceID] : []) + (hasFanfu ? [LiuyaoFanfuTrace.sourceID] : [])
+            let hasTriads = ReadingVerificationEvidence.pointer("/triads",in:root) != nil
+            let hasTriadSource = sources.contains { ReadingVerificationEvidence.pointer("/id",in:$0) == .string(LiuyaoTriadTrace.sourceID) }
+            guard hasTriads == hasTriadSource, !hasTriads || (hasFanfu && hasTombs) else { throw Incomplete.record }
+            let accepted=[calendarSource,questionSource,"liuyao-changing-relations-v1","liuyao-flying-hidden-v1","liuyao-day-clash-v1"] + (hasRoles ? [roleSource] : []) + (hasTombs ? [LiuyaoTombExtinctionTrace.sourceID] : []) + (hasFanfu ? [LiuyaoFanfuTrace.sourceID] : []) + (hasTriads ? [LiuyaoTriadTrace.sourceID] : [])
             for i in sources.indices {
                 let p="/ruleSources/\(i)",id=try string(p+"/id")
                 guard accepted.contains(id),sourcePaths[id] == nil,
@@ -161,6 +164,9 @@ public enum LiuyaoReferenceReading {
             }
             if hasFanfu {
                 sections += try LiuyaoFanfuTrace.sections(root:root,receiptID:receipt.callID,sourcePaths:sourcePaths[LiuyaoFanfuTrace.sourceID]!)
+            }
+            if hasTriads {
+                sections += try LiuyaoTriadTrace.sections(root:root,receiptID:receipt.callID,sourcePaths:sourcePaths[LiuyaoTriadTrace.sourceID]!)
             }
             try selectionAndTiming()
             if hasRoles { try candidateRoles() }
@@ -436,9 +442,9 @@ public enum LiuyaoReferenceReading {
         }
         func validateReferences(_ p: String, source: String) throws {
             let rootURL="https://zh.wikisource.org/wiki/增刪卜易"
-            if source == LiuyaoFanfuTrace.sourceID {
+            if source == LiuyaoFanfuTrace.sourceID || source == LiuyaoTriadTrace.sourceID {
                 let references=[
-                    (rootURL+"/25","10c6f672b4b68ea46217d8f053a8668034a757d5899447fda3f0934b82537fa2"),
+                    (source == LiuyaoTriadTrace.sourceID ? rootURL+"/19" : rootURL+"/25",source == LiuyaoTriadTrace.sourceID ? "087c35339f209c6d1359c01d8a918a535eb6151729973fc09ef960c1195f3fdf" : "10c6f672b4b68ea46217d8f053a8668034a757d5899447fda3f0934b82537fa2"),
                     (rootURL,"897f963b938ec4582bc892465301b831a6439216f317841f44b888117704ca07"),
                     ("https://zh.wikisource.org/wiki/易林補遺/1","abf77e78f3fbf77e33c2520e2a3525898894e5f5b0863fb5fa2c44619daab967")
                 ]

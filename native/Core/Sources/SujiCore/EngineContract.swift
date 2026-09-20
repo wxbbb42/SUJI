@@ -6,6 +6,8 @@ public enum EngineContract {
         let decoder = JSONDecoder()
         do {
             switch command {
+            case "natal-astronomy":
+                _ = try NatalAstronomyPayload.validated(data)
             case "profile", "natal":
                 let result = try decoder.decode(NatalCharts.self, from: data)
                 guard date(result.mingPan.qiYun.startDate) != nil, date(result.mingPan.qiYun.termDate) != nil,

@@ -1,3 +1,4 @@
+import type { NatalAstronomy } from '../../astronomy/natal';
 /**
  * AI tool-use 协议类型（OpenAI-compatible function calling）
  */
@@ -51,6 +52,7 @@ export type ToolHandler = (
 
 /** 工具执行上下文（命盘等） */
 export interface ToolContext {
+  astronomy?: NatalAstronomy;
   mingPan: any;        // BaziEngine 输出（来自 mingPanCache）
   ziweiPan: any;       // ZiweiEngine 输出（来自 ziweiPanCache）
   now: Date;

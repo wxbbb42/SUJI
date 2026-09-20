@@ -1016,6 +1016,57 @@
       ],
       "confidence": "high_for_selected_structural_observations_not_efficacy",
       "status": "source_vectors_exhaustive_structural_counterexamples_and_native_binding"
+    },
+    {
+      "id": "liuyao.scoped-triad-membership",
+      "domain": "liuyao",
+      "claim": "三合选四组申子辰水、巳酉丑金、寅午戌火、亥卯未木，成员按生、中、墓位置保留原对象身份。分别观察可见原爻、单个实际动爻与日月、内初三与外四六实际动变范围；可见静爻与非世动爻日月组合明确仅为表格结构观察。缺支与中神、重复支、各自空破冲扶、墓绝参照和日冲待审路径独立保留；静态变卦投影、伏神和跨范围任意动变混池不入成员。/19明确支持端点范围，但动爻数条文有冲突；易林有中神的两支成局与增删待用说不同。三支齐全不等于合化、入墓、综合强弱或事件成败。",
+      "sourceIds": [
+        "liuyao-zengshan-buyi",
+        "liuyao-yilin-buyi-triad-center"
+      ],
+      "repoRefs": [
+        "native/Engine/src/divination/triads.ts",
+        "native/Engine/src/divination/__tests__/Triads.test.ts",
+        "native/Core/Sources/SujiCore/LiuyaoTriadTrace.swift",
+        "native/Engine/validation/research-divination/triad-formation-source-review.json"
+      ],
+      "confidence": "scoped_membership_not_formation_or_efficacy",
+      "status": "scoped_structure_independent_oracle_native_reconstruction_and_full_wire_accepted"
+    },
+    {
+      "id": "astronomy.seven-bodies.scope-v1",
+      "domain": "astronomy",
+      "claim": "七曜基础按固定UTC+8出生钟面计算地心现代角度，保存当日真赤道/黄道坐标和时间政策。天文位置复算不验证命运推断；该基础不构成完整七政四余，四余、十二宫、命度和古度换算均未实现。",
+      "sourceIds": [
+        "astronomy-engine-2.1.19",
+        "astronomy-time-policy-v1"
+      ],
+      "repoRefs": [
+        "native/Engine/src/astronomy/natal.ts",
+        "docs/mingli/astronomy-natal-cache-design.md"
+      ],
+      "confidence": "high_for_versioned_engineering_scope_not_divination_efficacy",
+      "status": "versioned_foundation_independent_samples_native_contract_and_full_wire_verified"
+    },
+    {
+      "id": "astronomy.contemporary-first-star28.scope-v1",
+      "domain": "astronomy",
+      "claim": "中国二十八宿模块采用现代星名距星参照，各宿选Stellarium现代首星I所对应的HIP分量，以Hipparcos J1991.25 ICRS位置及切向自行经当日岁差章动求参照宿界。先检验单圈有序再分段，区间左闭右开，使用现代赤经度。出生月亮所在宿不等于传统命宿、命度或宿曜关系；奎斗觜参异说、星历和时刻精度未知均明示。",
+      "sourceIds": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920",
+        "astronomy-engine-2.1.19",
+        "astronomy-time-policy-v1"
+      ],
+      "repoRefs": [
+        "native/Engine/src/astronomy/mansions.ts",
+        "native/Engine/src/astronomy/mansion-catalog.json",
+        "native/Engine/validation/research-qizheng/catalogue/ATTRIBUTION.md"
+      ],
+      "confidence": "high_for_selected_catalogue_identity_and_sampled_transforms_not_historical_universality",
+      "status": "versioned_foundation_independent_samples_native_contract_and_full_wire_verified"
     }
   ]
 }

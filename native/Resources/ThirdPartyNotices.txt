@@ -27,6 +27,37 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+astronomy-engine 2.1.19 (MIT)
+============================================================
+/**
+    @preserve
+
+    Astronomy library for JavaScript (browser and Node.js).
+    https://github.com/cosinekitty/astronomy
+
+    MIT License
+
+    Copyright (c) 2019-2023 Don Cross <cosinekitty@gmail.com>
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+*/
+
 dayjs 1.11.20 (MIT)
 ============================================================
 MIT License
@@ -170,3 +201,20 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+# Contemporary Chinese first-star reference dataset
+
+Policy: `contemporary-first-star28-equatorial-v1`, version `1.0.0`, displayed as **现代星名距星参照**. Select the first numbered contemporary star (`I`) for each of the 28 named mansion asterisms. Coordinates and angles use modern degrees (360° per circle). This is not a reconstruction of every historical distance-star school, traditional 度, 四余 or 命度.
+
+Star-name/HIP crosswalk: Sun Shuwei and the Stellarium team, *Chinese Contemporary Sky Culture*. Its archived description states **“Text and data: CC BY-SA”** without a version. Preserve this wording; do not assert a licence version that the source does not specify. Selected factual mappings were crosschecked against SIMBAD; no constellation illustrations or software implementation were incorporated. The dataset and source materials retain attribution separately from the application's software licence.
+
+- Source ID `stellarium-contemporary-first-stars-71885f2e`: [immutable index Git blob 71885f2ea74edb2b8d960b0672d89fbf3e980517](https://api.github.com/repos/Stellarium/stellarium-skycultures/git/blobs/71885f2ea74edb2b8d960b0672d89fbf3e980517). Exact source pointers are recorded per star, e.g. `/common_names/HIP 4463/0/english` = `Legs I`. Exact raw API metadata and decoded bytes are archived. Git SHA1 was recomputed over the blob header and bytes.
+- Authors and licence: [description blob b07470b492c3eba9e0edb8c9be207fa25976b3d4](https://api.github.com/repos/Stellarium/stellarium-skycultures/git/blobs/b07470b492c3eba9e0edb8c9be207fa25976b3d4).
+- Historical/source disagreement context: [Chinese description blob ab705c56a4d37a0e21b84df398731df062577708](https://api.github.com/repos/Stellarium/stellarium-skycultures/git/blobs/ab705c56a4d37a0e21b84df398731df062577708). This names Yi Shitong's *中西对照恒星图表1950.0*, *仪象考成*, and Hong Kong Space Museum sources. Those printed books were **not** directly read here. The description's determinative-star table is **not** the adopted source table.
+- Source ID `hipparcos-28-esa1997`: ESA (1997), *The Hipparcos and Tycho Catalogues*, ESA SP-1200, [VizieR I/239/hip_main](https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239), [catalogue ReadMe](https://cdsarc.cds.unistra.fr/ftp/I/239/ReadMe). ICRS positions at J1991.25; pmRA includes cos(dec), mas/Julian year. Exact requested 28 rows and metadata are archived. Metadata gives [VizieR rights URI](https://cds.unistra.fr/vizier-org/licences_vizier.html); the licence page itself could not be retrieved, so no specific catalogue licence is asserted.
+- Source ID `simbad-28-20260920`: [SIMBAD TAP](http://simbad.cds.unistra.fr/simbad/sim-tap/sync), CDS, Strasbourg; retrieved 2026-09-20. Exact ADQL in `retrieve-catalogue.py`, exact JSON plus epoch metadata archived. Used for Bayer/Flamsteed ↔ HIP cross-identification and coordinate verification.
+
+Selected component policy: α² Lib HIP72622; μ¹ Sco HIP82514; γ² Sgr HIP88635; β¹ Cap HIP100345. These are the exact first-star HIP entries in the contemporary index, not assumed components of an unqualified Bayer label.
+
+Disagreements: old 奎=ζ And whereas contemporary 奎宿一/Legs I=η And/HIP4463. The Stellarium Chinese description table gives 斗=μ Sgr; its contemporary Dipper I maps to φ Sgr/HIP92041, agreeing with the archived Wikipedia historical table. The chosen policy explicitly selects the contemporary I index, not the discordant table. For 觜参 it selects λ Ori/HIP26207 and ζ Ori/HIP26727; the old φ¹ Ori/δ Ori pair reverses modern right-ascension ordering. No universal historical correctness or revision date is claimed.
+

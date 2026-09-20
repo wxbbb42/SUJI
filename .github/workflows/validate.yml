@@ -49,9 +49,11 @@ jobs:
             -only-testing:SujiTests/AppPersistenceTests \
             -only-testing:SujiTests/StoreRegressionTests \
             -only-testing:SujiTests/NatalDossierStoreTests \
+            -only-testing:SujiTests/NatalAstronomyStoreTests \
             -only-testing:SujiTests/CastQuestionConfirmationTests \
             -only-testing:SujiTests/CastSupplementSessionTests \
             -only-testing:SujiUITests/CastQuestionUITests \
+            -only-testing:SujiUITests/NatalAstronomyUITests \
             -only-testing:SujiUITests/SujiUITests/testAccountGateBlocksNotebookBeforeLogin \
             -only-testing:SujiUITests/SujiUITests/testBirthFormRequiresConfirmationAndBuildsDossier
       - name: Export UI screenshots

@@ -113,6 +113,33 @@ enum ReadingVerificationEvidence {
                 rows(prefix + ".source",base + "/sources",["id","document","sha256","locator","quote","additionalQuotes","editionStatus"])
             }
             switch name {
+            case "get_natal_astronomy":
+                fields("astronomy", "", ["schemaVersion", "engineRevision", "birthKey", "unsupported", "limitations"])
+                fields("astronomy.time", "/time", ["wallClock", "instantUTC", "interpretation", "utPolicy", "deltaTModel", "julianDayUT", "julianDayTT", "deltaTSeconds"])
+                for module in ["sevenBodies", "mansions"] {
+                    let base = "/" + module, key = "astronomy." + module
+                    fields(key,base,["moduleID","methodVersion","inputFingerprint","sourceIDs"])
+                    fields(key+".dependencies",base+"/dependencyVersions",["ephemeris","timePolicy","framePolicy","catalog","transformation","boundary"])
+                    if case let .array(positions) = pointer(base+"/positions",in:object) {
+                        for index in positions.indices {
+                            let path = base+"/positions/\(index)"
+                            guard case let .string(body) = pointer(path+"/body",in:object),
+                                  ["Sun","Moon","Mercury","Venus","Mars","Jupiter","Saturn"].contains(body) else { continue }
+                            let prefix = module == "sevenBodies" ? "astronomy.body." : "astronomy.mansion."
+                            fields(prefix+body,path,["body","longitudeDegrees","latitudeDegrees","rightAscensionDegrees","declinationDegrees","correctionPolicy","mansion","index","entryDegrees","widthDegrees","distanceToBoundaryDegrees","boundaryStatus"])
+                        }
+                    }
+                }
+                if pointer("/mansions",in:object) == .null { add("astronomy.mansions","/mansions",preserveNull:true) }
+                fields("astronomy.uncertainty","/mansions/uncertainty",["birthTimePrecision"])
+                for field in ["ephemerisErrorBoundDegrees","catalogErrorBoundDegrees"] {
+                    add("astronomy.uncertainty."+field,"/mansions/uncertainty/"+field,preserveNull:true)
+                }
+                if case let .array(boundaries) = pointer("/mansions/boundaries",in:object) {
+                    for index in boundaries.indices {
+                        fields("astronomy.boundary\(index+1)","/mansions/boundaries/\(index)",["name","designation","hip","rightAscensionDegrees","nextRightAscensionDegrees","widthDegrees"])
+                    }
+                }
             case "get_today_context":
                 for (key, path) in [("year", "yearGanZhi"), ("month", "monthGanZhi"), ("day", "dayGanZhi"), ("term", "solarTerm")] { add("calendar." + key, "/" + path) }
             case "get_domain":
@@ -162,6 +189,17 @@ enum ReadingVerificationEvidence {
                 if case let .array(objects) = pointer("/tombExtinction/objects",in:object) {
                     for index in objects.indices {
                         fields("liuyao.tombExtinction.object\(index+1)", "/tombExtinction/objects/\(index)", ["objectPath", "month", "day", "ownChange", "flying", "movingTombPositions", "movingExtinctionPositions", "supportingMovingPositions"])
+                    }
+                }
+                fields("liuyao.triads", "/triads", ["sourceId", "assessmentStatus", "efficacyEstablished", "groups", "unresolved"])
+                if case let .array(groups) = pointer("/triads/groups",in:object) {
+                    for i in groups.indices {
+                        let base="/triads/groups/\(i)",key="liuyao.triads.group\(i+1)"
+                        fields(key,base,["scope","element","missingBranches","complete","centerPresent","contextPaths","tombReferencePaths","dayClashRulePaths"])
+                        add(key+".anchorPath",base+"/anchorPath",preserveNull:true)
+                        if case let .array(members) = pointer(base+"/members",in:object) {
+                            for j in members.indices { fields(key+".member\(j+1)",base+"/members/\(j)",["branch","role","objectPaths"]) }
+                        }
                     }
                 }
                 fields("liuyao.fanfu", "/fanfu", ["sourceId", "assessmentStatus", "efficacyEstablished", "unresolved"])

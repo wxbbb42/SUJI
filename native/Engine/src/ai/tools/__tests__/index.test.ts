@@ -27,11 +27,11 @@ const FIX_ZW = {
 const CTX = { mingPan: FIX_MP, ziweiPan: FIX_ZW, now: new Date(2026, 3, 25) };
 
 describe('ALL_TOOLS', () => {
-  it('exposes 9 tools total', () => {
-    expect(ALL_TOOLS).toHaveLength(9);
+  it('exposes the ten registered tools with bounded natal astronomy', () => {
+    expect(ALL_TOOLS).toHaveLength(10);
     const names = ALL_TOOLS.map(t => t.function.name).sort();
     expect(names).toEqual([
-      'cast_liuyao', 'get_bazi_star', 'get_domain', 'get_timing',
+      'cast_liuyao', 'get_bazi_star', 'get_domain', 'get_natal_astronomy', 'get_timing',
       'get_today_context', 'get_ziwei_palace', 'get_ziwei_timing', 'list_shensha', 'setup_qimen',
     ]);
   });

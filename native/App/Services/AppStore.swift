@@ -28,6 +28,18 @@ struct Document {
     var calendarInfo: Document?
     var profile: Document?
     private(set) var natalDossier: NatalDossier?
+    private(set) var natalAstronomyDossier: NatalAstronomyDossier?
+    var astronomyError: String?
+    private var astronomyPayloadRevision: String?
+    private var astronomyTask: (id: UUID, scope: UUID, birth: BirthProfile, task: Task<NatalAstronomyDossier, Error>)?
+    var hasNatalAstronomyDossier: Bool {
+        guard let birth = state.birth, let revision = astronomyPayloadRevision else { return false }
+        return natalAstronomyDossier?.matches(ownerID: scopeKey, birth: birth, engineRevision: engineRevision, enginePayloadRevision: revision) == true
+    }
+    var buildingNatalAstronomyDossier: Bool { astronomyTask != nil }
+    private func resetAstronomy() {
+        astronomyTask?.task.cancel(); astronomyTask = nil; natalAstronomyDossier = nil; astronomyError = nil
+    }
     var dossierError: String?
     var cloudProfileStatus: String?
     private(set) var preparingAccount = false
@@ -102,6 +114,7 @@ struct Document {
         let nextRecord = try candidate ?? SavedState(data: JSONEncoder().encode(nextState), key: nextKey)
         if candidate == nil { context.insert(nextRecord); try context.save() }
         scopeRevision = UUID(); calculationVersion += 1
+        resetAstronomy()
         natalTask?.task.cancel(); natalTask = nil; natalDossier = nil; dossierError = nil
         cloudProfileStatus = nil; preparedScope = nil; preparingAccount = false
         record = nextRecord; scopeKey = nextKey; state = nextState; profile = nil; computing = false
@@ -132,6 +145,19 @@ struct Document {
         let scope = scopeRevision
         var payload = payload
         let command = payload["command"] as? String ?? ""
+        // Caller/model snapshots never cross the native trust boundary.
+        payload.removeValue(forKey: "astronomy")
+        if command == "tool", payload["name"] as? String == "get_natal_astronomy" {
+            guard let birth = state.birth, let supplied = payload["birth"],
+                  let data = try? JSONSerialization.data(withJSONObject: supplied),
+                  (try? JSONDecoder().decode(BirthProfile.self, from: data)) == birth else { throw DomainError.invalidBirth }
+            let dossier = try await ensureNatalAstronomyDossier()
+            guard scope == scopeRevision, state.birth == birth else { throw CancellationError() }
+            payload["astronomy"] = try JSONSerialization.jsonObject(with: dossier.payload)
+            let result = try await rawRequest(payload)
+            guard scope == scopeRevision, state.birth == birth else { throw CancellationError() }
+            return result
+        }
         let cast = ["cast_liuyao", "setup_qimen"].contains(payload["name"] as? String ?? "")
         if ["profile", "forecast", "relationship", "tool"].contains(command), !cast,
            let birth = state.birth, let supplied = payload["birth"],
@@ -164,11 +190,14 @@ struct Document {
         state = replacement
         state.profileNeedsUpload = uploadBirth
         let key = "natal:" + scopeKey
+        let astronomyKey = "natal-astronomy:" + scopeKey
         do {
+            for saved in try context.fetch(FetchDescriptor<SavedState>(predicate: #Predicate { $0.key == astronomyKey })) { context.delete(saved) }
             for saved in try context.fetch(FetchDescriptor<SavedState>(predicate: #Predicate { $0.key == key })) { context.delete(saved) }
             try saveThrowing()
         } catch { context.rollback(); state = old; throw error }
         scopeRevision = UUID(); calculationVersion += 1
+        resetAstronomy()
         natalTask?.task.cancel(); natalTask = nil; natalDossier = nil
         profile = nil; dossierError = nil; computing = false; preparingAccount = false
         // A deliberate local import/deletion must not immediately be replaced
@@ -183,6 +212,7 @@ struct Document {
         state.birth = birth; state.profileNeedsUpload = true
         do { try saveThrowing() }
         catch { context.rollback(); state = old; throw error }
+        resetAstronomy()
         profile = nil
         do { _ = try await ensureNatalDossier() }
         catch {
@@ -225,6 +255,62 @@ struct Document {
         natalTask = (id, scope, birth, operation)
         defer { if natalTask?.id == id { natalTask = nil } }
         return try await operation.value
+    }
+
+    func ensureNatalAstronomyDossier() async throws -> NatalAstronomyDossier {
+        guard let birth = state.birth else { throw DomainError.invalidBirth }
+        let scope = scopeRevision
+        if hasNatalAstronomyDossier, let dossier = natalAstronomyDossier { return dossier }
+        if let pending = astronomyTask, pending.scope == scope, pending.birth == birth { return try await pending.task.value }
+        astronomyTask?.task.cancel()
+        natalAstronomyDossier = nil
+        let key = "natal-astronomy:" + scopeKey
+        let owner = scopeKey
+        let id = UUID()
+        let operation = Task { @MainActor in
+            try Task.checkCancellation()
+            guard self.scopeRevision == scope, self.state.birth == birth else { throw CancellationError() }
+            let revision: String
+            if let cached = self.astronomyPayloadRevision { revision = cached }
+            else {
+                revision = try await self.rawRequest(["command":"metadata"])["engineRevision"].text
+                try Task.checkCancellation()
+                guard self.scopeRevision == scope, self.state.birth == birth else { throw CancellationError() }
+                self.astronomyPayloadRevision = revision
+            }
+            if let record = try self.context.fetch(FetchDescriptor<SavedState>(predicate: #Predicate { $0.key == key })).first,
+               let cached = try? JSONDecoder().decode(NatalAstronomyDossier.self, from: record.data),
+               cached.matches(ownerID: owner, birth: birth, engineRevision: self.engineRevision, enginePayloadRevision: revision) {
+                try Task.checkCancellation()
+                guard self.scopeRevision == scope, self.state.birth == birth else { throw CancellationError() }
+                self.natalAstronomyDossier = cached
+                return cached
+            }
+            let document = try await self.rawRequest(["command":"natal-astronomy", "birth":self.birthJSON(birth)])
+            try Task.checkCancellation()
+            guard self.scopeRevision == scope, self.state.birth == birth else { throw CancellationError() }
+            let dossier = try NatalAstronomyDossier(ownerID: owner, birth: birth, engineRevision: self.engineRevision, enginePayloadRevision: revision, payload: Data(document.json.utf8))
+            let data = try JSONEncoder().encode(dossier)
+            if let existing = try self.context.fetch(FetchDescriptor<SavedState>(predicate: #Predicate { $0.key == key })).first { existing.data = data }
+            else { self.context.insert(SavedState(data: data, key: key)) }
+            do { try self.context.save() } catch { self.context.rollback(); throw error }
+            self.natalAstronomyDossier = dossier
+            return dossier
+        }
+        astronomyTask = (id, scope, birth, operation)
+        defer { if astronomyTask?.id == id { astronomyTask = nil } }
+        return try await operation.value
+    }
+
+    func prepareNatalAstronomy() async {
+        let scope = scopeRevision; let birth = state.birth
+        guard birth != nil else { resetAstronomy(); return }
+        do {
+            _ = try await ensureNatalAstronomyDossier()
+            guard scope == scopeRevision, birth == state.birth else { return }
+            astronomyError = nil
+        } catch is CancellationError { }
+        catch { if scope == scopeRevision, birth == state.birth { astronomyError = error.localizedDescription } }
     }
 
     /// Restore only an empty account. Existing local edits always stay local
@@ -280,7 +366,7 @@ struct Document {
     func calculateProfile() async {
         calculationVersion += 1
         let version = calculationVersion
-        guard let birth = state.birth else { profile = nil; computing = false; return }
+        guard let birth = state.birth else { profile = nil; computing = false; resetAstronomy(); return }
         computing = true
         dossierError = nil
         defer { if version == calculationVersion { computing = false } }
@@ -289,5 +375,7 @@ struct Document {
             guard version == calculationVersion else { return }
             profile = result
         } catch { if version == calculationVersion { profile = nil; dossierError = error.localizedDescription } }
+        guard version == calculationVersion else { return }
+        await prepareNatalAstronomy()
     }
 }

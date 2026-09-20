@@ -36,6 +36,14 @@ function evidenceFromTool(call: ToolCall, result: unknown): string[] {
   if (!r || r.error) return [];
 
   switch (call.name) {
+    case 'get_natal_astronomy': {
+      const lines:string[]=[];
+      if(r.time?.instantUTC)uniqPush(lines,`出生时刻 · ${r.time.instantUTC}（固定UTC+8钟面）`);
+      if(r.sevenBodies?.positions?.length)uniqPush(lines,`地心七曜 · ${r.sevenBodies.positions.map((p:any)=>p.body).join('/')}`);
+      const moon=r.mansions?.positions?.find((p:any)=>p.body==='Moon');
+      if(moon)uniqPush(lines,`出生月亮所在宿 · ${moon.mansion}，时间精度未知`);
+      return lines;
+    }
     case 'cast_liuyao': {
       const lines: string[] = [];
       const mainName = r.benGua?.name ?? r.mainHexagram?.name ?? r.hexagram?.name ?? r.name;

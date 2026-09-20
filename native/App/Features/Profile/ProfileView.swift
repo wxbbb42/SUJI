@@ -52,6 +52,9 @@ struct ProfileView: View {
                         Text(error).font(.footnote).foregroundStyle(SujiTheme.secondary)
                         Button("重新读取档案") { Task { await store.calculateProfile() } }
                     }
+                    if store.state.birth != nil {
+                        NavigationLink { NatalAstronomyView() } label: { profileRow("出生星历", subtitle: "七个天体 · 现代星名距星参照", symbol: "moon.stars") }.accessibilityIdentifier("profile.astronomy")
+                    }
                     if let profile = store.profile {
                         PersonalitySection(personality: profile["personality"], riZhu: profile["mingPan"]["riZhu"])
                         NavigationLink { ChartDetailView(profile: profile) } label: { profileRow("命盘手稿", subtitle: "四柱 · 五行 · 紫微十二宫", symbol: "square.grid.3x3") }

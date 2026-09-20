@@ -1,0 +1,506 @@
+{
+  "id": "contemporary-first-star28-equatorial-v1",
+  "policyID": "contemporary-first-star28-equatorial-v1",
+  "version": "1.0.0",
+  "label": "现代星名距星参照",
+  "epochPolicy": "ICRS coordinates at Julian epoch J1991.25; pmRaMasYear is mu_alpha*cos(delta), mas/Julian year",
+  "coordinateFrame": "ICRS",
+  "coordinateCatalog": "Hipparcos ESA1997 I/239/hip_main",
+  "properMotionPolicy": "pmRaMasYear = mu_alpha*cos(dec), pmDecMasYear = mu_delta; mas per Julian year",
+  "sourceIDs": [
+    "stellarium-contemporary-first-stars-71885f2e",
+    "hipparcos-28-esa1997",
+    "simbad-28-20260920"
+  ],
+  "identityPolicy": "Use the first numbered contemporary Chinese star name (I) for each of the 28 mansion asterisms. This explicitly selected modern reference convention is not a reconstruction of every historical determinative-star set or astrology school.",
+  "unitPolicy": "Modern equatorial angle in degrees; full circle 360 degrees. No traditional Chinese 度 conversion.",
+  "attribution": {
+    "identityMappings": "Sun Shuwei and Stellarium team, Chinese Contemporary Sky Culture; text and data CC BY-SA as stated in source, version unspecified. Selected factual HIP/name crosswalk; no illustration or constellation code used.",
+    "coordinates": "ESA 1997, The Hipparcos and Tycho Catalogues, ESA SP-1200, via CDS VizieR I/239/hip_main.",
+    "crossIdentifications": "SIMBAD astronomical database, CDS, Strasbourg."
+  },
+  "limitations": [
+    "Modern first-star reference selection; do not label as a universal historical distance-star table.",
+    "Historical Kui used zeta And; selected contemporary Kui I is eta And.",
+    "Stellarium Chinese description lists mu Sgr as determinative star of Dou, while its contemporary Dipper I and archived historical Wikipedia table select phi Sgr; this policy explicitly uses phi Sgr.",
+    "No traditional-degree conversion, four-residual bodies, natal mingdu or auspiciousness interpretation."
+  ],
+  "stars": [
+    {
+      "name": "角",
+      "designation": "* alf Vir",
+      "hip": 65474,
+      "raDegrees": 201.2983523,
+      "decDegrees": -11.16124491,
+      "pmRaMasYear": -42.5,
+      "pmDecMasYear": -31.73,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Horn I",
+      "identitySourcePointer": "/common_names/HIP 65474/0/english"
+    },
+    {
+      "name": "亢",
+      "designation": "* kap Vir",
+      "hip": 69427,
+      "raDegrees": 213.22392088,
+      "decDegrees": -10.274044,
+      "pmRaMasYear": 8.04,
+      "pmDecMasYear": 140.79,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Neck I",
+      "identitySourcePointer": "/common_names/HIP 69427/0/english"
+    },
+    {
+      "name": "氐",
+      "designation": "* alf02 Lib",
+      "hip": 72622,
+      "raDegrees": 222.71990536,
+      "decDegrees": -16.04161047,
+      "pmRaMasYear": -105.69,
+      "pmDecMasYear": -69.0,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Root I",
+      "identitySourcePointer": "/common_names/HIP 72622/0/english"
+    },
+    {
+      "name": "房",
+      "designation": "* pi Sco",
+      "hip": 78265,
+      "raDegrees": 239.71300283,
+      "decDegrees": -26.1140428,
+      "pmRaMasYear": -12.0,
+      "pmDecMasYear": -25.71,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Room I",
+      "identitySourcePointer": "/common_names/HIP 78265/0/english"
+    },
+    {
+      "name": "心",
+      "designation": "* sig Sco",
+      "hip": 80112,
+      "raDegrees": 245.29717718,
+      "decDegrees": -25.59275259,
+      "pmRaMasYear": -10.03,
+      "pmDecMasYear": -18.03,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Heart I",
+      "identitySourcePointer": "/common_names/HIP 80112/0/english"
+    },
+    {
+      "name": "尾",
+      "designation": "* mu01 Sco",
+      "hip": 82514,
+      "raDegrees": 252.96766195,
+      "decDegrees": -38.04732717,
+      "pmRaMasYear": -8.84,
+      "pmDecMasYear": -21.6,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Tail I",
+      "identitySourcePointer": "/common_names/HIP 82514/0/english"
+    },
+    {
+      "name": "箕",
+      "designation": "* gam02 Sgr",
+      "hip": 88635,
+      "raDegrees": 271.45218586,
+      "decDegrees": -30.42365007,
+      "pmRaMasYear": -55.75,
+      "pmDecMasYear": -181.53,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Winnowing Basket I",
+      "identitySourcePointer": "/common_names/HIP 88635/0/english"
+    },
+    {
+      "name": "斗",
+      "designation": "* phi Sgr",
+      "hip": 92041,
+      "raDegrees": 281.41397083,
+      "decDegrees": -26.9907794,
+      "pmRaMasYear": 51.15,
+      "pmDecMasYear": 0.45,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Dipper I",
+      "identitySourcePointer": "/common_names/HIP 92041/0/english"
+    },
+    {
+      "name": "牛",
+      "designation": "* bet01 Cap",
+      "hip": 100345,
+      "raDegrees": 305.25269347,
+      "decDegrees": -14.78140119,
+      "pmRaMasYear": 48.42,
+      "pmDecMasYear": 14.0,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Ox I",
+      "identitySourcePointer": "/common_names/HIP 100345/0/english"
+    },
+    {
+      "name": "女",
+      "designation": "* eps Aqr",
+      "hip": 102618,
+      "raDegrees": 311.91888574,
+      "decDegrees": -9.49568988,
+      "pmRaMasYear": 31.89,
+      "pmDecMasYear": -35.32,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Girl I",
+      "identitySourcePointer": "/common_names/HIP 102618/0/english"
+    },
+    {
+      "name": "虚",
+      "designation": "* bet Aqr",
+      "hip": 106278,
+      "raDegrees": 322.88966951,
+      "decDegrees": -5.57115593,
+      "pmRaMasYear": 22.79,
+      "pmDecMasYear": -6.7,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Emptiness I",
+      "identitySourcePointer": "/common_names/HIP 106278/0/english"
+    },
+    {
+      "name": "危",
+      "designation": "* alf Aqr",
+      "hip": 109074,
+      "raDegrees": 331.44593869,
+      "decDegrees": -0.31982656,
+      "pmRaMasYear": 17.9,
+      "pmDecMasYear": -9.93,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Rooftop I",
+      "identitySourcePointer": "/common_names/HIP 109074/0/english"
+    },
+    {
+      "name": "室",
+      "designation": "* alf Peg",
+      "hip": 113963,
+      "raDegrees": 346.1900702,
+      "decDegrees": 15.20536786,
+      "pmRaMasYear": 61.1,
+      "pmDecMasYear": -42.56,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Encampment I",
+      "identitySourcePointer": "/common_names/HIP 113963/0/english"
+    },
+    {
+      "name": "壁",
+      "designation": "* gam Peg",
+      "hip": 1067,
+      "raDegrees": 3.30895828,
+      "decDegrees": 15.18361593,
+      "pmRaMasYear": 4.7,
+      "pmDecMasYear": -8.24,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Wall I",
+      "identitySourcePointer": "/common_names/HIP 1067/0/english"
+    },
+    {
+      "name": "奎",
+      "designation": "* eta And",
+      "hip": 4463,
+      "raDegrees": 14.30178237,
+      "decDegrees": 23.41775997,
+      "pmRaMasYear": -43.72,
+      "pmDecMasYear": -46.06,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Legs I",
+      "identitySourcePointer": "/common_names/HIP 4463/0/english"
+    },
+    {
+      "name": "娄",
+      "designation": "* bet Ari",
+      "hip": 8903,
+      "raDegrees": 28.65978771,
+      "decDegrees": 20.80829949,
+      "pmRaMasYear": 96.32,
+      "pmDecMasYear": -108.8,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Bond I",
+      "identitySourcePointer": "/common_names/HIP 8903/0/english"
+    },
+    {
+      "name": "胃",
+      "designation": "35 Ari",
+      "hip": 12719,
+      "raDegrees": 40.86296031,
+      "decDegrees": 27.70717078,
+      "pmRaMasYear": 3.51,
+      "pmDecMasYear": -9.97,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Stomach I",
+      "identitySourcePointer": "/common_names/HIP 12719/0/english"
+    },
+    {
+      "name": "昴",
+      "designation": "17 Tau",
+      "hip": 17499,
+      "raDegrees": 56.21884811,
+      "decDegrees": 24.1134484,
+      "pmRaMasYear": 21.55,
+      "pmDecMasYear": -44.92,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Hairy Head I",
+      "identitySourcePointer": "/common_names/HIP 17499/0/english"
+    },
+    {
+      "name": "毕",
+      "designation": "* eps Tau",
+      "hip": 20889,
+      "raDegrees": 67.15388879,
+      "decDegrees": 19.18052092,
+      "pmRaMasYear": 107.23,
+      "pmDecMasYear": -36.77,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Net I",
+      "identitySourcePointer": "/common_names/HIP 20889/0/english"
+    },
+    {
+      "name": "觜",
+      "designation": "* lam Ori",
+      "hip": 26207,
+      "raDegrees": 83.78449043,
+      "decDegrees": 9.93416294,
+      "pmRaMasYear": -1.03,
+      "pmDecMasYear": -1.86,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Turtle Beak I",
+      "identitySourcePointer": "/common_names/HIP 26207/0/english"
+    },
+    {
+      "name": "参",
+      "designation": "* zet Ori",
+      "hip": 26727,
+      "raDegrees": 85.18968672,
+      "decDegrees": -1.94257841,
+      "pmRaMasYear": 3.99,
+      "pmDecMasYear": 2.54,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Three Stars I",
+      "identitySourcePointer": "/common_names/HIP 26727/0/english"
+    },
+    {
+      "name": "井",
+      "designation": "* mu Gem",
+      "hip": 30343,
+      "raDegrees": 95.73996302,
+      "decDegrees": 22.51385027,
+      "pmRaMasYear": 56.84,
+      "pmDecMasYear": -108.79,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Well I",
+      "identitySourcePointer": "/common_names/HIP 30343/0/english"
+    },
+    {
+      "name": "鬼",
+      "designation": "* tet Cnc",
+      "hip": 41822,
+      "raDegrees": 127.8990288,
+      "decDegrees": 18.09455771,
+      "pmRaMasYear": -60.05,
+      "pmDecMasYear": -56.5,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Ghosts I",
+      "identitySourcePointer": "/common_names/HIP 41822/0/english"
+    },
+    {
+      "name": "柳",
+      "designation": "* del Hya",
+      "hip": 42313,
+      "raDegrees": 129.41419739,
+      "decDegrees": 5.70379868,
+      "pmRaMasYear": -70.27,
+      "pmDecMasYear": -6.99,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Willow I",
+      "identitySourcePointer": "/common_names/HIP 42313/0/english"
+    },
+    {
+      "name": "星",
+      "designation": "* alf Hya",
+      "hip": 46390,
+      "raDegrees": 141.8968826,
+      "decDegrees": -8.65868335,
+      "pmRaMasYear": -14.49,
+      "pmDecMasYear": 33.25,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Star I",
+      "identitySourcePointer": "/common_names/HIP 46390/0/english"
+    },
+    {
+      "name": "张",
+      "designation": "* ups01 Hya",
+      "hip": 48356,
+      "raDegrees": 147.86951033,
+      "decDegrees": -14.84654997,
+      "pmRaMasYear": 18.68,
+      "pmDecMasYear": -21.88,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Extended Net I",
+      "identitySourcePointer": "/common_names/HIP 48356/0/english"
+    },
+    {
+      "name": "翼",
+      "designation": "* alf Crt",
+      "hip": 53740,
+      "raDegrees": 164.94478664,
+      "decDegrees": -18.29909723,
+      "pmRaMasYear": -462.39,
+      "pmDecMasYear": 129.11,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Wings I",
+      "identitySourcePointer": "/common_names/HIP 53740/0/english"
+    },
+    {
+      "name": "轸",
+      "designation": "* gam Crv",
+      "hip": 59803,
+      "raDegrees": 183.95194937,
+      "decDegrees": -17.5419837,
+      "pmRaMasYear": -159.58,
+      "pmDecMasYear": 22.31,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ],
+      "contemporaryName": "Chariot I",
+      "identitySourcePointer": "/common_names/HIP 59803/0/english"
+    }
+  ]
+}

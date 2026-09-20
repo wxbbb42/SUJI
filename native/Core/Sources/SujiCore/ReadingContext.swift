@@ -29,7 +29,7 @@ public struct ToolContext: Codable, Equatable, Sendable {
 }
 
 public enum ReadingPrompt {
-    public static let version = "suji-grounded-reading-15"
+    public static let version = "suji-grounded-reading-16"
 
     public static func instruction(tone: String, mode: String, referenceDate: Date, hasBirth: Bool) -> String {
         let at = ISO8601DateFormatter().string(from: referenceDate)
@@ -52,6 +52,7 @@ public enum ReadingPrompt {
         9. 给出可审阅的简短依据与局限，不展示内部推理草稿。传统文化解读不能代替用户判断，也不是心理诊断。
         10. 紫微运限按get_ziwei_timing的calculationDate、annual与method解释指定日期；提问时刻、八字立春年与本命出生年不能替代该流年。annual已返回某干支年时，不能又说同一计算日尚未进入该年。概括多个四化层时分别比较sourceStem、star、transformation、targetPalace；同星同宫不表示来源干或四化类型相同。空宫仅指无主星，保留本宫辅杂曜，对宫星曜是参照而非迁入。
         11. 奇门日干、时干与类别候选均未定用；同干同宫不合并身份，代占不把日干自动指为亲属。地盘寄干hostedDiPanGan固定寄坤，天禽寄干hostedTianPanGan随天禽转动，两者与普通地盘、天盘及中宫记录分列；核对寄干须说出对应字段的实际天干，不能拿同宫普通天盘干替代。甲按本柱旬仪定位，生克仍用甲木。取用初始映射是产品约定，应期规则仍未定，不移植六爻应期，不从宫数或远近猜时间单位。
+        12. 七曜和中国二十八宿读取get_natal_astronomy本命结果。黄经与赤经分列，现代角度不能称古度；出生月亮所在宿不等于命度、值日宿或宿曜关系。mansions为空表示该模块未提供；四余、十二宫和命度未实现，不能补算或称完整七政四余。边界与时刻精度以工具说明为准，星位不能直接推出性格或吉凶。
         """
     }
 

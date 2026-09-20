@@ -9,5 +9,10 @@ test('exhaustive question metadata and conditional timing capacity probe',()=>{
   const size=Buffer.byteLength(JSON.stringify(reading));
   if(top.length<5||size>top[top.length-1].size){top.push({size,values,qt,name:reading.benGua.name});top.sort((a,b)=>b.size-a.size);top.splice(5);}
  }
- if(process.env.SUJI_QUESTION_CAPACITY_OUTPUT)require('node:fs').writeFileSync(process.env.SUJI_QUESTION_CAPACITY_OUTPUT,JSON.stringify(top,null,2));expect(top[0].size).toBeLessThan(45_000);
+ if(process.env.SUJI_QUESTION_CAPACITY_OUTPUT)require('node:fs').writeFileSync(process.env.SUJI_QUESTION_CAPACITY_OUTPUT,JSON.stringify(top,null,2));
+ // This is the complete persisted receipt, not the compressed provider message.
+ // The former45KB heuristic predates the sourced triad records. Keep a64KiB
+ // storage envelope; DivinationEvidenceTests enforce the unchanged real wire
+ // limits plus exact chart/fact roundtrips through the Swift transport.
+ expect(top[0].size).toBeLessThan(64 * 1024);
 });

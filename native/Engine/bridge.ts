@@ -1,3 +1,4 @@
+import { createNatalAstronomy, validateNatalAstronomy } from './src/astronomy/natal';
 import { reassessQuestion } from './src/divination/reassessQuestion';
 import { BaziEngine } from './src/bazi/BaziEngine';
 import { ZiweiEngine } from './src/ziwei/ZiweiEngine';
@@ -100,6 +101,7 @@ export async function dispatch(input: any): Promise<any> {
       if (input.day && d.toISOString().slice(0,10) !== input.day) throw new Error('日历日期无效');
       return { ...getTodayInfo(d), solarTerm: currentSolarTerm(d) };
     }
+    case 'natal-astronomy': return createNatalAstronomy(birthKey(input.birth),dateOf(input.birth),ENGINE_REVISION);
     case 'natal': {
       const { mingPan, ziweiPan } = charts(input.birth);
       return { schemaVersion:1, engineRevision:ENGINE_REVISION, birthKey:birthKey(input.birth), calendarPolicy:CALENDAR_POLICY,
@@ -123,6 +125,12 @@ export async function dispatch(input: any): Promise<any> {
       if (!handler) throw new Error(`未知工具：${input.name}`);
       const definition = ALL_TOOLS.find(tool => tool.function.name === input.name)!;
       validateToolArguments(definition, input.arguments ?? {});
+      if(input.name==='get_natal_astronomy') {
+        const key=birthKey(input.birth),instant=dateOf(input.birth);
+        const astronomy=input.astronomy===undefined?createNatalAstronomy(key,instant,ENGINE_REVISION):validateNatalAstronomy(input.astronomy,key,instant,ENGINE_REVISION);
+        const result=await handler(input.arguments??{},{mingPan:null,ziweiPan:null,now,astronomy});
+        return {result,evidence:buildEvidenceFromToolCalls([{call:{id:input.id??'native',name:input.name,arguments:input.arguments??{}},result}])};
+      }
       const isCast = ['cast_liuyao', 'setup_qimen'].includes(input.name);
       const ctx = input.birth && !isCast ? natalCharts(input) : { mingPan: null, ziweiPan: null };
       if (!input.birth && !['cast_liuyao', 'setup_qimen'].includes(input.name)) throw new Error('请先在「我的」填写出生资料');

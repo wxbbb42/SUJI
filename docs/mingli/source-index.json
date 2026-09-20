@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-20T12:04:53.637Z",
-  "sourceCount": 53,
-  "claimCount": 67,
+  "generatedAt": "2026-09-20T15:01:33.096Z",
+  "sourceCount": 59,
+  "claimCount": 70,
   "domains": {
     "academic": [
       {
@@ -45,6 +45,65 @@
           "择日规则互校",
           "黄历术语源流",
           "宜忌表版本对照"
+        ]
+      }
+    ],
+    "astronomy": [
+      {
+        "id": "astronomy-engine-2.1.19",
+        "title": "Astronomy Engine 2.1.19",
+        "tier": "C",
+        "type": "versioned_software",
+        "priority": "P0",
+        "status": "source_read_independently_compared",
+        "usage": [
+          "地心日月水金火木土的位置",
+          "真赤道与真黄道当日坐标变换"
+        ]
+      },
+      {
+        "id": "astronomy-time-policy-v1",
+        "title": "SUJI固定UTC+8输入与UTC≈UT1 / Espenak–Meeus ΔT时间政策",
+        "tier": "C",
+        "type": "engineering_policy",
+        "priority": "P0",
+        "status": "implemented_explicit_policy",
+        "usage": [
+          "保持旧出生钟面物理输入不变",
+          "保存UT/TT/ΔT与未来时间模型限制"
+        ]
+      },
+      {
+        "id": "hipparcos-28-esa1997",
+        "title": "The Hipparcos and Tycho Catalogues，I/239/hip_main，选定28行",
+        "tier": "C",
+        "type": "astrometric_catalogue",
+        "priority": "P0",
+        "status": "exact_query_rows_and_epoch_units_archived",
+        "usage": [
+          "J1991.25 ICRS赤经赤纬及切向自行；pmRA包含cos(dec)，毫角秒/儒略年"
+        ]
+      },
+      {
+        "id": "simbad-28-20260920",
+        "title": "SIMBAD：28距星交叉身份及坐标复核，2026-09-20",
+        "tier": "C",
+        "type": "astrometric_database",
+        "priority": "P0",
+        "status": "exact_query_and_results_archived",
+        "usage": [
+          "Bayer/Flamsteed ↔ HIP分量交叉核对及J2000坐标独立比对"
+        ]
+      },
+      {
+        "id": "stellarium-contemporary-first-stars-71885f2e",
+        "title": "Stellarium Chinese Contemporary Sky Culture：二十八宿首星星名与HIP对应",
+        "tier": "C",
+        "type": "versioned_catalogue",
+        "priority": "P0",
+        "status": "immutable_blob_and_28_identities_crosschecked",
+        "usage": [
+          "现代星名距星参照：各星宿首星I的HIP身份；不采用其另页有冲突的距星表"
         ]
       }
     ],
@@ -484,6 +543,17 @@
         ]
       },
       {
+        "id": "liuyao-yilin-buyi-triad-center",
+        "title": "易林补遗（卷一三合中神与生墓位置）",
+        "tier": "A",
+        "type": "classic_text",
+        "priority": "P0",
+        "status": "scoped_electronic_excerpt_reviewed_not_print_collated",
+        "usage": [
+          "三合前字生、中字主象、后字墓的位置；对照其有中神的两支亦称成局异说"
+        ]
+      },
+      {
         "id": "liuyao-zengshan-buyi",
         "title": "增删卜易",
         "tier": "A",
@@ -579,6 +649,41 @@
           "分类占断",
           "六爻术语与例法",
           "断语安全改写样本"
+        ]
+      }
+    ],
+    "mansions": [
+      {
+        "id": "hipparcos-28-esa1997",
+        "title": "The Hipparcos and Tycho Catalogues，I/239/hip_main，选定28行",
+        "tier": "C",
+        "type": "astrometric_catalogue",
+        "priority": "P0",
+        "status": "exact_query_rows_and_epoch_units_archived",
+        "usage": [
+          "J1991.25 ICRS赤经赤纬及切向自行；pmRA包含cos(dec)，毫角秒/儒略年"
+        ]
+      },
+      {
+        "id": "simbad-28-20260920",
+        "title": "SIMBAD：28距星交叉身份及坐标复核，2026-09-20",
+        "tier": "C",
+        "type": "astrometric_database",
+        "priority": "P0",
+        "status": "exact_query_and_results_archived",
+        "usage": [
+          "Bayer/Flamsteed ↔ HIP分量交叉核对及J2000坐标独立比对"
+        ]
+      },
+      {
+        "id": "stellarium-contemporary-first-stars-71885f2e",
+        "title": "Stellarium Chinese Contemporary Sky Culture：二十八宿首星星名与HIP对应",
+        "tier": "C",
+        "type": "versioned_catalogue",
+        "priority": "P0",
+        "status": "immutable_blob_and_28_identities_crosschecked",
+        "usage": [
+          "现代星名距星参照：各星宿首星I的HIP身份；不采用其另页有冲突的距星表"
         ]
       }
     ],
@@ -846,6 +951,32 @@
         "usage": [
           "奇门规则交叉验证",
           "排盘结果对照"
+        ]
+      }
+    ],
+    "qizheng": [
+      {
+        "id": "astronomy-engine-2.1.19",
+        "title": "Astronomy Engine 2.1.19",
+        "tier": "C",
+        "type": "versioned_software",
+        "priority": "P0",
+        "status": "source_read_independently_compared",
+        "usage": [
+          "地心日月水金火木土的位置",
+          "真赤道与真黄道当日坐标变换"
+        ]
+      },
+      {
+        "id": "astronomy-time-policy-v1",
+        "title": "SUJI固定UTC+8输入与UTC≈UT1 / Espenak–Meeus ΔT时间政策",
+        "tier": "C",
+        "type": "engineering_policy",
+        "priority": "P0",
+        "status": "implemented_explicit_policy",
+        "usage": [
+          "保持旧出生钟面物理输入不变",
+          "保存UT/TT/ΔT与未来时间模型限制"
         ]
       }
     ],
@@ -1120,6 +1251,29 @@
     ]
   },
   "claims": [
+    {
+      "id": "astronomy.contemporary-first-star28.scope-v1",
+      "domain": "astronomy",
+      "sourceIds": [
+        "stellarium-contemporary-first-stars-71885f2e",
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920",
+        "astronomy-engine-2.1.19",
+        "astronomy-time-policy-v1"
+      ],
+      "status": "versioned_foundation_independent_samples_native_contract_and_full_wire_verified",
+      "confidence": "high_for_selected_catalogue_identity_and_sampled_transforms_not_historical_universality"
+    },
+    {
+      "id": "astronomy.seven-bodies.scope-v1",
+      "domain": "astronomy",
+      "sourceIds": [
+        "astronomy-engine-2.1.19",
+        "astronomy-time-policy-v1"
+      ],
+      "status": "versioned_foundation_independent_samples_native_contract_and_full_wire_verified",
+      "confidence": "high_for_versioned_engineering_scope_not_divination_efficacy"
+    },
     {
       "id": "bazi.adjusting-climate.yongshen",
       "domain": "bazi",
@@ -1593,6 +1747,16 @@
       ],
       "status": "source_vectors_exhaustive_structural_counterexamples_and_native_binding",
       "confidence": "high_for_selected_structural_observations_not_efficacy"
+    },
+    {
+      "id": "liuyao.scoped-triad-membership",
+      "domain": "liuyao",
+      "sourceIds": [
+        "liuyao-zengshan-buyi",
+        "liuyao-yilin-buyi-triad-center"
+      ],
+      "status": "scoped_structure_independent_oracle_native_reconstruction_and_full_wire_accepted",
+      "confidence": "scoped_membership_not_formation_or_efficacy"
     },
     {
       "id": "liuyao.six-spirits-not-standalone-verdict",

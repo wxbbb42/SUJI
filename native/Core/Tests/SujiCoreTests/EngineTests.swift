@@ -13,16 +13,21 @@ final class EngineTests: XCTestCase {
             let result = try await bridge.request(String(decoding: request, as: UTF8.self))
             try EngineContract.validate(result, command: (fixture["request"] as! [String: Any])["command"] as! String)
             let actual = try JSONSerialization.jsonObject(with: result) as! NSObject
-            XCTAssertTrue(actual.isEqual(fixture["result"]!), "Runtime parity failed: \(differences(actual, fixture["result"]!, path: "result").prefix(8))")
+            let input = fixture["request"] as! [String: Any]
+            let astronomy = input["command"] as? String == "natal-astronomy" || (input["command"] as? String == "tool" && input["name"] as? String == "get_natal_astronomy")
+            XCTAssertTrue(astronomy ? differences(actual, fixture["result"]!, path: "result", astronomy: true).isEmpty : actual.isEqual(fixture["result"]!), "Runtime parity failed: \(differences(actual, fixture["result"]!, path: "result").prefix(8))")
         }
     }
-    private func differences(_ a: Any, _ b: Any, path: String) -> [String] {
+    private func differences(_ a: Any, _ b: Any, path: String, astronomy: Bool = false) -> [String] {
         if let a = a as? [String: Any], let b = b as? [String: Any] {
-            return Set(a.keys).union(b.keys).sorted().flatMap { differences(a[$0] ?? NSNull(), b[$0] ?? NSNull(), path: path + "." + $0) }
+            return Set(a.keys).union(b.keys).sorted().flatMap { differences(a[$0] ?? NSNull(), b[$0] ?? NSNull(), path: path + "." + $0, astronomy: astronomy) }
         }
         if let a = a as? [Any], let b = b as? [Any], a.count == b.count {
-            return a.indices.flatMap { differences(a[$0], b[$0], path: path + "[\($0)]") }
+            return a.indices.flatMap { differences(a[$0], b[$0], path: path + "[\($0)]", astronomy: astronomy) }
         }
+        // Runtime transcendental functions differ at the last bits; all non-angle fields stay exact.
+        if astronomy, path.hasSuffix("Degrees"), let a = a as? NSNumber, let b = b as? NSNumber,
+           a.doubleValue.isFinite, b.doubleValue.isFinite, abs(a.doubleValue - b.doubleValue) <= 1e-9 { return [] }
         return (a as? NSObject)?.isEqual(b) == true ? [] : ["\(path): native=\(a) node=\(b)"]
     }
     func testMalformedChartsFailContractInsteadOfBecomingBlankDocuments() throws {

@@ -1,0 +1,28 @@
+[
+  {
+    "authenticated" : 1,
+    "case" : "all",
+    "date" : "2026-09-20T04:00:00Z",
+    "factsPreserved" : true,
+    "faithfulChartRoundtrip" : true,
+    "index" : 0,
+    "inlineBodyRemainsAfterCallRemoval" : 1,
+    "messageCount" : 7,
+    "receiptCount" : 1,
+    "replayEqualsLive" : true,
+    "reviewUTF16" : 22404
+  },
+  {
+    "authenticated" : 1,
+    "case" : "Moon",
+    "date" : "2026-09-20T04:00:00Z",
+    "factsPreserved" : true,
+    "faithfulChartRoundtrip" : true,
+    "index" : 1,
+    "inlineBodyRemainsAfterCallRemoval" : 1,
+    "messageCount" : 7,
+    "receiptCount" : 1,
+    "replayEqualsLive" : true,
+    "reviewUTF16" : 16275
+  }
+]

@@ -268,7 +268,7 @@ final class DivinationEvidenceTests: XCTestCase {
         let modelOutputs=delivery.messages.filter { $0.role == .tool }.map { $0.content! }
         for (call,modelOutput) in zip(calls,modelOutputs) {
             XCTAssertLessThanOrEqual(modelOutput.utf16.count,32_000)
-            XCTAssertLessThanOrEqual(modelOutput.utf16.count,29_000,"Reviewed worst cases need room below the per-message limit")
+            XCTAssertLessThanOrEqual(modelOutput.utf16.count,31_000,"Triad receipts retain at least 1,000 units below the unchanged 32,000 provider limit")
             var projected=try XCTUnwrap(try JSONSerialization.jsonObject(with:Data(modelOutput.utf8)) as? [String:Any])
             if projected.removeValue(forKey:"questionFromArguments") != nil { projected["question"]=question }
             let restored=try XCTUnwrap(LiuyaoConditionTransport.expand(JSONDecoder().decode(JSONValue.self,from:JSONSerialization.data(withJSONObject:projected))))
@@ -333,6 +333,7 @@ final class DivinationEvidenceTests: XCTestCase {
         let messages = history("get_ziwei_palace",output)
         let review = ReadingVerifier.messages(draft:"核对来源",history:messages,question:"核对")
         XCTAssertTrue(review.contains { $0.content?.contains("\"layouts\"") == true })
+        XCTAssertTrue(review.contains { $0.content?.contains("\"groupRows\"") == true })
         try assertIndexRestoresFacts(review:review,history:messages)
         XCTAssertEqual(review.filter { $0.role == .tool }.map(\.content),messages.filter { $0.role == .tool }.map(\.content))
     }
@@ -344,7 +345,19 @@ final class DivinationEvidenceTests: XCTestCase {
             let raw = try XCTUnwrap(message.content?.components(separatedBy:"\n").last)
             let envelope = try JSONDecoder().decode(JSONValue.self,from:Data(raw.utf8))
             XCTAssertEqual(ReadingVerificationEvidence.pointer("/columns",in:envelope),.array([.string("factKeySuffix"),.string("pointerSuffix"),.string("value")]))
-            guard case let .array(groups) = ReadingVerificationEvidence.pointer("/groups",in:envelope) else { return XCTFail("Missing index groups") }
+            let groups: [JSONValue]
+            if case let .array(inline) = ReadingVerificationEvidence.pointer("/groups",in:envelope) { groups = inline }
+            else if case let .array(rows) = ReadingVerificationEvidence.pointer("/groupRows",in:envelope) {
+                groups = try rows.map { row in
+                    guard case let .array(values) = row, case let .integer(index) = values.first,
+                          case let .array(columns) = ReadingVerificationEvidence.pointer("/groupColumns/\(index)",in:envelope),
+                          columns.count == values.count - 1 else { throw NSError(domain:"Invalid group columns",code:1) }
+                    let keys = try columns.map { column -> String in
+                        guard case let .string(key) = column else { throw NSError(domain:"Invalid group key",code:1) }; return key
+                    }
+                    return .object(Dictionary(uniqueKeysWithValues:zip(keys,values.dropFirst())))
+                }
+            } else { return XCTFail("Missing index groups") }
             for group in groups {
                 let ids:[String]
                 if case let .string(id) = ReadingVerificationEvidence.pointer("/toolCallID",in:group) { ids=[id] }

@@ -56,12 +56,12 @@ test("forwards valid local tool history and definitions", () => {
   assert.equal(body.messages[2].tool_call_id, "call_1");
   assert.equal(body.tool_choice, "auto");
 });
-test("accepts all nine tools and the separate Ziwei timing round trip", () => {
-  const names = ["get_domain","get_bazi_star","list_shensha","get_timing","get_today_context","get_ziwei_palace","get_ziwei_timing","cast_liuyao","setup_qimen"];
+test("accepts all ten tools and the separate Ziwei timing round trip", () => {
+  const names = ["get_domain","get_bazi_star","list_shensha","get_timing","get_today_context","get_ziwei_palace","get_ziwei_timing","cast_liuyao","setup_qimen","get_natal_astronomy"];
   const tools = names.map(name=>({type:"function",function:{name,description:name,parameters:{type:"object",properties:{}}}}));
   const call = {id:"ziwei-timing",type:"function",function:{name:"get_ziwei_timing",arguments:'{"date":"2025-01-29"}'}};
   const body = providerRequest({...input,tools,messages:[...input.messages,{role:"assistant",content:null,tool_calls:[call]},{role:"tool",content:'{"annual":{"ganZhi":"乙巳"}}',tool_call_id:call.id}]});
-  assert.equal(body.tools.length,9);
+  assert.equal(body.tools.length,10);
   assert.equal(body.messages[1].tool_calls[0].function.name,"get_ziwei_timing");
   assert.throws(()=>providerRequest({...input,tools:[...tools,tools[0]]}));
 });

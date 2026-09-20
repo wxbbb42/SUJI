@@ -1,0 +1,8 @@
+{
+  "cases": 48,
+  "rejectedByTotalContextLimit": 42,
+  "minBackendTotalUTF16": 118413,
+  "maxBackendTotalUTF16": 127398,
+  "limit": 120000,
+  "scope": "Actual ChatClient requests; unchanged backend providerRequest rejected context_too_large. Saved initial requests in archived evidence."
+}

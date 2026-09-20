@@ -10,6 +10,8 @@
 
 **Spec:** `docs/mingli/validation/professional-audit-2026-09-20.md` and the user's approved core-first roadmap.
 
+**2026-09-20 priority change:** The user has now requested starting 七政四余 and independently selected 中国二十八宿（本命星宿与传统星度）. This supersedes the earlier dependency that all core interpretation work must finish before extension research. New scope and investigation order: `docs/mingli/qizheng-and-28-mansions.md`. Existing unchecked core work remains unaccepted; B5b working-tree changes require integration acceptance. No zodiac or 宿曜 relationship module is added. This is a user-directed priority change, not evidence of completed core efficacy.
+
 ## Global constraints
 
 - Preserve login, required birth data, natal caching, account isolation and stable cast receipts.
@@ -332,3 +334,17 @@ Source comparison is recorded in `triad-fanfu-source-review.json`. Select three 
 B5a transport decision: preserved single-message/source limits after the legal escaped-event regression and independent upper request case failed (32,888 single cast /123,187 whole request including arguments). Add an exact self-contained repeated-object-key layout after the existing condition dictionary; expand object rows first, then conditions, before original-pointer indexing. No chart facts/values omitted, full saved receipts unchanged; old condition-only delivery remains authenticated by exact regeneration. Reject damaged/missing/unused layouts, preserve primitive/array/object identity and special key names. Independent worst controls case now has116,784 total with arguments and26,719 sampled max cast; final independent wire review pending. A too-small special-key test initially chose the correct no-compression fallback; enlarging its fixture forces actual packing, with complete equality and no prototype semantics verified. B5a broad acceptance remains pending until final Core/native and review results.
 
 B5a local accepted within this structural scope:764 Engine /364 Core outside Beijing /15 backend /28 native unit +3 UI pass; deterministic resources,53-source/67-claim index and native-only check pass. Independent4096 patterns and5 source diagrams agree.48 actual Core/ChatClient requests pass real backend providerRequest;96 full charts,6,851 object rows,4,694 condition rows and336 index messages restore exactly. Max116,997 UTF16 including arguments,26,719 per message,52,008 tool bytes and172,003 body bytes;30 native/source cases and46 layout/value boundary cases pass. No unresolved scoped review findings. Evidence in liuyao-fanfu-2026-09-20.md, core-b5a-local-results.json and b5a-independent-review. No new provider interpretation/prediction validation. Commit/push/exact-head CI pending; B5b, E2b, broader efficacy and G/H remain open.
+
+B5a remote accepted: `f13e12cce8699924ed4abc1b5d0a08ac8bfd11f2` matches origin; [run35510715786](https://github.com/wxbbb42/SUJI/actions/runs/35510715786) passed engine, swift-core and native-app. This accepts the separately scoped structural observations and full evidence delivery, not event prediction.
+
+## Batch B5b — source-scoped triad membership
+
+Source correction: full `/19` contains explicit 三合 tables and 内初三/外四六 moving-change rules after 六合 material. `triad-formation-source-review.json` archives the full7054-byte raw page with the existing087c3533… hash, exact offsets/excerpt hashes and a literal离→坤 diagram. The prior research missed this section; its no-explicit-endpoint-text limitation is superseded. Preserve the archive and correction. The same transcript's movement-count clauses conflict, so no universal formation threshold is selected.
+
+- [ ] Engine RED/GREEN for visible-original membership, one actual moving anchor with month/day, and separately qualified inner/outer endpoint-change routes. All four literal tables; three distinct branches, complete/missing/center observations, duplicate object identity, original/changed/hidden/static exclusions.
+- [ ] Preserve each member's own context, tomb-reference and day-clash-rule pointers; empty/broken or structural墓 does not erase membership or prove effective入墓. Keep textual disagreement about two-branch/center usage and present interference versus later release.
+- [ ] Independent4096 literal-Najia oracle and actual source diagrams 离→坤、复→谦、革→家人; no invented Gregorian dates, biography fitting or outcome validation.
+- [ ] Native reconstructs and validates entire layer, sources and all paths; reject membership/branch/source/condition corruption, keep legacy archives and question-supplement invariance. Evidence-bound text and allowlisted false/empty facts.
+- [ ] Full local checks, unchanged delivery limits and complete receipt recovery, independent review, commit/push and exact-head CI.
+
+Ruling: visible-original rows are disclosed branch-table observations, including static witnesses; no rule equates them with formed局. Calendar rows inspect only one actual moving original plus month/day; non世 anchors are disclosed structural generalization. No free combined moving/hidden/changed pool. Three-branch completeness is not transformation, strength, binding or event success. These questions, E2b and G/H remain open after this scoped batch.

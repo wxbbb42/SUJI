@@ -34,6 +34,9 @@ const context=vm.createContext({ console }); vm.runInContext(result.outputFiles[
 const birth={year:1995,month:8,day:15,hour:19,minute:30,gender:'女',city:'上海',longitude:121.47,timeZoneID:'Asia/Shanghai'};
 const requests = [
   {command:'natal',birth},
+  {command:'natal-astronomy',birth},
+  ...[{year:1901,month:1,day:1,hour:0,minute:0},{year:2100,month:12,day:31,hour:23,minute:59},
+    {year:1990,month:7,day:15,hour:12,minute:0}].map(date=>({command:'natal-astronomy',birth:{...birth,...date}})),
   {command:'calendar',day:'2026-09-19'},
   {command:'profile',birth,now:'2026-09-19T04:00:00Z'},
   {command:'tool',name:'setup_qimen',arguments:{question:'换个城市生活',questionType:'career'},now:'2026-09-19T04:00:00Z'},
@@ -53,6 +56,8 @@ requests.push({command:'tool',name:'get_ziwei_timing',birth,natal:savedNatal,now
 requests.push({command:'tool',name:'get_ziwei_timing',birth,natal:savedNatal,now:'2026-09-19T04:00:00Z',arguments:{date:'2025-01-29'}});
 requests.push({command:'tool',name:'get_ziwei_palace',birth,natal:savedNatal,now:'2026-09-19T04:00:00Z',arguments:{palace:'命宫',withPalaceFlights:true}});
 requests.push({command:'tool',name:'get_ziwei_timing',birth,natal:savedNatal,now:'2025-08-08T15:00:00Z',arguments:{withMonthly:true}});
+const savedAstronomy=JSON.parse(JSON.stringify(await context.SujiNative.dispatch({command:'natal-astronomy',birth})));
+requests.push({command:'tool',name:'get_natal_astronomy',birth,astronomy:savedAstronomy,now:'2026-09-19T04:00:00Z',arguments:{body:'Moon'}});
 const fixtures=[];
 for(const request of requests) fixtures.push({request,result:await context.SujiNative.dispatch(request)});
 await writeFile(path.join(native,'Resources/engine-fixtures.json'),JSON.stringify(fixtures,null,2));

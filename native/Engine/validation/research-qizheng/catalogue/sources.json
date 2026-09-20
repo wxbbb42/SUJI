@@ -1,0 +1,67 @@
+{
+  "date": "2026-09-20",
+  "status": "contemporary-first-star-reference-policy-verified-not-universal-historical-set",
+  "sources": [
+    {
+      "id": "hipparcos-28-esa1997",
+      "title": "The Hipparcos and Tycho Catalogues, ESA SP-1200 (1997), I/239/hip_main",
+      "artifact": "hipparcos-28.tsv",
+      "url": "https://vizier.cds.unistra.fr/viz-bin/asu-tsv",
+      "query": "Exact request URL in archived response and retrieve-catalogue.py",
+      "supports": "ICRS J1991.25 positions and proper motions; mu_alpha*cos(delta), mas/year",
+      "rightsURI": "https://cds.unistra.fr/vizier-org/licences_vizier.html",
+      "licenseStatus": "Rights URI returned by catalogue; licence body retrieval timed out; no claim of a specific licence verified.",
+      "sha256": "01fe75f6ec320ffa452beb68d0e970dc72a8d65de7447754487a7ae980239d80"
+    },
+    {
+      "id": "simbad-28-20260920",
+      "title": "SIMBAD CDS cross-identifications and J2000 ICRS positions",
+      "artifact": "simbad-28.json",
+      "url": "http://simbad.cds.unistra.fr/simbad/sim-tap/sync",
+      "query": "Exact ADQL in retrieve-catalogue.py",
+      "supports": "28 Bayer/Flamsteed to HIP identities and coordinate crosscheck, not Chinese mansion boundary roles.",
+      "sha256": "fe2ec8bacdb9c9e4dc42556d92448e8ab9d294da0972b61746b84d05106d303c"
+    },
+    {
+      "id": "hipparcos-readme-esa1997",
+      "title": "VizieR I/239 catalogue ReadMe",
+      "artifact": "hipparcos-readme.txt",
+      "url": "https://cdsarc.cds.unistra.fr/ftp/I/239/ReadMe",
+      "supports": "Primary catalogue description, positional epoch and proper-motion semantics (lines116–126).",
+      "sha256": "7a7d54903d16460a76c240f07c41b019d57becfd27b5dfa2908e828f52f90c27"
+    },
+    {
+      "id": "stellarium-contemporary-first-stars-71885f2e",
+      "title": "Stellarium Chinese Contemporary: exact first-numbered-star HIP mappings",
+      "artifact": "stellarium/contemporary-index.json",
+      "sha256": "c6ba9e2c83b52c5a04f64471368d4ce02904582f7eaaa560bda99965eb631197",
+      "gitBlobRevision": "71885f2ea74edb2b8d960b0672d89fbf3e980517",
+      "immutableURL": "https://api.github.com/repos/Stellarium/stellarium-skycultures/git/blobs/71885f2ea74edb2b8d960b0672d89fbf3e980517",
+      "attribution": "Sun Shuwei and Stellarium team; see archived descriptions.",
+      "license": "CC BY-SA (source does not specify version)",
+      "supportedUse": "Only modern first-numbered-star identities; separate historical determinative table is not adopted."
+    },
+    {
+      "id": "stellarium-contemporary-description-b07470b4",
+      "title": "Stellarium Chinese Contemporary description, authors and licence",
+      "artifact": "stellarium/contemporary-description.md",
+      "sha256": "6683d1eec605e2de4f562f71257ef2fbb40c611c833755db6f0f58c31142a4f4",
+      "gitBlobRevision": "b07470b492c3eba9e0edb8c9be207fa25976b3d4",
+      "immutableURL": "https://api.github.com/repos/Stellarium/stellarium-skycultures/git/blobs/b07470b492c3eba9e0edb8c9be207fa25976b3d4",
+      "attribution": "Sun Shuwei and Stellarium team; see archived descriptions.",
+      "license": "CC BY-SA (source does not specify version)",
+      "supportedUse": "Only modern first-numbered-star identities; separate historical determinative table is not adopted."
+    },
+    {
+      "id": "stellarium-chinese-description-ab705c56",
+      "title": "Stellarium Chinese description and discordant determinative table",
+      "artifact": "stellarium/chinese-description.md",
+      "sha256": "4bdcb56a2f8caa4c6a2e3bf0ebf65d336b53f771c7a1b76dd2fba4ac1ed6a185",
+      "gitBlobRevision": "ab705c56a4d37a0e21b84df398731df062577708",
+      "immutableURL": "https://api.github.com/repos/Stellarium/stellarium-skycultures/git/blobs/ab705c56a4d37a0e21b84df398731df062577708",
+      "attribution": "Sun Shuwei and Stellarium team; see archived descriptions.",
+      "license": "CC BY-SA (source does not specify version)",
+      "supportedUse": "Only modern first-numbered-star identities; separate historical determinative table is not adopted."
+    }
+  ]
+}

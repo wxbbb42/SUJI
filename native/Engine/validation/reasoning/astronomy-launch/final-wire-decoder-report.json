@@ -1,0 +1,40 @@
+{
+  "passed": 2,
+  "objectLayoutCharts": 0,
+  "objectLayoutRows": 0,
+  "packedCharts": 0,
+  "packedRows": 0,
+  "emptyPathRows": 0,
+  "IDDictionaryMessages": 2,
+  "layoutMessages": 1,
+  "maxBackendTotalUTF16": 22418,
+  "maxBodyBytes": 41576,
+  "maxMessageUTF16": 6888,
+  "scope": "Actual native ChatClient captured request body, real backend providerRequest, MAX_BODY_BYTES; independent JS decoding of question references, recursive object layouts, condition tuples including path dictionary, reviewer fact prefix/layout/receipt-ID dictionaries; exact equality to full Engine objects and full native facts. No provider call.",
+  "cases": [
+    {
+      "index": 0,
+      "eventVariant": "all",
+      "providerValidatorAccepted": true,
+      "actualChatClientBodyBytes": 41576,
+      "backendTotalUTF16": 22418,
+      "maxMessageUTF16": 6888,
+      "messages": 7,
+      "facts": 157,
+      "indexFacts": 157,
+      "chartsRestoredExactly": 1
+    },
+    {
+      "index": 1,
+      "eventVariant": "Moon",
+      "providerValidatorAccepted": true,
+      "actualChatClientBodyBytes": 34880,
+      "backendTotalUTF16": 16290,
+      "maxMessageUTF16": 4131,
+      "messages": 7,
+      "facts": 49,
+      "indexFacts": 49,
+      "chartsRestoredExactly": 1
+    }
+  ]
+}

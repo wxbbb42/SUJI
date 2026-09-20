@@ -1,3 +1,4 @@
+import { astronomyTools, astronomyHandlers } from './astronomy';
 /**
  * 工具汇总：聚合 get_domain（实现细节用其他 handlers），导出全集
  */
@@ -103,6 +104,7 @@ const aggregatedHandlers: Record<string, ToolHandler> = {
 
 export const ALL_TOOLS: ToolDefinition[] = [
   ...aggregatedTools,
+  ...astronomyTools,
   ...baziTools,
   ...ziweiTools,
   ...liuyaoTools,
@@ -111,6 +113,7 @@ export const ALL_TOOLS: ToolDefinition[] = [
 
 export const ALL_HANDLERS: Record<string, ToolHandler> = {
   ...aggregatedHandlers,
+  ...astronomyHandlers,
   ...baziHandlers,
   ...ziweiHandlers,
   ...liuyaoHandlers,
@@ -129,4 +132,5 @@ export const TOOL_STRATEGY = `工具使用策略：
 8. 收到 user_force_mode=liuyao 时强制走 cast_liuyao；收到 user_force_mode=mingli 时禁用 cast_liuyao
 9. 战略级重大决策（"要不要换城市/移民/换行业/创业"/"明年这件大事"/"这家公司能干长吗"/"我要不要和这个人结婚"）→ 用 setup_qimen
 10. 普通决策（"她回我吗"/"明天面试结果"）→ 用 cast_liuyao
-11. 区分启发：影响时间跨度 / 影响生活面广度 / 严肃度。模糊时优先 cast_liuyao（更通俗）`;
+11. 出生七曜或中国二十八宿 → get_natal_astronomy；出生月亮所在宿不等于命度，不以此工具推算四余、行运、吉凶或宿曜关系
+12. 区分启发：影响时间跨度 / 影响生活面广度 / 严肃度。模糊时优先 cast_liuyao（更通俗）`;

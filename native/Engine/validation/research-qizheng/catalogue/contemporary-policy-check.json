@@ -1,0 +1,194 @@
+{
+  "policyID": "contemporary-first-star28-equatorial-v1",
+  "label": "现代星名距星参照",
+  "sourceBlob": "71885f2ea74edb2b8d960b0672d89fbf3e980517",
+  "checks": [
+    {
+      "name": "角",
+      "hip": 65474,
+      "modernName": "Horn I",
+      "pointer": "/common_names/HIP 65474/0/english"
+    },
+    {
+      "name": "亢",
+      "hip": 69427,
+      "modernName": "Neck I",
+      "pointer": "/common_names/HIP 69427/0/english"
+    },
+    {
+      "name": "氐",
+      "hip": 72622,
+      "modernName": "Root I",
+      "pointer": "/common_names/HIP 72622/0/english"
+    },
+    {
+      "name": "房",
+      "hip": 78265,
+      "modernName": "Room I",
+      "pointer": "/common_names/HIP 78265/0/english"
+    },
+    {
+      "name": "心",
+      "hip": 80112,
+      "modernName": "Heart I",
+      "pointer": "/common_names/HIP 80112/0/english"
+    },
+    {
+      "name": "尾",
+      "hip": 82514,
+      "modernName": "Tail I",
+      "pointer": "/common_names/HIP 82514/0/english"
+    },
+    {
+      "name": "箕",
+      "hip": 88635,
+      "modernName": "Winnowing Basket I",
+      "pointer": "/common_names/HIP 88635/0/english"
+    },
+    {
+      "name": "斗",
+      "hip": 92041,
+      "modernName": "Dipper I",
+      "pointer": "/common_names/HIP 92041/0/english"
+    },
+    {
+      "name": "牛",
+      "hip": 100345,
+      "modernName": "Ox I",
+      "pointer": "/common_names/HIP 100345/0/english"
+    },
+    {
+      "name": "女",
+      "hip": 102618,
+      "modernName": "Girl I",
+      "pointer": "/common_names/HIP 102618/0/english"
+    },
+    {
+      "name": "虚",
+      "hip": 106278,
+      "modernName": "Emptiness I",
+      "pointer": "/common_names/HIP 106278/0/english"
+    },
+    {
+      "name": "危",
+      "hip": 109074,
+      "modernName": "Rooftop I",
+      "pointer": "/common_names/HIP 109074/0/english"
+    },
+    {
+      "name": "室",
+      "hip": 113963,
+      "modernName": "Encampment I",
+      "pointer": "/common_names/HIP 113963/0/english"
+    },
+    {
+      "name": "壁",
+      "hip": 1067,
+      "modernName": "Wall I",
+      "pointer": "/common_names/HIP 1067/0/english"
+    },
+    {
+      "name": "奎",
+      "hip": 4463,
+      "modernName": "Legs I",
+      "pointer": "/common_names/HIP 4463/0/english"
+    },
+    {
+      "name": "娄",
+      "hip": 8903,
+      "modernName": "Bond I",
+      "pointer": "/common_names/HIP 8903/0/english"
+    },
+    {
+      "name": "胃",
+      "hip": 12719,
+      "modernName": "Stomach I",
+      "pointer": "/common_names/HIP 12719/0/english"
+    },
+    {
+      "name": "昴",
+      "hip": 17499,
+      "modernName": "Hairy Head I",
+      "pointer": "/common_names/HIP 17499/0/english"
+    },
+    {
+      "name": "毕",
+      "hip": 20889,
+      "modernName": "Net I",
+      "pointer": "/common_names/HIP 20889/0/english"
+    },
+    {
+      "name": "觜",
+      "hip": 26207,
+      "modernName": "Turtle Beak I",
+      "pointer": "/common_names/HIP 26207/0/english"
+    },
+    {
+      "name": "参",
+      "hip": 26727,
+      "modernName": "Three Stars I",
+      "pointer": "/common_names/HIP 26727/0/english"
+    },
+    {
+      "name": "井",
+      "hip": 30343,
+      "modernName": "Well I",
+      "pointer": "/common_names/HIP 30343/0/english"
+    },
+    {
+      "name": "鬼",
+      "hip": 41822,
+      "modernName": "Ghosts I",
+      "pointer": "/common_names/HIP 41822/0/english"
+    },
+    {
+      "name": "柳",
+      "hip": 42313,
+      "modernName": "Willow I",
+      "pointer": "/common_names/HIP 42313/0/english"
+    },
+    {
+      "name": "星",
+      "hip": 46390,
+      "modernName": "Star I",
+      "pointer": "/common_names/HIP 46390/0/english"
+    },
+    {
+      "name": "张",
+      "hip": 48356,
+      "modernName": "Extended Net I",
+      "pointer": "/common_names/HIP 48356/0/english"
+    },
+    {
+      "name": "翼",
+      "hip": 53740,
+      "modernName": "Wings I",
+      "pointer": "/common_names/HIP 53740/0/english"
+    },
+    {
+      "name": "轸",
+      "hip": 59803,
+      "modernName": "Chariot I",
+      "pointer": "/common_names/HIP 59803/0/english"
+    }
+  ],
+  "passed": true,
+  "scope": "Select the first numbered star of each named contemporary Chinese mansion asterism. Not a historical-school reconstruction or an endorsement of every determinative-star table.",
+  "conflicts": [
+    {
+      "name": "奎",
+      "selected": "η And / HIP4463 / Legs I",
+      "other": "Archived historical Wikipedia table and Stellarium Chinese description determinative table use ζ And. Contemporary first-star policy intentionally selects η; no date or universal historical revision claim."
+    },
+    {
+      "name": "斗",
+      "selected": "φ Sgr / HIP92041 / Dipper I",
+      "other": "Archived Wikipedia historic table agrees φ Sgr; Stellarium Chinese description determinative table lists μ Sgr. That separate table is not adopted."
+    },
+    {
+      "name": "觜参",
+      "selected": "λ Ori / HIP26207 and ζ Ori / HIP26727",
+      "other": "Old φ¹ Ori / δ Ori pair reverses modern RA order; revised contemporary I identities agree archived Wikipedia revision narrative."
+    }
+  ]
+}

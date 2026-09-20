@@ -211,7 +211,8 @@ public enum ReadingVerifier {
             // message per subject would exhaust the backend's 120-message cap.
             var packed: [String] = [], length = 0
             for envelope in sharedReceiptEnvelopes(envelopes) {
-                if !packed.isEmpty, length + envelope.utf16.count + 1 > 16_000 {
+                if !packed.isEmpty, length + envelope.utf16.count + 1 > 28_000,
+                   (indexMessage(packed + [envelope]).content?.utf16.count ?? Int.max) > 29_000 {
                     result.append(indexMessage(packed))
                     packed = []; length = 0
                 }
@@ -330,6 +331,30 @@ public enum ReadingVerifier {
         root["toolCallIDs"] = .array(ids);root["groups"] = .array(packed)
         let compact=ReadingVerificationEvidence.encoded(JSONValue.object(root))
         let instruction="toolCallIDIndex/toolCallIDIndices是本条消息根toolCallIDs数组的从0起下标；先还原完整原回执ID再引用。\n"
+        guard compact.utf16.count + instruction.utf16.count < raw.utf16.count else { return indexWithGroupRows(raw,prefix:prefix) }
+        return indexWithGroupRows(compact, prefix:prefix+instruction)
+    }
+
+    /// Share the repeated group field names, independently of fact layouts and
+    /// receipt-ID dictionaries. Every original value remains in this message.
+    private static func indexWithGroupRows(_ raw: String, prefix: String) -> ChatMessage {
+        let unchanged = ChatMessage(role:.user,content:prefix+raw)
+        guard case var .object(root) = try? JSONDecoder().decode(JSONValue.self,from:Data(raw.utf8)),
+              case let .array(groups) = root["groups"] else { return unchanged }
+        var columns: [[String]] = [], rows: [JSONValue] = []
+        for group in groups {
+            guard case let .object(object) = group else { return unchanged }
+            let keys = object.keys.sorted()
+            let index: Int
+            if let existing = columns.firstIndex(of:keys) { index = existing }
+            else { index = columns.count; columns.append(keys) }
+            rows.append(.array([.integer(Int64(index))]+keys.map { object[$0]! }))
+        }
+        root.removeValue(forKey:"groups")
+        root["groupColumns"] = .array(columns.map { .array($0.map(JSONValue.string)) })
+        root["groupRows"] = .array(rows)
+        let instruction = "先还原groups：groupRows每行首项i是groupColumns的从0起下标，后续各值依该列名顺序组成一个组对象。其余字段布局与回执ID还原规则不变。\n"
+        let compact = ReadingVerificationEvidence.encoded(JSONValue.object(root))
         guard compact.utf16.count + instruction.utf16.count < raw.utf16.count else { return unchanged }
         return ChatMessage(role:.user,content:prefix+instruction+compact)
     }

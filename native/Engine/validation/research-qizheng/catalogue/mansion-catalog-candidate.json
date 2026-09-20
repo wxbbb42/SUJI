@@ -1,0 +1,400 @@
+{
+  "id": "modern-revised-chinese-distance-stars-candidate",
+  "version": "2026-09-20.research.1",
+  "status": "research-only-identity-source-incomplete",
+  "epochPolicy": "ICRS coordinates at Julian epoch J1991.25; pmRaMasYear is mu_alpha*cos(delta), mas/Julian year",
+  "stars": [
+    {
+      "name": "角",
+      "designation": "* alf Vir",
+      "hip": 65474,
+      "raDegrees": 201.2983523,
+      "decDegrees": -11.16124491,
+      "pmRaMasYear": -42.5,
+      "pmDecMasYear": -31.73,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "亢",
+      "designation": "* kap Vir",
+      "hip": 69427,
+      "raDegrees": 213.22392088,
+      "decDegrees": -10.274044,
+      "pmRaMasYear": 8.04,
+      "pmDecMasYear": 140.79,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "氐",
+      "designation": "* alf02 Lib",
+      "hip": 72622,
+      "raDegrees": 222.71990536,
+      "decDegrees": -16.04161047,
+      "pmRaMasYear": -105.69,
+      "pmDecMasYear": -69.0,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "房",
+      "designation": "* pi Sco",
+      "hip": 78265,
+      "raDegrees": 239.71300283,
+      "decDegrees": -26.1140428,
+      "pmRaMasYear": -12.0,
+      "pmDecMasYear": -25.71,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "心",
+      "designation": "* sig Sco",
+      "hip": 80112,
+      "raDegrees": 245.29717718,
+      "decDegrees": -25.59275259,
+      "pmRaMasYear": -10.03,
+      "pmDecMasYear": -18.03,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "尾",
+      "designation": "* mu01 Sco",
+      "hip": 82514,
+      "raDegrees": 252.96766195,
+      "decDegrees": -38.04732717,
+      "pmRaMasYear": -8.84,
+      "pmDecMasYear": -21.6,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "箕",
+      "designation": "* gam02 Sgr",
+      "hip": 88635,
+      "raDegrees": 271.45218586,
+      "decDegrees": -30.42365007,
+      "pmRaMasYear": -55.75,
+      "pmDecMasYear": -181.53,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "斗",
+      "designation": "* phi Sgr",
+      "hip": 92041,
+      "raDegrees": 281.41397083,
+      "decDegrees": -26.9907794,
+      "pmRaMasYear": 51.15,
+      "pmDecMasYear": 0.45,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "牛",
+      "designation": "* bet01 Cap",
+      "hip": 100345,
+      "raDegrees": 305.25269347,
+      "decDegrees": -14.78140119,
+      "pmRaMasYear": 48.42,
+      "pmDecMasYear": 14.0,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "女",
+      "designation": "* eps Aqr",
+      "hip": 102618,
+      "raDegrees": 311.91888574,
+      "decDegrees": -9.49568988,
+      "pmRaMasYear": 31.89,
+      "pmDecMasYear": -35.32,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "虚",
+      "designation": "* bet Aqr",
+      "hip": 106278,
+      "raDegrees": 322.88966951,
+      "decDegrees": -5.57115593,
+      "pmRaMasYear": 22.79,
+      "pmDecMasYear": -6.7,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "危",
+      "designation": "* alf Aqr",
+      "hip": 109074,
+      "raDegrees": 331.44593869,
+      "decDegrees": -0.31982656,
+      "pmRaMasYear": 17.9,
+      "pmDecMasYear": -9.93,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "室",
+      "designation": "* alf Peg",
+      "hip": 113963,
+      "raDegrees": 346.1900702,
+      "decDegrees": 15.20536786,
+      "pmRaMasYear": 61.1,
+      "pmDecMasYear": -42.56,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "壁",
+      "designation": "* gam Peg",
+      "hip": 1067,
+      "raDegrees": 3.30895828,
+      "decDegrees": 15.18361593,
+      "pmRaMasYear": 4.7,
+      "pmDecMasYear": -8.24,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "奎",
+      "designation": "* eta And",
+      "hip": 4463,
+      "raDegrees": 14.30178237,
+      "decDegrees": 23.41775997,
+      "pmRaMasYear": -43.72,
+      "pmDecMasYear": -46.06,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "娄",
+      "designation": "* bet Ari",
+      "hip": 8903,
+      "raDegrees": 28.65978771,
+      "decDegrees": 20.80829949,
+      "pmRaMasYear": 96.32,
+      "pmDecMasYear": -108.8,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "胃",
+      "designation": "35 Ari",
+      "hip": 12719,
+      "raDegrees": 40.86296031,
+      "decDegrees": 27.70717078,
+      "pmRaMasYear": 3.51,
+      "pmDecMasYear": -9.97,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "昴",
+      "designation": "17 Tau",
+      "hip": 17499,
+      "raDegrees": 56.21884811,
+      "decDegrees": 24.1134484,
+      "pmRaMasYear": 21.55,
+      "pmDecMasYear": -44.92,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "毕",
+      "designation": "* eps Tau",
+      "hip": 20889,
+      "raDegrees": 67.15388879,
+      "decDegrees": 19.18052092,
+      "pmRaMasYear": 107.23,
+      "pmDecMasYear": -36.77,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "觜",
+      "designation": "* lam Ori",
+      "hip": 26207,
+      "raDegrees": 83.78449043,
+      "decDegrees": 9.93416294,
+      "pmRaMasYear": -1.03,
+      "pmDecMasYear": -1.86,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "参",
+      "designation": "* zet Ori",
+      "hip": 26727,
+      "raDegrees": 85.18968672,
+      "decDegrees": -1.94257841,
+      "pmRaMasYear": 3.99,
+      "pmDecMasYear": 2.54,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "井",
+      "designation": "* mu Gem",
+      "hip": 30343,
+      "raDegrees": 95.73996302,
+      "decDegrees": 22.51385027,
+      "pmRaMasYear": 56.84,
+      "pmDecMasYear": -108.79,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "鬼",
+      "designation": "* tet Cnc",
+      "hip": 41822,
+      "raDegrees": 127.8990288,
+      "decDegrees": 18.09455771,
+      "pmRaMasYear": -60.05,
+      "pmDecMasYear": -56.5,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "柳",
+      "designation": "* del Hya",
+      "hip": 42313,
+      "raDegrees": 129.41419739,
+      "decDegrees": 5.70379868,
+      "pmRaMasYear": -70.27,
+      "pmDecMasYear": -6.99,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "星",
+      "designation": "* alf Hya",
+      "hip": 46390,
+      "raDegrees": 141.8968826,
+      "decDegrees": -8.65868335,
+      "pmRaMasYear": -14.49,
+      "pmDecMasYear": 33.25,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "张",
+      "designation": "* ups01 Hya",
+      "hip": 48356,
+      "raDegrees": 147.86951033,
+      "decDegrees": -14.84654997,
+      "pmRaMasYear": 18.68,
+      "pmDecMasYear": -21.88,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "翼",
+      "designation": "* alf Crt",
+      "hip": 53740,
+      "raDegrees": 164.94478664,
+      "decDegrees": -18.29909723,
+      "pmRaMasYear": -462.39,
+      "pmDecMasYear": 129.11,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    },
+    {
+      "name": "轸",
+      "designation": "* gam Crv",
+      "hip": 59803,
+      "raDegrees": 183.95194937,
+      "decDegrees": -17.5419837,
+      "pmRaMasYear": -159.58,
+      "pmDecMasYear": 22.31,
+      "epochYear": 1991.25,
+      "sourceIDs": [
+        "hipparcos-28-esa1997",
+        "simbad-28-20260920"
+      ]
+    }
+  ]
+}

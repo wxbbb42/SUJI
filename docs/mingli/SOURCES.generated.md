@@ -59,6 +59,71 @@ Updated: 2026-09-20
 - License note: 古籍文本需优先选公共领域/可引用版本；记录版本、卷次、页码/章节，不 ingest 现代版权全文。
 - Notes: 作为黄历/择日规则的辅助 source。
 
+### astronomy
+
+#### astronomy-engine-2.1.19
+
+- Title: Astronomy Engine 2.1.19
+- Author: Don Cross
+- Tier: C
+- Type: versioned_software
+- Status: source_read_independently_compared
+- Priority: P0
+- Current usage: 地心日月水金火木土的位置；真赤道与真黄道当日坐标变换
+- Repo refs: `native/Engine/src/astronomy/natal.ts`, `native/Engine/validation/research-qizheng/ephemeris/README.md`
+- License note: MIT；发布包源码头部完整授权随App ThirdPartyNotices分发。
+- Notes: 固定2.1.19。GeoVector→Ecliptic；EQJ→EQD。月亮直接GeoMoon，不能声称与其余天体具有相同光行时/光行差修正。5600季度样本默认时标对照最大74.05角秒，共同TT最大21.49角秒；不是全时段误差上界。
+
+#### astronomy-time-policy-v1
+
+- Title: SUJI固定UTC+8输入与UTC≈UT1 / Espenak–Meeus ΔT时间政策
+- Tier: C
+- Type: engineering_policy
+- Status: implemented_explicit_policy
+- Priority: P0
+- Current usage: 保持旧出生钟面物理输入不变；保存UT/TT/ΔT与未来时间模型限制
+- Repo refs: `native/Engine/src/astronomy/natal.ts`, `docs/mingli/astronomy-natal-cache-design.md`, `native/Engine/validation/research-qizheng/ephemeris/results/comparison.json`
+- Notes: 不应用历史夏令时和八字真太阳时偏移。库以UTC近似UT1；TT取库指定模型。早期日期为前推UTC标签；未来ΔT与独立参考存在约111秒差异，不能将共同时标控制实验当真实时间精度证明。
+
+#### hipparcos-28-esa1997
+
+- Title: The Hipparcos and Tycho Catalogues，I/239/hip_main，选定28行
+- Author: ESA (1997), ESA SP-1200
+- Tier: C
+- Type: astrometric_catalogue
+- Status: exact_query_rows_and_epoch_units_archived
+- Priority: P0
+- Current usage: J1991.25 ICRS赤经赤纬及切向自行；pmRA包含cos(dec)，毫角秒/儒略年
+- Repo refs: `native/Engine/validation/research-qizheng/catalogue/hipparcos-28.tsv`, `native/Engine/validation/research-qizheng/catalogue/hipparcos-readme.txt`
+- License note: 保留ESA/CDS来源与VizieR权利链接，未自行断言具体目录许可版本。
+- Notes: 28行原文SHA256 01fe75f6ec320ffa452beb68d0e970dc72a8d65de7447754487a7ae980239d80。仅所选目录位置与自行，不包含所有视位置改正或无条件精度保证。
+
+#### simbad-28-20260920
+
+- Title: SIMBAD：28距星交叉身份及坐标复核，2026-09-20
+- Author: CDS, Strasbourg
+- Tier: C
+- Type: astrometric_database
+- Status: exact_query_and_results_archived
+- Priority: P0
+- Current usage: Bayer/Flamsteed ↔ HIP分量交叉核对及J2000坐标独立比对
+- Repo refs: `native/Engine/validation/research-qizheng/catalogue/simbad-28.json`, `native/Engine/validation/research-qizheng/catalogue/retrieve-catalogue.py`
+- License note: 保留CDS/SIMBAD来源。
+- Notes: 原始JSON SHA256 fe2ec8bacdb9c9e4dc42556d92448e8ab9d294da0972b61746b84d05106d303c。身份全部一致；将Hipparcos自行推进8.75年后与SIMBAD比较的最大角距0.28734角秒，仅为该批抽样。
+
+#### stellarium-contemporary-first-stars-71885f2e
+
+- Title: Stellarium Chinese Contemporary Sky Culture：二十八宿首星星名与HIP对应
+- Author: Sun Shuwei and the Stellarium team
+- Tier: C
+- Type: versioned_catalogue
+- Status: immutable_blob_and_28_identities_crosschecked
+- Priority: P0
+- Current usage: 现代星名距星参照：各星宿首星I的HIP身份；不采用其另页有冲突的距星表
+- Repo refs: `native/Engine/src/astronomy/mansion-catalog.json`, `native/Engine/validation/research-qizheng/catalogue/ATTRIBUTION.md`
+- License note: 原始说明为 Text and data: CC BY-SA，未指定版本；作者、原文及修改范围随App分发。
+- Notes: 原始index SHA256 c6ba9e2c83b52c5a04f64471368d4ce02904582f7eaaa560bda99965eb631197。奎ηAnd、斗φSgr明确属于所选现代首星口径；不声称统一古法距星。
+
 ### bazi
 
 #### bazi-ditiansui
@@ -513,6 +578,18 @@ Updated: 2026-09-20
 - License note: 古籍电子转录；原始正文和SHA256存于fanfu-additional-source-review.json，未校印本。
 - Notes: 不采静态八纯卦伏吟或卦内上下相冲的命名作为动态判定。与增删电子本乾坤、坤震表述有异，分别保留，不推断吉凶或日期。
 
+#### liuyao-yilin-buyi-triad-center
+
+- Title: 易林补遗（卷一三合中神与生墓位置）
+- Tier: A
+- Type: classic_text
+- Status: scoped_electronic_excerpt_reviewed_not_print_collated
+- Priority: P0
+- Current usage: 三合前字生、中字主象、后字墓的位置；对照其有中神的两支亦称成局异说
+- Repo refs: `native/Engine/src/divination/triads.ts`, `native/Engine/validation/research-divination/triad-formation-source-review.json`
+- License note: 古籍电子转录；完整正文、URL和SHA256存于fanfu-additional-source-review.json，定位摘录存于triad-formation-source-review.json；未校印本。
+- Notes: 三支齐全与缺支仅作集合观察；不采用半吉、全美或必然结果断语，不将其两支成局与增删的待用说混成统一效力规则。
+
 #### liuyao-zengshan-buyi
 
 - Title: 增删卜易
@@ -610,6 +687,47 @@ Updated: 2026-09-20
 - Repo refs: `native/Engine/src/ai/tools/liuyao.ts`
 - License note: 古籍文本需优先选公共领域/可引用版本；记录版本、卷次、页码/章节，不 ingest 现代版权全文。
 - Notes: 只用于有页码/章节的 specific rule，不做整体权威化。
+
+### mansions
+
+#### hipparcos-28-esa1997
+
+- Title: The Hipparcos and Tycho Catalogues，I/239/hip_main，选定28行
+- Author: ESA (1997), ESA SP-1200
+- Tier: C
+- Type: astrometric_catalogue
+- Status: exact_query_rows_and_epoch_units_archived
+- Priority: P0
+- Current usage: J1991.25 ICRS赤经赤纬及切向自行；pmRA包含cos(dec)，毫角秒/儒略年
+- Repo refs: `native/Engine/validation/research-qizheng/catalogue/hipparcos-28.tsv`, `native/Engine/validation/research-qizheng/catalogue/hipparcos-readme.txt`
+- License note: 保留ESA/CDS来源与VizieR权利链接，未自行断言具体目录许可版本。
+- Notes: 28行原文SHA256 01fe75f6ec320ffa452beb68d0e970dc72a8d65de7447754487a7ae980239d80。仅所选目录位置与自行，不包含所有视位置改正或无条件精度保证。
+
+#### simbad-28-20260920
+
+- Title: SIMBAD：28距星交叉身份及坐标复核，2026-09-20
+- Author: CDS, Strasbourg
+- Tier: C
+- Type: astrometric_database
+- Status: exact_query_and_results_archived
+- Priority: P0
+- Current usage: Bayer/Flamsteed ↔ HIP分量交叉核对及J2000坐标独立比对
+- Repo refs: `native/Engine/validation/research-qizheng/catalogue/simbad-28.json`, `native/Engine/validation/research-qizheng/catalogue/retrieve-catalogue.py`
+- License note: 保留CDS/SIMBAD来源。
+- Notes: 原始JSON SHA256 fe2ec8bacdb9c9e4dc42556d92448e8ab9d294da0972b61746b84d05106d303c。身份全部一致；将Hipparcos自行推进8.75年后与SIMBAD比较的最大角距0.28734角秒，仅为该批抽样。
+
+#### stellarium-contemporary-first-stars-71885f2e
+
+- Title: Stellarium Chinese Contemporary Sky Culture：二十八宿首星星名与HIP对应
+- Author: Sun Shuwei and the Stellarium team
+- Tier: C
+- Type: versioned_catalogue
+- Status: immutable_blob_and_28_identities_crosschecked
+- Priority: P0
+- Current usage: 现代星名距星参照：各星宿首星I的HIP身份；不采用其另页有冲突的距星表
+- Repo refs: `native/Engine/src/astronomy/mansion-catalog.json`, `native/Engine/validation/research-qizheng/catalogue/ATTRIBUTION.md`
+- License note: 原始说明为 Text and data: CC BY-SA，未指定版本；作者、原文及修改范围随App分发。
+- Notes: 原始index SHA256 c6ba9e2c83b52c5a04f64471368d4ce02904582f7eaaa560bda99965eb631197。奎ηAnd、斗φSgr明确属于所选现代首星口径；不声称统一古法距星。
 
 ### nayin
 
@@ -891,6 +1009,32 @@ Updated: 2026-09-20
 - Repo refs: `docs/superpowers/specs/2026-04-25-qimen-divination-design.md`
 - License note: 仅记录链接、摘要和人工核对结果；不要复制大段站点内容。
 - Notes: C tier，不可单独作为权威。
+
+### qizheng
+
+#### astronomy-engine-2.1.19
+
+- Title: Astronomy Engine 2.1.19
+- Author: Don Cross
+- Tier: C
+- Type: versioned_software
+- Status: source_read_independently_compared
+- Priority: P0
+- Current usage: 地心日月水金火木土的位置；真赤道与真黄道当日坐标变换
+- Repo refs: `native/Engine/src/astronomy/natal.ts`, `native/Engine/validation/research-qizheng/ephemeris/README.md`
+- License note: MIT；发布包源码头部完整授权随App ThirdPartyNotices分发。
+- Notes: 固定2.1.19。GeoVector→Ecliptic；EQJ→EQD。月亮直接GeoMoon，不能声称与其余天体具有相同光行时/光行差修正。5600季度样本默认时标对照最大74.05角秒，共同TT最大21.49角秒；不是全时段误差上界。
+
+#### astronomy-time-policy-v1
+
+- Title: SUJI固定UTC+8输入与UTC≈UT1 / Espenak–Meeus ΔT时间政策
+- Tier: C
+- Type: engineering_policy
+- Status: implemented_explicit_policy
+- Priority: P0
+- Current usage: 保持旧出生钟面物理输入不变；保存UT/TT/ΔT与未来时间模型限制
+- Repo refs: `native/Engine/src/astronomy/natal.ts`, `docs/mingli/astronomy-natal-cache-design.md`, `native/Engine/validation/research-qizheng/ephemeris/results/comparison.json`
+- Notes: 不应用历史夏令时和八字真太阳时偏移。库以UTC近似UT1；TT取库指定模型。早期日期为前推UTC标签；未来ΔT与独立参考存在约111秒差异，不能将共同时标控制实验当真实时间精度证明。
 
 ### shensha
 
@@ -1180,6 +1324,24 @@ Updated: 2026-09-20
 - Notes: 占位 source：后续必须替换成具体书名/作者/版本，否则不能引用。
 
 ## Claims
+
+### astronomy.contemporary-first-star28.scope-v1
+
+- Domain: astronomy
+- Claim: 中国二十八宿模块采用现代星名距星参照，各宿选Stellarium现代首星I所对应的HIP分量，以Hipparcos J1991.25 ICRS位置及切向自行经当日岁差章动求参照宿界。先检验单圈有序再分段，区间左闭右开，使用现代赤经度。出生月亮所在宿不等于传统命宿、命度或宿曜关系；奎斗觜参异说、星历和时刻精度未知均明示。
+- Sources: `stellarium-contemporary-first-stars-71885f2e`, `hipparcos-28-esa1997`, `simbad-28-20260920`, `astronomy-engine-2.1.19`, `astronomy-time-policy-v1`
+- Repo refs: `native/Engine/src/astronomy/mansions.ts`, `native/Engine/src/astronomy/mansion-catalog.json`, `native/Engine/validation/research-qizheng/catalogue/ATTRIBUTION.md`
+- Confidence: high_for_selected_catalogue_identity_and_sampled_transforms_not_historical_universality
+- Status: versioned_foundation_independent_samples_native_contract_and_full_wire_verified
+
+### astronomy.seven-bodies.scope-v1
+
+- Domain: astronomy
+- Claim: 七曜基础按固定UTC+8出生钟面计算地心现代角度，保存当日真赤道/黄道坐标和时间政策。天文位置复算不验证命运推断；该基础不构成完整七政四余，四余、十二宫、命度和古度换算均未实现。
+- Sources: `astronomy-engine-2.1.19`, `astronomy-time-policy-v1`
+- Repo refs: `native/Engine/src/astronomy/natal.ts`, `docs/mingli/astronomy-natal-cache-design.md`
+- Confidence: high_for_versioned_engineering_scope_not_divination_efficacy
+- Status: versioned_foundation_independent_samples_native_contract_and_full_wire_verified
 
 ### bazi.adjusting-climate.yongshen
 
@@ -1630,6 +1792,15 @@ Updated: 2026-09-20
 - Repo refs: `native/Engine/src/divination/fanfu.ts`, `native/Engine/src/divination/__tests__/Fanfu.test.ts`, `native/Core/Sources/SujiCore/LiuyaoFanfuTrace.swift`, `native/Engine/validation/research-divination/triad-fanfu-source-review.json`
 - Confidence: high_for_selected_structural_observations_not_efficacy
 - Status: source_vectors_exhaustive_structural_counterexamples_and_native_binding
+
+### liuyao.scoped-triad-membership
+
+- Domain: liuyao
+- Claim: 三合选四组申子辰水、巳酉丑金、寅午戌火、亥卯未木，成员按生、中、墓位置保留原对象身份。分别观察可见原爻、单个实际动爻与日月、内初三与外四六实际动变范围；可见静爻与非世动爻日月组合明确仅为表格结构观察。缺支与中神、重复支、各自空破冲扶、墓绝参照和日冲待审路径独立保留；静态变卦投影、伏神和跨范围任意动变混池不入成员。/19明确支持端点范围，但动爻数条文有冲突；易林有中神的两支成局与增删待用说不同。三支齐全不等于合化、入墓、综合强弱或事件成败。
+- Sources: `liuyao-zengshan-buyi`, `liuyao-yilin-buyi-triad-center`
+- Repo refs: `native/Engine/src/divination/triads.ts`, `native/Engine/src/divination/__tests__/Triads.test.ts`, `native/Core/Sources/SujiCore/LiuyaoTriadTrace.swift`, `native/Engine/validation/research-divination/triad-formation-source-review.json`
+- Confidence: scoped_membership_not_formation_or_efficacy
+- Status: scoped_structure_independent_oracle_native_reconstruction_and_full_wire_accepted
 
 ### liuyao.six-spirits-not-standalone-verdict
 
