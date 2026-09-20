@@ -41,6 +41,7 @@ enum ReadingVerificationAssertions {
         guard !conditional(sentence), !denied(sentence) else { return false }
         if calendarClaims(in: sentence, key: fact.factKey).contains(quote) { return true }
         if ZiweiReadingAssertions.binds(quote,to:fact,in:sentence,facts:facts) { return true }
+        if QimenReadingAssertions.handles(fact) { return QimenReadingAssertions.binds(quote,to:fact,in:sentence,facts:facts) }
         let value = NSRegularExpression.escapedPattern(for: quote)
         let link = "(?:的)?\\s*(?:仍为|仍是|为|是|落在|落|在|为：|是：|：|:)?\\s*[「『“\"]?"
         let key = fact.factKey.components(separatedBy: ".")

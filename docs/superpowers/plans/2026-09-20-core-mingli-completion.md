@@ -149,10 +149,20 @@ D3 local:258 Core tests including8 scoped regressions. Third live run was falsel
 
 Read the actual Dunjia Yanyi and Daoisms finance pages; neither qualifies as a complete, version-selected modern object/timing rulebook. Do not cite a search-engine AI summary as a classical quotation. See `docs/mingli/validation/qimen-selection-source-review-2026-09-20.md`.
 
-- [ ] E2a: explicit subject/event/horizon, all candidate identities including hosted stems and甲旬仪, missing context and per-object fact pointers. Distinguish product initial-reference convention from classical rule provenance; no first candidate as adjudication.
+- [x] E2a: explicit subject/event/horizon, all candidate identities including hosted stems and甲旬仪, missing context and per-object fact pointers. Distinguish product initial-reference convention from classical rule provenance; no first candidate as adjudication.
 - [ ] E2b: select a readable, explicit timing convention; encode supported/opposing/unresolved conditions and object/source identity. Do not transplant Liuyao timing or infer a date from a palace number. No precise deadline without an adjudicated event and time unit.
 - [ ] Independent fixed vectors and ambiguity/代占/hosted-counterexamples; native allowlist, actual transport/replay/capacity, semantic review and remote checks.
 
 D3 remote accepted within the documented bounded assertion scope: exact `10ab339a21ecef69211b3a8c53189362c75f1a72`, run35495982293 passed engine, swift-core and native-app. This does not complete broader D/E/F/G or authorize extensions.
 
 E2a local:676 Engine /263 Core tests; identity/source/empty/null transport, multi-receipt lossless index and capacity checks pass. Added explicit fixed-Kun earth hosting, distinct from rotating Tianqin sky hosting; independent2,922-chart /12,962-pointer probe preserves all legacy geju. Actual DeepSeek reports include zero-receipt false acceptance, omitted sky-host stem, then wrong earth palace (戊 said4, actual3). Reports remain immutable; E2a structure is ready for remote checks, F is not accepted. Next F3 must bind direct/reverse plate assertions and new explicit hosted labels, reproducing the real false acceptance. See `docs/mingli/validation/qimen-question-objects-2026-09-20.md`.
+
+E2a accepted in that structural scope: exact `49aed08b04b3c054aa6908b0800c5b23ed719ec8`, run35497388190 all3 jobs green.
+
+## Batch F3 — bound Qimen plate assertions
+
+- [x] Archived real false acceptance reproduces wrong earth palace. Direct/reverse stem assertions use each receipt's field; hosted-earth and hosted-sky labels separate.
+- [x] Correct hosting, sparse legacy, reordered palaces, conflicting receipts, questions and full-sentence framing counterexamples; local guard before model review. No calendar or chart recalculation.
+- [ ] Independent final review, full checks, push and exact-head CI.
+
+`core-f3-results.json` still fails broader interpretation: correct plate positions but an incorrect day/hour identity summary and user-picked palace advice. No further prompt reroll to claim accuracy. Next F4: compile critical Qimen fact/reference sections locally from original receipts, preserving identity, qualification, source and absence; reuse the proven claim approach where suitable. Before changing delivery, specify tests for actual failures, conflicting/sparse/cross-context receipts, source identity and cached original casts. E2b and F2 Liuyao source/object errors remain open.
