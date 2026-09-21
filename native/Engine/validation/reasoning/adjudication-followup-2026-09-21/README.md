@@ -62,3 +62,7 @@ Engine 77 suites / 1,016 tests; Core 446 tests (America/Los_Angeles, matrix enab
 All 65 paired requests passed native checks and the independent real-backend decoder: 130 complete charts, 126,050 exact fact tuples, 69 authenticated source directories. Max total 116,952 UTF-16; max HTTP 179,657 bytes; max message 31,048 UTF-16; max combined tools 59,450 bytes; max stored receipt 53,907 bytes. All 16 natal requests passed with 6,966 exact tuples; max total 81,958 UTF-16, body 122,651 bytes and message 28,975 UTF-16. No production limit changed.
 
 `selection-confirmation.png` and `selection-reference-reading.png` are inspected screenshots from the final successful simulator run; `app-summary.json` records 45 passed / zero failed / zero skipped. All dates and questions in these test captures are synthetic.
+
+## CI compiler compatibility follow-up
+
+Run `35558747031` at `88af080` passed Engine but the macOS runner compiler timed out inferring one nested array expression in `LiuyaoEventAssessment.swift:171`; native tests did not start. The follow-up expands it into a typed path array and ordered appends, retaining the exact sequence and semantics. Capture hashes in the immutable archive still identify the `88af080` source; do not claim recapture by rewriting its manifest. `compiler-compat-red.log` records the distinct diagnostic, and a targeted green log accompanies the follow-up. The final exact-SHA workflow validates all native jobs again.

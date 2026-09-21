@@ -168,7 +168,13 @@ enum LiuyaoEventAssessment {
             let reasons=c.blockers.map(\.rule).map{reasonLabels[$0] ?? "未决条件（\($0)）"}.joined(separator:"、")
             var text=try "事件候选\(objectName(c.path))：\(labels[c.outcome]!)。"
             if !t.isEmpty {text += t+"。"};if !reasons.isEmpty {text += "保留：\(reasons)。"}
-            let paths=["/eventAssessment/candidates/\(i)",c.path]+(c.conditions+c.blockers+c.transmissions.flatMap{$0.conditions+$0.blockers}).flatMap(\.paths)
+            var paths: [String] = ["/eventAssessment/candidates/\(i)", c.path]
+            for evidence in c.conditions { paths.append(contentsOf: evidence.paths) }
+            for evidence in c.blockers { paths.append(contentsOf: evidence.paths) }
+            for transmission in c.transmissions {
+                for evidence in transmission.conditions { paths.append(contentsOf: evidence.paths) }
+                for evidence in transmission.blockers { paths.append(contentsOf: evidence.paths) }
+            }
             result.append(try section("event-candidate-\(i)",text,paths))
         }
         return result

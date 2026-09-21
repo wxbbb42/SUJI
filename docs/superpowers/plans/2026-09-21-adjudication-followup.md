@@ -62,7 +62,7 @@ Owned by root: `native/Engine/bridge.ts`、`src/ai/tools/`、`CastQuestionPrepar
 - [x] `npm run typecheck --prefix native/Engine`、引擎全部 Jest、后端全部测试、bundle/fixture 对比。
 - [x] `TZ=America/Los_Angeles swift test --package-path native/Core`；加入最终容量矩阵、原生 App/UI 验收。
 - [x] 更新总报告，分别记录已实现、正反例与冲突测试、未覆盖项及具体证据原因。
-- [ ] 在现有分支提交、推送并核对该 SHA 的 CI；不合并或发布。
+- [x] 在现有分支提交并推送；逐次核对精确 SHA 的 CI 并处理失败，最终通过情况在交付消息单列。不合并或发布。
 
 ## 协作检查
 

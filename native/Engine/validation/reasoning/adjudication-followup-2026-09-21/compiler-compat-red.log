@@ -1,0 +1,8 @@
+CI run https://github.com/wxbbb42/SUJI/actions/runs/35558747031 at 88af080; Engine passed, both native jobs failed compilation. First unique compiler diagnostic:
+swift-core	Core, boundary contracts, and JavaScriptCore parity outside Beijing	2026-09-21T03:49:19.2616580Z [25/47] Emitting module SujiCore
+swift-core	Core, boundary contracts, and JavaScriptCore parity outside Beijing	2026-09-21T03:49:19.2617570Z /Users/runner/work/SUJI/SUJI/native/Core/Sources/SujiCore/LiuyaoEventAssessment.swift:171:17: error: the compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+swift-core	Core, boundary contracts, and JavaScriptCore parity outside Beijing	2026-09-21T03:49:19.2622320Z 169 |             var text=try "事件候选\(objectName(c.path))：\(labels[c.outcome]!)。"
+swift-core	Core, boundary contracts, and JavaScriptCore parity outside Beijing	2026-09-21T03:49:19.2623170Z 170 |             if !t.isEmpty {text += t+"。"};if !reasons.isEmpty {text += "保留：\(reasons)。"}
+swift-core	Core, boundary contracts, and JavaScriptCore parity outside Beijing	2026-09-21T03:49:19.2627620Z 171 |             let paths=["/eventAssessment/candidates/\(i)",c.path]+(c.conditions+c.blockers+c.transmissions.flatMap{$0.conditions+$0.blockers}).flatMap(\.paths)
+swift-core	Core, boundary contracts, and JavaScriptCore parity outside Beijing	2026-09-21T03:49:19.2628650Z     |                 `- error: the compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions
+swift-core	Core, boundary contracts, and JavaScriptCore parity outside Beijing	2026-09-21T03:49:19.2629550Z 172 |             result.append(try section("event-candidate-\(i)",text,paths))
