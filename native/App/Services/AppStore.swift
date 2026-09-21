@@ -35,6 +35,10 @@ struct Document {
     var astronomyError: String?
     private var astronomyPayloadRevision: String?
     private var astronomyTask: (id: UUID, scope: UUID, birth: BirthProfile, task: Task<NatalAstronomyDossier, Error>)?
+#if DEBUG
+    // Synchronous checkpoint for tests that replace captured input before queued work starts.
+    @ObservationIgnored var astronomyOperationWillStartForTesting: (() -> Void)?
+#endif
     var hasNatalAstronomyDossier: Bool {
         guard let birth = state.birth, let revision = astronomyPayloadRevision else { return false }
         return natalAstronomyDossier?.matches(ownerID: scopeKey, birth: birth, engineRevision: engineRevision, enginePayloadRevision: revision) == true
@@ -271,6 +275,9 @@ struct Document {
         let owner = scopeKey
         let id = UUID()
         let operation = Task { @MainActor in
+#if DEBUG
+            self.astronomyOperationWillStartForTesting?()
+#endif
             try Task.checkCancellation()
             guard self.scopeRevision == scope, self.state.birth == birth else { throw CancellationError() }
             let revision: String

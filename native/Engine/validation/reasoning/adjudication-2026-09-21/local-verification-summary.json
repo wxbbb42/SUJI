@@ -49,5 +49,12 @@
     "skipped": 1,
     "skipReason": "Optional 53-case receipt matrix environment absent; full matrix already passed in archived capture commit",
     "changes": "Typed arrays and ordered appends only; same rules, evidence order, native text and wire formats"
+  },
+  "astronomyCacheScheduling": {
+    "hostedTests": 35,
+    "failures": 0,
+    "mutationTest": "Removing the four birth equality guards in ensureNatalAstronomyDossier causes the warm-cache test to fail with stale-result acceptance and non-nil dossier; all guards restored before the green run",
+    "change": "DEBUG-only synchronous task-start checkpoint replaces nondeterministic polling; release cache logic unchanged",
+    "remoteBaseline": "18c3a50 Engine/Core passed; 7 UI tests passed; one hosted test had a scheduling race"
   }
 }

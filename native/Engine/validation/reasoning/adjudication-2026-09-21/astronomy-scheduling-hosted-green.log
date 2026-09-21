@@ -1,0 +1,96 @@
+Selected XCTest result lines from /tmp/suji-astronomy-schedule-hosted.log
+Test Suite 'Selected tests' started at 2026-09-21 10:32:40.948.
+Test Suite 'SujiTests.xctest' started at 2026-09-21 10:32:40.949.
+Test Suite 'AppPersistenceTests' started at 2026-09-21 10:32:40.949.
+Test Case '-[SujiTests.AppPersistenceTests testEditorialFontIsBundledAndAvailable]' started.
+Test Case '-[SujiTests.AppPersistenceTests testEditorialFontIsBundledAndAvailable]' passed (0.001 seconds).
+Test Case '-[SujiTests.AppPersistenceTests testNotificationRouteRetainsColdLaunchRequestUntilConsumed]' started.
+Test Case '-[SujiTests.AppPersistenceTests testNotificationRouteRetainsColdLaunchRequestUntilConsumed]' passed (0.000 seconds).
+Test Case '-[SujiTests.AppPersistenceTests testSavedJournalAndAccountIsolation]' started.
+Test Case '-[SujiTests.AppPersistenceTests testSavedJournalAndAccountIsolation]' passed (0.087 seconds).
+Test Case '-[SujiTests.AppPersistenceTests testSignedSimulatorKeychain]' started.
+Test Case '-[SujiTests.AppPersistenceTests testSignedSimulatorKeychain]' passed (0.003 seconds).
+Test Case '-[SujiTests.AppPersistenceTests testWidgetSnapshotContainsOnlyDailyContent]' started.
+Test Case '-[SujiTests.AppPersistenceTests testWidgetSnapshotContainsOnlyDailyContent]' passed (0.001 seconds).
+Test Suite 'AppPersistenceTests' passed at 2026-09-21 10:32:41.043.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.092 (0.094) seconds
+Test Suite 'CastQuestionConfirmationTests' started at 2026-09-21 10:32:41.043.
+Test Case '-[SujiTests.CastQuestionConfirmationTests testActualChatPersistsBeforeCastAndRestoredRetryReusesOriginalReceipt]' started.
+Test Case '-[SujiTests.CastQuestionConfirmationTests testActualChatPersistsBeforeCastAndRestoredRetryReusesOriginalReceipt]' passed (0.243 seconds).
+Test Case '-[SujiTests.CastQuestionConfirmationTests testActualChatStopAndAccountChangeCannotConfirmOrCalculate]' started.
+Test Case '-[SujiTests.CastQuestionConfirmationTests testActualChatStopAndAccountChangeCannotConfirmOrCalculate]' passed (0.097 seconds).
+Test Case '-[SujiTests.CastQuestionConfirmationTests testMissingEventKeepsWaitingUntilEditedConfirmation]' started.
+Test Case '-[SujiTests.CastQuestionConfirmationTests testMissingEventKeepsWaitingUntilEditedConfirmation]' passed (0.011 seconds).
+Test Case '-[SujiTests.CastQuestionConfirmationTests testReferenceOnlyExplicitlyAllowsMissingEventAndUnknownScope]' started.
+Test Case '-[SujiTests.CastQuestionConfirmationTests testReferenceOnlyExplicitlyAllowsMissingEventAndUnknownScope]' passed (0.004 seconds).
+Test Case '-[SujiTests.CastQuestionConfirmationTests testScopeChangeRejectsEvenBeforeViewObservationCancels]' started.
+Test Case '-[SujiTests.CastQuestionConfirmationTests testScopeChangeRejectsEvenBeforeViewObservationCancels]' passed (0.004 seconds).
+Test Case '-[SujiTests.CastQuestionConfirmationTests testTaskCancellationReleasesWaitAndStaleSheetCannotConfirmNextRequest]' started.
+Test Case '-[SujiTests.CastQuestionConfirmationTests testTaskCancellationReleasesWaitAndStaleSheetCannotConfirmNextRequest]' passed (0.007 seconds).
+Test Suite 'CastQuestionConfirmationTests' passed at 2026-09-21 10:32:41.408.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.364 (0.366) seconds
+Test Suite 'CastSupplementSessionTests' started at 2026-09-21 10:32:41.409.
+Test Case '-[SujiTests.CastSupplementSessionTests testAccountChangeImmediatelyAfterConfirmCannotSaveIntoCopiedNotebook]' started.
+Test Case '-[SujiTests.CastSupplementSessionTests testAccountChangeImmediatelyAfterConfirmCannotSaveIntoCopiedNotebook]' passed (0.178 seconds).
+Test Case '-[SujiTests.CastSupplementSessionTests testCancelOrAccountChangeCannotApplyStaleSupplementConfirmation]' started.
+Test Case '-[SujiTests.CastSupplementSessionTests testCancelOrAccountChangeCannotApplyStaleSupplementConfirmation]' passed (0.196 seconds).
+Test Case '-[SujiTests.CastSupplementSessionTests testFailedReassessmentRestoresAcceptedInputsWithoutAnotherConfirmation]' started.
+Test Case '-[SujiTests.CastSupplementSessionTests testFailedReassessmentRestoresAcceptedInputsWithoutAnotherConfirmation]' passed (0.275 seconds).
+Test Case '-[SujiTests.CastSupplementSessionTests testRealEngineSupplementPreservesOriginalAndRetryNeverExecutesEngine]' started.
+Test Case '-[SujiTests.CastSupplementSessionTests testRealEngineSupplementPreservesOriginalAndRetryNeverExecutesEngine]' passed (0.976 seconds).
+Test Case '-[SujiTests.CastSupplementSessionTests testSavedCompressedChartsRestoreAllCardFields]' started.
+Test Case '-[SujiTests.CastSupplementSessionTests testSavedCompressedChartsRestoreAllCardFields]' passed (0.255 seconds).
+Test Suite 'CastSupplementSessionTests' passed at 2026-09-21 10:32:43.290.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 1.880 (1.881) seconds
+Test Suite 'NatalAstronomyStoreTests' started at 2026-09-21 10:32:43.290.
+Test Case '-[SujiTests.NatalAstronomyStoreTests testAstronomyFailureDoesNotBreakExistingNatalProfile]' started.
+Test Case '-[SujiTests.NatalAstronomyStoreTests testAstronomyFailureDoesNotBreakExistingNatalProfile]' passed (0.135 seconds).
+Test Case '-[SujiTests.NatalAstronomyStoreTests testAstronomyToolPersistsNativeSidecarAndDiscardsCallerSnapshot]' started.
+Test Case '-[SujiTests.NatalAstronomyStoreTests testAstronomyToolPersistsNativeSidecarAndDiscardsCallerSnapshot]' passed (0.051 seconds).
+Test Case '-[SujiTests.NatalAstronomyStoreTests testCorruptionRebuildAndIncompatibleToolBirthRejection]' started.
+Test Case '-[SujiTests.NatalAstronomyStoreTests testCorruptionRebuildAndIncompatibleToolBirthRejection]' passed (0.129 seconds).
+Test Case '-[SujiTests.NatalAstronomyStoreTests testPersistenceAccountBirthAndArchiveLifecycle]' started.
+Test Case '-[SujiTests.NatalAstronomyStoreTests testPersistenceAccountBirthAndArchiveLifecycle]' passed (0.254 seconds).
+Test Case '-[SujiTests.NatalAstronomyStoreTests testStaleInFlightWorkCannotPersistAfterNotebookReplacement]' started.
+Test Case '-[SujiTests.NatalAstronomyStoreTests testStaleInFlightWorkCannotPersistAfterNotebookReplacement]' passed (0.034 seconds).
+Test Case '-[SujiTests.NatalAstronomyStoreTests testWarmMetadataQueuedDiskHitCannotReviveReplacedBirth]' started.
+Test Case '-[SujiTests.NatalAstronomyStoreTests testWarmMetadataQueuedDiskHitCannotReviveReplacedBirth]' passed (0.041 seconds).
+Test Suite 'NatalAstronomyStoreTests' passed at 2026-09-21 10:32:43.936.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.644 (0.646) seconds
+Test Suite 'NatalDossierStoreTests' started at 2026-09-21 10:32:43.936.
+Test Case '-[SujiTests.NatalDossierStoreTests testChangedBirthAndAccountNeverReusePreviousChart]' started.
+Test Case '-[SujiTests.NatalDossierStoreTests testChangedBirthAndAccountNeverReusePreviousChart]' passed (0.195 seconds).
+Test Case '-[SujiTests.NatalDossierStoreTests testCorruptRecordRebuildsAndNotebookDeletionRemovesDossier]' started.
+Test Case '-[SujiTests.NatalDossierStoreTests testCorruptRecordRebuildsAndNotebookDeletionRemovesDossier]' passed (0.156 seconds).
+Test Case '-[SujiTests.NatalDossierStoreTests testLoginRestoresCloudBirthAndOfflineEditRetriesWithoutLosingDossier]' started.
+Test Case '-[SujiTests.NatalDossierStoreTests testLoginRestoresCloudBirthAndOfflineEditRetriesWithoutLosingDossier]' passed (0.153 seconds).
+Test Case '-[SujiTests.NatalDossierStoreTests testNotebookArchiveContainsNoComputedDossier]' started.
+Test Case '-[SujiTests.NatalDossierStoreTests testNotebookArchiveContainsNoComputedDossier]' passed (0.113 seconds).
+Test Case '-[SujiTests.NatalDossierStoreTests testReusesSavedChartAcrossLaunchesConcurrentRequestsAndNewQuestionTimes]' started.
+Test Case '-[SujiTests.NatalDossierStoreTests testReusesSavedChartAcrossLaunchesConcurrentRequestsAndNewQuestionTimes]' passed (0.148 seconds).
+Test Case '-[SujiTests.NatalDossierStoreTests testSimultaneousFirstRequestsCreateOneDossier]' started.
+Test Case '-[SujiTests.NatalDossierStoreTests testSimultaneousFirstRequestsCreateOneDossier]' passed (0.073 seconds).
+Test Suite 'NatalDossierStoreTests' passed at 2026-09-21 10:32:44.776.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.839 (0.840) seconds
+Test Suite 'StoreRegressionTests' started at 2026-09-21 10:32:44.776.
+Test Case '-[SujiTests.StoreRegressionTests testClearingBirthDuringSlowCalculationDiscardsResultAndStopsComputing]' started.
+Test Case '-[SujiTests.StoreRegressionTests testClearingBirthDuringSlowCalculationDiscardsResultAndStopsComputing]' passed (0.064 seconds).
+Test Case '-[SujiTests.StoreRegressionTests testDelayedResultFromOldScopeCannotEnterNewAccount]' started.
+Test Case '-[SujiTests.StoreRegressionTests testDelayedResultFromOldScopeCannotEnterNewAccount]' passed (0.110 seconds).
+Test Case '-[SujiTests.StoreRegressionTests testDiskBackedStateRestoresAfterRebuildingModelContainer]' started.
+Test Case '-[SujiTests.StoreRegressionTests testDiskBackedStateRestoresAfterRebuildingModelContainer]' passed (0.071 seconds).
+Test Case '-[SujiTests.StoreRegressionTests testOlderSlowBirthCalculationCannotOverwriteNewerResult]' started.
+Test Case '-[SujiTests.StoreRegressionTests testOlderSlowBirthCalculationCannotOverwriteNewerResult]' passed (0.275 seconds).
+Test Case '-[SujiTests.StoreRegressionTests testPersistenceBootstrapMigratesAndRemovesLegacySharedStoreAfterPrivateBackup]' started.
+Test Case '-[SujiTests.StoreRegressionTests testPersistenceBootstrapMigratesAndRemovesLegacySharedStoreAfterPrivateBackup]' passed (0.021 seconds).
+Test Case '-[SujiTests.StoreRegressionTests testPersistenceBootstrapRetriesAfterBackupCreationFailureWithoutLosingOrDuplicatingData]' started.
+Test Case '-[SujiTests.StoreRegressionTests testPersistenceBootstrapRetriesAfterBackupCreationFailureWithoutLosingOrDuplicatingData]' passed (0.019 seconds).
+Test Case '-[SujiTests.StoreRegressionTests testPersistenceBootstrapUsesExplicitAppPrivateStore]' started.
+Test Case '-[SujiTests.StoreRegressionTests testPersistenceBootstrapUsesExplicitAppPrivateStore]' passed (0.003 seconds).
+Test Suite 'StoreRegressionTests' passed at 2026-09-21 10:32:45.341.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.563 (0.565) seconds
+Test Suite 'SujiTests.xctest' passed at 2026-09-21 10:32:45.341.
+	 Executed 35 tests, with 0 failures (0 unexpected) in 4.383 (4.393) seconds
+Test Suite 'Selected tests' passed at 2026-09-21 10:32:45.341.
+	 Executed 35 tests, with 0 failures (0 unexpected) in 4.383 (4.393) seconds
+** TEST SUCCEEDED **

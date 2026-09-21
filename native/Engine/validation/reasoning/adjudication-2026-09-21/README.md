@@ -39,3 +39,9 @@ SUJI_LIUYAO_CAPACITY_MATRIX=/tmp/suji-adjudication-reproduce/divination/fixtures
 ## Swift compiler compatibility follow-up
 
 The 53 + 11 archived captures and production-source hashes identify commit `6b15617914b244f648442591ffd6bf04953c4c8d`. Remote CI then exposed type-checker timeouts in two long native Liuyao array/evidence expressions. The follow-up splits them into typed arrays and ordered appends; source membership, evidence order, text and all transport formats remain unchanged. The archive retains the original capture hashes. Relevant native regression tests and CI validate the follow-up separately.
+
+## Deterministic astronomy cache regression
+
+CI at `18c3a50` passed Engine/Core and all seven UI tests, but exposed a scheduling race in the warm-cache test: `buildingNatalAstronomyDossier` remains true after the inner disk-hit task completes until its awaiting caller executes cleanup. Polling that flag could therefore change birth after a valid result had already been assigned. A DEBUG-only synchronous checkpoint now changes birth after capture but before queued work starts. The test requires `CancellationError`, an empty dossier and cleared pending state; no sleeps or new suspension points are added.
+
+`astronomy-scheduling-mutant-red.log` records the expected failure after temporarily removing the four birth equality guards inside `ensureNatalAstronomyDossier`. `astronomy-scheduling-hosted-green.log` records all 35 hosted tests passing after restoring those guards. The production guards and release behavior are unchanged. These extracts are separate from the immutable capacity archive.

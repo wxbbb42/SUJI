@@ -95,13 +95,27 @@ import SujiCore
         try app.replaceNotebook(replacement)
         container.mainContext.insert(SavedState(data: try JSONEncoder().encode(cached), key: "natal-astronomy:user:one"))
         try container.mainContext.save()
-        let pending = Task { try await app.ensureNatalAstronomyDossier() }
-        while !app.buildingNatalAstronomyDossier { await Task.yield() }
         var changed = birth; changed.minute += 1
-        app.state.birth = changed
-        do { _ = try await pending.value; XCTFail("Queued disk hit must recheck birth") } catch { }
+        var checkpointCount = 0
+        app.astronomyOperationWillStartForTesting = {
+            checkpointCount += 1
+            XCTAssertTrue(app.buildingNatalAstronomyDossier)
+            XCTAssertNil(app.natalAstronomyDossier)
+            // The task has captured the old birth but has not read its cached dossier.
+            // Polling `building` cannot establish this: it stays true until the
+            // awaiting caller resumes, even after a synchronous disk hit completes.
+            app.state.birth = changed
+        }
+        defer { app.astronomyOperationWillStartForTesting = nil }
+        do {
+            _ = try await app.ensureNatalAstronomyDossier()
+            XCTFail("Queued disk hit must recheck birth")
+        } catch is CancellationError { }
+        catch { XCTFail("Expected stale-input cancellation, got \(error)") }
+        XCTAssertEqual(checkpointCount, 1)
         XCTAssertNil(app.natalAstronomyDossier)
         XCTAssertFalse(app.hasNatalAstronomyDossier)
+        XCTAssertFalse(app.buildingNatalAstronomyDossier)
     }
 
 }
