@@ -1,0 +1,41 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand --runTestsByPath src/divination/__tests__/EventAssessment.test.ts
+
+FAIL src/divination/__tests__/EventAssessment.test.ts
+  ✓ uninjured monthly target establishes the source-profile favorable direction, never empirical certainty (4 ms)
+  ✓ 大过之鼎 no-root target defeats both moving rescue edges and yields adverse profile (2 ms)
+  ✓ two appearances retain both event candidates and do not silently select an empty timing object (1 ms)
+  ✓ a question with missing role cannot gain a verdict through candidate agreement
+  ✓ effective 子忌→卯元→巳用 redirects the incoming attack, with balanced calendar supported by the moving yuan (1 ms)
+  ✓ changing only the calendar makes the same yuan month-broken and cannot retain the favorable transmission (1 ms)
+  ✓ added 申金 moving attack on the yuan blocks the complete rescue chain
+  ✓ uninjured monthly target in the current void is awaiting a condition, never permanently adverse or already obtained (1 ms)
+  ✓ month-break alone never satisfies the no-root adverse condition (1 ms)
+  ✓ monthly effective moving 忌 with no calendar support or moving rescue gives adverse direction
+  ✓ two identical rootless objects can share a source direction while selection and timing remain open
+  ✕ incoming ji also needs usable force; a supported yuan does not repair a broken incoming actor (2 ms)
+  ✓ no-root removal of only the day control condition cannot inherit target-cannot-receive (1 ms)
+
+  ● incoming ji also needs usable force; a supported yuan does not repair a broken incoming actor
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "conditional"
+    Received: "redirected-through-yuan"
+
+      81 | test('incoming ji also needs usable force; a supported yuan does not repair a broken incoming actor',()=>{
+      82 |   const r=cast([7,9,8,8,7,6],'甲午','丙寅'); // 子忌月破；卯元仍日扶
+    > 83 |   expect(r.eventAssessment?.candidates[0].transmissions[0].status).toBe('conditional');
+         |                                                                    ^
+      84 |   expect(r.eventAssessment?.ruleOutcomeEstablished).toBe(false);
+      85 | });
+      86 |
+
+      at Object.<anonymous> (src/divination/__tests__/EventAssessment.test.ts:83:68)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 12 passed, 13 total
+Snapshots:   0 total
+Time:        0.623 s, estimated 1 s
+Ran all test suites within paths "src/divination/__tests__/EventAssessment.test.ts".

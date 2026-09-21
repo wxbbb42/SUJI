@@ -1,0 +1,157 @@
+Building for debugging...
+[2 / 5] SujiCore
+[3 / 6] SujiCore
+[7 / 10] SujiCore
+[9 / 10] SujiCoreTests-product
+[10 / 11] SujiCoreTests-product
+[14 / 15] ReadingEvalFixtures-product
+Build complete! (3.91秒)
+Test Suite 'Selected tests' started at 2026-09-21 11:23:13.253.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 11:23:13.254.
+Test Suite 'AdjudicationFollowupIntegrationTests' started at 2026-09-21 11:23:13.254.
+Test Case '-[SujiCoreTests.AdjudicationFollowupIntegrationTests testQimenSelectionReconfirmationOriginalPlateStorageReplayAndArchive]' started.
+Test Case '-[SujiCoreTests.AdjudicationFollowupIntegrationTests testQimenSelectionReconfirmationOriginalPlateStorageReplayAndArchive]' passed (0.569 seconds).
+Test Suite 'AdjudicationFollowupIntegrationTests' passed at 2026-09-21 11:23:13.823.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.569 (0.569) seconds
+Test Suite 'DivinationEvidenceTests' started at 2026-09-21 11:23:13.823.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testQimenEarthHostingIsIndependentOfSkyHostingAndArrayOrder]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testQimenEarthHostingIsIndependentOfSkyHostingAndArrayOrder]' passed (0.007 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testQimenFactsUsePalaceIdentityAndPreserveHourScope]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testQimenFactsUsePalaceIdentityAndPreserveHourScope]' passed (0.002 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testQimenQuestionObjectsKeepScopedPointersNullAndUnresolvedTiming]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testQimenQuestionObjectsKeepScopedPointersNullAndUnresolvedTiming]' passed (0.011 seconds).
+Test Suite 'DivinationEvidenceTests' passed at 2026-09-21 11:23:13.843.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.019 (0.020) seconds
+Test Suite 'EngineTests' started at 2026-09-21 11:23:13.843.
+Test Case '-[SujiCoreTests.EngineTests testJavaScriptCoreMatchesNodeForCalendarProfileQimenAndCalibration]' started.
+Test Case '-[SujiCoreTests.EngineTests testJavaScriptCoreMatchesNodeForCalendarProfileQimenAndCalibration]' passed (0.887 seconds).
+Test Suite 'EngineTests' passed at 2026-09-21 11:23:14.730.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.887 (0.887) seconds
+Test Suite 'QimenReadingAssertionTests' started at 2026-09-21 11:23:14.730.
+Test Case '-[SujiCoreTests.QimenReadingAssertionTests testArchivedWrongEarthPalaceIsRepairedEvenIfReviewerWouldAccept]' started.
+Test Case '-[SujiCoreTests.QimenReadingAssertionTests testArchivedWrongEarthPalaceIsRepairedEvenIfReviewerWouldAccept]' passed (0.469 seconds).
+Test Case '-[SujiCoreTests.QimenReadingAssertionTests testContextAndConflictingReceiptsCannotAuthorizePlateRepair]' started.
+Test Case '-[SujiCoreTests.QimenReadingAssertionTests testContextAndConflictingReceiptsCannotAuthorizePlateRepair]' passed (0.175 seconds).
+Test Case '-[SujiCoreTests.QimenReadingAssertionTests testDirectAndReverseClaimsBindTheirOwnPlateAndPalace]' started.
+Test Case '-[SujiCoreTests.QimenReadingAssertionTests testDirectAndReverseClaimsBindTheirOwnPlateAndPalace]' passed (0.099 seconds).
+Test Case '-[SujiCoreTests.QimenReadingAssertionTests testLegacyHostingDoesNotBecomeFalsePrimaryMismatch]' started.
+Test Case '-[SujiCoreTests.QimenReadingAssertionTests testLegacyHostingDoesNotBecomeFalsePrimaryMismatch]' passed (0.014 seconds).
+Test Case '-[SujiCoreTests.QimenReadingAssertionTests testReviewerFeedbackKeepsQuestionPunctuationAndExplicitHostedIdentity]' started.
+Test Case '-[SujiCoreTests.QimenReadingAssertionTests testReviewerFeedbackKeepsQuestionPunctuationAndExplicitHostedIdentity]' passed (0.018 seconds).
+Test Suite 'QimenReadingAssertionTests' passed at 2026-09-21 11:23:15.506.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.776 (0.776) seconds
+Test Suite 'QimenReferenceReadingTests' started at 2026-09-21 11:23:15.506.
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testActualChartSeparatesBothRolesAndBothHostedLayersWithoutModelProse]' started.
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testActualChartSeparatesBothRolesAndBothHostedLayersWithoutModelProse]' passed (0.092 seconds).
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testActualIntentFilteringCannotTurnMixedSystemQuestionIntoExclusiveQimen]' started.
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testActualIntentFilteringCannotTurnMixedSystemQuestionIntoExclusiveQimen]' passed (0.090 seconds).
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testActualOrchestratorRetryUsesOriginalReceiptWithoutExecutingOrSavingAgain]' started.
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testActualOrchestratorRetryUsesOriginalReceiptWithoutExecutingOrSavingAgain]' passed (0.196 seconds).
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testAppSubsecondQuestionClockMatchesSerializedToolTimeButNotAnotherSecond]' started.
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testAppSubsecondQuestionClockMatchesSerializedToolTimeButNotAnotherSecond]' passed (0.071 seconds).
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testBrokenObjectPointersMissingOccurrenceOrSourceCannotBeRewrittenAsFacts]' started.
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testBrokenObjectPointersMissingOccurrenceOrSourceCannotBeRewrittenAsFacts]' passed (0.070 seconds).
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testJiaCarrierAndTianqinHostCannotBeInternallyReboundToOtherRealPositions]' started.
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testJiaCarrierAndTianqinHostCannotBeInternallyReboundToOtherRealPositions]' passed (0.111 seconds).
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testJiaUsesOwnCarrierAndCategoryCandidatesKeepTheirSources]' started.
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testJiaUsesOwnCarrierAndCategoryCandidatesKeepTheirSources]' passed (0.060 seconds).
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testMissingContextAndConflictingOrUntrustedReceiptsDoNotCreateAReading]' started.
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testMissingContextAndConflictingOrUntrustedReceiptsDoNotCreateAReading]' passed (0.056 seconds).
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testReorderedPalacesAndCategoryBreadthPreserveExactObjects]' started.
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testReorderedPalacesAndCategoryBreadthPreserveExactObjects]' passed (0.194 seconds).
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testUnavailableDoesNotClaimAChartExistsAndExclusiveGateKeepsMixedRequests]' started.
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testUnavailableDoesNotClaimAChartExistsAndExclusiveGateKeepsMixedRequests]' passed (0.102 seconds).
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testUnsupportedMetadataAndCorruptHostedFlagsFailClosed]' started.
+Test Case '-[SujiCoreTests.QimenReferenceReadingTests testUnsupportedMetadataAndCorruptHostedFlagsFailClosed]' passed (0.083 seconds).
+Test Suite 'QimenReferenceReadingTests' passed at 2026-09-21 11:23:16.633.
+	 Executed 11 tests, with 0 failures (0 unexpected) in 1.125 (1.127) seconds
+Test Suite 'QimenSelectionEvidenceTests' started at 2026-09-21 11:23:16.633.
+Test Case '-[SujiCoreTests.QimenSelectionEvidenceTests testAllTwelveRolesAreIndependentlyCheckedDisplayedAndArchived]' started.
+Test Case '-[SujiCoreTests.QimenSelectionEvidenceTests testAllTwelveRolesAreIndependentlyCheckedDisplayedAndArchived]' passed (1.774 seconds).
+Test Case '-[SujiCoreTests.QimenSelectionEvidenceTests testEveryReceiptMustBindTheSameRequestedSelection]' started.
+Test Case '-[SujiCoreTests.QimenSelectionEvidenceTests testEveryReceiptMustBindTheSameRequestedSelection]' passed (0.216 seconds).
+Test Case '-[SujiCoreTests.QimenSelectionEvidenceTests testIndependentBoundaryAndConflictReconstruction]' started.
+Test Case '-[SujiCoreTests.QimenSelectionEvidenceTests testIndependentBoundaryAndConflictReconstruction]' passed (0.145 seconds).
+Test Case '-[SujiCoreTests.QimenSelectionEvidenceTests testLegacyAbsenceIsReadableButOneSidedReportSourceOrRequestIsRejected]' started.
+Test Case '-[SujiCoreTests.QimenSelectionEvidenceTests testLegacyAbsenceIsReadableButOneSidedReportSourceOrRequestIsRejected]' passed (0.195 seconds).
+Test Case '-[SujiCoreTests.QimenSelectionEvidenceTests testPeerRolesAndPlateAmbiguityRemainVisible]' started.
+Test Case '-[SujiCoreTests.QimenSelectionEvidenceTests testPeerRolesAndPlateAmbiguityRemainVisible]' passed (0.080 seconds).
+Test Case '-[SujiCoreTests.QimenSelectionEvidenceTests testTamperedRuleIdentityPeerOccurrenceAndInputBindingCannotRender]' started.
+Test Case '-[SujiCoreTests.QimenSelectionEvidenceTests testTamperedRuleIdentityPeerOccurrenceAndInputBindingCannotRender]' passed (0.204 seconds).
+Test Suite 'QimenSelectionEvidenceTests' passed at 2026-09-21 11:23:19.248.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 2.614 (2.615) seconds
+Test Suite 'QimenTimingEvidenceTests' started at 2026-09-21 11:23:19.248.
+Test Case '-[SujiCoreTests.QimenTimingEvidenceTests testCorruptConditionsDatesAndSourcesCannotProduceNativeText]' started.
+Test Case '-[SujiCoreTests.QimenTimingEvidenceTests testCorruptConditionsDatesAndSourcesCannotProduceNativeText]' passed (0.157 seconds).
+Test Case '-[SujiCoreTests.QimenTimingEvidenceTests testLiteralHorseCandidateIsBoundToTheOpeningDoorAndRemainsConditional]' started.
+Test Case '-[SujiCoreTests.QimenTimingEvidenceTests testLiteralHorseCandidateIsBoundToTheOpeningDoorAndRemainsConditional]' passed (0.076 seconds).
+Test Case '-[SujiCoreTests.QimenTimingEvidenceTests testRealJavaScriptCoreDispatchSupportsEveryCalendarUnitAndUnresolvedRequest]' started.
+Test Case '-[SujiCoreTests.QimenTimingEvidenceTests testRealJavaScriptCoreDispatchSupportsEveryCalendarUnitAndUnresolvedRequest]' passed (0.280 seconds).
+Test Case '-[SujiCoreTests.QimenTimingEvidenceTests testSourceHashURLAndDirectExampleCannotBeReplaced]' started.
+Test Case '-[SujiCoreTests.QimenTimingEvidenceTests testSourceHashURLAndDirectExampleCannotBeReplaced]' passed (0.163 seconds).
+Test Suite 'QimenTimingEvidenceTests' passed at 2026-09-21 11:23:19.925.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.676 (0.677) seconds
+Test Suite 'QimenTimingPreparationTests' started at 2026-09-21 11:23:19.925.
+Test Case '-[SujiCoreTests.QimenTimingPreparationTests testConfirmationRoundTripDispatchAndReferenceOnlyRemoval]' started.
+Test Case '-[SujiCoreTests.QimenTimingPreparationTests testConfirmationRoundTripDispatchAndReferenceOnlyRemoval]' passed (0.106 seconds).
+Test Case '-[SujiCoreTests.QimenTimingPreparationTests testRejectsImplicitOrInvalidFocusDateAndUnit]' started.
+Test Case '-[SujiCoreTests.QimenTimingPreparationTests testRejectsImplicitOrInvalidFocusDateAndUnit]' passed (0.001 seconds).
+Test Case '-[SujiCoreTests.QimenTimingPreparationTests testSupplementConfirmationKeepsOriginalPlateAndRendersAddedTiming]' started.
+Test Case '-[SujiCoreTests.QimenTimingPreparationTests testSupplementConfirmationKeepsOriginalPlateAndRendersAddedTiming]' passed (0.135 seconds).
+Test Case '-[SujiCoreTests.QimenTimingPreparationTests testTimingIsOffByDefaultAndNeedsExplicitFields]' started.
+Test Case '-[SujiCoreTests.QimenTimingPreparationTests testTimingIsOffByDefaultAndNeedsExplicitFields]' passed (0.002 seconds).
+Test Suite 'QimenTimingPreparationTests' passed at 2026-09-21 11:23:20.169.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.243 (0.244) seconds
+Test Suite 'QimenTimingTransportTests' started at 2026-09-21 11:23:20.169.
+Test Case '-[SujiCoreTests.QimenTimingTransportTests testCalendarDictionaryRejectsDamageAndPreservesAllEvidence]' started.
+Test Case '-[SujiCoreTests.QimenTimingTransportTests testCalendarDictionaryRejectsDamageAndPreservesAllEvidence]' passed (1.460 seconds).
+Test Case '-[SujiCoreTests.QimenTimingTransportTests testCalendarGridPreservesClippedMillisecondsAndUnknownFields]' started.
+Test Case '-[SujiCoreTests.QimenTimingTransportTests testCalendarGridPreservesClippedMillisecondsAndUnknownFields]' passed (0.011 seconds).
+Test Case '-[SujiCoreTests.QimenTimingTransportTests testLargerChartAcrossEveryUnitKeepsFullCandidateArrays]' started.
+Test Case '-[SujiCoreTests.QimenTimingTransportTests testLargerChartAcrossEveryUnitKeepsFullCandidateArrays]' passed (3.258 seconds).
+Test Case '-[SujiCoreTests.QimenTimingTransportTests testMaximumPeriodVoidCalendarKeepsEveryDateWithinWireBudget]' started.
+Test Case '-[SujiCoreTests.QimenTimingTransportTests testMaximumPeriodVoidCalendarKeepsEveryDateWithinWireBudget]' passed (1.913 seconds).
+Test Case '-[SujiCoreTests.QimenTimingTransportTests testPackedMaximumCalendarReassessesThroughJSCAndNativeSupplement]' started.
+Test Case '-[SujiCoreTests.QimenTimingTransportTests testPackedMaximumCalendarReassessesThroughJSCAndNativeSupplement]' passed (3.172 seconds).
+Test Case '-[SujiCoreTests.QimenTimingTransportTests testPairedActualChartsPersistReplayAndVerifyUnderExistingBudgets]' started.
+Test Case '-[SujiCoreTests.QimenTimingTransportTests testPairedActualChartsPersistReplayAndVerifyUnderExistingBudgets]' passed (17.089 seconds).
+Test Suite 'QimenTimingTransportTests' passed at 2026-09-21 11:23:47.072.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 26.903 (26.904) seconds
+Test Suite 'ReadingFallbackStateTests' started at 2026-09-21 11:23:47.072.
+Test Case '-[SujiCoreTests.ReadingFallbackStateTests testSuccessfulQimenRetainsItsOriginalChart]' started.
+Test Case '-[SujiCoreTests.ReadingFallbackStateTests testSuccessfulQimenRetainsItsOriginalChart]' passed (0.002 seconds).
+Test Suite 'ReadingFallbackStateTests' passed at 2026-09-21 11:23:47.075.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.002 (0.003) seconds
+Test Suite 'ReadingVerificationProtocolTests' started at 2026-09-21 11:23:47.075.
+Test Case '-[SujiCoreTests.ReadingVerificationProtocolTests testQimenCandidateGuardUsesItsOwnUnambiguousReceiptAndOnlyAssertions]' started.
+Test Case '-[SujiCoreTests.ReadingVerificationProtocolTests testQimenCandidateGuardUsesItsOwnUnambiguousReceiptAndOnlyAssertions]' passed (0.042 seconds).
+Test Case '-[SujiCoreTests.ReadingVerificationProtocolTests testQimenPalaceKeyUsesPalaceIDInsteadOfAssumingArrayIndex]' started.
+Test Case '-[SujiCoreTests.ReadingVerificationProtocolTests testQimenPalaceKeyUsesPalaceIDInsteadOfAssumingArrayIndex]' passed (0.013 seconds).
+Test Suite 'ReadingVerificationProtocolTests' passed at 2026-09-21 11:23:47.130.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.055 (0.055) seconds
+Test Suite 'ReadingVerifierTests' started at 2026-09-21 11:23:47.130.
+Test Case '-[SujiCoreTests.ReadingVerifierTests testExplicitQimenRequestIsAvailableInDivinationModeWithoutSubstitutingLiuyao]' started.
+Test Case '-[SujiCoreTests.ReadingVerifierTests testExplicitQimenRequestIsAvailableInDivinationModeWithoutSubstitutingLiuyao]' passed (0.003 seconds).
+Test Case '-[SujiCoreTests.ReadingVerifierTests testQimenRequiresPositiveIntentAndHonorsNegation]' started.
+Test Case '-[SujiCoreTests.ReadingVerifierTests testQimenRequiresPositiveIntentAndHonorsNegation]' passed (0.000 seconds).
+Test Suite 'ReadingVerifierTests' passed at 2026-09-21 11:23:47.133.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.003 (0.003) seconds
+Test Suite 'ToolOrchestratorTests' started at 2026-09-21 11:23:47.133.
+Test Case '-[SujiCoreTests.ToolOrchestratorTests testQimenRetryPreservesOriginalQuestionAndTimeJustLikeLiuyao]' started.
+Test Case '-[SujiCoreTests.ToolOrchestratorTests testQimenRetryPreservesOriginalQuestionAndTimeJustLikeLiuyao]' passed (0.001 seconds).
+Test Suite 'ToolOrchestratorTests' passed at 2026-09-21 11:23:47.135.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'SujiCoreTests.xctest' passed at 2026-09-21 11:23:47.135.
+	 Executed 47 tests, with 0 failures (0 unexpected) in 33.873 (33.881) seconds
+Test Suite 'Selected tests' passed at 2026-09-21 11:23:47.135.
+	 Executed 47 tests, with 0 failures (0 unexpected) in 33.873 (33.882) seconds
+Qimen larger year wire 23176/28150
+Qimen larger month wire 18500/23244
+Qimen larger day wire 24134/29670
+Qimen larger hour wire 24209/29733
+Qimen max timing raw 61505/71055, stored 23269/32073, wire 21919/27523
+Qimen pair component cast_liuyao raw 53771/66563, stored 39185/51627, wire 29210/30376, args 6087
+Qimen pair component setup_qimen raw 63495/72249, stored 24264/32670, wire 19898/23114, args 7407
+Qimen timing paired wire [30376, 23114], UTF16 [29210, 19898]
+Qimen timing paired verifier 115343 UTF16, 166084 bytes
+Qimen timing verifier messages ["0:system:2386", "1:user:11", "2:user:8010", "3:system:12373", "4:system:4103", "5:assistant:0", "6:tool:29210", "7:tool:19898", "8:user:28000", "9:user:4206", "10:user:58"]

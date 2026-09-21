@@ -1,0 +1,9 @@
+
+> suji-native-engine@1.0.0 build
+> node build.mjs
+
+Bundled 1338 KB; generated 25 native parity fixtures.
+PASS: bundle, fixtures and notices are byte-for-byte reproducible
+c4a1109927f21d94fdabadfd03dcc3405a6d19f0063f24c53b49163773813521 native/Resources/mingli.js
+dad25ee838140075526edb1d93d176f50667836e17147a60888445d6fb2b1b48 native/Resources/engine-fixtures.json
+d27b74c7203782463669676b8201f06aac4f4d43ad4356aced74d782cebf9fe0 native/Resources/ThirdPartyNotices.txt

@@ -1,4 +1,5 @@
 import { RESCUE_SOURCES } from './rescueSources';
+import { resolveRescueDependencies } from './rescueDependencies';
 
 type Conditions = ReturnType<typeof import('./structural').computePatternConditions>;
 export type CombinationRoleStatus = 'day-master-no-removal' | 'blocked-by-intervening-geng'
@@ -117,6 +118,7 @@ export function adjudicateRescue(conditions:Conditions) {
   return {methodVersion:'bazi-rescue-adjudication-v1' as const,profileId:'ziping-xu-local-role-dependencies-v1' as const,
     outcomeEstablished:false as const,globalResolution:'unresolved' as const,
     combinations,rescuePaths,helperProtections,hiddenRoles,branchHelpers,threatCoverage,sources:RESCUE_SOURCES,
+    dependencyResolution:resolveRescueDependencies(conditions,combinations),
     unresolvedScopes:['全局取相与全部病点尚未穷尽；局部路径可用不等于全格成败',
       '直接克边的相对力量及多条救应竞争未由根数或分数替代',
       '除明确命例外，藏干实际施事效力与支合解冲仍需配置条件',

@@ -1,0 +1,9 @@
+# Independent review record
+
+A separate reviewer inspected the three source-scoped rule layers against baseline `1a55f46`, their independent native reconstruction, source/report/request pairing, explicit UI selection, supplements and persistence. Targeted Engine review run: 5 suites / 48 tests passed.
+
+Confirmed finding: the standalone Bazi rescue validator ignored the new `conditionalEvidence.selectedYong`, so missing or contradictory values could survive that trace while appearing in the fact index. Fixed by binding it to `patternAnalysis.yongShenShiShen` when the new dependency layer exists. Documentary fixtures now include the full conditions; direct mutation and actual JSC catalog tests exercise missing/contradictory values. The earlier full catalog already rejected the tested contradiction through another guard; the new test preserves that defense. RED: 2 tests / 3 failed assertions. GREEN: 25 Bazi-related tests passed. Legacy absence still uses the old compatibility path.
+
+The reviewer then checked the final delivery adjustment: reference-index v2 flattens exactly one node-pair/pattern-row layer; node indices and numeric interpolation retain their meaning. Swift and independent JavaScript inverses support v1/v2. Both prompt descriptions were updated. Source directories reuse the existing value dictionary, restore before validating exact metadata and SHA, and preserve legacy uncompressed directories. Missing, malformed, stale and misbound evidence remains rejected.
+
+Final targeted transport review: no further findings; 11 tests passed, including exact fact restoration and the two maximum-window/selection requests at 116,952 and 116,286 UTF-16, below the unchanged 120,000 limit with the original 2,500-unit test margin. Full frozen-code regression and capture results are recorded separately; targeted review is not a substitute for those runs.

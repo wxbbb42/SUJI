@@ -147,7 +147,8 @@ final class LiuyaoTriadTests: XCTestCase {
         root.removeValue(forKey:"triads")
         root.removeValue(forKey:"efficacy")
         XCTAssertNil(LiuyaoReferenceReading.render(receipts:[try changed(receipt,root)],context:context))
-        root["ruleSources"]=(root["ruleSources"] as! [[String:Any]]).filter{!["liuyao-triad-selected-v1","liuyao-efficacy-zengshan-v1"].contains($0["id"] as? String ?? "")}
+        root.removeValue(forKey:"eventAssessment")
+        root["ruleSources"]=(root["ruleSources"] as! [[String:Any]]).filter{!["liuyao-triad-selected-v1","liuyao-efficacy-zengshan-v1","liuyao-event-zengshan-v1"].contains($0["id"] as? String ?? "")}
         XCTAssertNotNil(LiuyaoReferenceReading.render(receipts:[try changed(receipt,root)],context:context))
         root=original
         var layer=root["triads"] as! [String:Any];layer["groups"]=[];root["triads"]=layer

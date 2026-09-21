@@ -58,20 +58,32 @@ public struct CastSupplement: Codable, Sendable, Equatable {
               revised["question"] == args["question"], revised["questionType"] == args["questionType"],
               revised["questionContext"] == .object(args.filter{["subject","event","timeHorizon"].contains($0.key)}) else { throw Failure.invalid }
         if original.name == "setup_qimen" {
-            // Only the optional timing source belongs to the changed question.
+            // Optional question-specific sources may change; chart foundations may not.
             func originalSources(_ chart: [String:JSONValue]) throws -> [JSONValue] {
                 guard case let .array(sources) = chart["ruleSources"] else { throw Failure.invalid }
-                return sources.filter { ReadingVerificationEvidence.pointer("/id",in:$0) != "qimen-xdyy-timing-v1" }
+                let optional: [JSONValue] = ["qimen-xdyy-timing-v1", "qimen-xdyy-weather-selection-v1", "qimen-xdyy-dwelling-selection-v1"]
+                return sources.filter { !optional.contains(ReadingVerificationEvidence.pointer("/id",in:$0) ?? .null) }
             }
             guard try originalSources(source) == originalSources(revised),
-                  (revised["timing"] != nil) == (args["timingRequest"] != nil) else { throw Failure.invalid }
+                  (revised["timing"] != nil) == (args["timingRequest"] != nil),
+                  (revised["specializedSelection"] != nil) == (args["selectionRequest"] != nil) else { throw Failure.invalid }
+        }
+        if original.name == "cast_liuyao" {
+            guard case let .array(before) = source["ruleSources"], case let .array(after) = revised["ruleSources"] else { throw Failure.invalid }
+            let eventID: JSONValue = "liuyao-event-zengshan-v1"
+            let hadEvent = before.contains { ReadingVerificationEvidence.pointer("/id",in:$0) == eventID }
+            // Legacy upgrades may append exactly the newly validated source. Modern
+            // receipts cannot drop either member of the source/report pair.
+            let added = after.filter { ReadingVerificationEvidence.pointer("/id",in:$0) == eventID }
+            guard revised["eventAssessment"] != nil, added.count == 1,
+                  (hadEvent ? before == after : after == before + added) else { throw Failure.invalid }
         }
         let mutable = Set(["question","questionType","questionContext","yongShen","yingQi","questionRevision"] +
-            (original.name == "cast_liuyao" ? ["roleRelations","efficacy"] : ["timing","ruleSources"]))
+            (original.name == "cast_liuyao" ? ["roleRelations","efficacy","eventAssessment","ruleSources"] : ["timing","specializedSelection","ruleSources"]))
         guard source.filter({!mutable.contains($0.key)}) == revised.filter({!mutable.contains($0.key)}) else { throw Failure.invalid }
         try CastQuestionBinding.validate(.object(revised),method:original.name)
         var adapted=receipt;adapted.name=original.name
-        guard let text=Self.referenceText(adapted,context:context) else { throw Failure.invalid }
+        guard let text=Self.referenceText(adapted,context:context,referenceOnly:confirmation.referenceOnly) else { throw Failure.invalid }
         guard case let .string(question) = args["question"] else { throw Failure.invalid }
         let scope=confirmation.referenceOnly ? "本次仅核对盘面。" : "以下按补充后的资料核对候选及条件。"
         return "这是对同一次占问的补充，沿用原盘与原起盘时刻。原记录仍然保留。\(scope)\n\n补充后的问题：\(question)\n\n" + text
@@ -96,8 +108,8 @@ public struct CastSupplement: Codable, Sendable, Equatable {
               try object(receipt.output)["questionRevision"] == nil,
               referenceText(receipt,context:context) != nil else { throw Failure.invalid }
     }
-    private static func referenceText(_ receipt:ToolReceipt,context:ToolContext) -> String? {
-        receipt.name == "cast_liuyao" ? LiuyaoReferenceReading.render(receipts:[receipt],context:context)?.text
+    private static func referenceText(_ receipt:ToolReceipt,context:ToolContext,referenceOnly:Bool = false) -> String? {
+        receipt.name == "cast_liuyao" ? LiuyaoReferenceReading.render(receipts:[receipt],context:context,referenceOnly:referenceOnly)?.text
             : QimenReferenceReading.render(receipts:[receipt],context:context)?.text
     }
     private static func object(_ output:String) throws -> [String:JSONValue] {

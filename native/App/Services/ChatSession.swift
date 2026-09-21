@@ -237,7 +237,8 @@ import SujiCore
                     activity = "正在整理六爻依据"
                     try Task.checkCancellation()
                     try Self.checkScope(store, revision: revision, birth: birth)
-                    partial = LiuyaoReferenceReading.render(receipts: frameworkReceipts, context: context)?.text
+                    let referenceOnly = currentConfirmations.contains { $0.call.name == "cast_liuyao" && $0.referenceOnly }
+                    partial = LiuyaoReferenceReading.render(receipts: frameworkReceipts, context: context, referenceOnly: referenceOnly)?.text
                         ?? LiuyaoReferenceReading.unavailableReply(receipts: frameworkReceipts)
                 } else {
                     activity = "正在写回信"

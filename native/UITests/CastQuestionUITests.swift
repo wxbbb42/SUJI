@@ -72,6 +72,41 @@ final class CastQuestionUITests: XCTestCase {
         XCTAssertFalse(app.staticTexts["audit.cast.saved"].exists)
     }
 
+    func testSpecialSelectionRequiresOptInAndIsReconfirmedForSupplement() {
+        let app = launch()
+        XCTAssertTrue(app.navigationBars["确认占问"].waitForExistence(timeout: 10))
+        let event = app.descendants(matching: .any).matching(identifier: "cast.event.setup_qimen").firstMatch
+        event.tap(); event.typeText("rain at the office site")
+        app.swipeUp()
+        let toggle = app.switches["cast.selection.enabled"]
+        reveal(toggle, app: app)
+        XCTAssertTrue(toggle.exists)
+        XCTAssertEqual(toggle.value as? String, "0")
+        toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
+        let confirm = app.buttons["cast.confirm"]
+        reveal(confirm, app: app); XCTAssertFalse(confirm.isEnabled)
+        let focus = app.buttons["cast.selection.focus"]
+        for _ in 0..<8 { if focus.isHittable { break }; app.swipeDown() }
+        focus.tap(); app.buttons["降雨"].tap()
+        reveal(confirm, app: app); XCTAssertTrue(confirm.isEnabled)
+        capture("selection-weather-confirmed", app: app)
+        confirm.tap()
+        XCTAssertTrue(app.staticTexts["audit.cast.saved"].waitForExistence(timeout: 10))
+        let supplement = app.buttons["cast.supplement.f4-ui-omission"]
+        reveal(supplement, app: app); supplement.tap()
+        XCTAssertTrue(app.navigationBars["补充这次占问"].waitForExistence(timeout: 10))
+        reveal(toggle, app: app)
+        XCTAssertEqual(toggle.value as? String, "0")
+        toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.92, dy: 0.5)).tap()
+        // The proposed focus is visible, but a new supplement requires opt-in.
+        reveal(confirm, app: app); XCTAssertTrue(confirm.isEnabled); confirm.tap()
+        let revised = app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "这是对同一次占问的补充，沿用原盘")).firstMatch
+        XCTAssertTrue(revised.waitForExistence(timeout: 10))
+        XCTAssertTrue(revised.label.contains("天柱"))
+        XCTAssertTrue(revised.label.contains("天蓬"))
+        capture("selection-original-chart-supplement", app: app)
+    }
+
     func testTimingRequiresExplicitFocusUnitAndEndDateBeforeSaving() {
         let app = launch()
         XCTAssertTrue(app.navigationBars["确认占问"].waitForExistence(timeout: 10))

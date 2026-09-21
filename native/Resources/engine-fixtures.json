@@ -16,7 +16,7 @@
     },
     "result": {
       "schemaVersion": 1,
-      "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+      "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
       "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
       "calendarPolicy": {
         "version": "suji-calendar-2",
@@ -1077,8 +1077,36 @@
                   "盖印未曾合去也"
                 ],
                 "editionStatus": "electronic-transcription-not-print-collated"
+              },
+              {
+                "id": "ziping-xu-occurrence-selection-v1",
+                "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+                "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+                "locator": "五、论十干合而不合：月时两辛、林森克一留一及各家异说",
+                "quote": "如甲生寅卯，月时两透辛官，以年丙合月辛，是为合一留一，官星反轻",
+                "additionalQuotes": [
+                  "戊辰、甲寅、丁卯、戊申",
+                  "用甲克去年上伤官，而留时上伤官以生财损印",
+                  "各家所说不同也"
+                ],
+                "editionStatus": "electronic-transcription-not-print-collated"
               }
             ],
+            "dependencyResolution": {
+              "methodVersion": "bazi-rescue-dependencies-v1",
+              "profileId": "ziping-xu-source-scoped-competition-v1",
+              "selectedYong": "偏财",
+              "outcomeEstablished": false,
+              "actions": [],
+              "occurrenceSelections": [],
+              "threatResolutions": [],
+              "unresolvedScopes": [
+                "local-paths-do-not-establish-global-outcome",
+                "unresolved-attacks-are-not-cancelled-by-unresolved-protections",
+                "source-conflicts-and-cycles-have-no-universal-priority",
+                "hidden-actors-outside-explicit-month-role-or-attested-case-unresolved"
+              ]
+            },
             "unresolvedScopes": [
               "全局取相与全部病点尚未穷尽；局部路径可用不等于全格成败",
               "直接克边的相对力量及多条救应竞争未由根数或分数替代",
@@ -1098,6 +1126,7 @@
           "conditionalEvidence": {
             "assessmentStatus": "conditions-only",
             "outcomeEstablished": false,
+            "selectedYong": "偏财",
             "stems": [
               {
                 "position": 0,
@@ -3083,7 +3112,7 @@
     },
     "result": {
       "schemaVersion": 1,
-      "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+      "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
       "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
       "time": {
         "wallClock": "1995-08-15T19:30",
@@ -3698,7 +3727,7 @@
     },
     "result": {
       "schemaVersion": 1,
-      "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+      "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
       "birthKey": "[1901,1,1,0,0,\"女\",121.47,\"Asia/Shanghai\"]",
       "time": {
         "wallClock": "1901-01-01T00:00",
@@ -4313,7 +4342,7 @@
     },
     "result": {
       "schemaVersion": 1,
-      "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+      "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
       "birthKey": "[2100,12,31,23,59,\"女\",121.47,\"Asia/Shanghai\"]",
       "time": {
         "wallClock": "2100-12-31T23:59",
@@ -4928,7 +4957,7 @@
     },
     "result": {
       "schemaVersion": 1,
-      "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+      "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
       "birthKey": "[1990,7,15,12,0,\"女\",121.47,\"Asia/Shanghai\"]",
       "time": {
         "wallClock": "1990-07-15T12:00",
@@ -6624,8 +6653,36 @@
                   "盖印未曾合去也"
                 ],
                 "editionStatus": "electronic-transcription-not-print-collated"
+              },
+              {
+                "id": "ziping-xu-occurrence-selection-v1",
+                "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+                "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+                "locator": "五、论十干合而不合：月时两辛、林森克一留一及各家异说",
+                "quote": "如甲生寅卯，月时两透辛官，以年丙合月辛，是为合一留一，官星反轻",
+                "additionalQuotes": [
+                  "戊辰、甲寅、丁卯、戊申",
+                  "用甲克去年上伤官，而留时上伤官以生财损印",
+                  "各家所说不同也"
+                ],
+                "editionStatus": "electronic-transcription-not-print-collated"
               }
             ],
+            "dependencyResolution": {
+              "methodVersion": "bazi-rescue-dependencies-v1",
+              "profileId": "ziping-xu-source-scoped-competition-v1",
+              "selectedYong": "偏财",
+              "outcomeEstablished": false,
+              "actions": [],
+              "occurrenceSelections": [],
+              "threatResolutions": [],
+              "unresolvedScopes": [
+                "local-paths-do-not-establish-global-outcome",
+                "unresolved-attacks-are-not-cancelled-by-unresolved-protections",
+                "source-conflicts-and-cycles-have-no-universal-priority",
+                "hidden-actors-outside-explicit-month-role-or-attested-case-unresolved"
+              ]
+            },
             "unresolvedScopes": [
               "全局取相与全部病点尚未穷尽；局部路径可用不等于全格成败",
               "直接克边的相对力量及多条救应竞争未由根数或分数替代",
@@ -6645,6 +6702,7 @@
           "conditionalEvidence": {
             "assessmentStatus": "conditions-only",
             "outcomeEstablished": false,
+            "selectedYong": "偏财",
             "stems": [
               {
                 "position": 0,
@@ -9421,7 +9479,7 @@
           }
         ],
         "provenance": {
-          "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+          "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -10643,8 +10701,36 @@
                   "盖印未曾合去也"
                 ],
                 "editionStatus": "electronic-transcription-not-print-collated"
+              },
+              {
+                "id": "ziping-xu-occurrence-selection-v1",
+                "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+                "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+                "locator": "五、论十干合而不合：月时两辛、林森克一留一及各家异说",
+                "quote": "如甲生寅卯，月时两透辛官，以年丙合月辛，是为合一留一，官星反轻",
+                "additionalQuotes": [
+                  "戊辰、甲寅、丁卯、戊申",
+                  "用甲克去年上伤官，而留时上伤官以生财损印",
+                  "各家所说不同也"
+                ],
+                "editionStatus": "electronic-transcription-not-print-collated"
               }
             ],
+            "dependencyResolution": {
+              "methodVersion": "bazi-rescue-dependencies-v1",
+              "profileId": "ziping-xu-source-scoped-competition-v1",
+              "selectedYong": "偏财",
+              "outcomeEstablished": false,
+              "actions": [],
+              "occurrenceSelections": [],
+              "threatResolutions": [],
+              "unresolvedScopes": [
+                "local-paths-do-not-establish-global-outcome",
+                "unresolved-attacks-are-not-cancelled-by-unresolved-protections",
+                "source-conflicts-and-cycles-have-no-universal-priority",
+                "hidden-actors-outside-explicit-month-role-or-attested-case-unresolved"
+              ]
+            },
             "unresolvedScopes": [
               "全局取相与全部病点尚未穷尽；局部路径可用不等于全格成败",
               "直接克边的相对力量及多条救应竞争未由根数或分数替代",
@@ -10664,6 +10750,7 @@
           "conditionalEvidence": {
             "assessmentStatus": "conditions-only",
             "outcomeEstablished": false,
+            "selectedYong": "偏财",
             "stems": [
               {
                 "position": 0,
@@ -13724,8 +13811,55 @@
                   "盖印未曾合去也"
                 ],
                 "editionStatus": "electronic-transcription-not-print-collated"
+              },
+              {
+                "id": "ziping-xu-occurrence-selection-v1",
+                "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+                "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+                "locator": "五、论十干合而不合：月时两辛、林森克一留一及各家异说",
+                "quote": "如甲生寅卯，月时两透辛官，以年丙合月辛，是为合一留一，官星反轻",
+                "additionalQuotes": [
+                  "戊辰、甲寅、丁卯、戊申",
+                  "用甲克去年上伤官，而留时上伤官以生财损印",
+                  "各家所说不同也"
+                ],
+                "editionStatus": "electronic-transcription-not-print-collated"
               }
             ],
+            "dependencyResolution": {
+              "methodVersion": "bazi-rescue-dependencies-v1",
+              "profileId": "ziping-xu-source-scoped-competition-v1",
+              "selectedYong": "伤官",
+              "outcomeEstablished": false,
+              "actions": [],
+              "occurrenceSelections": [],
+              "threatResolutions": [
+                {
+                  "targetLayer": "stem",
+                  "targetPosition": 1,
+                  "targetGan": "甲",
+                  "availableActionIds": [],
+                  "blockedActionIds": [],
+                  "unresolvedActionIds": [],
+                  "status": "no-scanned-path"
+                },
+                {
+                  "targetLayer": "stem",
+                  "targetPosition": 3,
+                  "targetGan": "甲",
+                  "availableActionIds": [],
+                  "blockedActionIds": [],
+                  "unresolvedActionIds": [],
+                  "status": "no-scanned-path"
+                }
+              ],
+              "unresolvedScopes": [
+                "local-paths-do-not-establish-global-outcome",
+                "unresolved-attacks-are-not-cancelled-by-unresolved-protections",
+                "source-conflicts-and-cycles-have-no-universal-priority",
+                "hidden-actors-outside-explicit-month-role-or-attested-case-unresolved"
+              ]
+            },
             "unresolvedScopes": [
               "全局取相与全部病点尚未穷尽；局部路径可用不等于全格成败",
               "直接克边的相对力量及多条救应竞争未由根数或分数替代",
@@ -13744,6 +13878,7 @@
           "conditionalEvidence": {
             "assessmentStatus": "conditions-only",
             "outcomeEstablished": false,
+            "selectedYong": "伤官",
             "stems": [
               {
                 "position": 0,
@@ -16788,8 +16923,36 @@
                   "盖印未曾合去也"
                 ],
                 "editionStatus": "electronic-transcription-not-print-collated"
+              },
+              {
+                "id": "ziping-xu-occurrence-selection-v1",
+                "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+                "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+                "locator": "五、论十干合而不合：月时两辛、林森克一留一及各家异说",
+                "quote": "如甲生寅卯，月时两透辛官，以年丙合月辛，是为合一留一，官星反轻",
+                "additionalQuotes": [
+                  "戊辰、甲寅、丁卯、戊申",
+                  "用甲克去年上伤官，而留时上伤官以生财损印",
+                  "各家所说不同也"
+                ],
+                "editionStatus": "electronic-transcription-not-print-collated"
               }
             ],
+            "dependencyResolution": {
+              "methodVersion": "bazi-rescue-dependencies-v1",
+              "profileId": "ziping-xu-source-scoped-competition-v1",
+              "selectedYong": "比肩",
+              "outcomeEstablished": false,
+              "actions": [],
+              "occurrenceSelections": [],
+              "threatResolutions": [],
+              "unresolvedScopes": [
+                "local-paths-do-not-establish-global-outcome",
+                "unresolved-attacks-are-not-cancelled-by-unresolved-protections",
+                "source-conflicts-and-cycles-have-no-universal-priority",
+                "hidden-actors-outside-explicit-month-role-or-attested-case-unresolved"
+              ]
+            },
             "unresolvedScopes": [
               "全局取相与全部病点尚未穷尽；局部路径可用不等于全格成败",
               "直接克边的相对力量及多条救应竞争未由根数或分数替代",
@@ -16808,6 +16971,7 @@
           "conditionalEvidence": {
             "assessmentStatus": "conditions-only",
             "outcomeEstablished": false,
+            "selectedYong": "比肩",
             "stems": [
               {
                 "position": 0,
@@ -19456,8 +19620,36 @@
                     "盖印未曾合去也"
                   ],
                   "editionStatus": "electronic-transcription-not-print-collated"
+                },
+                {
+                  "id": "ziping-xu-occurrence-selection-v1",
+                  "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+                  "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+                  "locator": "五、论十干合而不合：月时两辛、林森克一留一及各家异说",
+                  "quote": "如甲生寅卯，月时两透辛官，以年丙合月辛，是为合一留一，官星反轻",
+                  "additionalQuotes": [
+                    "戊辰、甲寅、丁卯、戊申",
+                    "用甲克去年上伤官，而留时上伤官以生财损印",
+                    "各家所说不同也"
+                  ],
+                  "editionStatus": "electronic-transcription-not-print-collated"
                 }
               ],
+              "dependencyResolution": {
+                "methodVersion": "bazi-rescue-dependencies-v1",
+                "profileId": "ziping-xu-source-scoped-competition-v1",
+                "selectedYong": "偏财",
+                "outcomeEstablished": false,
+                "actions": [],
+                "occurrenceSelections": [],
+                "threatResolutions": [],
+                "unresolvedScopes": [
+                  "local-paths-do-not-establish-global-outcome",
+                  "unresolved-attacks-are-not-cancelled-by-unresolved-protections",
+                  "source-conflicts-and-cycles-have-no-universal-priority",
+                  "hidden-actors-outside-explicit-month-role-or-attested-case-unresolved"
+                ]
+              },
               "unresolvedScopes": [
                 "全局取相与全部病点尚未穷尽；局部路径可用不等于全格成败",
                 "直接克边的相对力量及多条救应竞争未由根数或分数替代",
@@ -19477,6 +19669,7 @@
             "conditionalEvidence": {
               "assessmentStatus": "conditions-only",
               "outcomeEstablished": false,
+              "selectedYong": "偏财",
               "stems": [
                 {
                   "position": 0,
@@ -20662,7 +20855,7 @@
         },
         "readingBoundary": "两种体系分别解释，不能把相似意象当作相互验证。",
         "provenance": {
-          "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+          "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -20845,7 +21038,7 @@
     },
     "result": {
       "schemaVersion": 1,
-      "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+      "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
       "birthKey": "[2023,4,6,23,59,\"女\",121.47,\"Asia/Shanghai\"]",
       "calendarPolicy": {
         "version": "suji-calendar-2",
@@ -21818,8 +22011,36 @@
                   "盖印未曾合去也"
                 ],
                 "editionStatus": "electronic-transcription-not-print-collated"
+              },
+              {
+                "id": "ziping-xu-occurrence-selection-v1",
+                "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+                "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+                "locator": "五、论十干合而不合：月时两辛、林森克一留一及各家异说",
+                "quote": "如甲生寅卯，月时两透辛官，以年丙合月辛，是为合一留一，官星反轻",
+                "additionalQuotes": [
+                  "戊辰、甲寅、丁卯、戊申",
+                  "用甲克去年上伤官，而留时上伤官以生财损印",
+                  "各家所说不同也"
+                ],
+                "editionStatus": "electronic-transcription-not-print-collated"
               }
             ],
+            "dependencyResolution": {
+              "methodVersion": "bazi-rescue-dependencies-v1",
+              "profileId": "ziping-xu-source-scoped-competition-v1",
+              "selectedYong": "比肩",
+              "outcomeEstablished": false,
+              "actions": [],
+              "occurrenceSelections": [],
+              "threatResolutions": [],
+              "unresolvedScopes": [
+                "local-paths-do-not-establish-global-outcome",
+                "unresolved-attacks-are-not-cancelled-by-unresolved-protections",
+                "source-conflicts-and-cycles-have-no-universal-priority",
+                "hidden-actors-outside-explicit-month-role-or-attested-case-unresolved"
+              ]
+            },
             "unresolvedScopes": [
               "全局取相与全部病点尚未穷尽；局部路径可用不等于全格成败",
               "直接克边的相对力量及多条救应竞争未由根数或分数替代",
@@ -21838,6 +22059,7 @@
           "conditionalEvidence": {
             "assessmentStatus": "conditions-only",
             "outcomeEstablished": false,
+            "selectedYong": "比肩",
             "stems": [
               {
                 "position": 0,
@@ -23711,7 +23933,7 @@
     },
     "result": {
       "schemaVersion": 1,
-      "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+      "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
       "birthKey": "[2024,2,9,23,59,\"女\",121.47,\"Asia/Shanghai\"]",
       "calendarPolicy": {
         "version": "suji-calendar-2",
@@ -24662,8 +24884,36 @@
                   "盖印未曾合去也"
                 ],
                 "editionStatus": "electronic-transcription-not-print-collated"
+              },
+              {
+                "id": "ziping-xu-occurrence-selection-v1",
+                "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+                "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+                "locator": "五、论十干合而不合：月时两辛、林森克一留一及各家异说",
+                "quote": "如甲生寅卯，月时两透辛官，以年丙合月辛，是为合一留一，官星反轻",
+                "additionalQuotes": [
+                  "戊辰、甲寅、丁卯、戊申",
+                  "用甲克去年上伤官，而留时上伤官以生财损印",
+                  "各家所说不同也"
+                ],
+                "editionStatus": "electronic-transcription-not-print-collated"
               }
             ],
+            "dependencyResolution": {
+              "methodVersion": "bazi-rescue-dependencies-v1",
+              "profileId": "ziping-xu-source-scoped-competition-v1",
+              "selectedYong": "比肩",
+              "outcomeEstablished": false,
+              "actions": [],
+              "occurrenceSelections": [],
+              "threatResolutions": [],
+              "unresolvedScopes": [
+                "local-paths-do-not-establish-global-outcome",
+                "unresolved-attacks-are-not-cancelled-by-unresolved-protections",
+                "source-conflicts-and-cycles-have-no-universal-priority",
+                "hidden-actors-outside-explicit-month-role-or-attested-case-unresolved"
+              ]
+            },
             "unresolvedScopes": [
               "全局取相与全部病点尚未穷尽；局部路径可用不等于全格成败",
               "直接克边的相对力量及多条救应竞争未由根数或分数替代",
@@ -24682,6 +24932,7 @@
           "conditionalEvidence": {
             "assessmentStatus": "conditions-only",
             "outcomeEstablished": false,
+            "selectedYong": "比肩",
             "stems": [
               {
                 "position": 0,
@@ -26940,7 +27191,7 @@
         "note": "本宫无主星；须结合对宫与三方四正，不等于此领域不存在。",
         "sihua": [],
         "provenance": {
-          "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+          "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -27001,7 +27252,7 @@
       },
       "natal": {
         "schemaVersion": 1,
-        "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+        "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "calendarPolicy": {
           "version": "suji-calendar-2",
@@ -28062,8 +28313,36 @@
                     "盖印未曾合去也"
                   ],
                   "editionStatus": "electronic-transcription-not-print-collated"
+                },
+                {
+                  "id": "ziping-xu-occurrence-selection-v1",
+                  "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+                  "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+                  "locator": "五、论十干合而不合：月时两辛、林森克一留一及各家异说",
+                  "quote": "如甲生寅卯，月时两透辛官，以年丙合月辛，是为合一留一，官星反轻",
+                  "additionalQuotes": [
+                    "戊辰、甲寅、丁卯、戊申",
+                    "用甲克去年上伤官，而留时上伤官以生财损印",
+                    "各家所说不同也"
+                  ],
+                  "editionStatus": "electronic-transcription-not-print-collated"
                 }
               ],
+              "dependencyResolution": {
+                "methodVersion": "bazi-rescue-dependencies-v1",
+                "profileId": "ziping-xu-source-scoped-competition-v1",
+                "selectedYong": "偏财",
+                "outcomeEstablished": false,
+                "actions": [],
+                "occurrenceSelections": [],
+                "threatResolutions": [],
+                "unresolvedScopes": [
+                  "local-paths-do-not-establish-global-outcome",
+                  "unresolved-attacks-are-not-cancelled-by-unresolved-protections",
+                  "source-conflicts-and-cycles-have-no-universal-priority",
+                  "hidden-actors-outside-explicit-month-role-or-attested-case-unresolved"
+                ]
+              },
               "unresolvedScopes": [
                 "全局取相与全部病点尚未穷尽；局部路径可用不等于全格成败",
                 "直接克边的相对力量及多条救应竞争未由根数或分数替代",
@@ -28083,6 +28362,7 @@
             "conditionalEvidence": {
               "assessmentStatus": "conditions-only",
               "outcomeEstablished": false,
+              "selectedYong": "偏财",
               "stems": [
                 {
                   "position": 0,
@@ -31097,8 +31377,36 @@
                   "盖印未曾合去也"
                 ],
                 "editionStatus": "electronic-transcription-not-print-collated"
+              },
+              {
+                "id": "ziping-xu-occurrence-selection-v1",
+                "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+                "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+                "locator": "五、论十干合而不合：月时两辛、林森克一留一及各家异说",
+                "quote": "如甲生寅卯，月时两透辛官，以年丙合月辛，是为合一留一，官星反轻",
+                "additionalQuotes": [
+                  "戊辰、甲寅、丁卯、戊申",
+                  "用甲克去年上伤官，而留时上伤官以生财损印",
+                  "各家所说不同也"
+                ],
+                "editionStatus": "electronic-transcription-not-print-collated"
               }
             ],
+            "dependencyResolution": {
+              "methodVersion": "bazi-rescue-dependencies-v1",
+              "profileId": "ziping-xu-source-scoped-competition-v1",
+              "selectedYong": "偏财",
+              "outcomeEstablished": false,
+              "actions": [],
+              "occurrenceSelections": [],
+              "threatResolutions": [],
+              "unresolvedScopes": [
+                "local-paths-do-not-establish-global-outcome",
+                "unresolved-attacks-are-not-cancelled-by-unresolved-protections",
+                "source-conflicts-and-cycles-have-no-universal-priority",
+                "hidden-actors-outside-explicit-month-role-or-attested-case-unresolved"
+              ]
+            },
             "unresolvedScopes": [
               "全局取相与全部病点尚未穷尽；局部路径可用不等于全格成败",
               "直接克边的相对力量及多条救应竞争未由根数或分数替代",
@@ -31118,6 +31426,7 @@
           "conditionalEvidence": {
             "assessmentStatus": "conditions-only",
             "outcomeEstablished": false,
+            "selectedYong": "偏财",
             "stems": [
               {
                 "position": 0,
@@ -33214,7 +33523,7 @@
       },
       "natal": {
         "schemaVersion": 1,
-        "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+        "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "calendarPolicy": {
           "version": "suji-calendar-2",
@@ -34275,8 +34584,36 @@
                     "盖印未曾合去也"
                   ],
                   "editionStatus": "electronic-transcription-not-print-collated"
+                },
+                {
+                  "id": "ziping-xu-occurrence-selection-v1",
+                  "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+                  "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+                  "locator": "五、论十干合而不合：月时两辛、林森克一留一及各家异说",
+                  "quote": "如甲生寅卯，月时两透辛官，以年丙合月辛，是为合一留一，官星反轻",
+                  "additionalQuotes": [
+                    "戊辰、甲寅、丁卯、戊申",
+                    "用甲克去年上伤官，而留时上伤官以生财损印",
+                    "各家所说不同也"
+                  ],
+                  "editionStatus": "electronic-transcription-not-print-collated"
                 }
               ],
+              "dependencyResolution": {
+                "methodVersion": "bazi-rescue-dependencies-v1",
+                "profileId": "ziping-xu-source-scoped-competition-v1",
+                "selectedYong": "偏财",
+                "outcomeEstablished": false,
+                "actions": [],
+                "occurrenceSelections": [],
+                "threatResolutions": [],
+                "unresolvedScopes": [
+                  "local-paths-do-not-establish-global-outcome",
+                  "unresolved-attacks-are-not-cancelled-by-unresolved-protections",
+                  "source-conflicts-and-cycles-have-no-universal-priority",
+                  "hidden-actors-outside-explicit-month-role-or-attested-case-unresolved"
+                ]
+              },
               "unresolvedScopes": [
                 "全局取相与全部病点尚未穷尽；局部路径可用不等于全格成败",
                 "直接克边的相对力量及多条救应竞争未由根数或分数替代",
@@ -34296,6 +34633,7 @@
             "conditionalEvidence": {
               "assessmentStatus": "conditions-only",
               "outcomeEstablished": false,
+              "selectedYong": "偏财",
               "stems": [
                 {
                   "position": 0,
@@ -36421,7 +36759,7 @@
         ],
         "referenceMode": "question-instant",
         "provenance": {
-          "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+          "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
           "referenceDate": "2024-02-09T15:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -36486,7 +36824,7 @@
       },
       "natal": {
         "schemaVersion": 1,
-        "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+        "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "calendarPolicy": {
           "version": "suji-calendar-2",
@@ -37547,8 +37885,36 @@
                     "盖印未曾合去也"
                   ],
                   "editionStatus": "electronic-transcription-not-print-collated"
+                },
+                {
+                  "id": "ziping-xu-occurrence-selection-v1",
+                  "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+                  "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+                  "locator": "五、论十干合而不合：月时两辛、林森克一留一及各家异说",
+                  "quote": "如甲生寅卯，月时两透辛官，以年丙合月辛，是为合一留一，官星反轻",
+                  "additionalQuotes": [
+                    "戊辰、甲寅、丁卯、戊申",
+                    "用甲克去年上伤官，而留时上伤官以生财损印",
+                    "各家所说不同也"
+                  ],
+                  "editionStatus": "electronic-transcription-not-print-collated"
                 }
               ],
+              "dependencyResolution": {
+                "methodVersion": "bazi-rescue-dependencies-v1",
+                "profileId": "ziping-xu-source-scoped-competition-v1",
+                "selectedYong": "偏财",
+                "outcomeEstablished": false,
+                "actions": [],
+                "occurrenceSelections": [],
+                "threatResolutions": [],
+                "unresolvedScopes": [
+                  "local-paths-do-not-establish-global-outcome",
+                  "unresolved-attacks-are-not-cancelled-by-unresolved-protections",
+                  "source-conflicts-and-cycles-have-no-universal-priority",
+                  "hidden-actors-outside-explicit-month-role-or-attested-case-unresolved"
+                ]
+              },
               "unresolvedScopes": [
                 "全局取相与全部病点尚未穷尽；局部路径可用不等于全格成败",
                 "直接克边的相对力量及多条救应竞争未由根数或分数替代",
@@ -37568,6 +37934,7 @@
             "conditionalEvidence": {
               "assessmentStatus": "conditions-only",
               "outcomeEstablished": false,
+              "selectedYong": "偏财",
               "stems": [
                 {
                   "position": 0,
@@ -39695,7 +40062,7 @@
         ],
         "referenceMode": "explicit-date-noon",
         "provenance": {
-          "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+          "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -39760,7 +40127,7 @@
       },
       "natal": {
         "schemaVersion": 1,
-        "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+        "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "calendarPolicy": {
           "version": "suji-calendar-2",
@@ -40821,8 +41188,36 @@
                     "盖印未曾合去也"
                   ],
                   "editionStatus": "electronic-transcription-not-print-collated"
+                },
+                {
+                  "id": "ziping-xu-occurrence-selection-v1",
+                  "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+                  "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+                  "locator": "五、论十干合而不合：月时两辛、林森克一留一及各家异说",
+                  "quote": "如甲生寅卯，月时两透辛官，以年丙合月辛，是为合一留一，官星反轻",
+                  "additionalQuotes": [
+                    "戊辰、甲寅、丁卯、戊申",
+                    "用甲克去年上伤官，而留时上伤官以生财损印",
+                    "各家所说不同也"
+                  ],
+                  "editionStatus": "electronic-transcription-not-print-collated"
                 }
               ],
+              "dependencyResolution": {
+                "methodVersion": "bazi-rescue-dependencies-v1",
+                "profileId": "ziping-xu-source-scoped-competition-v1",
+                "selectedYong": "偏财",
+                "outcomeEstablished": false,
+                "actions": [],
+                "occurrenceSelections": [],
+                "threatResolutions": [],
+                "unresolvedScopes": [
+                  "local-paths-do-not-establish-global-outcome",
+                  "unresolved-attacks-are-not-cancelled-by-unresolved-protections",
+                  "source-conflicts-and-cycles-have-no-universal-priority",
+                  "hidden-actors-outside-explicit-month-role-or-attested-case-unresolved"
+                ]
+              },
               "unresolvedScopes": [
                 "全局取相与全部病点尚未穷尽；局部路径可用不等于全格成败",
                 "直接克边的相对力量及多条救应竞争未由根数或分数替代",
@@ -40842,6 +41237,7 @@
             "conditionalEvidence": {
               "assessmentStatus": "conditions-only",
               "outcomeEstablished": false,
+              "selectedYong": "偏财",
               "stems": [
                 {
                   "position": 0,
@@ -43244,7 +43640,7 @@
           ]
         },
         "provenance": {
-          "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+          "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
           "referenceDate": "2026-09-19T04:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -43306,7 +43702,7 @@
       },
       "natal": {
         "schemaVersion": 1,
-        "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+        "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "calendarPolicy": {
           "version": "suji-calendar-2",
@@ -44367,8 +44763,36 @@
                     "盖印未曾合去也"
                   ],
                   "editionStatus": "electronic-transcription-not-print-collated"
+                },
+                {
+                  "id": "ziping-xu-occurrence-selection-v1",
+                  "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+                  "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+                  "locator": "五、论十干合而不合：月时两辛、林森克一留一及各家异说",
+                  "quote": "如甲生寅卯，月时两透辛官，以年丙合月辛，是为合一留一，官星反轻",
+                  "additionalQuotes": [
+                    "戊辰、甲寅、丁卯、戊申",
+                    "用甲克去年上伤官，而留时上伤官以生财损印",
+                    "各家所说不同也"
+                  ],
+                  "editionStatus": "electronic-transcription-not-print-collated"
                 }
               ],
+              "dependencyResolution": {
+                "methodVersion": "bazi-rescue-dependencies-v1",
+                "profileId": "ziping-xu-source-scoped-competition-v1",
+                "selectedYong": "偏财",
+                "outcomeEstablished": false,
+                "actions": [],
+                "occurrenceSelections": [],
+                "threatResolutions": [],
+                "unresolvedScopes": [
+                  "local-paths-do-not-establish-global-outcome",
+                  "unresolved-attacks-are-not-cancelled-by-unresolved-protections",
+                  "source-conflicts-and-cycles-have-no-universal-priority",
+                  "hidden-actors-outside-explicit-month-role-or-attested-case-unresolved"
+                ]
+              },
               "unresolvedScopes": [
                 "全局取相与全部病点尚未穷尽；局部路径可用不等于全格成败",
                 "直接克边的相对力量及多条救应竞争未由根数或分数替代",
@@ -44388,6 +44812,7 @@
             "conditionalEvidence": {
               "assessmentStatus": "conditions-only",
               "outcomeEstablished": false,
+              "selectedYong": "偏财",
               "stems": [
                 {
                   "position": 0,
@@ -46691,7 +47116,7 @@
         ],
         "referenceMode": "question-instant",
         "provenance": {
-          "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+          "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
           "referenceDate": "2025-08-08T15:00:00.000Z",
           "calendarPolicy": {
             "version": "suji-calendar-2",
@@ -46756,7 +47181,7 @@
       },
       "astronomy": {
         "schemaVersion": 1,
-        "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+        "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "time": {
           "wallClock": "1995-08-15T19:30",
@@ -47361,7 +47786,7 @@
     "result": {
       "result": {
         "schemaVersion": 1,
-        "engineRevision": "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec",
+        "engineRevision": "2123c796bc736bd1ecfcf721df98a2307c15148bdb65e4fb0e95db1bf43a4742",
         "birthKey": "[1995,8,15,19,30,\"女\",121.47,\"Asia/Shanghai\"]",
         "time": {
           "wallClock": "1995-08-15T19:30",

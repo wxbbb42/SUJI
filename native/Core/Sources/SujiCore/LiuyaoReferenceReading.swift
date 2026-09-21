@@ -32,7 +32,7 @@ public enum LiuyaoReferenceReading {
             ? "本次卦记录缺少完整、相互一致的依据，暂时无法整理六爻解读。原记录已保留；重试沿用原卦，不能靠重新起卦补出结论。"
             : "本次尚未取得可用的六爻计算记录，暂时无法判断用神或应期。"
     }
-    public static func render(receipts: [ToolReceipt], context: ToolContext) -> Report? {
+    public static func render(receipts: [ToolReceipt], context: ToolContext, referenceOnly: Bool = false) -> Report? {
         // One persisted cast plus up to eight reused planner calls.
         guard context.isValid, context.mode != "倾诉", (1...9).contains(receipts.count) else { return nil }
         var roots: [JSONValue] = []
@@ -45,7 +45,11 @@ public enum LiuyaoReferenceReading {
         }
         guard let root = roots.first, roots.allSatisfy({$0 == root}) else { return nil }
         var builder = Builder(receipt:receipts[0],root:root,context:context)
-        return try? builder.build()
+        // Validate the complete report before narrowing presentation. Reference-only
+        // mode cannot make a forged event layer acceptable or discard stored evidence.
+        guard let report = try? builder.build() else { return nil }
+        return referenceOnly ? Report(sourceReceiptID: report.sourceReceiptID,
+                                      sections: report.sections.filter { !$0.id.hasPrefix("event-") }) : report
     }
     private enum Incomplete: Error { case record }
     private static let branches = Set("子丑寅卯辰巳午未申酉戌亥".map(String.init))
@@ -123,12 +127,16 @@ public enum LiuyaoReferenceReading {
             let hasEfficacy = ReadingVerificationEvidence.pointer("/efficacy",in:root) != nil
             let hasEfficacySource = sources.contains { ReadingVerificationEvidence.pointer("/id",in:$0) == .string(LiuyaoEfficacyEvidence.sourceID) }
             guard hasEfficacy == hasEfficacySource, !hasEfficacy || (hasRoles && hasTombs && hasFanfu && hasTriads) else { throw Incomplete.record }
+            let hasEvent = ReadingVerificationEvidence.pointer("/eventAssessment",in:root) != nil
+            let hasEventSource = sources.contains { ReadingVerificationEvidence.pointer("/id",in:$0) == .string(LiuyaoEventAssessment.sourceID) }
+            guard hasEvent == hasEventSource, !hasEvent || hasEfficacy else { throw Incomplete.record }
             var accepted: [String] = [calendarSource, questionSource, "liuyao-changing-relations-v1", "liuyao-flying-hidden-v1", "liuyao-day-clash-v1"]
             if hasRoles { accepted.append(roleSource) }
             if hasTombs { accepted.append(LiuyaoTombExtinctionTrace.sourceID) }
             if hasFanfu { accepted.append(LiuyaoFanfuTrace.sourceID) }
             if hasTriads { accepted.append(LiuyaoTriadTrace.sourceID) }
             if hasEfficacy { accepted.append(LiuyaoEfficacyEvidence.sourceID) }
+            if hasEvent { accepted.append(LiuyaoEventAssessment.sourceID) }
             for i in sources.indices {
                 let p="/ruleSources/\(i)",id=try string(p+"/id")
                 guard accepted.contains(id),sourcePaths[id] == nil,
@@ -180,6 +188,9 @@ public enum LiuyaoReferenceReading {
             if hasRoles { try candidateRoles() }
             if hasEfficacy {
                 sections += try LiuyaoEfficacyEvidence.sections(root:root,receiptID:receipt.callID,sourcePaths:sourcePaths[LiuyaoEfficacyEvidence.sourceID]!)
+            }
+            if hasEvent {
+                sections += try LiuyaoEventAssessment.sections(root:root,receiptID:receipt.callID,sourcePaths:sourcePaths[LiuyaoEventAssessment.sourceID]!)
             }
             return Report(sourceReceiptID:receipt.callID,sections:sections)
         }
@@ -452,6 +463,10 @@ public enum LiuyaoReferenceReading {
             if byID.isEmpty { try append("roles-unavailable","本次尚无明确用神候选，暂不指定元神、忌神或仇神。",[base+"/groups",base+"/unsupportedCandidates","/yongShen/candidates",base+"/inspectedOriginalPaths"]+provenance) }
         }
         func validateReferences(_ p: String, source: String) throws {
+            if source == LiuyaoEventAssessment.sourceID {
+                let base=String(p.dropLast("/references".count))
+                try LiuyaoEventAssessment.validateSource(value(base));return
+            }
             if source == LiuyaoEfficacyEvidence.sourceID {
                 let references=LiuyaoEfficacyEvidence.references
                 guard try array(p).count == references.count else { throw Incomplete.record }

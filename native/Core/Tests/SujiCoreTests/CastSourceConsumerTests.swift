@@ -22,6 +22,20 @@ enum CastSourceTestFixture {
 }
 
 final class CastSourceConsumerTests:XCTestCase {
+    func testSharedDirectoryRestoresLegacyFormAndRejectsBrokenDictionary() throws {
+        let f=try CastSourceTestFixture.make()
+        let raw=try JSONDecoder().decode(JSONValue.self,from:Data(f.directory.content!.dropFirst(CastSourceDirectory.prefix.count).utf8))
+        XCTAssertNotNil(ReadingVerificationEvidence.pointer("/sharedValueRows",in:raw))
+        let restored=try XCTUnwrap(JSONValueTransport.expand(raw))
+        XCTAssertEqual(ReadingVerificationEvidence.pointer("/ruleSources",in:restored),ReadingVerificationEvidence.pointer("/ruleSources",in:f.root))
+        var legacy=f.directory;legacy.content=CastSourceDirectory.prefix+ReadingVerificationEvidence.encoded(restored)
+        XCTAssertEqual(ToolOutputWire.decode(f.tool,history:[legacy,.assistantToolCalls([f.receipt.call])]),f.root)
+        guard case var .object(broken)=raw else{return XCTFail()}
+        broken.removeValue(forKey:"sharedValueRows")
+        var damaged=f.directory;damaged.content=CastSourceDirectory.prefix+ReadingVerificationEvidence.encoded(JSONValue.object(broken))
+        XCTAssertNil(ToolOutputWire.decode(f.tool,history:[damaged,.assistantToolCalls([f.receipt.call])]))
+    }
+
     func testActualDirectoryPreservesExactSourceFactsFallbackAndVerifier() throws {
         let f=try CastSourceTestFixture.make(),history=f.prefix+[f.tool]
         XCTAssertTrue(try XCTUnwrap(f.tool.content).contains("ruleSourcesFromDirectory"))

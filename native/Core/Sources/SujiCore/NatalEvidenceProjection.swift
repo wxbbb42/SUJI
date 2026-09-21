@@ -5,7 +5,7 @@ import Foundation
 /// references never point to another reference or an older conversation context.
 enum NatalEvidenceProjection {
     static func wasDelivered(_ receipt: ToolReceipt, in history: [ChatMessage]) -> Bool {
-        if ["cast_liuyao","setup_qimen"].contains(receipt.name),
+        if ["cast_liuyao","setup_qimen","reassess_liuyao","reassess_qimen"].contains(receipt.name),
            case .object = try? JSONDecoder().decode(JSONValue.self,from:Data(receipt.output.utf8)),
            (try? CastReceiptStorage.expanded(receipt.output)) == nil {return false}
         for (index,message) in history.enumerated() where message.role == .tool && message.toolCallID == receipt.callID {
@@ -27,14 +27,14 @@ enum NatalEvidenceProjection {
     }
 
     static func output(_ output: String, name: String, delivered: [ChatMessage], callID: String? = nil) -> String {
-        if ["cast_liuyao", "setup_qimen"].contains(name) {
+        if ["cast_liuyao", "setup_qimen", "reassess_liuyao", "reassess_qimen"].contains(name) {
             let complete=(try? CastReceiptStorage.expanded(output)).map(ReadingVerificationEvidence.encoded) ?? output
             let sourced:String
             if let callID,let value=try? JSONDecoder().decode(JSONValue.self,from:Data(complete.utf8)) {sourced=ReadingVerificationEvidence.encoded(CastSourceDirectory.project(value,name:name,history:delivered,callID:callID))}else{sourced=complete}
             let shared=castQuestion(sourced, name:name, delivered:delivered, callID:callID)
             // Source/question references must not disable profitable packing
             // merely because their partial reduction crossed the threshold.
-            return complete.utf16.count > 28_000 ? JSONValueTransport.encode(LiuyaoConditionTransport.encodeLayouts(name == "cast_liuyao" ? LiuyaoConditionTransport.encode(shared) : QimenTimingTransport.encode(shared))) : shared
+            return complete.utf16.count > 28_000 ? JSONValueTransport.encode(LiuyaoConditionTransport.encodeLayouts(["cast_liuyao","reassess_liuyao"].contains(name) ? LiuyaoConditionTransport.encode(shared) : QimenTimingTransport.encode(shared))) : shared
         }
         let supported: Set<String> = ["get_domain", "get_ziwei_palace", "get_ziwei_timing"]
         guard supported.contains(name),

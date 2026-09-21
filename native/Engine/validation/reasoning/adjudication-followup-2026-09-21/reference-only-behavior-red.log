@@ -1,0 +1,26 @@
+Evidence excerpt; lines longer than 1200 characters are truncated.
+Building for debugging...
+[2 / 11] SujiCore
+[5 / 14] SujiCore
+[10 / 15] SujiCore
+[11 / 14] SujiCoreTests-product
+[15 / 18] SujiCoreTests-product
+[21 / 23] SujiCoreTests-product
+[23 / 23] SujiCoreTests-product
+[25 / 26] ReadingEvalFixtures-product
+Build complete! (4.45秒)
+Test Suite 'Selected tests' started at 2026-09-21 11:25:55.799.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 11:25:55.800.
+Test Suite 'AdjudicationFollowupIntegrationTests' started at 2026-09-21 11:25:55.800.
+Test Case '-[SujiCoreTests.AdjudicationFollowupIntegrationTests testReferenceOnlySupplementAndReplayKeepFactsWithoutEventDirection]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/AdjudicationFollowupIntegrationTests.swift:148: error: -[SujiCoreTests.AdjudicationFollowupIntegrationTests testReferenceOnlySupplementAndReplayKeepFactsWithoutEventDirection] : XCTAssertFalse failed
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/AdjudicationFollowupIntegrationTests.swift:149: error: -[SujiCoreTests.AdjudicationFollowupIntegrationTests testReferenceOnlySupplementAndReplayKeepFactsWithoutEventDirection] : XCTAssertFalse failed
+Test Case '-[SujiCoreTests.AdjudicationFollowupIntegrationTests testReferenceOnlySupplementAndReplayKeepFactsWithoutEventDirection]' failed (0.772 seconds).
+Test Suite 'AdjudicationFollowupIntegrationTests' failed at 2026-09-21 11:25:56.572.
+	 Executed 1 test, with 2 failures (0 unexpected) in 0.772 (0.772) seconds
+Test Suite 'SujiCoreTests.xctest' failed at 2026-09-21 11:25:56.572.
+	 Executed 1 test, with 2 failures (0 unexpected) in 0.772 (0.772) seconds
+Test Suite 'Selected tests' failed at 2026-09-21 11:25:56.572.
+	 Executed 1 test, with 2 failures (0 unexpected) in 0.772 (0.773) seconds
+Note: Some test targets reported failures:
+  - SujiCoreTests (XCTest)

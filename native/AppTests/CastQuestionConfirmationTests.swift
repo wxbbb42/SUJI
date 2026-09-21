@@ -60,6 +60,36 @@ import SujiCore
         XCTAssertEqual(restored.state.conversations.first?.confirmedCastQuestions, source.confirmedCastQuestions)
     }
 
+    func testReferenceOnlyLiuyaoFirstReadingAndPersistedRetryKeepScope() async throws {
+        let container = try ModelContainer(for: SavedState.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+        let script = try XCTUnwrap(Bundle.main.url(forResource: "mingli", withExtension: "js"))
+        let store = try AppStore(context: container.mainContext, scriptURL: script, userID: "reference-only-liuyao")
+        let session = ChatSession(makeClient: { _ in self.makeClient() })
+        session.send("请用六爻核对我自己的身体情况", mode: "起卦", store: store)
+        let request = try await waitForPending(session.castConfirmation)
+        var drafts = request.drafts
+        XCTAssertEqual(drafts[0].proposedCall.name, "cast_liuyao")
+        drafts[0].questionType = "health"; drafts[0].subject = "self"
+        drafts[0].event = "我自己的身体情况"; drafts[0].referenceOnly = true
+        session.castConfirmation.confirm(id: request.id, drafts: drafts)
+        try await waitUntilIdle(session)
+        XCTAssertNil(session.failure)
+        let source = try XCTUnwrap(store.state.conversations.first)
+        XCTAssertEqual(source.confirmedCastQuestions?.first?.referenceOnly, true)
+        let text = try XCTUnwrap(store.state.conversations.last?.text)
+        XCTAssertFalse(text.contains("事件方向（")); XCTAssertFalse(text.contains("事件候选"))
+        let receipt = try XCTUnwrap(source.toolReceipts?.first)
+        let chart = try CastReceiptStorage.expanded(receipt.output)
+        if case let .object(root) = chart { XCTAssertNotNil(root["eventAssessment"]) } else { XCTFail("Missing complete receipt") }
+        let restored = try AppStore(context: container.mainContext, scriptURL: script, userID: "reference-only-liuyao")
+        let retry = ChatSession(makeClient: { _ in self.makeClient() })
+        retry.send(source.text, mode: "起卦", store: restored, appendUser: false)
+        try await waitUntilIdle(retry)
+        XCTAssertNil(retry.failure)
+        XCTAssertEqual(restored.state.conversations.first?.toolReceipts, source.toolReceipts)
+        XCTAssertEqual(restored.state.conversations.last?.text, text)
+    }
+
     func testActualChatStopAndAccountChangeCannotConfirmOrCalculate() async throws {
         for changeAccount in [false, true] {
             let container = try ModelContainer(for: SavedState.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
@@ -153,7 +183,10 @@ private final class CastPlannerProtocol: URLProtocol {
             }
             let body = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
             let hasResult = (body["messages"] as? [[String: Any]] ?? []).contains { $0["role"] as? String == "tool" }
-            let message: [String: Any] = hasResult ? ["role": "assistant", "content": "工具结果已读取"] : ["role": "assistant", "tool_calls": [["id": "call_00_38IbWgAki7a6Um1N8aoe8763", "type": "function", "function": ["name": "setup_qimen", "arguments": "{\"question\":\"我自己近期能否签下新办公室租约\",\"questionType\":\"event\",\"subject\":\"self\",\"timeHorizon\":\"near\"}"]]]]
+            let definitions = body["tools"] as? [[String: Any]] ?? []
+            let liuyao = definitions.contains { ($0["function"] as? [String: Any])?["name"] as? String == "cast_liuyao" }
+            let plannedName = liuyao ? "cast_liuyao" : "setup_qimen"
+            let message: [String: Any] = hasResult ? ["role": "assistant", "content": "工具结果已读取"] : ["role": "assistant", "tool_calls": [["id": "call_00_38IbWgAki7a6Um1N8aoe8763", "type": "function", "function": ["name": plannedName, "arguments": "{\"question\":\"我自己近期能否签下新办公室租约\",\"questionType\":\"event\",\"subject\":\"self\",\"timeHorizon\":\"near\"}"]]]]
             let response = try JSONSerialization.data(withJSONObject: ["choices": [["message": message, "finish_reason": hasResult ? "stop" : "tool_calls"]]])
             client?.urlProtocol(self, didReceive: HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: ["Content-Type": "application/json"])!, cacheStoragePolicy: .notAllowed)
             client?.urlProtocol(self, didLoad: response)

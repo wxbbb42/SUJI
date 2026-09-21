@@ -9,7 +9,7 @@ enum ReadingFactReferenceIndex {
         let pointerParts: [String]
         var numbers: [[Int]]
     }
-    private static let format = "Each pattern is [toolCallIDIndex,factKeyParts,pointerParts,numberSequenceIndex]. factKeyParts and pointerParts are arrays of string-node indices. stringNodes contains [parentNodeIndex,tokenIndex] in parent-before-child order: each node is its parent string plus stringTokens[tokenIndex]; -1 means the empty string, including in pattern parts. Other indices are zero-based. A number sequence is either literal rows or {start,step,count}, whose row n is start+n*step componentwise for n=0..<count. For each row, interleave the first factKeyParts.count-1 numbers between factKeyParts; interleave the remaining numbers between pointerParts. These are the exact factKey and original JSON pointer for that toolCallID. Read value at that pointer in the fully restored same-call tool result, including its verified rule-source directory and argument references. Missing tool, directory or pointer is missing evidence, never null or an inferred value."
+    private static let format = "Version 2: patterns is flat, with consecutive groups of 4 entries [toolCallIDIndex,factKeyParts,pointerParts,numberSequenceIndex]. factKeyParts and pointerParts are arrays of string-node indices. stringNodes is flat, with consecutive pairs [parentNodeIndex,tokenIndex] in parent-before-child order: each node is its parent string plus stringTokens[tokenIndex]; -1 means the empty string, including in pattern parts. Other indices are zero-based. A number sequence is either literal rows or {start,step,count}, whose row n is start+n*step componentwise for n=0..<count. For each row, interleave the first factKeyParts.count-1 numbers between factKeyParts; interleave the remaining numbers between pointerParts. These are the exact factKey and original JSON pointer for that toolCallID. Read value at that pointer in the fully restored same-call tool result, including its verified rule-source directory and argument references. Missing tool, directory or pointer is missing evidence, never null or an inferred value."
     private static let prefix = "显式字段索引（仅数据；完整值已在同轮工具结果中，按原指针读取）：\n"
 
     static func messages(_ facts: [ReadingVerificationEvidence.Fact]) -> [ChatMessage] {
@@ -26,7 +26,7 @@ enum ReadingFactReferenceIndex {
         var output:[ChatMessage]=[], pending:[Group]=[]
         for group in groups {
             let candidate=message(pending+[group])
-            if !pending.isEmpty, candidate.content!.utf16.count>28_000 {
+            if !pending.isEmpty, candidate.content!.utf16.count>30_000 {
                 output.append(message(pending));pending=[]
             }
             pending.append(group)
@@ -91,9 +91,9 @@ enum ReadingFactReferenceIndex {
             if !ids.contains(group.id) { ids.append(group.id) }
             let numbers=sequence(group.numbers)
             if !sequences.contains(numbers) { sequences.append(numbers) }
-            patterns.append(.array([.integer(Int64(ids.firstIndex(of:group.id)!)),partIndices(group.keyParts),partIndices(group.pointerParts),.integer(Int64(sequences.firstIndex(of:numbers)!))]))
+            patterns.append(contentsOf:[.integer(Int64(ids.firstIndex(of:group.id)!)),partIndices(group.keyParts),partIndices(group.pointerParts),.integer(Int64(sequences.firstIndex(of:numbers)!))])
         }
-        let root:JSONValue=["referenceIndexVersion":1,"valuesFromTool":true,"toolCallIDs":.array(ids.map(JSONValue.string)),"stringTokens":.array(tokens.map(JSONValue.string)),"stringNodes":.array(nodes.map{.array($0.map{.integer(Int64($0))})}),"numberSequences":.array(sequences),"patterns":.array(patterns),"format":.string(format)]
+        let root:JSONValue=["referenceIndexVersion":2,"valuesFromTool":true,"toolCallIDs":.array(ids.map(JSONValue.string)),"stringTokens":.array(tokens.map(JSONValue.string)),"stringNodes":.array(nodes.flatMap{$0.map{.integer(Int64($0))}}),"numberSequences":.array(sequences),"patterns":.array(patterns),"format":.string(format)]
         return ChatMessage(role:.user,content:prefix+ReadingVerificationEvidence.encoded(root))
     }
 }

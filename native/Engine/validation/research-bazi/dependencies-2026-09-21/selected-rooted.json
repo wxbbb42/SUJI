@@ -1,0 +1,701 @@
+{
+  "bazi": {
+    "pillars": {
+      "year": {
+        "ganZhi": {
+          "gan": "丙",
+          "zhi": "酉"
+        }
+      },
+      "month": {
+        "ganZhi": {
+          "gan": "辛",
+          "zhi": "卯"
+        }
+      },
+      "day": {
+        "ganZhi": {
+          "gan": "甲",
+          "zhi": "子"
+        }
+      },
+      "hour": {
+        "ganZhi": {
+          "gan": "辛",
+          "zhi": "午"
+        }
+      }
+    },
+    "patternAnalysis": {
+      "yongShenShiShen": "比肩",
+      "conditionalEvidence": {
+        "assessmentStatus": "conditions-only",
+        "outcomeEstablished": false,
+        "selectedYong": "比肩",
+        "stems": [
+          {
+            "position": 0,
+            "gan": "丙",
+            "element": "火",
+            "shiShen": "食神",
+            "month": {
+              "branch": "卯",
+              "element": "木",
+              "state": "相"
+            },
+            "sameElementRoots": [
+              {
+                "position": 3,
+                "branch": "午",
+                "gan": "丁",
+                "tier": "ben",
+                "sameStem": false
+              }
+            ],
+            "generatingSupport": [
+              {
+                "position": 1,
+                "branch": "卯",
+                "gan": "乙",
+                "tier": "ben"
+              }
+            ],
+            "generatingStemPositions": [
+              2
+            ],
+            "constraints": [
+              {
+                "actorPosition": 1,
+                "actorGan": "辛",
+                "relation": "合",
+                "adjacent": true,
+                "interveningPositions": []
+              },
+              {
+                "actorPosition": 3,
+                "actorGan": "辛",
+                "relation": "合",
+                "adjacent": false,
+                "interveningPositions": [
+                  1,
+                  2
+                ]
+              }
+            ],
+            "combinationAdjudication": "unresolved"
+          },
+          {
+            "position": 1,
+            "gan": "辛",
+            "element": "金",
+            "shiShen": "正官",
+            "month": {
+              "branch": "卯",
+              "element": "木",
+              "state": "囚"
+            },
+            "sameElementRoots": [
+              {
+                "position": 0,
+                "branch": "酉",
+                "gan": "辛",
+                "tier": "ben",
+                "sameStem": true
+              }
+            ],
+            "generatingSupport": [
+              {
+                "position": 3,
+                "branch": "午",
+                "gan": "己",
+                "tier": "zhong"
+              }
+            ],
+            "generatingStemPositions": [],
+            "constraints": [
+              {
+                "actorPosition": 0,
+                "actorGan": "丙",
+                "relation": "克",
+                "adjacent": true,
+                "interveningPositions": []
+              },
+              {
+                "actorPosition": 0,
+                "actorGan": "丙",
+                "relation": "合",
+                "adjacent": true,
+                "interveningPositions": []
+              }
+            ],
+            "combinationAdjudication": "unresolved"
+          },
+          {
+            "position": 2,
+            "gan": "甲",
+            "element": "木",
+            "shiShen": "比肩",
+            "month": {
+              "branch": "卯",
+              "element": "木",
+              "state": "旺"
+            },
+            "sameElementRoots": [
+              {
+                "position": 1,
+                "branch": "卯",
+                "gan": "乙",
+                "tier": "ben",
+                "sameStem": false
+              }
+            ],
+            "generatingSupport": [
+              {
+                "position": 2,
+                "branch": "子",
+                "gan": "癸",
+                "tier": "ben"
+              }
+            ],
+            "generatingStemPositions": [],
+            "constraints": [
+              {
+                "actorPosition": 1,
+                "actorGan": "辛",
+                "relation": "克",
+                "adjacent": true,
+                "interveningPositions": []
+              },
+              {
+                "actorPosition": 3,
+                "actorGan": "辛",
+                "relation": "克",
+                "adjacent": true,
+                "interveningPositions": []
+              }
+            ],
+            "combinationAdjudication": "unresolved"
+          },
+          {
+            "position": 3,
+            "gan": "辛",
+            "element": "金",
+            "shiShen": "正官",
+            "month": {
+              "branch": "卯",
+              "element": "木",
+              "state": "囚"
+            },
+            "sameElementRoots": [
+              {
+                "position": 0,
+                "branch": "酉",
+                "gan": "辛",
+                "tier": "ben",
+                "sameStem": true
+              }
+            ],
+            "generatingSupport": [
+              {
+                "position": 3,
+                "branch": "午",
+                "gan": "己",
+                "tier": "zhong"
+              }
+            ],
+            "generatingStemPositions": [],
+            "constraints": [
+              {
+                "actorPosition": 0,
+                "actorGan": "丙",
+                "relation": "克",
+                "adjacent": false,
+                "interveningPositions": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "actorPosition": 0,
+                "actorGan": "丙",
+                "relation": "合",
+                "adjacent": false,
+                "interveningPositions": [
+                  1,
+                  2
+                ]
+              }
+            ],
+            "combinationAdjudication": "unresolved"
+          }
+        ],
+        "hiddenStems": [
+          {
+            "position": 0,
+            "branch": "酉",
+            "gan": "辛",
+            "tier": "ben"
+          },
+          {
+            "position": 1,
+            "branch": "卯",
+            "gan": "乙",
+            "tier": "ben"
+          },
+          {
+            "position": 2,
+            "branch": "子",
+            "gan": "癸",
+            "tier": "ben"
+          },
+          {
+            "position": 3,
+            "branch": "午",
+            "gan": "丁",
+            "tier": "ben"
+          },
+          {
+            "position": 3,
+            "branch": "午",
+            "gan": "己",
+            "tier": "zhong"
+          }
+        ],
+        "threats": [],
+        "helperCandidates": [
+          {
+            "layer": "stem",
+            "gan": "辛",
+            "position": 1,
+            "shiShen": "正官",
+            "context": "/stems/1"
+          },
+          {
+            "layer": "stem",
+            "gan": "辛",
+            "position": 3,
+            "shiShen": "正官",
+            "context": "/stems/3"
+          },
+          {
+            "layer": "hidden",
+            "position": 0,
+            "branch": "酉",
+            "gan": "辛",
+            "tier": "ben",
+            "shiShen": "正官"
+          }
+        ],
+        "rescueCandidates": [],
+        "helperProtectionCandidates": [
+          {
+            "helperPosition": 1,
+            "attackerPosition": 0,
+            "remedyPosition": 3,
+            "relation": "合",
+            "adjacent": false,
+            "interveningPositions": [
+              1,
+              2
+            ],
+            "helperContext": "/stems/1",
+            "attackerContext": "/stems/0",
+            "remedyContext": "/stems/3",
+            "effectiveness": "unresolved"
+          },
+          {
+            "helperPosition": 3,
+            "attackerPosition": 0,
+            "remedyPosition": 1,
+            "relation": "合",
+            "adjacent": true,
+            "interveningPositions": [],
+            "helperContext": "/stems/3",
+            "attackerContext": "/stems/0",
+            "remedyContext": "/stems/1",
+            "effectiveness": "unresolved"
+          }
+        ],
+        "monthClashes": [
+          {
+            "monthPosition": 1,
+            "otherPosition": 0,
+            "branches": [
+              "卯",
+              "酉"
+            ],
+            "reliefEstablished": false,
+            "combinationCandidates": [],
+            "mediationCandidates": [
+              {
+                "position": 2,
+                "branch": "子",
+                "element": "水",
+                "challengedByPositions": [
+                  3
+                ]
+              }
+            ]
+          }
+        ],
+        "sources": [
+          {
+            "id": "ziping-helper-constraints-v1",
+            "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/00-abstract-chapters.md",
+            "sha256": "5b930c11310899b50703696870d9024ba4e00fca6ad177e57d6fa5e3f8a4964f",
+            "locator": "十五、论相神紧要；十二、论格局高低",
+            "quote": "甲用酉官，透丁逢癸印，制伤以护官矣，而又逢戊，癸合戊而不制丁，癸水之相伤矣",
+            "additionalQuotes": [
+              "乙用酉煞，年丁月癸，时上逢戊，则合去癸印以使丁得制煞者，全赖戊之相",
+              "丁用酉财，透癸逢己，食制煞以生财矣，而又透甲，己合甲而不制癸",
+              "若丁火通根，则合之不去",
+              "壬水通根申亥为有力",
+              "庚用午官，而子冲隔丑，则子丑合而解冲",
+              "见寅卯，则水生木，木生午火以解冲，则寅卯为相也"
+            ],
+            "editionStatus": "electronic-transcription-not-print-collated"
+          },
+          {
+            "id": "ziping-position-season-v1",
+            "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+            "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+            "locator": "论十干合而不合；论十干得时不旺失时不弱",
+            "quote": "或虽遥隔而仍作合论，各视其格局配合而已",
+            "additionalQuotes": [
+              "序有先后，不作妒合争合论也",
+              "虽不当令，其用固未尝消失也"
+            ],
+            "editionStatus": "electronic-transcription-not-print-collated"
+          }
+        ],
+        "limitations": [
+          "相神表是当前格局默认候选集合，不穷尽全局取相；藏干候选不等同透干，藏干救应效力未裁定",
+          "克、合、根与月令分别记录；相隔、同名多配对或季候标签均不能单独裁定救应有效或失效",
+          "地支六合/通关仅列条件，不取消月冲，不以半合充完整三合或已成化；全局力量及合解仍待审",
+          "chengBai与jibie保留既有工程候选口径，不代表本条件评估已裁定成败或等级"
+        ]
+      },
+      "rescueEvidence": {
+        "methodVersion": "bazi-rescue-adjudication-v1",
+        "profileId": "ziping-xu-local-role-dependencies-v1",
+        "outcomeEstablished": false,
+        "globalResolution": "unresolved",
+        "combinations": [
+          {
+            "actorPosition": 1,
+            "targetPosition": 0,
+            "actorGan": "辛",
+            "targetGan": "丙",
+            "status": "rooted-role-retained",
+            "removalEstablished": false,
+            "blockingPositions": [],
+            "competingPositions": [
+              3
+            ],
+            "sourceIds": [
+              "ziping-xu-combination-limits-v1"
+            ]
+          },
+          {
+            "actorPosition": 3,
+            "targetPosition": 0,
+            "actorGan": "辛",
+            "targetGan": "丙",
+            "status": "rooted-role-retained",
+            "removalEstablished": false,
+            "blockingPositions": [],
+            "competingPositions": [
+              1
+            ],
+            "sourceIds": [
+              "ziping-xu-combination-limits-v1"
+            ]
+          },
+          {
+            "actorPosition": 0,
+            "targetPosition": 1,
+            "actorGan": "丙",
+            "targetGan": "辛",
+            "status": "rooted-role-retained",
+            "removalEstablished": false,
+            "blockingPositions": [],
+            "competingPositions": [
+              3
+            ],
+            "sourceIds": [
+              "ziping-xu-combination-limits-v1"
+            ]
+          },
+          {
+            "actorPosition": 0,
+            "targetPosition": 3,
+            "actorGan": "丙",
+            "targetGan": "辛",
+            "status": "rooted-role-retained",
+            "removalEstablished": false,
+            "blockingPositions": [],
+            "competingPositions": [
+              1
+            ],
+            "sourceIds": [
+              "ziping-xu-combination-limits-v1"
+            ]
+          }
+        ],
+        "rescuePaths": [],
+        "helperProtections": [
+          {
+            "helperPosition": 1,
+            "attackerPosition": 0,
+            "remedyPosition": 3,
+            "relation": "合",
+            "adjacent": false,
+            "interveningPositions": [
+              1,
+              2
+            ],
+            "helperContext": "/stems/1",
+            "attackerContext": "/stems/0",
+            "remedyContext": "/stems/3",
+            "status": "rooted-role-retained",
+            "blockingPositions": [],
+            "sourceIds": [
+              "ziping-helper-constraints-v1"
+            ]
+          },
+          {
+            "helperPosition": 3,
+            "attackerPosition": 0,
+            "remedyPosition": 1,
+            "relation": "合",
+            "adjacent": true,
+            "interveningPositions": [],
+            "helperContext": "/stems/3",
+            "attackerContext": "/stems/0",
+            "remedyContext": "/stems/1",
+            "status": "rooted-role-retained",
+            "blockingPositions": [],
+            "sourceIds": [
+              "ziping-helper-constraints-v1"
+            ]
+          }
+        ],
+        "hiddenRoles": [
+          {
+            "position": 0,
+            "branch": "酉",
+            "gan": "辛",
+            "tier": "ben",
+            "role": "root-and-branch-context",
+            "status": "context-only",
+            "exposedPositions": [
+              1,
+              3
+            ],
+            "sourceIds": [
+              "ziping-xu-combination-limits-v1"
+            ]
+          },
+          {
+            "position": 1,
+            "branch": "卯",
+            "gan": "乙",
+            "tier": "ben",
+            "role": "root-and-branch-context",
+            "status": "context-only",
+            "exposedPositions": [],
+            "sourceIds": [
+              "ziping-xu-combination-limits-v1"
+            ]
+          },
+          {
+            "position": 2,
+            "branch": "子",
+            "gan": "癸",
+            "tier": "ben",
+            "role": "root-and-branch-context",
+            "status": "context-only",
+            "exposedPositions": [],
+            "sourceIds": [
+              "ziping-xu-combination-limits-v1"
+            ]
+          },
+          {
+            "position": 3,
+            "branch": "午",
+            "gan": "丁",
+            "tier": "ben",
+            "role": "root-and-branch-context",
+            "status": "context-only",
+            "exposedPositions": [],
+            "sourceIds": [
+              "ziping-xu-combination-limits-v1"
+            ]
+          },
+          {
+            "position": 3,
+            "branch": "午",
+            "gan": "己",
+            "tier": "zhong",
+            "role": "root-and-branch-context",
+            "status": "context-only",
+            "exposedPositions": [],
+            "sourceIds": [
+              "ziping-xu-combination-limits-v1"
+            ]
+          }
+        ],
+        "branchHelpers": [],
+        "threatCoverage": [],
+        "sources": [
+          {
+            "id": "ziping-helper-constraints-v1",
+            "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/00-abstract-chapters.md",
+            "sha256": "5b930c11310899b50703696870d9024ba4e00fca6ad177e57d6fa5e3f8a4964f",
+            "locator": "十五、论相神紧要；十二、论格局高低",
+            "quote": "甲用酉官，透丁逢癸印，制伤以护官矣，而又逢戊，癸合戊而不制丁，癸水之相伤矣",
+            "additionalQuotes": [
+              "乙用酉煞，年丁月癸，时上逢戊，则合去癸印以使丁得制煞者，全赖戊之相",
+              "丁用酉财，透癸逢己，食制煞以生财矣，而又透甲，己合甲而不制癸",
+              "若丁火通根，则合之不去",
+              "壬水通根申亥为有力",
+              "庚用午官，而子冲隔丑，则子丑合而解冲",
+              "见寅卯，则水生木，木生午火以解冲，则寅卯为相也"
+            ],
+            "editionStatus": "electronic-transcription-not-print-collated"
+          },
+          {
+            "id": "ziping-position-season-v1",
+            "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+            "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+            "locator": "论十干合而不合；论十干得时不旺失时不弱",
+            "quote": "或虽遥隔而仍作合论，各视其格局配合而已",
+            "additionalQuotes": [
+              "序有先后，不作妒合争合论也",
+              "虽不当令，其用固未尝消失也"
+            ],
+            "editionStatus": "electronic-transcription-not-print-collated"
+          },
+          {
+            "id": "ziping-xu-combination-limits-v1",
+            "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+            "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+            "locator": "四、论十干配合性情；五、论十干合而不合",
+            "quote": "如地支通根，则虽合而不失其用，喜忌依然存在",
+            "additionalQuotes": [
+              "甲己中间，以庚间隔之，则甲岂能越克我之庚而合己",
+              "日元之干相合，除合而化，变更性质之外，皆不以合论",
+              "相合则煞不攻身，非谓去之也",
+              "地支所藏之干，本静以待用，透出干头，则显其用矣"
+            ],
+            "editionStatus": "electronic-transcription-not-print-collated"
+          },
+          {
+            "id": "ziping-xu-hidden-action-cases-v1",
+            "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/35-yinshou.md",
+            "sha256": "d87e8f7df9f15175b26a75e9acee2a1b6e50b2df1b4ef1b5f189c38d8aa7a63c",
+            "locator": "三十五、论印绶，朱尚书与庚戌戊子甲戌乙亥两例",
+            "quote": "辰未中皆藏乙木财星，暗损印绶，病重而得药",
+            "additionalQuotes": [
+              "戌中更藏丁火食神，非子印所能夺",
+              "盖印未曾合去也"
+            ],
+            "editionStatus": "electronic-transcription-not-print-collated"
+          },
+          {
+            "id": "ziping-xu-occurrence-selection-v1",
+            "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+            "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+            "locator": "五、论十干合而不合：月时两辛、林森克一留一及各家异说",
+            "quote": "如甲生寅卯，月时两透辛官，以年丙合月辛，是为合一留一，官星反轻",
+            "additionalQuotes": [
+              "戊辰、甲寅、丁卯、戊申",
+              "用甲克去年上伤官，而留时上伤官以生财损印",
+              "各家所说不同也"
+            ],
+            "editionStatus": "electronic-transcription-not-print-collated"
+          }
+        ],
+        "dependencyResolution": {
+          "methodVersion": "bazi-rescue-dependencies-v1",
+          "profileId": "ziping-xu-source-scoped-competition-v1",
+          "selectedYong": "比肩",
+          "outcomeEstablished": false,
+          "actions": [
+            {
+              "id": "combine:0:stem:1",
+              "ruleId": "bing-selects-month-xin",
+              "actorPosition": 0,
+              "targetLayer": "stem",
+              "targetPosition": 1,
+              "targetGan": "辛",
+              "relation": "合",
+              "status": "retained",
+              "localEffectEstablished": false,
+              "actorCombinationIndexes": [
+                0,
+                1
+              ],
+              "blockingCombinationIndexes": [],
+              "attacks": [],
+              "unresolvedReasons": [
+                "rooted-role-retained"
+              ],
+              "sourceIds": [
+                "ziping-xu-occurrence-selection-v1"
+              ]
+            },
+            {
+              "id": "combine:0:stem:3",
+              "ruleId": "bing-selects-month-xin",
+              "actorPosition": 0,
+              "targetLayer": "stem",
+              "targetPosition": 3,
+              "targetGan": "辛",
+              "relation": "合",
+              "status": "retained",
+              "localEffectEstablished": false,
+              "actorCombinationIndexes": [
+                0,
+                1
+              ],
+              "blockingCombinationIndexes": [],
+              "attacks": [],
+              "unresolvedReasons": [],
+              "sourceIds": [
+                "ziping-xu-occurrence-selection-v1"
+              ]
+            }
+          ],
+          "occurrenceSelections": [
+            {
+              "ruleId": "bing-selects-month-xin",
+              "actorPosition": 0,
+              "selectedTargetPosition": 1,
+              "retainedTargetPositions": [
+                3
+              ],
+              "sourceIds": [
+                "ziping-xu-occurrence-selection-v1"
+              ]
+            }
+          ],
+          "threatResolutions": [],
+          "unresolvedScopes": [
+            "local-paths-do-not-establish-global-outcome",
+            "unresolved-attacks-are-not-cancelled-by-unresolved-protections",
+            "source-conflicts-and-cycles-have-no-universal-priority",
+            "hidden-actors-outside-explicit-month-role-or-attested-case-unresolved"
+          ]
+        },
+        "unresolvedScopes": [
+          "全局取相与全部病点尚未穷尽；局部路径可用不等于全格成败",
+          "直接克边的相对力量及多条救应竞争未由根数或分数替代",
+          "除明确命例外，藏干实际施事效力与支合解冲仍需配置条件",
+          "徐注有根仍有用与丙午辛卯戊寅甲寅两失其用存在解释冲突；该命例明确标出",
+          "本裁定不证明任何五合成化，也不裁定从格、专旺的克神救应"
+        ]
+      }
+    }
+  }
+}

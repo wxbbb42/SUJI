@@ -1,0 +1,27 @@
+Building for debugging...
+[Planning deferred tasks]
+[8 / 29] SujiCore
+[11 / 32] SujiCore
+[20 / 29] SujiCoreTests-product
+[31 / 40] SujiCoreTests-product
+[35 / 39] SujiCoreTests-product
+[37 / 39] SujiCoreTests-product
+[41 / 45] ReadingEvalFixtures-product
+[45 / 48] ReadingEvalFixtures-product
+[47 / 48] ReadingEvalFixtures-product
+Build complete! (4.19秒)
+Test Suite 'Selected tests' started at 2026-09-21 11:12:18.601.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 11:12:18.602.
+Test Suite 'LiuyaoEventAssessmentTests' started at 2026-09-21 11:12:18.602.
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testSourceDirectionsRenderAndReplayWithEveryEvidencePointerIntact]' started.
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testSourceDirectionsRenderAndReplayWithEveryEvidencePointerIntact]' passed (1.917 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testSymmetricAbsencePreservesOldReceiptsAndCannotHideNewVerdicts]' started.
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testSymmetricAbsencePreservesOldReceiptsAndCannotHideNewVerdicts]' passed (0.060 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testTamperedDirectionChainEvidenceSelectionAndSourceRejected]' started.
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testTamperedDirectionChainEvidenceSelectionAndSourceRejected]' passed (0.321 seconds).
+Test Suite 'LiuyaoEventAssessmentTests' passed at 2026-09-21 11:12:20.899.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 2.297 (2.297) seconds
+Test Suite 'SujiCoreTests.xctest' passed at 2026-09-21 11:12:20.899.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 2.297 (2.297) seconds
+Test Suite 'Selected tests' passed at 2026-09-21 11:12:20.899.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 2.297 (2.298) seconds

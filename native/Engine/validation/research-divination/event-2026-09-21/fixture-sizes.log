@@ -1,0 +1,36 @@
+[
+  {
+    name: 'monthly',
+    bytes: 35893,
+    outcome: 'favorable-under-selected-rule'
+  },
+  {
+    name: 'rootless',
+    bytes: 48365,
+    outcome: 'adverse-under-selected-rule'
+  },
+  {
+    name: 'chain',
+    bytes: 40594,
+    outcome: 'favorable-under-selected-rule'
+  },
+  { name: 'yuan-broken', bytes: 40771, outcome: 'contested' },
+  { name: 'yuan-attacked', bytes: 45006, outcome: 'contested' },
+  { name: 'ji-broken', bytes: 40590, outcome: 'contested' },
+  { name: 'void-monthly', bytes: 35792, outcome: 'awaiting-condition' },
+  { name: 'month-break-only', bytes: 47265, outcome: 'contested' },
+  {
+    name: 'monthly-ji',
+    bytes: 38805,
+    outcome: 'adverse-under-selected-rule'
+  },
+  { name: 'multiple', bytes: 38100, outcome: 'unresolved' },
+  {
+    name: 'unanimous',
+    bytes: 49357,
+    outcome: 'adverse-under-selected-rule'
+  },
+  { name: 'potential-rescue', bytes: 41956, outcome: 'contested' },
+  { name: 'multiple-unresolved', bytes: 36542, outcome: 'contested' },
+  { name: 'missing-context', bytes: 34763, outcome: 'unresolved' }
+]

@@ -15,7 +15,20 @@ enum ReferenceFactIndexTestDecoder {
             charts[m.toolCallID!]=ToolOutputWire.decode(m,history:Array(history.prefix(i)))
         }
         let tokens = try XCTUnwrap(root["stringTokens"] as? [String])
-        let nodes = try XCTUnwrap(root["stringNodes"] as? [[Int]])
+        let version = try XCTUnwrap(root["referenceIndexVersion"] as? Int)
+        XCTAssertTrue([1,2].contains(version))
+        let nodes: [[Int]]
+        let patterns: [[Any]]
+        if version == 2 {
+            let flatNodes = try XCTUnwrap(root["stringNodes"] as? [Int])
+            let flatPatterns = try XCTUnwrap(root["patterns"] as? [Any])
+            XCTAssertEqual(flatNodes.count % 2,0); XCTAssertEqual(flatPatterns.count % 4,0)
+            nodes = stride(from:0,to:flatNodes.count,by:2).map{Array(flatNodes[$0..<($0+2)])}
+            patterns = stride(from:0,to:flatPatterns.count,by:4).map{Array(flatPatterns[$0..<($0+4)])}
+        } else {
+            nodes = try XCTUnwrap(root["stringNodes"] as? [[Int]])
+            patterns = try XCTUnwrap(root["patterns"] as? [[Any]])
+        }
         var parts: [String] = []
         for node in nodes {
             XCTAssertEqual(node.count, 2)
@@ -24,7 +37,7 @@ enum ReferenceFactIndexTestDecoder {
             XCTAssertTrue(tokens.indices.contains(token))
             parts.append((parent == -1 ? "" : parts[parent]) + tokens[token])
         }
-        for pattern in root["patterns"] as! [[Any]] {
+        for pattern in patterns {
             let id=ids[pattern[0] as! Int],kp=(pattern[1] as! [Int]).map{$0 == -1 ? "" : parts[$0]},pp=(pattern[2] as! [Int]).map{$0 == -1 ? "" : parts[$0]}
             let sequence=sequences[pattern[3] as! Int],rows:[[Int]]
             if let literal=sequence as? [[Int]] { rows=literal }
@@ -79,5 +92,15 @@ final class ReadingFactReferenceIndexTests:XCTestCase {
         let restored=try ReferenceFactIndexTestDecoder.restore(messages[0].content!.components(separatedBy:"\n").last!,history:history)
         XCTAssertEqual(restored.count,facts.count)
         for f in facts { XCTAssertEqual(restored[ReferenceFactIndexTestDecoder.identity(f.toolCallID,f.factKey,f.pointer)],[.string(f.pointer),f.value]) }
+        // Independently regroup the v2 rows into the earlier v1 representation:
+        // both must recover exactly the same identity/value set.
+        var old=try XCTUnwrap(JSONSerialization.jsonObject(with:Data(messages[0].content!.components(separatedBy:"\n").last!.utf8)) as? [String:Any])
+        XCTAssertEqual(old["referenceIndexVersion"] as? Int,2)
+        let nodes=try XCTUnwrap(old["stringNodes"] as? [Int]),patterns=try XCTUnwrap(old["patterns"] as? [Any])
+        old["referenceIndexVersion"]=1
+        old["stringNodes"]=stride(from:0,to:nodes.count,by:2).map{Array(nodes[$0..<($0+2)])}
+        old["patterns"]=stride(from:0,to:patterns.count,by:4).map{Array(patterns[$0..<($0+4)])}
+        let legacy=String(decoding:try JSONSerialization.data(withJSONObject:old),as:UTF8.self)
+        XCTAssertEqual(try ReferenceFactIndexTestDecoder.restore(legacy,history:history),restored)
     }
 }

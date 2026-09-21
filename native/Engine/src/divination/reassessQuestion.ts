@@ -41,6 +41,6 @@ export function reassessQuestion(input:any, engineRevision:string) {
   const a = input.arguments;
   const opts = {question:a.question,questionType:(a.questionType ?? 'general') as QuestionType,
     questionContext:Object.fromEntries(['subject','event','timeHorizon'].filter(k=>a[k]!==undefined).map(k=>[k,a[k]])) as QuestionContext};
-  const revised = name === 'cast_liuyao' ? new HexagramEngine().reassessQuestion(source,opts) : new QimenEngine().reassessQuestion(source,{...opts,timingRequest:a.timingRequest});
+  const revised = name === 'cast_liuyao' ? new HexagramEngine().reassessQuestion(source,opts) : new QimenEngine().reassessQuestion(source,{...opts,timingRequest:a.timingRequest,selectionRequest:a.selectionRequest});
   return {...revised,questionRevision:{algorithm:'suji-cast-question-revision-1',sourceToolName:name,sourceCallID:input.sourceCallID}};
 }

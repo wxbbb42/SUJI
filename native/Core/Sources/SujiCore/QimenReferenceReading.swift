@@ -47,6 +47,13 @@ public enum QimenReferenceReading {
             roots.append(root)
         }
         guard let root = roots.first, roots.allSatisfy({ $0 == root }) else { return nil }
+        // Reused planner calls retain their own requests. A matching output alone
+        // cannot authorize a different specialized focus or event in a later call.
+        if ReadingVerificationEvidence.pointer("/specializedSelection",in:root) != nil {
+            guard receipts.allSatisfy({QimenSelectionEvidence.read(root:root,arguments:$0.arguments) != nil}) else {return nil}
+        } else {
+            guard receipts.allSatisfy({ReadingVerificationEvidence.pointer("/selectionRequest",in:$0.arguments)==nil}) else {return nil}
+        }
         var builder = Builder(receipt:receipts[0],root:root,context:context)
         return try? builder.build()
     }
@@ -226,11 +233,21 @@ public enum QimenReferenceReading {
             }
             guard try string("/yongShen/selectionStatus") == (missing.isEmpty ? "candidates-only" : "requires-clarification") else { throw Incomplete.record }
             let pending = missing.isEmpty ? "" : "本次计算记录尚缺：" + missing.joined(separator:"、") + "。"
-            try append("reference-policy","日干、时干和事项候选采用产品参考约定，各有自己的盘层位置；同干也不合并身份。\(pending)这些基础候选尚未整体定用；若下方提供条件应期，仅按其明确选定的对象与适用规则核对，不能通过自行选宫得出结论。",
+            try append("reference-policy","日干、时干和事项候选采用产品参考约定，各有自己的盘层位置；同干也不合并身份。\(pending)这些基础候选尚未整体定用；若下方提供专门取用或条件应期，仅按其明确对象与适用规则核对，不能通过自行选宫得出结论。",
                        ["/yongShen/selectionStatus","/yongShen/selectionEstablished","/yongShen/selectedCandidateId","/yongShen/missingContext","/yongShen/sourceId"] + provenance)
             guard try string("/yingQi/assessmentStatus") == "unresolved", try value("/yingQi/outcomeEstablished") == .bool(false),
                   try string("/yingQi/timeScale") == "unresolved", try string("/yingQi/sourceId") == questionSource,
                   try array("/yingQi/triggers").isEmpty, try array("/yingQi/dates").isEmpty else { throw Incomplete.record }
+            if ReadingVerificationEvidence.pointer("/specializedSelection",in:root) != nil {
+                guard let selection=QimenSelectionEvidence.read(root:root,arguments:receipt.arguments) else {throw Incomplete.record}
+                try append("specialized-selection",selection.text,selection.evidencePaths)
+            } else {
+                guard ReadingVerificationEvidence.pointer("/selectionRequest",in:receipt.arguments)==nil,
+                      !((try array("/ruleSources")).contains { item in
+                          guard case let .string(id)=ReadingVerificationEvidence.pointer("/id",in:item) else {return false}
+                          return QimenSelectionEvidence.sourceIDs.contains(id)
+                      }) else {throw Incomplete.record}
+            }
             if ReadingVerificationEvidence.pointer("/timing",in:root) != nil {
                 guard let timing = QimenTimingEvidence.read(root:root) else { throw Incomplete.record }
                 try append("timing",timing.text,timing.evidencePaths)

@@ -69,10 +69,11 @@ final class LiuyaoFanfuTests: XCTestCase {
         let report=try XCTUnwrap(LiuyaoReferenceReading.render(receipts:[receipt],context:context))
         XCTAssertFalse(report.sections.contains{$0.id.hasPrefix("fanfu-line-")})
         root.removeValue(forKey:"fanfu")
-        // A pre-fanfu archive also predates the later triad layer that requires it.
+        // A pre-fanfu archive also predates the later dependent layers.
         root.removeValue(forKey:"triads")
         root.removeValue(forKey:"efficacy")
-        root["ruleSources"]=(root["ruleSources"] as! [[String:Any]]).filter{!["liuyao-fanfu-selected-v1","liuyao-triad-selected-v1","liuyao-efficacy-zengshan-v1"].contains($0["id"] as? String ?? "")}
+        root.removeValue(forKey:"eventAssessment")
+        root["ruleSources"]=(root["ruleSources"] as! [[String:Any]]).filter{!["liuyao-fanfu-selected-v1","liuyao-triad-selected-v1","liuyao-efficacy-zengshan-v1","liuyao-event-zengshan-v1"].contains($0["id"] as? String ?? "")}
         var legacy=receipt;legacy.output=String(decoding:try JSONSerialization.data(withJSONObject:root),as:UTF8.self)
         XCTAssertNotNil(LiuyaoReferenceReading.render(receipts:[legacy],context:context))
     }

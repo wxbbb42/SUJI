@@ -1,0 +1,1625 @@
+{
+  "scope": "Final actual ChatClient HTTP captures and full fact expectations; synthetic fixtures, no provider request. All source hashes describe the capture code, independent of later documentation commits.",
+  "baselineCommit": "1a55f46809d16eddf2537cb891ec25ed0d40f800",
+  "captureBaseCommit": "1a55f46809d16eddf2537cb891ec25ed0d40f800",
+  "workingTreeCapture": true,
+  "members": [
+    {
+      "path": "divination/fixtures.json",
+      "bytes": 6954189,
+      "sha256": "d1988771f3651c649dd91e4fe5b643b97665fbda44204ee82e3b4a47a32e22b9"
+    },
+    {
+      "path": "divination/final-native-capacity-report.json",
+      "bytes": 80060,
+      "sha256": "62895fc5dcc12416195ace473ebb24d33c8eafabfe1d9129551adecd0c966a4a"
+    },
+    {
+      "path": "divination/final-wire-decoder-report.json",
+      "bytes": 22138,
+      "sha256": "09adb660fa84f50f3bc4f45d7ed88fddc1d44652d524d996043d9193d05d03e5"
+    },
+    {
+      "path": "divination/final-wire-request-0.json",
+      "bytes": 158019,
+      "sha256": "f7eab86d7278372277553de4313414c7046c9741dd38d4ede50dd6fc8db5a618"
+    },
+    {
+      "path": "divination/final-expected-facts-0.json",
+      "bytes": 639486,
+      "sha256": "91dac8058ce9de0b806b14a9ba9473586729c918d590babd3f615ee602a646c7"
+    },
+    {
+      "path": "divination/final-wire-request-1.json",
+      "bytes": 157892,
+      "sha256": "34da761102cfa0a8947d38d62e44e4ed6fd030c559eb29dff9dd812f4a5d580a"
+    },
+    {
+      "path": "divination/final-expected-facts-1.json",
+      "bytes": 638971,
+      "sha256": "36dea3e3528779e0a4ca37a1aa19c93ac2d8b8819b59e17083a17fd59afd5e5a"
+    },
+    {
+      "path": "divination/final-wire-request-2.json",
+      "bytes": 157865,
+      "sha256": "b7f0527570e0c067afd4b5873e234b2afd407cd2700f4c2aa6d06994b1a358fd"
+    },
+    {
+      "path": "divination/final-expected-facts-2.json",
+      "bytes": 638352,
+      "sha256": "216c17db2debbdbd02e422c87b8d0c308561479142d5086e3410df862943c124"
+    },
+    {
+      "path": "divination/final-wire-request-3.json",
+      "bytes": 157827,
+      "sha256": "9977f5d967ebafa921af660de9d62a82088068593773d74b34bb2dbf213f4eb8"
+    },
+    {
+      "path": "divination/final-expected-facts-3.json",
+      "bytes": 633719,
+      "sha256": "7f0f7696556c05f5bd1f07cb54e2232e48c4e227af35218e28fcbe4022cf6214"
+    },
+    {
+      "path": "divination/final-wire-request-4.json",
+      "bytes": 159857,
+      "sha256": "c2e0f3bd73c2aeeae3b443d15048474b9813a69d058c1da5b1f44bd3bd0251e3"
+    },
+    {
+      "path": "divination/final-expected-facts-4.json",
+      "bytes": 642833,
+      "sha256": "c10ef6c5dd79b12872786e30df3c5828507631467f3b2f704529fbd9de7a75db"
+    },
+    {
+      "path": "divination/final-wire-request-5.json",
+      "bytes": 162654,
+      "sha256": "a8c388e67df64916030ea1e773852a8a071e693022e1180bf967f1093aed1447"
+    },
+    {
+      "path": "divination/final-expected-facts-5.json",
+      "bytes": 685210,
+      "sha256": "a607368323d1f15c1a9ba61246cb187fffe417c7f07b28ddd85cff4157d82ac2"
+    },
+    {
+      "path": "divination/final-wire-request-6.json",
+      "bytes": 162938,
+      "sha256": "e78f1f4e73adae438ad2e1e52e3ed0cd354ec289892a5bc18503e656e383370f"
+    },
+    {
+      "path": "divination/final-expected-facts-6.json",
+      "bytes": 651260,
+      "sha256": "9cf887c426e8e655bfb2ff2b36987968cef36f16c7dad62c906834763d076a84"
+    },
+    {
+      "path": "divination/final-wire-request-7.json",
+      "bytes": 160288,
+      "sha256": "1e925e31f31abe07a7395ae4277b1aee2d13141b92fdb51ef88646e777b5fec6"
+    },
+    {
+      "path": "divination/final-expected-facts-7.json",
+      "bytes": 623928,
+      "sha256": "2b84e4408e6a9cbcc3643945d1f8316640a52c61c2591d75abca98c5def86ae8"
+    },
+    {
+      "path": "divination/final-wire-request-8.json",
+      "bytes": 160218,
+      "sha256": "486c7546cbede7b58620a74aa2eeb8725daf4df1d619944b36173ea7ccd19948"
+    },
+    {
+      "path": "divination/final-expected-facts-8.json",
+      "bytes": 623866,
+      "sha256": "79af9fd116681a6a4983ccac50b69a524b4248c9c70320b72e52221e7ac5eaec"
+    },
+    {
+      "path": "divination/final-wire-request-9.json",
+      "bytes": 159966,
+      "sha256": "830a9e31d97f20b51cb1544feeebda8140e80ca68614d40939687ff0b74ca063"
+    },
+    {
+      "path": "divination/final-expected-facts-9.json",
+      "bytes": 620569,
+      "sha256": "340475b72caaca730e67cb20f708645164cba6d1815968c77635b1775c4bc25f"
+    },
+    {
+      "path": "divination/final-wire-request-10.json",
+      "bytes": 161611,
+      "sha256": "2fc14f2ad5feb09a90f4fa0cbebfeee3d94d56fe966e4fb797733e813dc73dbb"
+    },
+    {
+      "path": "divination/final-expected-facts-10.json",
+      "bytes": 631108,
+      "sha256": "a08b327415fc24cea4ba87d81e04835a1506ce9480aa20dda890df0e8a6ad567"
+    },
+    {
+      "path": "divination/final-wire-request-11.json",
+      "bytes": 162611,
+      "sha256": "84054e21e5ede6df7a03b25460f9a6d2672999ff2be2918eabff0cbc0332ea45"
+    },
+    {
+      "path": "divination/final-expected-facts-11.json",
+      "bytes": 648543,
+      "sha256": "6f57a8e2efc29f96bdf5436b0a7129bfbff6d1750b80ce2d5b6ad01797f3082e"
+    },
+    {
+      "path": "divination/final-wire-request-12.json",
+      "bytes": 158019,
+      "sha256": "f7eab86d7278372277553de4313414c7046c9741dd38d4ede50dd6fc8db5a618"
+    },
+    {
+      "path": "divination/final-expected-facts-12.json",
+      "bytes": 639486,
+      "sha256": "3d84537ca4d7ad08867feec01af1ef002e84094fb159292ec212d506a7792367"
+    },
+    {
+      "path": "divination/final-wire-request-13.json",
+      "bytes": 157892,
+      "sha256": "34da761102cfa0a8947d38d62e44e4ed6fd030c559eb29dff9dd812f4a5d580a"
+    },
+    {
+      "path": "divination/final-expected-facts-13.json",
+      "bytes": 638971,
+      "sha256": "81745f87a95b0377c7fd333e8875ca60727120d64a10ca61509cc6de2dda828c"
+    },
+    {
+      "path": "divination/final-wire-request-14.json",
+      "bytes": 157865,
+      "sha256": "b7f0527570e0c067afd4b5873e234b2afd407cd2700f4c2aa6d06994b1a358fd"
+    },
+    {
+      "path": "divination/final-expected-facts-14.json",
+      "bytes": 638352,
+      "sha256": "767eeac998059845cfa54fce556a0f4a957d90ef3439f2a842305abcf76c4aea"
+    },
+    {
+      "path": "divination/final-wire-request-15.json",
+      "bytes": 157827,
+      "sha256": "9977f5d967ebafa921af660de9d62a82088068593773d74b34bb2dbf213f4eb8"
+    },
+    {
+      "path": "divination/final-expected-facts-15.json",
+      "bytes": 633719,
+      "sha256": "10c03fbab847e2c31e36020da0b24b1af3c9c59d2f41ad2316efdd892f2cc7a9"
+    },
+    {
+      "path": "divination/final-wire-request-16.json",
+      "bytes": 158019,
+      "sha256": "f7eab86d7278372277553de4313414c7046c9741dd38d4ede50dd6fc8db5a618"
+    },
+    {
+      "path": "divination/final-expected-facts-16.json",
+      "bytes": 639486,
+      "sha256": "a24c04c0cd59687a8aed0023cee8e688b791f402aac1bfda9ad75a13b0cff746"
+    },
+    {
+      "path": "divination/final-wire-request-17.json",
+      "bytes": 157892,
+      "sha256": "34da761102cfa0a8947d38d62e44e4ed6fd030c559eb29dff9dd812f4a5d580a"
+    },
+    {
+      "path": "divination/final-expected-facts-17.json",
+      "bytes": 638971,
+      "sha256": "dbe706f384ea50672e11858ae7c32245d0243700e26e9c36cf235b971a82c0c2"
+    },
+    {
+      "path": "divination/final-wire-request-18.json",
+      "bytes": 157865,
+      "sha256": "b7f0527570e0c067afd4b5873e234b2afd407cd2700f4c2aa6d06994b1a358fd"
+    },
+    {
+      "path": "divination/final-expected-facts-18.json",
+      "bytes": 638352,
+      "sha256": "2db64a9bf1894b66babe41526ca9f28a84f95bce580c8eefa03851fc6af20a25"
+    },
+    {
+      "path": "divination/final-wire-request-19.json",
+      "bytes": 157827,
+      "sha256": "9977f5d967ebafa921af660de9d62a82088068593773d74b34bb2dbf213f4eb8"
+    },
+    {
+      "path": "divination/final-expected-facts-19.json",
+      "bytes": 633719,
+      "sha256": "45620ee28258874cca74db3d5ee033352e762df58eaf48ac17ef80722adf80a1"
+    },
+    {
+      "path": "divination/final-wire-request-20.json",
+      "bytes": 159190,
+      "sha256": "510327b32de20d02f900cedf45521ac583ee9e57e03c3c7e5fcb1b254fec0c47"
+    },
+    {
+      "path": "divination/final-expected-facts-20.json",
+      "bytes": 638952,
+      "sha256": "e498055896bb6101ecf1cc9db3ed608b167812af9d21bed852e53473e9b900ff"
+    },
+    {
+      "path": "divination/final-wire-request-21.json",
+      "bytes": 157452,
+      "sha256": "52b1473dd14544f760e17d7b57efacf94310bd23c30b305c3c3c93834e57bd6e"
+    },
+    {
+      "path": "divination/final-expected-facts-21.json",
+      "bytes": 639502,
+      "sha256": "8eeb7067b1736f37cef04fe2a60a5aded0bf206a0c38e38b2c897fb486605bbe"
+    },
+    {
+      "path": "divination/final-wire-request-22.json",
+      "bytes": 158462,
+      "sha256": "893debd6f89ae8c30b3f7ae37497f618dd3623b9f09028cbdbc5e8240f1122c4"
+    },
+    {
+      "path": "divination/final-expected-facts-22.json",
+      "bytes": 636787,
+      "sha256": "5b95e0126e0f66b8336bbc77293a27d09ebc8aa8745e6cdee3baee5d206e3b81"
+    },
+    {
+      "path": "divination/final-wire-request-23.json",
+      "bytes": 160214,
+      "sha256": "f9950876f12892e06734f07c5ce93f43abaf7ec7e6cc1d4fbe7a941e356a3302"
+    },
+    {
+      "path": "divination/final-expected-facts-23.json",
+      "bytes": 638568,
+      "sha256": "307c9baa1253d1cd593016b1ce73aa0e5543b690cb03a91c9e1cf1d6d5a5e65b"
+    },
+    {
+      "path": "divination/final-wire-request-24.json",
+      "bytes": 160595,
+      "sha256": "b02c2166a85afd57a80fbf99e22e19770dd999bbfa14bc46386edf2fdcba5fe2"
+    },
+    {
+      "path": "divination/final-expected-facts-24.json",
+      "bytes": 644165,
+      "sha256": "790f2df5ffdcac3e522c517273f98dcbbb02065e18be811dbb7027a5b9c28f5e"
+    },
+    {
+      "path": "divination/final-wire-request-25.json",
+      "bytes": 161125,
+      "sha256": "c8e3112bb9a6bbe9c2fc419e4703d1d05c835888427de76f440b910789be2db8"
+    },
+    {
+      "path": "divination/final-expected-facts-25.json",
+      "bytes": 645899,
+      "sha256": "02ab0e092720764f8e3e2b86c7dded162bdf943ad2203ee750e1ed313a4ac9bd"
+    },
+    {
+      "path": "divination/final-wire-request-26.json",
+      "bytes": 162004,
+      "sha256": "e2ee7b83bcc4cffb68c6f8fa09ad62b856f6f22de6b93d7c0821a8726c1e3ef5"
+    },
+    {
+      "path": "divination/final-expected-facts-26.json",
+      "bytes": 640381,
+      "sha256": "6731860487ef1dc8182c90702728a00dbe8be34e7e20f17197cdd5fb5d3c7404"
+    },
+    {
+      "path": "divination/final-wire-request-27.json",
+      "bytes": 161437,
+      "sha256": "822aa97e4ba0121e953eed1740da7c6b22fc8da475a69c10bf7a54bcbfe979af"
+    },
+    {
+      "path": "divination/final-expected-facts-27.json",
+      "bytes": 636984,
+      "sha256": "31649f8fe3fbbccf117831c598a9e2701012e93731d5546abda75090ac71eb84"
+    },
+    {
+      "path": "divination/final-wire-request-28.json",
+      "bytes": 161285,
+      "sha256": "ae3f35b89c174ab0c3a5c428ff02c3d65d134e90a0e6149b5755444c0ed554d2"
+    },
+    {
+      "path": "divination/final-expected-facts-28.json",
+      "bytes": 636546,
+      "sha256": "bfc818f57638cb47f571c677c4551027b522c37f892c27e9a374c604ef7af57a"
+    },
+    {
+      "path": "divination/final-wire-request-29.json",
+      "bytes": 161231,
+      "sha256": "8af44e4b0ad96df4d6c3d6a2b688a7a43183a5df88eb95de3850e1e4e1505a29"
+    },
+    {
+      "path": "divination/final-expected-facts-29.json",
+      "bytes": 636500,
+      "sha256": "8eaa08bec024298ebfafd1142f613ae6c7a7d1162d0f6958304fc054657d9f55"
+    },
+    {
+      "path": "divination/final-wire-request-30.json",
+      "bytes": 160553,
+      "sha256": "5d08cf98ba7f70c48a22208cf268db9318f564cd5db75e07ae50d5b9af3316d5"
+    },
+    {
+      "path": "divination/final-expected-facts-30.json",
+      "bytes": 628785,
+      "sha256": "77f7a514a4e4eada9154a4b850cb0136f5cbfd871be3714f58ab4919c026159f"
+    },
+    {
+      "path": "divination/final-wire-request-31.json",
+      "bytes": 162059,
+      "sha256": "1c357a2c8b0a722197952faefa74ff25b22af101faa151e2b38e65f5ca294c6b"
+    },
+    {
+      "path": "divination/final-expected-facts-31.json",
+      "bytes": 638391,
+      "sha256": "912d407da350c762ade4ed5e869c44c7a5d7ad26cc9099c34d987bcbe8f21ffb"
+    },
+    {
+      "path": "divination/final-wire-request-32.json",
+      "bytes": 159190,
+      "sha256": "510327b32de20d02f900cedf45521ac583ee9e57e03c3c7e5fcb1b254fec0c47"
+    },
+    {
+      "path": "divination/final-expected-facts-32.json",
+      "bytes": 638952,
+      "sha256": "e3b3f1bdaa436bd9fec85b0f11c6fe0c2142ce87a3851a8189dfe859b1daf448"
+    },
+    {
+      "path": "divination/final-wire-request-33.json",
+      "bytes": 157452,
+      "sha256": "52b1473dd14544f760e17d7b57efacf94310bd23c30b305c3c3c93834e57bd6e"
+    },
+    {
+      "path": "divination/final-expected-facts-33.json",
+      "bytes": 639502,
+      "sha256": "f92e06366cae3ad99ca0b0549414e2d0a42499573d4e84f9a5bc36e2dfabdac6"
+    },
+    {
+      "path": "divination/final-wire-request-34.json",
+      "bytes": 158462,
+      "sha256": "893debd6f89ae8c30b3f7ae37497f618dd3623b9f09028cbdbc5e8240f1122c4"
+    },
+    {
+      "path": "divination/final-expected-facts-34.json",
+      "bytes": 636787,
+      "sha256": "4eac10b20885a739cd4e67533fea81da26cfa33a5481940649e148647e53d0c8"
+    },
+    {
+      "path": "divination/final-wire-request-35.json",
+      "bytes": 160214,
+      "sha256": "f9950876f12892e06734f07c5ce93f43abaf7ec7e6cc1d4fbe7a941e356a3302"
+    },
+    {
+      "path": "divination/final-expected-facts-35.json",
+      "bytes": 638568,
+      "sha256": "a824499f0b5d198eeb6694c668bcbef9b53dd995839a353330867ed63263b441"
+    },
+    {
+      "path": "divination/final-wire-request-36.json",
+      "bytes": 159190,
+      "sha256": "510327b32de20d02f900cedf45521ac583ee9e57e03c3c7e5fcb1b254fec0c47"
+    },
+    {
+      "path": "divination/final-expected-facts-36.json",
+      "bytes": 638952,
+      "sha256": "58aa6c2a005638816ea2b6c2bef9f960ddd3c574ca40cd5d4ea1974c9d3f9b9e"
+    },
+    {
+      "path": "divination/final-wire-request-37.json",
+      "bytes": 157452,
+      "sha256": "52b1473dd14544f760e17d7b57efacf94310bd23c30b305c3c3c93834e57bd6e"
+    },
+    {
+      "path": "divination/final-expected-facts-37.json",
+      "bytes": 639502,
+      "sha256": "0046d24ffdf462a8d762c30a55a3c3dc1d50be8b72afcd4111cf44df20bcdb86"
+    },
+    {
+      "path": "divination/final-wire-request-38.json",
+      "bytes": 158462,
+      "sha256": "893debd6f89ae8c30b3f7ae37497f618dd3623b9f09028cbdbc5e8240f1122c4"
+    },
+    {
+      "path": "divination/final-expected-facts-38.json",
+      "bytes": 636787,
+      "sha256": "11eda31fb23eb546741ed807e095c5f2f61d7f3235621075788699ee787c3904"
+    },
+    {
+      "path": "divination/final-wire-request-39.json",
+      "bytes": 160214,
+      "sha256": "f9950876f12892e06734f07c5ce93f43abaf7ec7e6cc1d4fbe7a941e356a3302"
+    },
+    {
+      "path": "divination/final-expected-facts-39.json",
+      "bytes": 638568,
+      "sha256": "5f85de71d15ebf691ef066a90dd00c00c2ad1e7e692367a24966ac929d39b503"
+    },
+    {
+      "path": "divination/final-wire-request-40.json",
+      "bytes": 159190,
+      "sha256": "510327b32de20d02f900cedf45521ac583ee9e57e03c3c7e5fcb1b254fec0c47"
+    },
+    {
+      "path": "divination/final-expected-facts-40.json",
+      "bytes": 638952,
+      "sha256": "c7d3e7609fc65109c51bae91b00cc908888e3a92c1f641ed3807d96123d32ddd"
+    },
+    {
+      "path": "divination/final-wire-request-41.json",
+      "bytes": 159990,
+      "sha256": "8127eafe8ac8d8be3ec60d2cbed388c1c0af03b2000a30fea32d452ecb61dba8"
+    },
+    {
+      "path": "divination/final-expected-facts-41.json",
+      "bytes": 638952,
+      "sha256": "e498055896bb6101ecf1cc9db3ed608b167812af9d21bed852e53473e9b900ff"
+    },
+    {
+      "path": "divination/final-wire-request-42.json",
+      "bytes": 159990,
+      "sha256": "83732bc38000c3441914cea9e76719995fc003c0302bd3ba50f7e2112210eb14"
+    },
+    {
+      "path": "divination/final-expected-facts-42.json",
+      "bytes": 638952,
+      "sha256": "f9aa6b8d69c4b5aacd5a746fcdb0b8e3ab5b1c3d0c8e8f8bef49f16250b17afd"
+    },
+    {
+      "path": "divination/final-wire-request-43.json",
+      "bytes": 159990,
+      "sha256": "1f98f0f80438a6796a06802f01b7eb25edde443ac8c8258b3f91a3394173bf0d"
+    },
+    {
+      "path": "divination/final-expected-facts-43.json",
+      "bytes": 638952,
+      "sha256": "cc8b8d933786be3a248a8b8d0a854a5a99ac23a839a755881061aab4e4a984f5"
+    },
+    {
+      "path": "divination/final-wire-request-44.json",
+      "bytes": 162374,
+      "sha256": "c5d6eda9c42f57e40ebc6b2611ac856d4000247e36900a8eb9673f9d1c7862d0"
+    },
+    {
+      "path": "divination/final-expected-facts-44.json",
+      "bytes": 638952,
+      "sha256": "562282ab1cb6eeee6ab7d65fc9da15403e7c4c507394ee9731bdb74b9a03bbfd"
+    },
+    {
+      "path": "divination/final-wire-request-45.json",
+      "bytes": 161203,
+      "sha256": "710e758f5262fcea9e911502378e4069c8aec973f8b7ca1f822a29a54fcbfd47"
+    },
+    {
+      "path": "divination/final-expected-facts-45.json",
+      "bytes": 639486,
+      "sha256": "13fc36b487ee68be99baa741bfb186ce665d3163b87b5446218b4699f369a153"
+    },
+    {
+      "path": "divination/final-wire-request-46.json",
+      "bytes": 166122,
+      "sha256": "c6cdbba4e0cce3ce4c6d9ebbe03759ae5183acaa7456eecc51211d4e905124c2"
+    },
+    {
+      "path": "divination/final-expected-facts-46.json",
+      "bytes": 651260,
+      "sha256": "c2e00a2bfe11eb3925154163c37c38051d23ab751e377dc865723cfbe8eff5d4"
+    },
+    {
+      "path": "divination/final-wire-request-47.json",
+      "bytes": 165188,
+      "sha256": "45bd9d0a5aacbdb7cafa28eef74f1bf18b9250755161cc1ac71a6fd1fdc81fe4"
+    },
+    {
+      "path": "divination/final-expected-facts-47.json",
+      "bytes": 640381,
+      "sha256": "646f57dc0316379d2da1b9d1fb3e5e1121d45f46ca358ee8153eb4ef2470bd90"
+    },
+    {
+      "path": "divination/final-wire-request-48.json",
+      "bytes": 177523,
+      "sha256": "c51257332e39c89aad5dc129f332ffde6e9eb5ab26d8fccbda11fe446ff80b05"
+    },
+    {
+      "path": "divination/final-expected-facts-48.json",
+      "bytes": 1154750,
+      "sha256": "8cd01d795d6eb9cbc7dabeaf9049ec08e2f4edbb663d5126e6605e7dd5fcdf07"
+    },
+    {
+      "path": "divination/final-wire-request-49.json",
+      "bytes": 177355,
+      "sha256": "02b26354b8dae225e44683d5e616abd5150b4a9bc573d58edf3be8e9ed26a705"
+    },
+    {
+      "path": "divination/final-expected-facts-49.json",
+      "bytes": 675027,
+      "sha256": "49de28ea191ae90ec26969cf2801d2b5ba8d388672b1c4d7aa7f407c36b08960"
+    },
+    {
+      "path": "divination/final-wire-request-50.json",
+      "bytes": 172388,
+      "sha256": "ece7143d8f19073817915f8cc8d576f54bc75cd063d5988eb425a20f7eecce46"
+    },
+    {
+      "path": "divination/final-expected-facts-50.json",
+      "bytes": 769329,
+      "sha256": "72e0e4ac512f568dc81926216fe8340c8853e242f3cdb0e9d1348ae014ce6d05"
+    },
+    {
+      "path": "divination/final-wire-request-51.json",
+      "bytes": 179605,
+      "sha256": "f57ef6c8ac39e34d3a519c1f36f9de9d2b549c40340484b2a7dfae6fbffc68bc"
+    },
+    {
+      "path": "divination/final-expected-facts-51.json",
+      "bytes": 1159360,
+      "sha256": "1ad57f8ec6d60570cbe1712b6ebf9ee9d1df75b4add35111c5afd44aabcc5f01"
+    },
+    {
+      "path": "divination/final-wire-request-52.json",
+      "bytes": 179657,
+      "sha256": "5b00fae7d10e592ee7aee6efc3113d24795bd624999e52304310e701e6b38252"
+    },
+    {
+      "path": "divination/final-expected-facts-52.json",
+      "bytes": 1153602,
+      "sha256": "ce5d36e4a8af8d3a8aa9db220418c95749f0ad1969cc937b7f955ace5b63c306"
+    },
+    {
+      "path": "divination/final-wire-request-53.json",
+      "bytes": 178139,
+      "sha256": "edf22586f55ae7e6b67d8eb767746255c53e6d9ff227df4e544db93d9b5c669a"
+    },
+    {
+      "path": "divination/final-expected-facts-53.json",
+      "bytes": 662279,
+      "sha256": "4d6432663cf43508e89576d49f53ba86ba6cde5112bf4fe9ce2d65c2a1a513bf"
+    },
+    {
+      "path": "divination/final-wire-request-54.json",
+      "bytes": 178149,
+      "sha256": "ba16ce01c4954d3b0300fb2563d3099f57eb061765edfc67c1da6d2fe1b73f35"
+    },
+    {
+      "path": "divination/final-expected-facts-54.json",
+      "bytes": 662289,
+      "sha256": "b04f93733e06141360da8030b999c149ef1f0d83148f6448ea334d31108b7acb"
+    },
+    {
+      "path": "divination/final-wire-request-55.json",
+      "bytes": 177864,
+      "sha256": "d334d98a0c392ec65808057a1eb06aaa0ddd04f7fb2b764b164e03aba6925617"
+    },
+    {
+      "path": "divination/final-expected-facts-55.json",
+      "bytes": 658971,
+      "sha256": "51ebfa4b79874376f629fec565a02cc6338035de74ebf5722438c4e816e3ee55"
+    },
+    {
+      "path": "divination/final-wire-request-56.json",
+      "bytes": 178158,
+      "sha256": "196fcf9a855bfb8d824afa4e027ac5cd96e4467655eda2b5035e7d13ef163028"
+    },
+    {
+      "path": "divination/final-expected-facts-56.json",
+      "bytes": 662291,
+      "sha256": "f36ae146b9582ec7d81b15edf6d2763d458d1b326498d80b1034e76fc4911468"
+    },
+    {
+      "path": "divination/final-wire-request-57.json",
+      "bytes": 178954,
+      "sha256": "810654b94592acd8ff29f3f947922ee6e20d7afa2e3831342191ad3ce51de226"
+    },
+    {
+      "path": "divination/final-expected-facts-57.json",
+      "bytes": 666660,
+      "sha256": "d1f62538ded647503b5e5a64c2c75b2b4fe925b7dd6b56179eadae1001494338"
+    },
+    {
+      "path": "divination/final-wire-request-58.json",
+      "bytes": 178376,
+      "sha256": "ce835793f172a97417b6b896a0aced12f56d972426590186106c52770fd2f0d0"
+    },
+    {
+      "path": "divination/final-expected-facts-58.json",
+      "bytes": 660681,
+      "sha256": "3d0dd430c37fc3274c5f4d0fd65e773e279b769eef1182654c5005f2260e654c"
+    },
+    {
+      "path": "divination/final-wire-request-59.json",
+      "bytes": 178630,
+      "sha256": "b06c39d4a51c1cf832834a1c19d78256e42de7ab3d67a958592e1749a4d0baad"
+    },
+    {
+      "path": "divination/final-expected-facts-59.json",
+      "bytes": 663331,
+      "sha256": "4add5508d39ad0664bb6d8c423dda2eea2c3ad6276afe951f756d81f74a951cb"
+    },
+    {
+      "path": "divination/final-wire-request-60.json",
+      "bytes": 178886,
+      "sha256": "d0072638a3099b574ed5f264eaa23d01219510ff274dea500c9b1784dcaf8859"
+    },
+    {
+      "path": "divination/final-expected-facts-60.json",
+      "bytes": 666461,
+      "sha256": "86d8118efd9c271ec91e4aa1c6c591528af16abf36380b2cc7c2d7005afe7783"
+    },
+    {
+      "path": "divination/final-wire-request-61.json",
+      "bytes": 178636,
+      "sha256": "bbbf144fa2f8434fead0805439d8a10257d130234ef0e57bdaadc67cc9170fb6"
+    },
+    {
+      "path": "divination/final-expected-facts-61.json",
+      "bytes": 663334,
+      "sha256": "78993952d5153a9035e42d5fa6de1c33397fd30acc64de79efd58e31b0c89a8e"
+    },
+    {
+      "path": "divination/final-wire-request-62.json",
+      "bytes": 178623,
+      "sha256": "11f5902f8ac0390efae9ca82f54b672a0582611c9746edd04e4a54c8e174c32d"
+    },
+    {
+      "path": "divination/final-expected-facts-62.json",
+      "bytes": 663964,
+      "sha256": "64b77721479ee843351880f9e7e19c55778eae71bb77bf7163a470b397301835"
+    },
+    {
+      "path": "divination/final-wire-request-63.json",
+      "bytes": 178627,
+      "sha256": "58497b5b1f6dded0aa7352372e3f14324c5d84b60a992a22cce7eda21cd7678b"
+    },
+    {
+      "path": "divination/final-expected-facts-63.json",
+      "bytes": 663326,
+      "sha256": "318361f8c432031d278ff614641cd8d947b2518019e0668c211c5f5586027377"
+    },
+    {
+      "path": "divination/final-wire-request-64.json",
+      "bytes": 178342,
+      "sha256": "acf617190ad23cf08de6a71b0c19c4a2686daf093fd93a97fc1cbbe9f324e1d3"
+    },
+    {
+      "path": "divination/final-expected-facts-64.json",
+      "bytes": 660648,
+      "sha256": "c89f374f8bc29836418c93c1cd507929257fc670d6a30479506ae1b08b97e7e5"
+    },
+    {
+      "path": "astronomy/fixtures.json",
+      "bytes": 642604,
+      "sha256": "9ad4c30418931fe954cf1d1383d8fc3efc0635f737c405cb245f75d5da9c1618"
+    },
+    {
+      "path": "astronomy/final-native-capacity-report.json",
+      "bytes": 5365,
+      "sha256": "de43f0adc61785a0516030bc1ab245dbb7558232ba0cc649357b482d77a59785"
+    },
+    {
+      "path": "astronomy/final-wire-decoder-report.json",
+      "bytes": 5866,
+      "sha256": "939c1ad269e114d22fa4cc1e0106091879f84281952fc9745cee2433ad063ff5"
+    },
+    {
+      "path": "astronomy/final-wire-request-0.json",
+      "bytes": 57581,
+      "sha256": "a7145108c2a585a5396f193e4b4dd38c88f24b2b9ab0f3cd54941cf01e04655d"
+    },
+    {
+      "path": "astronomy/final-expected-facts-0.json",
+      "bytes": 97973,
+      "sha256": "75f5078909a01dcb1b9a350719cb18c9cf6492012858977b5d0e75be9060d4d2"
+    },
+    {
+      "path": "astronomy/final-wire-request-1.json",
+      "bytes": 38342,
+      "sha256": "7cf91d46e3b0c6216bc0a63a4f46b8878b601e795d1a57945288592081fb0a5b"
+    },
+    {
+      "path": "astronomy/final-expected-facts-1.json",
+      "bytes": 18141,
+      "sha256": "62c7f4dc51ef25a99abcd8992138f20d9ad245fda239bbd613daf97d5bc5182b"
+    },
+    {
+      "path": "astronomy/final-wire-request-2.json",
+      "bytes": 39892,
+      "sha256": "637eb532e4f28f7efccb6ab9f52c43af0e616c73776ebc6a8db598f4e1212542"
+    },
+    {
+      "path": "astronomy/final-expected-facts-2.json",
+      "bytes": 18907,
+      "sha256": "3f57c075c1dedf92f87523b13d5ff61a67be42a3113ade0bbda00ab236cfc364"
+    },
+    {
+      "path": "astronomy/final-wire-request-3.json",
+      "bytes": 39892,
+      "sha256": "a82c4b466aa43ae62eb570f88122b9453ca18c97cfffaf217c3ac1e07e958e12"
+    },
+    {
+      "path": "astronomy/final-expected-facts-3.json",
+      "bytes": 18907,
+      "sha256": "b52d66461b1a9c1afc2d084303ea7c515656a489aa88dfa92b153ea4ff0756b4"
+    },
+    {
+      "path": "astronomy/final-wire-request-4.json",
+      "bytes": 39926,
+      "sha256": "e4e0cd7a0d52b2c4289a8b7af3454a2601ff56234e505bce5409fe43cfc7b9bb"
+    },
+    {
+      "path": "astronomy/final-expected-facts-4.json",
+      "bytes": 18934,
+      "sha256": "94c5a63568d66f1087d7e4dd25e2261d669f04eee35d27ff1c6017a09ef19215"
+    },
+    {
+      "path": "astronomy/final-wire-request-5.json",
+      "bytes": 39924,
+      "sha256": "fdeb232c4febad10fe4755a9a96f3e1337291b15b136b24757740af008b82572"
+    },
+    {
+      "path": "astronomy/final-expected-facts-5.json",
+      "bytes": 18943,
+      "sha256": "1230ba271fd6e73c889a0e43aed98214de9c3b65b100627cc37165b141b4d346"
+    },
+    {
+      "path": "astronomy/final-wire-request-6.json",
+      "bytes": 44953,
+      "sha256": "890ddc48bb5d01116453aa34e2ac7429584e9450fee80b7764560653975f9d80"
+    },
+    {
+      "path": "astronomy/final-expected-facts-6.json",
+      "bytes": 41015,
+      "sha256": "e5808dafe199219926241a110a08f60121a295846d27308e7662ce099d072ea8"
+    },
+    {
+      "path": "astronomy/final-wire-request-7.json",
+      "bytes": 108805,
+      "sha256": "baad7635410351899b6547a6981c148c43445d616e7bd6553a7b4d7e97566947"
+    },
+    {
+      "path": "astronomy/final-expected-facts-7.json",
+      "bytes": 269740,
+      "sha256": "728357b86138b8d7f5af923c733fe92a0034d9577e407af7ced1ef1b52001068"
+    },
+    {
+      "path": "astronomy/final-wire-request-8.json",
+      "bytes": 108396,
+      "sha256": "388259885f57e43de1ed39ff6d05af7c5a2d8f8dca8d1b7912b29d330d9eabc5"
+    },
+    {
+      "path": "astronomy/final-expected-facts-8.json",
+      "bytes": 247650,
+      "sha256": "c7980eb05e94fe9d515bae4303f0b790d60849f056e97caca8764dad1fdd83ed"
+    },
+    {
+      "path": "astronomy/final-wire-request-9.json",
+      "bytes": 108917,
+      "sha256": "9c7a99c697acbed6315a2cdb90364a109aa16ae121ab99451bb210159a3c429f"
+    },
+    {
+      "path": "astronomy/final-expected-facts-9.json",
+      "bytes": 249650,
+      "sha256": "4ff64357d1a5554401e00628d37afba9fc867aff2d34e555ca1a7f565723cc4b"
+    },
+    {
+      "path": "astronomy/final-wire-request-10.json",
+      "bytes": 109467,
+      "sha256": "1220a9b2c25c5695aae3e39d08dce1742bbe9edda44287b861b4e3e451baf41b"
+    },
+    {
+      "path": "astronomy/final-expected-facts-10.json",
+      "bytes": 281836,
+      "sha256": "80b8a8b911be1780c1db42af0d152c11d8a063a5119ee48bb55033209647e965"
+    },
+    {
+      "path": "astronomy/final-wire-request-11.json",
+      "bytes": 110707,
+      "sha256": "ea6ee5466d846f7f161485a5cae828bdae0fa4f6bda76f1afbfb6dbe63c18bf0"
+    },
+    {
+      "path": "astronomy/final-expected-facts-11.json",
+      "bytes": 282026,
+      "sha256": "dcfb4213e07c692658bcfbd4a8cca6c023749799d20a6e758db3afad2f1a4edd"
+    },
+    {
+      "path": "astronomy/final-wire-request-12.json",
+      "bytes": 104971,
+      "sha256": "1a59d883a639e1c0e2b290e6b64ebc3c9b2ab782d65dbdf4bbefb86b96dd3b1d"
+    },
+    {
+      "path": "astronomy/final-expected-facts-12.json",
+      "bytes": 248316,
+      "sha256": "d6911f736f7f9380449b56398264edf986bb41d3505d02d126925429ec9a1217"
+    },
+    {
+      "path": "astronomy/final-wire-request-13.json",
+      "bytes": 75696,
+      "sha256": "004e27f2480bb41be65a25519132152e4f56f51454db3348af32374d79d2c9a1"
+    },
+    {
+      "path": "astronomy/final-expected-facts-13.json",
+      "bytes": 126165,
+      "sha256": "b951c8a51f9472024c0e601527dfadb114a6f108ae5ade60409e23c8c2c4d839"
+    },
+    {
+      "path": "astronomy/final-wire-request-14.json",
+      "bytes": 112325,
+      "sha256": "62c86e0f1580c3b32f0b3eac92b73808e9a7ff13cb5cf9bb74be39d3e7c5ff33"
+    },
+    {
+      "path": "astronomy/final-expected-facts-14.json",
+      "bytes": 304794,
+      "sha256": "69404dc05c9bfc9fa7e4a661292d9d51621b6deba3260e3dd3110b1825ce8e78"
+    },
+    {
+      "path": "astronomy/final-wire-request-15.json",
+      "bytes": 122651,
+      "sha256": "8f353bbd99380f3c3b2f03decdb552a808f76446178adeac4f45050900ce5e74"
+    },
+    {
+      "path": "astronomy/final-expected-facts-15.json",
+      "bytes": 311245,
+      "sha256": "0fba93be39adb789e66fe9a307cc83ff065126262ae756e0eb8b32d89ddf103d"
+    }
+  ],
+  "archive": {
+    "path": "native/Engine/validation/reasoning/adjudication-followup-2026-09-21/final-capacity-evidence.tar.gz",
+    "bytes": 6815465,
+    "sha256": "1587ab4277f6e4559a5435a4a897fccbbccfe99054f0d7119e06401a1d31e92b"
+  },
+  "sources": [
+    {
+      "path": "native/Core/Sources/SujiCore/ArchiveCodec.swift",
+      "bytes": 14028,
+      "sha256": "01c173be02513d4f8135a31955db4c3e3dfe6b9083c77199c3fcf8059c992c91"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BaziAdjudicationTrace.swift",
+      "bytes": 15478,
+      "sha256": "f230604b00334213eab09981527d0fddd89b8bfa82db0a27604ff525331ecc51"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BaziFrameworkReading.swift",
+      "bytes": 31858,
+      "sha256": "63bdbf7d155f8c818deedb12df070092391f021621e2b706bcdc9bade8e3399a"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BaziPatternConditionTrace.swift",
+      "bytes": 6024,
+      "sha256": "1c9ac6fb8f28c57112f809120c5b7613c0d05cb25f33efaa8d9c40df7126b063"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BaziRescueDependencies.swift",
+      "bytes": 15480,
+      "sha256": "04b1c447771c9234652899d77591da5f90a60f872cd0ae015233bfd7ff917330"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BaziStrengthTrace.swift",
+      "bytes": 20314,
+      "sha256": "39f6a53de465039ed7cd7c5feb071d93e1c8f61cb4d28a0eff53e2b3b232d336"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BreathingClock.swift",
+      "bytes": 4816,
+      "sha256": "7ef3097cf121a5544add9a27175f9d9d4eb00df60e1ebef44c35139f2f8f4423"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/CastQuestionBinding.swift",
+      "bytes": 10529,
+      "sha256": "332ab9a329964af9385130cdb039195d804a311686c1b6914f9c36309ba4af5e"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/CastQuestionPreparation.swift",
+      "bytes": 10492,
+      "sha256": "1b23c887a2ea99e8c12e3d9b2ae80572bca72eee3a90e6344d0ee40a255879c9"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/CastSourceDirectory.swift",
+      "bytes": 4188,
+      "sha256": "21d580815c4d6424eaeceeb5dcb88583ed425db13644863ba79291666143caf8"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/CastSupplement.swift",
+      "bytes": 9587,
+      "sha256": "ae9588c2aeb579029e19a0d2bd9e4a56e7794d6121c14fde36b02cd91adc6e0c"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ChatClient.swift",
+      "bytes": 19827,
+      "sha256": "66505a9557bf3be1fe532e9ae038ba336808dd0d54e4c23b308b8d83f24be9e7"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ChatTypes.swift",
+      "bytes": 7397,
+      "sha256": "cf1f74f56c99e74266eba7b5f12c0eaee6f8c8441ddf8ee068494ae521ba8f70"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/DivinationCalendarAssertions.swift",
+      "bytes": 5394,
+      "sha256": "26d5bb67099fdabafc3cf09dd441d2f96ea4f9b748ff004e9e8eb00c0bc77f0c"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/Domain.swift",
+      "bytes": 7167,
+      "sha256": "347b926c877d8ddb4e9a2c9636c8c5cbd78b23f56d0cb1ccb49e08622b2b8465"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/EngineContract.swift",
+      "bytes": 7629,
+      "sha256": "9d0e82c1bd33b0c640d82cb1ae3f8d27f75c94bb744d7ee58758e91a69aaf564"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/JSONValueTransport.swift",
+      "bytes": 5090,
+      "sha256": "9ccc0af8521a0a8d678e7c4ed3588b534320df212935e5abe53ecbba0f6a6d05"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/LiuyaoConditionTransport.swift",
+      "bytes": 15007,
+      "sha256": "387d94f2b717dcd4ddb66497ca53e59971848fd049e7068549aeaaa99c94925c"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/LiuyaoEfficacyEvidence.swift",
+      "bytes": 39300,
+      "sha256": "f919dd75f6f139b88a2cf6aca5a20fe9d036de44f63548a0fe9f38b1665d6ece"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/LiuyaoEventAssessment.swift",
+      "bytes": 20124,
+      "sha256": "50f6117384ef9242bb7afafbba070de432138d947966a1b0ce04febd4c0849dd"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/LiuyaoFanfuTrace.swift",
+      "bytes": 8649,
+      "sha256": "b7a2b3d6940c5ee8424b90aa4fa6b54922250abcfa3299ce7241345a81d7799a"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/LiuyaoReferenceReading.swift",
+      "bytes": 53616,
+      "sha256": "a93c18590f286b0afd18361e472e23205002ebbf9deff9d8429d91e8f737ddc7"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/LiuyaoTombExtinctionTrace.swift",
+      "bytes": 10847,
+      "sha256": "08554ce2ba3a5135eba44d31fe731e5ba1bad3192ddc2b7ef2e0debe7189dcc1"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/LiuyaoTriadTrace.swift",
+      "bytes": 7624,
+      "sha256": "b90974c2c43f7151a5394365dfcc1e6a203cc2d1651584cc1678ef1882960b4a"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ManagedAI.swift",
+      "bytes": 942,
+      "sha256": "b6368e446855814d77d2135973a8ed49a9aaa098df9aef377d30d4fac0a558bb"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/MingliBridge.swift",
+      "bytes": 7145,
+      "sha256": "1f4b24084788184956166be2b5f5847c67fbdfa960521874c532025db8b4382c"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/NatalAstronomyDossier.swift",
+      "bytes": 13046,
+      "sha256": "292eac68ce536fe2163a0741fb5bf271b108f79adb38eb5ad4c393642ebcfe22"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/NatalDerivedAstronomy.swift",
+      "bytes": 9064,
+      "sha256": "7d46a7bb1603e22dd17d05be72822b008e6e37932cbc5843c2be20ea133fec2c"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/NatalDossier.swift",
+      "bytes": 1462,
+      "sha256": "e205274576a6abc6ea0c3cd1a7c3e74518a590e0ec9c4001218c65bc056aaa9e"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/NatalEvidenceProjection.swift",
+      "bytes": 11488,
+      "sha256": "4e39bc0267ed08eb0cfe39fc1b0304473c528c9e5648d7da88cbe773d6fec0b7"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/QimenReadingAssertions.swift",
+      "bytes": 7857,
+      "sha256": "a8987ec2043be23596e35da2fefe4e6836558fd1432223ed02af0787c12e0562"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/QimenReferenceReading.swift",
+      "bytes": 20152,
+      "sha256": "d375189f0e5ee8c3d4927d9badfbf5025c79ccea52d470da53bc66e2be4c3edb"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/QimenSelectionEvidence.swift",
+      "bytes": 16295,
+      "sha256": "a82681f1241985dd887d6140b24f94fcdcf600e688c867d8ef7137d33ebd77a3"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/QimenTimingEvidence.swift",
+      "bytes": 22195,
+      "sha256": "14f583f85f9dc055765f4e19675cdeb3af948482ae15d23e814eb2f0c5e1e329"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/QimenTimingTransport.swift",
+      "bytes": 7794,
+      "sha256": "1f30c565050e3a1c2f78e752717976f4bacf08e4e6bd362953cf8389083d2674"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingContext.swift",
+      "bytes": 14421,
+      "sha256": "b2daccc19005af6d7e3c8528cbe29bb701bc3df078e30b9429cac22322ceb5fd"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingDocument.swift",
+      "bytes": 12105,
+      "sha256": "3a4f97e8ff3b0d32c2398d851d2e3cacb23fe1267b92b5314dfb8ecd35a90663"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingFactReferenceIndex.swift",
+      "bytes": 6510,
+      "sha256": "cfeb1765ac4e760d17f066e1040a122d8858f0e3f9f7aacb342d8826f6e563f3"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingFallback.swift",
+      "bytes": 5875,
+      "sha256": "e7c02c7c6d60481b2741e6f1c9a049d832a9a9d98e26a149fd3af3a348ed860a"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingIntent.swift",
+      "bytes": 2696,
+      "sha256": "eb59440f3d9404ec45af3f041116fe32067dd40a65dcab14a5c0382b6d3d7c10"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingVerificationAssertions.swift",
+      "bytes": 13753,
+      "sha256": "7edb2a1e252d8a1b65affd01f0f16f15be072b11711e088192350882cb2b2763"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingVerificationEvidence.swift",
+      "bytes": 43714,
+      "sha256": "a66118d12c30df3e57301869fa8357f51b1cbc9d57fb3155f44c4eea0edbe5a3"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingVerifier.swift",
+      "bytes": 33576,
+      "sha256": "b41e8a93dc4e19ed48c3e0ca7078056041195dae1e3ee8baf043e6b25142ce43"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReflectionConversation.swift",
+      "bytes": 5942,
+      "sha256": "1f33d5505c8c486915e5a1793a3bab3f8f90491ee991c263b6d692ca79f0f85c"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReminderSchedule.swift",
+      "bytes": 8026,
+      "sha256": "b37f6e9fb98ee69cf08586b2c395ce5b29e998372e36599a1e6ebcece7bb3219"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/SSEParser.swift",
+      "bytes": 4401,
+      "sha256": "cf5776962a9f0af864a9b8912cdefe790bc0d3f5c7a0374c69b52414a469a6a0"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/SupabaseClient.swift",
+      "bytes": 17718,
+      "sha256": "2bb445cf0b5af429edb95970d01a42dc503dee5f01452d4f771e76f49bdf1632"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ToolOrchestrator.swift",
+      "bytes": 24064,
+      "sha256": "cf547b75b9d7a7da3db75aab316e0bd04dccaf50838975bc7e3690defb916c3b"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ToolOutputWire.swift",
+      "bytes": 2172,
+      "sha256": "fb5a01b226f9aacf34ee184971f2291570661c5b36cfaa5c63bd9a18a39dd356"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ZiweiMonthlyCalendarAssertions.swift",
+      "bytes": 14636,
+      "sha256": "1e9de90e75cd43f0d386bae77870be9cb514fb24888abc5994b20dcbbd2867bb"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ZiweiReadingAssertions.swift",
+      "bytes": 18415,
+      "sha256": "eae6c12445a065c15dda3ec0eccbd6672ba25e4814fb7b119ad156a8754e8152"
+    },
+    {
+      "path": "native/Engine/bridge.ts",
+      "bytes": 11149,
+      "sha256": "85a60c7d06400cd5c5baf1ee5d580aee240a1bf73c3bdd001fc5f7447b86bfc0"
+    },
+    {
+      "path": "native/Engine/build.mjs",
+      "bytes": 4711,
+      "sha256": "c5732c1de561349a26a16a57a5acbcbd48449b2125d114e4b6c4596bfe882937"
+    },
+    {
+      "path": "native/Engine/package-lock.json",
+      "bytes": 156268,
+      "sha256": "1042b4d75bb5f19c5dedd7e972422b6b3051f3c91261b0bb135da65ecbe10eca"
+    },
+    {
+      "path": "native/Engine/src/ai/tools/annual.ts",
+      "bytes": 1048,
+      "sha256": "ca1df3b4c043b1b32950a7d1e23f016827444eaa9a0bff854d32d2e49b6a38b4"
+    },
+    {
+      "path": "native/Engine/src/ai/tools/astronomy.ts",
+      "bytes": 1771,
+      "sha256": "2ae62973602f2ddb3bb64b4375b4636046a4ee33cbe6b66cdb9ff093039e80e8"
+    },
+    {
+      "path": "native/Engine/src/ai/tools/bazi.ts",
+      "bytes": 8013,
+      "sha256": "d99e63d9f241a9dbf3cb67a35a10992951ad9aff1612894d3fd2399ef4d3877a"
+    },
+    {
+      "path": "native/Engine/src/ai/tools/evidence.ts",
+      "bytes": 9336,
+      "sha256": "12604862e3c875662a67ccab2dfd7163b64eb0f046d187dd9907f1a09639bd6a"
+    },
+    {
+      "path": "native/Engine/src/ai/tools/index.ts",
+      "bytes": 5260,
+      "sha256": "d5a863a63fc16210328d3d24303f2b5390df24ea2a4b040af5884c85e3c875c7"
+    },
+    {
+      "path": "native/Engine/src/ai/tools/liuyao.ts",
+      "bytes": 4193,
+      "sha256": "e94c7560cc92a34222f3c5b62cfd4e551e10abb54f65c8a6cf903d36df6d09fb"
+    },
+    {
+      "path": "native/Engine/src/ai/tools/qimen.ts",
+      "bytes": 6416,
+      "sha256": "7f8d165279c1f86664431b0e09e0396f829135466cac41640b8f0af419aa66ca"
+    },
+    {
+      "path": "native/Engine/src/ai/tools/types.ts",
+      "bytes": 1505,
+      "sha256": "2363128bd6fc7466293ebd33c8e1ab6bbecc7c56560e47c4a7f472ece871377e"
+    },
+    {
+      "path": "native/Engine/src/ai/tools/validation.ts",
+      "bytes": 3496,
+      "sha256": "07d5c46a489ff8749e3ae99726ae347679f7c92019939a4c3d52a766a342f144"
+    },
+    {
+      "path": "native/Engine/src/ai/tools/ziwei.ts",
+      "bytes": 4755,
+      "sha256": "f684970ae8d319ef0927111616658fa2cc9eea075b50f83f8dbd4496573eb7fd"
+    },
+    {
+      "path": "native/Engine/src/astronomy/lifeDegree.ts",
+      "bytes": 4044,
+      "sha256": "9e3fc74d0d6f71f11a4672522528056cd23d6be8599c3783276939b477cbb873"
+    },
+    {
+      "path": "native/Engine/src/astronomy/mansion-catalog.json",
+      "bytes": 15747,
+      "sha256": "81010d2bb7fd2f5ba2a8c6f31eef5d576962c5559519fa1b1bc8e4f8f1e7facd"
+    },
+    {
+      "path": "native/Engine/src/astronomy/mansions.ts",
+      "bytes": 6677,
+      "sha256": "9a48b83b1636eccb3147f29613aa820fb43c88af24b8b127061e2c34e6dd2975"
+    },
+    {
+      "path": "native/Engine/src/astronomy/natal.ts",
+      "bytes": 9850,
+      "sha256": "3edd4d3907960d58a5a4b7a6767753b12d9a083aa96845995548491ddc4b42fe"
+    },
+    {
+      "path": "native/Engine/src/astronomy/residuals.ts",
+      "bytes": 4011,
+      "sha256": "3a12316debe1f4a5008dca26cb1eefb4ded8783969237d4944a8f892a77c2d43"
+    },
+    {
+      "path": "native/Engine/src/bazi/BaziEngine.ts",
+      "bytes": 55081,
+      "sha256": "03e7b63b624ea1b3b6e2466f943afdeb6b5229211ffcb32efbe231b4ea9700c6"
+    },
+    {
+      "path": "native/Engine/src/bazi/DayunEngine.ts",
+      "bytes": 29550,
+      "sha256": "98716c926bf74eddfb84ea0dfcad3c5ce354d8bc28c44b4f08ac8899852f6ca4"
+    },
+    {
+      "path": "native/Engine/src/bazi/InsightEngine.ts",
+      "bytes": 30148,
+      "sha256": "bd1b73eeb032f32e88f5a5efb55b5b6a55f5967c03e5612224d36be583a0fa6a"
+    },
+    {
+      "path": "native/Engine/src/bazi/REFERENCES.ts",
+      "bytes": 5576,
+      "sha256": "0bdb9b1ad7afbcb63d62203967c70be85f4e8a1c85a642cc45535b4cec066ed9"
+    },
+    {
+      "path": "native/Engine/src/bazi/SiLing.ts",
+      "bytes": 3458,
+      "sha256": "4845586cad8fda2384bce88869b6776eba2972de4169756506ccac8bd94cd027"
+    },
+    {
+      "path": "native/Engine/src/bazi/TrueSolarTime.ts",
+      "bytes": 5543,
+      "sha256": "907bd757b4e3eb46ea9871be3d7b3b01455b74da777693693bf5a36c8edefdde"
+    },
+    {
+      "path": "native/Engine/src/bazi/birthMonthContext.ts",
+      "bytes": 3019,
+      "sha256": "2553a2d72bc6a8e62422d79410c84d5398d00ef41bfd8ec58d03415058bc0b8e"
+    },
+    {
+      "path": "native/Engine/src/bazi/index.ts",
+      "bytes": 2627,
+      "sha256": "be0d3ceaaced8a7ee25a99cb2b746df53ca533bafefd4167ab880f4b2e215467"
+    },
+    {
+      "path": "native/Engine/src/bazi/multiSchoolVote.ts",
+      "bytes": 3853,
+      "sha256": "cd2eadd75ce8236ec9c9f7c36ff9e51f3d5a26f5d06f17595f80ea2d01e00001"
+    },
+    {
+      "path": "native/Engine/src/bazi/patternSources.ts",
+      "bytes": 1508,
+      "sha256": "57eb473033ce36d792183bb50599de3a7b830989f14877e7a4680a4ec3c03709"
+    },
+    {
+      "path": "native/Engine/src/bazi/phaseRegistry.ts",
+      "bytes": 1746,
+      "sha256": "7f84fb89e0efa950707cbaff9ca83888e2f9a82781338fe61479eea0f0c24860"
+    },
+    {
+      "path": "native/Engine/src/bazi/rescueAdjudication.ts",
+      "bytes": 9489,
+      "sha256": "8f174c71dbb36ac3caf03b5f2f8764bfb02752b5877b6b74bf9418dad346961d"
+    },
+    {
+      "path": "native/Engine/src/bazi/rescueDependencies.ts",
+      "bytes": 7021,
+      "sha256": "b46af9d0a3c324d8de3d66258b79186c7cc4c7697c36ca90f66c3ec5c29166b8"
+    },
+    {
+      "path": "native/Engine/src/bazi/rescueSources.ts",
+      "bytes": 1947,
+      "sha256": "708cb4339130f6092da62419c6fd968006b1d337a876a5b87018af63141b89a2"
+    },
+    {
+      "path": "native/Engine/src/bazi/structural.ts",
+      "bytes": 53540,
+      "sha256": "7b5002481a4f2444cff0f7b46ad4b2657059a484fa9e574aee52ffa2e9a3ae6a"
+    },
+    {
+      "path": "native/Engine/src/bazi/tiaohou.ts",
+      "bytes": 100360,
+      "sha256": "15eb9577d99d899823140e97f68865ddac9dce759f32990f08141d55c9d07974"
+    },
+    {
+      "path": "native/Engine/src/bazi/types.ts",
+      "bytes": 17363,
+      "sha256": "c2a6bd6f9879fa567285587a6141941ed4c821523c5374d241c066fc6385b206"
+    },
+    {
+      "path": "native/Engine/src/bazi/zhuanWang.ts",
+      "bytes": 7354,
+      "sha256": "f551e3805057825d7fe585251dadbd11340f568538f19fb71e78cf748d46b8e8"
+    },
+    {
+      "path": "native/Engine/src/bazi/zhuanWangSources.ts",
+      "bytes": 1854,
+      "sha256": "4fdd132cc3f3f6a93a24526368baf77f01cd6cf3f6156d90ac418de958b1430a"
+    },
+    {
+      "path": "native/Engine/src/calendar/index.ts",
+      "bytes": 2936,
+      "sha256": "e398967b2f9166ed250f31346bc0bc6267fbdce73f79ed6dc0d822d226942215"
+    },
+    {
+      "path": "native/Engine/src/calendar/lunar-javascript.d.ts",
+      "bytes": 1826,
+      "sha256": "41cc976438d2fe6a73a606970923b05fc04c1cb7e84d912cf35cd034c6117dcc"
+    },
+    {
+      "path": "native/Engine/src/calendar/precision.ts",
+      "bytes": 5437,
+      "sha256": "d771ac0a86e95ff11fc5f83dcc8073c04d0a71e8f8cfafd8f0f6521644abe1aa"
+    },
+    {
+      "path": "native/Engine/src/calibration/buildCandidates.ts",
+      "bytes": 2253,
+      "sha256": "1aff4f204b1f0cb8aea3564ccc56dd1fef508c44f1d3576e70a278a9841edf19"
+    },
+    {
+      "path": "native/Engine/src/calibration/extractEvents.ts",
+      "bytes": 2015,
+      "sha256": "7e73c8d68c2b98b2a3e3a784112c8ce57d656bdf40f5e3d7c60f34863dc5a2e7"
+    },
+    {
+      "path": "native/Engine/src/calibration/extractZiweiEvents.ts",
+      "bytes": 1743,
+      "sha256": "9acb2bdf8c59d44812eeb492704db911f6d976918ef42e441aaa2bf497ddcefd"
+    },
+    {
+      "path": "native/Engine/src/calibration/types.ts",
+      "bytes": 1060,
+      "sha256": "e083f7884443f6a4384f502760be8ce87e652e4c7a1a53e325dd23d9b03ab34a"
+    },
+    {
+      "path": "native/Engine/src/divination/HexagramEngine.ts",
+      "bytes": 7719,
+      "sha256": "798ab1028316941bf8cdde1f7b96c266e3666c25a495bb3787488ae53db95a0a"
+    },
+    {
+      "path": "native/Engine/src/divination/conditionalRules.ts",
+      "bytes": 11168,
+      "sha256": "31994ee3c827bb59258eb7287962a8580e3f0722cb9b514a7098926c2835afaf"
+    },
+    {
+      "path": "native/Engine/src/divination/data/gua64.ts",
+      "bytes": 3802,
+      "sha256": "4c65f118c3701832909758b2004b8cac47c7cf7040f39d3fee6de9b52d5d7f9a"
+    },
+    {
+      "path": "native/Engine/src/divination/data/liuqin.ts",
+      "bytes": 3835,
+      "sha256": "e455d2a6f021500666b14b78180f7f72dcebc67ce82269695a0cc2a40375fa8c"
+    },
+    {
+      "path": "native/Engine/src/divination/data/trigrams.ts",
+      "bytes": 1221,
+      "sha256": "4db5911959c5f0d9bb2918bdaa0a6ef4fd19d614c59c98055ed05d464ca67155"
+    },
+    {
+      "path": "native/Engine/src/divination/efficacy.ts",
+      "bytes": 23233,
+      "sha256": "ff3bca6880848cca07ca5d3afc2d888b21365c297ce4309ae62f81406a42fd12"
+    },
+    {
+      "path": "native/Engine/src/divination/eventAssessment.ts",
+      "bytes": 11726,
+      "sha256": "be36fbf21bad035ca5377d79b1c0bd80c446e3e125dcc263398d7473fae3193a"
+    },
+    {
+      "path": "native/Engine/src/divination/fanfu.ts",
+      "bytes": 4270,
+      "sha256": "ce5744eca8b9c48c10e84b4ab69fa53abe31611e6732870144076f73094b577b"
+    },
+    {
+      "path": "native/Engine/src/divination/guaRelations.ts",
+      "bytes": 2362,
+      "sha256": "3b4d19da85aba578b61569dd610b44da84952d6feb1a8a2ed9fbc766546d5065"
+    },
+    {
+      "path": "native/Engine/src/divination/lineContext.ts",
+      "bytes": 3002,
+      "sha256": "39e709a252c463d9a7ba66c377996bab6db942bc0975e1cce2811b5ef3c8604d"
+    },
+    {
+      "path": "native/Engine/src/divination/questionJudgment.ts",
+      "bytes": 8304,
+      "sha256": "e79145109d38e9da5f21dd0f3ec3d4208cb89ace6c00ab58060b733fb3a7a018"
+    },
+    {
+      "path": "native/Engine/src/divination/reassessQuestion.ts",
+      "bytes": 3767,
+      "sha256": "5806f40fd417eb5fd9d8e1b6961a183f4875d4531a31bdf77596b79943a039bb"
+    },
+    {
+      "path": "native/Engine/src/divination/receiptLayout.ts",
+      "bytes": 5274,
+      "sha256": "e74b9b1f3c9054f436332c4da94f8da953d0b809b56c2791f5edcaffe4623ab1"
+    },
+    {
+      "path": "native/Engine/src/divination/roleRelations.ts",
+      "bytes": 4791,
+      "sha256": "3d262f8131751678d1007e7411c57f89104ee5cfb37a12f4fbed887b7da27582"
+    },
+    {
+      "path": "native/Engine/src/divination/tombExtinction.ts",
+      "bytes": 5494,
+      "sha256": "89a08729bd210edde4352749674e2b37a1468bca16b6d0ff90c2f706c5e04c46"
+    },
+    {
+      "path": "native/Engine/src/divination/triads.ts",
+      "bytes": 5926,
+      "sha256": "21561b5766cffa324d30c645b2dcfac36ff2bfb657e0dc0c01da4f4704e083bd"
+    },
+    {
+      "path": "native/Engine/src/divination/types.ts",
+      "bytes": 4459,
+      "sha256": "a3760edb4d64ea57f13b95ebc6ac9f068a327222246c2287839762e5c20d2079"
+    },
+    {
+      "path": "native/Engine/src/divination/valueReceipt.ts",
+      "bytes": 2376,
+      "sha256": "f2293371ba6890487ce3a457619f6bf7a951d3390d41de35da7c325a4d7843d2"
+    },
+    {
+      "path": "native/Engine/src/marriage/MarriageEngine.ts",
+      "bytes": 6156,
+      "sha256": "d2188f79aa31698006009869a6ef89c2eeca3a076fdfbb8cc5994a8e1cfa4484"
+    },
+    {
+      "path": "native/Engine/src/qimen/QimenEngine.ts",
+      "bytes": 13252,
+      "sha256": "49d3aa287a78a361bd5a669702ef4ceb6489fe7124dadcfcbe23711947e078af"
+    },
+    {
+      "path": "native/Engine/src/qimen/data/bamen.ts",
+      "bytes": 1054,
+      "sha256": "66d6d980af9aab6feb1ddbd08168499256424fbf22c70dcc84285b1f9da5896b"
+    },
+    {
+      "path": "native/Engine/src/qimen/data/bashen.ts",
+      "bytes": 1409,
+      "sha256": "c0a828164b60eb6e55b113ccd6d23882c56d83a3d452399c6ef87c346e15f9d6"
+    },
+    {
+      "path": "native/Engine/src/qimen/data/geju.ts",
+      "bytes": 12670,
+      "sha256": "6eb9e263aedfca8b2aed0816da6d1c7dfbf716611a0ad92543b4aea220577383"
+    },
+    {
+      "path": "native/Engine/src/qimen/data/jieqi-ju.ts",
+      "bytes": 3822,
+      "sha256": "3c31cdb033a0a6d56e498986280aee5dc1bcc00fcd2189ff1664a3d065bb5caf"
+    },
+    {
+      "path": "native/Engine/src/qimen/data/jiuxing.ts",
+      "bytes": 1204,
+      "sha256": "1fa04f034b75d0c95d7d0a1dd70b35d18c25b80ca610ecb8beab11e5dbe790b5"
+    },
+    {
+      "path": "native/Engine/src/qimen/data/palaces.ts",
+      "bytes": 968,
+      "sha256": "490e87cbbdb75d5f8e20d84bf372ba73fc417d3147aeebc7d2cf617eee0a7cba"
+    },
+    {
+      "path": "native/Engine/src/qimen/data/yongshen-rules.ts",
+      "bytes": 2107,
+      "sha256": "acdf668266305ee859f89942f7553a29d7db11a9d40220e129042cebe489b837"
+    },
+    {
+      "path": "native/Engine/src/qimen/facts.ts",
+      "bytes": 5431,
+      "sha256": "874f0cdf2600d1f79d2b6f95fdca2dafafdc396a8f5f2729a3427497c2bbaf69"
+    },
+    {
+      "path": "native/Engine/src/qimen/helpers/bamen.ts",
+      "bytes": 1568,
+      "sha256": "22091a573dab4d0f62bb9e88ae53928fe3d468e90ee0b0c014dac92661a67844"
+    },
+    {
+      "path": "native/Engine/src/qimen/helpers/diPan.ts",
+      "bytes": 3022,
+      "sha256": "f7192b356d6a088398ac8b876a427d933146af1c649fadbcb3e364dd3479b7e4"
+    },
+    {
+      "path": "native/Engine/src/qimen/helpers/solarTerms.ts",
+      "bytes": 668,
+      "sha256": "d9e17a8d5f3f44be07136574507dba0b43f0059732acac1971c4ac53119b9f09"
+    },
+    {
+      "path": "native/Engine/src/qimen/helpers/tianPan.ts",
+      "bytes": 2388,
+      "sha256": "c58e1fb97a9ada0ed1a64c22c6ab18e933575284fc70a2f515974e852381721b"
+    },
+    {
+      "path": "native/Engine/src/qimen/helpers/timeGanZhi.ts",
+      "bytes": 493,
+      "sha256": "aa3b023cf1ec87e20f41593e23d9e230a5a4ce9d0d7f89f8f2ddca3d63f14ad8"
+    },
+    {
+      "path": "native/Engine/src/qimen/helpers/yuan.ts",
+      "bytes": 982,
+      "sha256": "0c0c5e5cea754feb2013a6f2ee91e8c38536ace2a1e7513c4e1f5459e10ddf46"
+    },
+    {
+      "path": "native/Engine/src/qimen/questionObjects.ts",
+      "bytes": 5344,
+      "sha256": "1c2adbaa302a3d3ee095381882930c349fc4155a25f79deb557d59b21afb4093"
+    },
+    {
+      "path": "native/Engine/src/qimen/selectionSources.ts",
+      "bytes": 3406,
+      "sha256": "1d19ccaafdc73a52cb3487ec3b5cd0d24df8529f2fd733963a6e56aadd5af293"
+    },
+    {
+      "path": "native/Engine/src/qimen/specializedSelection.ts",
+      "bytes": 7657,
+      "sha256": "3d73ffd8e40115f2619de309ef5a40605de10d72e5ed37208121619095964e79"
+    },
+    {
+      "path": "native/Engine/src/qimen/timing.ts",
+      "bytes": 17342,
+      "sha256": "8f24476fdb13d3bfb0bf5b6f0903391498f10d53cb432f4a450cccc89b20e8fc"
+    },
+    {
+      "path": "native/Engine/src/qimen/timingReceipt.ts",
+      "bytes": 3892,
+      "sha256": "07329e1e8561744c58ee08ca9f1917c605aec9f5000506348159c510ff0ad8c1"
+    },
+    {
+      "path": "native/Engine/src/qimen/types.ts",
+      "bytes": 6102,
+      "sha256": "97cfd897bef08618c97302480a288d09fe3300c558462fe8579421472442bb37"
+    },
+    {
+      "path": "native/Engine/src/rules/provenance.ts",
+      "bytes": 403,
+      "sha256": "74cc97a500063a7a1420c265d632ba1adad3a0f0add18e5df5e8fdca0a029d05"
+    },
+    {
+      "path": "native/Engine/src/utils/date.ts",
+      "bytes": 243,
+      "sha256": "09306b3ef63bf973c7a9b8628c2a98b82735cc1a8664301041b2a1f8b6436f3b"
+    },
+    {
+      "path": "native/Engine/src/ziwei/ZiweiEngine.ts",
+      "bytes": 7197,
+      "sha256": "59bf20649b1aa3aa7f2bc93e0e5b0d9c5983a0ab6595fa6419ca8d657112d917"
+    },
+    {
+      "path": "native/Engine/src/ziwei/context.ts",
+      "bytes": 3637,
+      "sha256": "e4793714dcd3350d46761c6b37dbe7482caf56b7161c9685e3f5567339245575"
+    },
+    {
+      "path": "native/Engine/src/ziwei/monthly.ts",
+      "bytes": 5063,
+      "sha256": "5b80462d76bef2062435d19c4d28141a233dbc03019888eb2eadcf720f8b0848"
+    },
+    {
+      "path": "native/Engine/src/ziwei/palaceFlights.ts",
+      "bytes": 3259,
+      "sha256": "b69e3dd459d630d5358205384ad0c7b023bc7d4e199833e91268e1c41b8a91b9"
+    },
+    {
+      "path": "native/Engine/src/ziwei/timing.ts",
+      "bytes": 5483,
+      "sha256": "bb807936418025727411d1bfb0bbbb553634f843ac944ba3897875dd590e55a6"
+    },
+    {
+      "path": "native/Engine/src/ziwei/transformations.ts",
+      "bytes": 1544,
+      "sha256": "7c7bc39775fd57ee48c7cd073a44339bf416837417e2ebf555df5d1e420b6a6c"
+    },
+    {
+      "path": "native/Engine/src/ziwei/types.ts",
+      "bytes": 2775,
+      "sha256": "6e7c8fd7406f429aaa5b5b58ac39baa522c59def4d66ae9356b6b15ce21e1d2f"
+    },
+    {
+      "path": "native/Engine/timezone.js",
+      "bytes": 1182,
+      "sha256": "5abb1674bd47f5af58bbb9ec94d5968f4b3a270b5c98e190faa04830ae3acbbd"
+    },
+    {
+      "path": "native/Engine/validation/reasoning/adjudication-followup-2026-09-21/astronomy-native-probe.swift",
+      "bytes": 13007,
+      "sha256": "81e2cea14869371c6513eab7d542e64be71944bfe227e3a991ee4873b08cd9d8"
+    },
+    {
+      "path": "native/Engine/validation/reasoning/adjudication-followup-2026-09-21/divination-capacity-fixtures.cjs",
+      "bytes": 2936,
+      "sha256": "39bcc25d04c77414de78b63b9e3a38495a5debe1b544a5e21f96a8e95cbc82ac"
+    },
+    {
+      "path": "native/Engine/validation/reasoning/adjudication-followup-2026-09-21/divination-native-capacity-probe.swift",
+      "bytes": 10261,
+      "sha256": "1eb95a5e83817480f947345d89f3f5a31dff9963be26166d4bd76c40bf5baae9"
+    },
+    {
+      "path": "native/Engine/validation/reasoning/adjudication-followup-2026-09-21/final-wire-decoder.mjs",
+      "bytes": 12226,
+      "sha256": "93a0694f797db4467a508346ca0917097a28766d49e74bb07f5c6b583cf656c2"
+    },
+    {
+      "path": "native/Engine/validation/reasoning/adjudication-followup-2026-09-21/package-evidence.py",
+      "bytes": 2828,
+      "sha256": "ffcac070ddac9257a6a5d7c91948608a63d86fa1190fdc5bf2471af70a26b993"
+    },
+    {
+      "path": "native/Engine/validation/reasoning/adjudication-followup-2026-09-21/verify-sources.mjs",
+      "bytes": 2925,
+      "sha256": "d557430709c5af5e81aeafd8b238714c0ead8f831d9b38b8c1c43bc135c67a0d"
+    },
+    {
+      "path": "native/Resources/engine-fixtures.json",
+      "bytes": 1693858,
+      "sha256": "dad25ee838140075526edb1d93d176f50667836e17147a60888445d6fb2b1b48"
+    },
+    {
+      "path": "native/Resources/mingli.js",
+      "bytes": 1369933,
+      "sha256": "c4a1109927f21d94fdabadfd03dcc3405a6d19f0063f24c53b49163773813521"
+    },
+    {
+      "path": "supabase/functions/suji-chat/handler.mjs",
+      "bytes": 9972,
+      "sha256": "ee9f02471e2587ff4c0f8399b75799d900efc0b1588835cfebab05ed686f8093"
+    }
+  ]
+}

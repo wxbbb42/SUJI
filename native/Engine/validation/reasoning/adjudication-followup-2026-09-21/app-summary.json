@@ -1,0 +1,49 @@
+{
+  "devicesAndConfigurations" : [
+    {
+      "device" : {
+        "architecture" : "arm64",
+        "deviceId" : "09FF0B1D-9E60-4F2A-9465-3B156C88BD28",
+        "deviceName" : "iPhone 17 Pro",
+        "modelName" : "iPhone 17 Pro",
+        "osBuildNumber" : "23F77",
+        "osVersion" : "26.5",
+        "platform" : "iOS Simulator"
+      },
+      "expectedFailures" : 0,
+      "failedTests" : 0,
+      "passedTests" : 45,
+      "skippedTests" : 0,
+      "testPlanConfiguration" : {
+        "configurationId" : "1",
+        "configurationName" : "Test Scheme Action"
+      }
+    }
+  ],
+  "environmentDescription" : "Suji · Built with macOS 27.0",
+  "expectedFailures" : 0,
+  "failedTests" : 0,
+  "finishTime" : 1789962265.696,
+  "passedTests" : 45,
+  "result" : "Passed",
+  "runtimeWarnings" : [
+
+  ],
+  "skippedTests" : 0,
+  "startTime" : 1789962098.862,
+  "statistics" : [
+
+  ],
+  "testFailures" : [
+
+  ],
+  "title" : "Test - Suji",
+  "topInsights" : [
+    {
+      "category" : "Longest Test Runs",
+      "impact" : "21% of duration",
+      "text" : "1 longest test run with outlier durations exceeding 0.76s (three standard deviations)"
+    }
+  ],
+  "totalTestCount" : 45
+}

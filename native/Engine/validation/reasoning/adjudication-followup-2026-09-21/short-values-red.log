@@ -1,0 +1,21 @@
+Evidence excerpt; lines longer than 1200 characters are truncated.
+Building for debugging...
+[1 / 2] SujiCore
+[2 / 7] SujiCoreTests-product
+[4 / 9] SujiCoreTests-product
+[10 / 14] SujiCoreTests-product
+Build complete! (1.60秒)
+Test Suite 'Selected tests' started at 2026-09-21 11:28:13.578.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 11:28:13.578.
+Test Suite 'JSONValueTransportTests' started at 2026-09-21 11:28:13.578.
+Test Case '-[SujiCoreTests.JSONValueTransportTests testShortRepeatedEvidencePathsAreSharedWithoutDroppingIdentity]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/JSONValueTransportTests.swift:25: error: -[SujiCoreTests.JSONValueTransportTests testShortRepeatedEvidencePathsAreSharedWithoutDroppingIdentity] : XCTAssertLessThan failed: ("3803") is not less than ("3503")
+Test Case '-[SujiCoreTests.JSONValueTransportTests testShortRepeatedEvidencePathsAreSharedWithoutDroppingIdentity]' failed (0.189 seconds).
+Test Suite 'JSONValueTransportTests' failed at 2026-09-21 11:28:13.767.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.189 (0.189) seconds
+Test Suite 'SujiCoreTests.xctest' failed at 2026-09-21 11:28:13.767.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.189 (0.189) seconds
+Test Suite 'Selected tests' failed at 2026-09-21 11:28:13.767.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.189 (0.190) seconds
+Note: Some test targets reported failures:
+  - SujiCoreTests (XCTest)

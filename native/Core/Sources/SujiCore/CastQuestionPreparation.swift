@@ -11,6 +11,8 @@ public struct CastQuestionDraft: Identifiable, Sendable, Equatable {
     public var event: String
     public var timeHorizon: String
     public var referenceOnly = false
+    public var specialSelectionEnabled = false
+    public var specialSelectionFocus = ""
     public var timingEnabled = false
     public var timingFocus = ""
     public var timingUnit = ""
@@ -20,8 +22,15 @@ public struct CastQuestionDraft: Identifiable, Sendable, Equatable {
     public static let subjects = ["unknown", "self", "parent", "child", "sibling", "wife", "husband", "other"]
     public static let questionTypes = ["general", "career", "wealth", "marriage", "kids", "parents", "health", "event"]
     public static let timeHorizons = ["unspecified", "near", "far"]
+    public static let specialSelectionChoices: [(id: String, label: String)] = [
+        ("weather-rain", "降雨"), ("weather-snow", "降雪"), ("weather-wind", "风"),
+        ("weather-river-level", "河流水情"), ("dwelling-residence", "住宅整体"),
+        ("dwelling-entrance", "住宅大门"), ("dwelling-stove", "灶具"),
+        ("dwelling-tap-water", "自来水"), ("dwelling-utensils", "锅碗器具"),
+        ("dwelling-courtyard", "院落"), ("dwelling-skywell", "天井"), ("dwelling-living-room", "客厅")
+    ]
 
-    public init(call: ChatToolCall, restoringConfirmedTiming: Bool = false) throws {
+    public init(call: ChatToolCall, restoringConfirmedTiming: Bool = false, restoringConfirmedSelection: Bool = false) throws {
         guard ["cast_liuyao", "setup_qimen"].contains(call.name), case let .object(args) = call.arguments else {
             throw CastQuestionValidationError(reason: "无法确认这次起盘资料")
         }
@@ -34,6 +43,10 @@ public struct CastQuestionDraft: Identifiable, Sendable, Equatable {
         subject = string("subject", fallback: "unknown")
         event = string("event", fallback: "")
         timeHorizon = string("timeHorizon", fallback: "unspecified")
+        if call.name == "setup_qimen", case let .object(selection) = args["selectionRequest"] {
+            specialSelectionEnabled = restoringConfirmedSelection
+            if case let .string(focus) = selection["focus"] { specialSelectionFocus = focus }
+        }
         if call.name == "setup_qimen", case let .object(timing) = args["timingRequest"] {
             // Proposed fields may be displayed, but the user must enable timing.
             // Only persisted confirmations restore the enabled state for validation.
@@ -62,6 +75,15 @@ public struct CastQuestionDraft: Identifiable, Sendable, Equatable {
         }
         var args: [String: JSONValue] = ["question": .string(question), "questionType": .string(questionType), "subject": .string(subject), "timeHorizon": .string(timeHorizon)]
         if !event.isEmpty { args["event"] = .string(event) }
+        if proposedCall.name == "setup_qimen", specialSelectionEnabled, !referenceOnly {
+            guard Self.specialSelectionChoices.contains(where: { $0.id == specialSelectionFocus }) else {
+                throw CastQuestionValidationError(reason: "请选择本次要核对的天气或住宅对象")
+            }
+            guard ["general", "event"].contains(questionType) else {
+                throw CastQuestionValidationError(reason: "天气与住宅取用请将问题类别设为具体事件或暂不归类")
+            }
+            args["selectionRequest"] = ["focus": .string(specialSelectionFocus)]
+        }
         if proposedCall.name == "setup_qimen", timingEnabled, !referenceOnly {
             guard ["employment","profit","relationship","self"].contains(timingFocus),
                   ["year","month","day","hour"].contains(timingUnit) else {
@@ -121,14 +143,14 @@ public struct ConfirmedCastQuestion: Codable, Sendable, Equatable {
         let arguments = (try? encoder.encode(call.arguments)).map { String(decoding: $0, as: UTF8.self) } ?? "{}"
         let method = call.name == "cast_liuyao" ? "六爻" : "奇门"
         let scope = referenceOnly ? "仅核对盘面，不判断事情成败或日期" : "围绕确认的事项核对依据；未知条件仍待澄清"
-        return ChatMessage(role: .user, content: "用户已核对\(method)占问资料，以下修订优先于原问题中的对应资料。范围：\(scope)。这不是新的计算结果，也不表示已经定用。已确认资料：\n\(arguments)")
+        return ChatMessage(role: .user, content: "用户已核对\(method)占问资料，以下修订优先于原问题中的对应资料。范围：\(scope)。这不是新的计算结果，也不表示事情成败已经确定。已确认资料：\n\(arguments)")
     }
 
     public func validate(userID: UUID, context: ToolContext) throws {
         guard self.userID == userID, self.context == context, context.isValid,
               confirmedAt.timeIntervalSince1970.isFinite,
               proposedCall.id == call.id, proposedCall.name == call.name else { throw ToolOrchestratorError.staleContext }
-        var draft = try CastQuestionDraft(call: call, restoringConfirmedTiming: true)
+        var draft = try CastQuestionDraft(call: call, restoringConfirmedTiming: true, restoringConfirmedSelection: true)
         draft.referenceOnly = referenceOnly
         guard try draft.validatedCall() == call else { throw CastQuestionValidationError(reason: "已确认的占问资料不完整，请发起新提问") }
         if case let .string(end)=ReadingVerificationEvidence.pointer("/timingRequest/window/end",in:call.arguments) {

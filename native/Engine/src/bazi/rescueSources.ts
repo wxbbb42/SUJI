@@ -14,4 +14,10 @@ export const RESCUE_SOURCES = [
     quote:'辰未中皆藏乙木财星，暗损印绶，病重而得药',
     additionalQuotes:['戌中更藏丁火食神，非子印所能夺','盖印未曾合去也'],
     editionStatus:'electronic-transcription-not-print-collated'},
+  {id:'ziping-xu-occurrence-selection-v1',document:'docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md',
+    sha256:'8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596',
+    locator:'五、论十干合而不合：月时两辛、林森克一留一及各家异说',
+    quote:'如甲生寅卯，月时两透辛官，以年丙合月辛，是为合一留一，官星反轻',
+    additionalQuotes:['戊辰、甲寅、丁卯、戊申','用甲克去年上伤官，而留时上伤官以生财损印','各家所说不同也'],
+    editionStatus:'electronic-transcription-not-print-collated'},
 ];

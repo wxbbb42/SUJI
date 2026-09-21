@@ -10,11 +10,11 @@ enum CastSourceDirectory {
     static func isDirectory(_ message:ChatMessage)->Bool {isMessage(message)}
     private static func digest(_ value:JSONValue)->String {SHA256.hash(data:Data(ReadingVerificationEvidence.encoded(value).utf8)).map{String(format:"%02x",$0)}.joined()}
     static func message(receipt:ToolReceipt,callID:String?=nil)->ChatMessage? {
-        guard ["cast_liuyao","setup_qimen"].contains(receipt.name),let value=try? CastReceiptStorage.expanded(receipt.output),
+        guard ["cast_liuyao","setup_qimen","reassess_liuyao","reassess_qimen"].contains(receipt.name),let value=try? CastReceiptStorage.expanded(receipt.output),
               ReadingVerificationEvidence.encoded(value).utf16.count>28_000,case let .object(root)=value,root[referenceKey]==nil,
               case let .array(sources)=root["ruleSources"],!sources.isEmpty else{return nil}
         let metadata:JSONValue=["version":1,"toolCallID":.string(callID ?? receipt.callID),"toolName":.string(receipt.name),"sha256":.string(digest(.array(sources))),"ruleSources":.array(sources)]
-        let content=prefix+ReadingVerificationEvidence.encoded(metadata)
+        let content=prefix+JSONValueTransport.encode(ReadingVerificationEvidence.encoded(metadata))
         guard content.utf16.count<=32_000 else{return nil}
         return ChatMessage(role:.system,content:content)
     }
@@ -25,7 +25,8 @@ enum CastSourceDirectory {
         let calls=current.enumerated().flatMap { index,message in (message.role == .assistant ? (message.toolCalls ?? []) : []).filter{$0.id==callID}.map{(index,$0)} }
         guard calls.count==1,calls[0].1.name==name else{return nil}
         let directories=current.enumerated().filter{isMessage($0.element)}.compactMap { index,message->(Int,JSONValue)? in
-            guard let content=message.content,let value=try? JSONDecoder().decode(JSONValue.self,from:Data(content.dropFirst(prefix.count).utf8)),case let .object(root)=value,root["toolCallID"] == .string(callID) else{return nil}
+            guard let content=message.content,let packed=try? JSONDecoder().decode(JSONValue.self,from:Data(content.dropFirst(prefix.count).utf8)),
+                  let value=JSONValueTransport.expand(packed),case let .object(root)=value,root["toolCallID"] == .string(callID) else{return nil}
             return (index,value)
         }
         guard directories.count==1,directories[0].0<calls[0].0,case let .object(root)=directories[0].1,Set(root.keys)==Set(["version","toolCallID","toolName","sha256","ruleSources"]),root["version"]==1,root["toolName"] == .string(name),root["sha256"] == .string(hash),case let .array(sources)=root["ruleSources"],!sources.isEmpty,digest(.array(sources))==hash else{return nil}

@@ -127,7 +127,10 @@ public enum BaziFrameworkReading {
         func field(_ path: String) -> FieldEvidence? {
             value(path, root).map { FieldEvidence(toolCallID: receipt.callID, pointer: path, value: $0) }
         }
-        func evidence(_ paths: [String]) -> [FieldEvidence] { paths.compactMap(field) }
+        func evidence(_ paths: [String]) -> [FieldEvidence] {
+            var seen=Set<String>()
+            return paths.filter{seen.insert($0).inserted}.compactMap(field)
+        }
         func string(_ path: String) -> String? { Self.string(value(path, root)) }
         func element(_ path: String) -> Element? { string(path).flatMap(Element.init(rawValue:)) }
         let p = "/bazi/pillars/"

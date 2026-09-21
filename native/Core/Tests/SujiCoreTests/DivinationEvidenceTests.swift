@@ -234,7 +234,16 @@ final class DivinationEvidenceTests: XCTestCase {
         try await assertCombinedCharts(values:[6,6,6,6,9,9],questionType:"parents",subject:"parent",instant:"2026-09-12T04:00:00Z",callIDLength:200,event:"事"+String(repeating:"\u{1}",count:199),questionText:String(repeating:"问",count:1600),draftText:String(repeating:"这只说明盘面关系，尚未裁定效力或事件结果。",count:80))
     }
 
-    private func assertCombinedCharts(values: [Int],questionType:String = "parents",subject:String = "parent",instant:String = "2026-09-19T04:00:00Z",callIDLength:Int = 32,event:String = String(repeating:"事",count:200),questionText:String? = nil,draftText:String? = nil) async throws {
+    func testMaximumTimingAndSpecializedSelectionReviewsKeepAllFactsWithinBudget() async throws {
+        let event = "事" + String(repeating:"\u{1}",count:199)
+        for selection in [false,true] {
+            var overrides:[String:JSONValue] = ["timeHorizon":"far", "timingRequest":["focus":selection ? "self":"relationship","event":.string(event),"timeUnit":selection ? "day":"hour","window":["end":"2100-12-31T23:59:59+08:00","maxCandidates":256]]]
+            if selection { overrides["questionType"]="event";overrides["selectionRequest"]=["focus":"dwelling-residence"] }
+            try await assertCombinedCharts(values:[6,6,6,6,9,9],instant:"2004-07-02T08:00:00Z",callIDLength:200,event:event,questionText:String(repeating:"问",count:1600),draftText:String(repeating:"这只说明盘面关系，尚未裁定效力或事件结果。",count:80),qimenOverrides:overrides,maximumReview:true)
+        }
+    }
+
+    private func assertCombinedCharts(values: [Int],questionType:String = "parents",subject:String = "parent",instant:String = "2026-09-19T04:00:00Z",callIDLength:Int = 32,event:String = String(repeating:"事",count:200),questionText:String? = nil,draftText:String? = nil,qimenOverrides:[String:JSONValue] = [:],maximumReview:Bool = false) async throws {
         let native = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent()
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
@@ -247,15 +256,16 @@ final class DivinationEvidenceTests: XCTestCase {
         let bridge = try MingliBridge(scriptURL: seeded)
         let now = try XCTUnwrap(ISO8601DateFormatter().date(from:instant))
         let question = questionText ?? String(("用六爻和奇门分别解释这次盘面，请保留各自依据。" + String(repeating: "需要比较盘面细节。", count: 180)).prefix(1600))
-        var messages = [ChatMessage(role: .system, content: ReadingPrompt.instruction(tone: "清晰", mode: "起卦", referenceDate: now, hasBirth: true))]
+        var messages = [ChatMessage(role: .system, content: ReadingPrompt.instruction(tone: "清晰", mode: "起卦", referenceDate: now, hasBirth: true) + (maximumReview ? "\n" + ReadingPrompt.writer : ""))]
         for (index, name) in ["cast_liuyao", "setup_qimen"].enumerated() {
             let id = String(repeating: index == 0 ? "a" : "b", count: callIDLength)
-            let arguments = ["question": question, "questionType": name == "cast_liuyao" ? questionType : "career", "subject": subject, "event": event, "timeHorizon": "near"]
-            let request: [String: Any] = ["command": "tool", "name": name, "arguments": arguments, "now": instant]
-            let raw = try await bridge.request(String(decoding: JSONSerialization.data(withJSONObject: request), as: UTF8.self))
+            var arguments = ["question": question, "questionType": name == "cast_liuyao" ? questionType : "career", "subject": name == "cast_liuyao" ? subject : "self", "event": event, "timeHorizon": "near"].mapValues(JSONValue.string)
+            if name == "setup_qimen" { arguments.merge(qimenOverrides){_,new in new} }
+            let request: JSONValue = ["command":"tool","name":.string(name),"arguments":.object(arguments),"now":.string(instant)]
+            let raw = try await bridge.request(ReadingVerificationEvidence.encoded(request))
             let root = try JSONDecoder().decode(JSONValue.self, from: raw)
             let output = ReadingVerificationEvidence.encoded(try XCTUnwrap(ReadingVerificationEvidence.pointer("/result", in: root)))
-            messages.append(.assistantToolCalls([.init(id: id, name: name, arguments: .object(arguments.mapValues(JSONValue.string)))]))
+            messages.append(.assistantToolCalls([.init(id: id, name: name, arguments: .object(arguments))]))
             messages.append(.toolResult(.init(callID: id, output: output)))
         }
         let calls = messages.flatMap { $0.toolCalls ?? [] }
@@ -289,7 +299,7 @@ final class DivinationEvidenceTests: XCTestCase {
         let retry = ToolOrchestrator(complete:{ _,_ in .text("ready") },execute:{ _ in XCTFail("Retry must retain the original casts"); return .init(output:"{}") })
         let retried = try await retry.run(history:replay,definitions:definitions,cachedReceipts:delivery.receipts,context:context)
         XCTAssertEqual(retried.evidence,calls.map(\.id))
-        let review = ReadingVerifier.messages(draft: draftText ?? String(repeating: "本次仅列出盘面事实和条件。", count: 60), history: delivery.messages, question: question)
+        let review = ReadingVerifier.messages(draft: draftText ?? String(repeating: "本次仅列出盘面事实和条件。", count: 60), history: delivery.messages, question: maximumReview ? String(repeating:"问",count:8000) : question)
         try assertIndexRestoresFacts(review:review,history:delivery.messages)
         let total = review.reduce(0) { $0 + ($1.content?.utf16.count ?? 0) + ($1.toolCalls ?? []).reduce(0) { $0 + ReadingVerificationEvidence.encoded($1.arguments).utf16.count } }
         XCTAssertLessThanOrEqual(total, 120_000, "Backend rejects a valid two-chart review when the fact index repeats too much metadata")
@@ -350,7 +360,7 @@ final class DivinationEvidenceTests: XCTestCase {
         for message in review where message.content?.hasPrefix("显式字段索引") == true {
             let raw = try XCTUnwrap(message.content?.components(separatedBy:"\n").last)
             let envelope = try JSONDecoder().decode(JSONValue.self,from:Data(raw.utf8))
-            if ReadingVerificationEvidence.pointer("/referenceIndexVersion",in:envelope) == 1 {
+            if ReadingVerificationEvidence.pointer("/referenceIndexVersion",in:envelope) != nil {
                 let expanded=try ReferenceFactIndexTestDecoder.restore(raw,history:history)
                 for (key,value) in expanded { XCTAssertNil(restored[key]);restored[key]=value }
                 continue

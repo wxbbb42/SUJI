@@ -1,0 +1,86 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand --runTestsByPath src/divination/__tests__/EventAssessment.test.ts
+
+FAIL src/divination/__tests__/EventAssessment.test.ts
+  ✕ uninjured monthly target establishes the source-profile favorable direction, never empirical certainty (4 ms)
+  ✕ 大过之鼎 no-root target defeats both moving rescue edges and yields adverse profile (1 ms)
+  ✕ two appearances retain both event candidates and do not silently select an empty timing object (1 ms)
+  ✕ a question with missing role cannot gain a verdict through candidate agreement (1 ms)
+
+  ● uninjured monthly target establishes the source-profile favorable direction, never empirical certainty
+
+    expect(received).toMatchObject(expected)
+
+    Matcher error: received value must be a non-null object
+
+    Received has value: undefined
+
+      14 |   const r=cast([7,7,7,7,7,7],'甲戌','甲申');
+      15 |   expect(r.lines[5].ganZhi).toBe('壬戌');
+    > 16 |   expect(r.eventAssessment).toMatchObject({outcome:'favorable-under-selected-rule',ruleOutcomeEstablished:true,outcomeEstablished:false,eventObjectPaths:['/lines/5']});
+         |                             ^
+      17 | });
+      18 |
+      19 | test('大过之鼎 no-root target defeats both moving rescue edges and yields adverse profile',()=>{
+
+      at Object.<anonymous> (src/divination/__tests__/EventAssessment.test.ts:16:29)
+
+  ● 大过之鼎 no-root target defeats both moving rescue edges and yields adverse profile
+
+    expect(received).toMatchObject(expected)
+
+    Matcher error: received value must be a non-null object
+
+    Received has value: undefined
+
+      20 |   const r=cast([8,7,7,7,9,6],'乙巳','乙未');
+      21 |   expect([r.benGua.name,r.bianGua.name]).toEqual(['泽风大过','火风鼎']);
+    > 22 |   expect(r.eventAssessment).toMatchObject({outcome:'adverse-under-selected-rule',ruleOutcomeEstablished:true,outcomeEstablished:false});
+         |                             ^
+      23 |   expect(r.eventAssessment?.candidates[0].transmissions).toEqual(expect.arrayContaining([expect.objectContaining({jiPath:'/lines/5',yuanPath:'/lines/4',status:'target-cannot-receive'})]));
+      24 | });
+      25 |
+
+      at Object.<anonymous> (src/divination/__tests__/EventAssessment.test.ts:22:29)
+
+  ● two appearances retain both event candidates and do not silently select an empty timing object
+
+    expect(received).toMatchObject(expected)
+
+    Matcher error: received value must be a non-null object
+
+    Received has value: undefined
+
+      26 | test('two appearances retain both event candidates and do not silently select an empty timing object',()=>{
+      27 |   const r=cast([7,7,7,8,7,7],'癸未','庚子','wealth',{subject:'self',event:'求财'});
+    > 28 |   expect(r.eventAssessment).toMatchObject({outcome:'unresolved',ruleOutcomeEstablished:false,eventObjectPaths:['/lines/2','/lines/3'],timingObjectStatus:'not-selected'});
+         |                             ^
+      29 |   expect(r.efficacy.selection.selectedCandidateId).toBeNull();
+      30 | });
+      31 |
+
+      at Object.<anonymous> (src/divination/__tests__/EventAssessment.test.ts:28:29)
+
+  ● a question with missing role cannot gain a verdict through candidate agreement
+
+    expect(received).toMatchObject(expected)
+
+    Matcher error: received value must be a non-null object
+
+    Received has value: undefined
+
+      32 | test('a question with missing role cannot gain a verdict through candidate agreement',()=>{
+      33 |   const r=cast([7,7,7,7,7,7],'甲戌','甲申','health',{event:'健康'});
+    > 34 |   expect(r.eventAssessment).toMatchObject({outcome:'unresolved',ruleOutcomeEstablished:false});
+         |                             ^
+      35 | });
+      36 |
+
+      at Object.<anonymous> (src/divination/__tests__/EventAssessment.test.ts:34:29)
+
+Test Suites: 1 failed, 1 total
+Tests:       4 failed, 4 total
+Snapshots:   0 total
+Time:        0.653 s
+Ran all test suites within paths "src/divination/__tests__/EventAssessment.test.ts".

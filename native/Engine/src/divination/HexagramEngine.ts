@@ -13,6 +13,7 @@ import { tombExtinction, TOMB_EXTINCTION_SOURCE } from './tombExtinction';
 import { fanfu, FANFU_SOURCE } from './fanfu';
 import { triads, TRIAD_SOURCE } from './triads';
 import { efficacy, EFFICACY_SOURCE } from './efficacy';
+import { eventAssessment, EVENT_SOURCE } from './eventAssessment';
 
 const BRANCHES = [...'子丑寅卯辰巳午未申酉戌亥'];
 const STEMS = [...'甲乙丙丁戊己庚辛壬癸'];
@@ -72,6 +73,7 @@ export class HexagramEngine {
     const guaFacts = guaRelations(benGua,bianGua,changingYao);
     const tombFacts = tombExtinction(lines);
     const triadFacts = triads(lines,castGanZhi,tombFacts);
+    const effects=efficacy(lines,yongShen,opts.questionContext??{},tombFacts,triadFacts);
     return {
       question:opts.question, questionType:opts.questionType ?? 'general', castTime:castTime.toISOString(), castGanZhi,
       benGua,bianGua,changingYao,liuQin,yongShen,lineValues,shiYao,yingYao,xunKong,lines,
@@ -79,10 +81,11 @@ export class HexagramEngine {
       roleRelations:roleRelations(yongShen,lines),
       tombExtinction:tombFacts,
       triads:triadFacts,
-      efficacy:efficacy(lines,yongShen,opts.questionContext??{},tombFacts,triadFacts),
+      efficacy:effects,
+      eventAssessment:eventAssessment(lines,yongShen,effects),
       fanfu:fanfu(benGua,bianGua,lines,guaFacts),
       lineContextPolicy:{assessmentStatus:'calendar-relations-only',sourceIds:[LINE_CONTEXT_SOURCE.id]},
-      questionContext:opts.questionContext??{},ruleSources:[LINE_CONTEXT_SOURCE,...CONDITIONAL_RULE_SOURCES,QUESTION_RULE_SOURCE,ROLE_RELATION_SOURCE,TOMB_EXTINCTION_SOURCE,FANFU_SOURCE,TRIAD_SOURCE,EFFICACY_SOURCE],
+      questionContext:opts.questionContext??{},ruleSources:[LINE_CONTEXT_SOURCE,...CONDITIONAL_RULE_SOURCES,QUESTION_RULE_SOURCE,ROLE_RELATION_SOURCE,TOMB_EXTINCTION_SOURCE,FANFU_SOURCE,TRIAD_SOURCE,EFFICACY_SOURCE,EVENT_SOURCE],
       yingQi:conditionalTiming(yongShen,lines,opts.questionContext??{}),
       method:{algorithm:'jingfang-najia-v1',calendar:'Beijing civil time; exact solar-term month',dayBoundary:'zi-hour',caveats:[
         '旺相休囚死仅表示月建五行关系，不等于综合旺衰或事件结果',
@@ -97,8 +100,11 @@ export class HexagramEngine {
     const questionType = opts.questionType ?? 'general';
     const questionContext = opts.questionContext ?? {};
     const yongShen = selectQuestionObjects(questionType, questionContext, original.lines, TRIGRAMS[original.benGua.palace].wuXing, original.castGanZhi);
+    const effects=efficacy(original.lines,yongShen,questionContext,original.tombExtinction,original.triads);
     return {...original, question:opts.question, questionType, questionContext, yongShen,
-      efficacy:efficacy(original.lines,yongShen,questionContext,original.tombExtinction,original.triads),
+      efficacy:effects,
+      eventAssessment:eventAssessment(original.lines,yongShen,effects),
+      ruleSources:[...original.ruleSources.filter(s=>s.id!==EVENT_SOURCE.id),EVENT_SOURCE],
       roleRelations:roleRelations(yongShen,original.lines), yingQi:conditionalTiming(yongShen,original.lines,questionContext)};
   }
 

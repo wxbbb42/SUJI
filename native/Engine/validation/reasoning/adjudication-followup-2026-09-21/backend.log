@@ -1,0 +1,89 @@
+
+> test
+> node --test tests/*.test.mjs
+
+TAP version 13
+# Subtest: missing sessions and public keys never reach Auth or DeepSeek
+ok 1 - missing sessions and public keys never reach Auth or DeepSeek
+  ---
+  duration_ms: 24.804708
+  ...
+# Subtest: expired, anonymous and unauthenticated identities cannot consume quota
+ok 2 - expired, anonymous and unauthenticated identities cannot consume quota
+  ---
+  duration_ms: 1.546209
+  ...
+# Subtest: fixes upstream, model, reasoning and budget; forwards only the user's JWT to Supabase
+ok 3 - fixes upstream, model, reasoning and budget; forwards only the user's JWT to Supabase
+  ---
+  duration_ms: 2.018542
+  ...
+# Subtest: forwards valid local tool history and definitions
+ok 4 - forwards valid local tool history and definitions
+  ---
+  duration_ms: 0.146958
+  ...
+# Subtest: accepts all ten tools and the separate Ziwei timing round trip
+ok 5 - accepts all ten tools and the separate Ziwei timing round trip
+  ---
+  duration_ms: 0.192333
+  ...
+# Subtest: rejects arbitrary tools, broken tool history and oversized context before billing
+ok 6 - rejects arbitrary tools, broken tool history and oversized context before billing
+  ---
+  duration_ms: 2.679875
+  ...
+# Subtest: caps actual bytes even without Content-Length
+ok 7 - caps actual bytes even without Content-Length
+  ---
+  duration_ms: 1.438708
+  ...
+# Subtest: quota rejection and quota outages fail closed
+ok 8 - quota rejection and quota outages fail closed
+  ---
+  duration_ms: 1.216084
+  ...
+# Subtest: upstream authentication, billing and server errors are sanitized
+ok 9 - upstream authentication, billing and server errors are sanitized
+  ---
+  duration_ms: 1.424208
+  ...
+# Subtest: streams UTF-8 SSE immediately and preserves completion marker
+ok 10 - streams UTF-8 SSE immediately and preserves completion marker
+  ---
+  duration_ms: 0.68825
+  ...
+# Subtest: consumer cancellation aborts the billed upstream request
+ok 11 - consumer cancellation aborts the billed upstream request
+  ---
+  duration_ms: 0.459333
+  ...
+# Subtest: timeouts abort upstream without exposing exception details
+ok 12 - timeouts abort upstream without exposing exception details
+  ---
+  duration_ms: 17.184334
+  ...
+# Subtest: stalled request bodies are timed out
+ok 13 - stalled request bodies are timed out
+  ---
+  duration_ms: 16.609625
+  ...
+# Subtest: missing provider configuration never calls the provider
+ok 14 - missing provider configuration never calls the provider
+  ---
+  duration_ms: 0.49
+  ...
+# Subtest: PostgreSQL quota: RLS, session identity, atomic limits and rollover
+ok 15 - PostgreSQL quota: RLS, session identity, atomic limits and rollover
+  ---
+  duration_ms: 1086.72075
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1172.055416

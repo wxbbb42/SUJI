@@ -83,7 +83,7 @@ enum ReadingVerificationEvidence {
             }
             func patternConditions() {
                 let base = "/bazi/patternAnalysis/conditionalEvidence", prefix = "bazi.pattern.conditions"
-                fields(prefix,base,["assessmentStatus","outcomeEstablished","limitations"])
+                fields(prefix,base,["assessmentStatus","outcomeEstablished","limitations","selectedYong"])
                 func rows(_ key: String,_ path: String,_ keys: [String]) {
                     guard case let .array(items) = pointer(path,in:object) else { return }
                     for index in items.indices { fields(key + String(index + 1),path + "/\(index)",keys) }
@@ -138,6 +138,23 @@ enum ReadingVerificationEvidence {
                 rows("bazi.rescue.hiddenRole",rescue+"/hiddenRoles",["position","branch","gan","tier","shiShen","role","status","exposedPositions","sourceIds"])
                 rows("bazi.rescue.branchHelper",rescue+"/branchHelpers",["position","branch","blockingPositions","status","sourceIds"])
                 rows("bazi.rescue.threat",rescue+"/threatCoverage",["position","gan","status"])
+                let dependency = rescue + "/dependencyResolution", dependencyKey = "bazi.rescue.dependency"
+                fields(dependencyKey,dependency,["methodVersion","profileId","selectedYong","outcomeEstablished","unresolvedScopes"])
+                for (field,keys) in [
+                    ("occurrenceSelections",["ruleId","actorPosition","selectedTargetPosition","retainedTargetPositions","sourceIds"]),
+                    ("threatResolutions",["targetLayer","targetPosition","targetGan","availableActionIds","blockedActionIds","unresolvedActionIds","status"])] {
+                    if pointer(dependency+"/"+field,in:object) == .array([]) { add(dependencyKey+"."+field,dependency+"/"+field) }
+                    rows(dependencyKey+"."+field,dependency+"/"+field,keys)
+                }
+                if case let .array(actions) = pointer(dependency+"/actions",in:object) {
+                    if actions.isEmpty { add(dependencyKey+".actions",dependency+"/actions") }
+                    for i in actions.indices {
+                        let path = dependency+"/actions/\(i)", key = dependencyKey+".action\(i+1)"
+                        fields(key,path,["id","ruleId","actorPosition","targetLayer","targetPosition","targetGan","relation","status","localEffectEstablished","actorCombinationIndexes","blockingCombinationIndexes","unresolvedReasons","sourceIds"])
+                        if pointer(path+"/attacks",in:object) == .array([]) { add(key+".attacks",path+"/attacks") }
+                        rows(key+".attack",path+"/attacks",["actorPosition","protectionCombinationIndexes","status"])
+                    }
+                }
                 for (key,path) in [("bazi.special",special),("bazi.rescue",rescue)] {
                     rows(key+".source",path+"/sources",["id","document","sha256","locator","quote","additionalQuotes","editionStatus"])
                 }
@@ -217,7 +234,7 @@ enum ReadingVerificationEvidence {
                 fields("ziwei.timing.monthly.method", "/monthly/method", ["algorithm", "monthBoundary", "leapMonth", "stemMethod", "palaceMethod"])
                 fields("ziwei.timing.method", "/method", ["algorithm", "civilTimeZone", "dayBoundary", "yearBoundary", "ageConvention"])
                 sources("ziwei.timing")
-            case "cast_liuyao":
+            case "cast_liuyao", "reassess_liuyao":
                 add("liuyao.castTime", "/castTime")
                 // Index the exact v2 tuple cells and dictionaries. A logical
                 // expanded path is not a path in the authenticated receipt.
@@ -231,6 +248,23 @@ enum ReadingVerificationEvidence {
                         if case let .array(rows) = pointer(path,in:object) {
                             if rows.isEmpty { add("liuyao.efficacy."+field,path) }
                             for i in rows.indices { add("liuyao.efficacy."+field+String(i+1),path+"/\(i)") }
+                        }
+                    }
+                }
+                let eventPath = "/eventAssessment", eventKey = "liuyao.event"
+                fields(eventKey,eventPath,["methodVersion","sourceId","assessmentStatus","outcome","ruleOutcomeEstablished","outcomeEstablished","selectionStatus","eventObjectPaths","timingObjectStatus","conditions","limitations","evidenceLayout","indexBase","evidenceColumns","ruleIDs","factPaths"])
+                if case let .array(evidence) = pointer(eventPath+"/evidence",in:object) {
+                    if evidence.isEmpty { add(eventKey+".evidence",eventPath+"/evidence") }
+                    for i in evidence.indices { add(eventKey+".evidence\(i+1)",eventPath+"/evidence/\(i)") }
+                }
+                if case let .array(candidates) = pointer(eventPath+"/candidates",in:object) {
+                    if candidates.isEmpty { add(eventKey+".candidates",eventPath+"/candidates") }
+                    for i in candidates.indices {
+                        let path = eventPath+"/candidates/\(i)", key = eventKey+".candidate\(i+1)"
+                        fields(key,path,["candidateId","objectPath","outcome","conditions","blockers"])
+                        if case let .array(transmissions) = pointer(path+"/transmissions",in:object) {
+                            if transmissions.isEmpty { add(key+".transmissions",path+"/transmissions") }
+                            for j in transmissions.indices { fields(key+".transmission\(j+1)",path+"/transmissions/\(j)",["jiPath","yuanPath","status","conditions","blockers"]) }
                         }
                     }
                 }
@@ -345,8 +379,29 @@ enum ReadingVerificationEvidence {
                         }
                     }
                 }
-            case "setup_qimen":
+            case "setup_qimen", "reassess_qimen":
                 add("qimen.setupTime", "/setupTime")
+                let selectionPath = "/specializedSelection", selectionKey = "qimen.specializedSelection"
+                fields(selectionKey,selectionPath,["methodVersion","sourceId","event","assessmentStatus","roleMappingEstablished","outcomeEstablished","missingContext","unresolved"])
+                fields(selectionKey+".request",selectionPath+"/request",["focus"])
+                for (field,keys) in [("conditions",["id","met","factPaths"]),("conflicts",["id","factPaths"])] {
+                    if case let .array(rows) = pointer(selectionPath+"/"+field,in:object) {
+                        if rows.isEmpty { add(selectionKey+"."+field,selectionPath+"/"+field) }
+                        for i in rows.indices { fields(selectionKey+"."+field+"\(i+1)",selectionPath+"/"+field+"/\(i)",keys) }
+                    }
+                }
+                if case let .array(references) = pointer(selectionPath+"/references",in:object) {
+                    if references.isEmpty { add(selectionKey+".references",selectionPath+"/references") }
+                    for i in references.indices {
+                        let path = selectionPath+"/references/\(i)", key = selectionKey+".reference\(i+1)"
+                        fields(key,path,["id","label","symbol","factPaths","carrierStem","carrierMethod","resolution"])
+                        add(key+".selectedObjectPath",path+"/selectedObjectPath",preserveNull:true)
+                        if case let .array(occurrences) = pointer(path+"/occurrences",in:object) {
+                            if occurrences.isEmpty { add(key+".occurrences",path+"/occurrences") }
+                            for j in occurrences.indices { fields(key+".occurrence\(j+1)",path+"/occurrences/\(j)",["palaceId","plate","objectPath","isEffectiveSky"]) }
+                        }
+                    }
+                }
                 fields("qimen.timing","/timing",["methodVersion","sourceIDs","event","focus","assessmentStatus","outcomeEstablished","unresolved"])
                 fields("qimen.timing.selection","/timing/selection",["established","candidateId","objectPath","palaceId","symbol","carrierStem","reason"])
                 fields("qimen.timing.searchPolicy","/timing/searchPolicy",["timezone","dayBoundary","yearBoundary","monthBoundary","clockPolicy","solarInversePolicy","includeCurrent","maxCandidates","maxPeriods","requestedEnd","searchedUntil","truncated","searchComplete","reason"])

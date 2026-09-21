@@ -1,0 +1,48 @@
+Building for debugging...
+[1 / 10]
+[2 / 11] SujiCore
+[4 / 13] SujiCore
+[9 / 14] SujiCore
+[10 / 13] SujiCoreTests-product
+[12 / 15] SujiCoreTests-product
+[13 / 15] SujiCoreTests-product
+[17 / 19] SujiCoreTests-product
+[21 / 22] ReadingEvalFixtures-product
+Build complete! (3.39秒)
+Test Suite 'Selected tests' started at 2026-09-21 11:22:16.564.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 11:22:16.565.
+Test Suite 'LiuyaoEfficacyIndexTests' started at 2026-09-21 11:22:16.565.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyIndexTests testEveryTupleAndDictionaryIsIndexedAtItsOriginalPointerBeforeAndAfterPacking]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyIndexTests testEveryTupleAndDictionaryIsIndexedAtItsOriginalPointerBeforeAndAfterPacking]' passed (1.395 seconds).
+Test Suite 'LiuyaoEfficacyIndexTests' passed at 2026-09-21 11:22:17.960.
+	 Executed 1 test, with 0 failures (0 unexpected) in 1.395 (1.395) seconds
+Test Suite 'LiuyaoEfficacyTests' started at 2026-09-21 11:22:17.960.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testAllSelectedSourceCoordinatesAreAuthenticated]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testAllSelectedSourceCoordinatesAreAuthenticated]' passed (0.265 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testForgeriesOfDecisionsIndicesPathsObjectsAndSourcesAreRejected]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testForgeriesOfDecisionsIndicesPathsObjectsAndSourcesAreRejected]' passed (1.208 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testJointCandidateAndEfficacyRewriteCannotReplaceTheQuerent]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testJointCandidateAndEfficacyRewriteCannotReplaceTheQuerent]' passed (0.012 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testLiteralClassicalAndCounterconditionFixturesRenderWithOriginalEvidence]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testLiteralClassicalAndCounterconditionFixturesRenderWithOriginalEvidence]' passed (0.673 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testMissingEfficacySymmetryAndLegacyReceipt]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testMissingEfficacySymmetryAndLegacyReceipt]' passed (0.054 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testTupleColumnsDecisionIndicesAndCanonicalPointerMapping]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testTupleColumnsDecisionIndicesAndCanonicalPointerMapping]' passed (0.608 seconds).
+Test Suite 'LiuyaoEfficacyTests' passed at 2026-09-21 11:22:20.781.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 2.820 (2.821) seconds
+Test Suite 'LiuyaoEventAssessmentTests' started at 2026-09-21 11:22:20.781.
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testInvalidOrUnusedEvidenceDictionaryEntriesCannotHideConditions]' started.
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testInvalidOrUnusedEvidenceDictionaryEntriesCannotHideConditions]' passed (0.321 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testSourceDirectionsRenderAndReplayWithEveryEvidencePointerIntact]' started.
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testSourceDirectionsRenderAndReplayWithEveryEvidencePointerIntact]' passed (2.303 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testSymmetricAbsencePreservesOldReceiptsAndCannotHideNewVerdicts]' started.
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testSymmetricAbsencePreservesOldReceiptsAndCannotHideNewVerdicts]' passed (0.063 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testTamperedDirectionChainEvidenceSelectionAndSourceRejected]' started.
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testTamperedDirectionChainEvidenceSelectionAndSourceRejected]' passed (0.331 seconds).
+Test Suite 'LiuyaoEventAssessmentTests' passed at 2026-09-21 11:22:23.799.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 3.017 (3.018) seconds
+Test Suite 'SujiCoreTests.xctest' passed at 2026-09-21 11:22:23.799.
+	 Executed 11 tests, with 0 failures (0 unexpected) in 7.233 (7.234) seconds
+Test Suite 'Selected tests' passed at 2026-09-21 11:22:23.799.
+	 Executed 11 tests, with 0 failures (0 unexpected) in 7.233 (7.234) seconds

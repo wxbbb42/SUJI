@@ -46,6 +46,18 @@ import SujiCore
                                 .font(.footnote).foregroundStyle(SujiTheme.secondary)
                         }
                         if draft.proposedCall.name == "setup_qimen" && !draft.referenceOnly {
+                            Toggle("核对天气或住宅取用", isOn: $draft.specialSelectionEnabled)
+                                .accessibilityIdentifier("cast.selection.enabled")
+                            if draft.specialSelectionEnabled {
+                                Picker("本次取用对象", selection: $draft.specialSelectionFocus) {
+                                    Text("请选择").tag("")
+                                    ForEach(CastQuestionDraft.specialSelectionChoices, id: \.id) { choice in
+                                        Text(choice.label).tag(choice.id)
+                                    }
+                                }.accessibilityIdentifier("cast.selection.focus")
+                                Text("请明确本次事项，问题类别选具体事件或暂不归类。这里核对传统取用及所在宫位；多个对象会并列保留，不据此确定天气、宅运或日期。")
+                                    .font(.footnote).foregroundStyle(SujiTheme.secondary)
+                            }
                             Toggle("查看条件应期", isOn:$draft.timingEnabled)
                                 .accessibilityIdentifier("cast.timing.enabled")
                             if draft.timingEnabled {

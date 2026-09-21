@@ -1,0 +1,187 @@
+FAIL src/qimen/__tests__/SpecializedSelection.test.ts
+  source-specific Qimen object selection
+    ✕ weather-rain retains every expressly named peer object without weather adjudication (9 ms)
+    ✕ weather-snow retains every expressly named peer object without weather adjudication (1 ms)
+    ✕ weather-wind retains every expressly named peer object without weather adjudication (1 ms)
+    ✕ weather-river-level retains every expressly named peer object without weather adjudication (1 ms)
+    ✕ dwelling roles remain distinct, including direct stems on separately labelled plates (1 ms)
+    ✕ entrance selects the actual duty door and verifies its palace identity
+    ✕ reordered palaces keep exact original array pointers and never select a duplicate first (1 ms)
+    ✕ explicit event, broad-category conflict and compatible method are independently required (1 ms)
+    ✕ center records and missing original symbols never become effective role objects (1 ms)
+    ✕ Jia hour uses its own pillar carrier and preserves original stem identity (1 ms)
+    ✕ supplement replaces the request/source, preserves the original palaces and removes absent selection (1 ms)
+
+  ● source-specific Qimen object selection › weather-rain retains every expressly named peer object without weather adjudication
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+      15 |  ])('%s retains every expressly named peer object without weather adjudication',(focus,expected)=>{
+      16 |   const c=engine.setup(options(focus)),r=(c as any).specializedSelection;
+    > 17 |   expect(r).toBeDefined();expect(symbols(r)).toEqual(expected);
+         |             ^
+      18 |   expect(r).toMatchObject({methodVersion:'qimen-xdyy-selection-v1',request:{focus},event:'单一事项',roleMappingEstablished:true,outcomeEstablished:false,conflicts:[]});
+      19 |   expect(r.references.every((x:any)=>x.occurrences.length===1)).toBe(true);
+      20 |   expect(c.ruleSources!.filter(s=>s.id==='qimen-xdyy-weather-selection-v1')).toHaveLength(1);
+
+      at src/qimen/__tests__/SpecializedSelection.test.ts:17:13
+
+  ● source-specific Qimen object selection › weather-snow retains every expressly named peer object without weather adjudication
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+      15 |  ])('%s retains every expressly named peer object without weather adjudication',(focus,expected)=>{
+      16 |   const c=engine.setup(options(focus)),r=(c as any).specializedSelection;
+    > 17 |   expect(r).toBeDefined();expect(symbols(r)).toEqual(expected);
+         |             ^
+      18 |   expect(r).toMatchObject({methodVersion:'qimen-xdyy-selection-v1',request:{focus},event:'单一事项',roleMappingEstablished:true,outcomeEstablished:false,conflicts:[]});
+      19 |   expect(r.references.every((x:any)=>x.occurrences.length===1)).toBe(true);
+      20 |   expect(c.ruleSources!.filter(s=>s.id==='qimen-xdyy-weather-selection-v1')).toHaveLength(1);
+
+      at src/qimen/__tests__/SpecializedSelection.test.ts:17:13
+
+  ● source-specific Qimen object selection › weather-wind retains every expressly named peer object without weather adjudication
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+      15 |  ])('%s retains every expressly named peer object without weather adjudication',(focus,expected)=>{
+      16 |   const c=engine.setup(options(focus)),r=(c as any).specializedSelection;
+    > 17 |   expect(r).toBeDefined();expect(symbols(r)).toEqual(expected);
+         |             ^
+      18 |   expect(r).toMatchObject({methodVersion:'qimen-xdyy-selection-v1',request:{focus},event:'单一事项',roleMappingEstablished:true,outcomeEstablished:false,conflicts:[]});
+      19 |   expect(r.references.every((x:any)=>x.occurrences.length===1)).toBe(true);
+      20 |   expect(c.ruleSources!.filter(s=>s.id==='qimen-xdyy-weather-selection-v1')).toHaveLength(1);
+
+      at src/qimen/__tests__/SpecializedSelection.test.ts:17:13
+
+  ● source-specific Qimen object selection › weather-river-level retains every expressly named peer object without weather adjudication
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+      15 |  ])('%s retains every expressly named peer object without weather adjudication',(focus,expected)=>{
+      16 |   const c=engine.setup(options(focus)),r=(c as any).specializedSelection;
+    > 17 |   expect(r).toBeDefined();expect(symbols(r)).toEqual(expected);
+         |             ^
+      18 |   expect(r).toMatchObject({methodVersion:'qimen-xdyy-selection-v1',request:{focus},event:'单一事项',roleMappingEstablished:true,outcomeEstablished:false,conflicts:[]});
+      19 |   expect(r.references.every((x:any)=>x.occurrences.length===1)).toBe(true);
+      20 |   expect(c.ruleSources!.filter(s=>s.id==='qimen-xdyy-weather-selection-v1')).toHaveLength(1);
+
+      at src/qimen/__tests__/SpecializedSelection.test.ts:17:13
+
+  ● source-specific Qimen object selection › dwelling roles remain distinct, including direct stems on separately labelled plates
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+      26 |    ['dwelling-residence',[c.hourGanZhi![0],'生门']],['dwelling-stove',['丙']],['dwelling-tap-water',['壬']],['dwelling-utensils',['辛']],
+      27 |    ['dwelling-courtyard',['九天','天芮']],['dwelling-skywell',['己']],['dwelling-living-room',['六合']],
+    > 28 |   ] as [string,string[]][]){const r=read(c,focus);expect(r).toBeDefined();expect(symbols(r)).toEqual(expected);expect(r.outcomeEstablished).toBe(false);}
+         |                                                             ^
+      29 |   const stove=read(c,'dwelling-stove').references[0];
+      30 |   expect(stove.resolution).toBe('multiple-plate-references');
+      31 |   expect(stove.occurrences.map((x:any)=>x.plate)).toEqual(expect.arrayContaining(['earth','sky']));
+
+      at Object.<anonymous> (src/qimen/__tests__/SpecializedSelection.test.ts:28:61)
+
+  ● source-specific Qimen object selection › entrance selects the actual duty door and verifies its palace identity
+
+    TypeError: Cannot read properties of undefined (reading 'references')
+
+      33 |  });
+      34 |  test('entrance selects the actual duty door and verifies its palace identity',()=>{
+    > 35 |   const c=plate(),r=read(c,'dwelling-entrance'),ref=r.references[0];
+         |                                                       ^
+      36 |   expect(ref.symbol).toBe(c.zhiShiMen);expect(ref.occurrences).toEqual([{palaceId:c.zhiShiPalaceId,plate:'door',objectPath:`/palaces/${c.palaces.findIndex(p=>p.id===c.zhiShiPalaceId)}/bamen`}]);
+      37 |   expect(ref.factPaths).toEqual(['/zhiShiMen','/zhiShiPalaceId']);
+      38 |   const bad=structuredClone(c);bad.zhiShiPalaceId=c.zhiShiPalaceId===1?2:1;
+
+      at Object.<anonymous> (src/qimen/__tests__/SpecializedSelection.test.ts:35:55)
+
+  ● source-specific Qimen object selection › reordered palaces keep exact original array pointers and never select a duplicate first
+
+    TypeError: Cannot read properties of undefined (reading 'references')
+
+      41 |  test('reordered palaces keep exact original array pointers and never select a duplicate first',()=>{
+      42 |   const c=plate();c.palaces.reverse();const r=read(c,'weather-rain');
+    > 43 |   expect(r.references[0].occurrences[0].objectPath).toBe(`/palaces/${c.palaces.findIndex(p=>p.jiuxing==='天柱')}/jiuxing`);
+         |            ^
+      44 |   const other=c.palaces.find(p=>p.id!==5&&p.jiuxing!=='天柱')!;other.jiuxing='天柱';
+      45 |   const conflict=read(c,'weather-rain');expect(conflict.roleMappingEstablished).toBe(false);
+      46 |   expect(conflict.references[0].occurrences).toHaveLength(2);expect(conflict.references[0].selectedObjectPath).toBeNull();
+
+      at Object.<anonymous> (src/qimen/__tests__/SpecializedSelection.test.ts:43:12)
+
+  ● source-specific Qimen object selection › explicit event, broad-category conflict and compatible method are independently required
+
+    expect(received).toMatchObject(expected)
+
+    Matcher error: received value must be a non-null object
+
+    Received has value: undefined
+
+      48 |  });
+      49 |  test('explicit event, broad-category conflict and compatible method are independently required',()=>{
+    > 50 |   const c=plate();c.questionContext!.event=' ';expect(read(c,'weather-rain')).toMatchObject({roleMappingEstablished:false,missingContext:['single-event']});
+         |                                                                               ^
+      51 |   c.questionContext!.event='事项';c.questionType='wealth';expect(read(c,'weather-rain').conflicts).toEqual([{id:'question-category-conflict',factPaths:['/questionType']}]);
+      52 |   c.questionType='event';c.method.centerPolicy='another-school';expect(read(c,'weather-rain').missingContext).toContain('compatible-chart-method');
+      53 |   expect(()=>read(c,'invented')).toThrow(/专门取用/);
+
+      at Object.<anonymous> (src/qimen/__tests__/SpecializedSelection.test.ts:50:79)
+
+  ● source-specific Qimen object selection › center records and missing original symbols never become effective role objects
+
+    TypeError: Cannot read properties of undefined (reading 'references')
+
+      55 |  test('center records and missing original symbols never become effective role objects',()=>{
+      56 |   const c=plate();for(const p of c.palaces)if(p.jiuxing==='天辅')p.jiuxing='天心';c.palaces.find(p=>p.id===5)!.jiuxing='天辅';
+    > 57 |   const r=read(c,'weather-wind');expect(r.references[0].occurrences).toEqual([]);expect(r.roleMappingEstablished).toBe(false);expect(r.missingContext).toContain('role-object:wind-star');
+         |                                           ^
+      58 |  });
+      59 |  test('Jia hour uses its own pillar carrier and preserves original stem identity',()=>{
+      60 |   const c=plate();c.hourGanZhi='甲戌';const r=read(c,'dwelling-residence').references[0];
+
+      at Object.<anonymous> (src/qimen/__tests__/SpecializedSelection.test.ts:57:43)
+
+  ● source-specific Qimen object selection › Jia hour uses its own pillar carrier and preserves original stem identity
+
+    TypeError: Cannot read properties of undefined (reading 'references')
+
+      58 |  });
+      59 |  test('Jia hour uses its own pillar carrier and preserves original stem identity',()=>{
+    > 60 |   const c=plate();c.hourGanZhi='甲戌';const r=read(c,'dwelling-residence').references[0];
+         |                                                                         ^
+      61 |   expect(r).toMatchObject({symbol:'甲',carrierStem:'己',carrierMethod:'own-pillar-xun',factPaths:['/hourGanZhi']});
+      62 |   expect(r.occurrences.every((o:any)=>{const [,,i,f]=o.objectPath.split('/');return (c.palaces[Number(i)] as any)[f]==='己';})).toBe(true);
+      63 |   c.hourGanZhi='甲丑';expect(read(c,'dwelling-residence').missingContext).toContain('original-hour-pillar');
+
+      at Object.<anonymous> (src/qimen/__tests__/SpecializedSelection.test.ts:60:73)
+
+  ● source-specific Qimen object selection › supplement replaces the request/source, preserves the original palaces and removes absent selection
+
+    TypeError: Cannot read properties of undefined (reading 'request')
+
+      66 |   const original=engine.setup(options('weather-rain')),before=JSON.stringify(original);
+      67 |   const changed=engine.reassessQuestion(original,{...options('dwelling-entrance'),question:'换成住宅大门',questionContext:{event:'大门取用',subject:'self'}});
+    > 68 |   expect((changed as any).specializedSelection.request).toEqual({focus:'dwelling-entrance'});expect((changed as any).specializedSelection.event).toBe('大门取用');
+         |                                                ^
+      69 |   expect(changed.palaces).toEqual(original.palaces);expect(changed.setupTime).toBe(original.setupTime);expect(JSON.stringify(original)).toBe(before);
+      70 |   expect(changed.ruleSources!.filter(s=>s.id.includes('-selection-v1')).map(s=>s.id)).toEqual(['qimen-xdyy-dwelling-selection-v1']);
+      71 |   const removed=engine.reassessQuestion(changed,options());expect((removed as any).specializedSelection).toBeUndefined();expect(removed.ruleSources!.some(s=>s.id.includes('-selection-v1'))).toBe(false);
+
+      at Object.<anonymous> (src/qimen/__tests__/SpecializedSelection.test.ts:68:48)
+
+Test Suites: 1 failed, 1 total
+Tests:       11 failed, 11 total
+Snapshots:   0 total
+Time:        0.716 s
+Ran all test suites matching /src\/qimen\/__tests__\/SpecializedSelection.test.ts/i.

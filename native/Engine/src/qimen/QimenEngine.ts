@@ -34,6 +34,8 @@ import { currentSolarTerm } from './helpers/solarTerms';
 import { getCalendarPillars } from '@engine/calendar/precision';
 import { qimenFacts } from './facts';
 import { qimenQuestionObjects, unresolvedQimenTiming, QIMEN_QUESTION_SOURCE } from './questionObjects';
+import { analyzeQimenSelection } from './specializedSelection';
+import { qimenSelectionSource, QIMEN_SELECTION_SOURCE_IDS } from './selectionSources';
 import { analyzeQimenTiming, QIMEN_TIMING_SOURCE } from './timing';
 
 const QIMEN_METHOD: QimenMethodMeta = {
@@ -157,20 +159,22 @@ export class QimenEngine {
     const facts=qimenFacts(pillars.hourGan+pillars.hourZhi,monthGanZhi,palaces);
     const chart:QimenChart={ ...partialChart, geJu, monthGanZhi, ...facts, ruleSources:[...facts.ruleSources,QIMEN_QUESTION_SOURCE] };
     if(opts.timingRequest){chart.timing=analyzeQimenTiming(chart,opts.timingRequest);chart.ruleSources!.push(QIMEN_TIMING_SOURCE);}
+    if(opts.selectionRequest){chart.specializedSelection=analyzeQimenSelection(chart,opts.selectionRequest);chart.ruleSources!.push(qimenSelectionSource(opts.selectionRequest.focus));}
     return chart;
   }
 
   /** Rebind references to the saved nine palaces, preserving both original pillar identities. */
-  reassessQuestion(original: QimenChart, opts: Pick<SetupOptions, 'question' | 'questionType' | 'questionContext' | 'timingRequest'>): QimenChart {
+  reassessQuestion(original: QimenChart, opts: Pick<SetupOptions, 'question' | 'questionType' | 'questionContext' | 'timingRequest' | 'selectionRequest'>): QimenChart {
     const questionContext = opts.questionContext ?? {};
     const day = original.dayGanZhi!, hour = original.hourGanZhi!;
     const selection = qimenQuestionObjects(opts.questionType,questionContext,original.palaces,{day,hour});
     const dayGan = day[0] as TianGan, hourGan = hour[0] as TianGan;
     const yongShen = {...this.selectYongShen(opts.questionType,original.palaces,hourGan,dayGan,
       computeXunShou(hourGan,hour[1]),computeXunShou(dayGan,day[1])),...selection};
-    const {timing:_oldTiming,...saved}=original;
-    const chart:QimenChart={...saved,question:opts.question,questionType:opts.questionType,questionContext,yongShen,yingQi:unresolvedQimenTiming(selection),ruleSources:original.ruleSources?.filter(s=>s.id!==QIMEN_TIMING_SOURCE.id)};
+    const {timing:_oldTiming,specializedSelection:_oldSelection,...saved}=original;
+    const chart:QimenChart={...saved,question:opts.question,questionType:opts.questionType,questionContext,yongShen,yingQi:unresolvedQimenTiming(selection),ruleSources:original.ruleSources?.filter(s=>s.id!==QIMEN_TIMING_SOURCE.id&&!QIMEN_SELECTION_SOURCE_IDS.includes(s.id))};
     if(opts.timingRequest){chart.timing=analyzeQimenTiming(chart,opts.timingRequest);chart.ruleSources=[...(chart.ruleSources??[]),QIMEN_TIMING_SOURCE];}
+    if(opts.selectionRequest){chart.specializedSelection=analyzeQimenSelection(chart,opts.selectionRequest);chart.ruleSources=[...(chart.ruleSources??[]),qimenSelectionSource(opts.selectionRequest.focus)];}
     return chart;
   }
 

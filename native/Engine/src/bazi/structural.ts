@@ -932,7 +932,7 @@ export function computePatternConditions(
         [{position:i,branch:candidate,element,challengedByPositions:branches.flatMap((b,j)=>j!==i&&clashes(candidate,b)?[j]:[])}]:[];
     }),
   }]:[]);
-  return {assessmentStatus:'conditions-only' as const,outcomeEstablished:false as const,
+  return {assessmentStatus:'conditions-only' as const,outcomeEstablished:false as const,selectedYong:yong,
     stems:stemContexts,hiddenStems:hidden,threats,helperCandidates,rescueCandidates,helperProtectionCandidates,monthClashes,
     sources:PATTERN_CONDITION_SOURCES,
     limitations:['相神表是当前格局默认候选集合，不穷尽全局取相；藏干候选不等同透干，藏干救应效力未裁定',

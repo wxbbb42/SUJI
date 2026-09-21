@@ -119,7 +119,11 @@ enum BaziAdjudicationTrace {
                 else{expected="role-disabled-in-selected-profile"}
                 let sourceIDs = remotePair ? ["ziping-xu-combination-limits-v1","ziping-helper-constraints-v1"] : ["ziping-xu-combination-limits-v1"]
                 guard string(p+"/status")==expected,value(p+"/removalEstablished") == .bool(expected=="role-disabled-in-selected-profile"),
-                      value(p+"/sourceIds") == .array(sourceIDs.map(JSONValue.string)) else{return nil}
+                      value(p+"/sourceIds") == .array(sourceIDs.map(JSONValue.string)),
+                      value(p+"/blockingPositions") == .array(blockers.map{.integer(Int64($0))}),
+                      case let .array(rawCompeting)=value(p+"/competingPositions"),
+                      rawCompeting.allSatisfy({item in competing.contains{item == .integer(Int64($0))}}),rawCompeting.count==competing.count,
+                      competing.allSatisfy({i in rawCompeting.contains(.integer(Int64(i)))}) else{return nil}
                 let pairText=labels[actor]+ag+"合"+labels[target]+tg
                 var finding:String?
                 if expected=="rooted-role-retained"{finding=pairText+"；\(tg)有根，不能据五合认定已合去。"}
@@ -133,6 +137,8 @@ enum BaziAdjudicationTrace {
                 text.append(findings.joined()+"其余救应竞争、藏干效力和全局成败仍需分别裁定。")
                 paths += [r+"/methodVersion",r+"/profileId",r+"/globalResolution",r+"/outcomeEstablished",r+"/sources"]
             }
+            guard let dependencies=BaziRescueDependencies.make(root:root,stems:stems,branches:branches) else{return nil}
+            if !dependencies.text.isEmpty{text.append(dependencies.text);paths += dependencies.paths}
         }
         guard value(s) != nil || value(r) != nil else{return nil}
         return (text.joined(),text.joined(),paths)

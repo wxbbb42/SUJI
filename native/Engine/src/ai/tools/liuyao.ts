@@ -13,7 +13,7 @@ export const liuyaoTools: ToolDefinition[] = [
     type: 'function',
     function: {
       name: 'cast_liuyao',
-      description: '为单一具体事件起六爻卦。返回本变卦、动爻、纳甲、世应、六神和用神候选。本爻/变爻/伏神的context事实各自独立，共用lineContextPolicy的范围和出处；rules提供回头生克、动化合冲、所选七组进退、飞伏与静爻日冲候选。guaRelations按内外对应爻判断六合/六冲及变化；完整变卦纳甲不表示静爻也发动，静卦的transition=static。支冲与回头克分别核对，冲合结构不直接判吉凶。conditions含matched/not-matched/unresolved及原始factPaths；conditionsFrom引用本盘同位共享条件。结构匹配不等于效力，暗动/日破候选和月建标签不等于综合旺衰；不能自动判伏出、吉凶或具体应期。questionContext记录明确所问对象/事件/远近；yongShen的candidates/related/excluded保留身份与理由，selectedCandidateId=null，不自动定用。roleRelations按每个原爻/伏神候选列元忌仇，仅六个实际原爻作角色，静爻身份与明动配对分开；同五行共享位置不共享context，日月候选不套此层，明动链不等于救应成功。questionFromArguments若出现，精确引用同次工具调用的完整question，原卦未改。yingQi只有条件触发支和未决前提，不是日期预测。请先澄清对象后起卦，同一问题补充资料不得重起卦。ruleSources提供版本及出处。',
+      description: 'eventAssessment另按已列来源与充分条件核对元忌传递及所有事件对象；ruleOutcomeEstablished仅规则内方向成立，outcomeEstablished=false，不把负向问题或健康情况直接改写为是/否，事件对象不等于应期对象。为单一具体事件起六爻卦。返回本变卦、动爻、纳甲、世应、六神和用神候选。本爻/变爻/伏神的context事实各自独立，共用lineContextPolicy的范围和出处；rules提供回头生克、动化合冲、所选七组进退、飞伏与静爻日冲候选。guaRelations按内外对应爻判断六合/六冲及变化；完整变卦纳甲不表示静爻也发动，静卦的transition=static。支冲与回头克分别核对，冲合结构不直接判吉凶。conditions含matched/not-matched/unresolved及原始factPaths；conditionsFrom引用本盘同位共享条件。结构匹配不等于效力，暗动/日破候选和月建标签不等于综合旺衰；不能自动判伏出、吉凶或具体应期。questionContext记录明确所问对象/事件/远近；yongShen的candidates/related/excluded保留身份与理由，selectedCandidateId=null，不自动定用。roleRelations按每个原爻/伏神候选列元忌仇，仅六个实际原爻作角色，静爻身份与明动配对分开；同五行共享位置不共享context，日月候选不套此层，明动链不等于救应成功。questionFromArguments若出现，精确引用同次工具调用的完整question，原卦未改。yingQi只有条件触发支和未决前提，不是日期预测。请先澄清对象后起卦，同一问题补充资料不得重起卦。ruleSources提供版本及出处。',
       parameters: {
         type: 'object',
         additionalProperties: false,

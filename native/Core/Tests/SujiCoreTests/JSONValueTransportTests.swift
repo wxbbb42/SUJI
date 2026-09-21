@@ -17,6 +17,15 @@ final class JSONValueTransportTests:XCTestCase {
             try JSONEncoder().encode(["original":original,"packed":value]).write(to:URL(fileURLWithPath:path))
         }
     }
+    func testShortRepeatedEvidencePathsAreSharedWithoutDroppingIdentity() throws {
+        let root: JSONValue = ["objects": .array((0..<100).map {
+            ["index": .integer(Int64($0)), "path": "/lines/0/wuXing"]
+        })]
+        let raw = ReadingVerificationEvidence.encoded(root), packed = JSONValueTransport.encode(raw)
+        XCTAssertLessThan(packed.utf16.count, raw.utf16.count - 300)
+        XCTAssertEqual(JSONValueTransport.expand(try JSONDecoder().decode(JSONValue.self,from:Data(packed.utf8))),root)
+    }
+
     func testMissingForwardCyclicOutOfBoundsUnusedDuplicateAndReservedValuesFailClosed() throws {
         let packed=JSONValueTransport.encode(ReadingVerificationEvidence.encoded(fixture()))
         let original=try XCTUnwrap(try JSONSerialization.jsonObject(with:Data(packed.utf8)) as? [String:Any])

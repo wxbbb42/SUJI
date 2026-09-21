@@ -7,6 +7,7 @@ import type { RuleSource } from '../rules/provenance';
 import type { QuestionContext } from '../divination/questionJudgment';
 import type { qimenQuestionObjects, unresolvedQimenTiming } from './questionObjects';
 import type { QimenTimingRequest, QimenTimingAnalysis } from './timing';
+import type { QimenSelectionRequest, QimenSpecializedSelection } from './specializedSelection';
 
 export type { TianGan, DiZhi, WuXing };
 export type YinYangDun = '阳' | '阴';
@@ -138,6 +139,7 @@ export interface SetupOptions {
   gender?: '男' | '女';
   questionContext?: QuestionContext;
   timingRequest?: QimenTimingRequest;
+  selectionRequest?: QimenSelectionRequest;
 }
 
 /** 完整奇门盘 */
@@ -157,6 +159,7 @@ export interface QimenChart {
   geJu: GeJu[];
   yingQi: YingQiAnalysis;
   timing?: QimenTimingAnalysis;
+  specializedSelection?: QimenSpecializedSelection;
   method: QimenMethodMeta;
   fuTou?: string;
   zhiFuStar?: JiuxingName;

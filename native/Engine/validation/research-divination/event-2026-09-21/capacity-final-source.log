@@ -1,0 +1,12 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand --runTestsByPath src/divination/__tests__/QuestionCapacity.test.ts
+
+PASS src/divination/__tests__/QuestionCapacity.test.ts (10.517 s)
+  ✓ exhaustive question metadata and conditional timing capacity probe (9854 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        10.652 s, estimated 12 s
+Ran all test suites within paths "src/divination/__tests__/QuestionCapacity.test.ts".

@@ -1,0 +1,24 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand --runTestsByPath src/divination/__tests__/EventAssessment.test.ts
+
+PASS src/divination/__tests__/EventAssessment.test.ts
+  ✓ uninjured monthly target establishes the source-profile favorable direction, never empirical certainty (5 ms)
+  ✓ 大过之鼎 no-root target defeats both moving rescue edges and yields adverse profile (2 ms)
+  ✓ two appearances retain both event candidates and do not silently select an empty timing object (1 ms)
+  ✓ a question with missing role cannot gain a verdict through candidate agreement (1 ms)
+  ✓ effective 子忌→卯元→巳用 redirects the incoming attack, with balanced calendar supported by the moving yuan (2 ms)
+  ✓ changing only the calendar makes the same yuan month-broken and cannot retain the favorable transmission (1 ms)
+  ✓ added 申金 moving attack on the yuan blocks the complete rescue chain (4 ms)
+  ✓ uninjured monthly target in the current void is awaiting a condition, never permanently adverse or already obtained (1 ms)
+  ✓ month-break alone never satisfies the no-root adverse condition (2 ms)
+  ✓ monthly effective moving 忌 with no calendar support or moving rescue gives adverse direction (1 ms)
+  ✓ two identical rootless objects can share a source direction while selection and timing remain open (1 ms)
+  ✓ incoming ji also needs usable force; a supported yuan does not repair a broken incoming actor (1 ms)
+  ✓ no-root removal of only the day control condition cannot inherit target-cannot-receive (2 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       13 passed, 13 total
+Snapshots:   0 total
+Time:        0.84 s, estimated 1 s
+Ran all test suites within paths "src/divination/__tests__/EventAssessment.test.ts".

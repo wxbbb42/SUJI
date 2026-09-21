@@ -14,7 +14,7 @@ async function original(name:string) {
 }
 function immutable(value:any,name:string) {
  const result=copy(value);
- for(const key of ['question','questionType','questionContext','yongShen','yingQi','questionRevision',...(name==='cast_liuyao'?['roleRelations','efficacy']:[])])delete result[key];
+ for(const key of ['question','questionType','questionContext','yongShen','yingQi','questionRevision',...(name==='cast_liuyao'?['roleRelations','efficacy','eventAssessment']:[])])delete result[key];
  return result;
 }
 
@@ -47,6 +47,8 @@ describe('existing-chart question reassessment',()=>{
     expect(result.yongShen.candidates.map((x:any)=>x.id)).toEqual(['original-2']);
     expect(result.yingQi.timeScale).toBe('year-month-reference');
     expect(result.roleRelations).not.toEqual(source.roleRelations);
+    expect(result.eventAssessment).not.toEqual(source.eventAssessment);
+    expect(result.eventAssessment.eventObjectPaths).toEqual(['/lines/1']);
    } else {
     expect(result.yongShen.missingContext).toContain('proxy-perspective');
     expect(result.yongShen.candidates.filter((x:any)=>x.role!=='category-reference')).toEqual(source.yongShen.candidates.filter((x:any)=>x.role!=='category-reference'));

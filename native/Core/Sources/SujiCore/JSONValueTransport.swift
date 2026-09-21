@@ -16,9 +16,12 @@ enum JSONValueTransport {
     static func encode(_ raw:String)->String {
         guard let value=try? JSONDecoder().decode(JSONValue.self,from:Data(raw.utf8)),case var .object(root)=value,!reserved(value) else{return raw}
         var counts:[String:Int]=[:]
+        // A reference with the largest supported index is 11 ASCII bytes;
+        // include its separator in the conservative estimate. Short recurring
+        // evidence paths also pay for their dictionary entry when repeated.
         func token(_ v:JSONValue)->String? {
             switch v {case .array,.object,.string:
-                let s=ReadingVerificationEvidence.encoded(v);return s.utf8.count>24 ? s:nil
+                let s=ReadingVerificationEvidence.encoded(v);return s.utf8.count>12 ? s:nil
             default:return nil}
         }
         func collect(_ v:JSONValue){
@@ -28,7 +31,7 @@ enum JSONValueTransport {
         root.keys.sorted().forEach{collect(root[$0]!)}
         var values:[JSONValue]=[],indices:[String:Int]=[:]
         func pack(_ v:JSONValue)->JSONValue {
-            let t=token(v),candidate=t.map{counts[$0,default:0]>1 && (counts[$0,default:0]-1)*$0.utf8.count>counts[$0,default:0]*14+4} ?? false
+            let t=token(v),candidate=t.map{counts[$0,default:0]>1 && (counts[$0,default:0]-1)*$0.utf8.count>counts[$0,default:0]*12+4} ?? false
             if candidate,let t,let i=indices[t]{return .object([marker:.integer(Int64(i))])}
             let packed:JSONValue
             switch v{case let .array(a):packed = .array(a.map(pack));case let .object(o):packed = .object(Dictionary(uniqueKeysWithValues:o.keys.sorted().map{($0,pack(o[$0]!))}));default:packed=v}
