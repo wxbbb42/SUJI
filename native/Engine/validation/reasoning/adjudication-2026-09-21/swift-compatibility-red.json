@@ -1,0 +1,12 @@
+{
+  "run": "https://github.com/wxbbb42/SUJI/actions/runs/35553402323",
+  "commit": "6b15617914b244f648442591ffd6bf04953c4c8d",
+  "error": "the compiler is unable to type-check this expression in reasonable time",
+  "locations": [
+    "LiuyaoEfficacyEvidence.swift:223",
+    "LiuyaoReferenceReading.swift:126"
+  ],
+  "engine": "passed",
+  "swiftCore": "compile failed",
+  "nativeApp": "compile failed"
+}

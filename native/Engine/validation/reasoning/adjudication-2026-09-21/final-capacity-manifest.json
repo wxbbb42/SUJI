@@ -898,5 +898,7 @@
     "path": "final-capacity-evidence.tar.gz",
     "bytes": 4987112,
     "sha256": "a93b511a63606da486cc68a3ed0adc11e6d237ce607a25ccdd855d5a349b7b30"
-  }
+  },
+  "captureSourceCommit": "6b15617914b244f648442591ffd6bf04953c4c8d",
+  "subsequentChange": "Swift compiler compatibility only: split two equivalent array/evidence assembly expressions in LiuyaoEfficacyEvidence.swift and LiuyaoReferenceReading.swift. Archived source hashes identify the captured commit, not later source revisions."
 }

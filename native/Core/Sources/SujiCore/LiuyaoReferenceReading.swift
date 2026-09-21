@@ -123,7 +123,12 @@ public enum LiuyaoReferenceReading {
             let hasEfficacy = ReadingVerificationEvidence.pointer("/efficacy",in:root) != nil
             let hasEfficacySource = sources.contains { ReadingVerificationEvidence.pointer("/id",in:$0) == .string(LiuyaoEfficacyEvidence.sourceID) }
             guard hasEfficacy == hasEfficacySource, !hasEfficacy || (hasRoles && hasTombs && hasFanfu && hasTriads) else { throw Incomplete.record }
-            let accepted=[calendarSource,questionSource,"liuyao-changing-relations-v1","liuyao-flying-hidden-v1","liuyao-day-clash-v1"] + (hasRoles ? [roleSource] : []) + (hasTombs ? [LiuyaoTombExtinctionTrace.sourceID] : []) + (hasFanfu ? [LiuyaoFanfuTrace.sourceID] : []) + (hasTriads ? [LiuyaoTriadTrace.sourceID] : []) + (hasEfficacy ? [LiuyaoEfficacyEvidence.sourceID] : [])
+            var accepted: [String] = [calendarSource, questionSource, "liuyao-changing-relations-v1", "liuyao-flying-hidden-v1", "liuyao-day-clash-v1"]
+            if hasRoles { accepted.append(roleSource) }
+            if hasTombs { accepted.append(LiuyaoTombExtinctionTrace.sourceID) }
+            if hasFanfu { accepted.append(LiuyaoFanfuTrace.sourceID) }
+            if hasTriads { accepted.append(LiuyaoTriadTrace.sourceID) }
+            if hasEfficacy { accepted.append(LiuyaoEfficacyEvidence.sourceID) }
             for i in sources.indices {
                 let p="/ruleSources/\(i)",id=try string(p+"/id")
                 guard accepted.contains(id),sourcePaths[id] == nil,

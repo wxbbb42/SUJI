@@ -220,7 +220,22 @@ enum LiuyaoEfficacyEvidence {
         for (i,row) in objects.enumerated() {
             let position=Int(row.original.split(separator:"/")[1])!+1,layer=row.layer=="changed" ? "化爻" : row.layer=="hidden" ? "伏神" : "本爻"
             let life=(row.tombs+row.extinctions).map{"\($0.scope)：\(stateLabels[$0.decision.status] ?? $0.decision.status)"}.joined(separator:"；")
-            sections.append(try section("efficacy-object-\(i)","第\(position)爻\(layer)：\(stateLabels[row.vitality.status]!)；\(stateLabels[row.availability.status]!)。"+(life.isEmpty ? "" : life+"。"),["/efficacy/objects/\(i)",row.path]+(row.vitality.conditions+row.vitality.blockers+row.availability.conditions+row.tombs.flatMap{$0.decision.conditions+$0.decision.blockers}+row.extinctions.flatMap{$0.decision.conditions+$0.decision.blockers}).flatMap(\.paths)))
+            var evidence: [Evidence] = row.vitality.conditions
+            evidence.append(contentsOf: row.vitality.blockers)
+            evidence.append(contentsOf: row.availability.conditions)
+            for reference in row.tombs {
+                evidence.append(contentsOf: reference.decision.conditions)
+                evidence.append(contentsOf: reference.decision.blockers)
+            }
+            for reference in row.extinctions {
+                evidence.append(contentsOf: reference.decision.conditions)
+                evidence.append(contentsOf: reference.decision.blockers)
+            }
+            var paths: [String] = ["/efficacy/objects/\(i)", row.path]
+            paths.append(contentsOf: evidence.flatMap(\.paths))
+            let text = "第\(position)爻\(layer)：\(stateLabels[row.vitality.status]!)；\(stateLabels[row.availability.status]!)。"
+                + (life.isEmpty ? "" : life + "。")
+            sections.append(try section("efficacy-object-\(i)", text, paths))
         }
         let formationLabels=["formed":"本范围成局前提满足","awaiting-member":"尚缺成员","not-formed":"静支齐备不成动局","competing-text":"动静条文竞争，暂不判定成局","requires-scope-evidence":"非世日月锚点缺效力依据","awaiting-void-break":"待填空破","awaiting-tomb-open":"待开真墓","conditional":"仍有竞争条件","effective-under-selected-rule":"本层效力前提满足"]
         let decodedReader=Reader(root:.object(["efficacy":expanded]))

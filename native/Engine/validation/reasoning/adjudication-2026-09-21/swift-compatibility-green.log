@@ -1,0 +1,87 @@
+Building for debugging...
+[1 / 1]
+[2 / 13] SujiCore
+[5 / 16] SujiCore
+[10 / 19] SujiCore
+[13 / 14] ReadingEvalFixtures-product
+[14 / 17] SujiCoreTests-product
+Build complete! (2.59秒)
+Test Suite 'Selected tests' started at 2026-09-21 10:15:14.167.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 10:15:14.168.
+Test Suite 'CastReceiptStorageTests' started at 2026-09-21 10:15:14.168.
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testComplete48PairedCapacityMatrix]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/CastReceiptStorageTests.swift:56: -[SujiCoreTests.CastReceiptStorageTests testComplete48PairedCapacityMatrix] : Test skipped - Set the existing paired-matrix artifact path for the integration capacity probe
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testComplete48PairedCapacityMatrix]' skipped (0.002 seconds).
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testCompleteStorageRoundtripRenderingAndFactLedger]' started.
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testCompleteStorageRoundtripRenderingAndFactLedger]' passed (3.279 seconds).
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testMalformedStorageFailsClosedAndDoesNotBorrowQuestionFromOtherCalls]' started.
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testMalformedStorageFailsClosedAndDoesNotBorrowQuestionFromOtherCalls]' passed (0.294 seconds).
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testOrchestratorPersistsPackedThenReusesIdenticalBytesWithoutExecution]' started.
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testOrchestratorPersistsPackedThenReusesIdenticalBytesWithoutExecution]' passed (0.673 seconds).
+Test Suite 'CastReceiptStorageTests' passed at 2026-09-21 10:15:18.415.
+	 Executed 4 tests, with 1 test skipped and 0 failures (0 unexpected) in 4.247 (4.247) seconds
+Test Suite 'CastSourceConsumerTests' started at 2026-09-21 10:15:18.415.
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testActualDirectoryPreservesExactSourceFactsFallbackAndVerifier]' started.
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testActualDirectoryPreservesExactSourceFactsFallbackAndVerifier]' passed (2.388 seconds).
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testInlineAndReferencedSourcesCannotCoexist]' started.
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testInlineAndReferencedSourcesCannotCoexist]' passed (0.472 seconds).
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testInvalidDirectoryRejectsReviewBeforeAnyCompletionClosureCanAcceptIt]' started.
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testInvalidDirectoryRejectsReviewBeforeAnyCompletionClosureCanAcceptIt]' passed (0.380 seconds).
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testMissingDamagedAmbiguousStaleAndForwardDirectoriesFailClosed]' started.
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testMissingDamagedAmbiguousStaleAndForwardDirectoriesFailClosed]' passed (3.868 seconds).
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testSavedReceiptRebuildsDirectoryForReplayAndNewRetryCallID]' started.
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testSavedReceiptRebuildsDirectoryForReplayAndNewRetryCallID]' passed (1.015 seconds).
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testVerifierCannotRebindAnOlderDirectoryWhenItRemovesConversationText]' started.
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testVerifierCannotRebindAnOlderDirectoryWhenItRemovesConversationText]' passed (0.507 seconds).
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testWireOnlyPayloadCannotAuthenticateAsASavedReceiptByByteEquality]' started.
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testWireOnlyPayloadCannotAuthenticateAsASavedReceiptByByteEquality]' passed (0.467 seconds).
+Test Suite 'CastSourceConsumerTests' passed at 2026-09-21 10:15:27.512.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 9.096 (9.096) seconds
+Test Suite 'LiuyaoEfficacyTests' started at 2026-09-21 10:15:27.512.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testAllSelectedSourceCoordinatesAreAuthenticated]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testAllSelectedSourceCoordinatesAreAuthenticated]' passed (0.186 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testForgeriesOfDecisionsIndicesPathsObjectsAndSourcesAreRejected]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testForgeriesOfDecisionsIndicesPathsObjectsAndSourcesAreRejected]' passed (1.081 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testJointCandidateAndEfficacyRewriteCannotReplaceTheQuerent]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testJointCandidateAndEfficacyRewriteCannotReplaceTheQuerent]' passed (0.015 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testLiteralClassicalAndCounterconditionFixturesRenderWithOriginalEvidence]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testLiteralClassicalAndCounterconditionFixturesRenderWithOriginalEvidence]' passed (0.600 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testMissingEfficacySymmetryAndLegacyReceipt]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testMissingEfficacySymmetryAndLegacyReceipt]' passed (0.049 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testTupleColumnsDecisionIndicesAndCanonicalPointerMapping]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testTupleColumnsDecisionIndicesAndCanonicalPointerMapping]' passed (0.596 seconds).
+Test Suite 'LiuyaoEfficacyTests' passed at 2026-09-21 10:15:30.040.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 2.528 (2.528) seconds
+Test Suite 'LiuyaoReferenceReadingTests' started at 2026-09-21 10:15:30.040.
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testActualChangedHiddenAndFullProjectionDoNotBorrowEachOthersIdentity]' started.
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testActualChangedHiddenAndFullProjectionDoNotBorrowEachOthersIdentity]' passed (0.421 seconds).
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testActualIntentGateRecognizesTraditionalMixedRequestsAndDiscussion]' started.
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testActualIntentGateRecognizesTraditionalMixedRequestsAndDiscussion]' passed (0.035 seconds).
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testAdvanceFlyingAndCandidateReasonMustMatchTheirObjectScope]' started.
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testAdvanceFlyingAndCandidateReasonMustMatchTheirObjectScope]' passed (0.381 seconds).
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testArchivedFalseProseBecomesSourceBoundCandidatesAndActualTriggerBranches]' started.
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testArchivedFalseProseBecomesSourceBoundCandidatesAndActualTriggerBranches]' passed (0.048 seconds).
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testCandidateAndTimingPointersCannotBorrowChangedOrAnotherOriginalLine]' started.
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testCandidateAndTimingPointersCannotBorrowChangedOrAnotherOriginalLine]' passed (0.432 seconds).
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testCandidateRoleReadingRetainsStaticActorsAndOnlyActualMovingChains]' started.
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testCandidateRoleReadingRetainsStaticActorsAndOnlyActualMovingChains]' passed (0.422 seconds).
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testExclusiveGateAndActualRetryRetainOriginalCast]' started.
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testExclusiveGateAndActualRetryRetainOriginalCast]' passed (1.781 seconds).
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testExplicitSpouseCandidatesRemainValidWithoutInferringFromGender]' started.
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testExplicitSpouseCandidatesRemainValidWithoutInferringFromGender]' passed (0.576 seconds).
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testMissingObjectsDoNotBecomeQuerentVerdictAndSourceFailuresStayUnavailable]' started.
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testMissingObjectsDoNotBecomeQuerentVerdictAndSourceFailuresStayUnavailable]' passed (0.535 seconds).
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testReturningRelationshipsMustAgreeWithTheirOwnOriginalAndChangedObjects]' started.
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testReturningRelationshipsMustAgreeWithTheirOwnOriginalAndChangedObjects]' passed (0.253 seconds).
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testRoleReadingRejectsWrongCandidateActorsChainsSourcesAndMissingGroup]' started.
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testRoleReadingRejectsWrongCandidateActorsChainsSourcesAndMissingGroup]' passed (0.447 seconds).
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testRuleConditionsCannotBorrowAnotherObjectOrContradictTheirFacts]' started.
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testRuleConditionsCannotBorrowAnotherObjectOrContradictTheirFacts]' passed (0.400 seconds).
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testStaticDayClashIsConditionalAndCalendarHiddenObjectsAreNotMovingLines]' started.
+Test Case '-[SujiCoreTests.LiuyaoReferenceReadingTests testStaticDayClashIsConditionalAndCalendarHiddenObjectsAreNotMovingLines]' passed (0.281 seconds).
+Test Suite 'LiuyaoReferenceReadingTests' passed at 2026-09-21 10:15:36.054.
+	 Executed 13 tests, with 0 failures (0 unexpected) in 6.013 (6.014) seconds
+Test Suite 'SujiCoreTests.xctest' passed at 2026-09-21 10:15:36.054.
+	 Executed 30 tests, with 1 test skipped and 0 failures (0 unexpected) in 21.884 (21.886) seconds
+Test Suite 'Selected tests' passed at 2026-09-21 10:15:36.054.
+	 Executed 30 tests, with 1 test skipped and 0 failures (0 unexpected) in 21.884 (21.887) seconds

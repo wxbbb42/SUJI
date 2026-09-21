@@ -42,5 +42,12 @@
     "maximumToolBytes": 55630,
     "maximumStoredBytes": 49063,
     "providerCalls": 0
+  },
+  "swiftCompilerCompatibility": {
+    "passed": 29,
+    "failed": 0,
+    "skipped": 1,
+    "skipReason": "Optional 53-case receipt matrix environment absent; full matrix already passed in archived capture commit",
+    "changes": "Typed arrays and ordered appends only; same rules, evidence order, native text and wire formats"
   }
 }

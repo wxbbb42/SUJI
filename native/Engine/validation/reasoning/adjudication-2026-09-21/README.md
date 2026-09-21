@@ -35,3 +35,7 @@ SUJI_LIUYAO_CAPACITY_MATRIX=/tmp/suji-adjudication-reproduce/divination/fixtures
 ```
 
 `final-capacity-evidence.tar.gz` contains only the final fixtures, actual HTTP requests, expected full facts and reports for the 53 + 11 cases. `final-capacity-manifest.json` records SHA256 for the archive, each archived member and relevant production/probe files. The requests use synthetic fixtures and local placeholder credentials; the probe captures requests without calling DeepSeek. Generated intermediate request copies and stale failed captures are excluded.
+
+## Swift compiler compatibility follow-up
+
+The 53 + 11 archived captures and production-source hashes identify commit `6b15617914b244f648442591ffd6bf04953c4c8d`. Remote CI then exposed type-checker timeouts in two long native Liuyao array/evidence expressions. The follow-up splits them into typed arrays and ordered appends; source membership, evidence order, text and all transport formats remain unchanged. The archive retains the original capture hashes. Relevant native regression tests and CI validate the follow-up separately.
