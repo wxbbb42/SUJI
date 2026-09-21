@@ -1,0 +1,29 @@
+Building for debugging...
+[1 / 1]
+[2 / 14] SujiCore
+[6 / 18] SujiCore
+[7 / 19] SujiCore
+[13 / 24] SujiCore
+[18 / 23] ReadingEvalFixtures-product
+[24 / 29] ReadingEvalFixtures-product
+[24 / 29] SujiCoreTests-product
+[27 / 30] SujiCoreTests-product
+[29 / 33] SujiCoreTests-product
+Build complete! (3.46秒)
+Test Suite 'Selected tests' started at 2026-09-21 09:07:00.571.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 09:07:00.572.
+Test Suite 'LiuyaoEfficacyTests' started at 2026-09-21 09:07:00.572.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testForgeriesOfDecisionsIndicesPathsObjectsAndSourcesAreRejected]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testForgeriesOfDecisionsIndicesPathsObjectsAndSourcesAreRejected]' passed (1.168 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testJointCandidateAndEfficacyRewriteCannotReplaceTheQuerent]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testJointCandidateAndEfficacyRewriteCannotReplaceTheQuerent]' passed (0.013 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testLiteralClassicalAndCounterconditionFixturesRenderWithOriginalEvidence]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testLiteralClassicalAndCounterconditionFixturesRenderWithOriginalEvidence]' passed (0.594 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testMissingEfficacySymmetryAndLegacyReceipt]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testMissingEfficacySymmetryAndLegacyReceipt]' passed (0.054 seconds).
+Test Suite 'LiuyaoEfficacyTests' passed at 2026-09-21 09:07:02.402.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 1.830 (1.830) seconds
+Test Suite 'SujiCoreTests.xctest' passed at 2026-09-21 09:07:02.402.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 1.830 (1.830) seconds
+Test Suite 'Selected tests' passed at 2026-09-21 09:07:02.402.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 1.830 (1.831) seconds

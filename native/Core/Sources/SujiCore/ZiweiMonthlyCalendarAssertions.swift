@@ -24,7 +24,7 @@ enum ZiweiMonthlyCalendarAssertions {
     private static func record(_ output: String, call: ChatToolCall, history: [ChatMessage], outputIndex: Int, allowSharedSource: Bool = true) -> Record? {
         guard call.name == "get_ziwei_timing", ReadingVerificationEvidence.pointer("/withMonthly", in: call.arguments) == .bool(true),
               case let .string(date) = ReadingVerificationEvidence.pointer("/date", in: call.arguments), validDate(date),
-              let root = try? JSONDecoder().decode(JSONValue.self, from: Data(output.utf8)),
+              let root = ToolOutputWire.decode(output,name:call.name,history:Array(history.prefix(outputIndex)),callID:call.id),
               case let .object(object) = root, object["error"] == nil else { return nil }
         func value(_ path: String) -> JSONValue? { ReadingVerificationEvidence.pointer(path, in: root) }
         func number(_ field: String) -> Int? {
@@ -90,13 +90,13 @@ enum ZiweiMonthlyCalendarAssertions {
         guard calls.count == 1, calls[0].1.name == "get_ziwei_timing",
               outputs.count == 1, let outputIndex = outputs.first,
               calls[0].0 < outputIndex, outputIndex < before, let output = history[outputIndex].content,
-              let sourceRoot = try? JSONDecoder().decode(JSONValue.self, from: Data(output.utf8)),
+              let sourceRoot = ToolOutputWire.decode(output,name:calls[0].1.name,history:Array(history.prefix(outputIndex)),callID:id),
               case let .object(sourceObject) = sourceRoot, sourceObject["error"] == nil else { return nil }
         let parent = String(pointer.dropLast("/references".count))
         guard ReadingVerificationEvidence.pointer(parent + "/id", in: sourceRoot) == .string(sourceID),
               ReadingVerificationEvidence.pointer(parent + "/version", in: sourceRoot) == .string("1"),
               case let .array(items) = ReadingVerificationEvidence.pointer(pointer, in: sourceRoot),
-              record(output, call: calls[0].1, history: [], outputIndex: 0, allowSharedSource: false) != nil else { return nil }
+              record(output, call: calls[0].1, history: history, outputIndex: outputIndex, allowSharedSource: false) != nil else { return nil }
         return items
     }
 

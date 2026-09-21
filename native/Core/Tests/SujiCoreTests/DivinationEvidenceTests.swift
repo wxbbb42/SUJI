@@ -86,7 +86,9 @@ final class DivinationEvidenceTests: XCTestCase {
             var entry = ConversationEntry(role:"user",text:"核对原卦与变卦的结构")
             entry.toolReceipts = [receipt]
             let replay = ReadingPrompt.history(from:[entry],currentUserID:entry.id,context:context)
-            XCTAssertEqual(replay.first(where:{$0.role == .tool})?.content,output)
+            let replayOutput = try XCTUnwrap(replay.first(where:{$0.role == .tool})?.content)
+            let toolIndex = try XCTUnwrap(replay.firstIndex(where:{$0.role == .tool}))
+            XCTAssertEqual(ToolOutputWire.decode(replayOutput,name:receipt.name,history:Array(replay.prefix(toolIndex)),callID:receipt.callID),result)
         }
     }
 
@@ -264,14 +266,18 @@ final class DivinationEvidenceTests: XCTestCase {
         let context = try ToolContext(birth:nil,engineRevision:"conditional-rules-test",referenceDate:now,mode:"起卦")
         let orchestrator = ToolOrchestrator(complete:{ _,_ in round += 1; return round == 1 ? .toolCalls(calls) : .text("ready") },execute:{ call in .init(output:outputs[call.id]!,evidence:[call.id]) })
         let delivery = try await orchestrator.run(history:Array(messages.prefix(1)),definitions:definitions,context:context)
-        XCTAssertEqual(delivery.receipts.map(\.output),expectedOutputs)
+        XCTAssertEqual(try delivery.receipts.map { try CastReceiptStorage.expanded($0.output) },try expectedOutputs.map { try JSONDecoder().decode(JSONValue.self,from:Data($0.utf8)) })
+        XCTAssertTrue(delivery.receipts.allSatisfy { $0.output.utf8.count <= 60_000 })
         let modelOutputs=delivery.messages.filter { $0.role == .tool }.map { $0.content! }
         for (call,modelOutput) in zip(calls,modelOutputs) {
+            XCTAssertFalse(modelOutput.contains("\"error\""),modelOutput)
             XCTAssertLessThanOrEqual(modelOutput.utf16.count,32_000)
             XCTAssertLessThanOrEqual(modelOutput.utf16.count,31_000,"Triad receipts retain at least 1,000 units below the unchanged 32,000 provider limit")
-            var projected=try XCTUnwrap(try JSONSerialization.jsonObject(with:Data(modelOutput.utf8)) as? [String:Any])
-            if projected.removeValue(forKey:"questionFromArguments") != nil { projected["question"]=question }
-            let restored=try XCTUnwrap(LiuyaoConditionTransport.expand(JSONDecoder().decode(JSONValue.self,from:JSONSerialization.data(withJSONObject:projected))))
+            let toolIndex = try XCTUnwrap(delivery.messages.firstIndex(where:{$0.role == .tool && $0.toolCallID == call.id}))
+            let decoded = try XCTUnwrap(ToolOutputWire.decode(modelOutput,name:call.name,history:Array(delivery.messages.prefix(toolIndex)),callID:call.id))
+            guard case var .object(projected)=decoded else { return XCTFail("Chart must be an object") }
+            if projected.removeValue(forKey:"questionFromArguments") != nil { projected["question"] = .string(question) }
+            let restored=JSONValue.object(projected)
             let original=try JSONDecoder().decode(JSONValue.self,from:Data(outputs[call.id]!.utf8))
             XCTAssertTrue(restored == original,"Every original chart field must survive projection")
         }
@@ -344,6 +350,11 @@ final class DivinationEvidenceTests: XCTestCase {
         for message in review where message.content?.hasPrefix("显式字段索引") == true {
             let raw = try XCTUnwrap(message.content?.components(separatedBy:"\n").last)
             let envelope = try JSONDecoder().decode(JSONValue.self,from:Data(raw.utf8))
+            if ReadingVerificationEvidence.pointer("/referenceIndexVersion",in:envelope) == 1 {
+                let expanded=try ReferenceFactIndexTestDecoder.restore(raw,history:history)
+                for (key,value) in expanded { XCTAssertNil(restored[key]);restored[key]=value }
+                continue
+            }
             XCTAssertEqual(ReadingVerificationEvidence.pointer("/columns",in:envelope),.array([.string("factKeySuffix"),.string("pointerSuffix"),.string("value")]))
             let groups: [JSONValue]
             if case let .array(inline) = ReadingVerificationEvidence.pointer("/groups",in:envelope) { groups = inline }
@@ -397,14 +408,15 @@ final class DivinationEvidenceTests: XCTestCase {
                     else if case let .string(explicit) = values[1] { path = explicit }
                     else { return XCTFail("Malformed pointer suffix") }
                     for id in ids {
-                        XCTAssertNil(restored[id + ":" + keyPrefix + key])
-                        restored[id + ":" + keyPrefix + key] = .array([.string(pathPrefix + path),values[2]])
+                        let token=ReferenceFactIndexTestDecoder.identity(id,keyPrefix+key,pathPrefix+path)
+                        XCTAssertNil(restored[token])
+                        restored[token] = .array([.string(pathPrefix + path),values[2]])
                     }
                 }
             }
         }
         XCTAssertEqual(restored.count,facts.count)
-        for fact in facts { XCTAssertEqual(restored[fact.toolCallID + ":" + fact.factKey],.array([.string(fact.pointer),fact.value])) }
+        for fact in facts { XCTAssertEqual(restored[ReferenceFactIndexTestDecoder.identity(fact.toolCallID,fact.factKey,fact.pointer)],.array([.string(fact.pointer),fact.value])) }
     }
 
     func testMalformedContextAndProvenanceCannotSmuggleObjectsIntoScalarFacts() {

@@ -26,7 +26,8 @@ final class EngineTests: XCTestCase {
             return a.indices.flatMap { differences(a[$0], b[$0], path: path + "[\($0)]", astronomy: astronomy) }
         }
         // Runtime transcendental functions differ at the last bits; all non-angle fields stay exact.
-        if astronomy, path.hasSuffix("Degrees"), let a = a as? NSNumber, let b = b as? NSNumber,
+        let angularPath = #"^result\.(result\.)?((sevenBodies\.positions|mansions\.(positions|boundaries))\[\d+\]\.(longitudeDegrees|latitudeDegrees|rightAscensionDegrees|declinationDegrees|entryDegrees|widthDegrees|nextRightAscensionDegrees|distanceToBoundaryDegrees)|fourResiduals\.positions\[\d+\]\.(longitudeDegrees|latitudeDegrees)|lifeDegree\.(sunLongitudeDegrees|palaceDegree|longitudeDegrees|rightAscensionDegrees|declinationDegrees|mansion\.(entryDegrees|widthDegrees|distanceToBoundaryDegrees)))$"#
+        if astronomy, path.range(of: angularPath, options: .regularExpression) != nil, let a = a as? NSNumber, let b = b as? NSNumber,
            a.doubleValue.isFinite, b.doubleValue.isFinite, abs(a.doubleValue - b.doubleValue) <= 1e-9 { return [] }
         return (a as? NSObject)?.isEqual(b) == true ? [] : ["\(path): native=\(a) node=\(b)"]
     }

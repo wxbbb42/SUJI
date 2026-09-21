@@ -1,7 +1,7 @@
 import Foundation
 
-/// Lossless wire layouts for repeated object fields and condition IDs, never a saved-chart
-/// schema. Original JSON pointers are interpreted after expanding this layout.
+/// Lossless self-contained layouts for repeated fields and condition IDs.
+/// Used by wire transport and receipt storage; original pointers follow expansion.
 enum LiuyaoConditionTransport {
     private static let key = "ruleConditionRows"
     private static let layoutKey = "liuyaoObjectRows"
@@ -208,3 +208,27 @@ enum LiuyaoConditionTransport {
         root["lines"] = .array(lines);return root
     }
 }
+
+/// Complete saved-chart representation. It reuses the self-contained wire
+/// dictionaries without same-call question references; legacy raw JSON remains valid.
+public enum CastReceiptStorage {
+    private enum Invalid: Error { case record }
+    public static func encode(_ raw:String) throws -> String {
+        guard let value=try? JSONDecoder().decode(JSONValue.self,from:Data(raw.utf8)),case let .object(root)=value else { return raw }
+        guard root["questionFromArguments"] == nil,root["ruleSourcesFromDirectory"] == nil,let shared=JSONValueTransport.expand(value),let layouts=LiuyaoConditionTransport.expand(shared),let expanded=QimenTimingTransport.expand(layouts) else { throw Invalid.record }
+        // Do not rewrite a saved representation on retry.
+        if root["sharedValueRows"] != nil || root["liuyaoObjectRows"] != nil || root["ruleConditionRows"] != nil || root["qimenTimingDateRows"] != nil { return raw }
+        let packed=JSONValueTransport.encode(LiuyaoConditionTransport.encodeLayouts(LiuyaoConditionTransport.encode(QimenTimingTransport.encode(raw))))
+        guard let decoded=try? JSONDecoder().decode(JSONValue.self,from:Data(packed.utf8)),let decodedShared=JSONValueTransport.expand(decoded),let decodedLayouts=LiuyaoConditionTransport.expand(decodedShared),QimenTimingTransport.expand(decodedLayouts)==expanded else { throw Invalid.record }
+        return packed
+    }
+    public static func expanded(_ raw:String) throws -> JSONValue {
+        let value=try JSONDecoder().decode(JSONValue.self,from:Data(raw.utf8))
+        guard case let .object(root)=value,root["questionFromArguments"] == nil,root["ruleSourcesFromDirectory"] == nil,let shared=JSONValueTransport.expand(value),let layouts=LiuyaoConditionTransport.expand(shared),let expanded=QimenTimingTransport.expand(layouts) else { throw Invalid.record }
+        return expanded
+    }
+    public static func expandedData(_ raw:String) throws -> Data { try JSONEncoder().encode(expanded(raw)) }
+}
+
+/// Compatibility name for the first consumer of the shared lossless storage.
+public typealias LiuyaoReceiptStorage = CastReceiptStorage

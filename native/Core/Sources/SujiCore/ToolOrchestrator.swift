@@ -268,6 +268,7 @@ public struct ToolOrchestrator {
                         try Self.validateToolSemantics(call)
                     }
                 }
+                var callBatchIndex=messages.count
                 messages.append(.assistantToolCalls(effectiveCalls))
 
                 for call in effectiveCalls {
@@ -299,7 +300,7 @@ public struct ToolOrchestrator {
                                 callID: call.id,
                                 name: call.name,
                                 arguments: call.arguments,
-                                output: result.output,
+                                output: Self.stableChartTools.contains(call.name) ? try CastReceiptStorage.encode(result.output) : result.output,
                                 evidence: result.evidence,
                                 context: context
                             )
@@ -319,6 +320,10 @@ public struct ToolOrchestrator {
                         if Self.stableChartTools.contains(receipt.name) { cachedCharts[receipt.name] = receipt }
                     }
                     receipts.append(receipt)
+                    if let directory=CastSourceDirectory.message(receipt:receipt,callID:call.id) {
+                        messages.insert(directory,at:callBatchIndex)
+                        callBatchIndex += 1
+                    }
                     let modelOutput = NatalEvidenceProjection.output(receipt.output, name:receipt.name, delivered:Array(messages.dropFirst(history.count)),callID:call.id)
                     guard modelOutput.utf16.count <= 32_000, outputBytes + modelOutput.utf8.count <= Self.outputByteLimit else {
                         try Self.appendFailureOutput(Self.errorOutput(SchemaValidationError(reason: "盘面已保存，但本次模型依据容量不足；不要重新起盘，也不要编造未读取的细节")), callID: call.id, messages: &messages, outputBytes: &outputBytes)

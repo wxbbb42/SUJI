@@ -25,7 +25,19 @@ final class NatalAstronomyUITests: XCTestCase {
         XCTAssertTrue(uncertainty.isHittable)
         XCTAssertTrue(mansion.exists || app.staticTexts["现代星名距星参照"].exists)
         capture(app, "astronomy-modern-mansion")
-        app.buttons["计算口径与来源"].tap()
+        let residual = app.staticTexts["四余 · 平轨道法"]
+        for _ in 0..<8 { if residual.isHittable { break }; app.swipeUp() }
+        XCTAssertTrue(residual.isHittable)
+        capture(app, "astronomy-four-residuals")
+        let houses = app.buttons["十二宫排布"]
+        for _ in 0..<8 { if houses.isHittable { break }; app.swipeUp() }
+        XCTAssertTrue(houses.isHittable)
+        houses.tap()
+        capture(app, "astronomy-life-degree")
+        let sources = app.buttons["计算口径与来源"]
+        for _ in 0..<10 { if sources.isHittable { break }; app.swipeUp() }
+        XCTAssertTrue(sources.isHittable)
+        sources.tap()
         app.swipeUp()
         capture(app, "astronomy-method-and-limits")
     }

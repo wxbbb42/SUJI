@@ -147,6 +147,53 @@ final class ChatClientTests: XCTestCase {
         XCTAssertNil(tools[0]["function"])
     }
 
+    func testBothProviderAPIsPreserveExactSourceDirectoryBeforeItsToolCall() async throws {
+        let fixture=try CastSourceTestFixture.make()
+        for api in [ChatAPIStyle.chatCompletions,.responses] {
+            let captured=LockedBox<URLRequest?>(nil)
+            StubURLProtocol.handler={request in
+                captured.value=request
+                return .json(status:200,body:api == .responses
+                    ? #"{"output":[{"type":"message","content":[{"type":"output_text","text":"已核对"}]}]}"#
+                    : #"{"choices":[{"message":{"role":"assistant","content":"已核对"}}]}"#)
+            }
+            let messages=fixture.prefix+[fixture.tool]
+            _ = try await makeClient(url:"https://example.test/v1",credential:"key",api:api).complete(messages:messages)
+            let body=try requestJSONObject(XCTUnwrap(captured.value))
+            let sent=try XCTUnwrap(body[api == .responses ? "input" : "messages"] as? [[String:Any]])
+            XCTAssertEqual(sent.count,4)
+            XCTAssertEqual(sent[1]["role"] as? String,"system")
+            if api == .responses {
+                let content=try XCTUnwrap(sent[1]["content"] as? [[String:Any]])
+                XCTAssertEqual(content.first?["text"] as? String,fixture.directory.content)
+                XCTAssertEqual(sent[2]["call_id"] as? String,fixture.receipt.callID)
+                XCTAssertEqual(sent[3]["output"] as? String,fixture.tool.content)
+            } else {
+                XCTAssertEqual(sent[1]["content"] as? String,fixture.directory.content)
+                XCTAssertNotNil(sent[2]["tool_calls"])
+                XCTAssertEqual(sent[3]["content"] as? String,fixture.tool.content)
+            }
+        }
+    }
+
+    func testBothProviderAPIsRejectDetachedDirectoryReferenceBeforeNetwork() async throws {
+        let fixture=try CastSourceTestFixture.make()
+        let count=LockedBox(0)
+        StubURLProtocol.handler={_ in
+            count.value += 1
+            return .json(status:200,body:#"{"choices":[{"message":{"content":"unexpected"}}]}"#)
+        }
+        for api in [ChatAPIStyle.chatCompletions,.responses] {
+            let client=makeClient(url:"https://example.test/v1",credential:"key",api:api)
+            let detached=[ChatMessage.assistantToolCalls([fixture.receipt.call]),fixture.tool]
+            do { _ = try await client.complete(messages:detached);XCTFail("Missing directory must fail before complete") }
+            catch { guard case .invalidConfiguration = error as? ChatClientError else {return XCTFail("Unexpected error: \(error)")} }
+            do { for try await _ in client.streamText(messages:detached) {};XCTFail("Missing directory must fail before streaming") }
+            catch { guard case .invalidConfiguration = error as? ChatClientError else {return XCTFail("Unexpected error: \(error)")} }
+        }
+        XCTAssertEqual(count.value,0)
+    }
+
     func testStreamingChatCompletionsEmitsDeltasAcrossArbitraryByteChunks() async throws {
         let streamBytes = Data((
             "data: {\"choices\":[{\"delta\":{\"content\":\"春\"}}]}\r\n\r\n" +

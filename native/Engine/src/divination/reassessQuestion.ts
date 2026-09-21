@@ -1,3 +1,4 @@
+import { expandCastReceipt } from './receiptLayout';
 import { HexagramEngine } from './HexagramEngine';
 import { QimenEngine } from '../qimen/QimenEngine';
 import { CALENDAR_POLICY } from '../calendar/precision';
@@ -8,7 +9,7 @@ import type { QuestionContext } from './questionJudgment';
 // its complete source-bound report. This boundary also rejects incomplete/old
 // shapes; a caller cannot use a derived chart as a fresh original.
 export function reassessQuestion(input:any, engineRevision:string) {
-  const name = input.name, s = input.original;
+  const name = input.name, s = expandCastReceipt(input.original);
   const fail = () => { throw new Error('原盘记录不完整或已失效，请保留原记录并发起新的占问'); };
   if (!['cast_liuyao','setup_qimen'].includes(name) || typeof input.sourceCallID !== 'string' ||
       !/^[^\s\x00-\x1f\x7f]{1,200}$/.test(input.sourceCallID) || !s || typeof s !== 'object' ||
@@ -40,6 +41,6 @@ export function reassessQuestion(input:any, engineRevision:string) {
   const a = input.arguments;
   const opts = {question:a.question,questionType:(a.questionType ?? 'general') as QuestionType,
     questionContext:Object.fromEntries(['subject','event','timeHorizon'].filter(k=>a[k]!==undefined).map(k=>[k,a[k]])) as QuestionContext};
-  const revised = name === 'cast_liuyao' ? new HexagramEngine().reassessQuestion(source,opts) : new QimenEngine().reassessQuestion(source,opts);
+  const revised = name === 'cast_liuyao' ? new HexagramEngine().reassessQuestion(source,opts) : new QimenEngine().reassessQuestion(source,{...opts,timingRequest:a.timingRequest});
   return {...revised,questionRevision:{algorithm:'suji-cast-question-revision-1',sourceToolName:name,sourceCallID:input.sourceCallID}};
 }

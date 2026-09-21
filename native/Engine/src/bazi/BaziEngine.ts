@@ -11,6 +11,7 @@
 import { CALENDAR_POLICY, getCalendarPillars, toSolar, fromSolar, fromBeijingParts, beijingDateParts, currentSolarTermAt, naYinFor, sexagenaryIndex, lunarCalendarWarnings } from '../calendar/precision';
 import type { QiYunInfo } from './types';
 import { getTiaoHouReview } from './tiaohou';
+import { getBirthMonthContext } from './birthMonthContext';
 import { getTrueSolarTimeInfo } from './TrueSolarTime';
 import { assessStemCombination, computeGeJuV2, computeRiZhuStructure, computeShiShenRelations, computeStrengthRelation } from './structural';
 import type {
@@ -454,6 +455,7 @@ export class BaziEngine {
       stems as [TianGan, TianGan, TianGan, TianGan],
       branches as [DiZhi, DiZhi, DiZhi, DiZhi],
       riZhuStructure,
+      getBirthMonthContext(birthDate, monthPillar.branch.name as DiZhi),
     );
     // legacy geJu stub — populated from geJuV2; downstream reads geJuV2 directly
     const geJu: GeJu = {

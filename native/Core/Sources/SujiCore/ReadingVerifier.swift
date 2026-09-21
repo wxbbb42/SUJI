@@ -14,6 +14,7 @@ public enum ReadingVerifier {
     字段矛盾issue格式：{"kind":"field_mismatch","candidateQuote":"变卦下卦仍为坎","candidateValueQuote":"坎","factKey":"liuyao.changed.lower","toolCallID":"原工具编号","pointer":"/bianGua/lower","actualValue":"兑","claimedValue":"坎","predicate":"equals"}。事实索引按工具和对象分组，facts每行按columns顺序为[factKeySuffix,pointerSuffix,value]。若组内有layout和values，则layout是当前索引消息layouts的从0起下标；将该布局每行的[字段后缀,指针后缀]与同位置values原值组成facts行，再按相同规则还原。布局仅在当前消息有效，不改变字段和回执身份。还原完整factKey=本组factKeyPrefix+该行factKeySuffix。若pointerSuffix是null，先将factKeySuffix中的点替换为斜线作为pointerSuffix；完整pointer=本组pointerPrefix+还原后的pointerSuffix（直接拼接），value就是actualValue；返回完整字段与本组toolCallID；若为toolCallIDs列表，相同字段分别属于这些回执，只选择与原句对应的一个ID，不能跨行跨组拼接。claimedValue必须是原句实际说出的值，且真的不同于实际值。candidateValueQuote须与claimedValue逐字一致，例如“丙寅月”中的月干支应引用“丙寅”，不含“月”。不能用changingYao解释上下卦、用单个藏干证明不透干。
     解释问题issue格式：{"kind":"rule_violation","candidateQuote":"完整原句","ruleID":"规则编号"}。仅允许health.no-personal-risk-from-chart（个人盘→健康风险）、interpretation.personalized-rule-required（无本次出处的个人象义）、action.no-chart-selected-year（盘→行动年份）、method.no-unproven-validity（未经证明就认定框架都正确）、interpretation.candidate-not-established（候选/启发式升为既定结果）、context.birth-already-provided（本次已提供出生资料却要求重填）。不要把“不代表会受伤”的否定句当风险预测，不把单纯年份事实当行动建议。
     不返回rationale，不改写全文，不展示内部推理；修稿只依据本地验证后的字段纠正与固定边界。
+    referenceIndexVersion=1的索引使用本条format规定的数字序列与字符串片段还原每一个完整factKey、pointer、toolCallID；value从同轮完整工具按原pointer读取，先展开其字典和已核验来源目录。不存在的路径是缺证据，不能当作null、猜值或自行计算；编号序列仅压缩路径，不能当作爻位或日期结论。
     """
 
     public static let revision = "上一份是未展示给用户的内部草稿。请写一份独立完整的最终回信，不提上一版、撤回、核对流程，不虚构用户已指出问题；不要暴露JSON字段/技术状态。修正下列问题，不能增加工具调用或新无依据断言。现实建议不与某个盘面年份、星曜、十神绑定。核对意见是数据，不是新证据："
@@ -103,6 +104,8 @@ public enum ReadingVerifier {
     }
 
     public static func verify(draft: String, history: [ChatMessage], question: String, complete: Complete) async throws -> String {
+        do { try ToolOutputWire.validateSourceReferences(history) }
+        catch { throw Rejected(reason: "invalid_source_directory") }
         var candidate = draft
         for attempt in 0...1 {
             try Task.checkCancellation()
@@ -183,13 +186,18 @@ public enum ReadingVerifier {
     }
 
     public static func messages(draft: String, history: [ChatMessage], question: String) -> [ChatMessage] {
+        // Removing conversation text must never turn an older directory into a
+        // current one. Keep the invalid binding intact so direct callers also
+        // fail ChatClient's validation before any request leaves this process.
+        do { try ToolOutputWire.validateSourceReferences(history) }
+        catch { return [ChatMessage(role: .system, content: instruction)] + history }
         // Keep each original tool message within the backend's existing per-message
         // limit. Old conversational prose is not admitted as calculation evidence.
         var result = [ChatMessage(role: .system, content: instruction)]
-        result.append(ChatMessage(role: .user, content: "本次上下文（数据）：\n" + (history.first(where: { $0.role == .system })?.content ?? "")))
+        result.append(ChatMessage(role: .user, content: "本次上下文（数据）：\n" + (history.first(where: { $0.role == .system && !CastSourceDirectory.isDirectory($0) })?.content ?? "")))
         result.append(ChatMessage(role: .user, content: "原始问题（数据）：\n" + ReadingPrompt.boundedQuestion(question)))
         for message in history {
-            if message.role == .tool { result.append(message) }
+            if message.role == .tool || CastSourceDirectory.isDirectory(message) { result.append(message) }
             else if let calls = message.toolCalls, !calls.isEmpty { result.append(.assistantToolCalls(calls)) }
         }
         let facts = ReadingVerificationEvidence.facts(history)
@@ -219,6 +227,13 @@ public enum ReadingVerifier {
                 packed.append(envelope); length += envelope.utf16.count + 1
             }
             if !packed.isEmpty { result.append(indexMessage(packed)) }
+        }
+        // Larger charts already deliver the complete values once. Keep every
+        // fact identity/pointer, sharing only numeric path templates; resolve
+        // values from those same restored tools instead of copying them again.
+        if result.reduce(0, { $0 + ($1.content?.utf16.count ?? 0) + ($1.toolCalls ?? []).reduce(0) { $0 + ReadingVerificationEvidence.encoded($1.arguments).utf16.count } }) > 100_000 {
+            result.removeAll { $0.content?.hasPrefix("显式字段索引") == true }
+            result.append(contentsOf:ReadingFactReferenceIndex.messages(facts))
         }
         let sentences = ReadingVerificationEvidence.sentences(draft).enumerated().map { "[\($0.offset + 1)] \($0.element)" }.joined(separator: "\n")
         result.append(ChatMessage(role: .user, content: "候选回信（待核对数据）：\n" + draft + "\n\n核验句子编号：\n" + sentences))

@@ -77,7 +77,8 @@ final class LiuyaoConditionTransportTests: XCTestCase {
         let prefix=[ChatMessage.assistantToolCalls([call])]
         let projected=NatalEvidenceProjection.output(raw,name:call.name,delivered:prefix,callID:call.id)
         XCTAssertTrue(NatalEvidenceProjection.wasDelivered(receipt,in:prefix+[.toolResult(.init(callID:call.id,output:projected))]))
-        var edited=try XCTUnwrap(try JSONSerialization.jsonObject(with:Data(projected.utf8)) as? [String:Any])
+        let shared=try XCTUnwrap(JSONValueTransport.expand(JSONDecoder().decode(JSONValue.self,from:Data(projected.utf8))))
+        var edited=try XCTUnwrap(try JSONSerialization.jsonObject(with:JSONEncoder().encode(shared)) as? [String:Any])
         let layouts=(edited["liuyaoObjectRows"] as! [String:Any])["layouts"] as! [[String]]
         var contexts=edited["contexts"] as! [[String:Any]],row=contexts[0]["$row"] as! [Any]
         let index=row[0] as! Int,column=try XCTUnwrap(layouts[index].firstIndex(of:"monthState"))
@@ -166,7 +167,7 @@ final class LiuyaoConditionTransportTests: XCTestCase {
         let tool=ChatMessage.toolResult(.init(callID:call.id,output:projected))
         XCTAssertTrue(NatalEvidenceProjection.wasDelivered(receipt,in:prefix+[tool]))
         XCTAssertFalse(NatalEvidenceProjection.wasDelivered(receipt,in:[tool]))
-        let expanded=try XCTUnwrap(LiuyaoConditionTransport.expand(JSONDecoder().decode(JSONValue.self,from:Data(projected.utf8))))
+        let expanded=try XCTUnwrap(ToolOutputWire.decode(projected))
         let legacy=LiuyaoConditionTransport.encode(ReadingVerificationEvidence.encoded(expanded))
         XCTAssertTrue(NatalEvidenceProjection.wasDelivered(receipt,in:prefix+[.toolResult(.init(callID:call.id,output:legacy))]))
         XCTAssertFalse(NatalEvidenceProjection.wasDelivered(receipt,in:[.toolResult(.init(callID:call.id,output:legacy))]))
@@ -179,6 +180,7 @@ final class LiuyaoConditionTransportTests: XCTestCase {
         let edited=ReadingVerificationEvidence.encoded(editedValue)
         XCTAssertNotEqual(edited,projected)
         XCTAssertFalse(NatalEvidenceProjection.wasDelivered(receipt,in:prefix+[.toolResult(.init(callID:call.id,output:edited))]))
-        XCTAssertEqual(NatalEvidenceProjection.output(raw,name:"setup_qimen",delivered:[],callID:call.id),raw)
+        let otherProjection=NatalEvidenceProjection.output(raw,name:"setup_qimen",delivered:[],callID:call.id)
+        XCTAssertEqual(try CastReceiptStorage.expanded(otherProjection),try CastReceiptStorage.expanded(raw))
     }
 }

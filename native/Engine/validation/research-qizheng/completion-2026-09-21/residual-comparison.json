@@ -1,0 +1,55 @@
+{
+  "samples": 800,
+  "range": "1901\u20132100, Jan/Apr/Jul/Oct 15 04:00 UTC",
+  "thresholdArcseconds": 1,
+  "timePolicy": "same production TT supplied to independent formulas",
+  "pyswisseph": "2.10.3.2",
+  "swissLibrary": "2.10.03",
+  "pyerfa": "2.0.1.5",
+  "maximumErrors": {
+    "swiss.ascendingNodeDegrees": {
+      "arcseconds": 0.21052241345387301,
+      "instant": "2100-10-15T04:00:00.000Z"
+    },
+    "swiss.descendingNodeDegrees": {
+      "arcseconds": 0.21052241345387301,
+      "instant": "2100-10-15T04:00:00.000Z"
+    },
+    "swiss.apogeeLongitudeDegrees": {
+      "arcseconds": 0.22363101414839548,
+      "instant": "1901-01-15T04:00:00.000Z"
+    },
+    "swiss.apogeeLatitudeDegrees": {
+      "arcseconds": 0.004086873764208576,
+      "instant": "1901-10-15T04:00:00.000Z"
+    },
+    "erfa.ascendingNodeDegrees": {
+      "arcseconds": 1.432454155292362e-09,
+      "instant": "2076-04-15T04:00:00.000Z"
+    },
+    "erfa.descendingNodeDegrees": {
+      "arcseconds": 1.432454155292362e-09,
+      "instant": "2076-04-15T04:00:00.000Z"
+    },
+    "erfa.apogeeLongitudeDegrees": {
+      "arcseconds": 4.133653419557959e-07,
+      "instant": "2087-04-15T04:00:00.000Z"
+    },
+    "erfa.apogeeLatitudeDegrees": {
+      "arcseconds": 3.724380803760141e-08,
+      "instant": "1916-10-15T04:00:00.000Z"
+    }
+  },
+  "failures": [],
+  "limitations": [
+    "Quarterly samples are not a continuous error bound.",
+    "Mean elements are not true/osculating node or apogee.",
+    "Purple Qi is a symbolic uniform convention and has no physical Swiss reference."
+  ],
+  "sha256": {
+    "sample-residuals.mjs": "623a2ea7ba6063ee88e14c1d574544671c08d7b1551d10389629006631403aff",
+    "compare-residuals.py": "73d5abea1ccf313b6e23d81dfe64616a30b4a2e8070aa3b280a537f71d81b289",
+    "residual-candidate.json": "a417248513000f792e8a4232a6b4beb6436f7fc9c7090cd182115bcfb69cb060",
+    "residual-reference.json": "aa381d6dae7e78b7ce271e3731e66c88777544729e0d4830dfe1098ac232c826"
+  }
+}

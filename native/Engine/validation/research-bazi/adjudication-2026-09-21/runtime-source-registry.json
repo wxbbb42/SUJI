@@ -1,0 +1,220 @@
+[
+  {
+    "id": "ziping-xu-renyuan-v1",
+    "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+    "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+    "locator": "三、论阴阳生死；十二月令人元司令分野表，第70–72行",
+    "quote": "申月 立秋后戊己土十日，壬水三日，庚金十七日",
+    "caution": "按此表人元司令日数，虽未可执着",
+    "editionStatus": "electronic-transcription-not-print-collated"
+  },
+  {
+    "id": "ditianshui-ren-duxiang-v1",
+    "document": "docs/mingli/source-texts/bazi/ditianshui-chanwei/tongshen-10-xingxiang-bage.md",
+    "sha256": "141085eeb8f5faba79a29dd1a08c8130fbdea9d2d6b81cea234c188dc6fe8183",
+    "locator": "通神论·形象，独象任氏注，第86–116行",
+    "quote": "木日，或方或局全，不杂金为曲直；火日，或方或局全，不杂水为炎上；土日，四库皆全，不杂木为稼穑；金日，或方或局全，不杂火为从革；水日，或方或局全，不杂土为润下。",
+    "additionalQuotes": [
+      "化者，食伤也，局中化神昌旺",
+      "必要得时当令，遇旺逢生",
+      "庚申 乙酉 庚戌 庚辰",
+      "壬子 辛亥 癸丑 壬子"
+    ],
+    "editionStatus": "electronic-transcription-not-print-collated"
+  },
+  {
+    "id": "ziping-xu-special-v1",
+    "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/43-zage.md",
+    "sha256": "a7998453fbfd09d9e1e32e5b4b36b56ae79e81a408348a64d5ae1995dd961e56",
+    "locator": "四十七、论杂格",
+    "quote": "亦有方局不全者，只要气势专一，从其旺势",
+    "additionalQuotes": [
+      "运以食伤泄其秀气为最美，原局有食伤则财运亦美"
+    ],
+    "editionStatus": "electronic-transcription-not-print-collated"
+  },
+  {
+    "id": "ziping-xu-earth-command-v1",
+    "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+    "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+    "locator": "三、论阴阳生死，第58、70–72行",
+    "quote": "土旺四季，辰戌丑未各十八日",
+    "additionalQuotes": [
+      "地支所藏之干，本静以待用，透出干头，则显其用矣",
+      "按此表人元司令日数，虽未可执着"
+    ],
+    "editionStatus": "electronic-transcription-not-print-collated"
+  },
+  {
+    "id": "ziping-helper-constraints-v1",
+    "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/00-abstract-chapters.md",
+    "sha256": "5b930c11310899b50703696870d9024ba4e00fca6ad177e57d6fa5e3f8a4964f",
+    "locator": "十五、论相神紧要；十二、论格局高低",
+    "quote": "甲用酉官，透丁逢癸印，制伤以护官矣，而又逢戊，癸合戊而不制丁，癸水之相伤矣",
+    "additionalQuotes": [
+      "乙用酉煞，年丁月癸，时上逢戊，则合去癸印以使丁得制煞者，全赖戊之相",
+      "丁用酉财，透癸逢己，食制煞以生财矣，而又透甲，己合甲而不制癸",
+      "若丁火通根，则合之不去",
+      "壬水通根申亥为有力",
+      "庚用午官，而子冲隔丑，则子丑合而解冲",
+      "见寅卯，则水生木，木生午火以解冲，则寅卯为相也"
+    ],
+    "editionStatus": "electronic-transcription-not-print-collated"
+  },
+  {
+    "id": "ziping-position-season-v1",
+    "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+    "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+    "locator": "论十干合而不合；论十干得时不旺失时不弱",
+    "quote": "或虽遥隔而仍作合论，各视其格局配合而已",
+    "additionalQuotes": [
+      "序有先后，不作妒合争合论也",
+      "虽不当令，其用固未尝消失也"
+    ],
+    "editionStatus": "electronic-transcription-not-print-collated"
+  },
+  {
+    "id": "ziping-xu-combination-limits-v1",
+    "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+    "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+    "locator": "四、论十干配合性情；五、论十干合而不合",
+    "quote": "如地支通根，则虽合而不失其用，喜忌依然存在",
+    "additionalQuotes": [
+      "甲己中间，以庚间隔之，则甲岂能越克我之庚而合己",
+      "日元之干相合，除合而化，变更性质之外，皆不以合论",
+      "相合则煞不攻身，非谓去之也",
+      "地支所藏之干，本静以待用，透出干头，则显其用矣"
+    ],
+    "editionStatus": "electronic-transcription-not-print-collated"
+  },
+  {
+    "id": "ziping-xu-hidden-action-cases-v1",
+    "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/35-yinshou.md",
+    "sha256": "d87e8f7df9f15175b26a75e9acee2a1b6e50b2df1b4ef1b5f189c38d8aa7a63c",
+    "locator": "三十五、论印绶，朱尚书与庚戌戊子甲戌乙亥两例",
+    "quote": "辰未中皆藏乙木财星，暗损印绶，病重而得药",
+    "additionalQuotes": [
+      "戌中更藏丁火食神，非子印所能夺",
+      "盖印未曾合去也"
+    ],
+    "editionStatus": "electronic-transcription-not-print-collated"
+  },
+  {
+    "id": "liuyao-efficacy-zengshan-v1",
+    "version": "1",
+    "title": "增删卜易选定条文：取用与有条件效力",
+    "editionStatus": "electronic-transcription-not-print-collated",
+    "scope": "明确所问的唯一对象、日月局部条件、无根与无竞争生扶、逐对象墓绝、限定三合范围；结论仅表示所选条文前提满足",
+    "references": [
+      {
+        "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy09.html",
+        "locator": "用神章；明确人事角色",
+        "sha256": "f3ea262ad33a465dc5e1213c1474bcd5e4998c9e10545a60c6a7ebae0ef2a5ea"
+      },
+      {
+        "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy11.html",
+        "locator": "元神忌神衰旺；大过之鼎无根反例",
+        "sha256": "74c82f8be5c04265049119a9383c6bfd1556ad117c9818fc8828feae684873cb",
+        "quote": "值月破而被克，虽有生扶，奈何生之不起"
+      },
+      {
+        "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy18.html",
+        "locator": "月将章；生克相敌、增克制及旬内仍空",
+        "sha256": "4f74faf658faf94f8cd8bda42691a86a77e0aca4b48bcd86af738d6a16349018",
+        "quote": "月克日生，遇帮扶而愈旺，月生日克，逢克制而亦衰。"
+      },
+      {
+        "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy22.html",
+        "locator": "三合章；四范围、动静竞争、空破墓待成",
+        "sha256": "af41ab6a4f2c336c4f6452acd2cd1e4762bf187bd4d14c7f42c1fe207190b739",
+        "quote": "三合局中，有一值空破者，待填实之日月成之。有一爻入墓者，待冲开之日成之。"
+      },
+      {
+        "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy31.html",
+        "locator": "生旺墓绝；完整火行及土巳例外",
+        "sha256": "7ed19e9471c398c386a04fb195a1a752469a5e5d307b5eeaca490fcb727affa6",
+        "quote": "土爻虽绝于巳，必须休囚无气，又逢巳者，方谓之绝。"
+      },
+      {
+        "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy38.html",
+        "locator": "随鬼入墓；旺者非真、墓破易出及小过之艮日月官局",
+        "sha256": "dda2b500d22d6d43979dae3339ce90cb21289de61aef82a0f8cb17ca11205da5",
+        "quote": "墓神被日月动爻冲破者，亦不为真。"
+      },
+      {
+        "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy40.html",
+        "locator": "两现章；用空破的应期反例与多占前提",
+        "sha256": "e74764848deb4fd0ffe5e3bd16d696701dd5b06de034a085d74f24a35f0f2c2f"
+      }
+    ],
+    "limitations": [
+      "劝学电子本目录自述底本为民国三十年锦章书局；未取得影印校勘，现代乾按与居士按不作原典",
+      "唯一候选定用以明确关系与事件、既有类别映射为前提；两现不按空破动静固定排序，月日与伏神不混选",
+      "日月支持只作局部证据；有动克、合、回头克、未决日冲等竞争即不据此宣称综合旺相，未使用积分",
+      "墓源被冲与目标旺而待开分开；结构墓绝不等于真墓真绝，动爻冲墓须另审作用者",
+      "三合两动一静保留同章竞争；非世的日月单动锚点尚无选定效力依据；不混入易林缺中字半局法",
+      "决定的是规则当前适用/受阻/待条件，非现实吉凶、医疗结论、完整合化或公历应期；复杂救应链仍具体列为竞争条件"
+    ]
+  },
+  {
+    "id": "qimen-xdyy-timing-v1",
+    "version": "1",
+    "title": "奇门遁甲现代应用技术：对象条件优先应期",
+    "editionStatus": "electronic-transcription-not-print-collated",
+    "scope": "同一选定对象：宫空先于马，马先于墓刑冲合；显式时间单位及有界条件候选",
+    "references": [
+      {
+        "url": "https://www.aqioo.com/qmdjxdyyjs/167816.html",
+        "locator": "第03章 第二节中五寄宫",
+        "sha256": "06c5d8f574ccdfcb8e9df3b8452d8c65829a225e056a3cac81d618d437ea500b",
+        "quote": "需要说明的是奇门遁甲的中五宫在一般的情况下均寄在坤二宫，也就是说中五宫中的九星天禽星和所在的三奇六仪在运转时随坤二宫的天芮星及其三奇六仪运转"
+      },
+      {
+        "url": "https://www.aqioo.com/qmdjxdyyjs/167810.html",
+        "locator": "第06章 第一步及第三步1至6",
+        "sha256": "dab3897adc647067952b8813d4979ebe3db27ed37282a0ebc47753e9b0543ad5",
+        "quote": "如果用神宫逢空亡，无论用神是否临马星、刑冲、生旺、墓绝、庚格、值使门均用冲空、填空为应期。"
+      },
+      {
+        "url": "https://www.aqioo.com/qmdjxdyyjs/167810.html",
+        "locator": "第06章 第三步3：开门入墓直接例证",
+        "sha256": "dab3897adc647067952b8813d4979ebe3db27ed37282a0ebc47753e9b0543ad5",
+        "quote": "如开门为用神，落在艮八宫入墓，戊子日预测，到丑年、月、日、时则为应期或冲丑的未年、月、日、时为应期。"
+      },
+      {
+        "url": "https://www.aqioo.com/qmdjxdyyjs/167817.html",
+        "locator": "第02章 十干长生墓支、十二地支合冲及宫位",
+        "sha256": "6caea61e307f4ced210a012c77d391f23fb01ad8172eae71c93db4ce708e8697"
+      },
+      {
+        "url": "https://www.aqioo.com/qmdjxdyyjs/167813.html",
+        "locator": "第04章 13、六仪击刑六个落宫；与第06章甲午辛例互校",
+        "sha256": "3dd0817ce52fb78ed8ee587a1ea8b5d731ec58fb9dbc91e8a23aca405cf5fa31"
+      },
+      {
+        "url": "https://www.aqioo.com/qmdjxdyyjs/167802.html",
+        "locator": "第08章 工作就业；开门为工作，日干为求测者",
+        "sha256": "cd2fc6c0238e425c2955d5d85ec0cb8ebecf01337ace2eb69a4f46d6ba1e4d01"
+      },
+      {
+        "url": "https://www.aqioo.com/qmdjxdyyjs/167807.html",
+        "locator": "经营求财：生门为利润利息；不等于一切财务事件",
+        "sha256": "e66dc4605a2ea265dc52824df511ae60aae21209d9910c96cb88aa2e70c60c40"
+      },
+      {
+        "url": "https://www.aqioo.com/qmdjxdyyjs/167808.html",
+        "locator": "恋爱婚姻：六合为婚姻用神；不据性别代取伴侣",
+        "sha256": "39f14beac1bde7677c8a55e87e9113508dcc5f6bc3ee7f4ed659ba847e58a574"
+      }
+    ],
+    "limitations": [
+      "网页电子转录未经纸本校勘，不归作已核作者原版",
+      "年月日时必须明确；远近和宫数均不自动转换成期限",
+      "宫空采用全宫触发支，仍公开具体空支及partial/full；不是本宫每一支均为旬空",
+      "墓刑冲合同层未规定唯一顺序，保留竞争分支；不混入转载刑墓优先法",
+      "无空马墓刑冲合时，事件生旺衰墓分支仍未裁决；补充宫支参考不自动生成日期",
+      "不推断事件成功、失败或健康预后；日期仅为所选对象的条件候选",
+      "历法边界、搜索上限、包含当前区间与排序属于显式产品约定"
+    ]
+  }
+]

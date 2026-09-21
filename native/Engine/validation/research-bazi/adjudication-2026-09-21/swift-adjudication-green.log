@@ -1,0 +1,34 @@
+Building for debugging...
+[1 / 1]
+[2 / 13] SujiCore
+[5 / 16] SujiCore
+[15 / 26] SujiCore
+[21 / 32] SujiCore
+[23 / 34] ReadingEvalFixtures-product
+[24 / 34] SujiCore
+[26 / 34] SujiCore
+[29 / 34] ReadingEvalFixtures-product
+[30 / 35] SujiCoreTests-product
+[40 / 45] SujiCoreTests-product
+[45 / 49] SujiCoreTests-product
+[48 / 48] ReadingEvalFixtures-product
+Build complete! (8.27秒)
+Test Suite 'Selected tests' started at 2026-09-21 09:13:32.968.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 09:13:32.969.
+Test Suite 'BaziAdjudicationTraceTests' started at 2026-09-21 09:13:32.969.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testActualEarthFormationExplainsSelectedSubsetWithCivilCommander]' started.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testActualEarthFormationExplainsSelectedSubsetWithCivilCommander]' passed (0.152 seconds).
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testActualRootedCombinationNamesTheRetainedRole]' started.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testActualRootedCombinationNamesTheRetainedRole]' passed (0.078 seconds).
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testFrameworkFullAndBriefClaimsKeepBoundLocalFindings]' started.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testFrameworkFullAndBriefClaimsKeepBoundLocalFindings]' passed (0.089 seconds).
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testRejectsMismatchedBirthMonthCommanderAndSources]' started.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testRejectsMismatchedBirthMonthCommanderAndSources]' passed (0.079 seconds).
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testRejectsRootRemovalAndWrongCombinationObject]' started.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testRejectsRootRemovalAndWrongCombinationObject]' passed (0.082 seconds).
+Test Suite 'BaziAdjudicationTraceTests' passed at 2026-09-21 09:13:33.449.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.479 (0.480) seconds
+Test Suite 'SujiCoreTests.xctest' passed at 2026-09-21 09:13:33.449.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.479 (0.480) seconds
+Test Suite 'Selected tests' passed at 2026-09-21 09:13:33.449.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.479 (0.481) seconds

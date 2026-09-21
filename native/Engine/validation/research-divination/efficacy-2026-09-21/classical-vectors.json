@@ -1,0 +1,146 @@
+{
+  "calendarPolicy": "Traditional source coordinates only. Modern test timestamp is a scaffold, not a historical conversion.",
+  "validationScope": "Source-selected rule consistency; classical anecdotes are not empirical outcome validation.",
+  "cases": [
+    {
+      "id": "zsgy-no-root",
+      "sourceId": "quanxue-11",
+      "monthBranch": "巳",
+      "dayGanZhi": "乙未",
+      "lineValues": [
+        8,
+        7,
+        7,
+        7,
+        9,
+        6
+      ],
+      "questionType": "health",
+      "subject": "self",
+      "expect": {
+        "selectedCandidate": "original-4",
+        "calendarStrength": "rootless-condition",
+        "selectedEffect": "blocked"
+      },
+      "counterexampleTo": "yuan and ji moving automatically imply rescue"
+    },
+    {
+      "id": "zsgy-heng-strong-tomb",
+      "sourceId": "quanxue-38",
+      "monthBranch": "申",
+      "dayGanZhi": "己丑",
+      "lineValues": [
+        8,
+        7,
+        7,
+        7,
+        8,
+        8
+      ],
+      "subject": "self",
+      "expect": {
+        "objectPath": "/lines/2",
+        "dayTomb": "nonbinding-strength",
+        "selectedEffect": "awaiting-condition"
+      },
+      "counterexampleTo": "every tomb is terminal or completely irrelevant when strong"
+    },
+    {
+      "id": "zsgy-gu-sun-open",
+      "sourceId": "quanxue-38",
+      "monthBranch": "未",
+      "dayGanZhi": "戊辰",
+      "lineValues": [
+        6,
+        7,
+        9,
+        8,
+        8,
+        7
+      ],
+      "subject": "self",
+      "expect": {
+        "objectPath": "/lines/2",
+        "movingTomb": "opened",
+        "changedTomb": "opened"
+      },
+      "counterexampleTo": "target month support alone opens tomb; actual tomb-source 丑 is month-broken"
+    },
+    {
+      "id": "zsgy-li-kun",
+      "sourceId": "quanxue-22",
+      "monthBranch": "卯",
+      "dayGanZhi": "丁巳",
+      "lineValues": [
+        9,
+        8,
+        9,
+        9,
+        8,
+        9
+      ],
+      "expect": {
+        "innerFormation": "formed",
+        "outerFormation": "formed",
+        "outerEfficacy": "awaiting-void-break"
+      },
+      "note": "Actual changed 丑 is void. Source nevertheless discusses 金局 as image, so formation and immediate efficacy are distinct."
+    },
+    {
+      "id": "zsgy-qian-xu",
+      "sourceId": "quanxue-22",
+      "monthBranch": "巳",
+      "dayGanZhi": "丁酉",
+      "lineValues": [
+        7,
+        7,
+        7,
+        9,
+        7,
+        9
+      ],
+      "expect": {
+        "visibleFireFormation": "competing-text"
+      },
+      "note": "Visible static 寅 exists, but source says 内少寅字 and waits for 寅日; supports activity-sensitive membership yet does not erase the explicit 两动一静亦成 sentence."
+    },
+    {
+      "id": "zsgy-xiaoguo-gen",
+      "sourceId": "quanxue-38",
+      "monthBranch": "戌",
+      "dayGanZhi": "甲寅",
+      "lineValues": [
+        8,
+        8,
+        7,
+        9,
+        8,
+        6
+      ],
+      "expect": {
+        "calendarShiFireFormation": "formed"
+      },
+      "note": "Direct 日月世 example. Structural month/moving/changed tombs are not automatically declared true tombs."
+    },
+    {
+      "id": "zsgy-xiaochu-selection",
+      "sourceId": "quanxue-40",
+      "monthBranch": "未",
+      "dayGanZhi": "庚子",
+      "lineValues": [
+        7,
+        7,
+        7,
+        8,
+        7,
+        7
+      ],
+      "questionType": "wealth",
+      "subject": "self",
+      "expect": {
+        "selection": "multiple-candidates"
+      },
+      "note": "Original uses 未 wealth on 应 for obtainable direction, then reports 辰 out-of-void timing; no universal empty-first yongshen ranking."
+    }
+  ]
+}

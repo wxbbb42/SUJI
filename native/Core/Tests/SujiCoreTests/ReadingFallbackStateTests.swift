@@ -73,6 +73,46 @@ final class ReadingFallbackStateTests: XCTestCase {
         XCTAssertFalse(reply.contains("没有可用的计算结果"))
     }
 
+    func testLongQuestionWireReferencePreservesCastFactsInFallback() throws {
+        let question=String(repeating:"补充已发生的背景与本次占问。",count:40)
+        let bodies:[(String,String)] = [
+            ("cast_liuyao",cast.content!),
+            ("setup_qimen",#"{"yinYangDun":"阳","juNumber":3,"yuan":"上","jieqi":"大寒","zhiFuStar":"天任","zhiFuPalaceId":3,"zhiShiMen":"生门","zhiShiPalaceId":3}"#)
+        ]
+        for (name,body) in bodies {
+            var fields=try XCTUnwrap(JSONSerialization.jsonObject(with:Data(body.utf8)) as? [String:Any])
+            fields["question"]=question
+            let raw=String(decoding:try JSONSerialization.data(withJSONObject:fields,options:.sortedKeys),as:UTF8.self)
+            let call=ChatToolCall(id:"long-question",name:name,arguments:["question":.string(question)])
+            let delivered=[ChatMessage.assistantToolCalls([call])]
+            let projected=NatalEvidenceProjection.output(raw,name:name,delivered:delivered,callID:call.id)
+            XCTAssertTrue(projected.contains("questionFromArguments"))
+            // Saved receipts must still reject wire-only question references.
+            XCTAssertThrowsError(try CastReceiptStorage.expanded(projected))
+            let expected=ReadingFallback.reply(history:delivered+[.toolResult(.init(callID:call.id,output:raw))])
+            let actual=ReadingFallback.reply(history:delivered+[.toolResult(.init(callID:call.id,output:projected))])
+            XCTAssertEqual(actual,expected,name)
+            XCTAssertTrue(actual.contains("重试会沿用原盘"),name)
+        }
+    }
+
+    func testSharedValueWireLayoutPreservesFallbackFacts() throws {
+        let question=String(repeating:"补充已发生的背景与本次占问。",count:40)
+        var fields=try XCTUnwrap(JSONSerialization.jsonObject(with:Data(cast.content!.utf8)) as? [String:Any])
+        fields["question"]=question
+        fields["repeatedEvidence"]=Array(repeating:fields["benGua"]!,count:20)
+        let raw=String(decoding:try JSONSerialization.data(withJSONObject:fields,options:.sortedKeys),as:UTF8.self)
+        let call=ChatToolCall(id:"shared-question",name:"cast_liuyao",arguments:["question":.string(question)])
+        let delivered=[ChatMessage.assistantToolCalls([call])]
+        let projected=NatalEvidenceProjection.output(raw,name:call.name,delivered:delivered,callID:call.id)
+        let shared=JSONValueTransport.encode(projected)
+        XCTAssertTrue(shared.contains("sharedValueRows"))
+        let expected=ReadingFallback.reply(history:delivered+[.toolResult(.init(callID:call.id,output:raw))])
+        let actual=ReadingFallback.reply(history:delivered+[.toolResult(.init(callID:call.id,output:shared))])
+        XCTAssertEqual(actual,expected)
+        XCTAssertTrue(actual.contains("坎为水"))
+    }
+
     func testSuccessfulCalendarRetainsDataWithoutCallingItACast() {
         let calendar = ChatMessage.toolResult(.init(callID: "calendar", output: #"{"yearGanZhi":"癸卯","monthGanZhi":"乙丑","dayGanZhi":"戊戌"}"#))
         let reply = ReadingFallback.reply(history: [calendar, failed])

@@ -1,0 +1,26 @@
+Building for debugging...
+[2 / 16] SujiCore
+[5 / 19] SujiCore
+[16 / 23] SujiCore-product
+[19 / 26] ReadingEvalFixtures-product
+[19 / 26] SujiCoreTests-product
+[29 / 37] SujiCoreTests-product
+[31 / 37] SujiCoreTests-product
+[35 / 38] SujiCoreTests-product
+[37 / 41] SujiCoreTests-product
+Build complete! (4.08秒)
+Test Suite 'Selected tests' started at 2026-09-21 09:04:55.484.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 09:04:55.484.
+Test Suite 'LiuyaoEfficacyTests' started at 2026-09-21 09:04:55.484.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testForgeriesOfDecisionsIndicesPathsObjectsAndSourcesAreRejected]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testForgeriesOfDecisionsIndicesPathsObjectsAndSourcesAreRejected]' passed (1.143 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testLiteralClassicalAndCounterconditionFixturesRenderWithOriginalEvidence]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testLiteralClassicalAndCounterconditionFixturesRenderWithOriginalEvidence]' passed (0.597 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testMissingEfficacySymmetryAndLegacyReceipt]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testMissingEfficacySymmetryAndLegacyReceipt]' passed (0.060 seconds).
+Test Suite 'LiuyaoEfficacyTests' passed at 2026-09-21 09:04:57.284.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 1.800 (1.800) seconds
+Test Suite 'SujiCoreTests.xctest' passed at 2026-09-21 09:04:57.284.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 1.800 (1.800) seconds
+Test Suite 'Selected tests' passed at 2026-09-21 09:04:57.284.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 1.800 (1.801) seconds

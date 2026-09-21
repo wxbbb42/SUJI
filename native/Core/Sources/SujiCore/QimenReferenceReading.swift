@@ -15,8 +15,8 @@ public enum QimenReferenceReading {
     public static let protocolVersion = "suji-qimen-reference-reading-1"
     public static func unavailableReply(receipts: [ToolReceipt]) -> String {
         let hasRecord = receipts.contains { receipt in
-            guard receipt.name == "setup_qimen", let data = receipt.output.data(using:.utf8),
-                  let root = try? JSONDecoder().decode(JSONValue.self,from:data),
+            guard receipt.name == "setup_qimen", receipt.output.utf8.count <= 60_000,
+                  let root = try? CastReceiptStorage.expanded(receipt.output),
                   case let .object(object) = root, object["error"] == nil else { return false }
             return true
         }
@@ -42,7 +42,7 @@ public enum QimenReferenceReading {
             guard receipt.name == "setup_qimen", receipt.context == context,
                   !receipt.callID.isEmpty, receipt.callID.utf8.count <= 200,
                   receipt.output.utf8.count <= 60_000,
-                  let root = try? JSONDecoder().decode(JSONValue.self,from:Data(receipt.output.utf8)),
+                  let root = try? CastReceiptStorage.expanded(receipt.output),
                   case let .object(object) = root, object["error"] == nil else { return nil }
             roots.append(root)
         }
@@ -226,13 +226,19 @@ public enum QimenReferenceReading {
             }
             guard try string("/yongShen/selectionStatus") == (missing.isEmpty ? "candidates-only" : "requires-clarification") else { throw Incomplete.record }
             let pending = missing.isEmpty ? "" : "本次计算记录尚缺：" + missing.joined(separator:"、") + "。"
-            try append("reference-policy","日干、时干和事项候选采用产品参考约定，各有自己的盘层位置；同干也不合并身份。\(pending)本次尚未定用，须有明确取用规则及适用条件，不能通过自行选宫得出结论。",
+            try append("reference-policy","日干、时干和事项候选采用产品参考约定，各有自己的盘层位置；同干也不合并身份。\(pending)这些基础候选尚未整体定用；若下方提供条件应期，仅按其明确选定的对象与适用规则核对，不能通过自行选宫得出结论。",
                        ["/yongShen/selectionStatus","/yongShen/selectionEstablished","/yongShen/selectedCandidateId","/yongShen/missingContext","/yongShen/sourceId"] + provenance)
             guard try string("/yingQi/assessmentStatus") == "unresolved", try value("/yingQi/outcomeEstablished") == .bool(false),
                   try string("/yingQi/timeScale") == "unresolved", try string("/yingQi/sourceId") == questionSource,
                   try array("/yingQi/triggers").isEmpty, try array("/yingQi/dates").isEmpty else { throw Incomplete.record }
-            try append("timing","事件成败和应期仍未确定，不能确定日期。本次没有可用的应期触发或日期，不按宫数推天数，也不套用六爻应期。",
-                       ["/yingQi/assessmentStatus","/yingQi/outcomeEstablished","/yingQi/timeScale","/yingQi/sourceId","/yingQi/triggers","/yingQi/dates","/yingQi/unresolved"] + provenance)
+            if ReadingVerificationEvidence.pointer("/timing",in:root) != nil {
+                guard let timing = QimenTimingEvidence.read(root:root) else { throw Incomplete.record }
+                try append("timing",timing.text,timing.evidencePaths)
+            } else {
+                guard !((try array("/ruleSources")).contains { ReadingVerificationEvidence.pointer("/id",in:$0) == "qimen-xdyy-timing-v1" }) else { throw Incomplete.record }
+                try append("timing","事件成败和应期仍未确定，不能确定日期。本次没有可用的应期触发或日期，不按宫数推天数，也不套用六爻应期。",
+                           ["/yingQi/assessmentStatus","/yingQi/outcomeEstablished","/yingQi/timeScale","/yingQi/sourceId","/yingQi/triggers","/yingQi/dates","/yingQi/unresolved"] + provenance)
+            }
             return Report(sourceReceiptID:receipt.callID,sections:sections)
         }
     }

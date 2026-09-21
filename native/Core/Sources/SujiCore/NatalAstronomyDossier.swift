@@ -50,6 +50,7 @@ public struct NatalAstronomyPayload: Decodable, Sendable {
     }
     public let schemaVersion: Int; public let engineRevision: String; public let birthKey: String
     public let time: TimeBasis; public let sevenBodies: SevenBodies; public let mansions: JSONValue
+    public let fourResiduals: NatalResiduals; public let lifeDegree: NatalLifeDegree
     public let unsupported: [String]; public let limitations: [String]
     public static let bodies = ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn"]
 
@@ -72,7 +73,7 @@ public struct NatalAstronomyPayload: Decodable, Sendable {
                   p.declinationDegrees.isFinite && (-90...90).contains(p.declinationDegrees) &&
                   p.correctionPolicy == (p.body == "Moon" ? "geomoon-no-separate-light-time-aberration" : "light-time-aberration")
               }),
-              unsupported == ["four-residuals", "houses", "life-degree", "traditional-angle-units"],
+              unsupported == ["traditional-angle-units", "qizheng-event-judgment", "qizheng-directions"],
               limitations.count == 8, limitations.allSatisfy({ !$0.isEmpty }),
               time.interpretation == "fixed-utc-plus-8-v1", time.utPolicy == "utc-as-ut1-v1", time.deltaTModel == "espenak-meeus-v1" else { throw EngineContract.Failure.invalid }
         try validateMansions()
@@ -80,6 +81,7 @@ public struct NatalAstronomyPayload: Decodable, Sendable {
         let b = BirthProfile(year: key.year, month: key.month, day: key.day, hour: key.hour, minute: key.minute,
                              gender: key.gender, city: "clock-validation", longitude: key.longitude, timeZoneID: key.timeZoneID)
         try b.validated()
+        try validateDerivedAstronomy(hour: key.hour, minute: key.minute)
         guard let instant = b.date else { throw EngineContract.Failure.invalid }
         let formatter = ISO8601DateFormatter(); formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         let expectedWall = String(format: "%04d-%02d-%02dT%02d:%02d", key.year, key.month, key.day, key.hour, key.minute)

@@ -5,7 +5,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 // Node's platform math libraries can differ in the last bits. Match the
 // existing JSC parity allowance only for astronomy coordinate fields. Never
 // round production/cache data or loosen identity, time or other-tool checks.
-const angularFields='(sevenBodies\\.positions|mansions\\.(positions|boundaries))\\.\\d+\\.(longitudeDegrees|latitudeDegrees|rightAscensionDegrees|declinationDegrees|entryDegrees|widthDegrees|nextRightAscensionDegrees|distanceToBoundaryDegrees)$';
+const angularFields='((sevenBodies\\.positions|mansions\\.(positions|boundaries))\\.\\d+\\.(longitudeDegrees|latitudeDegrees|rightAscensionDegrees|declinationDegrees|entryDegrees|widthDegrees|nextRightAscensionDegrees|distanceToBoundaryDegrees)|fourResiduals\\.positions\\.\\d+\\.(longitudeDegrees|latitudeDegrees)|lifeDegree\\.(sunLongitudeDegrees|palaceDegree|longitudeDegrees|rightAscensionDegrees|declinationDegrees|mansion\\.(entryDegrees|widthDegrees|distanceToBoundaryDegrees)))$';
 const natalAnglePath=new RegExp('^result\\.'+angularFields);
 const toolAnglePath=new RegExp('^(result\\.result|request\\.astronomy)\\.'+angularFields);
 export function compareFixtures(actual, expected) {

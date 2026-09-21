@@ -1,0 +1,20 @@
+Building for debugging...
+[2 / 7] SujiCoreTests-product
+[4 / 9] SujiCoreTests-product
+[9 / 11] SujiCoreTests-product
+[10 / 14] SujiCoreTests-product
+Build complete! (1.38秒)
+Test Suite 'Selected tests' started at 2026-09-21 09:05:52.030.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 09:05:52.031.
+Test Suite 'LiuyaoEfficacyTests' started at 2026-09-21 09:05:52.031.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testJointCandidateAndEfficacyRewriteCannotReplaceTheQuerent]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/LiuyaoEfficacyTests.swift:76: error: -[SujiCoreTests.LiuyaoEfficacyTests testJointCandidateAndEfficacyRewriteCannotReplaceTheQuerent] : XCTAssertThrowsError failed: did not throw an error
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testJointCandidateAndEfficacyRewriteCannotReplaceTheQuerent]' failed (0.136 seconds).
+Test Suite 'LiuyaoEfficacyTests' failed at 2026-09-21 09:05:52.167.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.136 (0.136) seconds
+Test Suite 'SujiCoreTests.xctest' failed at 2026-09-21 09:05:52.168.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.136 (0.136) seconds
+Test Suite 'Selected tests' failed at 2026-09-21 09:05:52.168.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.136 (0.137) seconds
+Note: Some test targets reported failures:
+  - SujiCoreTests (XCTest)

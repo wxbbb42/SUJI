@@ -26,6 +26,26 @@ import SujiCore
     }
     private func session() -> ChatSession { ChatSession(makeClient:{_ in XCTFail("Supplement must not use a model");throw EngineError.execution("forbidden")}) }
 
+    func testSavedCompressedChartsRestoreAllCardFields() async throws {
+        for name in ["cast_liuyao","setup_qimen"] {
+            let (container,_,entry) = try await fixture(name)
+            defer { withExtendedLifetime(container) {} }
+            let receipt = try XCTUnwrap(entry.toolReceipts?.first)
+            let packed = try CastReceiptStorage.encode(receipt.output)
+            let card = try Document(receiptOutput: packed)
+            let original = try JSONDecoder().decode(JSONValue.self,from:Data(receipt.output.utf8))
+            XCTAssertEqual(try JSONDecoder().decode(JSONValue.self,from:Data(card.json.utf8)),original)
+            XCTAssertEqual(card["questionContext"]["event"].text,"身体情况","The preparation audit must read the same restored event as the saved chart")
+            if name == "cast_liuyao" {
+                XCTAssertFalse(card["benGua"]["name"].text.isEmpty)
+                XCTAssertFalse(card["bianGua"]["upper"].text.isEmpty)
+            } else {
+                XCTAssertEqual(card["palaces"].array.count,9)
+                XCTAssertTrue(card["palaces"].array.allSatisfy { (1...9).contains(Int($0["id"].number)) })
+            }
+        }
+    }
+
     func testRealEngineSupplementPreservesOriginalAndRetryNeverExecutesEngine() async throws {
         for name in ["cast_liuyao","setup_qimen"] {
             let (container,store,original)=try await fixture(name)

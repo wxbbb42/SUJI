@@ -1,0 +1,2489 @@
+﻿#Moira - A Chinese Astrology Charting Program
+#Copyright (C) 2004-2015 At Home Projects
+#
+#This program is free software; you can redistribute it and/or modify
+#it under the terms of the GNU General Public License as published by
+#the Free Software Foundation; either version 2 of the License, or
+#(at your option) any later version.
+#
+#This program is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#GNU General Public License for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with this program; if not, write to the Free Software
+#Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
+# 七政四余星盘 天星择日 占星盘 resource
+#   format:  key=value,  key:=alias
+
+eastern_title="七政四余星盘"
+western_title="占星盘"
+pick_title="天星择日"
+mod_name="[custom]"
+about_file = "readme.html"
+ephe_url="http://no.such.path"
+asteroid_url="ftp://ftp.astro.com/pub/swisseph/ephe/longfiles"
+example="example"
+help_traditional="help/index_t.html"
+help_simplified="help/index_s.html"
+icon="moira.ico"
+button_icon="icon/button.ico"
+pinup_icon="icon/pin_up.ico"
+pindown_icon="icon/pin_down.ico"
+expand_icon="icon/expand.ico"
+shrink_icon="icon/shrink.ico"
+forward_icon="icon/forward.ico"
+backward_icon="icon/backward.ico"
+next_icon="icon/next.ico"
+prev_icon="icon/prev.ico"
+copy_icon="icon/copy.ico"
+cut_icon="icon/cut.ico"
+paste_icon="icon/paste.ico"
+delete_icon="icon/delete.ico"
+redo_icon="icon/redo.ico"
+undo_icon="icon/undo.ico"
+open_icon="icon/open.ico"
+save_icon="icon/save.ico"
+saveas_icon="icon/saveas.ico"
+blank_icon="icon/blank.ico"
+print_icon="icon/print.ico"
+capture_icon="icon/capture.ico"
+mode_icon="icon/mode.ico"
+chart_icon="icon/chart.ico"
+aspects_icon="icon/aspects.ico"
+horiz_icon="icon/horiz.ico"
+help_icon="icon/help.ico"
+chart=星盘
+pick_chart=择日
+data=计算
+pole=八字
+eval=解盘
+note=批注
+table=管理
+user_data=的星盘
+current_date=流年
+birth_date=生年
+pick_birth_date=静盘
+year_data=星曜
+year_data_plus_eight_char=星曜及八字
+birthday_and_place=出生年月日时及地点
+pick_birthday_and_place=年月日时及地点
+birth_label=生时及地点
+data_label=星图计算
+pick_data_label=择日计算
+pole_label=四柱八字
+eval_label=星盘分析
+note_label=星图批注
+table_label=数据管理
+copyright=©
+nameless=无名氏
+font_check=七政四余星盘︵︶内
+limit=限度
+zodiac_limit=限宫
+child_limit=童限
+small_limit=小限
+month_limit=月限
+fly_limit=飞限
+life_master=命主
+self_master=身主
+set_life=立命
+house=宿
+weak=虚
+solid=实
+zodiac_house=宫
+zodiac_group=宫位
+to=至
+and=和
+outside=外
+change_to=化
+confront=犯
+leap=闰
+inner_chart=内盘
+outer_chart=外盘
+sky_chart=静盘
+earth_chart=动盘
+dialog_azimuth_pos=度数
+azimuth_speed=太阳分速
+rise_time=出
+fall_time=落
+age=岁
+longitude=经
+latitude=纬
+same_constellation=同经
+against_constellation=克限
+degree=度
+mountain=山
+corrected=修正
+mod_label=修改
+apparent_solar=真太阳
+standard=标准
+daylight_saving=夏令
+time=时间
+auto_correct=自行修正
+daytime=昼
+nighttime=夜
+birth_at=生于
+start_at=始于
+time_limit=限期
+end_at=止于
+retreat_to=退至
+exchange_date=交运
+big_cycle=大运
+small_cycle=小运
+weak_pole=空亡
+location=地点
+name=名称
+house_correction=命宫修改
+sex=性别
+male=男
+female=女
+eight_char_male=干造
+eight_char_female=坤造
+sidereal_mode=恒星制
+tropical_mode=回归制
+ancient_house_mode=古宿制
+ancient_adjust_house_mode=校正古宿制
+tropical_ancient_house_mode=回归古宿制
+tropical_ancient_adjust_house_mode=回归校正古宿制
+fixstar=三垣列宿
+astro_group=星盘
+birth_chart=命盘
+transit_header=时间, 命盘, 相位, 流年盘
+primary_header=时间, 命盘, 相位, 主限盘
+secondary_header=时间, 命盘, 相位, 次限盘
+solar_arc_header=时间, 命盘, 相位, 太阳弧角盘
+aspect_now_header=时间, 流年盘, 相位, 流年盘
+aspect_header=时间, 命盘, 相位, 命盘
+astro_mode_name=命, 命, 太阳返照, 太阴返照, 关系, 组合, 流年星, 主限, 次限, 太阳弧角, 比较
+astro_mode_prefix=x, x, solar_return_, lunar_return_, relationship_, composite_, transits_, primary_, secondary_, solar_arc_, comparison_
+gauquelin_mode_name=高格林
+aspect_now_mode_name=流年相位
+aspect_mode_name=命盘相位
+chart_char=盘
+method=法
+time_and_place=时间及地点
+
+relationship_chart_name=关系盘, 组合盘, 比较盘
+relationship_chart=合盘
+relationship_type=2
+
+eight_char_title=反推八字时间
+eight_char_header=时间
+eight_char_wild_header=时间, 八字
+
+eclipse_solar_title=日蚀时间
+eclipse_lunar_title=月蚀时间
+azimuth_title=动盘太阳到山时间
+eclipse_solar_header=时间, 型式
+eclipse_solar_anywhere_header=时间, 型式, 地点
+eclipse_lunar_header:=eclipse_solar_header
+azimuth_header=时间, 度数, 地平度数, 分速
+
+geocentric_method=地心计算法
+topocentric_method=地面计算法
+
+equator_sunrise=遇卯安命
+
+mountain_degree=座山度数
+pick_coice_select=立命时刻
+magnetic_shift=磁北度数
+tropical_method=黄道静盘
+quick_azimuth_method=黄道动盘
+local_horizon_method=地平动盘
+pick_day_choice=日出立命
+pick_night_choice=日落立命
+day_choice=日出
+night_choice=日落
+total_eclipse=全蚀
+partial_eclipse=偏蚀
+annular_eclipse=环蚀
+penumbral_eclipse=半影蚀
+enter_note_here="在这里输入批注..."
+enter_name_here="输入名称"
+astro_tab=星曜及宫位
+sign_pos=星曜位置
+row_count=列
+valid_range="*—有效范围"
+find_entry_here="在这里输入寻找文字..."
+or=或
+break=∣
+separator=—
+numbers=零, 一, 二, 三, 四, 五, 六, 七, 八, 九, 十, 初, 正
+
+image_size_large=2000, 1560, 20, 20
+image_size_medium=1500, 1160, 14, 14
+image_size_small=980, 760, 8, 8
+image_chart_only=0
+
+image_button_selection=图形面积设定
+image_button_large=大面积
+image_button_medium=中面积
+image_button_small=小面积
+image_button_custom=自定面积
+
+table_column_label=x, x, 名称, 性别, 出生时间, 出生地点, 批注
+table_column_align=1, 1, 0, 1, 1, 0, 0
+pick_table_column_label=x, x, 名称, 性别, 时间, 地点, 座山, 立命, 批注
+pick_table_column_align=1, 1, 0, 1, 1, 0, 1, 1, 0
+
+# menu
+file_menu="档案(&F)"
+file_new="新增(&N)"
+file_open="开启(&O)..."
+file_save="存档(&S)"
+file_save_as="另存新檔(&A)..."
+file_footer="打印及图形注释(&F)..."
+file_save_setting="储存设定(&B)..."
+file_print="打印(&P)..."
+file_capture_setting="图形面积设定(&J)..."
+file_capture="图形存盘(&I)..."
+file_mod="开启修改档案(&M)..."
+file_mod_clear="修改还原(&R)"
+file_eval="开启解盘档案(&E)..."
+file_eval_clear="解盘还原(&Q)"
+file_eval_refresh="更新解盘档案(&L)"
+file_close="结束(&X)"
+edit_menu="编辑(&E)"
+edit_name="输入名称及性别(&N)..."
+edit_lunar="阴历转换(&L)..."
+edit_house="修改命宫(&H)..."
+edit_sign="修改星曜位置(&P)..."
+edit_undo="复原(&Z)"
+edit_redo="取消复原(&Y)"
+edit_cut="剪下(&X)"
+edit_copy="复制(&C)"
+edit_paste="贴上(&V)"
+edit_delete="删除(&D)"
+edit_select_all="全部(&A)"
+edit_bold="粗体"
+edit_hilite="突显"
+pref_menu="选项(&P)"
+pref_chart_mode="选择星盘(&M)..."
+pref_show="显示流年(&N)"
+pref_show_fixstar="显示三垣列宿"
+pref_show_compass="显示开禧宿度(&N)"
+pref_show_gauquelin="显示高格林(&N)"
+pref_show_single="显示单圈(&N)"
+pref_show_horiz="显示地平方位"
+pref_show_aspects="显示相位(&A)"
+pref_explain_star="显示神煞注释(&E)"
+pref_adj_time="修正时间(&T)..."
+pref_life_self="立命安身(&X)..."
+pref_select_north="选择择日计算&H)..."
+pref_show_tab="项目显示"
+pref_show_data="星图计算"
+pref_show_pole="四柱八字"
+pref_show_note="星图批注"
+pref_show_table="数据管理系统"
+pref_show_toolbar="工具列显示"
+pref_show_file="档案图示"
+pref_show_edit="编辑图示"
+pref_show_pref="选项图标"
+pref_show_find="寻找"
+pref_star="选择星曜(&I)..."
+pref_astro_star="选择星曜及强势角距(&J)..."
+pref_aspects="选择相位(&K)..."
+pref_angles="选择角距显示(&O)..."
+pref_systems="选择分宫制(&H)..."
+pref_sidereal="选择回归恒星制(&S)..."
+pref_relationship="选择合盘计算(&U)..."
+pref_sign="选择神煞(&S)..."
+pref_styles="选择政余格局(&Z)..."
+pref_font_align="字形方向设定(&V)..."
+pref_font="字形设定(&F)..."
+pref_color="色彩设定(&C)..."
+pref_black_and_white="黑白色(&B)"
+pref_tray="缩小在系统匣(&Q)"
+pref_lang_traditional="繁体中文 (须重新启动)(&L)"
+pref_lang_simplified="简体中文 (须重新启动)(&L)"
+pref_reset_all="选项还原 (须重新启动)(&R)"
+search_menu="搜索(&S)"
+search_transits="流年星法(&T)..."
+search_primary="主限法(&P)..."
+search_secondary="次限法(&S)..."
+search_solar_arc="太阳弧角法(&A)..."
+search_azimuth="动盘太阳到山时间(&A)..."
+search_eight_char="八字时间(&E)..."
+search_solar_eclipse="日蚀时间(&M)..."
+search_lunar_eclipse="月蚀时间(&L)..."
+search_aspects="相位(&C)..."
+win_menu="检视(&V)"
+win_update="更新(&U)"
+win_current_time="现在时间(&N)"
+win_UI="高分辨率使用者接口(&I)"
+help_menu="说明(&H)"
+help_overview="操作说明(&O)"
+help_about="关于(&A)"
+
+# dialog
+dialog_pref_lang_traditional="转为繁体中文 (须重新启动)?"
+dialog_pref_lang_simplified="转为简体中文 (须重新启动)?"
+dialog_pref_reset_question="还原全部选项 (须重新启动)?"
+dialog_command_name="指示输入"
+dialog_name_name="名称输入"
+dialog_footer_name="打印及图形注释"
+dialog_eight_char_data="搜查八字"
+dialog_eight_char_year="从这年开始"
+dialog_lunar_name="阴历转换"
+dialog_lunar_leap_month="闰月"
+dialog_save_as_question="改写档案?"
+dialog_need_data_1="从因特网下载"
+dialog_need_data_2="的星历表?"
+dialog_need_data_3="从因特网下载编号"
+dialog_need_data_4="的小行星星历表?"
+dialog_sign_birth="本命神煞选择"
+dialog_sign_now="流年神煞选择"
+dialog_sign_fixstar="三垣列宿选择"
+dialog_sign_ten_god="十神选择"
+dialog_sign_org="天禄, 天暗, 天福, 天耗, 天荫, 天贵, 天刑, 天印, 天囚, 天权"
+dialog_sign_alt="比肩, 劫财, 食神, 伤官, 偏财, 正财, 七杀, 正官, 偏印, 正印"
+dialog_sign_planet="星曜选择"
+dialog_sign_select_all="全部"
+dialog_image_show_chart_only="只显示星盘部分"
+dialog_sign_true_select="计罗选择"
+dialog_sign_true_north="计北罗南"
+dialog_sign_true_south="计南罗北"
+dialog_night_fortune="晚上使用夜福点"
+dialog_show_house_system="显示十二宫"
+dialog_set_asteroid="设定小行星"
+dialog_sign_system="计算地点选择"
+dialog_sign_geocentric="地心"
+dialog_sign_topocentric="地面"
+dialog_sign_altitude="海拔"
+dialog_sign_meter="米"
+dialog_asteroid_select="小行星设定"
+dialog_style_show="显示政余格局"
+dialog_style_level="显示程度"
+dialog_style_level_min="最低"
+dialog_style_level_max="最高"
+dialog_show_aspects="显示相位"
+dialog_sign_aspects="相位选择"
+dialog_sign_angles="角距显示选择"
+dialog_enable_angles="显示角距标记"
+dialog_location_title="出生地点"
+dialog_edit_sign="星曜位置修改"
+dialog_edit_sign_sign="星曜"
+dialog_edit_sign_flip="反向"
+dialog_edit_sign_offset="调整"
+dialog_edit_eight_char="八字修改"
+dialog_edit_house="分宫制位置修改"
+dialog_remove_selection="删除多列数据?"
+dialog_no_selection="请先选择一列或多列数据"
+dialog_no_table="关闭数据管理系统后， 每次只可储存一列数据"
+dialog_no_relationship_selection="请先选择一列合盘数据， 后按合盘"
+dialog_best_value_found="最接近的动盘度数是"
+dialog_save_set="数据储存选择"
+dialog_save_data="星盘资料"
+dialog_save_pick="择日资料"
+dialog_error_reset="程序遇到问题需要终止, 还原全部选项或可解决问题, 还原全部选项?"
+dialog_download_fail_1="不能从"
+dialog_download_fail_2="下载额外的数据, 改用 Moshier 星历表"
+dialog_download_fail_3="下载小行星资料"
+dialog_download_switch="改用 Moshier 星历表"
+dialog_eight_char_search_fail="找不到适合这个八字时间"
+dialog_lunar_date_search_fail="找不到适合阴历时间"
+dialog_find_fail="找不到这段文字"
+dialog_mode_selection=星盘选择
+dialog_mode_eastern=七政四余
+dialog_mode_sidereal=郑氏星案恒星制
+dialog_mode_pick=天星择日
+dialog_mode_western=占星
+dialog_house_selection=二十八宿选择
+dialog_house_current=今制
+dialog_house_ancient=古制
+dialog_house_adjust=岁差校正
+dialog_system_selection=分宫制选择
+dialog_sidereal_system_selection=回归恒星制选择
+dialog_composite_selection=组合盘计算法
+dialog_sidereal_selection=恒星制选择
+dialog_influence_enable=强势显示
+dialog_influence_range=强势角距
+dialog_transit_selection=流年星法选择
+dialog_primary_selection=主限法选择
+dialog_secondary_selection=次限法选择
+dialog_solar_arc_selection=太阳弧角法选择
+dialog_transit_time=时间
+dialog_transit_search=相位搜查
+dialog_transit_range=搜查范围
+dialog_transit_solar_arc=太阳平均日行度数
+dialog_transit_search_aspects=与命盘相位
+dialog_transit_search_signs=搜查星曜
+dialog_transit_max_entry=列数上限
+dialog_align_display=显示字形方向
+dialog_align_image=图形字形方向
+dialog_align_print=打印字形方向
+dialog_align_vertical=垂直向
+dialog_align_center=中心向
+dialog_time_correct=时间修正
+dialog_time_dst=自行修正夏令时间
+dialog_time_eight_char=八字日柱
+dialog_time_switch_day=夜子时换日柱
+dialog_time_select=八字计算
+dialog_time_standard=标准时间
+dialog_time_longitude=经度修正时间
+dialog_time_apparent_solar=真太阳时间
+dialog_time_day_night=定昼夜
+dialog_time_day_night_by_time=日出没时间
+dialog_time_day_night_by_zone=日出没时辰
+dialog_current_year=定流年
+dialog_current_year_start_at_winter=冬至起
+dialog_current_year_start_at_sprint=立春起
+dialog_child_period=定童限
+dialog_child_period_9=九年起
+dialog_child_period_10=十年起
+dialog_eclipse_solar_time=日蚀时间
+dialog_eclipse_lunar_time=月蚀时间
+dialog_eclipse_solar_anywhere=任何地方
+dialog_azimuth_time=动盘太阳到山时间
+dialog_azimuth_pos=度数
+dialog_azimuth_speed=分速上限
+dialog_azimuth_speed_unit=度
+dialog_search_range=搜查范围
+dialog_life_method=命宫计算
+dialog_life_traditional=太阳起生时顺数至日出
+dialog_life_equator=遇卯安命
+dialog_life_astro=地平上升宫
+dialog_life_astro_degree=与日同络
+dialog_self_method=身宫计算
+dialog_self_self=太阴为身
+dialog_self_sunset=太阴起生时逆数至日落
+dialog_self_moonrise=太阴起生时逆数至月出
+dialog_adjust_north=自行修正磁偏度数
+dialog_main_mountain=正体五行
+dialog_pick_system_selection=黄道动盘分宫制
+dialog_secondary_mountain=化合五行
+dialog_align_north=子正在下
+dialog_north_selection=子正
+dialog_azimuth_selection=动盘选择
+dialog_pick_selection=静盘选择
+dialog_true_north=正北
+dialog_magnetic_north=磁北
+dialog_mountain_mode=二十四山
+dialog_sky_mountain=天盘
+dialog_earth_mountain=地盘
+dialog_people_mountain=人盘
+dialog_earth_degree=度数显示
+dialog_mountain_based=二十四山
+dialog_zodiac_based=十二宫
+dialog_backup_name=后备储存
+dialog_backup_enable=自动储存档案在
+dialog_backup_dir=资料夹
+dialog_backup_browse=浏览
+dialog_backup_browse_dir=选择备存数据夹
+dialog_backup_same=不能储存档案在后备数据夹
+dialog_no_confirm_save=不再提示档案储存需要
+dialog_need_to_save=数据已更改， 储存档案?
+
+transit_compression=一年相等于
+transit_month_selection=一月, 半年, 一年
+transit_month_value=1, 6, 12
+transit_month_default=1
+transit_year_selection=十年, 五十年, 百年
+transit_year_value=10, 50, 100
+transit_year_default=100
+
+eclipse_solar_selection=十年, 五十年, 百年
+eclipse_solar_value=10, 50, 100
+eclipse_solar_default=100
+eclipse_solar_unit_char=年
+eclipse_solar_anywhere=0
+eclipse_lunar_selection:=eclipse_solar_selection
+eclipse_lunar_value:=eclipse_solar_value
+eclipse_lunar_default:=eclipse_solar_default
+eclipse_lunar_unit_char:=eclipse_solar_unit_char
+azimuth_selection=一月, 半年, 一年
+azimuth_value=1, 6, 12
+azimuth_default=1
+azimuth_unit_char=月
+
+horiz_top_axis=北, 东, 南, 西, 北
+horiz_bottom_axis=0, 90, 180, 270, 360
+horiz_mode=地平方位
+
+# button and check box
+remember=储存
+print_button=打印
+reset_button=还原
+update_button=更新
+new_button=新增
+open_button=开启
+save_button=存档
+save_as_button=另存新檔
+add_button=加入
+remove_button=删除
+capture_button=图形存盘
+
+# tray menu
+tray_close=结束
+tray_icon=1
+
+# pop up menu
+popup_drag_forward=下次到临时间
+popup_drag_backward=上次到临时间
+
+# pop up menu
+popup_toggle_note_overlay=批注重迭在星盘上
+popup_toggle_eval_overlay=解盘重迭在星盘上
+popup_toggle_data_overlay=计算重迭在星盘上
+popup_toggle_pole_overlay=八字重迭在星盘上
+popup_set_boundary=设定重迭边缘在此
+
+# pop up html
+need_to_select=需选择
+need_to_deselect=需不选
+
+# tool tip
+tip_name="输入名字"
+tip_select_month="选择月"
+tip_select_day="选择日"
+tip_select_year="选择年"
+tip_select_hour="选择时"
+tip_select_minute="选择分"
+tip_select_ampm="选择上午或下午"
+tip_select_country="首先选择国家或区域"
+tip_select_city="先选择国家或区域然后选择城市， 或在这里直接输入经纬度"
+tip_select_zone="如果有必要， 可在这里修改时区"
+tip_dialog_enable_angles="可在星盘外围空白部分，按右键控制标记显示"
+tip_new_button="加一空列"
+tip_open_button="开启文件"
+tip_save_button="存盘一列或多列资料"
+tip_save_as_button="存盘一列或多列资料"
+tip_add_button="加入一个或多个文件"
+tip_remove_button="删除一列或多列数据"
+tip_up_button="上移一列或多列数据， 或按标题更改先后次序"
+tip_down_button="下移一列或多列数据， 或按标题更改先后次序"
+tip_update_button="更新星盘"
+tip_prev_button="寻找上一项"
+tip_next_button="寻找下一项"
+tip_close_button="终止寻找"
+tip_show_button="显示序言"
+tip_hide_button="隐藏序言"
+tip_expand_button="显示数据输入表格"
+tip_shrink_button="隐藏数据输入表格"
+tip_pin_button="固定数据输入表格"
+tip_change_year="按左键更改流年"
+tip_change_pos_left="先按左键更改静盘"
+tip_change_pos_right="后按右键更改动盘"
+tip_fixstar_change_pos="按左键更改静盘会日@按右键更改静盘冲日"
+tip_pick_choice="造日出立命， 葬日落立命"
+tip_solar_return="可先更改地点@后按左键选择太阳返照盘"
+tip_lunar_return="可先更改地点@后按左键选择太阴返照盘"
+tip_relationship_chart_button="先选择一列合盘数据， 后按合盘"
+tip_drag_window_1="按左键可移动"
+tip_drag_window_2="表格"
+tip_restore_window="在表格内快速点击左键两次可还原表格位置"
+
+hint_show_form="按这里可显示|数据输入表格"
+
+window_size=1096, 820
+ui_diagram_window_size=1140, 930
+ui_diagram_prefer_ratio=1.27
+transit_window_size=520, 700
+eclipse_solar_window_size=420, 700
+eclipse_lunar_window_size:=eclipse_solar_window_size
+azimuth_window_size=480, 700
+eight_char_window_size=280, 700
+chart_min_size=560, 560
+
+ui_diagram_edge_spacing=4
+ui_trigger_window_size=1280, 1024
+large_tab_width=450
+drag_error=32
+dock_height=110
+
+font_name="MingLiU, SimSun, AR PL UKai TW, AR PL UKai CN, AR PL KaitiM Big5, AR PL KaitiM GB, STKaiti"
+en_font_name="Times New Roman, Tahoma"
+
+swt_data_font_size=16
+swt_small_data_font_size=12
+swt_tip_font_size=14
+data_font_size=20
+
+swt_year_data_size=25, 12
+swt_astro_data_size=20, 20
+swt_font_size=12, 20, 1
+
+# java font size
+g2d_font_size=16, 30, 2
+g2d_print_data_font_size=12
+g2d_tip_font_size=16
+
+print_scaler=32
+print_diagram_size_scaler=0.93
+print_page_ratio=0.9
+print_horiz_margin=0.5
+print_vert_margin=0.625
+print_dual_page_gap=0.04
+
+print_big_font_size=20
+print_med_big_font_size=18
+print_med_font_size=14
+print_small_med_font_size=11
+print_smaller_med_font_size=10
+print_smallest_font_size=9
+print_aspects_font_size_delta=1
+print_astro_sign_font_size=11
+
+applet_print_big_font_size=20
+applet_print_med_big_font_size=18
+applet_print_med_font_size=16
+applet_print_small_med_font_size=16
+applet_print_smaller_med_font_size=14
+applet_print_smallest_font_size=12
+
+pin_ui=1
+show_ui=0
+show_ui_hint=1
+backup=0
+show_now=1
+show_compass=0
+enable_fixstar=0
+show_angle_marker=0
+main_mountain=1
+true_north=0
+adj_north=1
+align_north=1
+quick_azimuth=0
+mountain_mode=0
+degree_mode=0
+day_night_by_time=0
+start_at_winter_solstice=0
+child_period=0
+dst_adjust=1
+longitude_adjust=2
+switch_day_at_11_pm=1
+life_mode=0
+self_mode=0
+ten_god_mode=0
+explain_star=1
+show_outer=1
+show_data=1
+show_pole=1
+show_note=1
+show_table=1
+show_eval=0
+show_file=1
+show_edit=1
+show_pref=1
+show_find=1
+show_house_system=0
+data_folder=0
+pole_folder=0
+eval_folder=0
+note_folder=1
+no_confirm_save=0
+max_find_history=50
+transit_max_entry=1000
+transit_entry_per_page=500
+primary_advance=1.0
+secondary_advance=1.0
+true_as_north=1
+night_fortune_mode=1
+use_equator=0
+astro_snap_to_sun_pos=1
+topocentric=0
+altitude=0
+match_city=1
+eclipse_window=7.0
+azimuth_max_speed=0.5
+edit_sign_menu=0
+house_mode=0
+adjust_mode=0
+pick_sidereal_mode=0
+pick_house_mode=0
+pick_adjust_mode=0
+astrolog_coord=0
+angle_offset=0.0
+info_overlay=-1
+info_overlay_ratio=-1.0
+
+show_style=1
+style_level=3
+style_range=1, 5
+
+# vertical text
+display_vertical_text=1
+image_vertical_text=1
+print_vertical_text=0
+
+vertical_name_length=6
+astro_vertical_name_length=8
+
+speed_state=顺, 逆, 蚀, 留, 伏, 迟, 速
+alt_state=地平上, 地平下, 不适用, 临幸
+
+# 五星运行速度为零位置若干度内为留: 金, 木, 水, 火, 土
+stationary_gap=0.15, 0.07, 0.1, 0.2, 0.05
+# 五星在太阳位置若干度内为伏: 金, 木, 水, 火, 土
+invisible_gap=3.0, 3.0, 3.0, 3.0, 3.0
+# 五星运行速度低于某数值为迟: 金, 木, 水, 火, 土
+slow_speed=0.71, 0.05, 0.88, 0.4, 0.02
+# 五星运行速度高于某数值为速: 金, 木, 水, 火, 土
+fast_speed=1.245, 0.23, 1.50, 0.70, 0.13
+
+# 郑氏四十星案恒星盘
+ayanamsha_base_degree=4.0
+ayanamsha_base_date=1300, 1, 1, 0, 0
+#                        娄,   胃,    昴,   毕,    觜,   参,   井,     鬼,    柳,     星,    张,    翼,     轸,    角,     亢,    氐,    房,     心,    尾,    箕,     斗,    牛,     女,    虚,    危,     室,    壁,    奎
+sidereal_stellar_names=15.9, 26.3, 41.1, 53.2, 69.0, 70.0, 81.8, 112.3, 115.2, 130.5, 136.4, 151.4, 170.1, 187.2, 200.0, 208.9, 225.2, 230.6, 237.0, 255.6, 266.3, 290.1, 298.0, 308.9, 318.3, 333.6, 349.4, 358.3
+
+# 开禧宿度
+#                       娄,   胃,    昴,   毕,    觜,   参,   井,   鬼,     柳,     星,    张,    翼,     轸,    角,     亢,    氐,    房,     心,    尾,    箕,     斗,    牛,     女,    虚,    危,     室,    壁,    奎
+compass_stellar_names=16.0, 29.0, 44.0, 55.0, 70.5, 71.0, 80.0, 110.0, 113.0, 126.0, 133.0, 150.0, 170.0, 189.0, 201.0, 211.0, 227.0, 233.0, 239.0, 256.0, 266.0, 288.0, 295.0, 306.0, 315.0, 331.0, 349.0, 358.0
+
+astro_system_mode=0
+astro_sidereal_system=Fagan-Bradley, Lahiri, Sri Yukteswar, Raman, JN Bhasin, DeLuce, Ushashashi, Krishnamurti, Djwhal Khool, Yukteshwar, Hipparchos, Sassanian, Babylonian-Kugler 1, Babylonian-Kugler 2, Babylonian-Kugler 3, Babylonian-Mercier, Babylonian-Huber
+astro_sidereal_index=0
+
+chart_reserve=2
+now_bar_width_ratio=0.5
+now_bar_width_ratio_with_year=0.25
+birth_bar_width_ratio=0.35
+
+arrow_factor=8
+arrow_width=2
+wide_arrow_width=5
+
+dialog_color_group_tab_font="字形色彩"
+data_font_color_name="计算"
+pole_font_color_name="八字"
+eval_font_color_name="解盘"
+note_font_color_name="批注"
+table_font_color_name="管理"
+data_font_color=0xa0
+pole_font_color=0xa0
+eval_font_color=0xa0
+note_font_color=0xa0
+table_font_color=0xa0
+
+dialog_color_group_tab_background="底色色彩"
+data_background_color_name="计算"
+pole_background_color_name="八字"
+eval_background_color_name="解盘"
+note_background_color_name="批注"
+table_background_color_name="管理"
+data_background_color=0xffffff
+pole_background_color=0xffffff
+eval_background_color=0xffffff
+note_background_color=0xffffff
+table_background_color=0xffffff
+
+dialog_color_group_fore="星盘色彩"
+chart_base_ring_fg_color_name="中心"
+chart_now_ring_fg_color_name="流年"
+pick_chart_now_ring_fg_color_name="动盘"
+chart_birth_ring_fg_color_name="命盘"
+pick_chart_birth_ring_fg_color_name="静盘"
+chart_life_master_fg_color_name="命宫"
+chart_base_ring_fg_color=0x0
+chart_now_ring_fg_color=0x80
+chart_birth_ring_fg_color=0x8000
+chart_life_master_fg_color=0x8000
+
+chart_now_ring_speed="流年星曜速度色彩"
+chart_now_ring_state="动盘星曜色彩"
+chart_birth_ring_speed="命盘星曜速度色彩"
+pick_chart_birth_ring_speed="静盘星曜速度色彩"
+# 顺, 逆, 蚀, 留, 伏, 迟, 速
+chart_now_ring_speed_color=0x80, 0xff0000, 0xff80ff, 0x80ff, 0x804040, 0x808000, 0xff00ff 
+chart_birth_ring_speed_color=0x8000, 0xff0000, 0xff80ff, 0x80ff, 0x804040, 0x808000, 0xff00ff 
+chart_now_ring_state_color=0x80ff, 0x80, 0x804040, 0xff0000
+
+dialog_color_group_back="底色设定"
+chart_base_ring_bg_color_name="中心"
+chart_now_ring_bg_color_name="流年"
+pick_chart_now_ring_bg_color_name="动盘"
+chart_birth_ring_bg_color_name="命盘"
+pick_chart_birth_ring_bg_color_name="静盘"
+chart_window_bg_color_name="外部"
+chart_asc_bg_color_name="上升"
+chart_mc_bg_color_name="天顶"
+chart_base_ring_bg_color=0xffffff
+chart_birth_ring_bg_color=0xffffff
+chart_now_ring_bg_color=0xffffff
+chart_window_bg_color=0xffffff
+chart_asc_bg_color=0xffff00
+chart_mc_bg_color=0xffff00
+
+dialog_color_group_mark="标记色彩"
+chart_life_master_mk_color_name="命主"
+chart_self_master_mk_color_name="身主"
+chart_now_line_mk_color_name="流年"
+chart_mountain_line_mk_color_name="座山"
+chart_weak_line_mk_color_name="虚宫"
+chart_solid_line_mk_color_name="实宫"
+chart_life_master_mk_color=0xff0000
+chart_self_master_mk_color=0x804040
+chart_now_line_mk_color=0x80
+chart_mountain_line_mk_color=0xff0000
+chart_weak_line_mk_color=0xff0000
+chart_solid_line_mk_color=0x8000
+
+dialog_color_group_axis="升顶界线色彩"
+chart_asc_mk_color_name="上升"
+chart_mc_mk_color_name="天顶"
+chart_asc_mk_color=0x808080
+chart_mc_mk_color=0x808080
+
+dialog_color_group_connect="星曜线色彩"
+chart_now_degree_mk_color_name="流年"
+pick_chart_now_degree_mk_color_name="动盘"
+chart_birth_degree_mk_color_name="命盘"
+pick_chart_birth_degree_mk_color_name="静盘"
+chart_now_degree_mk_color=0x804040
+chart_birth_degree_mk_color=0x0
+
+dialog_color_group_line="界线色彩"
+chart_house_line_mk_color_name="星宿"
+chart_ring_mk_color_name="星盘"
+chart_house_system_mk_color_name="宫界"
+horiz_chart_mk_color_name="界线"
+chart_house_line_mk_color=0xff0000
+chart_ring_mk_color=0x0
+chart_house_system_mk_color=0x808080
+horiz_chart_mk_color=0xc0c0c0
+
+dialog_color_group_aspect="相位界线色彩"
+dialog_color_group_angle="角距界线色彩"
+dialog_color_group_aspect_angle="相位或角距界线色彩"
+
+dialog_reset_color_button="色彩还原"
+
+tip_bg_color=0xffffee
+table_odd_row_bg_color=0xf0f0f0
+table_hilite_bg_color=0xffffa0
+text_hilite_bg_color=0xffffa0, 0xffd7d7, 0xccffcc
+
+# all rings start at 0 degree and goes counter-clockwise
+# ring position/draw type/label type
+#   draw type: -12 => rectangular box with grid lines
+#              -11 => skip ring, has 24 strokes (shifted)
+#              -10 => skip stroke and ring,
+#              -2 => has dashed ring and normal stroke
+#              -1 => skip ring,
+#               3 => has both ring and 12 strokes (house system based)
+#               2 => has both ring and 24 strokes (shifted)
+#               1 => skip stroke,
+#               0 => has both ring and stroke
+#   label type: 1 => vertical,
+#               0 => horizontal (curve with ring)
+#   ring type:  0 => base ring
+#               1 => birth ring
+#               2 => now ring
+full_ring_pos=0.10, 0.22, 0.28, 0.34, 0.43, 0.45, 0.51, 0.53, 0.62, 0.77, 0.92, 0.95, 1.0
+full_ring_draw_type=1, 0, 0, 0, 1, -10, -10, 1, 1, 0, 0, 1, -10
+full_ring_label_type=1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0
+full_ring_type=0, 0, 0, 1, 2, 0, 0, 0, 1, 2, 1, 1, 0
+full_angle_marker=0.34, 0.43, 0.53, 0.62, 0.92, 0.95
+
+half_ring_pos=0.12, 0.30, 0.36, 0.44, 0.50, 0.53, 0.62, 0.77, 0.92, 0.95, 1.0
+half_ring_draw_type=1, 0, 0, 0, -10, 1, 1, -2, 0, 1, -10
+half_ring_label_type=1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0
+half_ring_type=0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0
+half_angle_marker=0.53, 0.62, 0.92, 0.95
+
+aspects_ring_pos=0.38, 0.42, 0.51, 0.54, 0.62, 0.69, 0.76, 0.92, 0.95, 1.0
+aspects_ring_draw_type=-10, -10, 1, -10, 1, 0, 0, 0, 1, -10
+aspects_ring_label_type=0, 0, 0, 0, 0, 0, 0, 1, 0, 0
+aspects_ring_type=1, 1, 1, 1, 0, 1, 0, 1, 1, 0
+aspects_angle_marker=0.42, 0.51, 0.92, 0.95
+
+pick_ring_pos=0.19, 0.31, 0.37, 0.43, 0.51, 0.54, 0.60, 0.68, 0.71, 0.77, 0.92, 0.95, 1.0
+pick_ring_draw_type=1, 0, 0, 0, 1, -10, 1, 1, -10, 2, 0, 1, -10
+pick_ring_label_type=1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0
+pick_ring_type=0, 0, 0, 1, 1, 0, 0, 2, 0, 0, 1, 1, 0
+pick_angle_marker=0.43, 0.51, 0.60, 0.68, 0.92, 1.0
+
+compass_ring_pos=0.19, 0.31, 0.37, 0.43, 0.51, 0.54, 0.60, 0.66, 0.72, 0.75, 0.83, 0.86, 0.92, 0.95, 1.0
+compass_ring_draw_type=1, 0, 0, 0, 1, -10, 1, 1, -11, 1, 1, -10, 1, 1, -10
+compass_ring_label_type=1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+compass_ring_type=0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0
+compass_angle_marker=0.43, 0.51, 0.75, 0.83, 0.92, 1.0
+
+fixstar_ring_pos=0.16, 0.28, 0.34, 0.40, 0.48, 0.50, 0.56, 0.58, 0.72, 0.78, 0.80, 0.93, 0.95, 1.0
+fixstar_ring_draw_type=1, 0, 0, 0, 1, -10, -10, 1, 1, -11, 1, 1, 1, -10
+fixstar_ring_label_type=1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0
+fixstar_ring_type=0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0
+fixstar_angle_marker=0.40, 0.48, 0.58, 0.72, 0.79, 1.0
+
+astro_ring_pos=0.47, 0.53, 0.62, 0.65, 0.73, 0.81, 0.89, 0.92, 0.95, 1.0
+astro_ring_draw_type=-10, -10, 1, 0, 1, 0, 0, 1, 1, -10
+astro_ring_label_type=0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+astro_ring_type=1, 1, 1, 0, 1, 0, 0, 0, 0, 0
+astro_return_ring_type=0, 2, 2, 0, 2, 0, 0, 0, 0, 0
+astro_angle_marker=0.53, 0.62, 0.92, 0.95
+
+astro_basic_ring_pos=0.55, 0.59, 0.68, 0.71, 0.79, 0.87, 0.96, 1.0
+astro_basic_ring_draw_type=-10, -10, 1, 0, 1, 0, 0, -10
+astro_basic_ring_label_type=0, 0, 0, 0, 0, 0, 0, 0
+astro_basic_ring_type=1, 1, 1, 0, 1, 0, 0, 0
+astro_basic_return_ring_type=0, 2, 2, 0, 2, 0, 0, 0
+astro_basic_single_ring_type:=astro_basic_return_ring_type
+astro_basic_ring_print_scaler=0.97
+astro_basic_angle_marker=0.59, 0.68, 0.96, 1.0
+
+astro_dual_ring_pos=0.46, 0.50, 0.57, 0.61, 0.70, 0.73, 0.81, 0.89, 0.97, 1.0
+astro_dual_ring_draw_type=-10, -10, -10, -10, 1, 0, 1, 0, 0, -10
+astro_dual_ring_label_type=0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+astro_dual_ring_type=0, 1, 1, 2, 2, 0, 1, 0, 0, 0
+astro_dual_ring_print_scaler=0.97
+astro_dual_angle_marker=0.50, 0.57, 0.61, 0.70, 0.97, 1.0
+
+astro_gauquelin_ring_pos=0.63, 0.69, 0.78, 0.90, 0.95
+astro_gauquelin_ring_draw_type=-10, -10, 1, 1, -10
+astro_gauquelin_ring_label_type=0, 0, 0, 0, 0
+astro_gauquelin_ring_type=1, 1, 1, 0, 0
+
+horiz_ring_pos=0.95, 0.97
+horiz_ring_draw_type=-10, -12
+horiz_ring_label_type=0, 0
+horiz_ring_type=0, 0
+
+house_system_draw_pos=2
+house_system_draw_type=3
+house_number=1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+house_name=01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12
+
+zodiac=戌, 酉, 申, 未, 午, 巳, 辰, 卯, 寅, 丑, 子, 亥
+full_zodiac=戌火, 酉金, 申水, 未月, 午日, 巳水, 辰金, 卯火, 寅木, 丑土, 子土, 亥木
+full_twelve_signs=金兑酉, 水坤申, 月坤未, 日离午, 水巽巳, 金巽辰, 火震卯, 木艮寅, 土艮丑, 土坎子, 木干亥, 火干戌
+full_twelve_signs_alt=兑酉金, 坤申水, 坤未月, 离午日, 巽巳水, 巽辰金, 震卯火, 艮寅木, 艮丑土, 坎子土, 干亥木, 干戌火
+chinese_zodiac_signs=鸡, 猴, 羊, 马, 蛇, 龙, 兔, 虎, 牛, 鼠, 猪, 狗
+
+zodiac_marker:=full_zodiac
+astro_zodiac_marker:=full_zodiac
+
+# 十二宫
+full_ring1=金酉, 水申, 月未, 日午, 水巳, 金辰, 火卯, 木寅, 土丑, 土子, 木亥, 火戌
+half_ring1:=full_twelve_signs
+aspects_ring6:=full_twelve_signs_alt
+pick_ring1:=full_ring1
+compass_ring1:=full_ring1
+fixstar_ring1:=full_ring1
+astro_ring5:=aspects_ring6
+astro_basic_ring5:=astro_ring5
+astro_dual_ring7:=astro_ring5
+
+# 十二宫
+en_house_name=Tau, Gem, Can, Leo, Vir, Lib, Sco, Sag, Cap, Aqu, Pis, Ari
+ch_house_name=金牛, 双子, 巨蟹, 狮子, 室女, 天秤, 天蝎, 人马, 魔羯, 宝瓶, 双鱼, 白羊
+full_ring2:=en_house_name
+half_ring2:=full_ring2
+pick_ring2:=full_ring2
+compass_ring2:=full_ring2
+fixstar_ring2:=full_ring2
+astro_ring6:=ch_house_name
+astro_basic_ring6:=astro_ring6
+astro_dual_ring8:=astro_ring6
+
+# elements
+elemental_names=火, 土, 风, 水
+elemental_states=本, 固, 变
+
+# asteroids 小行星
+# http://www.astro.com/swisseph/astlist.htm
+asteroids_name=名称
+asteroids_number=编号
+asteroids=爱神星 (Eros):433:0, 酒神星 (Bacchus):2063:0, 恋神星 (Cupido):763:0, 慕神星 (Amor):1221:0, 琴韵星 (Orpheus):3361:0, 药神星 (Panacea):2878:0, 巫医神星 (Aesculapia):1027:0, 冥[后]星 (Proserpina):26:0, 太[阳]神 (Apollo):1862:0, 青[春]女神 (Hebe):6:0, 天[文]神 (Urania):30:0, 歌[舞]神 (Terpsichore):81:0, 古代希腊的女[诗]人 (Sappho):80:0, 普西[芬]尼 (Persephone):399:0, 黛安娜 (Diana):78:0, 愢綮星 (Psyche):16:0, 巫[女]星 (Circe):34:0, 妒女星 (Pandora):55:0, 狂女星 (Niobe):71:0, 贞女星 (Eurydike):75:0, 巧[织]星 (Arachne):407:0, 女[预]言家 (Kassandra):114:0, 飞[厄]顿 (Phaethon):3200:0, 伊[卡]鲁斯 (Icarus):1566:0, 希腊[暴]君 (Sisyphus):1866:0, 报[应]女神 (Nemesis):128:0, 缔悉蜂 (Tisiphone):466:0, 历历思星 (Lilith):1181:0, 司[农]业及受胎之女神 (Isis):42:0, 西班牙[绅]士 (Hidalgo):944:0, 公[牛] (Toro):1685:0, 何必 (Hopi):2938:0, [破]坏及拯救的神 (Siva):1170:0, 西瓦 (Siwa):140:0, 亚特[兰]提斯 (Atlantis):1198:0
+
+# aspects
+aspects_name=相位
+aspects_degree_name=角度
+aspects_orb_name=角距
+aspects_degree=0.0, 180.0, 90.0, 120.0, 60.0, 45.0, 135.0, 30.0, 150.0
+aspects_orb=12.0, 6.0, 3.0, 4.0, 2.0, 1.5, 1.5, 1.0, 1.0
+aspects_sign=会, 冲, 刑, 合, 半合, 半刑, 半刑, 四合, 四合
+aspects_display=1, 1, 1, 1, 1, 0, 0, 0, 0
+transit_aspects_display:=aspects_display
+aspects_color=0x80ff, 0x8000ff, 0xff8000, 0xff00, 0xffff, 0xff00ff, 0xff00ff, 0x808000, 0x808000
+
+# angle marker
+angle_marker_sign=守, 照, 关, 拱, 辅, 夹
+angle_marker_degree=0.0, 180.0, 90.0, 120.0, 60.0, 30.0
+angle_marker_color=0x80ff, 0x8000ff, 0xff8000, 0xff00, 0xffff, 0xff00ff
+angle_marker_width=3
+angle_marker_display=1, 1, 0, 1, 0, 0
+
+# style: 0 = line, 1 = dash, 2 = sparse dash, 3 = dense dash, 4 = dot dash, 5 = dot
+aspects_style=1, 4, 0, 2, 3, 5, 5, 5, 5
+aspects_half_prefix=半
+aspects_four_prefix=四
+dot_ratio=0.01
+
+# cusps
+astro_cusps_name=命宫, 财帛, 兄弟, 田宅, 男女, 奴仆, 夫妻, 疾厄, 迁移, 官禄, 福德, 相貌
+astro_cusps=4
+astro_basic_cusps_name:=astro_cusps_name
+astro_basic_cusps:=astro_cusps
+astro_dual_cusps_name:=astro_cusps_name
+astro_dual_cusps=6
+
+astro_gauquelin_cusps=3
+astro_gauquelin_cusps_offset=0.15, 0.1
+astro_gauquelin_cusps_name=1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36
+
+# asc/mc infuence range
+asc_influence=10.0
+mc_influence=10.0
+
+# dynamic, 命宫
+birth_year_signs=命宫, 相貌, 福德, 官禄, 迁移, 疾厄, 夫妻, 奴仆, 男女, 田宅, 兄弟, 财帛
+twelve_signs=酉, 申, 未, 午, 巳, 辰, 卯, 寅, 丑, 子, 亥, 戌
+wife_signs=火, 金, 水, 月, 日, 水, 金, 火, 木, 土, 土, 木
+life_sign_name=命宫
+life_master_name=命度
+mountain_name=座山
+birth_wife_sign=6
+full_birth_year_ring=3
+half_birth_year_ring=3
+aspects_birth_year_ring=5
+pick_birth_year_ring=3
+compass_birth_year_ring=3
+fixstar_birth_year_ring=3
+
+# dynamic, 二十八宿
+full_stellar_signs=娄金, 胃土, 昴日, 毕月, 觜火, 参水, 井木, 鬼金, 柳土, 星日, 张月, 翼火, 轸水, 角木, 亢金, 氐土, 房日, 心月, 尾火, 箕水, 斗木, 牛金, 女土, 虚日, 危月, 室火, 壁水, 奎木
+half_stellar_signs=娄, 胃, 昴, 毕, 觜, 参, 井, 鬼, 柳, 星, 张, 翼, 轸, 角, 亢, 氐, 房, 心, 尾, 箕, 斗, 牛, 女, 虚, 危, 室, 壁, 奎
+stellar_names=beAri, ta-6Eri, 16Tau, epTau, laOri, zeOri, muGem, xiPup, laDra, alPyx, chUMa, gaCom, gaCrv, alVir, laCen, xi-2Lib, piSco, siSco, alHer, ga-2Sgr, muLyr, beCap, epAqr, gaEqu, alAqr, alPeg, psPeg, piAnd
+full_stellar_ring=6
+half_stellar_ring=4
+aspects_stellar_ring=4
+pick_stellar_ring=6
+compass_stellar_ring=6
+compass_compass_ring=12
+fixstar_stellar_ring=6
+full_use_half=1
+half_use_half=1
+aspects_use_half=1
+pick_use_half=1
+compass_use_half=1
+fixstar_use_half=1
+
+# 二十八宿 adjustment
+beAri=-0.0207
+ta-6Eri=0.3992
+16Tau=-0.0068
+epTau=-0.0430
+laOri=-0.0008
+zeOri=-0.0274
+muGem=-0.0224
+xiPup=0.2669
+laDra=-0.4224
+alPyx=-0.2479
+chUMa=-1.0760
+gaCom=0.0779
+gaCrv=-0.0231
+alVir=0.2878
+laCen=-0.0021
+xi-2Lib=-0.0184
+piSco=-0.0406
+siSco=-0.0308
+alHer=0.0662
+ga-2Sgr=-0.0195
+muLyr=0.0096
+beCap=-0.0853
+epAqr=-0.0769
+gaEqu=-0.0408
+alAqr=-0.0831
+alPeg=-0.0189
+psPeg=-0.1780
+piAnd=0.2049
+
+# 三垣列宿
+fixstar_signs=天皇,  天帝,   尊帝,   天尊,  寿星,  文昌,   司禄,   天廪,  玉井,   轩辕,  大角,   孝子,  南河,   北河,  牛郎,   造父,  少微,   坟墓,  北斗,   候星,  大陵,   天棓,  天狼,   北落,  迁官,   天床,  朱门,   天厨,  左辅
+fixstar_names=beCep, beUMi, thLeo, alHer, alCar, upUMa, piAqr, xiTau, laEri, alLeo, alBoo, laCol, alCMi, beGem, alAql, deCep, beLMi, gaAqr, alUMa, alOph, bePer, gaDra, alCMa, alPsA, alDra, alDra, alDra, deDra, zeUMa
+
+# 三垣列宿 adjustment
+fixstar_equ_adjustments=调整
+天皇调整=-4.84, -9.44
+尊帝调整=-3.84, 0.69
+文昌调整=0.88, -3.12
+天廪调整=-0.29, -3.11
+天床调整=-0.9, -5.68
+朱门调整=2.16, 0.14
+左辅调整=-2.25, -0.58
+
+# house system:
+#   P for Placidus,
+#   K for Koch,
+#   O for Porphyrius,
+#   R for Regiomontanus,
+#   C for Campanus,
+#   E for equal (cusp 1 is ascendent),
+#   V for Vehlow equal (asc. in middle of house 1),
+#   X for axial rotation system/Meridian houses,
+#   H for azimuthal or horizontal system,
+#   T for Polich/Page ('topocentric' system),
+#   B for Alcabitius 
+house_system_name=分宫制
+house_system=Placidus, Koch, Porphyrius, Regiomontanus, Campanus, Equal, Vehlow, Meridian, Horizontal, Topocentric, Alcabitius
+house_system_char=P, K, O, R, C, E, V, X, H, T, B
+house_system_index=0
+pick_house_system_index=3
+
+# 组合盘计算法
+composite_method=Midpoint, Reference place
+composite_method_index=0
+
+# signs
+signs=日, 月, 金, 木, 水, 火, 土, 天, 海, 冥, 计, 罗, 炁, 孛, 福, 升, 顶, 医, 谷, 智, 婚, 灶
+sign_display_orders=0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21
+sign_display=1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, -1, -1, -1, -1, -1
+astro_sign_display_orders=0,  1,  4,  2,  5,  3,  6,  7,  8,  9, 10, 11, 12, 13, 14, 17, 18, 19, 20, 21, 15, 16
+astro_sign_display=1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, -1, 1, 1, 1, 1, 0, 0, 0, 0, 0
+transit_sign_display=1, 0, 1, 1, 1, 1, 1, 1, 1, 1
+
+# -1: to skip computation, 0: use internal SwissEPH computation, 1: use specified circular orbit data,
+# the order is same as in signs.  For specified orbit data, use the prefix
+# sun for 日, moon for 月, venus for 金, jupiter for 木, mercury for 水, mars for 火, saturn for 土, ...
+# To specify orbit data for any sign, you need to provide the period (or speed), the base date and base degree.
+# See 紫炁 for an example.
+sign_computation_type=0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0
+sign_prefix=sun, moon, venus, jupiter, mercury, mars, saturn, uranus, neptune, pluto, true, inverse, purple, yellow, fortune, asc, mc, chiron, ceres, pallas, juno, vesta
+
+# 罗睺 is opposite to 计都
+inverse_opposite=true
+
+# 紫炁, period = 10227.1792, on March 13, 1975 at 16:00 GMT, 紫炁 is at 230.5 degree
+purple_period=10227.1792
+purple_base_date=1975, 3, 13, 16, 0
+purple_base_degree=230.5
+
+# dynamic ring, birth and current year signs
+full_birth_sign_ring=8
+full_birth_sign_ring_dir=-1
+half_birth_sign_ring=6
+half_birth_sign_ring_dir=-1
+aspects_birth_sign_ring=2
+aspects_birth_sign_ring_dir=0
+pick_birth_sign_ring=4
+pick_birth_sign_ring_dir=1
+compass_birth_sign_ring=4
+compass_birth_sign_ring_dir=1
+fixstar_birth_sign_ring=4
+fixstar_birth_sign_ring_dir=1
+astro_birth_sign_ring=2
+astro_birth_sign_ring_dir=0
+astro_basic_birth_sign_ring:=astro_birth_sign_ring
+astro_basic_birth_sign_ring_dir:=astro_birth_sign_ring_dir
+
+astro_gauquelin_birth_sign_ring=2
+astro_gauquelin_birth_sign_ring_dir=0
+
+astro_dual_birth_sign_ring=2
+astro_dual_birth_sign_ring_dir=-1
+astro_dual_now_sign_ring=4
+astro_dual_now_sign_ring_dir=0
+
+# aspects ring
+aspects_aspects_ring=1
+astro_aspects_ring=1
+astro_basic_aspects_ring:=astro_aspects_ring
+astro_dual_aspects_ring=1
+astro_gauquelin_aspects_ring=1
+
+# degree marker
+full_mark_up_ring0=5
+aspects_mark_up_ring0=3
+pick_mark_up_ring0=5
+pick_mark_up_ring1=8
+compass_mark_up_ring0=5
+compass_mark_up_ring1=11
+fixstar_mark_up_ring0=5
+astro_mark_up_ring0=3
+astro_basic_mark_up_ring0:=astro_mark_up_ring0
+astro_dual_mark_up_ring0=5
+
+full_now_sign_ring=4
+full_now_sign_ring_dir=1
+pick_now_sign_ring=7
+pick_now_sign_ring_dir=1
+compass_now_sign_ring=10
+compass_now_sign_ring_dir=0
+fixstar_now_sign_ring=11
+fixstar_now_sign_ring_dir=-1
+
+full_mark_down_ring0=8
+half_mark_down_ring0=6
+pick_mark_down_ring0=12
+pick_change_pos_lower_ring=11
+pick_change_pos_upper_ring=13
+compass_mark_down_ring0=10
+compass_mark_down_ring1=14
+compass_change_pos_lower_ring=13
+compass_change_pos_upper_ring=15
+fixstar_mark_down_ring0=8
+fixstar_mark_down_ring1=11
+fixstar_mark_down_ring2=13
+fixstar_change_pos_lower_ring=12
+fixstar_change_pos_upper_ring=14
+horiz_mark_down_ring0=2
+
+# dynamic ring, star signs
+full_birth_star_sign_ring=10
+half_birth_star_sign_ring=8
+half_birth_star_sign_dual_ring=1
+aspects_birth_star_sign_ring=7
+pick_birth_star_sign_ring=10
+
+full_now_star_sign_ring=9
+
+# 二十四山
+mountain_signs=辛山, 酉山, 庚山, 申山, 坤山, 未山, 丁山, 午山, 丙山, 巳山, 巽山, 辰山, 乙山, 卯山, 甲山, 寅山, 艮山, 丑山, 癸山, 子山, 壬山, 亥山, 干山, 戌山
+full_mountain_main_signs=辛金, 酉金, 庚金, 申金, 坤土, 未土, 丁火, 午火, 丙火, 巳火, 巽木, 辰土, 乙木, 卯木, 甲木, 寅木, 艮土, 丑土, 癸水, 子水, 壬水, 亥水, 干金, 戌土
+full_mountain_secondary_signs=辛火, 酉金, 庚金, 申水, 坤水, 未月, 丁月, 午日, 丙日, 巳水, 巽水, 辰金, 乙金, 卯火, 甲火, 寅木, 艮木, 丑土, 癸土, 子土, 壬土, 亥木, 干木, 戌火
+pick_ring9:=full_mountain_main_signs
+pick_ring9_substring=0, 1
+pick_mountain_ring=9
+compass_ring8:=full_mountain_main_signs
+compass_ring8_substring=0, 1
+compass_mountain_ring=8
+fixstar_ring9:=full_mountain_main_signs
+fixstar_ring9_substring=0, 1
+fixstar_mountain_ring=9
+
+three_danger=三杀
+三杀子=巳, 丙, 午, 丁, 未
+三杀丑=寅, 甲, 卯, 乙, 辰
+三杀寅=亥, 壬, 子, 癸, 丑
+三杀卯=申, 庚, 酉, 辛, 戌
+三杀辰=巳, 丙, 午, 丁, 未
+三杀巳=寅, 甲, 卯, 乙, 辰
+三杀午=亥, 壬, 子, 癸, 丑
+三杀未=申, 庚, 酉, 辛, 戌
+三杀申=巳, 丙, 午, 丁, 未
+三杀酉=寅, 甲, 卯, 乙, 辰
+三杀戌=亥, 壬, 子, 癸, 丑
+三杀亥=申, 庚, 酉, 辛, 戌
+
+self_label=日主
+ten_god_seq1=比肩, 劫财, 食神, 伤官, 偏财, 正财, 七杀, 正官, 偏印, 正印
+ten_god_seq2=劫财, 比肩, 伤官, 食神, 正财, 偏财, 正官, 七杀, 正印, 偏印
+earth_god_seq=子:癸, 丑:癸辛己, 寅:甲丙戊, 卯:乙, 辰:戊乙癸, 巳:庚丙戊, 午:丁己, 未:乙己丁, 申:庚壬戊, 酉:辛, 戌:辛丁戊, 亥:壬甲
+
+# dynamic ring, year marker
+full_year_mark_ring=11
+half_year_mark_ring=9
+aspects_year_mark_ring=8
+pick_year_mark_ring=11
+compass_year_mark_ring=13
+fixstar_year_mark_ring=12
+
+# solar/lunar return ring
+astro_solar_return_ring=8
+astro_lunar_return_ring=7
+
+# 三垣列宿
+fixstar_star_ring=8
+fixstar_star_ring_dir=-1
+
+# dynamic ring, 大限, first one is dynamic
+limit_seq=11.0, 10.0, 11.0, 15.0, 8.0, 7.0, 11.0, 4.5, 4.5, 4.5, 5.0, 5.0
+full_limit_ring=12
+half_limit_ring=10
+aspects_limit_ring=9
+pick_limit_ring=12
+compass_limit_ring=14
+fixstar_limit_ring=13
+astro_limit_ring=9
+astro_gauquelin_limit_ring=4
+astro_basic_limit_ring=7
+astro_dual_limit_ring=9
+horiz_limit_ring=2
+
+# birth info, each field filled by one of 日月金木水火土计罗炁孛
+#   special character mapping:  '|' to new line, '$' to quarter of a line, '%' optional space, '@' spacer
+birth_year_base=1984
+birth_year_names=甲子, 乙丑, 丙寅, 丁卯, 戊辰, 己巳, 庚午, 辛未, 壬申, 癸酉, 甲戌, 乙亥, 丙子, 丁丑, 戊寅, 己卯, 庚辰, 辛巳, 壬午, 癸未, 甲申, 乙酉, 丙戌, 丁亥, 戊子, 己丑, 庚寅, 辛卯, 壬辰, 癸巳, 甲午, 乙未, 丙申, 丁酉, 戊戌, 己亥, 庚子, 辛丑, 壬寅, 癸卯, 甲辰, 乙巳, 丙午, 丁未, 戊申, 己酉, 庚戌, 辛亥, 壬子, 癸丑, 甲寅, 乙卯, 丙辰, 丁巳, 戊午, 己未, 庚申, 辛酉, 壬戌, 癸亥
+birth_year_info=$| 天禄︵90︶%科名︵01︶%天马︵02︶%生官︵03︶| 天暗︵91︶%科甲︵00︶%地驿︵04︶| 天福︵92︶%文星︵05︶%禄元︵06︶| 天耗︵93︶%魁星︵07︶%马元︵08︶%值难︵50︶| 天荫︵94︶%官星︵09︶%天元︵55︶%职元︵51︶| 天贵︵95︶%印星︵10︶%地元︵56︶%局主︵52︶| 天嗣︵95︶%寿元︵11︶%人元︵57︶%天经︵53︶| 天刑︵96︶%催官︵12︶%仁元︵13︶%地纬︵54︶| 天印︵97︶%禄神︵14︶%血支︵15︶| 天囚︵98︶%喜神︵16︶%血忌︵17︶| 天权︵99︶%爵星︵18︶%产星︵19︶%伤官︵20︶
+current_year_info=$| 天禄︵90︶%科名︵01︶%天马︵02︶%生官︵03︶| 天暗︵91︶%科甲︵00︶%地驿︵04︶| 天福︵92︶%文星︵05︶%禄元︵06︶| 天耗︵93︶%魁星︵07︶%马元︵08︶%     | 天荫︵94︶%官星︵09︶%%          | 天贵︵95︶%印星︵10︶| 天嗣︵95︶%寿元︵11︶%%          | 天刑︵96︶%催官︵12︶%仁元︵13︶%     | 天印︵97︶%禄神︵14︶%血支︵15︶| 天囚︵98︶%喜神︵16︶%血忌︵17︶| 天权︵99︶%爵星︵18︶%产星︵19︶%伤官︵20︶
+pick_year_info=$| 天禄︵90︶%科名︵01︶%天马︵02︶%生官︵03︶| 天暗︵91︶%科甲︵00︶%地驿︵04︶%值难︵50︶| 天福︵92︶%文星︵05︶%禄元︵06︶%阳刃︵58︶| 天耗︵93︶%魁星︵07︶%马元︵08︶| 天荫︵94︶%官星︵09︶%贵元︵59︶| 天贵︵95︶%印星︵10︶%天元︵55︶%人元︵57︶| 天嗣︵95︶%寿元︵11︶%地元︵56︶%职元︵51︶| 天刑︵96︶%催官︵12︶%仁元︵13︶%局主︵52︶| 天印︵97︶%禄神︵14︶%血支︵15︶%天经︵53︶| 天囚︵98︶%喜神︵16︶%血忌︵17︶%地纬︵54︶| 天权︵99︶%爵星︵18︶%产星︵19︶%伤官︵20︶
+alt_birth_year_info=$| 比肩︵90︶%科名︵01︶%天马︵02︶%生官︵03︶| 劫财︵91︶%科甲︵00︶%地驿︵04︶| 食神︵92︶%文星︵05︶%禄元︵06︶| 伤官︵93︶%魁星︵07︶%马元︵08︶%值难︵50︶| 偏财︵94︶%官星︵09︶%天元︵55︶%职元︵51︶|     @%印星︵10︶%地元︵56︶%局主︵52︶| 正财︵95︶%寿元︵11︶%人元︵57︶%天经︵53︶| 七杀︵96︶%催官︵12︶%仁元︵13︶%地纬︵54︶| 正官︵97︶%禄神︵14︶%血支︵15︶| 偏印︵98︶%喜神︵16︶%血忌︵17︶| 正印︵99︶%爵星︵18︶%产星︵19︶%伤官︵20︶
+alt_current_year_info=$| 比肩︵90︶%科名︵01︶%天马︵02︶%生官︵03︶| 劫财︵91︶%科甲︵00︶%地驿︵04︶| 食神︵92︶%文星︵05︶%禄元︵06︶| 伤官︵93︶%魁星︵07︶%马元︵08︶%     | 偏财︵94︶%官星︵09︶%%          |     @%印星︵10︶| 正财︵95︶%寿元︵11︶%%          | 七杀︵96︶%催官︵12︶%仁元︵13︶%     | 正官︵97︶%禄神︵14︶%血支︵15︶| 偏印︵98︶%喜神︵16︶%血忌︵17︶| 正印︵99︶%爵星︵18︶%产星︵19︶%伤官︵20︶
+alt_pick_year_info=$| 比肩︵90︶%科名︵01︶%天马︵02︶%生官︵03︶| 劫财︵91︶%科甲︵00︶%地驿︵04︶%值难︵50︶| 食神︵92︶%文星︵05︶%禄元︵06︶%阳刃︵58︶| 伤官︵93︶%魁星︵07︶%马元︵08︶| 偏财︵94︶%官星︵09︶%贵元︵59︶|     @%印星︵10︶%天元︵55︶%人元︵57︶| 正财︵95︶%寿元︵11︶%地元︵56︶%职元︵51︶| 七杀︵96︶%催官︵12︶%仁元︵13︶%局主︵52︶| 正官︵97︶%禄神︵14︶%血支︵15︶%天经︵53︶| 偏印︵98︶%喜神︵16︶%血忌︵17︶%地纬︵54︶| 正印︵99︶%爵星︵18︶%产星︵19︶%伤官︵20︶
+year_sound_field=︵%︶
+year_info_sep="|︵︶"
+season_starts=小寒, 大寒, 立春, 雨水, 惊蛰, 春分, 清明, 谷雨, 立夏, 小满, 芒种, 夏至, 小暑, 大暑, 立秋, 处暑, 白露, 秋分, 寒露, 霜降, 立冬, 小雪, 大雪, 冬至
+season_begin=初
+season_middle=中
+season_end=末
+four_seasons=春, 夏, 秋, 冬
+sky_pole_names=甲, 乙, 丙, 丁, 戊, 己, 庚, 辛, 壬, 癸
+earth_pole_names=子, 丑, 寅, 卯, 辰, 巳, 午, 未, 申, 酉, 戌, 亥
+month_sky_pole_shifts=2, 4, 6, 8, 0, 2, 4, 6, 8, 0
+month_earth_pole_shift=2
+day_pole_base=1971, 8, 7
+hour_sky_pole_shifts=0, 2, 4, 6, 8, 0, 2, 4, 6, 8
+hour_earth_pole_shift=0
+long_life_start=11
+long_life_pos=金:4, 木:10, 水:1, 土:1, 火:7
+long_life_signs=长生, 养, 胎, 绝, 墓, 死, 病, 衰, 帝旺, 临官, 冠带, 沐浴
+day_pole_long_life_seq=11, 6, 2, 3, 2, 3, 5, 0, 8, 9
+year_char=年
+month_char=月
+day_char=日
+hour_char=时
+pole_char=柱
+lunar_calendar=阴历
+sky_earths=干支
+crescent=新月
+eight_characters=八字
+more_seq=＊＊
+star_sign_seq:=earth_pole_names
+before_birth=胎元
+day_pole_key=日元神煞
+star_sign_key=神煞
+explain=注
+explain_fixstar=列注
+explain_prefix="["
+explain_suffix="]"
+break_char=",，﹐、。"
+pole_break_char="年月日时 　,﹐，、"
+non_white_space="　"
+separator_char="、"
+map_pole_char=戍:戌, 已:己
+
+# 童限
+#          1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15
+child_seq= 0, 1, 7, 6,10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
+
+# 洞微飞限, starts from year 1, repeat sequence until pass 童限
+#              1, 2, 3, 4, 5, 6
+fly_seq_yang1= 0, 0, 6, 6, 8, 4
+fly_seq_ying1= 0, 0, 6, 6, 4, 8
+# 洞微飞限, starts after 童限 and half year at locations marked by '|'
+#              1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,|,68,69,70,71,72,|,73,74,75,76,77,|,78,79,80,81,82,83,84,85,86,87
+fly_seq_yang2=11,11, 5, 5, 3, 7,11,11, 5, 5,10,10, 4, 4, 6, 2,10,10, 4, 4, 6, 9, 9, 3, 3, 1, 5, 9, 9, 3, 3, 1, 5, 9, 9, 3, 8, 8, 2, 2, 4, 0, 8, 8, 7, 7, 1, 1,11, 3, 7, 6, 6, 0, 0, 2,10, 6, 6, 0, 0, 2, 5, 5,11,11, 9,   4, 4,10,10, 0,   3, 3, 9, 9, 7,   2, 2, 8, 8,10, 1, 1, 7, 7, 5
+fly_seq_ying2=11,11, 5, 5, 7, 3,11,11, 5, 5,10,10, 4, 4, 2, 6,10,10, 4, 4, 2, 9, 9, 3, 3, 5, 1, 9, 9, 3, 3, 5, 1, 9, 9, 3, 8, 8, 2, 2, 0, 4, 8, 8, 7, 7, 1, 1, 3,11, 7, 6, 6, 0, 0,10, 2, 6, 6, 0, 0,10, 5, 5,11,11, 1,   4, 4,10,10, 8,   3, 3, 9, 9,11,   2, 2, 8, 8, 6, 1, 1, 7, 7, 9
+
+# starting from index 0
+fly_seq_half_shift=66, 71, 75, 88
+each_half_year=各半年
+
+# 六十甲子吉凶星曜
+star_sky_earth_key=干支
+干支甲子=子:岁殿, 午:游奕, 子:擎天, 辰:孤虚, 戌:空亡
+干支乙丑=寅:岁殿, 辰:游奕, 戌:擎天, 巳:孤虚, 亥:空亡
+干支丙寅=辰:岁殿, 寅:游奕, 申:擎天, 辰:孤虚, 戌:空亡
+干支丁卯=午:岁殿, 丑:游奕, 未:擎天, 巳:孤虚, 亥:空亡
+干支戊辰=申:岁殿, 亥:游奕, 巳:擎天, 辰:孤虚, 戌:空亡
+干支己巳=戌:岁殿, 酉:游奕, 卯:擎天, 巳:孤虚, 亥:空亡
+干支庚午=子:岁殿, 午:游奕, 子:擎天, 辰:孤虚, 戌:空亡
+干支辛未=寅:岁殿, 辰:游奕, 戌:擎天, 巳:孤虚, 亥:空亡
+干支壬申=辰:岁殿, 寅:游奕, 申:擎天, 辰:孤虚, 戌:空亡
+干支癸酉=午:岁殿, 亥:游奕, 巳:擎天, 巳:孤虚, 亥:空亡
+干支甲戌=戌:岁殿, 酉:游奕, 卯:擎天, 寅:孤虚, 申:空亡
+干支乙亥=子:岁殿, 午:游奕, 子:擎天, 卯:孤虚, 酉:空亡
+干支丙子=寅:岁殿, 辰:游奕, 戌:擎天, 寅:孤虚, 申:空亡
+干支丁丑=辰:岁殿, 寅:游奕, 申:擎天, 卯:孤虚, 酉:空亡
+干支戊寅=午:岁殿, 子:游奕, 午:擎天, 寅:孤虚, 申:空亡
+干支己卯=申:岁殿, 亥:游奕, 巳:擎天, 卯:孤虚, 酉:空亡
+干支庚辰=戌:岁殿, 酉:游奕, 卯:擎天, 寅:孤虚, 申:空亡
+干支辛巳=子:岁殿, 午:游奕, 子:擎天, 卯:孤虚, 酉:空亡
+干支壬午=寅:岁殿, 辰:游奕, 戌:擎天, 寅:孤虚, 申:空亡
+干支癸未=辰:岁殿, 丑:游奕, 未:擎天, 卯:孤虚, 酉:空亡
+干支甲申=申:岁殿, 亥:游奕, 巳:擎天, 子:孤虚, 午:空亡
+干支乙酉=戌:岁殿, 酉:游奕, 卯:擎天, 丑:孤虚, 未:空亡
+干支丙戌=子:岁殿, 午:游奕, 子:擎天, 子:孤虚, 午:空亡
+干支丁亥=寅:岁殿, 辰:游奕, 戌:擎天, 丑:孤虚, 未:空亡
+干支戊子=辰:岁殿, 寅:游奕, 申:擎天, 子:孤虚, 午:空亡
+干支己丑=午:岁殿, 子:游奕, 午:擎天, 丑:孤虚, 未:空亡
+干支庚寅=申:岁殿, 戌:游奕, 辰:擎天, 子:孤虚, 午:空亡
+干支辛卯=戌:岁殿, 酉:游奕, 卯:擎天, 丑:孤虚, 未:空亡
+干支壬辰=子:岁殿, 午:游奕, 子:擎天, 子:孤虚, 午:空亡
+干支癸巳=寅:岁殿, 卯:游奕, 酉:擎天, 丑:孤虚, 未:空亡
+干支甲午=午:岁殿, 丑:游奕, 未:擎天, 戌:孤虚, 辰:空亡
+干支乙未=申:岁殿, 亥:游奕, 巳:擎天, 亥:孤虚, 巳:空亡
+干支丙申=戌:岁殿, 酉:游奕, 卯:擎天, 戌:孤虚, 辰:空亡
+干支丁酉=子:岁殿, 午:游奕, 子:擎天, 亥:孤虚, 巳:空亡
+干支戊戌=寅:岁殿, 辰:游奕, 戌:擎天, 戌:孤虚, 辰:空亡
+干支己亥=辰:岁殿, 酉:游奕, 申:擎天, 亥:孤虚, 巳:空亡
+干支庚子=午:岁殿, 子:游奕, 午:擎天, 戌:孤虚, 辰:空亡
+干支辛丑=申:岁殿, 戌:游奕, 辰:擎天, 亥:孤虚, 巳:空亡
+干支壬寅=戌:岁殿, 酉:游奕, 卯:擎天, 戌:孤虚, 辰:空亡
+干支癸卯=子:岁殿, 巳:游奕, 亥:擎天, 亥:孤虚, 巳:空亡
+干支甲辰=辰:岁殿, 卯:游奕, 酉:擎天, 申:孤虚, 寅:空亡
+干支乙巳=午:岁殿, 丑:游奕, 未:擎天, 酉:孤虚, 卯:空亡
+干支丙午=申:岁殿, 亥:游奕, 巳:擎天, 申:孤虚, 寅:空亡
+干支丁未=戌:岁殿, 酉:游奕, 卯:擎天, 酉:孤虚, 卯:空亡
+干支戊申=子:岁殿, 午:游奕, 子:擎天, 申:孤虚, 寅:空亡
+干支己酉=寅:岁殿, 辰:游奕, 戌:擎天, 酉:孤虚, 卯:空亡
+干支庚戌=辰:岁殿, 寅:游奕, 申:擎天, 申:孤虚, 寅:空亡
+干支辛亥=午:岁殿, 子:游奕, 午:擎天, 酉:孤虚, 卯:空亡
+干支壬子=申:岁殿, 戌:游奕, 辰:擎天, 申:孤虚, 寅:空亡
+干支癸丑=戌:岁殿, 午:游奕, 子:擎天, 酉:孤虚, 卯:空亡
+干支甲寅=寅:岁殿, 辰:游奕, 戌:擎天, 午:孤虚, 子:空亡
+干支乙卯=辰:岁殿, 卯:游奕, 酉:擎天, 未:孤虚, 丑:空亡
+干支丙辰=午:岁殿, 丑:游奕, 未:擎天, 午:孤虚, 子:空亡
+干支丁巳=申:岁殿, 亥:游奕, 巳:擎天, 未:孤虚, 丑:空亡
+干支戊午=戌:岁殿, 酉:游奕, 卯:擎天, 午:孤虚, 子:空亡
+干支己未=子:岁殿, 午:游奕, 子:擎天, 未:孤虚, 丑:空亡
+干支庚申=寅:岁殿, 辰:游奕, 戌:擎天, 午:孤虚, 子:空亡
+干支辛酉=辰:岁殿, 寅:游奕, 申:擎天, 未:孤虚, 丑:空亡
+干支壬戌=午:岁殿, 子:游奕, 午:擎天, 午:孤虚, 子:空亡
+干支癸亥=申:岁殿, 酉:游奕, 卯:擎天, 未:孤虚, 丑:空亡
+
+# 天干吉凶星曜
+star_sky_key=天干
+天干甲=寅:禄勋, 未:天贵, 丑:玉贵, 巳:天厨, 巳:文昌, 卯:阳刃, 酉:飞刃, 戌:国印, 午:红艳, 酉:流霞, 亥:学堂, 寅:福贵, 酉:官贵
+天干乙=卯:禄勋, 申:天贵, 子:玉贵, 午:天厨, 午:文昌, 辰:阴刃, 戌:飞刃, 亥:国印, 申:红艳, 戌:流霞, 午:学堂, 丑:福贵, 申:官贵
+天干丙=巳:禄勋, 酉:天贵, 亥:玉贵, 子:天厨, 申:文昌, 午:阳刃, 子:飞刃, 丑:国印, 寅:红艳, 未:流霞, 寅:学堂, 子:福贵, 子:官贵
+天干丁=午:禄勋, 亥:天贵, 酉:玉贵, 巳:天厨, 酉:文昌, 未:阴刃, 丑:飞刃, 寅:国印, 未:红艳, 申:流霞, 酉:学堂, 酉:福贵, 亥:官贵
+天干戊=巳:禄勋, 丑:天贵, 未:玉贵, 午:天厨, 申:文昌, 午:阳刃, 子:飞刃, 丑:国印, 辰:红艳, 巳:流霞, 寅:学堂, 申:福贵, 卯:官贵
+天干己=午:禄勋, 子:天贵, 申:玉贵, 申:天厨, 酉:文昌, 未:阴刃, 丑:飞刃, 寅:国印, 辰:红艳, 午:流霞, 酉:学堂, 未:福贵, 寅:官贵
+天干庚=申:禄勋, 丑:天贵, 未:玉贵, 寅:天厨, 亥:文昌, 酉:阳刃, 卯:飞刃, 辰:国印, 戌:红艳, 辰:流霞, 巳:学堂, 午:福贵, 午:官贵
+天干辛=酉:禄勋, 寅:天贵, 午:玉贵, 午:天厨, 戌:文昌, 戌:阴刃, 辰:飞刃, 巳:国印, 酉:红艳, 卯:流霞, 子:学堂, 巳:福贵, 巳:官贵
+天干壬=亥:禄勋, 卯:天贵, 巳:玉贵, 酉:天厨, 寅:文昌, 子:阳刃, 午:飞刃, 未:国印, 子:红艳, 亥:流霞, 申:学堂, 辰:福贵, 午:官贵
+天干癸=子:禄勋, 巳:天贵, 卯:玉贵, 亥:天厨, 卯:文昌, 丑:阴刃, 未:飞刃, 申:国印, 申:红艳, 寅:流霞, 卯:学堂, 卯:福贵, 巳:官贵
+
+# 地支吉凶星曜
+star_earth_key=地支
+地支子=子:岁驾, 卯:红鸾, 酉:天喜, 酉:卷舌, 巳:死符, 午:大耗, 卯:三刑, 未:六害, 寅:孤辰, 戌:寡宿, 巳:劫杀, 亥:亡神, 巳:的杀, 申:大杀, 酉:咸池, 申:天雄, 寅:地雌, 辰:五鬼, 卯:贯索, 丑:天空, 戌:天狗, 亥:蓦越, 未:天厄, 午:天哭, 辰:披头, 戌:血刃, 辰:黄幡, 戌:豹尾, 寅:驿马, 辰:华盖, 未:地解, 子:将星, 丑:岁合, 午:灾杀, 未:天杀, 申:地杀, 丑:板鞍, 戌:吞陷
+地支丑=丑:岁驾, 寅:红鸾, 申:天喜, 戌:卷舌, 午:死符, 未:大耗, 戌:三刑, 午:六害, 寅:孤辰, 戌:寡宿, 寅:劫杀, 申:亡神, 丑:的杀, 酉:大杀, 午:咸池, 酉:天雄, 卯:地雌, 巳:五鬼, 辰:贯索, 寅:天空, 亥:天狗, 子:蓦越, 申:天厄, 巳:天哭, 卯:披头, 酉:血刃, 丑:黄幡, 未:豹尾, 亥:驿马, 丑:华盖, 未:地解, 酉:将星, 子:岁合, 卯:灾杀, 辰:天杀, 巳:地杀, 戌:板鞍, 寅:吞陷
+地支寅=寅:岁驾, 丑:红鸾, 未:天喜, 亥:卷舌, 未:死符, 申:大耗, 巳:三刑, 巳:六害, 巳:孤辰, 丑:寡宿, 亥:劫杀, 巳:亡神, 酉:的杀, 戌:大杀, 卯:咸池, 戌:天雄, 辰:地雌, 午:五鬼, 巳:贯索, 卯:天空, 子:天狗, 丑:蓦越, 酉:天厄, 辰:天哭, 寅:披头, 申:血刃, 未:黄幡, 辰:豹尾, 申:驿马, 戌:华盖, 申:地解, 午:将星, 亥:岁合, 子:灾杀, 丑:天杀, 寅:地杀, 未:板鞍, 丑:吞陷
+地支卯=卯:岁驾, 子:红鸾, 午:天喜, 子:卷舌, 申:死符, 酉:大耗, 午:三刑, 辰:六害, 巳:孤辰, 丑:寡宿, 申:劫杀, 寅:亡神, 巳:的杀, 巳:大杀, 子:咸池, 亥:天雄, 巳:地雌, 未:五鬼, 午:贯索, 辰:天空, 丑:天狗, 寅:蓦越, 戌:天厄, 卯:天哭, 丑:披头, 未:血刃, 戌:黄幡, 丑:豹尾, 巳:驿马, 未:华盖, 申:地解, 卯:将星, 戌:岁合, 酉:灾杀, 戌:天杀, 亥:地杀, 辰:板鞍, 戌:吞陷
+地支辰=辰:岁驾, 亥:红鸾, 巳:天喜, 丑:卷舌, 酉:死符, 戌:大耗, 辰:三刑, 卯:六害, 巳:孤辰, 丑:寡宿, 巳:劫杀, 亥:亡神, 丑:的杀, 午:大杀, 酉:咸池, 子:天雄, 午:地雌, 申:五鬼, 未:贯索, 巳:天空, 寅:天狗, 卯:蓦越, 亥:天厄, 寅:天哭, 子:披头, 午:血刃, 辰:黄幡, 戌:豹尾, 寅:驿马, 辰:华盖, 酉:地解, 子:将星, 酉:岁合, 午:灾杀, 未:天杀, 申:地杀, 丑:板鞍, 辰:吞陷
+地支巳=巳:岁驾, 戌:红鸾, 辰:天喜, 寅:卷舌, 戌:死符, 亥:大耗, 申:三刑, 寅:六害, 申:孤辰, 辰:寡宿, 寅:劫杀, 申:亡神, 酉:的杀, 未:大杀, 午:咸池, 丑:天雄, 未:地雌, 酉:五鬼, 申:贯索, 午:天空, 卯:天狗, 辰:蓦越, 子:天厄, 丑:天哭, 亥:披头, 巳:血刃, 丑:黄幡, 未:豹尾, 亥:驿马, 丑:华盖, 酉:地解, 酉:将星, 申:岁合, 卯:灾杀, 辰:天杀, 巳:地杀, 戌:板鞍, 卯:吞陷
+地支午=午:岁驾, 酉:红鸾, 卯:天喜, 卯:卷舌, 亥:死符, 子:大耗, 午:三刑, 丑:六害, 申:孤辰, 辰:寡宿, 亥:劫杀, 巳:亡神, 巳:的杀, 寅:大杀, 卯:咸池, 寅:天雄, 申:地雌, 戌:五鬼, 酉:贯索, 未:天空, 辰:天狗, 巳:蓦越, 丑:天厄, 子:天哭, 戌:披头, 辰:血刃, 未:黄幡, 辰:豹尾, 申:驿马, 戌:华盖, 戌:地解, 午:将星, 未:岁合, 子:灾杀, 丑:天杀, 寅:地杀, 未:板鞍, 寅:吞陷
+地支未=未:岁驾, 申:红鸾, 寅:天喜, 辰:卷舌, 子:死符, 丑:大耗, 丑:三刑, 子:六害, 申:孤辰, 辰:寡宿, 申:劫杀, 寅:亡神, 丑:的杀, 卯:大杀, 子:咸池, 卯:天雄, 酉:地雌, 亥:五鬼, 戌:贯索, 申:天空, 巳:天狗, 午:蓦越, 寅:天厄, 亥:天哭, 酉:披头, 卯:血刃, 戌:黄幡, 丑:豹尾, 巳:驿马, 未:华盖, 戌:地解, 卯:将星, 午:岁合, 酉:灾杀, 戌:天杀, 亥:地杀, 辰:板鞍, 寅:吞陷
+地支申=申:岁驾, 未:红鸾, 丑:天喜, 巳:卷舌, 丑:死符, 寅:大耗, 寅:三刑, 亥:六害, 亥:孤辰, 未:寡宿, 巳:劫杀, 亥:亡神, 酉:的杀, 辰:大杀, 酉:咸池, 辰:天雄, 戌:地雌, 子:五鬼, 亥:贯索, 酉:天空, 午:天狗, 未:蓦越, 卯:天厄, 戌:天哭, 申:披头, 寅:血刃, 辰:黄幡, 戌:豹尾, 寅:驿马, 辰:华盖, 亥:地解, 子:将星, 巳:岁合, 午:灾杀, 未:天杀, 申:地杀, 丑:板鞍, 戌:吞陷
+地支酉=酉:岁驾, 午:红鸾, 子:天喜, 午:卷舌, 寅:死符, 卯:大耗, 酉:三刑, 戌:六害, 亥:孤辰, 未:寡宿, 寅:劫杀, 申:亡神, 巳:的杀, 亥:大杀, 午:咸池, 巳:天雄, 亥:地雌, 丑:五鬼, 子:贯索, 戌:天空, 未:天狗, 申:蓦越, 辰:天厄, 酉:天哭, 未:披头, 丑:血刃, 丑:黄幡, 未:豹尾, 亥:驿马, 丑:华盖, 亥:地解, 酉:将星, 辰:岁合, 卯:灾杀, 辰:天杀, 巳:地杀, 戌:板鞍, 戌:吞陷
+地支戌=戌:岁驾, 巳:红鸾, 亥:天喜, 未:卷舌, 卯:死符, 辰:大耗, 未:三刑, 酉:六害, 亥:孤辰, 未:寡宿, 亥:劫杀, 巳:亡神, 丑:的杀, 子:大杀, 卯:咸池, 午:天雄, 子:地雌, 寅:五鬼, 丑:贯索, 亥:天空, 申:天狗, 酉:蓦越, 巳:天厄, 申:天哭, 午:披头, 子:血刃, 未:黄幡, 辰:豹尾, 申:驿马, 戌:华盖, 午:地解, 午:将星, 卯:岁合, 子:灾杀, 丑:天杀, 寅:地杀, 未:板鞍, 寅:吞陷
+地支亥=亥:岁驾, 辰:红鸾, 戌:天喜, 申:卷舌, 辰:死符, 巳:大耗, 亥:三刑, 申:六害, 寅:孤辰, 戌:寡宿, 申:劫杀, 寅:亡神, 酉:的杀, 丑:大杀, 子:咸池, 未:天雄, 丑:地雌, 卯:五鬼, 寅:贯索, 子:天空, 酉:天狗, 戌:蓦越, 午:天厄, 未:天哭, 巳:披头, 亥:血刃, 戌:黄幡, 丑:豹尾, 巳:驿马, 未:华盖, 午:地解, 卯:将星, 寅:岁合, 酉:灾杀, 戌:天杀, 亥:地杀, 辰:板鞍, 寅:吞陷
+
+# 吉凶星曜 group
+飞刃=唐符
+地雌=丧门, 地丧
+贯索=勾神, 太阴, 卒暴
+五鬼=官符, 年符, 飞符, 三台
+死符=小耗, 月德
+大耗=阑干, 岁破, 月空
+天厄=暴败, 紫微, 龙德
+天雄=白虎
+卷舌=绞杀, 天德, 福星, 福德, 披麻
+天狗=吊客
+蓦越=病符
+的杀=破碎
+咸池=桃花, 年杀
+大杀=飞廉
+岁驾=剑锋, 伏尸, 太岁
+天空=太阳, 晦气
+血刃=浮沉, 天解, 解神, 八座
+灾杀=囚狱
+地杀=指背
+板鞍=阴杀
+岁合=玉堂
+
+# 吉凶星曜 master list, an optional '+' means an array of the format 宫:星曜,...
+master_list=+干支甲子, +天干甲, +地支子, +月支寅, +月时寅子, 卦气
+
+birth_master_display_list=劫杀, 文昌, 禄勋, 大耗, 月杀, 咸池, 唐符, 天厨, 伏尸, 三刑, 勾神, 蓦越, 黄幡, 的杀, 孤辰, 天喜, 注受, 剑锋, 飞廉, 病符, 紫微, 华盖, 天贵, 六害, 孤虚, 游奕, 年符, 死符, 地雌, 卷舌, 绞杀, 天德, 贯索, 亡神, 国印, 岁殿, 卦气, 空亡, 豹尾, 擎天, 天空, 大杀, 天厄, 月廉, 天雄, 天哭, 天狗, 地耗, 月符, 披头, 红鸾, 岁驾, 小耗, 寡宿, 飞刃, 天耗, 斗杓, 驿马, 阳刃, 阑干, 玉贵, 血刃, 浮沉, 解神
+now_master_display_list=岁驾, 天空, 地雌, 贯索, 五鬼, 死符, 大耗, 天厄, 天雄, 大杀, 卷舌, 天德, 天狗, 蓦越, 亡神, 天喜, 披头, 血刃, 解神, 天哭, 地解, 劫杀, 的杀, 红鸾, 驿马, 游奕, 擎天, 黄幡, 豹尾, 天厨, 三刑, 六害, 咸池, 阳刃, 禄勋, 天贵
+
+ten_god_list_org=天禄, 天暗, 天福, 天耗, 天荫, 天贵, 天嗣, 天刑, 天印, 天囚, 天权
+ten_god_list_alt=比肩, 劫财, 食神, 伤官, 偏财, 正财, 七杀, 正官, 偏印, 正印
+
+# 月支吉凶星曜
+star_month_key=月支
+月支寅=申:月廉, 戌:月杀, 午:月符, 子:天耗, 酉:地耗, 子:注受
+月支卯=酉:月廉, 巳:月杀, 未:月符, 寅:天耗, 亥:地耗, 亥:注受
+月支辰=戌:月廉, 午:月杀, 申:月符, 辰:天耗, 丑:地耗, 戌:注受
+月支巳=亥:月廉, 未:月杀, 酉:月符, 午:天耗, 卯:地耗, 酉:注受
+月支午=子:月廉, 寅:月杀, 戌:月符, 申:天耗, 巳:地耗, 戌:注受
+月支未=丑:月廉, 卯:月杀, 亥:月符, 戌:天耗, 未:地耗, 亥:注受
+月支申=寅:月廉, 辰:月杀, 子:月符, 子:天耗, 酉:地耗, 子:注受
+月支酉=卯:月廉, 亥:月杀, 丑:月符, 寅:天耗, 亥:地耗, 丑:注受
+月支戌=辰:月廉, 子:月杀, 寅:月符, 辰:天耗, 丑:地耗, 寅:注受
+月支亥=巳:月廉, 丑:月杀, 卯:月符, 午:天耗, 卯:地耗, 卯:注受
+月支子=午:月廉, 申:月杀, 辰:月符, 申:天耗, 巳:地耗, 寅:注受
+月支丑=未:月廉, 酉:月杀, 巳:月符, 戌:天耗, 未:地耗, 丑:注受
+
+# 斗杓 / 斗标 所在宫, 以生时及月定
+star_month_hour_key=月时
+月时寅子=辰:斗杓
+月时寅丑=巳:斗杓
+月时寅寅=午:斗杓
+月时寅卯=未:斗杓
+月时寅辰=申:斗杓
+月时寅巳=酉:斗杓
+月时寅午=戌:斗杓
+月时寅未=亥:斗杓
+月时寅申=子:斗杓
+月时寅酉=丑:斗杓
+月时寅戌=寅:斗杓
+月时寅亥=卯:斗杓
+月时卯子=巳:斗杓
+月时卯丑=午:斗杓
+月时卯寅=未:斗杓
+月时卯卯=申:斗杓
+月时卯辰=酉:斗杓
+月时卯巳=戌:斗杓
+月时卯午=亥:斗杓
+月时卯未=子:斗杓
+月时卯申=丑:斗杓
+月时卯酉=寅:斗杓
+月时卯戌=卯:斗杓
+月时卯亥=辰:斗杓
+月时辰子=午:斗杓
+月时辰丑=未:斗杓
+月时辰寅=申:斗杓
+月时辰卯=酉:斗杓
+月时辰辰=戌:斗杓
+月时辰巳=亥:斗杓
+月时辰午=子:斗杓
+月时辰未=丑:斗杓
+月时辰申=寅:斗杓
+月时辰酉=卯:斗杓
+月时辰戌=辰:斗杓
+月时辰亥=巳:斗杓
+月时巳子=未:斗杓
+月时巳丑=申:斗杓
+月时巳寅=酉:斗杓
+月时巳卯=戌:斗杓
+月时巳辰=亥:斗杓
+月时巳巳=子:斗杓
+月时巳午=丑:斗杓
+月时巳未=寅:斗杓
+月时巳申=卯:斗杓
+月时巳酉=辰:斗杓
+月时巳戌=巳:斗杓
+月时巳亥=午:斗杓
+月时午子=申:斗杓
+月时午丑=酉:斗杓
+月时午寅=戌:斗杓
+月时午卯=亥:斗杓
+月时午辰=子:斗杓
+月时午巳=丑:斗杓
+月时午午=寅:斗杓
+月时午未=卯:斗杓
+月时午申=辰:斗杓
+月时午酉=巳:斗杓
+月时午戌=午:斗杓
+月时午亥=未:斗杓
+月时未子=酉:斗杓
+月时未丑=戌:斗杓
+月时未寅=亥:斗杓
+月时未卯=子:斗杓
+月时未辰=丑:斗杓
+月时未巳=寅:斗杓
+月时未午=卯:斗杓
+月时未未=辰:斗杓
+月时未申=巳:斗杓
+月时未酉=午:斗杓
+月时未戌=未:斗杓
+月时未亥=申:斗杓
+月时申子=戌:斗杓
+月时申丑=亥:斗杓
+月时申寅=子:斗杓
+月时申卯=丑:斗杓
+月时申辰=寅:斗杓
+月时申巳=卯:斗杓
+月时申午=辰:斗杓
+月时申未=巳:斗杓
+月时申申=午:斗杓
+月时申酉=未:斗杓
+月时申戌=申:斗杓
+月时申亥=酉:斗杓
+月时酉子=亥:斗杓
+月时酉丑=子:斗杓
+月时酉寅=丑:斗杓
+月时酉卯=寅:斗杓
+月时酉辰=卯:斗杓
+月时酉巳=辰:斗杓
+月时酉午=巳:斗杓
+月时酉未=午:斗杓
+月时酉申=未:斗杓
+月时酉酉=申:斗杓
+月时酉戌=酉:斗杓
+月时酉亥=戌:斗杓
+月时戌子=子:斗杓
+月时戌丑=丑:斗杓
+月时戌寅=寅:斗杓
+月时戌卯=卯:斗杓
+月时戌辰=辰:斗杓
+月时戌巳=巳:斗杓
+月时戌午=午:斗杓
+月时戌未=未:斗杓
+月时戌申=申:斗杓
+月时戌酉=酉:斗杓
+月时戌戌=戌:斗杓
+月时戌亥=亥:斗杓
+月时亥子=丑:斗杓
+月时亥丑=寅:斗杓
+月时亥寅=卯:斗杓
+月时亥卯=辰:斗杓
+月时亥辰=巳:斗杓
+月时亥巳=午:斗杓
+月时亥午=未:斗杓
+月时亥未=申:斗杓
+月时亥申=酉:斗杓
+月时亥酉=戌:斗杓
+月时亥戌=亥:斗杓
+月时亥亥=子:斗杓
+月时子子=寅:斗杓
+月时子丑=卯:斗杓
+月时子寅=辰:斗杓
+月时子卯=巳:斗杓
+月时子辰=午:斗杓
+月时子巳=未:斗杓
+月时子午=申:斗杓
+月时子未=酉:斗杓
+月时子申=戌:斗杓
+月时子酉=亥:斗杓
+月时子戌=子:斗杓
+月时子亥=丑:斗杓
+月时丑子=卯:斗杓
+月时丑丑=辰:斗杓
+月时丑寅=巳:斗杓
+月时丑卯=午:斗杓
+月时丑辰=未:斗杓
+月时丑巳=申:斗杓
+月时丑午=酉:斗杓
+月时丑未=戌:斗杓
+月时丑申=亥:斗杓
+月时丑酉=子:斗杓
+月时丑戌=丑:斗杓
+月时丑亥=寅:斗杓
+
+# 卦气, 以年干起卦气, 逆数至昼日夜月之宫得何干, 以此干禄宫为是
+star_sky_qi_key=卦气
+卦气甲=亥:寅
+卦气乙=申:卯
+卦气丙=寅:巳
+卦气丁=酉:午
+卦气戊=子:巳
+卦气己=午:午
+卦气庚=卯:申
+卦气辛=巳:酉
+卦气壬=亥:亥
+卦气癸=申:子
+
+# key, 八字月支
+month_key_seq=值难
+month_index_seq=50
+
+# 值难, 月支
+值难=寅:日, 卯:日, 辰:月, 巳:月, 午:火, 未:罗, 申:水, 酉:孛, 戌:木, 亥:炁, 子:金, 丑:金
+
+# key, 年干, 命宫
+sky_key_seq=职元, 局主, 天经, 天元, 地元, 人元
+sky_index_seq=51, 52, 53, 55, 56, 57
+
+# 职元, 以年干起卦气, 顺数至命宫得何干, 以此干化禄为是
+# 职元, 年干, 命宫
+职元甲=子:孛, 丑:木, 寅:金, 卯:土, 辰:月, 巳:水, 午:炁, 未:计, 申:罗, 酉:火, 戌:孛, 亥:火
+职元乙=子:月, 丑:水, 寅:炁, 卯:计, 辰:罗, 巳:火, 午:孛, 未:木, 申:孛, 酉:木, 戌:金, 亥:土
+职元丙=子:木, 丑:金, 寅:木, 卯:金, 辰:土, 巳:月, 午:水, 未:炁, 申:计, 酉:罗, 戌:火, 亥:孛
+职元丁=子:水, 丑:炁, 寅:计, 卯:罗, 辰:火, 巳:孛, 午:木, 未:金, 申:土, 酉:金, 戌:土, 亥:月
+职元戊=子:土, 丑:月, 寅:水, 卯:炁, 辰:计, 巳:罗, 午:火, 未:孛, 申:木, 酉:金, 戌:土, 亥:月
+职元己=子:孛, 丑:木, 寅:金, 卯:土, 辰:月, 巳:水, 午:月, 未:水, 申:炁, 酉:计, 戌:罗, 亥:火
+职元庚=子:月, 丑:水, 寅:炁, 卯:水, 辰:炁, 巳:计, 午:罗, 未:火, 申:孛, 酉:木, 戌:金, 亥:土
+职元辛=子:土, 丑:月, 寅:水, 卯:炁, 辰:计, 巳:炁, 午:计, 未:罗, 申:火, 酉:孛, 戌:木, 亥:金
+职元壬=子:罗, 丑:火, 寅:孛, 卯:木, 辰:金, 巳:土, 午:月, 未:水, 申:炁, 酉:计, 戌:罗, 亥:计
+职元癸=子:金, 丑:土, 寅:月, 卯:水, 辰:炁, 巳:计, 午:罗, 未:火, 申:罗, 酉:火, 戌:孛, 亥:木
+
+# 局主, 以职元干所合之干, 以此干化禄为是
+# 局主, 年干, 命宫
+局主甲=子:水, 丑:炁, 寅:计, 卯:罗, 辰:火, 巳:孛, 午:木, 未:金, 申:土, 酉:月, 戌:水, 亥:月
+局主乙=子:火, 丑:孛, 寅:木, 卯:金, 辰:土, 巳:月, 午:水, 未:炁, 申:水, 酉:炁, 戌:计, 亥:罗
+局主丙=子:炁, 丑:计, 寅:炁, 卯:计, 辰:罗, 巳:火, 午:孛, 未:木, 申:金, 酉:土, 戌:月, 亥:水
+局主丁=子:孛, 丑:木, 寅:金, 卯:土, 辰:月, 巳:水, 午:炁, 未:计, 申:罗, 酉:计, 戌:罗, 亥:火
+局主戊=子:罗, 丑:火, 寅:孛, 卯:木, 辰:金, 巳:土, 午:月, 未:水, 申:炁, 酉:计, 戌:罗, 亥:火
+局主己=子:水, 丑:炁, 寅:计, 卯:罗, 辰:火, 巳:孛, 午:火, 未:孛, 申:木, 酉:金, 戌:土, 亥:月
+局主庚=子:火, 丑:孛, 寅:木, 卯:孛, 辰:木, 巳:金, 午:土, 未:月, 申:水, 酉:炁, 戌:计, 亥:罗
+局主辛=子:罗, 丑:火, 寅:孛, 卯:木, 辰:金, 巳:木, 午:金, 未:土, 申:月, 酉:水, 戌:炁, 亥:计
+局主壬=子:土, 丑:月, 寅:水, 卯:炁, 辰:计, 巳:罗, 午:火, 未:孛, 申:木, 酉:金, 戌:土, 亥:金
+局主癸=子:计, 丑:罗, 寅:火, 卯:孛, 辰:木, 巳:金, 午:土, 未:月, 申:土, 酉:月, 戌:水, 亥:炁
+
+# 天经, 以年干起五虎遁, 顺数至命宫, 得何干支, 以干属某为天经
+# 天经, 年干, 命宫
+天经甲=子:火, 丑:火, 寅:火, 卯:火, 辰:土, 巳:土, 午:金, 未:金, 申:水, 酉:水, 戌:木, 亥:木
+天经乙=子:土, 丑:土, 寅:土, 卯:土, 辰:金, 巳:金, 午:水, 未:水, 申:木, 酉:木, 戌:火, 亥:火
+天经丙=子:金, 丑:金, 寅:金, 卯:金, 辰:水, 巳:水, 午:木, 未:木, 申:火, 酉:火, 戌:土, 亥:土
+天经丁=子:水, 丑:水, 寅:水, 卯:水, 辰:木, 巳:木, 午:火, 未:火, 申:土, 酉:土, 戌:金, 亥:金
+天经戊=子:木, 丑:木, 寅:木, 卯:木, 辰:火, 巳:火, 午:土, 未:土, 申:金, 酉:金, 戌:水, 亥:水
+天经己=子:火, 丑:火, 寅:火, 卯:火, 辰:土, 巳:土, 午:金, 未:金, 申:水, 酉:水, 戌:木, 亥:木
+天经庚=子:土, 丑:土, 寅:土, 卯:土, 辰:金, 巳:金, 午:水, 未:水, 申:木, 酉:木, 戌:火, 亥:火
+天经辛=子:金, 丑:金, 寅:金, 卯:金, 辰:水, 巳:水, 午:木, 未:木, 申:火, 酉:火, 戌:土, 亥:土
+天经壬=子:水, 丑:水, 寅:水, 卯:水, 辰:木, 巳:木, 午:火, 未:火, 申:土, 酉:土, 戌:金, 亥:金
+天经癸=子:木, 丑:木, 寅:木, 卯:木, 辰:火, 巳:火, 午:土, 未:土, 申:金, 酉:金, 戌:水, 亥:水
+
+# 地纬, 以年干起五虎遁, 顺数至命宫, 得何干支, 以地支属某为地纬
+# 地纬, 命宫
+year_birth_earth_key=地纬, 54
+地纬=子:水, 丑:土, 寅:木, 卯:木, 辰:土, 巳:火, 午:火, 未:土, 申:金, 酉:金, 戌:土, 亥:水
+
+# 天元禄, 以年干五虎遁，顺数至命宫得何干，以此干化禄为是
+# 天元, 年干, 命宫
+天元甲=子:木, 丑:金, 寅:木, 卯:金, 辰:土, 巳:月, 午:水, 未:炁, 申:计, 酉:罗, 戌:火, 亥:孛
+天元乙=子:土, 丑:月, 寅:土, 卯:月, 辰:水, 巳:炁, 午:计, 未:罗, 申:火, 酉:孛, 戌:木, 亥:金
+天元丙=子:水, 丑:炁, 寅:水, 卯:炁, 辰:计, 巳:罗, 午:火, 未:孛, 申:木, 酉:金, 戌:土, 亥:月
+天元丁=子:计, 丑:罗, 寅:计, 卯:罗, 辰:火, 巳:孛, 午:木, 未:金, 申:土, 酉:月, 戌:水, 亥:炁
+天元戊=子:火, 丑:孛, 寅:火, 卯:孛, 辰:木, 巳:金, 午:土, 未:月, 申:水, 酉:炁, 戌:计, 亥:罗
+天元己=子:木, 丑:金, 寅:木, 卯:金, 辰:土, 巳:月, 午:水, 未:炁, 申:计, 酉:罗, 戌:火, 亥:孛
+天元庚=子:土, 丑:月, 寅:土, 卯:月, 辰:水, 巳:炁, 午:计, 未:罗, 申:火, 酉:孛, 戌:木, 亥:金
+天元辛=子:水, 丑:炁, 寅:水, 卯:炁, 辰:计, 巳:罗, 午:火, 未:孛, 申:木, 酉:金, 戌:土, 亥:月
+天元壬=子:计, 丑:罗, 寅:计, 卯:罗, 辰:火, 巳:孛, 午:木, 未:金, 申:土, 酉:月, 戌:水, 亥:炁
+天元癸=子:火, 丑:孛, 寅:火, 卯:孛, 辰:木, 巳:金, 午:土, 未:月, 申:水, 酉:炁, 戌:计, 亥:罗
+
+# 地元禄, 以年干所管卦气逆数至命宫得何干，以此干属某为是
+# 地元, 年干, 命宫
+地元甲=子:木, 丑:木, 寅:水, 卯:水, 辰:金, 巳:金, 午:土, 未:土, 申:火, 酉:火, 戌:木, 亥:木
+地元乙=子:水, 丑:水, 寅:金, 卯:金, 辰:土, 巳:土, 午:火, 未:火, 申:木, 酉:火, 戌:木, 亥:木
+地元丙=子:土, 丑:火, 寅:火, 卯:火, 辰:火, 巳:木, 午:木, 未:水, 申:水, 酉:金, 戌:金, 亥:土
+地元丁=子:火, 丑:木, 寅:木, 卯:水, 辰:水, 巳:金, 午:金, 未:土, 申:土, 酉:火, 戌:土, 亥:火
+地元戊=子:土, 丑:土, 寅:土, 卯:火, 辰:火, 巳:木, 午:木, 未:水, 申:水, 酉:金, 戌:金, 亥:土
+地元己=子:木, 丑:木, 寅:水, 卯:水, 辰:金, 巳:金, 午:土, 未:金, 申:土, 酉:土, 戌:火, 亥:火
+地元庚=子:水, 丑:水, 寅:金, 卯:金, 辰:金, 巳:金, 午:土, 未:土, 申:火, 酉:火, 戌:木, 亥:木
+地元辛=子:火, 丑:木, 寅:木, 卯:水, 辰:水, 巳:金, 午:水, 未:金, 申:金, 酉:土, 戌:土, 亥:火
+地元壬=子:水, 丑:水, 寅:金, 卯:金, 辰:土, 巳:土, 午:火, 未:火, 申:木, 酉:木, 戌:水, 亥:水
+地元癸=子:金, 丑:金, 寅:土, 卯:土, 辰:火, 巳:火, 午:木, 未:木, 申:水, 酉:木, 戌:水, 亥:水
+
+# 人元禄, 以年干起五虎遁顺数至官禄得何干，以此干受克为是
+# 人元, 年干, 命宫
+人元甲=子:水, 丑:木, 寅:木, 卯:火, 辰:火, 巳:土, 午:土, 未:金, 申:金, 酉:水, 戌:水, 亥:水
+人元乙=子:木, 丑:火, 寅:火, 卯:土, 辰:土, 巳:金, 午:金, 未:水, 申:水, 酉:木, 戌:木, 亥:木
+人元丙=子:火, 丑:土, 寅:土, 卯:金, 辰:金, 巳:水, 午:水, 未:木, 申:木, 酉:火, 戌:火, 亥:火
+人元丁=子:土, 丑:金, 寅:金, 卯:水, 辰:水, 巳:木, 午:木, 未:火, 申:火, 酉:土, 戌:土, 亥:土
+人元戊=子:金, 丑:水, 寅:水, 卯:木, 辰:木, 巳:火, 午:火, 未:土, 申:土, 酉:金, 戌:金, 亥:金
+人元己=子:水, 丑:木, 寅:木, 卯:火, 辰:火, 巳:土, 午:土, 未:金, 申:金, 酉:水, 戌:水, 亥:水
+人元庚=子:木, 丑:火, 寅:火, 卯:土, 辰:土, 巳:金, 午:金, 未:水, 申:水, 酉:木, 戌:木, 亥:木
+人元辛=子:火, 丑:土, 寅:土, 卯:金, 辰:金, 巳:水, 午:水, 未:木, 申:木, 酉:火, 戌:火, 亥:火
+人元壬=子:土, 丑:金, 寅:金, 卯:水, 辰:水, 巳:木, 午:木, 未:火, 申:火, 酉:土, 戌:土, 亥:土
+人元癸=子:金, 丑:水, 寅:水, 卯:木, 辰:木, 巳:火, 午:火, 未:土, 申:土, 酉:金, 戌:金, 亥:金
+
+# 天干
+power_key=刃星, 贵元
+power_index=58, 59
+刃星=甲:火, 乙:金, 丙:日, 丁:月, 戊:日, 己:月, 庚:金, 辛:火, 壬:土, 癸:土
+贵元=甲:土、月, 乙:水、土, 丙:木、金, 丁:木、金, 戊:土、月, 己:水、土, 庚:土、月, 辛:木、日, 壬:火、水, 癸:火、水
+
+# 十干化禄
+#             甲, 乙, 丙, 丁, 戊, 己, 庚, 辛, 壬, 癸
+year_star_seq=火, 孛, 木, 金, 土, 月, 水, 炁, 计, 罗
+year_star_map=0, 9, 2, 1, 4, 3, 6, 5, 8, 7
+year_star_range=90, 100
+
+# birth year info data
+甲子=木, 火, 月, 木, 罗, 木, 月, 木, 炁, 木, 金, 金, 木, 木, 木, 罗, 日, 土, 金, 金
+乙丑=木, 计, 土, 水, 计, 火, 日, 木, 水, 日, 金, 水, 木, 水, 土, 计, 土, 水, 水, 木
+丙寅=火, 水, 炁, 金, 金, 水, 罗, 水, 罗, 火, 火, 日, 火, 计, 土, 炁, 土, 木, 木, 月
+丁卯=火, 木, 水, 火, 火, 日, 计, 水, 计, 月, 火, 罗, 火, 罗, 木, 水, 月, 炁, 火, 土
+戊辰=土, 火, 罗, 木, 金, 水, 火, 木, 孛, 土, 木, 木, 土, 土, 火, 月, 木, 孛, 金, 炁
+己巳=土, 计, 计, 水, 炁, 日, 金, 木, 火, 罗, 木, 炁, 土, 火, 金, 土, 水, 木, 水, 水
+庚午=金, 水, 孛, 金, 木, 水, 木, 水, 金, 金, 土, 孛, 金, 金, 水, 金, 火, 水, 木, 罗
+辛未=金, 木, 火, 火, 土, 金, 孛, 水, 木, 计, 土, 土, 金, 炁, 日, 木, 金, 火, 火, 计
+壬申=水, 火, 金, 木, 日, 木, 炁, 木, 月, 水, 金, 月, 水, 日, 月, 孛, 金, 土, 金, 孛
+癸酉=水, 计, 木, 水, 月, 土, 水, 木, 土, 孛, 金, 计, 水, 月, 水, 火, 火, 金, 水, 火
+甲戌=木, 水, 月, 金, 罗, 木, 月, 水, 炁, 木, 火, 金, 木, 木, 金, 罗, 水, 金, 木, 金
+乙亥=木, 木, 土, 火, 计, 火, 日, 水, 水, 日, 火, 水, 木, 水, 火, 计, 木, 火, 火, 木
+丙子=火, 火, 炁, 木, 金, 水, 罗, 木, 罗, 火, 水, 日, 火, 计, 木, 炁, 日, 土, 金, 月
+丁丑=火, 计, 水, 水, 火, 日, 计, 木, 计, 月, 水, 罗, 火, 罗, 土, 水, 土, 水, 水, 土
+戊寅=土, 水, 罗, 金, 金, 水, 火, 水, 孛, 土, 土, 木, 土, 土, 土, 月, 土, 木, 木, 炁
+己卯=土, 木, 计, 火, 炁, 日, 金, 水, 火, 罗, 土, 炁, 土, 火, 木, 土, 月, 炁, 火, 水
+庚辰=金, 火, 孛, 木, 木, 水, 木, 木, 金, 金, 金, 孛, 金, 金, 火, 金, 木, 孛, 金, 罗
+辛巳=金, 计, 火, 水, 土, 金, 孛, 木, 木, 计, 金, 土, 金, 炁, 金, 木, 水, 木, 水, 计
+壬午=水, 水, 金, 金, 日, 木, 炁, 水, 月, 水, 木, 月, 水, 日, 水, 孛, 火, 水, 木, 孛
+癸未=水, 木, 木, 火, 月, 土, 水, 水, 土, 孛, 木, 计, 水, 月, 日, 火, 金, 火, 火, 火
+甲申=木, 火, 月, 木, 罗, 木, 月, 木, 炁, 木, 水, 金, 木, 木, 月, 罗, 金, 土, 金, 金
+乙酉=木, 计, 土, 水, 计, 火, 日, 木, 水, 日, 水, 水, 木, 水, 水, 计, 火, 金, 水, 木
+丙戌=火, 水, 炁, 金, 金, 水, 罗, 水, 罗, 火, 土, 日, 火, 计, 金, 炁, 水, 金, 木, 月
+丁亥=火, 木, 水, 火, 火, 日, 计, 水, 计, 月, 土, 罗, 火, 罗, 火, 水, 木, 火, 火, 土
+戊子=土, 火, 罗, 木, 金, 水, 火, 木, 孛, 土, 火, 木, 土, 土, 木, 月, 日, 土, 金, 炁
+己丑=土, 计, 计, 水, 炁, 日, 金, 木, 火, 罗, 火, 炁, 土, 火, 土, 土, 土, 水, 水, 水
+庚寅=金, 水, 孛, 金, 木, 水, 木, 水, 金, 金, 木, 孛, 金, 金, 土, 金, 土, 木, 木, 罗
+辛卯=金, 木, 火, 火, 土, 金, 孛, 水, 木, 计, 木, 土, 金, 炁, 木, 木, 月, 炁, 火, 计
+壬辰=水, 火, 金, 木, 日, 木, 炁, 木, 月, 水, 水, 月, 水, 日, 火, 孛, 木, 孛, 金, 孛
+癸巳=水, 计, 木, 水, 月, 土, 水, 木, 土, 孛, 水, 计, 水, 月, 金, 火, 水, 木, 水, 火
+甲午=木, 水, 月, 金, 罗, 木, 月, 水, 炁, 木, 金, 金, 木, 木, 水, 罗, 火, 水, 木, 金
+乙未=木, 木, 土, 火, 计, 火, 日, 水, 水, 日, 金, 水, 木, 水, 日, 计, 金, 火, 火, 木
+丙申=火, 火, 炁, 木, 金, 水, 罗, 木, 罗, 火, 火, 日, 火, 计, 月, 炁, 金, 土, 金, 月
+丁酉=火, 计, 水, 水, 火, 日, 计, 木, 计, 月, 火, 罗, 火, 罗, 水, 水, 火, 金, 水, 土
+戊戌=土, 水, 罗, 金, 金, 水, 火, 水, 孛, 土, 木, 木, 土, 土, 金, 月, 水, 金, 木, 炁
+己亥=土, 木, 计, 火, 炁, 日, 金, 水, 火, 罗, 木, 炁, 土, 火, 火, 土, 木, 火, 火, 水
+庚子=金, 火, 孛, 木, 木, 水, 木, 木, 金, 金, 土, 孛, 金, 金, 木, 金, 日, 土, 金, 罗
+辛丑=金, 计, 火, 水, 土, 金, 孛, 木, 木, 计, 土, 土, 金, 炁, 土, 木, 土, 水, 水, 计
+壬寅=水, 水, 金, 金, 日, 木, 炁, 水, 月, 水, 金, 月, 水, 日, 土, 孛, 土, 木, 木, 孛
+癸卯=水, 木, 木, 火, 月, 土, 水, 水, 土, 孛, 金, 计, 水, 月, 木, 火, 月, 炁, 火, 火
+甲辰=木, 火, 月, 木, 罗, 木, 月, 木, 炁, 木, 火, 金, 木, 木, 火, 罗, 木, 孛, 金, 金
+乙巳=木, 计, 土, 水, 计, 火, 日, 木, 水, 日, 火, 水, 木, 水, 金, 计, 水, 木, 水, 木
+丙午=火, 水, 炁, 金, 金, 水, 罗, 水, 罗, 火, 水, 日, 火, 计, 水, 炁, 火, 水, 木, 月
+丁未=火, 木, 水, 火, 火, 日, 计, 水, 计, 月, 水, 罗, 火, 罗, 日, 水, 金, 火, 火, 土
+戊申=土, 火, 罗, 木, 金, 水, 火, 木, 孛, 土, 土, 木, 土, 土, 月, 月, 金, 土, 金, 炁
+己酉=土, 计, 计, 水, 炁, 日, 金, 木, 火, 罗, 土, 炁, 土, 火, 水, 土, 火, 金, 水, 水
+庚戌=金, 水, 孛, 金, 木, 水, 木, 水, 金, 金, 金, 孛, 金, 金, 金, 金, 水, 金, 木, 罗
+辛亥=金, 木, 火, 火, 土, 金, 孛, 水, 木, 计, 金, 土, 金, 炁, 火, 木, 木, 火, 火, 计
+壬子=水, 火, 金, 木, 日, 木, 炁, 木, 月, 水, 木, 月, 水, 日, 木, 孛, 日, 土, 金, 孛
+癸丑=水, 计, 木, 水, 月, 土, 水, 木, 土, 孛, 木, 计, 水, 月, 土, 火, 土, 水, 水, 火
+甲寅=木, 水, 月, 金, 罗, 木, 月, 水, 炁, 木, 水, 金, 木, 木, 土, 罗, 土, 木, 木, 金
+乙卯=木, 木, 土, 火, 计, 火, 日, 水, 水, 日, 水, 水, 木, 水, 木, 计, 月, 炁, 火, 木
+丙辰=火, 火, 炁, 木, 金, 水, 罗, 木, 罗, 火, 土, 日, 火, 计, 火, 炁, 木, 孛, 金, 月
+丁巳=火, 计, 水, 水, 火, 日, 计, 木, 计, 月, 土, 罗, 火, 罗, 金, 水, 水, 木, 水, 土
+戊午=土, 水, 罗, 金, 金, 水, 火, 水, 孛, 土, 火, 木, 土, 土, 水, 月, 火, 水, 木, 炁
+己未=土, 木, 计, 火, 炁, 日, 金, 水, 火, 罗, 火, 炁, 土, 火, 日, 土, 金, 火, 火, 水
+庚申=金, 火, 孛, 木, 木, 水, 木, 木, 金, 金, 木, 孛, 金, 金, 月, 金, 金, 土, 金, 罗
+辛酉=金, 计, 火, 水, 土, 金, 孛, 木, 木, 计, 木, 土, 金, 炁, 水, 木, 火, 金, 水, 计
+壬戌=水, 水, 金, 金, 日, 木, 炁, 水, 月, 水, 水, 月, 水, 日, 金, 孛, 水, 金, 木, 孛
+癸亥=水, 木, 木, 火, 月, 土, 水, 水, 土, 孛, 水, 计, 水, 月, 火, 火, 木, 火, 火, 火
+
+year_sign_key=星
+命宫星=99, 权印,  强、正宫
+财帛星=92, 福食, 强宫
+兄弟星=93, 耗伤, 弱、恶宫
+田宅星=97, 印官, 强、正宫
+男女星=95, 贵财, 强宫
+奴仆星=96, 刑杀, 弱、恶宫
+夫妻星=94, 荫偏, 强、正宫
+疾厄星=98, 囚枭, 弱宫
+迁移星=92, 福食, 弱、恶宫
+官禄星=90, 禄比, 强、正宫
+福德星=92, 福食, 强宫
+相貌星=91, 暗劫, 弱、恶宫
+
+# 星辰 殿, 垣, 庙, 旺, 乐, 喜, 怒
+sign_status_key=星辰
+sign_status_seq=殿, 垣, 庙, 旺, 乐, 喜, 怒
+星辰日=午:垣,午:庙,巳:旺,戌:旺,午:乐,辰:乐,寅:喜
+星辰月=未:垣,戌:庙,酉:旺,未:乐,卯:喜,亥:喜
+星辰金=酉:垣,辰:垣,酉:庙,辰:庙,午:旺,亥:旺,酉:乐,辰:乐,巳:喜,寅:怒
+星辰木=寅:垣,亥:垣,亥:庙,未:旺,寅:乐,亥:乐,未:喜,子:怒
+星辰水=申:垣,巳:垣,午:庙,申:旺,巳:旺,子:旺,申:乐,巳:乐,辰:喜,戌:怒
+星辰火=卯:垣,戌:垣,卯:庙,丑:旺,卯:乐,申:喜,丑:喜,酉:怒
+星辰土=丑:垣,子:垣,丑:庙,子:庙,辰:旺,卯:旺,丑:乐,子:乐,午:喜,巳:怒
+星辰计=巳:庙,亥:庙,卯:旺,寅:旺,戌:旺,卯:乐,子:喜
+星辰罗=午:庙,寅:庙,卯:旺,戌:喜
+星辰炁=申:庙,丑:旺,亥:旺,戌:喜
+星辰孛=未:庙,巳:旺,寅:旺,子:乐,酉:乐,亥:喜
+
+# 六十花甲纳音
+year_sound_key=纳音
+纳音甲子=海中金
+纳音乙丑=海中金
+纳音丙寅=炉中火
+纳音丁卯=炉中火
+纳音戊辰=大林木
+纳音己巳=大林木
+纳音庚午=路旁土
+纳音辛未=路旁土
+纳音壬申=剑锋金
+纳音癸酉=剑锋金
+纳音甲戌=山头火
+纳音乙亥=山头火
+纳音丙子=涧下水
+纳音丁丑=涧下水
+纳音戊寅=城头土
+纳音己卯=城头土
+纳音庚辰=白腊金
+纳音辛巳=白腊金
+纳音壬午=杨柳木
+纳音癸未=杨柳木
+纳音甲申=泉中水
+纳音乙酉=泉中水
+纳音丙戌=屋上土
+纳音丁亥=屋上土
+纳音戊子=霹雳火
+纳音己丑=霹雳火
+纳音庚寅=松柏木
+纳音辛卯=松柏木
+纳音壬辰=长流水
+纳音癸巳=长流水
+纳音甲午=沙中金
+纳音乙未=沙中金
+纳音丙申=山下火
+纳音丁酉=山下火
+纳音戊戌=平地木
+纳音己亥=平地木
+纳音庚子=璧上土
+纳音辛丑=璧上土
+纳音壬寅=金箔金
+纳音癸卯=金箔金
+纳音甲辰=覆灯火
+纳音乙巳=覆灯火
+纳音丙午=天河水
+纳音丁未=天河水
+纳音戊申=大驿土
+纳音己酉=大驿土
+纳音庚戌=钗钏金
+纳音辛亥=钗钏金
+纳音壬子=桑柘木
+纳音癸丑=桑柘木
+纳音甲寅=大溪水
+纳音乙卯=大溪水
+纳音丙辰=沙中土
+纳音丁巳=沙中土
+纳音戊午=天上火
+纳音己未=天上火
+纳音庚申=石榴木
+纳音辛酉=石榴木
+纳音壬戌=大海水
+纳音癸亥=大海水
+
+# 难, 仇, 恩, 用
+life_helper_key=难仇恩用
+alt_life_helper_key=难财恩用
+难仇恩用日=木炁, 土计, 金水, 火罗
+难仇恩用月=土计, 火罗, 金水, 木炁
+难仇恩用金=火罗, 木炁, 土计, 水孛
+难仇恩用木=金, 土计, 水孛, 火罗
+难仇恩用水=土计, 火罗, 金, 木炁
+难仇恩用火=水孛, 金, 木炁, 土计
+难仇恩用土=木炁, 水孛, 火罗, 金
+
+against_key=克
+克日=木, 炁
+克月=土, 计
+克金=火, 罗
+克木=金
+克水=土, 计
+克火=水, 孛
+克土=木, 炁
+
+# 季节用星
+season=季节
+season_helper_season=冬末-用:火罗, 初春-用:金兼火罗, 春分-用:金兼水火, 春末-用:金兼水孛, 初夏-用:水孛, 夏至-用:水孛, 夏末-用:水孛, 初秋-用:木炁兼水孛, 秋分-用:木炁兼水火, 秋末-用:木炁兼火罗, 初冬-用:火罗, 冬至-用:火罗
+
+# 星曜名称转变
+star_equ_map=阳刃, 阴刃
+
+# 格局
+good_styles=政余喜格
+bad_styles=政余忌格
+print_max_styles=12
+fill_max_styles=6
+directions=西, 南, 东, 北
+against=克
+enemies=日:月, 月:日, 金:火, 木:金, 水:土, 火:水, 土:木, 炁:金, 孛:土, 罗:水, 计:木
+strengthen=生
+helpers=金:土, 木:水, 水:金, 火:木, 土:火
+lunar_face_1=晦朔
+lunar_face_2=弦望
+lunar_face_1_range=26, 5
+lunar_face_2_range=11, 20
+alone=孤
+before=前
+after=后
+none=无
+zodiac_boundary=宫歧
+stellar_boundary=宿歧
+boundary_range=1.0
+sex_remap=夫妻
+
+# 政余喜格
++&{日, 月, 金, 木, 水, 火, 土}垣:[2.0.1] @{}[1]={}	# 入垣
++&{日, 月, 金, 木, 水, 火, 土}殿:[2.0.1] %{}[1]={}	# 升殿
+
++&{金, 木, 水, 火, 土}生:[2.0.1] @{}[1]=${生{}}
+
+=日居日位: {日垣}
+=月入月垣: {月垣}
+=太白居垣: {金垣}
+=岁星居垣: {木垣}
+=辰星居垣: {水垣}
+=荧惑居垣: {火垣}
+=镇星居垣: {土垣}
+
+=日到日躔: {日殿}
+=月升月殿: {月殿}
+={金, 木, 水, 火, 土}星升殿: {{}殿}
+
++&日{月, 金, 木, 水, 火, 土, 计, 罗, 炁, 孛}会:[2.2.0] @日=@{}
++&月{金, 木, 水, 火, 土, 计, 罗, 炁, 孛}会:[2.2.0] @月=@{}
++&金{木, 水, 火, 土, 计, 罗, 炁, 孛}会:[2.2.0] @金=@{}
++&木{水, 火, 土, 计, 罗, 炁, 孛}会:[2.2.0] @木=@{}
++&水{火, 土, 计, 罗, 炁, 孛}会:[2.2.0] @水=@{}
++&火{土, 计, 罗, 炁, 孛}会:[2.2.0] @火=@{}
++&土{计, 罗, 炁, 孛}会:[2.2.0] @土=@{}
+
++日月并明:[2.3.0] ?{日月会} & ?昼 	# 月本无光，借日为明，昼生合格
++日月朝天:[2.3.0] ?{日月会} & @日[0]=亥 ~ {日月并明}
++日东月西:[2.3.0] ?{日东} & ?{月西} ~ {阴阳得地}	# 寅卯辰谓东方，申酉戌名西地
++日南月北:[2.3.0] ?{日南} & ?{月北} ~ {阴阳得地}	# 巳午未谓南域，亥子丑名北阙
++阴阳得地:[2.3.0] (?{日东} | ?{日南}) & (?{月西} | ?{月北})	# 日居东南，月在西北，故曰得地
++日月居垣:[2.3.0] ?{日垣} & ?{月垣}	# 日居午，月居未
++日月升殿:[2.3.0] ?{日殿} & ?{月殿}	# 日躔日度，月躔月度
++日月殿垣:[2.3.0] (?{日垣} & ?{月殿}) | (?{日殿} & ?{月垣})	# 日躔日度，月躔月度
++日月守照:[2.3.0] (@命=@日 & @命=@月 | @命+6=@日 & @命+6=@月) ~ {日月并明}
+
++日帝居阳:[2.2.0] @日[0]=午 & %日[0]=星 ~ {日垣} ~ {日殿}
++日月遇朝:[2.2.0] @日[0]=子 & @月[0]=丑
++水附阳光:[3.1.0] ?{日月会} & ?{日水会} ~ {水涵蟾魄} ~ {日月并明}
++金水从阳:[3.1.0] ?{日金会} & ?{日水会} ~ {金水相涵}	# 金水掌吉神，居垣殿，昼生者奇
++白虎从驾:[3.1.0] ?{日金会} & (${月柱}[1]=申 | ${月柱}[1]=酉)	# 申酉月生，金日同宫。金为白虎星
++青龙扶砚:[3.1.0] ?{日木会} & (${月柱}[1]=寅 | ${月柱}[1]=卯)	# 寅卯月生，木日同宫。木为青龙星
+=水日会合: {日水会}
++玄武持旗:[3.1.0] ?{日水会} & (${月柱}[1]=亥 | ${月柱}[1]=子)	# 亥子月生人，水日同宫。水为元武星
++朱雀衔符:[3.1.0] ?{日火会} & (${月柱}[1]=巳 | ${月柱}[1]=午)	# 巳午月生，火日同宫。火为朱雀星
++土日合照:[3.1.0] ?{日土会} & @日[0]=戌
++勾陈镇殿:[3.1.0] ?{日土会} & (${月柱}[1]=辰 | ${月柱}[1]=戌 | ${月柱}[1]=丑 | ${月柱}[1]=未)	# 辰戌丑未月，土日同宫。土为勾陈星
++日出扶桑:[2.0.2] @日[0]=卯
+
++金助月华:[2.3.0] ?{月金会} & !(?昼 & ?冬)	# 夜生秋天为奇，昼月冬生无益
++金水辅阴:[3.1.0] ?{月金会} & ?{月水会} & (@月[0]=申 | @月[0]=酉 | @月[0]=戌) ~ {水涵蟾魄} ~ {金助月华} ~ {金水相涵}
++火金侍月:[3.1.0] ?{月金会} & ?{月火会} ~ {金助月华} ~ {火月同宵}	# 火金为用，神临垣庙，夜生者妙
++木月清贵:[2.4.0] ?{月木会} & !(?冬 & ?{晦朔})	# 弦望夜生合格，月晦寒天不取
++水涵蟾魄:[2.3.0] ?{月水会} & !?冬	# 月寒水冷何益，望前望后尤佳
++火月同宵:[2.3.0] ?{月火会} & ?夜	# 晦朔夜生为妙，月明昼诞次之
++太阴朝斗:[2.0.3] @月[0]=丑 & %月[0]=斗
++月在沧海:[2.0.2] @月[0]=酉
++寒月单行:[2.3.0] ?冬 & ?{孤月} & ?昼	# 冬月寒凝谓之独阴，昼生者吉
++孤月独明:[2.3.0] ?{孤月} & ?夜
+
++金水相涵:[2.3.0] ?{金水会} & !?冬	# 冬生金寒水冷，余时昼夜皆吉
++水润金明:[2.4.0] ?{金水会} & @金[0]=辰 ~ {金水相涵} ~ {金垣}
++土金坚实:[2.3.0] ?{金土会} & (?春 | ?夏)	# 秋冬土埋金寒，余月皆妙
+
++木火文明:[2.3.0] ?{木火会} & (?春 | ?冬)	# 冬春月生，无分昼夜为妙
++木计逢鱼:[2.3.0] @木=@计 & @木[0]=亥 ~ {木垣}
+
++水清宝瓶:[2.0.3] @水[0]=子 & %水[0]=虚
++土宜见水:[2.3.0] ?{水土会} & @土[0]=子 ~ {土垣}
++水土朝北:[2.3.0] ?{水土会} & @水[0]=亥
++水土相会:[2.3.0] ?{水土会} & @水[0]=申 ~ {水垣}
++水临双女:[2.0.2] @水[0]=巳 ~ {水垣}
+
++火土高强:[2.3.0] ?{火土会} & !?夏	# 夏生火炎土燥，余月昼夜皆吉
++火照天门:[2.0.3] @火[0]=亥 & %火[0]=室 ~ {火殿}
++土荧相会:[2.3.0] ?{火土会} & @土[0]=丑 ~ {火土高强} ~ {土号太常}
++火土会牛:[2.3.0] %火[0]=牛 & %土[0]=牛 ~ {火土高强}
++火土昼逢:[2.3.0] ?{火土会} & @火[1]=金 & ?昼 ~ {火土高强}
++火旺南离:[2.0.3] @火[0]=午
+
++土号太常:[2.0.2] @土[0]=丑 ~ {土垣}
++土好宝瓶:[2.0.3] @土[0]=子 & %土[0]=虚 ~ {土垣}
+
++罗月交辉:[2.4.0] ?{月罗会} & ?{晦朔} & ?夜	# 晦朔夜生，月宜罗交，寒月尤佳
++祥云捧月:[2.4.0] ?{月炁会} & ?{弦望} & ?夜	# 弦望夜生，月宜炁捧，冬月次之
++太乙抱蟾:[2.4.0] ?{月孛会} & ?{弦望} & ?夜 & !?冬	# 弦望夜诞，月喜孛抱，寒月不取
+=金计同垣: {金计会}	# 金为用神，居垣庙吉，冬生减力
+=木罗会合: {木罗会}	# 木为用神，冬春生躔，庙旺宫佳
+=木孛符印: {木孛会}	# 木为用神，临庙旺吉，冬生无力
+=土罗相会: {土罗会}	# 土为用神，居庙旺奇，夏生大燥
++罗计中分:[1.2.0] @罗[0]=午	# 罗午计子
++出干入巽:[1.2.0] @罗[0]=亥	# 罗亥计巳
++四余独步:[3.2.0] ?{孤计} & ?{孤罗} & ?{孤炁} & ?{孤孛}	# 炁孛罗计，各占一宫
+
++日月联辉:[4.1.0] ?{日月会} & ?{日金会} & ?{日木会} & ?{日水会} & ?{日火会} & ?{日土会} ~ {水附阳光} ~ {金水从阳} ~ {火金侍月} ~ {木月清贵} ~ {土金坚实} ~ {木火文明} ~ {火土高强}
++君臣庆会:[3.2.0] (@命[0]=午 | @命[0]=未) & @日[0]=午 & @月[0]=未 ~ {日月居垣}	# 日君午月臣未，命坐其中合真
++戴天履地:[3.2.0] @命[0]=亥 & @月[1]=水	# 命亥月申，命亥月巳
++出干入坤:[3.2.0] @命=@月 & @命[0]=亥 & @日[0]=申 & @金[0]=酉 & @火[0]=戌 ~ {金垣} ~ {火垣}	# 命月亥，火戌金酉日申
++金莺宿柳:[3.2.0] %命[0]=柳 & %金[0]=柳	# 金同命躔柳，近太阳尢妙
++山泽通气:[3.2.0] (@命[0]=酉 | @命[0]=寅) & @金[0]=酉 & @木[0]=寅 ~ {金垣} ~ {木垣}	# 木寅金酉，命坐酉寅，兼格高贵
++苍龙入井:[3.2.0] (%命[0]=亢 | %命[0]=角) & %金[0]=井 & %木[0]=井 ~ {木殿}	# 亢金角木坐命，金木躔井合格
++虎啸猿吟:[3.2.0] (@命[0]=亥 | @命[0]=巳) & %木[0]=尾 & %火[0]=觜 ~ {火殿}	# 木尾火觜，亥命大贵，巳命大富
++木炁连枝:[3.2.0] (@{命宫}[1]=木 | @{官禄}[1]=木) & @木[1]=木 & @炁[1]=木 & @孛[1]=木 ~ {木垣}		# 木炁孛在寅亥，命宫官禄合格
++天地开明:[3.2.0] (@命[0]=亥 | @命[0]=申) & @木[0]=亥 & @水[0]=申 & (@罗[0]=午 | @罗[0]=子) ~ {木垣} ~ {水垣} ~ {罗计中分}	# 水申木亥，命安申亥，罗计子午
++双鱼戏水:[3.2.0] @命=@水 & @命[0]=亥	# 水星同命，在亥宫
++玉猿守昆:[3.2.0] %命[1]=水 & %日[0]=参 & %水[0]=参 ~ {水殿}	# 水躔参度会日，命安水度者贵
++玉女嫦娥:[3.2.0] %命[0]=箕 & %月[0]=张 & %水[0]=轸 ~ {月殿} ~ {水殿}	# 水轸月张命箕主贵，女貌倾国
++水火既济:[3.2.0] (@命[0]=子 | @命[0]=午) & @水[0]=子 & @火[0]=午	# 水子火午，命坐子午
++风雷鼓舞:[3.2.0] @命[0]=辰 & @水[0]=巳 & @火[0]=卯 ~ {水临双女} ~ {火垣}	# 水巳火卯，命辰合格
++炁孛朝斗:[3.2.0] %命[0]=斗 & %炁[0]=斗 & %孛[0]=斗	# 炁孛同命斗度，如化魁禄富贵
++火孛擎天:[3.2.0] %火[0]=翼 & %水[0]=轸 | %火[0]=室 & %孛[0]=壁 ~ {火殿}	# 火室孛壁，水轸火翼，皆主富贵
++众曜拱南:[3.2.0] ?{日南} & ?{月南} &?{金南} &?{木南} &?{水南} &?{火南} &?{土南}	# 众曜会巳午未上，更坐命于此
++群星朝北:[3.2.0] ?{日北} & ?{月北} &?{金北} &?{木北} &?{水北} &?{火北} &?{土北}	# 群星聚亥子丑宫，宜安命于此
++八杀朝天:[3.2.0] @{@{疾厄}[1]}=@命 & (@命[0]=戌 | @命[0]=亥)
++七政殿垣:[4.1.0] (?{日垣} | ?{日殿}) & (?{月垣} | ?{月殿}) & (?{金垣} | ?{金殿}) & (?{木垣} | ?{木殿}) & (?{水垣} | ?{水殿}) & (?{火垣} | ?{火殿}) & (?{土垣} | ?{土殿}) ~ {日月居垣} ~ {日月升殿}
+
++日月拱{命=命宫, 财=财帛, 田=田宅, 官=官禄, 福=福德, 妻=夫妻, 嗣=男女}:[2.3.0] @日=@{}+4 & @月=@{}-4 | @日=@{}-4 & @月=@{}+4
++日月夹{命=命宫, 财=财帛, 田=田宅, 官=官禄, 福=福德, 妻=夫妻, 嗣=男女}:[2.3.0] @日=@{}+1 & @月=@{}-1 | @日=@{}-1 & @月=@{}+1
++日月拱{紫微, 禄勋, 驿马, 岁驾, 岁殿, 斗杓, 唐符, 国印}:[2.2.0] @日=@{}+4 & @月=@{}-4 | @日=@{}-4 & @月=@{}+4
++日月夹{紫微, 禄勋, 驿马, 岁驾, 岁殿, 斗杓, 唐符, 国印}:[2.2.0] @日=@{}+1 & @月=@{}-1 | @日=@{}-1 & @月=@{}+1
+
++日月拱贵人:[2.2.0] ?昼 & (@日=@{天贵}+4 & @月=@{天贵}-4 | @日=@{天贵}-4 & @月=@{天贵}+4) | ?夜 & (@日=@{玉贵}+4 & @月=@{玉贵}-4 | @日=@{玉贵}-4 & @月=@{玉贵}+4)	# 贵人，宜日月拱夹
++日月夹贵人:[2.2.0] ?昼 & (@日=@{天贵}+1 & @月=@{天贵}-1 | @日=@{天贵}-1 & @月=@{天贵}+1) | ?夜 & (@日=@{玉贵}+1 & @月=@{玉贵}-1 | @日=@{玉贵}-1 & @月=@{玉贵}+1)	# 贵人，宜日月拱夹
+
++&{金, 木, 水, 火, 土}对生:[2.2.0] @{}+6=@{${生{}}}
+={土金=金, 水木=木, 金水=水, 木火=火, 火土=土}对生: {{}对生}
+
+# 度主
++身命升殿:[2.2.0] %{%身[1]}[1]=%身[1] & %{%命[1]}[1]=%命[1] ~ {{%身[1]}殿} ~ {{%命[1]}殿}
++身命居垣:[2.2.0] @{%身[1]}[1]=%身[1] & @{%命[1]}[1]=%命[1] ~ {{%身[1]}垣} ~ {{%命[1]}垣}
++身命殿垣:[2.2.0] %{%命[1]}[1]=%命[1] & @{%身[1]}[1]=%身[1] | %{%身[1]}[1]=%身[1] & @{%命[1]}[1]=%命[1] ~ {{%身[1]}殿} ~ {{%命[1]}殿} ~ {{%身[1]}垣} ~ {{%命[1]}垣} ~ {身命升殿} ~ {身命居垣}
+
++命{临卦气=卦气, 坐禄勋=禄勋, 坐斗杓=斗杓, 坐长生=长生, 临帝旺=帝旺, 登岁驾=岁驾}:[2.0.3] @命=@{}	# 命宫
++身{临卦气=卦气, 坐禄勋=禄勋, 居斗杓=斗杓, 坐长生=长生, 居帝旺=帝旺, 居国印=国印}:[2.0.2] @身=@{}	# 身宫
+
+# 宫主
++命{临福德=福德, 临妻位=夫妻, 临财帛=财帛, 临田宅=田宅, 临官禄=官禄, 临子位=男女}:[1.2.0] @{@{命}[1]}=@{}	# 命星
++身{居福德=福德, 居妻妾=夫妻, 居财帛=财帛, 居田宅=田宅, 居官禄=官禄, 居男女=男女}:[1.2.0] @{@{身}[1]}=@{}	# 身星
+
++&{官=官禄, 福=福德, 财=财帛, 田=田宅, 妻=夫妻, 嗣=男女}殿:[2.0.1] %{@{}[1]}[1]=@{}[1] ~ {{@{}[1]}殿}
++&{官=官禄, 福=福德, 财=财帛, 田=田宅, 妻=夫妻, 嗣=男女}垣:[2.0.1] @{@{}[1]}[1]=@{}[1] ~ {{@{}[1]}垣}
+
+={福, 妻, 财, 田, 官, 嗣}星居垣: {{}垣}
+={福, 妻, 财, 田, 官, 嗣}星升殿: {{}殿}
+
++{官, 福, 财, 田, 妻, 嗣}星殿垣:[2.0.3] ?{{}殿} & ?{{}垣} ~ {{}殿} ~ {{}垣}
+
++官福殿垣:[2.3.0] (%{@{官禄}[1]}[1]=@{官禄}[1] | @{@{官禄}[1]}[1]=@{官禄}[1]) & (%{@{福德}[1]}[1]=@{福德}[1] | @{@{福德}[1]}[1]=@{福德}[1]) ~ {官殿} ~ {福殿} ~ {官垣} ~ {福垣}
++妻嗣殿垣:[2.3.0] (%{@{夫妻}[1]}[1]=@{夫妻}[1] | @{@{夫妻}[1]}[1]=@{夫妻}[1]) & (%{@{男女}[1]}[1]=@{男女}[1] | @{@{男女}[1]}[1]=@{男女}[1]) ~ {妻殿} ~ {嗣殿} ~ {妻垣} ~ {嗣垣}
++田财殿垣:[2.3.0] (%{@{田宅}[1]}[1]=@{田宅}[1] | @{@{田宅}[1]}[1]=@{田宅}[1]) & (%{@{财帛}[1]}[1]=@{财帛}[1] | @{@{财帛}[1]}[1]=@{财帛}[1]) ~ {田殿} ~ {财殿} ~ {田垣} ~ {财垣}
+
++官福夹阳:[2.3.0] ${{@{官禄}[1]}前}=日 & ${{@{福德}[1]}后}=日 | ${{@{福德}[1]}前}=日 & ${{@{官禄}[1]}后}=日
+
++福{命, 官=官禄, 田=田宅, 财=财帛}互垣:[2.2.0] @{@{福德}[1]}=@{} & @{@{}[1]}=@{福德}
+
++&官守{命, 福=福德, 妻=夫妻, 财=财帛, 田=田宅, 官=官禄, 嗣=男女}: @{@{官禄}[1]}=@{}
++&福守{命, 福=福德, 妻=夫妻, 财=财帛, 田=田宅, 官=官禄, 嗣=男女}: @{@{福德}[1]}=@{}
++&妻守{命, 福=福德, 妻=夫妻, 财=财帛, 田=田宅, 官=官禄, 嗣=男女}: @{@{夫妻}[1]}=@{}
++&嗣守{命, 福=福德, 妻=夫妻, 财=财帛, 田=田宅, 官=官禄, 嗣=男女}: @{@{男女}[1]}=@{}
++&田守{命, 福=福德, 妻=夫妻, 财=财帛, 田=田宅, 官=官禄, 嗣=男女}: @{@{田宅}[1]}=@{}
++&财守{福=福德, 妻=夫妻, 财=财帛, 田=田宅, 居=官禄, 嗣=男女}: @{@{财帛}[1]}=@{}
+
+={官星守命=命, 禄居福位=福, 禄守妻宫=妻, 禄守财宫=财, 官禄临田=田, 官曜居宫=官, 禄守儿宫=嗣}: {官守{}}
+={福星守命=命, 福星守福=福, 福守妻妾=妻, 福守财宫=财, 福居田宅=田, 福入禄宫=官, 福守儿宫=嗣}: {福守{}}
+={妻星守命=命, 妻居福德=福, 妻居妻位=妻, 妻守财宫=财, 妻居田宅=田, 妻居禄地=官, 妻守儿宫=嗣}: {妻守{}}
+={嗣星守命=命, 子居福地=福, 嗣守妻宫=妻, 子居财帛=财, 子入田宫=田, 子居官禄=官, 子居子位=嗣}: {嗣守{}}
+={田主守命=命, 田入福宫=福, 田守妻宫=妻, 田入财垣=财, 田居田位=田, 田入官禄=官, 田居儿位=嗣}: {田守{}}
+={财入福宫=福, 财守妻宫=妻, 财居财位=财, 财入田垣=田, 财居官禄=官, 财星守儿=嗣}: {财守{}}
+
++身坐卦禄:[2.3.0] ?{身坐禄勋} & ?{身临卦气}
++身居福地:[2.0.4] @身=@{福德}
++斗旺坐命:[2.3.0] ?{命临帝旺} & ?{命坐斗杓}
++斗杓指禄:[2.0.2] @{官禄}=@{斗杓}
+
++命临官贵:[2.3.0] @命=@{临官} & (?昼 & @命=@{天贵} | ?夜 & @命=@{玉贵})
++福官会聚:[2.3.0] @{@{福德}[1]}=@{@{官禄}[1]} & !(@{福德}[1]=@{官禄}[1]) ~ {{@{福德}[1]}{@{官禄}[1]}会} ~ {{@{官禄}[1]}{@{福德}[1]}会}
++福官夹命:[2.3.0] @{@{福德}[1]}=@{命宫}+1 & @{@{官禄}[1]}=@{命宫}-1 | @{@{福德}[1]}=@{命宫}-1 & @{@{官禄}[1]}=@{命宫}+1
++福官守命:[2.3.0] ?{福守命} & ?{官守命} ~ {福官会聚}
++福官居福:[2.3.0] ?{福守福} & ?{官守福} ~ {福官会聚}
++福官守妻:[2.3.0] ?{福守妻} & ?{官守妻} ~ {福官会聚}
++福官临财:[2.3.0] ?{福守财} & ?{官守财} ~ {福官会聚}
++福官临田:[2.3.0] ?{福守田} & ?{官守田} ~ {福官会聚}
++福官居官:[2.3.0] ?{福守官} & ?{官守官} ~ {福官会聚}
++福官守儿:[2.3.0] ?{福守嗣} & ?{官守嗣} ~ {福官会聚}
+
+# special, hardcoded
++七政连环:[4.2.0] ?{__sp1}
++五曜随阳:[4.2.0] ?{__sp2} & ?昼 ~ {五曜连珠}	# 昼生合格
++五星随月:[4.2.0] ?{__sp3} & ?夜 ~ {五曜连珠}	# 夜生合格
++五曜连珠:[4.2.0] ?{__sp4}	# 五星连续无间，顺度相生者奇
++五曜环阳:[4.2.0] ?{__sp5}	# 木火土金水顺序，辅日于东南
++四余捧月:[4.2.0] ?{__sp6}	# 炁、孛、罗、计单行捧月于西北
++文武两班:[4.2.0] ?{__sp1} & (?{日东} | ?{日南} | @日[0]=申) & (@罗[0]=寅 | @罗[0]=申)	# 七政文四余武，文东武西合真
+
+# 政余忌格
+-&{日, 月}失躔:[2.0.1] %{}[1]=${克{}}
+-&{日, 月}失垣:[2.0.1] @{}[1]=${克{}}
+
+=日居月位: {日失垣}	# 日在未宫是也
+=月到日宫: {月失垣}	# 月在午宫是也
+=日躔月度: {日失躔}	# 日居心张危毕度
+=月躔日宿: {月失躔}	# 月居星虚房昴度
+
+-&{金, 木, 水, 火, 土, 计, 罗, 炁, 孛}失躔:[2.0.1] %{}[1]=${克{}}
+-&{金, 木, 水, 火, 土, 计, 罗, 炁, 孛}失垣:[2.0.1] @{}[1]=${克{}}
+
+={金, 木, 水, 火, 土, 计, 罗, 炁, 孛}星失躔: {{}失躔}
+={金, 木, 水, 火, 土, 计, 罗, 炁, 孛}星失垣: {{}失垣}
+
+-日西月东:[2.3.0] ?{日西} & ?{月东} ~ {日月失所}	# 谓之阴阳背行
+-日北月南:[2.3.0] ?{日北} & ?{月南} ~ {日月失所}	# 谓之日月相反
+-日月失所:[2.3.0] (?{日西} | ?{日北}) & (?{月东} | ?{月南})	# 日居西北，月在东南，故云失所
+-日月失垣:[2.3.0] ?{日失垣} & ?{月失垣}	# 名曰阴阳失位
+-日月失殿:[2.3.0] ?{日失躔} & ?{月失躔}	# 名曰阴阳失躔
+
+-阴阳俱晦:[2.3.0] ?{晦朔} & ?夜		# 晦朔夜生，日既无光，月光安在
+-孤阳无辅:[2.3.0] ?{孤日}	# 无分昼夜，谓之孤君独立
+-寒月单行*:[2.3.0] ?冬 & ?{孤月} & ?夜  ~ {孤月独明}	# 冬月寒凝谓之独阴，昼生者吉
+
+-&日{计, 罗, 炁, 孛}遇:[2.2.0] @日=@{}
+-&月{计, 罗, 炁, 孛}遇:[2.2.0] @月=@{}
+-&金{木, 火, 计, 罗}遇:[2.2.0] @金=@{}
+-&木{土}遇:[2.2.0] @木=@{}
+-&水{火, 土, 计, 孛}遇:[2.2.0] @水=@{}
+-&火{罗}遇:[2.2.0] @火=@{}
+-&{火, 土, 计, 罗}孛遇:[2.2.0] @{}=@孛
+
+-金骑人马:[2.1.0] @金[0]=寅
+-金在木宫:[2.0.2] @金[0]=亥	# 金在寅亥二宫
+=金乘火位: {金失垣}	# 金在卯戌二宫
+=火金交战: {金火遇}	# 火金相克
+=金木同宫: {金木遇}	# 金木相克
+-金居日分:[2.0.2] @金[0]=午
+-木计火金:[3.1.0] ?{金木遇} & ?{金火遇} & ?{金计遇} & @金[0]=亥
+
+-木打宝瓶:[2.1.0] @木[0]=子
+=木入金乡: {木失垣}	# 木在辰酉二宫
+-木入土室:[2.0.2] @木[0]=丑	# 木居子丑二宫
+=木土相克: {木土遇}	# 木遇土而克
+
+-水泛白羊:[2.1.0] @水[0]=戌
+-水乘火位:[2.0.2] @水[0]=卯	# 水居卯戌二宫
+=水居土室: {水失垣}	# 水在子丑二宫
+=水火相刑: {水火遇}	# 水火相克
+-水孛逢楚:[2.3.0] ?{水孛遇} & @水[0]=巳 ~ {水临双女}
+-孛忧水人:[2.3.0] ?{水孛遇} & @水[0]=寅
+-泉枯牛壑:[2.3.0] ?{水孛遇} & @水[0]=丑 ~ {水失垣}
+
+-火烧牛角:[2.1.0] @火[0]=酉
+-火到金乡:[2.0.2] @火[0]=辰	# 火居辰酉二宫
+=火居水地: {火失垣}	# 火在巳申二宫
+-火遇金罗:[2.3.0] ?{火罗遇} & @火[0]=午
+
+-土埋双女:[2.1.0] @土[0]=巳
+=土在木宫: {土失垣}	# 土在寅亥二宫
+-土居水地:[2.0.2] @土[0]=申	# 土在巳申二宫
+=土水相激: {水土遇}	# 土克水之故
+
+-火罗犯日:[3.1.0] @日=@火 & ?{日罗遇}	# 昼日怕火罗同宫，掌刃雄尤忌
+-木蔽阳光:[3.1.0] @日=@木 & ?{日炁遇}	# 昼生忌木炁掩，夜生宜火罗助
+=计犯太阳: {日计遇}	# 炁孛罗计，不宜犯于太阳
+=罗犯太阳: {日罗遇} 	# 炁孛罗计，不宜犯于太阳
+=炁日同宫: {日炁遇}	# 炁孛罗计，不宜犯于太阳
+=孛犯太阳: {日孛遇}	# 炁孛罗计，不宜犯于太阳
+-土计掩月:[3.1.0] @月=@土 & ?{月计遇} & ?夜 	# 夜月忌土计同宫，掌杀刃尢甚
+=金罗同克: {金罗遇}	# 金为用神则坏矣
+=水计相刑: {水计遇}	# 水为用神则凶
+=火孛共战: {火孛遇}	# 火为用神则损矣
+=土孛混杂: {土孛遇}	# 土为用神则力轻
+=计孛交战: {计孛遇}	# 亥卯坐命，孛计掌福，田反吉论
+=孛罗交战: {罗孛遇}	# 亥命孛罗掌，田财作吉推
+-风雷相博:[3.1.0] @命[0]=辰 & @水[0]=卯 & @火[0]=巳 ~ {水乘火位} ~ {火居水地} 	# 水卯火巳，辰宫坐命
+-水火相射:[3.1.0] @水[0]=午 & @火[0]=子 ~ {火对克}	# 水午火子，或水卯戌，火巳申
+-水火相射*:[3.1.0] @水[1]=火 & @火[1]=水 ~ {火对克} ~ {水泛白羊} ~ {水乘火位} ~ {火居水地}	# 水午火子，或水卯戌，火巳申
+-山泽沉埋:[3.1.0] @金[0]=寅 & @木[0]=酉 ~ {金骑人马} ~{木入金乡}	# 金寅木酉为用神失格
+
+-&日入奴:[2.0.4] @日=@{奴仆}
+=日陷奴宫: {日入奴}
+
+-日月拱{奴仆, 疾厄, 迁移, 兄弟, 相貌}:[1.2.0] @日=@{}+4 & @月=@{}-4 | @日=@{}-4 & @月=@{}+4
+-日月夹{奴仆, 疾厄, 迁移, 兄弟, 相貌}:[1.2.0] @日=@{}+1 & @月=@{}-1 | @日=@{}-1 & @月=@{}+1
+-日月拱{刃=阳刃, 天雄, 的杀, 劫杀, 飞廉, 剑锋, 大耗, 天耗, 地耗, 死符, 病符, 孤辰, 寡宿, 三刑, 六害}:[1.1.0] @日=@{}+4 & @月=@{}-4 | @日=@{}-4 & @月=@{}+4
+-日月夹{刃=阳刃, 天雄, 的杀, 劫杀, 飞廉, 剑锋, 大耗, 天耗, 地耗, 死符, 病符, 孤辰, 寡宿, 三刑, 六害}:[1.1.0] @日=@{}+1 & @月=@{}-1 | @日=@{}-1 & @月=@{}+1
+-日月拱{奴=奴仆, 疾=疾厄, 迁=迁移, 兄=兄弟, 相=相貌}星:[1.1.0] @日=@{@{}[1]}+4 & @月=@{@{}[1]}-4 | @日=@{@{}[1]}-4 & @月=@{@{}[1]}+4
+-日月夹{奴=奴仆, 疾=疾厄, 迁=迁移, 兄=兄弟, 相=相貌}星:[1.1.0] @日=@{@{}[1]}+1 & @月=@{@{}[1]}-1 | @日=@{@{}[1]}-1 & @月=@{@{}[1]}+1
+
+-木炁失躔:[2.1.0] ?{木失躔} & ?{炁失躔}
+-水孛失躔:[2.1.0] ?{水失躔} & ?{孛失躔}
+-火罗失躔:[2.1.0] ?{火失躔} & ?{罗失躔}
+-土计失躔:[2.1.0] ?{土失躔} & ?{计失躔}
+-罗计失躔:[2.1.0] ?{罗失躔} & ?{计失躔}
+-炁孛失躔:[2.1.0] ?{炁失躔} & ?{孛失躔}
+-木炁失垣:[2.1.0] ?{木失垣} & ?{炁失垣}
+-水孛失垣:[2.1.0] ?{水失垣} & ?{孛失垣}
+-火罗失垣:[2.1.0] ?{火失垣} & ?{罗失垣}
+-土计失垣:[2.1.0] ?{土失垣} & ?{计失垣}
+-罗计失垣:[2.1.0] ?{罗失垣} & ?{计失垣}
+-炁孛失垣:[2.1.0] ?{炁失垣} & ?{孛失垣}
+-{计, 罗, 炁, 孛}失躔垣:[2.0.3] ?{{}失垣} & ?{{}失躔} ~ {{}失垣} ~ {{}失躔}
+
+-&{金, 木, 水, 火, 土}对克:[2.2.0] @{}+6=@{${克{}}}
+={金火=金, 木金=木, 水土=水, 火水=火, 土木=土}对克: {{}对克}
+
+# 度主
+-身命失躔:[2.2.0] %{%身[1]}[1]=${克{%身[1]}} & %{%命[1]}[1]=${克{%命[1]}} ~ {{%身[1]}失躔} ~ {{%命[1]}失躔}
+-身命失垣:[2.2.0] @{%身[1]}[1]=${克{%身[1]}} & @{%命[1]}[1]=${克{%命[1]}} ~ {{%身[1]}失垣} ~ {{%命[1]}失垣}
+
+-&{官=官禄, 福=福德, 财=财帛, 田=田宅, 妻=夫妻, 嗣=男女}失躔:[2.0.1] %{@{}[1]}[1]=${克{@{}[1]}} ~ {{@{}[1]}失躔}
+-&{官=官禄, 福=福德, 财=财帛, 田=田宅, 妻=夫妻, 嗣=男女}失垣:[2.0.1] @{@{}[1]}[1]=${克{@{}[1]}} ~ {{@{}[1]}失垣}
+
+={福, 妻, 财, 田, 官, 嗣}星失躔: {{}失躔}
+={福, 妻, 财, 田, 官, 嗣}星失垣: {{}失垣}
+
+-{福, 妻, 财, 田, 官, 嗣}失躔垣:[2.0.3] ?{{}失垣} & ?{{}失躔} ~ {{}失垣} ~ {{}失躔}
+
+-官福失躔:[2.2.0] %{@{官禄}[1]}[1]=${克{@{官禄}[1]}} & %{@{福德}[1]}[1]=${克{@{福德}[1]}} ~ {官失躔} ~ {福失躔} ~ {{@{官禄}[1]}失躔} ~ {{@{福德}[1]}失躔}
+-妻嗣失躔:[2.2.0] %{@{夫妻}[1]}[1]=${克{@{夫妻}[1]}} & %{@{男女}[1]}[1]=${克{@{男女}[1]}} ~ {妻失躔} ~ {嗣失躔} ~ {{@{夫妻}[1]}失躔} ~ {{@{男女}[1]}失躔}
+-田财失躔:[2.2.0] %{@{田宅}[1]}[1]=${克{@{田宅}[1]}} & %{@{财帛}[1]}[1]=${克{@{财帛}[1]}} ~ {田失躔} ~ {财失躔} ~ {{@{田宅}[1]}失躔} ~ {{@{财帛}[1]}失躔}
+-官福失垣:[2.2.0] @{@{官禄}[1]}[1]=${克{@{官禄}[1]}} & @{@{福德}[1]}[1]=${克{@{福德}[1]}} ~ {官失垣} ~ {福失垣} ~ {{@{官禄}[1]}失垣} ~ {{@{福德}[1]}失垣}
+-妻嗣失垣:[2.2.0] @{@{夫妻}[1]}[1]=${克{@{夫妻}[1]}} & @{@{男女}[1]}[1]=${克{@{男女}[1]}} ~ {妻失垣} ~ {嗣失垣} ~ {{@{夫妻}[1]}失垣} ~ {{@{男女}[1]}失垣}
+-田财失垣:[2.2.0] @{@{田宅}[1]}[1]=${克{@{田宅}[1]}} & @{@{财帛}[1]}[1]=${克{@{财帛}[1]}} ~ {田失垣} ~ {财失垣} ~ {{@{田宅}[1]}失垣} ~ {{@{财帛}[1]}失垣}
+
+-命坐刃乡:[2.0.4] @命=@{阳刃}	# 命宫
+-命{临飞廉=飞廉, 临剑锋=剑锋, 临大耗=大耗, 临天耗=天耗, 临地耗=地耗, 临死符=死符, 临病符=病符, 临的杀=的杀, 临劫杀=劫杀, 坐天雄=天雄}:[2.0.2] @命=@{}	# 命宫
+-身{临飞廉=飞廉, 临剑锋=剑锋, 临大耗=大耗, 临天耗=天耗, 临地耗=地耗, 临死符=死符, 临病符=病符, 临的杀=的杀, 临劫杀=劫杀, 坐刃乡=阳刃, 坐天雄=天雄}:[2.0.1] @身=@{}	# 身宫
+
+# 宫主
+-命{居奴仆=奴仆, 临疾厄=疾厄, 居迁移=迁移, 临相貌=相貌, 入闲极=兄弟}:[1.1.0] @{@{命}[1]}=@{} ~ {{@{命}[1]}{}}
+-身{入奴宫=奴仆, 临疾厄=疾厄, 居迁移=迁移, 居相貌=相貌, 居闲极=兄弟}:[1.1.0] @{@{身}[1]}=@{} ~ {{@{身}[1]}{}}
+
+-&田入{奴=奴仆, 疾=疾厄, 貌=相貌, 闲=兄弟}: @{@{田宅}[1]}=@{}
+-&财入{迁=迁移, 疾=疾厄, 貌=相貌, 闲=兄弟}: @{@{财帛}[1]}=@{}
+-&官入{奴=奴仆, 疾=疾厄, 迁=迁移, 貌=相貌, 闲=兄弟}: @{@{官禄}[1]}=@{}
+-&福入{奴=奴仆, 疾=疾厄, 迁=迁移, 貌=相貌}: @{@{福德}[1]}=@{}
+-&妻入{奴=奴仆, 疾=疾厄, 迁=迁移, 貌=相貌}: @{@{夫妻}[1]}=@{}
+-&嗣入{奴=奴仆, 疾=疾厄, 迁=迁移, 貌=相貌, 闲=兄弟}: @{@{男女}[1]}=@{}
+
+=田{入奴宫=奴, 居疾厄=疾, 居相貌=貌, 入闲极=闲}: {田入{}}
+=财{入迁移=迁, 临疾厄=疾, 居相貌=貌, 入兄弟=闲}: {财入{}}
+={禄陷奴宫=奴, 禄入疾厄=疾, 禄守迁移=迁, 禄居相貌=貌, 禄居闲极=闲}: {官入{}}
+=福{陷奴宫=奴, 居厄地=疾, 入迁移=迁, 居相貌=貌}: {福入{}}
+={妻陷奴宫=奴, 妻临疾厄=疾, 妻居迁移=迁, 妻居貌位=貌}: {妻入{}}
+={子入奴宫=奴, 嗣守疾厄=疾, 嗣居迁移=迁, 子居貌位=貌, 子居闲极=闲}: {嗣入{}}
+
+-福官临弱:[2.2.0] ?{福入奴} & ?{官入奴} ~ {{@{福德}[1]}入奴} ~ {{@{官禄}[1]}入奴}
+-田财临弱:[2.2.0] ?{田入奴} & ?{财入奴} ~ {{@{田宅}[1]}入奴} ~ {{@{财帛}[1]}入奴}
+
+-{福宫坐刃=福德, 刃临妻位=夫妻, 刃临儿位=男女}: @{}=@{阳刃}
+-雄破禄宫:[2.0.3] @{官禄}=@{天雄}
+-地雌战室:[2.0.3] @{夫妻}=@{地雌}
+-天狗临儿:[2.0.3] @{男女}=@{天狗}
+-的刃守命:[2.2.0] ?{命临的杀} & ?{命坐刃乡}
+-的劫守命:[2.2.0] ?{命临的杀} & ?{命临劫杀}
+-的刃居福:[2.2.0] @{福德}=@{的杀} & ?{福宫坐刃}
+-的刃妻位:[2.2.0] @{夫妻}=@{的杀} & ?{刃临妻位}
+-空雄妻位:[2.2.0] @{夫妻}=@{空亡} & @{夫妻}=@{天雄}
+-孤劫临妻:[2.2.0] @{夫妻}=@{孤辰} & @{夫妻}=@{劫杀}
+-狗寡儿宫:[2.2.0] @{男女}=@{寡宿} & ?{天狗临儿}
+-计刃儿位:[2.2.0] @计=@{男女} & ?{刃临儿位}
+-刃雄守命:[2.2.0] @命=@{飞刃} & ?{命坐天雄} 
+-身命坐刃:[3.0.4] ?{命坐刃乡} & ?{身坐刃乡}
+
+-命坐两歧:[2.0.4] ?{命宫歧} | ?{命宿歧}
+-身坐两歧:[2.0.4] ?{身宫歧} | ?{身宿歧}
+-身命两歧:[2.3.0] ?{命坐两歧} & ?{身坐两歧}
+
+# 神煞注释
+红鸾注="临限, 主婚喜"
+天喜注="临限, 主婚喜"
+禄勋注="主福禄, 入垣庙则位崇"
+文昌注="主聪明、智慧、文学, 入庙则贵"
+天厨注="主食禄"
+唐符注="主职权"
+国印注="主显爵、权印"
+阳刃注="主分离、横祸, 昼生忌阳刃"
+阴刃注="主分离、横祸, 夜生忌阴刃"
+飞刃注="主分离、凶刃, 夜生忌"
+天耗注="主失财, 忌入财帛宫"
+地耗注="主失财, 忌入财帛宫"
+月符注="主官非、口舌, 忌临身命限"
+月廉注="主不吉, 忌临身命"
+注受注="主化凶为吉, 身命逢之定富贵"
+月杀注="主误杀, 忌临命限"
+地丧注="主丧服、破财, 入夫妻宫, 主难为妻"
+天雄注="主破财、官事、疾病"
+地雌注="主丧服、破财, 忌入官禄宫"
+白虎注="主破财、官事、疾病"
+飞廉注="主横事、恶死, 忌临命限度"
+太岁注="主不测之灾, 忌临命限"
+剑锋注="身命值之, 更加年限值之, 主恶死"
+伏尸注="主脓血、落胎"
+太阳注="主男泰女否"
+太阴注="主女泰男否"
+晦气注="主霉运末退, 事有阻碍"
+天空注="主不利财、刑子, 忌临命限"
+勾神注="主官灾、徙流, 答杖"
+贯索注="主官灾、徙流, 答杖"
+飞符注="主诉讼, 忌临命限"
+官符注="主诉讼, 忌临命限"
+五鬼注="主诉讼, 忌临命限"
+三台注="主科甲之喜"
+八座注="主科甲之喜"
+死符注="主争讼、灾病, 忌临命限"
+小耗注="主不利财, 散财"
+月德注="主逢凶化吉"
+岁破注="主谋事不遂、官事、破财"
+大耗注="主不利财, 散财"
+阑干注="主伤残、自隘, 忌临命限"
+暴败注="主官事、破财, 忌临身命"
+天厄注="主争讼、灾病、不测之灾"
+福星注="主福禄"
+卷舌注="主官非、横事、有子不育"
+披麻注="主丧事, 幼失双亲, 家事不宁"
+绞杀注="主官非、横事、丧事, 忌临限"
+天狗注="主血光、刑旭, 忌临流年命限"
+吊客注="主孝服、家宅不宁"
+病符注="主争讼、灾病, 忌临命限"
+蓦越注="主争讼、灾病, 忌临命限"
+的杀注="主官非、破财, 忌临命宫"
+破碎注="主官非、破财"
+咸池注="主桃花、浪漫、风流"
+桃花注="主桃花、浪漫、风流"
+血刃注="男主血光灾, 女主疾厄患"
+浮沉注="主水厄, 临命限, 忌行船"
+天解注="主解凶化吉, 临命限, 能解一切凶神化吉"
+解神注="主解凶化吉, 临命限, 能解一切凶神化吉"
+孤辰注="主刑害、损六亲, 男克妻孤独, 忌临身命、夫妻、男女宫"
+寡宿注="主刑害、损六亲, 女克夫寡居, 忌临身命、夫妻、男女宫"
+三刑注="主官灾、悲伤、不测, 忌临身命限、夫妻宫"
+六害注="主官灾、悲伤、不测, 忌临身命限、夫妻宫"
+劫杀注="主招贼、失脱, 忌外出"
+亡神注="主招贼、失脱, 忌外出"
+华盖注="主孤独、才艺, 逢空亡, 为方外之人"
+将星注="主禄权, 文武相宜"
+灾杀注="主官非、丧孝、破财, 忌临命宫"
+天杀注="主官非、丧孝、横事"
+地杀注="主官非、丧孝、横事"
+年杀注="主非灾、横事"
+天哭注="主孝服、家宅不宁"
+天德注="主一生吉利"
+福德注="主一生吉利"
+紫微注="主逢凶化吉, 吉上加吉"
+龙德注="主逢凶化吉, 吉上加吉"
+板鞍注="主变动迁异, 驿马同到命限, 少年腾达"
+驿马注="主变动迁异, 板鞍同到命限, 少年腾达"
+黄幡注="主缠绵有病、损六畜、破财"
+豹尾注="主缠绵有病、损六畜、破财"
+地解注="主解凶化吉, 临命限, 能解一切凶神化吉"
+披头注="主丧事, 幼失双亲, 家事不宁"
+大杀注="主横事、恶死, 忌临命限度"
+指背注="主招人妒、与人不和"
+吞陷注="主妨损六亲、与人不和、谋事不遂"
+玉堂注="主福禄"
+岁合注="合吉星为福, 合凶星为凶"
+卒暴注="主凶恶、灾害, 忌临命限, 吉多无害"
+囚狱注="主牢灾、行动受限"
+月空注="主化凶为吉"
+阴杀注="主小破财, 暗耗之事"
+丧门注="主丧服、破财"
+官贵注="主官职"
+流霞注="男主死他乡, 女主产厄"
+福贵注="主福厚、名望"
+天贵注="昼生主聪明智慧、逢凶化吉"
+孤虚注="主孤寡、不良阻力"
+年符注="主诉讼"
+岁殿注="宜登殿, 吉星临之吉, 凶星守之凶, 入命主近贵"
+空亡注="阳年空阳宫, 阴年空阴宫"
+红艳注="主美丽、淫荡"
+岁驾注="宜登驾, 吉星登驾吉, 凶星登驾凶"
+学堂注="主文章好、聪明灵巧"
+斗杓注="立身命, 主富贵, 用宫不用主"
+玉贵注="夜生主聪明智慧、逢凶化吉"
+游奕注="女忌"
+擎天注="男忌"
+卦气注="天禄卦气, 主福禄, 用宫不用主"
+命宫注="内之个性、外之形貌、|先天禀赋、意象反映"
+财帛注="财运、金源、资产之表征"
+兄弟注="兄弟姊妹之多寡、缘份|厚薄、得力与否等"
+田宅注="又为父母宫。表征祖业、房产、|田地, 或与父母之关系"
+男女注="子女多寡、贤愚、寿夭、|性情之表征"
+奴仆注="部属、员工、佣人等所辖|之得力、向背、忠奸与否"
+夫妻注="表征姻缘、婚姻、配偶之状况"
+疾厄注="表征疾厄、伤残、病源及权位"
+迁移注="旅行、宅迁职异、工作|变动、贵人扶持等"
+官禄注="表征职业、官位、名誉、|社会地位等"
+福德注="福泽厚薄、逸碌、贵贱等"
+相貌注="相貌、情性、善恶等"
+
+天皇列注="主抱负非凡、社会之领袖"
+天帝列注="主显达之尊、威名服众"
+尊帝列注="主福隆德盛、富贵中人"
+天尊列注="主知时识势、谋猷大展"
+寿星列注="主和平、长寿"
+文昌列注="主器宇轩昂、天才横溢"
+司禄列注="主赏功进爵、事功远大"
+天廪列注="主才大志刚、机谋深远"
+玉井列注="主风神秀拔、志节刚坚"
+轩辕列注="主男女贵秀、富而有权"
+大角列注="主扶颠持危、任重道远"
+孝子列注="主孝慈忠敬"
+南河列注="主执权、知轻重"
+北河列注="主知逆邪、明而智"
+牛郎列注="主衣食温饱"
+造父列注="主变通"
+少微列注="主超然拔俗、气节、文艺、教化、学术"
+坟墓列注="主丧葬"
+北斗列注="主运乎天中、宰制四方"
+候星列注="主集货财、察时变"
+大陵列注="主死丧"
+天棓列注="主刑法、保治安、立威、使戒惧"
+天狼列注="主威武严肃、生机兴旺"
+北落列注="主富天才、备美德"
+迁官列注="主人事之任免、秩职之升降"
+天床列注="主破惊涛骇浪于无形"
+朱门列注="主开物成务、利济百世"
+天厨列注="主盛馔、鸿运、丰乐"
+左辅列注="主危正矫不平"

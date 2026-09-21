@@ -1,0 +1,26 @@
+PASS src/bazi/__tests__/birthMonthContext.test.ts
+  production commander is bound to the original civil birth instant
+    ✓ uses the preceding Jie across the civil new year (21 ms)
+    ✓ changes the term and resets elapsed at the exact Jie millisecond (5 ms)
+    ✓ does not restart at the intervening Zhongqi (2 ms)
+    ✓ keeps elapsed identical when longitude crosses Lichun in apparent solar time (2 ms)
+    ✓ makes the earth commander available in the real production result (2 ms)
+    ✓ resolves a valid civil endpoint: 1901-01-01T00:00:00+08:00 (10 ms)
+    ✓ resolves a valid civil endpoint: 2100-12-31T23:59:59+08:00 (11 ms)
+  context provenance and chart binding
+    ✓ recognizes a calendar-derived four-store earth chart in production (27 ms)
+    ✓ rejects a source-valid context belonging to a different month pillar (16 ms)
+    ✓ rejects altered source context field daysAfterJie (1 ms)
+    ✓ rejects altered source context field elapsedMillis
+    ✓ rejects altered source context field provider
+    ✓ rejects altered source context field calendarPolicyVersion
+    ✓ rejects altered source context field solarTimeApplied (1 ms)
+    ✓ rejects altered source context field jie
+    ✓ rejects altered source context field nextJie
+    ✓ does not accept an overriding bare elapsed number beside a source context
+
+Test Suites: 1 passed, 1 total
+Tests:       17 passed, 17 total
+Snapshots:   0 total
+Time:        0.817 s, estimated 1 s
+Ran all test suites within paths "src/bazi/__tests__/birthMonthContext.test.ts".

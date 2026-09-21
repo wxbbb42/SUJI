@@ -1,0 +1,46 @@
+{
+  "engine": {
+    "suites": 72,
+    "tests": 968,
+    "failures": 0,
+    "typecheck": "passed"
+  },
+  "core": {
+    "tests": 420,
+    "failures": 0,
+    "skipped": 0,
+    "timezone": "America/Los_Angeles",
+    "includesPairedReceiptMatrix": 53
+  },
+  "backend": {
+    "tests": 15,
+    "failures": 0
+  },
+  "nativeApp": {
+    "appAndUITests": 42,
+    "failures": 0,
+    "latestProductionBuild": "passed",
+    "scope": "UI tests preceded final transport changes; latest code built and full Core rerun; exact committed tree also checked by remote CI"
+  },
+  "sources": {
+    "references": 23,
+    "failures": 0
+  },
+  "astronomyIndependentComparison": {
+    "samples": 800,
+    "thresholdArcseconds": 1,
+    "failures": 0
+  },
+  "nativeOnly": "passed",
+  "capacity": {
+    "divinationCases": 53,
+    "astronomyBaziCases": 11,
+    "exactDivinationCharts": 106,
+    "exactDivinationFacts": 98807,
+    "maximumTotalUTF16": 116472,
+    "maximumBodyBytes": 177232,
+    "maximumToolBytes": 55630,
+    "maximumStoredBytes": 49063,
+    "providerCalls": 0
+  }
+}

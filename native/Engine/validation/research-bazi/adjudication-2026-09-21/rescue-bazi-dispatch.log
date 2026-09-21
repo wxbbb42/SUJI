@@ -1,0 +1,27 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand src/bazi src/calendar src/ai/tools/__tests__/BaziAdjudicationDispatch.test.ts src/ai/tools/__tests__/natal.test.ts
+
+PASS src/bazi/__tests__/rescueAdjudication.test.ts
+PASS src/calendar/__tests__/precision.test.ts
+PASS src/ai/tools/__tests__/BaziAdjudicationDispatch.test.ts
+PASS src/ai/tools/__tests__/natal.test.ts
+PASS src/calendar/__tests__/publicBirthAudit.test.ts
+PASS src/bazi/__tests__/strengthEvidence.test.ts
+PASS src/bazi/__tests__/birthMonthContext.test.ts
+PASS src/bazi/__tests__/tiaohou.test.ts
+PASS src/bazi/__tests__/professionalAudit.test.ts
+PASS src/bazi/__tests__/stemAccuracy.test.ts
+PASS src/bazi/__tests__/zhuanWangAdjudication.test.ts
+PASS src/bazi/__tests__/professionalTables.test.ts
+PASS src/bazi/__tests__/structural.test.ts
+PASS src/bazi/__tests__/SiLing.test.ts
+PASS src/bazi/__tests__/patternConditions.test.ts
+PASS src/bazi/__tests__/multiSchoolVote.test.ts
+PASS src/bazi/__tests__/phaseRegistry.test.ts
+
+Test Suites: 17 passed, 17 total
+Tests:       300 passed, 300 total
+Snapshots:   0 total
+Time:        3.2 s
+Ran all test suites matching /src\/bazi|src\/calendar|src\/ai\/tools\/__tests__\/BaziAdjudicationDispatch.test.ts|src\/ai\/tools\/__tests__\/natal.test.ts/i.

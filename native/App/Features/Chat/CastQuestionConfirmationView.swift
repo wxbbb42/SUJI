@@ -45,6 +45,30 @@ import SujiCore
                             Text("可以暂不填写事项；本次只查看盘面依据，不判断事情成败或日期。")
                                 .font(.footnote).foregroundStyle(SujiTheme.secondary)
                         }
+                        if draft.proposedCall.name == "setup_qimen" && !draft.referenceOnly {
+                            Toggle("查看条件应期", isOn:$draft.timingEnabled)
+                                .accessibilityIdentifier("cast.timing.enabled")
+                            if draft.timingEnabled {
+                                Picker("应期对象", selection:$draft.timingFocus) {
+                                    Text("请选择").tag("")
+                                    Text("工作或单位").tag("employment")
+                                    Text("经营利润").tag("profit")
+                                    Text("婚恋关系整体").tag("relationship")
+                                    Text("我自己").tag("self")
+                                }.accessibilityIdentifier("cast.timing.focus")
+                                Picker("时间单位", selection:$draft.timingUnit) {
+                                    Text("请选择").tag("")
+                                    Text("年").tag("year");Text("月").tag("month")
+                                    Text("日").tag("day");Text("时辰").tag("hour")
+                                }.accessibilityIdentifier("cast.timing.unit")
+                                TextField("截止日期（YYYY-MM-DD）",text:$draft.timingEndDate)
+                                    .keyboardType(.numbersAndPunctuation).accessibilityIdentifier("cast.timing.end")
+                                Toggle("包含起盘所在的当前时段",isOn:$draft.timingIncludeCurrent)
+                                    .accessibilityIdentifier("cast.timing.current")
+                                Text("按北京时间查至所填日期结束。近期、远期不能代替时间单位；候选时间不代表事情一定成功，未满足条件时可能没有日期。")
+                                    .font(.footnote).foregroundStyle(SujiTheme.secondary)
+                            }
+                        }
                         if draft.subject == "unknown" || draft.timeHorizon == "unspecified" {
                             Text("未明确的对象或时间范围会保留为待澄清条件，不据此定用或推断具体日期。")
                                 .font(.footnote).foregroundStyle(SujiTheme.secondary)

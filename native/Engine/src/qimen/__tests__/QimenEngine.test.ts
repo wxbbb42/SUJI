@@ -7,7 +7,7 @@ describe('QimenEngine setup', () => {
     const r = engine.setup({
       question: '我要不要换城市',
       questionType: 'event',
-      setupTime: new Date('2026-04-25T15:32:00'),
+      setupTime: new Date('2026-04-25T15:32:00+08:00'),
     });
     expect(r.palaces).toHaveLength(9);
     expect(r.yinYangDun).toMatch(/^[阳阴]$/);
@@ -20,7 +20,7 @@ describe('QimenEngine setup', () => {
   it('每个外宫（非中宫）都有 8 门 / 9 星 / 8 神', () => {
     const r = engine.setup({
       question: 'test', questionType: 'general',
-      setupTime: new Date('2026-04-25T15:32:00'),
+      setupTime: new Date('2026-04-25T15:32:00+08:00'),
     });
     for (const p of r.palaces) {
       if (p.id === 5) continue; // 中宫无门
@@ -33,7 +33,7 @@ describe('QimenEngine setup', () => {
   it('八门 8 个不重复（中宫除外）', () => {
     const r = engine.setup({
       question: 'test', questionType: 'general',
-      setupTime: new Date('2026-04-25T15:32:00'),
+      setupTime: new Date('2026-04-25T15:32:00+08:00'),
     });
     const mens = r.palaces.filter(p => p.id !== 5).map(p => p.bamen);
     expect(new Set(mens).size).toBe(8);
@@ -42,7 +42,7 @@ describe('QimenEngine setup', () => {
   it('八神 8 个不重复（中宫除外）', () => {
     const r = engine.setup({
       question: 'test', questionType: 'general',
-      setupTime: new Date('2026-04-25T15:32:00'),
+      setupTime: new Date('2026-04-25T15:32:00+08:00'),
     });
     const shens = r.palaces.filter(p => p.id !== 5).map(p => p.bashen);
     expect(new Set(shens).size).toBe(8);
@@ -51,11 +51,11 @@ describe('QimenEngine setup', () => {
   it('returns deterministic chart for same input', () => {
     const a = engine.setup({
       question: 'test', questionType: 'general',
-      setupTime: new Date('2026-04-25T15:32:00'),
+      setupTime: new Date('2026-04-25T15:32:00+08:00'),
     });
     const b = engine.setup({
       question: 'test', questionType: 'general',
-      setupTime: new Date('2026-04-25T15:32:00'),
+      setupTime: new Date('2026-04-25T15:32:00+08:00'),
     });
     expect(a.juNumber).toBe(b.juNumber);
     expect(a.yinYangDun).toBe(b.yinYangDun);
@@ -69,7 +69,7 @@ describe('QimenEngine yongShen selection', () => {
     const r = engine.setup({
       question: '我会得到这个 offer 吗',
       questionType: 'career',
-      setupTime: new Date('2026-04-25T15:32:00'),
+      setupTime: new Date('2026-04-25T15:32:00+08:00'),
     });
     expect(r.yongShen.type).toBe('己');
     expect(r.yongShen.references?.some(v=>v.label==='开门')).toBe(true);
@@ -79,7 +79,7 @@ describe('QimenEngine yongShen selection', () => {
   it('yongShen has palaceId, state, summary', () => {
     const r = engine.setup({
       question: 'test', questionType: 'career',
-      setupTime: new Date('2026-04-25T15:32:00'),
+      setupTime: new Date('2026-04-25T15:32:00+08:00'),
     });
     expect(r.yongShen.palaceId).toBeGreaterThanOrEqual(1);
     expect(r.yongShen.palaceId).toBeLessThanOrEqual(9);
@@ -113,7 +113,7 @@ describe('QimenEngine yongShen selection', () => {
   it('returns 应期 description', () => {
     const r = engine.setup({
       question: 'test', questionType: 'career',
-      setupTime: new Date('2026-04-25T15:32:00'),
+      setupTime: new Date('2026-04-25T15:32:00+08:00'),
     });
     expect(r.yingQi.description).toBeTruthy();
   });

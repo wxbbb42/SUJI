@@ -57,7 +57,17 @@ public struct CastSupplement: Codable, Sendable, Equatable {
         guard revised["questionRevision"] == revision, case let .object(args) = confirmation.call.arguments,
               revised["question"] == args["question"], revised["questionType"] == args["questionType"],
               revised["questionContext"] == .object(args.filter{["subject","event","timeHorizon"].contains($0.key)}) else { throw Failure.invalid }
-        let mutable = Set(["question","questionType","questionContext","yongShen","yingQi","questionRevision"] + (original.name == "cast_liuyao" ? ["roleRelations"] : []))
+        if original.name == "setup_qimen" {
+            // Only the optional timing source belongs to the changed question.
+            func originalSources(_ chart: [String:JSONValue]) throws -> [JSONValue] {
+                guard case let .array(sources) = chart["ruleSources"] else { throw Failure.invalid }
+                return sources.filter { ReadingVerificationEvidence.pointer("/id",in:$0) != "qimen-xdyy-timing-v1" }
+            }
+            guard try originalSources(source) == originalSources(revised),
+                  (revised["timing"] != nil) == (args["timingRequest"] != nil) else { throw Failure.invalid }
+        }
+        let mutable = Set(["question","questionType","questionContext","yongShen","yingQi","questionRevision"] +
+            (original.name == "cast_liuyao" ? ["roleRelations","efficacy"] : ["timing","ruleSources"]))
         guard source.filter({!mutable.contains($0.key)}) == revised.filter({!mutable.contains($0.key)}) else { throw Failure.invalid }
         try CastQuestionBinding.validate(.object(revised),method:original.name)
         var adapted=receipt;adapted.name=original.name
@@ -91,7 +101,7 @@ public struct CastSupplement: Codable, Sendable, Equatable {
             : QimenReferenceReading.render(receipts:[receipt],context:context)?.text
     }
     private static func object(_ output:String) throws -> [String:JSONValue] {
-        guard case let .object(root) = try JSONDecoder().decode(JSONValue.self,from:Data(output.utf8)) else { throw Failure.invalid };return root
+        guard case let .object(root) = try LiuyaoReceiptStorage.expanded(output) else { throw Failure.invalid };return root
     }
     private enum Failure: LocalizedError {
         case invalid

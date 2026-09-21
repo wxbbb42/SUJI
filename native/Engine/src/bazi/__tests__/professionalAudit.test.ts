@@ -36,11 +36,12 @@ describe('professional audit: the day pillar is a position, not every same-named
     expect(g.jiuYing).toBeNull();
   });
 
-  it('preserves an existing adjacent robber-combination rescue candidate', () => {
+  it('retains the adjacent candidate but does not remove the peer rooted in Chen', () => {
     const g = computeGeJuV2('甲', ['乙', '庚', '甲', '戊'], branches);
     expect(g.name).toBe('偏财格');
-    expect(g.chengBai).toBe('jiuying');
-    expect(g.jiuYing).toEqual(expect.arrayContaining([expect.objectContaining({ triggerGan: '乙', path: 'qu-qing' })]));
+    expect(g.chengBai).toBe('po');
+    expect(g.jiuYing).toEqual(expect.arrayContaining([expect.objectContaining({ triggerGan: '乙', path: 'qu-qing',
+      adjudication:{status:'rooted-role-retained',outcomeEstablished:false} })]));
   });
 });
 

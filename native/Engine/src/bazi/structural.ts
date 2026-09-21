@@ -41,6 +41,9 @@ import type {
   YueLingState,
 } from './types';
 import { PATTERN_CONDITION_SOURCES } from './patternSources';
+import { adjudicateZhuanWang, type ZhuanWangAdjudication } from './zhuanWang';
+import type { BirthMonthContext } from './birthMonthContext';
+import { adjudicateRescue, isRefutedRescuePath, type RescueAdjudication } from './rescueAdjudication';
 
 /** 本/中/余 三级权重（adapted from bazi-life-curves `ROOT_TIER_WEIGHT`） */
 export const ROOT_TIER_WEIGHT: Record<RootTier, number> = {
@@ -887,6 +890,11 @@ export function computePatternConditions(
     ...hidden.filter(v=>helperGods.includes(computeShiShenOf(dayGan,v.gan))).map(v=>({layer:'hidden',...v,shiShen:computeShiShenOf(dayGan,v.gan)})),
   ];
   const threats=scanJiShenTransparent(yong,dayGan,stems);
+  // 相神紧要: 丁用酉财，癸煞为病，己食制煞。The default wealth
+  // matrix lists only peers; retain this independently attested threat too.
+  if(dayGan==='丁'&&branches[1]==='酉'&&(yong==='正财'||yong==='偏财')){
+    stems.forEach((gan,position)=>{if(position!==2&&gan==='癸')threats.push({gan,position});});
+  }
   const rescueCandidates=threats.flatMap(threat=>stems.flatMap((gan,position)=>{
     if(position===2||position===threat.position) return [];
     const ss=computeShiShenOf(dayGan,gan),isResource=ss==='正印'||ss==='偏印';
@@ -925,7 +933,7 @@ export function computePatternConditions(
     }),
   }]:[]);
   return {assessmentStatus:'conditions-only' as const,outcomeEstablished:false as const,
-    stems:stemContexts,helperCandidates,rescueCandidates,helperProtectionCandidates,monthClashes,
+    stems:stemContexts,hiddenStems:hidden,threats,helperCandidates,rescueCandidates,helperProtectionCandidates,monthClashes,
     sources:PATTERN_CONDITION_SOURCES,
     limitations:['相神表是当前格局默认候选集合，不穷尽全局取相；藏干候选不等同透干，藏干救应效力未裁定',
       '克、合、根与月令分别记录；相隔、同名多配对或季候标签均不能单独裁定救应有效或失效',
@@ -936,17 +944,15 @@ export function computePatternConditions(
 /** 用神是否被合冲（结构性破象） */
 function isYongShenBroken(
   yongGan: TianGan,
-  dayGan: TianGan,
   stems: [TianGan, TianGan, TianGan, TianGan],
+  rescue:RescueAdjudication,
 ): boolean {
   // Only an unopposed adjacent combination of every exposed copy is a
   // candidate disruption. Remote pairs, the day stem itself, and 合一留一
   // must not mechanically become a broken configuration.
   const exposed = stems.map((g, i) => g === yongGan && i !== 2 ? i : -1).filter(i => i >= 0);
-  return exposed.length > 0 && exposed.every(i => stems.some((g, j) =>
-    j !== 2 && Math.abs(i - j) === 1 && isGanHe(g, yongGan) &&
-    !stems.some((other, k) => k !== i && k !== j && Math.abs(k - j) === 1 && isGanHe(other, g)),
-  ));
+  return exposed.length > 0 && exposed.every(i => rescue.combinations.some(c=>
+    c.targetPosition===i&&Math.abs(i-c.actorPosition)===1&&c.removalEstablished));
 }
 
 /** 月支是否被冲（影响月令取格 / 用神变化的判定） */
@@ -1063,38 +1069,23 @@ export function detectCongGe(
   return { isCong: false, congType: null, congWx: null };
 }
 
-/**
- * 专旺格结构化检测
- *   条件：日主同党（比劫）≥ 4 且印星辅之 + 无明显克泄（官杀+食伤 ≤ 1）
- */
+/** Source-profile recognition; incomplete Xu pure peer/resource shapes remain candidates. */
 export interface ZhuanWangResult {
   isZhuanWang: boolean;
   name: string | null;
+  adjudication: ZhuanWangAdjudication;
 }
 
 export function detectZhuanWang(
   dayGan: TianGan,
   stems: [TianGan, TianGan, TianGan, TianGan],
   branches: [DiZhi, DiZhi, DiZhi, DiZhi],
+  birthMonthContext?: BirthMonthContext,
 ): ZhuanWangResult {
-  const dayWx = GAN_WUXING[dayGan];
-  let bijie = 0;
-  let yin = 0;
-  let keXie = 0; // 官杀 + 食伤
-  const allGans: TianGan[] = [...stems.filter((_, i) => i !== 2), ...allHiddenStems(branches)];
-  for (const g of allGans) {
-    const wx = GAN_WUXING[g];
-    if (wx === dayWx) bijie++;
-    else if (SHENG[wx] === dayWx) yin++;
-    else if (SHENG[dayWx] === wx || KE[wx] === dayWx) keXie++;
-  }
-  if (bijie < 4 || yin < 1 || keXie > 1) {
-    return { isZhuanWang: false, name: null };
-  }
-  const map: Record<WuXing, string> = {
-    木: '曲直格', 火: '炎上格', 土: '稼穑格', 金: '从革格', 水: '润下格',
-  };
-  return { isZhuanWang: true, name: map[dayWx] };
+  if (dayGan !== stems[2]) throw new RangeError('Day stem must match the day pillar');
+  const adjudication = adjudicateZhuanWang(stems, branches, {birthMonthContext});
+  const isZhuanWang = adjudication.status === 'established' || adjudication.alternativeProfile.status === 'candidate';
+  return {isZhuanWang, name:isZhuanWang ? adjudication.name : null, adjudication};
 }
 
 /**
@@ -1140,7 +1131,7 @@ function computeYongShenRootLabel(
  * computeGeJuV2 — 结构化格局判定主入口
  *
  * 求值顺序（《子平真诠》四章交叉）：
- *   特殊格预检（化气 / 从格 / 专旺 / 全部基于 rootStrength 与计数）
+ *   特殊格预检（化气、从格保留工程候选；专旺另附有来源的规则子集）
  *   ↓
  *   Step 1  selectYongShen          （用神变化优先级链）
  *   Step 2  scanXiangShen            （per-格局 默认相神映射）
@@ -1152,8 +1143,11 @@ export function computeGeJuV2(
   stems: [TianGan, TianGan, TianGan, TianGan],
   branches: [DiZhi, DiZhi, DiZhi, DiZhi],
   riZhuStructure?: RiZhuStructure,
+  birthMonthContext?: BirthMonthContext,
 ): GeJuV2 {
   const monthZhi = branches[1];
+  const zw = detectZhuanWang(dayGan, stems, branches, birthMonthContext);
+  const specialPatternEvidence = zw.adjudication;
   const root = riZhuStructure?.rootStrength ?? computeRootStrength(dayGan, branches);
 
   // 特殊格预检 1：化气格
@@ -1170,6 +1164,7 @@ export function computeGeJuV2(
       jibie: 'shang',
       evidence: ['bazi.yongshen.bianhua-trigger'],
       assessmentStatus: 'heuristic-candidate',
+      specialPatternEvidence,
       conditions: ['通过相邻、月令、无比印根与无透干比印的保守筛查；仍为化气候选，未证明成化'],
     };
   }
@@ -1188,12 +1183,12 @@ export function computeGeJuV2(
       jibie: 'shang',
       evidence: ['bazi.geju.rank-criteria'],
       assessmentStatus: 'heuristic-candidate',
+      specialPatternEvidence,
       conditions: ['已排除显式比印根与透干比印；党势计数阈值仍属工程规则，非从格定论'],
     };
   }
 
   // 特殊格预检 3：专旺
-  const zw = detectZhuanWang(dayGan, stems, branches);
   if (zw.isZhuanWang && zw.name) {
     return {
       phaseId: `zhuanwang-${GAN_WUXING[dayGan]}-ge`,
@@ -1206,7 +1201,8 @@ export function computeGeJuV2(
       jibie: 'shang',
       evidence: ['bazi.geju.rank-criteria'],
       assessmentStatus: 'heuristic-candidate',
-      conditions: ['专旺党势计数仍属工程规则，未完成月令、成局与全局条件求解'],
+      specialPatternEvidence,
+      conditions: ['专旺规则子集与徐注纯印比候选见specialPatternEvidence；成败、等级仍非完整全局裁定'],
     };
   }
 
@@ -1214,9 +1210,17 @@ export function computeGeJuV2(
   const sel = selectYongShen(dayGan, monthZhi, stems, branches);
   const yong = sel.yongShiShen;
   const xiang = scanXiangShen(yong, dayGan, stems, branches);
-  const jiStems = scanJiShenTransparent(yong, dayGan, stems);
-  const yongBroken = isYongShenBroken(sel.yongGan, dayGan, stems);
+  const conditionalEvidence=computePatternConditions(dayGan,stems,branches,yong);
+  const jiStems = conditionalEvidence.threats;
+  const rescueEvidence=adjudicateRescue(conditionalEvidence);
+  const yongBroken = isYongShenBroken(sel.yongGan, stems, rescueEvidence);
   const jiuYing = scanJiuYing(yong, jiStems, dayGan, stems);
+  for(const candidate of jiuYing){
+    const relation=candidate.path==='qu-qing'?'合':
+      candidate.remedyPosition!==undefined&&candidate.triggerGan&&ganKe(stems[candidate.remedyPosition],candidate.triggerGan)?'克':'生';
+    const path=rescueEvidence.rescuePaths.find(p=>p.triggerPosition===candidate.triggerPosition&&p.remedyPosition===candidate.remedyPosition&&p.relation===relation);
+    candidate.adjudication={status:path?.status??'unresolved-rule-scope',outcomeEstablished:false};
+  }
 
   // 三态 chengBai
   let chengBai: ChengBaiStatus;
@@ -1224,7 +1228,8 @@ export function computeGeJuV2(
     chengBai = 'po';
   } else if (jiStems.length === 0) {
     chengBai = 'cheng';
-  } else if (jiStems.every(ji => jiuYing.some(remedy => remedy.triggerPosition === ji.position && remedy.triggerGan === ji.gan))) {
+  } else if (jiStems.every(ji => jiuYing.some(remedy => remedy.triggerPosition === ji.position && remedy.triggerGan === ji.gan &&
+    !isRefutedRescuePath(remedy.adjudication!.status)))) {
     chengBai = 'jiuying';
   } else {
     chengBai = 'po';
@@ -1252,6 +1257,8 @@ export function computeGeJuV2(
     jibie,
     evidence,
     assessmentStatus: 'heuristic-candidate',
+    specialPatternEvidence,
+    rescueEvidence,
     conditions: [
       '成败与等级是当前结构规则的候选输出，不是完整古籍格局裁定',
       '隔位五合不自动合去用神；相邻合一留一不自动判全格破败',
@@ -1260,6 +1267,6 @@ export function computeGeJuV2(
     yongShenGan: sel.yongGan,
     yongShenShiShen: yong,
     selectionBasis: sel.basis,
-    conditionalEvidence:computePatternConditions(dayGan,stems,branches,yong),
+    conditionalEvidence,
   };
 }

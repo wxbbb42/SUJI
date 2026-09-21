@@ -20,18 +20,18 @@ final class LiuyaoTombExtinctionTests: XCTestCase {
         let root=try XCTUnwrap(ReadingVerificationEvidence.pointer("/result",in:envelope))
         guard case let .string(revision)=ReadingVerificationEvidence.pointer("/provenance/engineRevision",in:root) else { throw EngineError.execution("revision") }
         let context=try ToolContext(birth:nil,engineRevision:revision,referenceDate:ISO8601DateFormatter().date(from:now)!,mode:"起卦")
-        return (.init(callID:"tomb-original",name:"cast_liuyao",arguments:.object(arguments),output:ReadingVerificationEvidence.encoded(root),context:context),context)
+        return (.init(callID:"tomb-original",name:"cast_liuyao",arguments:.object(arguments),output:try CastReceiptStorage.encode(ReadingVerificationEvidence.encoded(root)),context:context),context)
     }
 
     private func edited(_ receipt:ToolReceipt,_ change:(inout [String:Any])->Void) throws -> ToolReceipt {
-        var root=try XCTUnwrap(JSONSerialization.jsonObject(with:Data(receipt.output.utf8)) as? [String:Any]);change(&root)
+        var root=try XCTUnwrap(JSONSerialization.jsonObject(with:try CastReceiptStorage.expandedData(receipt.output)) as? [String:Any]);change(&root)
         var result=receipt;result.output=String(decoding:try JSONSerialization.data(withJSONObject:root),as:UTF8.self);return result
     }
 
     func testActualCalendarTombsHaveSeparateObjectsAndConditionalEvidence() async throws {
         let (receipt,context)=try await fixture()
         let report=try XCTUnwrap(LiuyaoReferenceReading.render(receipts:[receipt],context:context))
-        let root=try JSONDecoder().decode(JSONValue.self,from:Data(receipt.output.utf8))
+        let root=try JSONDecoder().decode(JSONValue.self,from:try CastReceiptStorage.expandedData(receipt.output))
         XCTAssertEqual(ReadingVerificationEvidence.pointer("/castGanZhi/month",in:root),.string("乙丑"))
         XCTAssertEqual(ReadingVerificationEvidence.pointer("/castGanZhi/day",in:root),.string("戊戌"))
         let metal=try XCTUnwrap(report.sections.first{$0.id=="tomb-5-original"})
@@ -68,7 +68,7 @@ final class LiuyaoTombExtinctionTests: XCTestCase {
 
     func testWrongTableObjectActorSourceAndEfficacyAreRejected() async throws {
         let (receipt,context)=try await fixture([6,7,7,7,7,7])
-        let root=try JSONDecoder().decode(JSONValue.self,from:Data(receipt.output.utf8))
+        let root=try JSONDecoder().decode(JSONValue.self,from:try CastReceiptStorage.expandedData(receipt.output))
         _=try XCTUnwrap(ReadingVerificationEvidence.pointer("/tombExtinction/objects",in:root))
         for mutation in 0..<8 {
             let invalid=try edited(receipt){root in

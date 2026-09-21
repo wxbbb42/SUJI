@@ -13,7 +13,7 @@ final class CastSupplementTests: XCTestCase {
         let context = try ToolContext(birth:nil,engineRevision:revision,referenceDate:ISO8601DateFormatter().date(from:"2024-02-04T04:00:00Z")!,mode:"起卦")
         var user = ConversationEntry(role:"user",text:"核对自身情况")
         user.date = context.referenceDate; user.toolContext = context; user.analysisMode = context.mode
-        user.toolReceipts = [.init(callID:"original",name:name,arguments:args,output:ReadingVerificationEvidence.encoded(result),context:context)]
+        user.toolReceipts = [.init(callID:"original",name:name,arguments:args,output:try CastReceiptStorage.encode(ReadingVerificationEvidence.encoded(result)),context:context)]
         return (bridge,user,context)
     }
     private func derived(_ bridge:MingliBridge, _ supplement:CastSupplement, _ user:ConversationEntry, _ context:ToolContext) async throws -> (ConfirmedCastQuestion,ToolReceipt) {
@@ -24,7 +24,7 @@ final class CastSupplementTests: XCTestCase {
         let raw = try await bridge.request(ReadingVerificationEvidence.encoded(["command":.string("reassess-question"),"name":.string(supplement.original.name),"sourceCallID":.string(supplement.original.callID),"original":original,"arguments":confirmation.call.arguments] as [String:JSONValue]))
         let envelope = try JSONDecoder().decode(JSONValue.self,from:raw)
         let result = try XCTUnwrap(ReadingVerificationEvidence.pointer("/result",in:envelope))
-        return (confirmation,.init(callID:confirmation.call.id,name:supplement.derivedName,arguments:confirmation.call.arguments,output:ReadingVerificationEvidence.encoded(result),context:context))
+        return (confirmation,.init(callID:confirmation.call.id,name:supplement.derivedName,arguments:confirmation.call.arguments,output:try CastReceiptStorage.encode(ReadingVerificationEvidence.encoded(result)),context:context))
     }
     func testBothMethodsSupplementOriginalAndRetainSourceAcrossFurtherSupplements() async throws {
         for name in ["cast_liuyao","setup_qimen"] {
@@ -59,7 +59,7 @@ final class CastSupplementTests: XCTestCase {
             let (_,original,context)=try await fixture(name)
             for field in ["referenceDate","calendarPolicy"] {
                 var source=original
-                var root=try XCTUnwrap(JSONSerialization.jsonObject(with:Data(source.toolReceipts![0].output.utf8)) as? [String:Any])
+                var root=try XCTUnwrap(JSONSerialization.jsonObject(with:try CastReceiptStorage.expandedData(source.toolReceipts![0].output)) as? [String:Any])
                 var provenance=root["provenance"] as! [String:Any]
                 if field == "referenceDate" { provenance[field]="2025-01-01T00:00:00.000Z" }
                 else { provenance[field]=["version":"old","timezone":"UTC-08:00"] }
@@ -76,8 +76,8 @@ final class CastSupplementTests: XCTestCase {
             let link=try CastSupplement.select(entryID:original.id,callID:"original",entries:[original],context:context)
             var user=ConversationEntry(role:"user",text:"补充");user.toolContext=context;user.castSupplement=link
             let (confirmation,receipt)=try await derived(bridge,link,user,context)
-            var changed=try XCTUnwrap(JSONSerialization.jsonObject(with:Data(receipt.output.utf8)) as? [String:Any])
-            let source=try XCTUnwrap(JSONSerialization.jsonObject(with:Data(link.original.output.utf8)) as? [String:Any])
+            var changed=try XCTUnwrap(JSONSerialization.jsonObject(with:try CastReceiptStorage.expandedData(receipt.output)) as? [String:Any])
+            let source=try XCTUnwrap(JSONSerialization.jsonObject(with:try CastReceiptStorage.expandedData(link.original.output)) as? [String:Any])
             for key in ["yongShen","yingQi"] + (name == "cast_liuyao" ? ["roleRelations"] : []) { changed[key]=source[key] }
             var bad=receipt;bad.output=String(decoding:try JSONSerialization.data(withJSONObject:changed),as:UTF8.self)
             XCTAssertThrowsError(try link.render(receipt:bad,confirmation:confirmation,userID:user.id,entries:[original,user],context:context))
@@ -90,8 +90,8 @@ final class CastSupplementTests: XCTestCase {
             let link=try CastSupplement.select(entryID:original.id,callID:"original",entries:[original],context:context)
             var user=ConversationEntry(role:"user",text:"补充");user.toolContext=context;user.castSupplement=link
             let (confirmation,receipt)=try await derived(bridge,link,user,context)
-            let root=try XCTUnwrap(JSONSerialization.jsonObject(with:Data(receipt.output.utf8)) as? [String:Any])
-            for key in root.keys where !["question","questionType","questionContext","yongShen","yingQi","questionRevision","roleRelations"].contains(key) {
+            let root=try XCTUnwrap(JSONSerialization.jsonObject(with:try CastReceiptStorage.expandedData(receipt.output)) as? [String:Any])
+            for key in root.keys where !["question","questionType","questionContext","yongShen","yingQi","questionRevision","roleRelations","efficacy","timing"].contains(key) {
                 var bad=receipt;var object=root;object.removeValue(forKey:key);bad.output=String(decoding:try JSONSerialization.data(withJSONObject:object),as:UTF8.self)
                 XCTAssertThrowsError(try link.render(receipt:bad,confirmation:confirmation,userID:user.id,entries:[original,user],context:context),key)
             }

@@ -1,0 +1,29 @@
+{
+  "coordinateOrder": "year,month,day,hour",
+  "calendarValidated": false,
+  "purpose": "Literal rule coordinates with independently specified expectations; no historical prediction outcomes",
+  "specialPatternVectors": [
+    {"id":"source-wood-output","stems":["甲","丁","甲","丙"],"branches":["寅","卯","辰","寅"],"expect":"曲直格","reason":"Source literal chart: complete east direction, spring, 丙丁 output explicitly praised; exposed resource not required","sourceId":"ditianshui-duxiang"},
+    {"id":"source-metal-hidden-fire","stems":["庚","乙","庚","庚"],"branches":["申","酉","戌","辰"],"expect":"从革格","reason":"Source literal chart: hidden 戌丁 does not alone veto; full west direction and autumn","sourceId":"ditianshui-duxiang"},
+    {"id":"source-water-hidden-earth","stems":["壬","辛","癸","壬"],"branches":["子","亥","丑","子"],"expect":"润下格","reason":"Source literal chart: 丑 earth inside full winter direction does not alone veto","sourceId":"ditianshui-duxiang"},
+    {"id":"source-fire-triad","stems":["丙","甲","丙","乙"],"branches":["寅","午","戌","未"],"expect":"炎上格","reason":"Source literal chart full fire triad in summer, explicitly 格成炎上","sourceId":"ditianshui-duxiang"},
+    {"id":"independent-fire-output-no-resource","stems":["丙","戊","丙","丁"],"branches":["巳","午","未","午"],"expect":"炎上格","reason":"Complete summer direction; output 戊 and hidden earth do not negate formation; no exposed resource","sourceId":"ditianshui-duxiang"},
+    {"id":"independent-earth-output","stems":["戊","己","戊","庚"],"branches":["辰","戌","丑","未"],"expect":"稼穑格","reason":"Four earth stores and earth month; 庚 output allowed; hidden 乙 in 辰未 not same as overt 木 intrusion","sourceId":"ditianshui-duxiang"},
+    {"id":"independent-metal-output","stems":["庚","壬","庚","辛"],"branches":["申","酉","戌","申"],"expect":"从革格","reason":"Complete west direction in autumn, 壬 output allowed, no exposed resource","sourceId":"ditianshui-duxiang"},
+    {"id":"independent-water-output","stems":["壬","甲","癸","辛"],"branches":["亥","子","丑","亥"],"expect":"润下格","reason":"Complete winter direction, 甲 output allowed","sourceId":"ditianshui-duxiang"},
+    {"id":"wood-visible-controller","stems":["甲","丁","甲","庚"],"branches":["寅","卯","辰","寅"],"expect":"fails-unmixed-condition","reason":"Metal is visible; strict 不杂金 condition fails. This alone does not prove all possible rescued wood configurations false","sourceId":"ditianshui-duxiang"},
+    {"id":"wood-rooted-controller","stems":["庚","丁","甲","丙"],"branches":["申","卯","辰","寅"],"expect":"fails-unmixed-condition","reason":"Visible 庚 rooted in external 申, also 寅申 clash; same full east-direction tokens cannot erase external metal","sourceId":"ditianshui-duxiang"},
+    {"id":"wood-out-of-season","stems":["甲","丁","甲","丙"],"branches":["寅","午","辰","卯"],"expect":"fails-in-season-condition","reason":"Complete east direction but summer month; strict 得时当令 subset does not apply","sourceId":"ditianshui-duxiang"},
+    {"id":"wood-incomplete-xu-allowed","stems":["癸","乙","甲","乙"],"branches":["卯","卯","寅","亥"],"expect":"xu-school-pure-dominance","reason":"Literal Xu commentary chart allows 方局不全; must not report all-school rejection when strict Ren full-direction rule misses","sourceId":"ziping-xu-special"},
+    {"id":"legacy-incomplete-example","stems":["甲","乙","甲","癸"],"branches":["卯","卯","卯","亥"],"expect":"xu-school-pure-dominance","reason":"No complete triad/direction; all exposed stems and branch main qi are peer/resource, so an explicitly named Xu pure-dominance branch can retain compatibility","sourceId":"ziping-xu-special"}
+  ],
+  "rescueVectors": [
+    {"id":"officer-resource-unblocked","stems":["丁","癸","甲","辛"],"branches":["巳","酉","寅","亥"],"yong":"正官","expect":"癸制丁 path available","sourceId":"ziping-global-helper"},
+    {"id":"officer-resource-blocked-by-wealth","stems":["丁","癸","甲","戊"],"branches":["巳","酉","寅","辰"],"yong":"正官","expect":"戊合癸 disables 癸制丁 path; 丁 is not resolved merely because rescue candidate exists","sourceId":"ziping-global-helper"},
+    {"id":"killer-food-resource-wealth-chain","stems":["丁","癸","乙","戊"],"branches":["巳","酉","卯","辰"],"yong":"七杀","expect":"戊合癸 protects 丁制辛; remote rescue present at month/hour despite day gap","sourceId":"ziping-global-helper"},
+    {"id":"killer-food-no-protector","stems":["丁","癸","乙","辛"],"branches":["巳","酉","卯","丑"],"yong":"七杀","expect":"癸制丁 remains; no 戊 to protect food","sourceId":"ziping-global-helper"},
+    {"id":"rooted-hurting-not-removed","stems":["壬","丁","甲","辛"],"branches":["申","酉","寅","午"],"yong":"正官","expect":"丁 rooted in 午; 壬丁 combination must not mean 丁 removed","sourceId":"ziping-global-helper"},
+    {"id":"unrooted-hurting-source-exception-absent","stems":["壬","丁","甲","辛"],"branches":["申","酉","寅","丑"],"yong":"正官","expect":"壬 rooted in 申; 丁 exact/same-element root remains 寅丙, so this is NOT a valid unrooted control","sourceId":"ziping-global-helper"},
+    {"id":"unrooted-hurting-corrected-control","stems":["壬","丁","甲","辛"],"branches":["申","酉","子","丑"],"yong":"正官","expect":"壬 rooted in 申, 丁 has no fire root; rooted-hurting obstruction absent","sourceId":"ziping-global-helper"}
+  ]
+}

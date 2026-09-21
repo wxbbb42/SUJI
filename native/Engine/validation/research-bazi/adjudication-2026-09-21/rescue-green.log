@@ -1,0 +1,75 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand src/bazi/__tests__/rescueAdjudication.test.ts
+
+FAIL src/bazi/__tests__/rescueAdjudication.test.ts
+  ✓ rooted Ding retains its role, including a same-element Bing root in Yin (2 ms)
+  ✓ day-master self combination never removes the other actor
+  ✓ Jia cannot cross controlling Geng to combine Ji; no generic all-remote veto
+  ✕ year-month combination is not converted to contention by matching day master (2 ms)
+  ✕ non-day competing copies remain unresolved and preserve every occurrence (1 ms)
+  ✓ Yi/Geng redirected killing role is distinguished from removal
+  ✓ documented rooted Bing/Xin counterexample remains an explicit source conflict (1 ms)
+  ✓ unopposed canonical Gui restraint is available locally without a global outcome
+  ✓ rootless helper bound by rooted Wu cannot continue to rescue Ding (1 ms)
+  ✓ rooted Gui blocks an automatic removal claim but still needs Wu/Gui relative efficacy
+  ✓ canonical remote Wu protects Ding from rootless Gui; rooted Gui prevents that conclusion
+  ✓ rooted peer does not become a fully rescued wealth threat solely through combining (1 ms)
+  ✓ source-attested hidden wealth can act, while a changed chart is not generalized from it
+  ✓ hidden Ding in the documented resource case is not blindly robbed by Zi resource
+  ✓ Mao and Yin branch helpers retain their own You/Shen clash blockers (1 ms)
+  ✓ regular production output exposes the same scoped adjudication without changing assessment scope
+
+  ● year-month combination is not converted to contention by matching day master
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+        "competingPositions": Array [],
+    -   "status": "role-disabled-in-selected-profile",
+    +   "status": "rooted-role-retained",
+      }
+
+      30 | test('year-month combination is not converted to contention by matching day master',()=>{
+      31 |   const r=read(['甲','己','甲','壬'],['寅','子','卯','子'],'正财');
+    > 32 |   expect(pair(r,0,1)).toMatchObject({status:'role-disabled-in-selected-profile',competingPositions:[]});
+         |                       ^
+      33 |   expect(pair(r,2,1).status).toBe('day-master-no-removal');
+      34 | });
+      35 |
+
+      at Object.<anonymous> (src/bazi/__tests__/rescueAdjudication.test.ts:32:23)
+
+  ● non-day competing copies remain unresolved and preserve every occurrence
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+        "competingPositions": Array [
+          3,
+        ],
+    -   "status": "unresolved-competing-pairs",
+    +   "status": "rooted-role-retained",
+      }
+
+      36 | test('non-day competing copies remain unresolved and preserve every occurrence',()=>{
+      37 |   const r=read(['癸','戊','庚','癸'],['酉','午','申','未']);
+    > 38 |   expect(pair(r,1,0)).toMatchObject({status:'unresolved-competing-pairs',competingPositions:[3]});
+         |                       ^
+      39 |   expect(pair(r,1,3)).toMatchObject({targetPosition:3,removalEstablished:false});
+      40 | });
+      41 |
+
+      at Object.<anonymous> (src/bazi/__tests__/rescueAdjudication.test.ts:38:23)
+
+Test Suites: 1 failed, 1 total
+Tests:       2 failed, 14 passed, 16 total
+Snapshots:   0 total
+Time:        0.991 s, estimated 1 s
+Ran all test suites matching /src\/bazi\/__tests__\/rescueAdjudication.test.ts/i.

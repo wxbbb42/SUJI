@@ -58,4 +58,42 @@ final class NatalAstronomyDossierTests: XCTestCase {
         try rejected { var m = $0["mansions"] as! [String: Any]; var b = m["boundaries"] as! [[String: Any]]; b[0]["hip"] = 1; m["boundaries"] = b; $0["mansions"] = m }
     }
 
+    func testDerivedModuleMutationRejectionAndLocalEvidence() throws {
+        let original = try fixture()
+        for module in ["fourResiduals","lifeDegree"] {
+            var missing = original; missing.removeValue(forKey: module)
+            XCTAssertThrowsError(try NatalAstronomyPayload.validated(JSONSerialization.data(withJSONObject: missing)))
+            for field in ["methodVersion","inputFingerprint","sourceIDs"] {
+                var altered = original, value = original[module] as! [String:Any]
+                value[field] = field == "sourceIDs" ? ["invented"] : "invented"; altered[module] = value
+                XCTAssertThrowsError(try NatalAstronomyPayload.validated(JSONSerialization.data(withJSONObject: altered)))
+            }
+        }
+        for field in ["palaceDegree","longitudeDegrees","rightAscensionDegrees","declinationDegrees","sunLongitudeDegrees","hoursUntilBranchChange"] {
+            var altered = original, l = original["lifeDegree"] as! [String:Any]
+            l[field] = (l[field] as! Double)+1; altered["lifeDegree"] = l
+            XCTAssertThrowsError(try NatalAstronomyPayload.validated(JSONSerialization.data(withJSONObject: altered)),field)
+        }
+        for field in ["birthHourBranch","sunPalaceBranch","palaceBranch","palaceRuler","degreeRuler","clockPolicy","coordinatePolicy","mansionPolicy"] {
+            var altered = original, l = original["lifeDegree"] as! [String:Any]
+            l[field] = "changed"; altered["lifeDegree"] = l
+            XCTAssertThrowsError(try NatalAstronomyPayload.validated(JSONSerialization.data(withJSONObject: altered)),field)
+        }
+        var altered = original, l = original["lifeDegree"] as! [String:Any]
+        l["houses"] = Array((l["houses"] as! [[String:Any]]).reversed()); altered["lifeDegree"] = l
+        XCTAssertThrowsError(try NatalAstronomyPayload.validated(JSONSerialization.data(withJSONObject: altered)))
+        for i in 0..<4 {
+            var altered = original, r = original["fourResiduals"] as! [String:Any], p = r["positions"] as! [[String:Any]]
+            p[i]["longitudeDegrees"] = ((p[i]["longitudeDegrees"] as! Double)+180).truncatingRemainder(dividingBy:360)
+            r["positions"] = p; altered["fourResiduals"] = r
+            XCTAssertThrowsError(try NatalAstronomyPayload.validated(JSONSerialization.data(withJSONObject: altered)))
+        }
+        let output = String(decoding:try JSONSerialization.data(withJSONObject:original),as:UTF8.self)
+        let messages: [ChatMessage] = [.assistantToolCalls([.init(id:"new-astro",name:"get_natal_astronomy",arguments:[:])]),.toolResult(.init(callID:"new-astro",output:output))]
+        let facts = ReadingVerificationEvidence.facts(messages)
+        XCTAssertEqual(facts.first { $0.factKey == "astronomy.residual.Rahu.definition" }?.value,"mean-ascending-node")
+        XCTAssertEqual(facts.first { $0.factKey == "astronomy.lifeDegree.methodVersion" }?.value,"mao-hour-tropical-solar-degree-v1")
+        XCTAssertEqual(facts.first { $0.factKey == "astronomy.lifeDegree.house12.name" }?.value,"相貌")
+    }
+
 }

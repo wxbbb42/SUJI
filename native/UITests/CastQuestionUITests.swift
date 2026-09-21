@@ -71,4 +71,40 @@ final class CastQuestionUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["audit.cast.cancelled"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.staticTexts["audit.cast.saved"].exists)
     }
+
+    func testTimingRequiresExplicitFocusUnitAndEndDateBeforeSaving() {
+        let app = launch()
+        XCTAssertTrue(app.navigationBars["确认占问"].waitForExistence(timeout: 10))
+        let event = app.descendants(matching: .any).matching(identifier: "cast.event.setup_qimen").firstMatch
+        event.tap(); event.typeText("job application response")
+        app.swipeUp()
+        let toggle = app.switches["cast.timing.enabled"]
+        reveal(toggle, app: app)
+        XCTAssertEqual(toggle.value as? String, "0")
+        toggle.coordinate(withNormalizedOffset:CGVector(dx:0.92,dy:0.5)).tap()
+        XCTAssertEqual(toggle.value as? String, "1")
+        let confirm = app.buttons["cast.confirm"]
+        reveal(confirm, app: app)
+        XCTAssertFalse(confirm.isEnabled)
+        let focus = app.buttons["cast.timing.focus"]
+        for _ in 0..<8 { if focus.isHittable { break }; app.swipeDown() }
+        focus.tap(); app.buttons["我自己"].tap()
+        let unit = app.buttons["cast.timing.unit"]
+        reveal(unit, app: app); unit.tap(); app.buttons["日"].tap()
+        let end = app.textFields["cast.timing.end"]
+        reveal(end, app: app); end.tap(); end.typeText("2099-12-31")
+        app.swipeUp(); reveal(confirm, app: app)
+        XCTAssertTrue(confirm.isEnabled)
+        capture("timing-explicit-inputs", app: app)
+        confirm.tap()
+        XCTAssertTrue(app.staticTexts["audit.cast.saved"].waitForExistence(timeout: 10))
+        let supplement = app.buttons["cast.supplement.f4-ui-omission"]
+        reveal(supplement, app: app); supplement.tap()
+        XCTAssertTrue(app.navigationBars["补充这次占问"].waitForExistence(timeout: 10))
+        // A new supplement requires its own opt-in; it cannot silently inherit
+        // the previous question's date request as a fresh user instruction.
+        reveal(toggle, app: app)
+        XCTAssertEqual(toggle.value as? String, "0")
+        app.buttons["cast.cancel"].tap()
+    }
 }

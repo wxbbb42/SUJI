@@ -1,0 +1,26 @@
+[
+  {
+    "key": "tushu567",
+    "title": "欽定古今圖書集成/博物彙編/藝術典/第567卷",
+    "url": "https://zh.wikisource.org/w/api.php?action=parse&page=%E6%AC%BD%E5%AE%9A%E5%8F%A4%E4%BB%8A%E5%9C%96%E6%9B%B8%E9%9B%86%E6%88%90%2F%E5%8D%9A%E7%89%A9%E5%BD%99%E7%B7%A8%2F%E8%97%9D%E8%A1%93%E5%85%B8%2F%E7%AC%AC567%E5%8D%B7&prop=text%7Crevid&format=json",
+    "revision": 1942530,
+    "sha256": "17d2e6807aed680532b1757971829b8c05a10eb686d8901d4298f2c4771c1b50",
+    "textSHA256": "e4a65f87e98f36be2e0c7521009f22eb64f036712f7a8adedc52645ae322ff2f"
+  },
+  {
+    "key": "xingxue1",
+    "title": "星學大成 (四庫全書本)/卷01",
+    "url": "https://zh.wikisource.org/w/api.php?action=parse&page=%E6%98%9F%E5%AD%B8%E5%A4%A7%E6%88%90+%28%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC%29%2F%E5%8D%B701&prop=text%7Crevid&format=json",
+    "revision": 626726,
+    "sha256": "c0e0d894db6566f7537b7bc7b439a7f1d3338f81ed535118f0d012f418212510",
+    "textSHA256": "e1d5b56836a3cbaf200e325990e2d6e6325d629cfceff98566c4ef7e806ca9a4"
+  },
+  {
+    "key": "xingxue2",
+    "title": "星學大成 (四庫全書本)/卷02",
+    "url": "https://zh.wikisource.org/w/api.php?action=parse&page=%E6%98%9F%E5%AD%B8%E5%A4%A7%E6%88%90+%28%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC%29%2F%E5%8D%B702&prop=text%7Crevid&format=json",
+    "revision": 784366,
+    "sha256": "66836e475e7c0889fbe1afbcd3e53ec5a903c6661c663483f99bf25d36e56796",
+    "textSHA256": "3ba9a17cbe7822129a220f9ae0017675ab180752bcd94340bd4f72e7592b0a02"
+  }
+]

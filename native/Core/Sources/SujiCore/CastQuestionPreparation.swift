@@ -11,12 +11,17 @@ public struct CastQuestionDraft: Identifiable, Sendable, Equatable {
     public var event: String
     public var timeHorizon: String
     public var referenceOnly = false
+    public var timingEnabled = false
+    public var timingFocus = ""
+    public var timingUnit = ""
+    public var timingEndDate = ""
+    public var timingIncludeCurrent = false
 
     public static let subjects = ["unknown", "self", "parent", "child", "sibling", "wife", "husband", "other"]
     public static let questionTypes = ["general", "career", "wealth", "marriage", "kids", "parents", "health", "event"]
     public static let timeHorizons = ["unspecified", "near", "far"]
 
-    public init(call: ChatToolCall) throws {
+    public init(call: ChatToolCall, restoringConfirmedTiming: Bool = false) throws {
         guard ["cast_liuyao", "setup_qimen"].contains(call.name), case let .object(args) = call.arguments else {
             throw CastQuestionValidationError(reason: "无法确认这次起盘资料")
         }
@@ -29,6 +34,17 @@ public struct CastQuestionDraft: Identifiable, Sendable, Equatable {
         subject = string("subject", fallback: "unknown")
         event = string("event", fallback: "")
         timeHorizon = string("timeHorizon", fallback: "unspecified")
+        if call.name == "setup_qimen", case let .object(timing) = args["timingRequest"] {
+            // Proposed fields may be displayed, but the user must enable timing.
+            // Only persisted confirmations restore the enabled state for validation.
+            timingEnabled = restoringConfirmedTiming
+            if case let .string(v)=timing["focus"] { timingFocus=v }
+            if case let .string(v)=timing["timeUnit"] { timingUnit=v }
+            if case let .object(window)=timing["window"] {
+                if case let .bool(v)=window["includeCurrent"] { timingIncludeCurrent=v }
+                if case let .string(v)=window["end"],let d=Self.isoDate(v) { timingEndDate=Self.dayFormatter.string(from:d) }
+            }
+        }
     }
 
     public var validationMessage: String? {
@@ -46,8 +62,35 @@ public struct CastQuestionDraft: Identifiable, Sendable, Equatable {
         }
         var args: [String: JSONValue] = ["question": .string(question), "questionType": .string(questionType), "subject": .string(subject), "timeHorizon": .string(timeHorizon)]
         if !event.isEmpty { args["event"] = .string(event) }
+        if proposedCall.name == "setup_qimen", timingEnabled, !referenceOnly {
+            guard ["employment","profit","relationship","self"].contains(timingFocus),
+                  ["year","month","day","hour"].contains(timingUnit) else {
+                throw CastQuestionValidationError(reason:"请明确选择应期对象和年、月、日或时辰单位")
+            }
+            guard timingFocus != "self" || subject == "self" else { throw CastQuestionValidationError(reason:"以本人为应期对象时，请将所问对象明确为我自己") }
+            let f=Self.dayFormatter
+            guard timingEndDate.range(of:#"^\d{4}-\d{2}-\d{2}$"#,options:.regularExpression) != nil,
+                  let day=f.date(from:timingEndDate),f.string(from:day)==timingEndDate,
+                  let year=Int(timingEndDate.prefix(4)),(1901...2100).contains(year) else {
+                throw CastQuestionValidationError(reason:"请按 YYYY-MM-DD 填写1901–2100年的有效截止日期")
+            }
+            // End of the explicitly selected Beijing date, at millisecond precision.
+            let end=day.addingTimeInterval(86400-0.001),iso=ISO8601DateFormatter()
+            iso.formatOptions=[.withInternetDateTime,.withFractionalSeconds]
+            args["timingRequest"]=["focus":.string(timingFocus),"event":.string(event),"timeUnit":.string(timingUnit),
+                "window":["end":.string(iso.string(from:end)),"includeCurrent":.bool(timingIncludeCurrent)]]
+        }
         // The legacy gender field must never supply a missing subject.
         return ChatToolCall(id: proposedCall.id, name: proposedCall.name, arguments: .object(args))
+    }
+
+    private static var dayFormatter: DateFormatter {
+        let f=DateFormatter();f.locale=Locale(identifier:"en_US_POSIX");f.calendar=Calendar(identifier:.gregorian)
+        f.timeZone=TimeZone(secondsFromGMT:8*3600);f.dateFormat="yyyy-MM-dd";f.isLenient=false;return f
+    }
+    fileprivate static func isoDate(_ value:String)->Date? {
+        let f=ISO8601DateFormatter();f.formatOptions=[.withInternetDateTime,.withFractionalSeconds]
+        return f.date(from:value) ?? ISO8601DateFormatter().date(from:value)
     }
 }
 
@@ -85,9 +128,14 @@ public struct ConfirmedCastQuestion: Codable, Sendable, Equatable {
         guard self.userID == userID, self.context == context, context.isValid,
               confirmedAt.timeIntervalSince1970.isFinite,
               proposedCall.id == call.id, proposedCall.name == call.name else { throw ToolOrchestratorError.staleContext }
-        var draft = try CastQuestionDraft(call: call)
+        var draft = try CastQuestionDraft(call: call, restoringConfirmedTiming: true)
         draft.referenceOnly = referenceOnly
         guard try draft.validatedCall() == call else { throw CastQuestionValidationError(reason: "已确认的占问资料不完整，请发起新提问") }
+        if case let .string(end)=ReadingVerificationEvidence.pointer("/timingRequest/window/end",in:call.arguments) {
+            guard let date=CastQuestionDraft.isoDate(end),date>context.referenceDate else {
+                throw CastQuestionValidationError(reason:"应期截止日期必须晚于这次原起盘时刻")
+            }
+        }
     }
 }
 

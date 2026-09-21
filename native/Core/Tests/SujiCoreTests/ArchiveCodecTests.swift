@@ -3,6 +3,22 @@ import XCTest
 @testable import SujiCore
 
 final class ArchiveCodecTests: XCTestCase {
+    func testLocalSupplementReceiptsCanBeBackedUpWithoutBecomingCallableTools() throws {
+        for name in ["reassess_liuyao","reassess_qimen"] {
+            let (base,context) = try stateWithReceipts()
+            var state = base
+            let output = try CastReceiptStorage.encode(#"{"question":"补充原问题","questionRevision":{"sourceCallID":"original-cast"},"lines":[]}"#)
+            state.conversations[0].toolReceipts?.append(.init(callID:"supplement",name:name,arguments:["question":"补充原问题"],output:output,context:context))
+            let local = try JSONDecoder().decode(AppState.self,from:ArchiveCodec.encode(state))
+            XCTAssertEqual(local.conversations[0].toolReceipts?.last?.context,context)
+            let imported = try ArchiveCodec.decode(ArchiveCodec.encode(state))
+            XCTAssertEqual(imported.conversations[0].toolReceipts?.last?.name,name)
+            XCTAssertEqual(imported.conversations[0].toolReceipts?.last?.output,output)
+            XCTAssertNil(imported.conversations[0].toolReceipts?.last?.context)
+            XCTAssertNil(imported.conversations[0].toolContext)
+            XCTAssertFalse(ToolOrchestrator.allowedToolNames.contains(name))
+        }
+    }
     func testRoundTripPreservesStateAndSettings() throws {
         var state = AppState()
         state.hasOnboarded = true

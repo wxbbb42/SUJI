@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-20T15:01:33.096Z",
-  "sourceCount": 59,
-  "claimCount": 70,
+  "generatedAt": "2026-09-21T01:22:30.326Z",
+  "sourceCount": 77,
+  "claimCount": 84,
   "domains": {
     "academic": [
       {
@@ -50,6 +50,39 @@
     ],
     "astronomy": [
       {
+        "id": "tushu567-mao-life-degree-rev1942530",
+        "title": "古今图书集成艺术典567卷：张果星宗安命度法",
+        "tier": "A",
+        "type": "classic_transcription",
+        "priority": "P0",
+        "status": "source_archived_method_explicit",
+        "usage": [
+          "维基文库固定revision1942530电子正文；生时加太阳宫顺数遇卯，未声称古宿度表已复原"
+        ]
+      },
+      {
+        "id": "aa1996-mean-lunar-inclination",
+        "title": "Astronomical Almanac1996 D2 平月球轨道倾角",
+        "tier": "B",
+        "type": "mathematical_parameter",
+        "priority": "P0",
+        "status": "source_archived_method_explicit",
+        "usage": [
+          "通过Swiss2.10.03 sweph.h引用核对5.1453964°；未读原年历纸本"
+        ]
+      },
+      {
+        "id": "iers2003-simon1994-mean-lunar",
+        "title": "IERS2003 / Simon1994 平月轨道参数（ERFA v2.0.1）",
+        "tier": "B",
+        "type": "academic_reference",
+        "priority": "P0",
+        "status": "source_archived_method_explicit",
+        "usage": [
+          "TT近似TDB、平交点与F/l；ERFA衍生许可随包分发"
+        ]
+      },
+      {
         "id": "astronomy-engine-2.1.19",
         "title": "Astronomy Engine 2.1.19",
         "tier": "C",
@@ -85,6 +118,17 @@
         ]
       },
       {
+        "id": "moira-purple-7474e5f",
+        "title": "Moira 固定提交7474e5f的紫炁参数",
+        "tier": "C",
+        "type": "software_parameters",
+        "priority": "P0",
+        "status": "source_archived_method_explicit",
+        "usage": [
+          "仅采用历元1975-03-13T16Z、黄经230.5°、周期10227.1792日及显式罗北计南选项；未复制GPL实现代码"
+        ]
+      },
+      {
         "id": "simbad-28-20260920",
         "title": "SIMBAD：28距星交叉身份及坐标复核，2026-09-20",
         "tier": "C",
@@ -104,6 +148,17 @@
         "status": "immutable_blob_and_28_identities_crosschecked",
         "usage": [
           "现代星名距星参照：各星宿首星I的HIP身份；不采用其另页有冲突的距星表"
+        ]
+      },
+      {
+        "id": "suji-mao-modern-coordinate-policy-v1",
+        "title": "SUJI遇卯法现代坐标映射约定",
+        "tier": "C",
+        "type": "product_method_policy",
+        "priority": "P0",
+        "status": "source_archived_method_explicit",
+        "usage": [
+          "固定UTC+8时支，现代热带十二等宫，保留太阳宫内度；命度参考现代距星赤经，非地平升点"
         ]
       }
     ],
@@ -150,7 +205,7 @@
           "十二长生",
           "六合/六害/六破",
           "三会方局",
-          "人元司令",
+          "人元司令异表对照（默认表另见徐注来源）",
           "月令旺相休囚死"
         ]
       },
@@ -186,6 +241,94 @@
         ]
       },
       {
+        "id": "ditianshui-ren-duxiang-v1",
+        "title": "滴天髓阐微任注：独象与完整方局",
+        "tier": "A",
+        "type": "classic_transcription",
+        "priority": "P0",
+        "status": "selected_passages_reviewed_not_print_collated",
+        "usage": [
+          "任氏完整方局专旺剖面；食伤泄秀与季节前提"
+        ]
+      },
+      {
+        "id": "ziping-helper-constraints-v1",
+        "title": "子平真诠及徐注：相神保护与受阻命例",
+        "tier": "A",
+        "type": "classic_transcription",
+        "priority": "P0",
+        "status": "selected_passages_reviewed_not_print_collated",
+        "usage": [
+          "甲酉官癸制丁、乙酉杀时戊护丁、丁酉财己制癸等有限依赖链；支助遭冲条件"
+        ]
+      },
+      {
+        "id": "ziping-position-season-v1",
+        "title": "子平真诠徐注：克合位置次序与得时得势",
+        "tier": "A",
+        "type": "classic_transcription",
+        "priority": "P0",
+        "status": "selected_passages_reviewed_not_print_collated",
+        "usage": [
+          "隔位仍可作合及次序例外；季节条件不直接取消干的作用"
+        ]
+      },
+      {
+        "id": "ziping-xu-combination-limits-v1",
+        "title": "子平真诠徐注：合而不合与通根保用",
+        "tier": "A",
+        "type": "classic_transcription",
+        "priority": "P0",
+        "status": "selected_passages_reviewed_not_print_collated",
+        "usage": [
+          "逐柱有向五合限制；通根保用、日主不去、甲己庚隔与煞不攻身"
+        ]
+      },
+      {
+        "id": "ziping-xu-earth-command-v1",
+        "title": "子平真诠徐注：四季土旺与司令限制",
+        "tier": "A",
+        "type": "classic_transcription",
+        "priority": "P0",
+        "status": "selected_passages_reviewed_not_print_collated",
+        "usage": [
+          "四季月土司令条件；保留司令天数不可执着的原注"
+        ]
+      },
+      {
+        "id": "ziping-xu-hidden-action-cases-v1",
+        "title": "子平真诠徐注：藏财损印与藏食不夺两命例",
+        "tier": "A",
+        "type": "classic_transcription",
+        "priority": "P0",
+        "status": "selected_passages_reviewed_not_print_collated",
+        "usage": [
+          "仅完整原例认定藏干作用；普通藏干仍保留条件，不泛化为无效"
+        ]
+      },
+      {
+        "id": "ziping-xu-renyuan-v1",
+        "title": "子平真诠徐注：十二月令人元司令表",
+        "tier": "A",
+        "type": "classic_transcription",
+        "priority": "P0",
+        "status": "selected_passages_reviewed_not_print_collated",
+        "usage": [
+          "徐注所选十二月司令；申月戊己十日、壬三日、庚十七日"
+        ]
+      },
+      {
+        "id": "ziping-xu-special-v1",
+        "title": "子平真诠徐注：杂格与方局不全候选",
+        "tier": "A",
+        "type": "classic_transcription",
+        "priority": "P0",
+        "status": "selected_passages_reviewed_not_print_collated",
+        "usage": [
+          "方局不全而气势专一的异法候选；不冒充任氏严格条件已成立"
+        ]
+      },
+      {
         "id": "opensource-bazi-life-curves",
         "title": "bazi-life-curves (XiaoChu-1208, MIT)",
         "tier": "C",
@@ -198,6 +341,17 @@
           "多派加权投票框架（扶抑/调候/格局）借用",
           "open_phase 逃逸阀阈值借用",
           "PhaseRegistry 注册表设计模式参考"
+        ]
+      },
+      {
+        "id": "suji-civil-jie-commander-policy-v1",
+        "title": "SUJI出生物理时刻与月节司令区间约定",
+        "tier": "C",
+        "type": "product_method_policy",
+        "priority": "P0",
+        "status": "implemented_explicit_policy",
+        "usage": [
+          "原始出生物理时刻绑定十二节的左闭右开区间；经过毫秒换算天数，禁止真太阳时移动节界"
         ]
       },
       {
@@ -345,6 +499,28 @@
       }
     ],
     "calendar": [
+      {
+        "id": "suji-civil-jie-commander-policy-v1",
+        "title": "SUJI出生物理时刻与月节司令区间约定",
+        "tier": "C",
+        "type": "product_method_policy",
+        "priority": "P0",
+        "status": "implemented_explicit_policy",
+        "usage": [
+          "原始出生物理时刻绑定十二节的左闭右开区间；经过毫秒换算天数，禁止真太阳时移动节界"
+        ]
+      },
+      {
+        "id": "suji-qimen-timing-search-policy-v1",
+        "title": "SUJI奇门条件日期的历法边界与有界搜索约定",
+        "tier": "C",
+        "type": "product_method_policy",
+        "priority": "P0",
+        "status": "implemented_explicit_policy",
+        "usage": [
+          "显式对象、单位和截止时刻；左闭右开区间、当前区间选项、扫描上限、合并排序及完整性标记"
+        ]
+      },
       {
         "id": "calendar-xieji-bianfang-shu",
         "title": "协纪辨方书",
@@ -518,6 +694,17 @@
           "用神/原神/忌神/仇神",
           "动变与断法",
           "分类占例"
+        ]
+      },
+      {
+        "id": "liuyao-efficacy-zengshan-v1",
+        "title": "增删卜易选定条文：取用与有条件效力",
+        "tier": "A",
+        "type": "classic_transcription",
+        "priority": "P0",
+        "status": "selected_passages_reviewed_not_print_collated",
+        "usage": [
+          "明确所问的唯一对象、日月局部条件、无根与无竞争生扶、逐对象墓绝、限定三合范围；结论仅表示所选条文前提满足"
         ]
       },
       {
@@ -867,6 +1054,17 @@
         ]
       },
       {
+        "id": "qimen-hour-void-horse-v1",
+        "title": "时家旬空与时支驿马固定表",
+        "tier": "C",
+        "type": "pinned_engineering_reference",
+        "priority": "P0",
+        "status": "pinned_reference_with_scoped_usage",
+        "usage": [
+          "时家旬空、时支驿马及宫支覆盖；为应期条件提供显式底层事实"
+        ]
+      },
+      {
         "id": "suji-qimen-reference-policy",
         "title": "SUJI奇门初始参考点产品约定",
         "tier": "C",
@@ -876,6 +1074,28 @@
         "usage": [
           "对象身份与盘层投影",
           "初始参考候选边界"
+        ]
+      },
+      {
+        "id": "suji-qimen-timing-search-policy-v1",
+        "title": "SUJI奇门条件日期的历法边界与有界搜索约定",
+        "tier": "C",
+        "type": "product_method_policy",
+        "priority": "P0",
+        "status": "implemented_explicit_policy",
+        "usage": [
+          "显式对象、单位和截止时刻；左闭右开区间、当前区间选项、扫描上限、合并排序及完整性标记"
+        ]
+      },
+      {
+        "id": "qimen-xdyy-timing-v1",
+        "title": "奇门遁甲现代应用技术：对象条件优先应期",
+        "tier": "D",
+        "type": "modern_practical_transcription",
+        "priority": "P0",
+        "status": "selected_passages_reviewed_not_print_collated",
+        "usage": [
+          "同一选定对象：宫空先于马，马先于墓刑冲合；显式时间单位及有界条件候选"
         ]
       },
       {
@@ -956,6 +1176,39 @@
     ],
     "qizheng": [
       {
+        "id": "tushu567-mao-life-degree-rev1942530",
+        "title": "古今图书集成艺术典567卷：张果星宗安命度法",
+        "tier": "A",
+        "type": "classic_transcription",
+        "priority": "P0",
+        "status": "source_archived_method_explicit",
+        "usage": [
+          "维基文库固定revision1942530电子正文；生时加太阳宫顺数遇卯，未声称古宿度表已复原"
+        ]
+      },
+      {
+        "id": "aa1996-mean-lunar-inclination",
+        "title": "Astronomical Almanac1996 D2 平月球轨道倾角",
+        "tier": "B",
+        "type": "mathematical_parameter",
+        "priority": "P0",
+        "status": "source_archived_method_explicit",
+        "usage": [
+          "通过Swiss2.10.03 sweph.h引用核对5.1453964°；未读原年历纸本"
+        ]
+      },
+      {
+        "id": "iers2003-simon1994-mean-lunar",
+        "title": "IERS2003 / Simon1994 平月轨道参数（ERFA v2.0.1）",
+        "tier": "B",
+        "type": "academic_reference",
+        "priority": "P0",
+        "status": "source_archived_method_explicit",
+        "usage": [
+          "TT近似TDB、平交点与F/l；ERFA衍生许可随包分发"
+        ]
+      },
+      {
         "id": "astronomy-engine-2.1.19",
         "title": "Astronomy Engine 2.1.19",
         "tier": "C",
@@ -977,6 +1230,28 @@
         "usage": [
           "保持旧出生钟面物理输入不变",
           "保存UT/TT/ΔT与未来时间模型限制"
+        ]
+      },
+      {
+        "id": "moira-purple-7474e5f",
+        "title": "Moira 固定提交7474e5f的紫炁参数",
+        "tier": "C",
+        "type": "software_parameters",
+        "priority": "P0",
+        "status": "source_archived_method_explicit",
+        "usage": [
+          "仅采用历元1975-03-13T16Z、黄经230.5°、周期10227.1792日及显式罗北计南选项；未复制GPL实现代码"
+        ]
+      },
+      {
+        "id": "suji-mao-modern-coordinate-policy-v1",
+        "title": "SUJI遇卯法现代坐标映射约定",
+        "tier": "C",
+        "type": "product_method_policy",
+        "priority": "P0",
+        "status": "source_archived_method_explicit",
+        "usage": [
+          "固定UTC+8时支，现代热带十二等宫，保留太阳宫内度；命度参考现代距星赤经，非地平升点"
         ]
       }
     ],
@@ -1275,6 +1550,19 @@
       "confidence": "high_for_versioned_engineering_scope_not_divination_efficacy"
     },
     {
+      "id": "bazi.adjudication.native-trace-binding-v1",
+      "domain": "bazi",
+      "sourceIds": [
+        "ditianshui-ren-duxiang-v1",
+        "ziping-xu-renyuan-v1",
+        "ziping-xu-combination-limits-v1",
+        "ziping-helper-constraints-v1",
+        "suji-civil-jie-commander-policy-v1"
+      ],
+      "status": "implemented_native_local_explanation_with_tamper_checks",
+      "confidence": "high_for_checked_local_claim_binding_not_global_adjudication"
+    },
+    {
       "id": "bazi.adjusting-climate.yongshen",
       "domain": "bazi",
       "sourceIds": [
@@ -1293,6 +1581,16 @@
       ],
       "status": "active_product_interpretation_policy",
       "confidence": "medium_high"
+    },
+    {
+      "id": "bazi.commander.birth-context-v1",
+      "domain": "bazi",
+      "sourceIds": [
+        "ziping-xu-renyuan-v1",
+        "suji-civil-jie-commander-policy-v1"
+      ],
+      "status": "implemented_with_actual_dispatch_and_native_checks",
+      "confidence": "high_for_civil_binding_and_scoped_provider_contract"
     },
     {
       "id": "bazi.day-master.month-command.core",
@@ -1427,6 +1725,16 @@
       "confidence": "high"
     },
     {
+      "id": "bazi.hidden-actions.exact-cases-v1",
+      "domain": "bazi",
+      "sourceIds": [
+        "ziping-xu-hidden-action-cases-v1",
+        "ziping-xu-combination-limits-v1"
+      ],
+      "status": "implemented_exact_case_witnesses",
+      "confidence": "high_for_exact_attested_cases_not_generalization"
+    },
+    {
       "id": "bazi.hidden-stems.table",
       "domain": "bazi",
       "sourceIds": [
@@ -1469,10 +1777,12 @@
       "id": "bazi.pattern-conditional-support-and-rescue",
       "domain": "bazi",
       "sourceIds": [
-        "bazi-ziping-zhenquan"
+        "ziping-helper-constraints-v1",
+        "ziping-position-season-v1",
+        "ziping-xu-combination-limits-v1"
       ],
-      "status": "conditional_facts_with_source_and_counterexample_checks",
-      "confidence": "high_for_scoped_relations_not_final_strength_or_adjudication"
+      "status": "conditional_facts_plus_source_selected_local_adjudication",
+      "confidence": "high_for_scoped_relations_and_local_limits_not_global_outcome"
     },
     {
       "id": "bazi.peer-occurrence-is-not-day-self",
@@ -1505,10 +1815,33 @@
       "id": "bazi.rescue-binds-to-position",
       "domain": "bazi",
       "sourceIds": [
-        "bazi-ziping-zhenquan"
+        "ziping-position-season-v1",
+        "ziping-helper-constraints-v1",
+        "ziping-xu-combination-limits-v1"
       ],
-      "status": "implemented_position_identity_with_regression",
-      "confidence": "high_for_position_binding_partial_for_rescue_conditions"
+      "status": "implemented_occurrence_bound_local_adjudication_global_unresolved",
+      "confidence": "high_for_occurrence_binding_and_selected_local_restrictions"
+    },
+    {
+      "id": "bazi.rescue.directed-combination-limits-v1",
+      "domain": "bazi",
+      "sourceIds": [
+        "ziping-xu-combination-limits-v1",
+        "ziping-helper-constraints-v1"
+      ],
+      "status": "implemented_directed_local_limits_global_unresolved",
+      "confidence": "high_for_scoped_text_limits_conditional_for_remaining_competition"
+    },
+    {
+      "id": "bazi.rescue.finite-helper-dependencies-v1",
+      "domain": "bazi",
+      "sourceIds": [
+        "ziping-helper-constraints-v1",
+        "ziping-position-season-v1",
+        "ziping-xu-combination-limits-v1"
+      ],
+      "status": "implemented_finite_dependency_families_global_unresolved",
+      "confidence": "high_for_finite_source_examples_not_global_rescue"
     },
     {
       "id": "bazi.rizhushuruo.five-tier-structural",
@@ -1536,11 +1869,25 @@
       "id": "bazi.siling.table.contested",
       "domain": "bazi",
       "sourceIds": [
+        "ziping-xu-renyuan-v1",
         "bazi-sanming-tonghui",
-        "bazi-yuanhai-ziping"
+        "bazi-yujing-aojue",
+        "suji-civil-jie-commander-policy-v1"
       ],
-      "status": "contested",
-      "confidence": "high_for_disagreement_low_for_single_table"
+      "status": "source_selected_with_preserved_variant_tables",
+      "confidence": "high_for_selected_transcription_and_explicit_policy_not_universal_table"
+    },
+    {
+      "id": "bazi.special-pattern.source-selected-v1",
+      "domain": "bazi",
+      "sourceIds": [
+        "ditianshui-ren-duxiang-v1",
+        "ziping-xu-special-v1",
+        "ziping-xu-earth-command-v1",
+        "ziping-xu-renyuan-v1"
+      ],
+      "status": "implemented_strict_profile_with_alternative_candidate",
+      "confidence": "high_for_selected_text_conditions_not_all_schools"
     },
     {
       "id": "bazi.ten-gods.core",
@@ -1720,6 +2067,42 @@
       "confidence": "high_for_conditional_distinction_transcription_only"
     },
     {
+      "id": "liuyao.efficacy.object-bound-tomb-extinction-v1",
+      "domain": "liuyao",
+      "sourceIds": [
+        "liuyao-efficacy-zengshan-v1"
+      ],
+      "status": "implemented_scoped_tomb_extinction_decisions",
+      "confidence": "high_for_object_bound_sufficient_conditions_not_every_tomb_case"
+    },
+    {
+      "id": "liuyao.efficacy.selection-and-local-strength-v1",
+      "domain": "liuyao",
+      "sourceIds": [
+        "liuyao-efficacy-zengshan-v1"
+      ],
+      "status": "implemented_source_selected_conditional",
+      "confidence": "high_for_selected_sufficient_conditions_not_global_strength"
+    },
+    {
+      "id": "liuyao.efficacy.triad-formation-and-effect-v1",
+      "domain": "liuyao",
+      "sourceIds": [
+        "liuyao-efficacy-zengshan-v1"
+      ],
+      "status": "implemented_formation_and_effect_separately",
+      "confidence": "high_for_selected_triad_scopes_with_preserved_text_conflict"
+    },
+    {
+      "id": "liuyao.efficacy.two-appearances-remain-contextual-v1",
+      "domain": "liuyao",
+      "sourceIds": [
+        "liuyao-efficacy-zengshan-v1"
+      ],
+      "status": "explicit_unresolved_context_and_transitive_dependencies",
+      "confidence": "high_for_rejection_of_fixed_ranking_not_complete_selection"
+    },
+    {
       "id": "liuyao.object-bound-tomb-extinction",
       "domain": "liuyao",
       "sourceIds": [
@@ -1841,6 +2224,47 @@
       ],
       "status": "selected_version_implemented_independent_matrix_tested",
       "confidence": "high_for_scope_distinction_contested_textual_variants"
+    },
+    {
+      "id": "qimen.timing.calendar-and-search-policy-v1",
+      "domain": "qimen",
+      "sourceIds": [
+        "suji-qimen-timing-search-policy-v1",
+        "qimen-xdyy-timing-v1"
+      ],
+      "status": "implemented_explicit_bounded_search_policy",
+      "confidence": "high_for_explicit_calendar_contract_not_event_prediction"
+    },
+    {
+      "id": "qimen.timing.object-condition-priority-v1",
+      "domain": "qimen",
+      "sourceIds": [
+        "qimen-xdyy-timing-v1",
+        "qimen-hour-void-horse-v1"
+      ],
+      "status": "implemented_bounded_object_condition_timing",
+      "confidence": "source_selected_modern_text_scope_not_classical_or_universal_rule"
+    },
+    {
+      "id": "qizheng.mao-life-degree.modern-adaptation-v1",
+      "domain": "qizheng",
+      "sourceIds": [
+        "tushu567-mao-life-degree-rev1942530",
+        "suji-mao-modern-coordinate-policy-v1"
+      ],
+      "status": "implemented_source_vector_checked",
+      "confidence": "source_for_branch_rule_explicit_product_coordinates"
+    },
+    {
+      "id": "qizheng.mean-residuals.selected-v1",
+      "domain": "qizheng",
+      "sourceIds": [
+        "iers2003-simon1994-mean-lunar",
+        "aa1996-mean-lunar-inclination",
+        "moira-purple-7474e5f"
+      ],
+      "status": "implemented_independently_sampled",
+      "confidence": "high_for_selected_mean_formula_not_prediction"
     },
     {
       "id": "ziwei.cached-birth-basis-and-lunar-month",

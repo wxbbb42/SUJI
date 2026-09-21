@@ -1,7 +1,7 @@
 import Foundation
 
-/// Projects existing cast facts and conditional rules; it never selects a useful
-/// object, calculates a new cast, or turns a trigger branch into an event date.
+/// Projects saved cast facts and independently verifies optional source-selected
+/// efficacy. It never calculates a new cast or invents an event date.
 public enum LiuyaoReferenceReading {
     public struct Section: Encodable, Sendable {
         public let id: String
@@ -24,7 +24,7 @@ public enum LiuyaoReferenceReading {
     }
     public static func unavailableReply(receipts: [ToolReceipt]) -> String {
         let present = receipts.contains { receipt in
-            guard receipt.name == "cast_liuyao", let root = try? JSONDecoder().decode(JSONValue.self,from:Data(receipt.output.utf8)),
+            guard receipt.name == "cast_liuyao", let root = try? LiuyaoReceiptStorage.expanded(receipt.output),
                   case let .object(object) = root, object["error"] == nil else { return false }
             return true
         }
@@ -39,7 +39,7 @@ public enum LiuyaoReferenceReading {
         for receipt in receipts {
             guard receipt.name == "cast_liuyao", receipt.context == context,
                   !receipt.callID.isEmpty, receipt.callID.utf8.count <= 200, receipt.output.utf8.count <= 60_000,
-                  let root = try? JSONDecoder().decode(JSONValue.self,from:Data(receipt.output.utf8)),
+                  let root = try? LiuyaoReceiptStorage.expanded(receipt.output),
                   case let .object(object) = root, object["error"] == nil else { return nil }
             roots.append(root)
         }
@@ -120,7 +120,10 @@ public enum LiuyaoReferenceReading {
             let hasTriads = ReadingVerificationEvidence.pointer("/triads",in:root) != nil
             let hasTriadSource = sources.contains { ReadingVerificationEvidence.pointer("/id",in:$0) == .string(LiuyaoTriadTrace.sourceID) }
             guard hasTriads == hasTriadSource, !hasTriads || (hasFanfu && hasTombs) else { throw Incomplete.record }
-            let accepted=[calendarSource,questionSource,"liuyao-changing-relations-v1","liuyao-flying-hidden-v1","liuyao-day-clash-v1"] + (hasRoles ? [roleSource] : []) + (hasTombs ? [LiuyaoTombExtinctionTrace.sourceID] : []) + (hasFanfu ? [LiuyaoFanfuTrace.sourceID] : []) + (hasTriads ? [LiuyaoTriadTrace.sourceID] : [])
+            let hasEfficacy = ReadingVerificationEvidence.pointer("/efficacy",in:root) != nil
+            let hasEfficacySource = sources.contains { ReadingVerificationEvidence.pointer("/id",in:$0) == .string(LiuyaoEfficacyEvidence.sourceID) }
+            guard hasEfficacy == hasEfficacySource, !hasEfficacy || (hasRoles && hasTombs && hasFanfu && hasTriads) else { throw Incomplete.record }
+            let accepted=[calendarSource,questionSource,"liuyao-changing-relations-v1","liuyao-flying-hidden-v1","liuyao-day-clash-v1"] + (hasRoles ? [roleSource] : []) + (hasTombs ? [LiuyaoTombExtinctionTrace.sourceID] : []) + (hasFanfu ? [LiuyaoFanfuTrace.sourceID] : []) + (hasTriads ? [LiuyaoTriadTrace.sourceID] : []) + (hasEfficacy ? [LiuyaoEfficacyEvidence.sourceID] : [])
             for i in sources.indices {
                 let p="/ruleSources/\(i)",id=try string(p+"/id")
                 guard accepted.contains(id),sourcePaths[id] == nil,
@@ -170,6 +173,9 @@ public enum LiuyaoReferenceReading {
             }
             try selectionAndTiming()
             if hasRoles { try candidateRoles() }
+            if hasEfficacy {
+                sections += try LiuyaoEfficacyEvidence.sections(root:root,receiptID:receipt.callID,sourcePaths:sourcePaths[LiuyaoEfficacyEvidence.sourceID]!)
+            }
             return Report(sourceReceiptID:receipt.callID,sections:sections)
         }
         func object(_ p: String, label: String, paths: inout [String]) throws -> String {
@@ -295,14 +301,14 @@ public enum LiuyaoReferenceReading {
             let missing=try terms(y+"/missingContext")
             let candidates=try array(y+"/candidates")
             guard candidates.count <= 8 else { throw Incomplete.record }
-            try append("selection",(candidates.isEmpty ? "本次没有确定候选对象。" : "以下均为候选，尚未定用；不按顺序或单独空破决定取舍。")+(missing.isEmpty ? "" : "本次计算记录尚缺：\(missing)。"),[y+"/selectionStatus",y+"/selectionEstablished",y+"/selectedCandidateId",y+"/missingContext",y+"/candidates"]+provenance)
+            try append("selection",(candidates.isEmpty ? "本次没有确定候选对象。" : "候选层尚未定用；不按顺序或单独空破决定取舍，独立效力校验另列。")+(missing.isEmpty ? "" : "本次计算记录尚缺：\(missing)。"),[y+"/selectionStatus",y+"/selectionEstablished",y+"/selectedCandidateId",y+"/missingContext",y+"/candidates"]+provenance)
             var byID: [String:(object:String,layer:String,label:String)]=[:]
             for i in candidates.indices {
                 var paths=provenance
                 let c=try candidate(y+"/candidates/\(i)",related:false,paths:&paths)
                 guard byID[c.id] == nil else { throw Incomplete.record };byID[c.id]=(c.object,c.layer,c.label)
                 let basis = ["category-role":"按所问事项类别映射六亲；用神章提供类别依据，现代事项映射保留限制", "explicit-person-role":"按明确的亲属角色映射六亲", "explicit-partner-role":"按明确的伴侣角色映射六亲，不由性别猜测", "querent-self-reference":"世爻保留本人所问之参考", "absent-visible-calendar-role":"明现爻缺该六亲，按飞伏章另列日月候选", "absent-visible-pure-palace-role":"明现爻缺该六亲，按飞伏章另列纯宫伏神候选"][c.reason]!
-                try append("candidate-"+c.id,"候选：\(c.label)。\(basis)；本次未裁定该对象的效力。",paths)
+                try append("candidate-"+c.id,"候选：\(c.label)。\(basis)；候选层未裁定该对象的效力。",paths)
             }
             for i in try array(y+"/related").indices {
                 var paths=provenance
@@ -373,7 +379,7 @@ public enum LiuyaoReferenceReading {
                 try append("timing-"+id,"\(c.label)的条件应期（《增删卜易·各门类应期总注》）："+(phrases.isEmpty ? "没有返回触发支" : phrases.joined(separator:"；"))+"。未裁定：\(pending)。触发支仅是条件，不等于事件发生。",paths)
             }
             let pending=try terms(t+"/unresolved")
-            try append("timing-limit","尚未定用，\(pending)仍未裁定，不能确定到账或其他事件日期。月令生克标签、明动及冲合结构不单独证明综合效力。",[t+"/assessmentStatus",t+"/outcomeEstablished",t+"/timeScale",t+"/unresolved"]+timingSource)
+            try append("timing-limit","条件应期层尚未定用，\(pending)仍未裁定，不能确定到账或其他事件日期。月令生克标签、明动及冲合结构不单独证明综合效力。",[t+"/assessmentStatus",t+"/outcomeEstablished",t+"/timeScale",t+"/unresolved"]+timingSource)
         }
         mutating func candidateRoles() throws {
             let base="/roleRelations",provenance=try source(base+"/sourceId",expected:roleSource)
@@ -441,6 +447,15 @@ public enum LiuyaoReferenceReading {
             if byID.isEmpty { try append("roles-unavailable","本次尚无明确用神候选，暂不指定元神、忌神或仇神。",[base+"/groups",base+"/unsupportedCandidates","/yongShen/candidates",base+"/inspectedOriginalPaths"]+provenance) }
         }
         func validateReferences(_ p: String, source: String) throws {
+            if source == LiuyaoEfficacyEvidence.sourceID {
+                let references=LiuyaoEfficacyEvidence.references
+                guard try array(p).count == references.count else { throw Incomplete.record }
+                for (i,reference) in references.enumerated() {
+                    guard try string(p+"/\(i)/url") == reference.0,try string(p+"/\(i)/sha256") == reference.1,
+                          !(try string(p+"/\(i)/locator")).isEmpty else { throw Incomplete.record }
+                }
+                return
+            }
             let rootURL="https://zh.wikisource.org/wiki/增刪卜易"
             if source == LiuyaoFanfuTrace.sourceID || source == LiuyaoTriadTrace.sourceID {
                 let references=[

@@ -17,10 +17,10 @@ final class LiuyaoReferenceReadingTests: XCTestCase {
         let root = try XCTUnwrap(ReadingVerificationEvidence.pointer("/result",in:envelope))
         guard case let .string(revision) = ReadingVerificationEvidence.pointer("/provenance/engineRevision",in:root) else { throw EngineError.execution("version") }
         let context = try ToolContext(birth:nil,engineRevision:revision,referenceDate:ISO8601DateFormatter().date(from:now)!,mode:"起卦")
-        return (.init(callID:"liuyao-original",name:"cast_liuyao",arguments:[:],output:ReadingVerificationEvidence.encoded(root),context:context),context)
+        return (.init(callID:"liuyao-original",name:"cast_liuyao",arguments:[:],output:try CastReceiptStorage.encode(ReadingVerificationEvidence.encoded(root)),context:context),context)
     }
     private func evidence(_ report: LiuyaoReferenceReading.Report, _ receipt: ToolReceipt) throws {
-        let root = try JSONDecoder().decode(JSONValue.self,from:Data(receipt.output.utf8))
+        let root = try JSONDecoder().decode(JSONValue.self,from:try CastReceiptStorage.expandedData(receipt.output))
         XCTAssertEqual(report.sourceReceiptID,receipt.callID)
         for section in report.sections {
             XCTAssertFalse(section.evidence.isEmpty,section.id)
@@ -31,7 +31,7 @@ final class LiuyaoReferenceReadingTests: XCTestCase {
         }
     }
     private func edited(_ receipt: ToolReceipt, _ change: (inout [String:Any]) -> Void) throws -> ToolReceipt {
-        var root = try XCTUnwrap(JSONSerialization.jsonObject(with:Data(receipt.output.utf8)) as? [String:Any]);change(&root)
+        var root = try XCTUnwrap(JSONSerialization.jsonObject(with:try CastReceiptStorage.expandedData(receipt.output)) as? [String:Any]);change(&root)
         var result=receipt;result.output=String(decoding:try JSONSerialization.data(withJSONObject:root,options:[.sortedKeys,.withoutEscapingSlashes]),as:UTF8.self);return result
     }
     func testArchivedFalseProseBecomesSourceBoundCandidatesAndActualTriggerBranches() throws {

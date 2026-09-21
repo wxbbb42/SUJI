@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-20",
+  "updatedAt": "2026-09-21",
   "claims": [
     {
       "id": "bazi.yongshen-priority.product-decision",
@@ -112,19 +112,21 @@
     {
       "id": "bazi.siling.table.contested",
       "domain": "bazi",
-      "claim": "月令人元司事/司令表用于描述节气后不同藏干当值，但《三命通会》卷二同页正文、玉井引表与当前代码表存在天数差异；进入算法解释时必须标明采用版本，不能把当前表默认为唯一古籍定本。 2026-09-20复核：代码寅7/7/16、卯10/20，与所存卷二正文寅5/5/20、卯7/23不符；SiLing尚未进入生产bridge输入图，不应计为当前算法覆盖，也不应在未定版本前直接替换表格。",
+      "claim": "人元司令默认明确采用《子平真诠评注》徐注表：申月为戊己土十日、壬水三日、庚金十七日，并称干不得收缩为唯一己。生产链已用原始出生物理时刻距前一月节的经过量绑定所选司令；分段左闭右开，超过三十日的尾段延续为显式实现政策。《三命通会》正文与玉井引表仍有异表，不宣称所选表为全流派唯一古籍定本。",
       "sourceIds": [
+        "ziping-xu-renyuan-v1",
         "bazi-sanming-tonghui",
-        "bazi-yuanhai-ziping"
+        "bazi-yujing-aojue",
+        "suji-civil-jie-commander-policy-v1"
       ],
       "repoRefs": [
         "native/Engine/src/bazi/SiLing.ts",
-        "docs/mingli/reading-notes/2026-04-29-reading-log.md",
-        "docs/mingli/reading-notes/2026-04-30-yuanhai-ziping-first-pass.md",
-        "docs/mingli/validation/bazi-professional-audit.md"
+        "native/Engine/src/bazi/birthMonthContext.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
+        "docs/mingli/validation/bazi-adjudication-source-review-2026-09-21.md"
       ],
-      "confidence": "high_for_disagreement_low_for_single_table",
-      "status": "contested"
+      "confidence": "high_for_selected_transcription_and_explicit_policy_not_universal_table",
+      "status": "source_selected_with_preserved_variant_tables"
     },
     {
       "id": "bazi.wuxing.seasonal-prosperity.requires-tongbian",
@@ -706,17 +708,20 @@
     {
       "id": "bazi.rescue-binds-to-position",
       "domain": "bazi",
-      "claim": "工程相邻救应必须绑定忌神和救应的具体柱位，同名干不共用一次获救证据。《子平真诠评注》强调位置配合次序及相神受伤；当前仅实现少量透干候选，未覆盖全局有情有力、根气、地支救应与救应被制。癸酉、戊午、庚申、癸未中年癸获得月戊候选，不可据此认定时癸也被月戊相邻制化；这不主张所有隔位作用均不存在。",
+      "claim": "救应按具体柱位和有向施受对象裁定，同名干不共用获救证据。现有rescueEvidence在所选徐注剖面核对同五行根、日主不去、甲己庚隔、有限相神受合阻断及原文明载的隔位保护；癸酉、戊午、庚申、癸未的两处癸分别保留根气与柱位限制，不能把年癸的相邻候选外借给时癸。原文年丁月癸时戊证明隔位并非一律无作用；全局力量与多路径竞争仍未解决。",
       "sourceIds": [
-        "bazi-ziping-zhenquan"
+        "ziping-position-season-v1",
+        "ziping-helper-constraints-v1",
+        "ziping-xu-combination-limits-v1"
       ],
       "repoRefs": [
         "native/Engine/src/bazi/structural.ts",
-        "native/Engine/src/bazi/types.ts",
-        "docs/mingli/validation/bazi-professional-audit.md"
+        "native/Engine/src/bazi/rescueAdjudication.ts",
+        "native/Engine/src/ai/tools/__tests__/BaziAdjudicationDispatch.test.ts",
+        "docs/mingli/validation/bazi-rescue-adjudication-source-review-2026-09-21.md"
       ],
-      "confidence": "high_for_position_binding_partial_for_rescue_conditions",
-      "status": "implemented_position_identity_with_regression"
+      "confidence": "high_for_occurrence_binding_and_selected_local_restrictions",
+      "status": "implemented_occurrence_bound_local_adjudication_global_unresolved"
     },
     {
       "id": "bazi.long-life-stage-is-not-verdict",
@@ -891,18 +896,21 @@
     {
       "id": "bazi.pattern-conditional-support-and-rescue",
       "domain": "bazi",
-      "claim": "正格条件层保留救应与相神的具体柱位、隔位克合、同干/同五行根、生扶及月令状态；月冲与六合/通关候选并存，不取消原冲。原文年丁月癸时戊证明仅邻柱不是普遍规则；原文次序例外也不支持把多邻位配对一律判争合。既有成败等级仍是工程候选，新条件层不裁定净力量或已救成格。",
+      "claim": "正格条件层保留救应与相神的具体柱位、隔位克合、同干／同五行根、生扶及月令状态；月冲与六合／通关候选并存，不取消原冲。原文年丁月癸时戊证明仅邻柱不是普遍规则；原文次序例外也不支持把多邻位配对一律判争合。另列rescueEvidence裁定有来源支持的有限五合限制与相神依赖，已证受阻的路径不能继续充当旧等级的救应覆盖；既有成败等级仍为工程候选，全局净力量与已救成格不由此成立。",
       "sourceIds": [
-        "bazi-ziping-zhenquan"
+        "ziping-helper-constraints-v1",
+        "ziping-position-season-v1",
+        "ziping-xu-combination-limits-v1"
       ],
       "repoRefs": [
         "native/Engine/src/bazi/structural.ts",
         "native/Engine/src/bazi/patternSources.ts",
-        "native/Engine/src/bazi/__tests__/patternConditions.test.ts",
-        "native/Core/Sources/SujiCore/BaziPatternConditionTrace.swift"
+        "native/Engine/src/bazi/rescueAdjudication.ts",
+        "native/Core/Sources/SujiCore/BaziPatternConditionTrace.swift",
+        "docs/mingli/validation/bazi-rescue-adjudication-source-review-2026-09-21.md"
       ],
-      "confidence": "high_for_scoped_relations_not_final_strength_or_adjudication",
-      "status": "conditional_facts_with_source_and_counterexample_checks"
+      "confidence": "high_for_scoped_relations_and_local_limits_not_global_outcome",
+      "status": "conditional_facts_plus_source_selected_local_adjudication"
     },
     {
       "id": "qimen.question-reference-identities",
@@ -1067,6 +1075,226 @@
       ],
       "confidence": "high_for_selected_catalogue_identity_and_sampled_transforms_not_historical_universality",
       "status": "versioned_foundation_independent_samples_native_contract_and_full_wire_verified"
+    },
+    {
+      "id": "qizheng.mean-residuals.selected-v1",
+      "domain": "qizheng",
+      "claim": "罗喉取平升交点、计都取平降交点；月孛为投影后的平均月球轨道远地点；紫炁采用显式现代均速参数。平黄道与七曜真黄道分列，不推定古历等价、四余入宿或吉凶。800季度样本对Swiss最大0.22364角秒，阈值1角秒，仅为抽样验证。",
+      "sourceIds": [
+        "iers2003-simon1994-mean-lunar",
+        "aa1996-mean-lunar-inclination",
+        "moira-purple-7474e5f"
+      ],
+      "confidence": "high_for_selected_mean_formula_not_prediction",
+      "status": "implemented_independently_sampled"
+    },
+    {
+      "id": "qizheng.mao-life-degree.modern-adaptation-v1",
+      "domain": "qizheng",
+      "claim": "生时加太阳宫顺数遇卯，十二宫逆地支。现代适配明确采用UTC+8时支、热带等宫与太阳宫内度；命点纬度0转换日期真赤经后参照现代28宿。原文太阳子酉时命午向量及144组合通过，不能当古命度表或真实升点。",
+      "sourceIds": [
+        "tushu567-mao-life-degree-rev1942530",
+        "suji-mao-modern-coordinate-policy-v1"
+      ],
+      "confidence": "source_for_branch_rule_explicit_product_coordinates",
+      "status": "implemented_source_vector_checked"
+    },
+    {
+      "id": "bazi.commander.birth-context-v1",
+      "domain": "bazi",
+      "claim": "birth-month-jie-context-v1将原始出生物理时刻绑定至前一节包含、下一节不包含的十二月节区间，再将经过毫秒除以86400000输入徐注司令；真太阳时不参与这一步。get_domain返回原始birthDateTime，Swift核对原盘、节名／月支、相邻节、区间与经过量及固定provider/policy；这不是Swift另算太阳黄经或对节时绝对精度的证明。",
+      "sourceIds": [
+        "ziping-xu-renyuan-v1",
+        "suji-civil-jie-commander-policy-v1"
+      ],
+      "repoRefs": [
+        "native/Engine/src/bazi/birthMonthContext.ts",
+        "native/Engine/src/ai/tools/index.ts",
+        "native/Core/Sources/SujiCore/BaziAdjudicationTrace.swift",
+        "docs/mingli/validation/bazi-adjudication-source-review-2026-09-21.md"
+      ],
+      "confidence": "high_for_civil_binding_and_scoped_provider_contract",
+      "status": "implemented_with_actual_dispatch_and_native_checks"
+    },
+    {
+      "id": "bazi.special-pattern.source-selected-v1",
+      "domain": "bazi",
+      "claim": "ditianshui-ren-full-formation-v1按任注完整方局裁定曲直、炎上、从革、润下，稼穑要求四库皆全；食伤可泄秀，透印不是必需。保留方局参与支的藏干，不因其中克神一票否决；外部藏克与转季司令缺失保留具体未决。方局不全的纯印比可另列徐注候选，严格剖面未命中不代表全部传统分支否定，亦不裁定事件结果。",
+      "sourceIds": [
+        "ditianshui-ren-duxiang-v1",
+        "ziping-xu-special-v1",
+        "ziping-xu-earth-command-v1",
+        "ziping-xu-renyuan-v1"
+      ],
+      "repoRefs": [
+        "native/Engine/src/bazi/zhuanWang.ts",
+        "native/Engine/src/bazi/zhuanWangSources.ts",
+        "docs/mingli/validation/bazi-adjudication-source-review-2026-09-21.md"
+      ],
+      "confidence": "high_for_selected_text_conditions_not_all_schools",
+      "status": "implemented_strict_profile_with_alternative_candidate"
+    },
+    {
+      "id": "bazi.rescue.directed-combination-limits-v1",
+      "domain": "bazi",
+      "claim": "五合按每一actor→target柱位分别判定：同五行根保留其用，日主合不直接作去，甲己之间庚阻为特定条文，甲日乙合庚区分煞不攻身与删除。只有所选剖面中无根目标、有根施者、无第三非日主控制者且相邻或有原文隔位链时，才可局部标记角色受限；多对象、一般隔位、相对力量及丙午辛卯戊寅甲寅徐注与根气规则冲突保留未决。removalEstablished仅指该角色在所选剖面受限，不等于全局成格。",
+      "sourceIds": [
+        "ziping-xu-combination-limits-v1",
+        "ziping-helper-constraints-v1"
+      ],
+      "repoRefs": [
+        "native/Engine/src/bazi/rescueAdjudication.ts",
+        "native/Engine/src/bazi/rescueSources.ts",
+        "docs/mingli/validation/bazi-rescue-adjudication-source-review-2026-09-21.md"
+      ],
+      "confidence": "high_for_scoped_text_limits_conditional_for_remaining_competition",
+      "status": "implemented_directed_local_limits_global_unresolved"
+    },
+    {
+      "id": "bazi.rescue.finite-helper-dependencies-v1",
+      "domain": "bazi",
+      "claim": "有限相神依赖覆盖甲酉官癸制丁而戊合无根癸受阻、乙酉杀年丁月癸时戊隔位护丁且有根癸不得径去、丁酉财己制癸而甲合无根己受阻，以及癸亥丙财寅卯助财遭申酉冲的条件。helperProtections、threatCoverage和旧救应候选保留原柱位及受阻原因；不将这些例型扩成完整全局取相、反馈环或支合成化算法。",
+      "sourceIds": [
+        "ziping-helper-constraints-v1",
+        "ziping-position-season-v1",
+        "ziping-xu-combination-limits-v1"
+      ],
+      "repoRefs": [
+        "native/Engine/src/bazi/rescueAdjudication.ts",
+        "native/Engine/src/bazi/structural.ts",
+        "docs/mingli/validation/bazi-rescue-adjudication-source-review-2026-09-21.md"
+      ],
+      "confidence": "high_for_finite_source_examples_not_global_rescue",
+      "status": "implemented_finite_dependency_families_global_unresolved"
+    },
+    {
+      "id": "bazi.hidden-actions.exact-cases-v1",
+      "domain": "bazi",
+      "claim": "藏干默认context-only不等于无效。仅完整四柱丙戌戊戌辛未壬辰的未辰藏乙按原注认定暗损印绶、庚戌戊子甲戌乙亥的两戌藏丁按原注认定非子印能夺；改一柱不得继承source-attested-case。一般藏干实际施事条件、相对力量及藏透互用仍待裁定。",
+      "sourceIds": [
+        "ziping-xu-hidden-action-cases-v1",
+        "ziping-xu-combination-limits-v1"
+      ],
+      "repoRefs": [
+        "native/Engine/src/bazi/rescueAdjudication.ts",
+        "native/Engine/src/bazi/__tests__/rescueAdjudication.test.ts",
+        "docs/mingli/validation/bazi-rescue-adjudication-source-review-2026-09-21.md"
+      ],
+      "confidence": "high_for_exact_attested_cases_not_generalization",
+      "status": "implemented_exact_case_witnesses"
+    },
+    {
+      "id": "bazi.adjudication.native-trace-binding-v1",
+      "domain": "bazi",
+      "claim": "BaziAdjudicationTrace在原盘四柱、固定来源ID／路径／SHA和当前get_domain回执一致的前提下，核对所选专旺条件、出生节令司令与有限有向五合状态；本地解释只呈现核对过的专旺子集和最多两条局部克合限制，未核对的全局救应网络不写成定论。全文与简述均保留允许路径内证据，来源或柱位被篡改时拒绝形成该解释。",
+      "sourceIds": [
+        "ditianshui-ren-duxiang-v1",
+        "ziping-xu-renyuan-v1",
+        "ziping-xu-combination-limits-v1",
+        "ziping-helper-constraints-v1",
+        "suji-civil-jie-commander-policy-v1"
+      ],
+      "repoRefs": [
+        "native/Core/Sources/SujiCore/BaziAdjudicationTrace.swift",
+        "native/Core/Sources/SujiCore/BaziFrameworkReading.swift",
+        "native/Core/Tests/SujiCoreTests/BaziAdjudicationTraceTests.swift",
+        "docs/mingli/validation/bazi-rescue-adjudication-source-review-2026-09-21.md"
+      ],
+      "confidence": "high_for_checked_local_claim_binding_not_global_adjudication",
+      "status": "implemented_native_local_explanation_with_tamper_checks"
+    },
+    {
+      "id": "liuyao.efficacy.selection-and-local-strength-v1",
+      "domain": "liuyao",
+      "claim": "zengshan-sufficient-conditions-v1仅在明确关系、事件和既有类别映射无冲突时选唯一原爻或伏神；原卦无所需六亲时日月参考先于伏神，日月双候选不擅自排序。日月生克只为局部证据；supported-unopposed、opposed-unrescued与月破日克rootless均须核对各自反证及潜在生扶，不用加权分数替代综合旺衰。始终outcomeEstablished:false。",
+      "sourceIds": [
+        "liuyao-efficacy-zengshan-v1"
+      ],
+      "repoRefs": [
+        "native/Engine/src/divination/efficacy.ts",
+        "native/Engine/src/divination/__tests__/Efficacy.test.ts",
+        "docs/mingli/validation/liuyao-efficacy-source-review-2026-09-21.md"
+      ],
+      "confidence": "high_for_selected_sufficient_conditions_not_global_strength",
+      "status": "implemented_source_selected_conditional"
+    },
+    {
+      "id": "liuyao.efficacy.object-bound-tomb-extinction-v1",
+      "domain": "liuyao",
+      "claim": "墓源被日月冲、目标无竞争生扶、无根／受克无潜在生扶分别支撑opened、nonbinding-strength、binding的有限分支；潜在动爻冲墓而施力未定仍为conditional。土巳论生不论绝需要独立于该巳参照的支持与无竞争伤克；跨位动绝、飞绝来源未决不得径断真绝。结构墓绝与当下效力分层，不发明土多生金数值门槛。",
+      "sourceIds": [
+        "liuyao-efficacy-zengshan-v1"
+      ],
+      "repoRefs": [
+        "native/Engine/src/divination/efficacy.ts",
+        "native/Core/Sources/SujiCore/LiuyaoEfficacyEvidence.swift",
+        "docs/mingli/validation/liuyao-efficacy-source-review-2026-09-21.md"
+      ],
+      "confidence": "high_for_object_bound_sufficient_conditions_not_every_tomb_case",
+      "status": "implemented_scoped_tomb_extinction_decisions"
+    },
+    {
+      "id": "liuyao.efficacy.triad-formation-and-effect-v1",
+      "domain": "liuyao",
+      "claim": "三合形成仅在所选范围内裁定：三种原支全动、内初三／外四六实际动变成局、或原例明动世与日月成局。两动一静保留同章competing-text，非世单动日月锚点保留范围证据缺口。已形成后仍逐对象核验空破、真墓及竞争克合冲；effective-under-selected-rule只表示所选检查无反证，不代表普遍合化或事件结果。",
+      "sourceIds": [
+        "liuyao-efficacy-zengshan-v1"
+      ],
+      "repoRefs": [
+        "native/Engine/src/divination/efficacy.ts",
+        "native/Engine/src/divination/__tests__/Efficacy.test.ts",
+        "docs/mingli/validation/liuyao-efficacy-source-review-2026-09-21.md"
+      ],
+      "confidence": "high_for_selected_triad_scopes_with_preserved_text_conflict",
+      "status": "implemented_formation_and_effect_separately"
+    },
+    {
+      "id": "liuyao.efficacy.two-appearances-remain-contextual-v1",
+      "domain": "liuyao",
+      "claim": "《两现章》古例同时涉及事件主对象、应期对象与前占语境，不能据空破、动静或数组次序构造唯一全局排序。当前两现仍返回具体多候选；全局元忌转递必须另核有效元神、目标生受能力和竞争条件，不能把本批局部效力当作完整元忌／救应裁定。",
+      "sourceIds": [
+        "liuyao-efficacy-zengshan-v1"
+      ],
+      "repoRefs": [
+        "native/Engine/src/divination/efficacy.ts",
+        "docs/mingli/validation/liuyao-efficacy-source-review-2026-09-21.md"
+      ],
+      "confidence": "high_for_rejection_of_fixed_ranking_not_complete_selection",
+      "status": "explicit_unresolved_context_and_transitive_dependencies"
+    },
+    {
+      "id": "qimen.timing.object-condition-priority-v1",
+      "domain": "qimen",
+      "claim": "qimen-xdyy-timing-v1仅对固定坤二、天禽随芮问事原盘的一个明确对象裁定条件：本宫空先于确切时马支，马先于墓刑冲；宫空采用宫级触发但公开原始空支及partial/full。开门艮墓取丑未有直接教材例证，六仪墓刑冲按选定身份与本宫关系；同层冲突并存，临合冲哪一侧未决。没有规则时不以普通宫支补日期；现代教材来源未核作者／纸本，日期始终为条件候选而非事件成败。",
+      "sourceIds": [
+        "qimen-xdyy-timing-v1",
+        "qimen-hour-void-horse-v1"
+      ],
+      "repoRefs": [
+        "native/Engine/src/qimen/timing.ts",
+        "native/Engine/src/qimen/facts.ts",
+        "native/Core/Sources/SujiCore/QimenTimingEvidence.swift",
+        "docs/mingli/validation/qimen-timing-source-review-2026-09-21.md"
+      ],
+      "confidence": "source_selected_modern_text_scope_not_classical_or_universal_rule",
+      "status": "implemented_bounded_object_condition_timing"
+    },
+    {
+      "id": "qimen.timing.calendar-and-search-policy-v1",
+      "domain": "qimen",
+      "claim": "日期枚举必须有显式timeUnit与有界window，沿用原盘而不重起局。左闭右开、23时换日、月年物理节／立春、真太阳日时投影、includeCurrent、512日时／120月／24年扫描上限及32默认／256最大候选均为产品约定；requestedEnd、searchedUntil、truncated和searchComplete公开搜索范围，达到上限不能声称完整，也不把near/far或宫数自动换成期限。",
+      "sourceIds": [
+        "suji-qimen-timing-search-policy-v1",
+        "qimen-xdyy-timing-v1"
+      ],
+      "repoRefs": [
+        "native/Engine/src/qimen/timing.ts",
+        "native/Engine/src/ai/tools/qimen.ts",
+        "native/Core/Sources/SujiCore/CastQuestionPreparation.swift",
+        "docs/mingli/validation/qimen-timing-source-review-2026-09-21.md"
+      ],
+      "confidence": "high_for_explicit_calendar_contract_not_event_prediction",
+      "status": "implemented_explicit_bounded_search_policy"
     }
   ]
 }

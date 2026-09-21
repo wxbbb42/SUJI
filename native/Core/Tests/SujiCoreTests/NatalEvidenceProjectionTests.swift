@@ -187,7 +187,8 @@ final class NatalEvidenceProjectionTests: XCTestCase {
         var references = 0
         for message in messages {
             let id = try XCTUnwrap(message.toolCallID)
-            let root = try JSONDecoder().decode(JSONValue.self,from:Data(message.content!.utf8))
+            let rawRoot = try JSONDecoder().decode(JSONValue.self,from:Data(message.content!.utf8))
+            let root = try XCTUnwrap(LiuyaoConditionTransport.expand(XCTUnwrap(JSONValueTransport.expand(rawRoot))))
             XCTAssertNil(ReadingVerificationEvidence.pointer("/error",in:root),message.content!)
             XCTAssertNotNil(ReadingVerificationEvidence.pointer("/ziwei/palace",in:root))
             let full = try JSONDecoder().decode(JSONValue.self,from:Data(outputs[id]!.utf8))

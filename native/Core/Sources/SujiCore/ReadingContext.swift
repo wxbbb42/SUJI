@@ -51,8 +51,10 @@ public enum ReadingPrompt {
         8. 不由盘直接推定用户现实性格、成功率或准备窗口；出生资料已提供但工具失败时，只说取数失败，不要求重填。不同解释框架各自也可能有错误，不能声称差异证明双方自洽。
         9. 给出可审阅的简短依据与局限，不展示内部推理草稿。传统文化解读不能代替用户判断，也不是心理诊断。
         10. 紫微运限按get_ziwei_timing的calculationDate、annual与method解释指定日期；提问时刻、八字立春年与本命出生年不能替代该流年。annual已返回某干支年时，不能又说同一计算日尚未进入该年。概括多个四化层时分别比较sourceStem、star、transformation、targetPalace；同星同宫不表示来源干或四化类型相同。空宫仅指无主星，保留本宫辅杂曜，对宫星曜是参照而非迁入。
-        11. 奇门日干、时干与类别候选均未定用；同干同宫不合并身份，代占不把日干自动指为亲属。地盘寄干hostedDiPanGan固定寄坤，天禽寄干hostedTianPanGan随天禽转动，两者与普通地盘、天盘及中宫记录分列；核对寄干须说出对应字段的实际天干，不能拿同宫普通天盘干替代。甲按本柱旬仪定位，生克仍用甲木。取用初始映射是产品约定，应期规则仍未定，不移植六爻应期，不从宫数或远近猜时间单位。
-        12. 七曜和中国二十八宿读取get_natal_astronomy本命结果。黄经与赤经分列，现代角度不能称古度；出生月亮所在宿不等于命度、值日宿或宿曜关系。mansions为空表示该模块未提供；四余、十二宫和命度未实现，不能补算或称完整七政四余。边界与时刻精度以工具说明为准，星位不能直接推出性格或吉凶。
+        11. 奇门日干、时干与类别候选默认未定用；timing.selection.established只表示该项条件应期已绑定明确对象，不把所有候选合并。代占不把日干自动指为亲属。地盘寄干hostedDiPanGan固定寄坤，天禽寄干hostedTianPanGan随天禽转动，两者与普通地盘、天盘及中宫记录分列；甲按本柱旬仪定位，生克仍用甲木。应期只引用timing中已确认对象、时间单位与窗口的dates；空、马、墓刑冲合条件以来源及优先级为准，unresolved/conflicts/truncated须保留。日期是传统条件候选，不代表事情必成或完整覆盖，不移植六爻应期，不从宫数或远近猜单位。
+        12. 七曜、中国二十八宿、四余和遇卯命度读取get_natal_astronomy固定档案。fourResiduals为罗北计南平交点、平均月孛及约定均速紫炁，日期平黄道不可混称七曜真黄道视位置。lifeDegree为固定UTC+8时支的遇卯法，现代热带十二等宫与现代距星参照，不是地平升点或古宿度表；宫内黄经与入宿赤经分列。出生月亮所在宿不等于命度、值日宿或宿曜关系。未返回的模块不能补算；古度、七政吉凶与流限未提供，不能称完整自动论命。边界与时刻精度以工具说明为准。
+        13. 六爻efficacy是选定《增删卜易》充分条件裁定：取用、旺衰竞争、墓绝与三合分别读取，effective-under-selected-rule不等于现实吉凶。efficacy的v2字典全部零起点：按objectColumns/triadColumns展开对象与组三合，calendarStrengthColumns/referenceColumns展开其嵌套行；decisionIndex、selectedEffect以及对象vitality/activity/availability、组formation/efficacy均索引decisions；decisionColumns的statusIndex索引states，conditions/blockers索引evidence；evidenceColumns的ruleIndex索引ruleIDs，factPathIndices索引factPaths；每个factPaths行按factPathColumns拼接pathRoots[rootIndex]+pathSuffixes[suffixIndex]。不能把索引当爻位，核验引用须指向原始表格单元格。旧tombExtinction/triads结构层与新效力层分开，待条件和条文竞争不得省略。
+        14. 八字specialPatternEvidence按指定专旺子集判断，established只表示该套形态/季节条件满足。司令据原始出生钟面到前一月节的日数，不能拿太阳时、提问日期或起运顺逆节气替代。rescueEvidence是有来源的局部五合去留与保护路径；有根、日主自合、间隔和多重竞争分列，globalResolution未定就不能称全局成格或已救。旧候选与新局部裁定各自保留依据。
         """
     }
 
@@ -105,9 +107,12 @@ public enum ReadingPrompt {
             }
             let receiptStart = messages.count
             for receipt in entry.toolReceipts ?? [] where receipt.context == context {
-                let modelOutput = NatalEvidenceProjection.output(receipt.output,name:receipt.name,delivered:Array(messages.dropFirst(receiptStart)) + [.assistantToolCalls([receipt.call])],callID:receipt.callID)
+                let directory = CastSourceDirectory.message(receipt: receipt)
+                let evidence = Array(messages.dropFirst(receiptStart)) + [directory].compactMap { $0 } + [.assistantToolCalls([receipt.call])]
+                let modelOutput = NatalEvidenceProjection.output(receipt.output,name:receipt.name,delivered:evidence,callID:receipt.callID)
                 guard modelOutput.utf16.count <= 32_000, receiptBytes + modelOutput.utf8.count <= ToolOrchestrator.outputByteLimit else { continue }
                 receiptBytes += modelOutput.utf8.count
+                if let directory { messages.append(directory) }
                 messages.append(.assistantToolCalls([receipt.call]))
                 messages.append(.toolResult(ChatToolResult(callID: receipt.callID, output: modelOutput)))
             }

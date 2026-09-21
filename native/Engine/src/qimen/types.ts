@@ -6,6 +6,7 @@ import type { TianGan, DiZhi, WuXing } from '@engine/bazi/types';
 import type { RuleSource } from '../rules/provenance';
 import type { QuestionContext } from '../divination/questionJudgment';
 import type { qimenQuestionObjects, unresolvedQimenTiming } from './questionObjects';
+import type { QimenTimingRequest, QimenTimingAnalysis } from './timing';
 
 export type { TianGan, DiZhi, WuXing };
 export type YinYangDun = '阳' | '阴';
@@ -136,6 +137,7 @@ export interface SetupOptions {
   questionType: QuestionType;
   gender?: '男' | '女';
   questionContext?: QuestionContext;
+  timingRequest?: QimenTimingRequest;
 }
 
 /** 完整奇门盘 */
@@ -154,6 +156,7 @@ export interface QimenChart {
   yongShen: YongShenAnalysis;
   geJu: GeJu[];
   yingQi: YingQiAnalysis;
+  timing?: QimenTimingAnalysis;
   method: QimenMethodMeta;
   fuTou?: string;
   zhiFuStar?: JiuxingName;

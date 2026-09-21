@@ -22,4 +22,5 @@ for(const [directory,entry] of Object.entries(lock.packages).sort(([a],[b])=>a.l
   sections.push(`${pkg.name} ${entry.version} (${pkg.license})\n${'='.repeat(60)}\n${license.trim()}`);
 }
 sections.push(await readFile(path.join(here,'validation/research-qizheng/catalogue/ATTRIBUTION.md'),'utf8'));
+sections.push(await readFile(path.join(here,'validation/research-qizheng/completion-2026-09-21/ERFA-NOTICE.txt'),'utf8'));
 await writeFile(process.env.SUJI_NOTICES_OUTPUT ?? path.resolve(here,'../Resources/ThirdPartyNotices.txt'),sections.join('\n\n')+'\n');

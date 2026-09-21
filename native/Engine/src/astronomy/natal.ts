@@ -1,6 +1,8 @@
 import { createMansionModule, validateMansionStructure } from './mansions';
 import { Body, Ecliptic, EquatorFromVector, GeoVector, MakeTime, RotateVector, Rotation_EQJ_EQD } from 'astronomy-engine';
 import { assertCalendarRange, beijingDateParts } from '../calendar/precision';
+import { createResidualModule, type ResidualModule } from './residuals';
+import { createLifeDegreeModule, type LifeDegreeModule } from './lifeDegree';
 
 export const SEVEN_BODIES = ['Sun','Moon','Mercury','Venus','Mars','Jupiter','Saturn'] as const;
 export type SevenBody = typeof SEVEN_BODIES[number];
@@ -16,7 +18,7 @@ export const ASTRONOMY_LIMITATIONS = [
   '独立星历季度样本比较不能保证所有时刻或宿界精度；出生时间精度未知时不得断言归宿不会跨界。',
   '二十八宿采用现代星名首星参照，非古法唯一距星表；奎取ηAnd而非旧ζAnd，斗取φSgr，明确区别另说μSgr。',
   '距星按ICRS切向自行与当日岁差章动变换；不加周年光行差、视差、引力偏折或透视加速度，省略ICRS框架偏差；这是参照星宿界，不是统一视位置。',
-  '只提供地心七曜与已核定距星口径；四余、十二宫、命度、传统度量单位及事件解读均未提供。',
+  '四余采用独立的现代平轨道与均速紫炁方法；遇卯命度采用现代热带宫度与距星参照。各模块参考系、时间和流派政策分别列明，不提供古度、流限或事件吉凶。',
 ];
 export interface BodyPosition {
   body:SevenBody; longitudeDegrees:number; latitudeDegrees:number; rightAscensionDegrees:number; declinationDegrees:number;
@@ -26,7 +28,7 @@ export interface MansionBoundary {
   name:string; designation:string; hip:number; rightAscensionDegrees:number; nextRightAscensionDegrees:number; widthDegrees:number;
 }
 export interface MansionPosition {
-  body:SevenBody; mansion:string; index:number; entryDegrees:number; widthDegrees:number; distanceToBoundaryDegrees:number;
+  body:SevenBody|'LifeDegree'; mansion:string; index:number; entryDegrees:number; widthDegrees:number; distanceToBoundaryDegrees:number;
   boundaryStatus:'uncertain-time-precision';
 }
 export interface MansionModule {
@@ -40,6 +42,7 @@ export interface NatalAstronomy {
   sevenBodies:{moduleID:'geocentric-seven-bodies';methodVersion:'astronomy-engine-2.1.19-geocentric-v1';inputFingerprint:string;
     dependencyVersions:typeof SEVEN_BODY_DEPENDENCIES;sourceIDs:string[];positions:BodyPosition[]};
   mansions:MansionModule|null;
+  fourResiduals:ResidualModule;lifeDegree:LifeDegreeModule;
   unsupported:string[];limitations:string[];
 }
 
@@ -64,10 +67,13 @@ export function sevenBodyPositions(instant:Date):BodyPosition[] {
 
 export function createNatalAstronomy(birthKey:string,instant:Date,engineRevision:string):NatalAstronomy {
   const positions=sevenBodyPositions(instant);
+  const mansions=createMansionModule(positions,instant,birthKey);
   return {schemaVersion:1,engineRevision,birthKey,time:astronomyTime(instant),
     sevenBodies:{moduleID:'geocentric-seven-bodies',methodVersion:'astronomy-engine-2.1.19-geocentric-v1',inputFingerprint:birthKey,
       dependencyVersions:{...SEVEN_BODY_DEPENDENCIES},sourceIDs:[...ASTRONOMY_SOURCE_IDS],positions},
-    mansions:createMansionModule(positions,instant,birthKey),unsupported:['four-residuals','houses','life-degree','traditional-angle-units'],limitations:[...ASTRONOMY_LIMITATIONS]};
+    mansions,fourResiduals:createResidualModule(instant,birthKey),
+    lifeDegree:createLifeDegreeModule(instant,birthKey,positions[0].longitudeDegrees,mansions.boundaries),
+    unsupported:['traditional-angle-units','qizheng-event-judgment','qizheng-directions'],limitations:[...ASTRONOMY_LIMITATIONS]};
 }
 
 function same(a:unknown,b:unknown):boolean {
@@ -76,6 +82,17 @@ function same(a:unknown,b:unknown):boolean {
   if(!a||!b||typeof a!=='object'||typeof b!=='object')return false;
   const left=a as Record<string,unknown>,right=b as Record<string,unknown>,keys=Object.keys(left);
   return keys.length===Object.keys(right).length&&keys.every(key=>Object.prototype.hasOwnProperty.call(right,key)&&same(left[key],right[key]));
+}
+// Known transcendental angular values may differ in the last bits between JSC and Node.
+// Never loosen identity, source metadata, clock values, indices or parameter constants.
+const derivedAngle=/^(fourResiduals\.positions\.\d+\.(longitudeDegrees|latitudeDegrees)|lifeDegree\.(sunLongitudeDegrees|palaceDegree|longitudeDegrees|rightAscensionDegrees|declinationDegrees|mansion\.(entryDegrees|widthDegrees|distanceToBoundaryDegrees)))$/;
+function sameDerived(a:unknown,b:unknown,path:string):boolean {
+  if(a===b)return true;
+  if(derivedAngle.test(path)&&typeof a==='number'&&typeof b==='number'&&Number.isFinite(a)&&Number.isFinite(b)&&Math.abs(a-b)<=1e-9)return true;
+  if(Array.isArray(a)||Array.isArray(b))return Array.isArray(a)&&Array.isArray(b)&&a.length===b.length&&a.every((v,i)=>sameDerived(v,b[i],path+'.'+i));
+  if(!a||!b||typeof a!=='object'||typeof b!=='object')return false;
+  const left=a as Record<string,unknown>,right=b as Record<string,unknown>,keys=Object.keys(left);
+  return keys.length===Object.keys(right).length&&keys.every(k=>Object.prototype.hasOwnProperty.call(right,k)&&sameDerived(left[k],right[k],path+'.'+k));
 }
 function coordinate(value:unknown,min:number,max:number,exclusive=false):boolean {
   return typeof value==='number'&&Number.isFinite(value)&&value>=min&&(exclusive?value<max:value<=max);
@@ -90,9 +107,14 @@ export function validateNatalAstronomy(value:unknown,birthKey:string,instant:Dat
     !n.sevenBodies.positions.every((p,i)=>p?.body===SEVEN_BODIES[i]&&coordinate(p.longitudeDegrees,0,360,true)&&coordinate(p.latitudeDegrees,-90,90)&&
       coordinate(p.rightAscensionDegrees,0,360,true)&&coordinate(p.declinationDegrees,-90,90)&&
       p.correctionPolicy===(p.body==='Moon'?'geomoon-no-separate-light-time-aberration':'light-time-aberration'))||
-    !same(n.unsupported,['four-residuals','houses','life-degree','traditional-angle-units'])||!same(n.limitations,ASTRONOMY_LIMITATIONS)||!validateMansionStructure(n.mansions,n.sevenBodies.positions,birthKey,same)) {
+    !same(n.unsupported,['traditional-angle-units','qizheng-event-judgment','qizheng-directions'])||!same(n.limitations,ASTRONOMY_LIMITATIONS)||!validateMansionStructure(n.mansions,n.sevenBodies.positions,birthKey,same)) {
     throw new Error('本命天文档案已失效，请重新建立档案');
   }
+  // Validate the inexpensive derived definitions using the cached Sun/boundaries;
+  // no ephemeris or distance-star positions are recomputed on normal cache reads.
+  if(!sameDerived(n.fourResiduals,createResidualModule(instant,birthKey),'fourResiduals')||
+    !sameDerived(n.lifeDegree,createLifeDegreeModule(instant,birthKey,n.sevenBodies.positions[0].longitudeDegrees,n.mansions!.boundaries),'lifeDegree'))
+    throw new Error('本命天文档案已失效，请重新建立档案');
   return JSON.parse(JSON.stringify(n));
 }
 

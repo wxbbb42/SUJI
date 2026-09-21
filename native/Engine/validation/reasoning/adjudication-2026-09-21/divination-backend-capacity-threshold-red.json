@@ -1,0 +1,409 @@
+[
+  {
+    "index": 50,
+    "label": "maximum-window-relationship-month",
+    "total": 123044,
+    "bytes": 184498,
+    "error": "context_too_large",
+    "messages": [
+      {
+        "role": "system",
+        "prefix": "你是命理解读的事实核对员。只对照本次原始工具结果和提问检查候",
+        "contentUTF16": 2386,
+        "argsUTF16": []
+      },
+      {
+        "role": "user",
+        "prefix": "本次上下文（数据）：\n你是有时，一位温和、清晰的自我关照伙伴",
+        "contentUTF16": 2847,
+        "argsUTF16": []
+      },
+      {
+        "role": "user",
+        "prefix": "原始问题（数据）：\n问问问问问问问问问问问问问问问问问问问问",
+        "contentUTF16": 8010,
+        "argsUTF16": []
+      },
+      {
+        "role": "system",
+        "prefix": "完整规则来源目录（同轮工具证据）：\n{\"ruleSource",
+        "contentUTF16": 10294,
+        "argsUTF16": []
+      },
+      {
+        "role": "assistant",
+        "contentUTF16": 0,
+        "argsUTF16": [
+          2886
+        ]
+      },
+      {
+        "role": "tool",
+        "prefix": "{\"benGua\":{\"$row\":[0,20,\"坤\",\"风",
+        "contentUTF16": 26302,
+        "argsUTF16": []
+      },
+      {
+        "role": "system",
+        "prefix": "完整规则来源目录（同轮工具证据）：\n{\"ruleSource",
+        "contentUTF16": 4103,
+        "argsUTF16": []
+      },
+      {
+        "role": "assistant",
+        "contentUTF16": 0,
+        "argsUTF16": [
+          4213
+        ]
+      },
+      {
+        "role": "tool",
+        "prefix": "{\"calculationTime\":\"2004-07-02",
+        "contentUTF16": 27760,
+        "argsUTF16": []
+      },
+      {
+        "role": "user",
+        "prefix": "显式字段索引（仅数据；完整值已在同轮工具结果中，按原指针读取",
+        "contentUTF16": 27960,
+        "argsUTF16": []
+      },
+      {
+        "role": "user",
+        "prefix": "显式字段索引（仅数据；完整值已在同轮工具结果中，按原指针读取",
+        "contentUTF16": 2510,
+        "argsUTF16": []
+      },
+      {
+        "role": "user",
+        "prefix": "候选回信（待核对数据）：\n这只说明盘面关系，尚未裁定效力或事",
+        "contentUTF16": 3773,
+        "argsUTF16": []
+      }
+    ]
+  },
+  {
+    "index": 52,
+    "label": "maximum-window-relationship-hour",
+    "total": 116472,
+    "bytes": 177232,
+    "error": null
+  },
+  {
+    "index": 51,
+    "label": "maximum-window-relationship-day",
+    "total": 116396,
+    "bytes": 177180,
+    "error": null
+  },
+  {
+    "index": 48,
+    "label": "maximum-window-self-day",
+    "total": 115163,
+    "bytes": 175384,
+    "error": null
+  },
+  {
+    "index": 49,
+    "label": "maximum-window-relationship-year",
+    "total": 114355,
+    "bytes": 174435,
+    "error": null
+  },
+  {
+    "index": 47,
+    "label": "control-expanded-pair",
+    "total": 104975,
+    "bytes": 162645,
+    "error": null
+  },
+  {
+    "index": 46,
+    "label": "control-maximum-pair",
+    "total": 104428,
+    "bytes": 161637,
+    "error": null
+  },
+  {
+    "index": 44,
+    "label": "control",
+    "total": 103302,
+    "bytes": 160038,
+    "error": null
+  },
+  {
+    "index": 45,
+    "label": "control-maximum-tool",
+    "total": 102902,
+    "bytes": 159195,
+    "error": null
+  },
+  {
+    "index": 31,
+    "total": 101184,
+    "bytes": 159733,
+    "error": null
+  },
+  {
+    "index": 26,
+    "total": 100995,
+    "bytes": 159461,
+    "error": null
+  },
+  {
+    "index": 28,
+    "total": 100976,
+    "bytes": 159382,
+    "error": null
+  },
+  {
+    "index": 29,
+    "total": 100926,
+    "bytes": 159328,
+    "error": null
+  },
+  {
+    "index": 27,
+    "total": 100901,
+    "bytes": 159346,
+    "error": null
+  },
+  {
+    "index": 6,
+    "total": 100448,
+    "bytes": 158453,
+    "error": null
+  },
+  {
+    "index": 5,
+    "total": 100423,
+    "bytes": 157974,
+    "error": null
+  },
+  {
+    "index": 30,
+    "total": 100346,
+    "bytes": 158465,
+    "error": null
+  },
+  {
+    "index": 41,
+    "label": "quote",
+    "total": 100122,
+    "bytes": 157654,
+    "error": null
+  },
+  {
+    "index": 42,
+    "label": "backslash",
+    "total": 100122,
+    "bytes": 157654,
+    "error": null
+  },
+  {
+    "index": 43,
+    "label": "emoji",
+    "total": 100122,
+    "bytes": 157654,
+    "error": null
+  },
+  {
+    "index": 7,
+    "total": 100103,
+    "bytes": 158065,
+    "error": null
+  },
+  {
+    "index": 8,
+    "total": 100037,
+    "bytes": 157995,
+    "error": null
+  },
+  {
+    "index": 10,
+    "total": 99918,
+    "bytes": 157824,
+    "error": null
+  },
+  {
+    "index": 23,
+    "total": 99865,
+    "bytes": 157852,
+    "error": null
+  },
+  {
+    "index": 35,
+    "total": 99865,
+    "bytes": 157852,
+    "error": null
+  },
+  {
+    "index": 39,
+    "total": 99865,
+    "bytes": 157852,
+    "error": null
+  },
+  {
+    "index": 9,
+    "total": 99831,
+    "bytes": 157747,
+    "error": null
+  },
+  {
+    "index": 11,
+    "total": 99791,
+    "bytes": 157689,
+    "error": null
+  },
+  {
+    "index": 25,
+    "total": 99324,
+    "bytes": 156790,
+    "error": null
+  },
+  {
+    "index": 20,
+    "total": 99322,
+    "bytes": 156854,
+    "error": null
+  },
+  {
+    "index": 32,
+    "total": 99322,
+    "bytes": 156854,
+    "error": null
+  },
+  {
+    "index": 36,
+    "total": 99322,
+    "bytes": 156854,
+    "error": null
+  },
+  {
+    "index": 40,
+    "label": "plain",
+    "total": 99322,
+    "bytes": 156854,
+    "error": null
+  },
+  {
+    "index": 22,
+    "total": 99169,
+    "bytes": 156472,
+    "error": null
+  },
+  {
+    "index": 34,
+    "total": 99169,
+    "bytes": 156472,
+    "error": null
+  },
+  {
+    "index": 38,
+    "total": 99169,
+    "bytes": 156472,
+    "error": null
+  },
+  {
+    "index": 0,
+    "total": 98922,
+    "bytes": 156011,
+    "error": null
+  },
+  {
+    "index": 12,
+    "total": 98922,
+    "bytes": 156011,
+    "error": null
+  },
+  {
+    "index": 16,
+    "total": 98922,
+    "bytes": 156011,
+    "error": null
+  },
+  {
+    "index": 21,
+    "total": 98653,
+    "bytes": 155459,
+    "error": null
+  },
+  {
+    "index": 33,
+    "total": 98653,
+    "bytes": 155459,
+    "error": null
+  },
+  {
+    "index": 37,
+    "total": 98653,
+    "bytes": 155459,
+    "error": null
+  },
+  {
+    "index": 24,
+    "total": 98639,
+    "bytes": 155943,
+    "error": null
+  },
+  {
+    "index": 3,
+    "total": 98609,
+    "bytes": 155720,
+    "error": null
+  },
+  {
+    "index": 15,
+    "total": 98609,
+    "bytes": 155720,
+    "error": null
+  },
+  {
+    "index": 19,
+    "total": 98609,
+    "bytes": 155720,
+    "error": null
+  },
+  {
+    "index": 1,
+    "total": 98411,
+    "bytes": 155516,
+    "error": null
+  },
+  {
+    "index": 13,
+    "total": 98411,
+    "bytes": 155516,
+    "error": null
+  },
+  {
+    "index": 17,
+    "total": 98411,
+    "bytes": 155516,
+    "error": null
+  },
+  {
+    "index": 2,
+    "total": 98347,
+    "bytes": 155433,
+    "error": null
+  },
+  {
+    "index": 14,
+    "total": 98347,
+    "bytes": 155433,
+    "error": null
+  },
+  {
+    "index": 18,
+    "total": 98347,
+    "bytes": 155433,
+    "error": null
+  },
+  {
+    "index": 4,
+    "total": 98011,
+    "bytes": 155057,
+    "error": null
+  }
+]

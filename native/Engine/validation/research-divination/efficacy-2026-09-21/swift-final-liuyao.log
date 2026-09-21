@@ -1,0 +1,61 @@
+Building for debugging...
+[1 / 1]
+[2 / 7] SujiCoreTests-product
+[4 / 9] SujiCoreTests-product
+[9 / 13] SujiCoreTests-product
+Build complete! (1.45秒)
+Test Suite 'Selected tests' started at 2026-09-21 09:43:07.655.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 09:43:07.656.
+Test Suite 'CastSupplementTests' started at 2026-09-21 09:43:07.656.
+Test Case '-[SujiCoreTests.CastSupplementTests testBothMethodsSupplementOriginalAndRetainSourceAcrossFurtherSupplements]' started.
+Test Case '-[SujiCoreTests.CastSupplementTests testBothMethodsSupplementOriginalAndRetainSourceAcrossFurtherSupplements]' passed (0.608 seconds).
+Test Case '-[SujiCoreTests.CastSupplementTests testDerivedRecordRejectsImmutableChangesWrongArgumentsAndIdentity]' started.
+Test Case '-[SujiCoreTests.CastSupplementTests testDerivedRecordRejectsImmutableChangesWrongArgumentsAndIdentity]' passed (2.677 seconds).
+Test Case '-[SujiCoreTests.CastSupplementTests testOldQuestionDependentFieldsCannotMasqueradeAsAcceptedSupplement]' started.
+Test Case '-[SujiCoreTests.CastSupplementTests testOldQuestionDependentFieldsCannotMasqueradeAsAcceptedSupplement]' passed (0.509 seconds).
+Test Case '-[SujiCoreTests.CastSupplementTests testOriginalProvenanceCannotDisagreeWithOriginalChartTimeOrCalendarPolicy]' started.
+Test Case '-[SujiCoreTests.CastSupplementTests testOriginalProvenanceCannotDisagreeWithOriginalChartTimeOrCalendarPolicy]' passed (0.237 seconds).
+Test Case '-[SujiCoreTests.CastSupplementTests testSourceMustExistUnambiguouslyEarlierInSameHistoryAndMatchSnapshot]' started.
+Test Case '-[SujiCoreTests.CastSupplementTests testSourceMustExistUnambiguouslyEarlierInSameHistoryAndMatchSnapshot]' passed (0.229 seconds).
+Test Suite 'CastSupplementTests' passed at 2026-09-21 09:43:11.916.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 4.260 (4.260) seconds
+Test Suite 'LiuyaoConditionTransportTests' started at 2026-09-21 09:43:11.916.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testLayoutProjectionAuthenticationRejectsValidEditedValues]' started.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testLayoutProjectionAuthenticationRejectsValidEditedValues]' passed (0.084 seconds).
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testLayoutReservedKeyCollisionsAreNotReencoded]' started.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testLayoutReservedKeyCollisionsAreNotReencoded]' passed (0.000 seconds).
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testLegacyAndUnknownConditionFieldsRemainIntact]' started.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testLegacyAndUnknownConditionFieldsRemainIntact]' passed (0.002 seconds).
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testLosslessRoundTripPreservesOrderEmptyPathsStatesAndEveryOtherField]' started.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testLosslessRoundTripPreservesOrderEmptyPathsStatesAndEveryOtherField]' passed (0.017 seconds).
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testMalformedLayoutOrRowsCannotYieldPartialEvidence]' started.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testMalformedLayoutOrRowsCannotYieldPartialEvidence]' passed (0.043 seconds).
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testMalformedObjectLayoutsFailClosedWithoutPartialFacts]' started.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testMalformedObjectLayoutsFailClosedWithoutPartialFacts]' passed (0.121 seconds).
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testObjectLayoutsRestoreNestedFieldsNullFalseAndLegacyConditionsExactly]' started.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testObjectLayoutsRestoreNestedFieldsNullFalseAndLegacyConditionsExactly]' passed (0.029 seconds).
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testProjectedReceiptAuthenticationRejectsEditedConditionsAndMissingQuestionSource]' started.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testProjectedReceiptAuthenticationRejectsEditedConditionsAndMissingQuestionSource]' passed (0.122 seconds).
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testUnknownSpecialAndEmptyObjectKeysRoundTripWithoutPrototypeSemantics]' started.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testUnknownSpecialAndEmptyObjectKeysRoundTripWithoutPrototypeSemantics]' passed (0.002 seconds).
+Test Suite 'LiuyaoConditionTransportTests' passed at 2026-09-21 09:43:12.336.
+	 Executed 9 tests, with 0 failures (0 unexpected) in 0.419 (0.420) seconds
+Test Suite 'LiuyaoEfficacyTests' started at 2026-09-21 09:43:12.336.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testAllSelectedSourceCoordinatesAreAuthenticated]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testAllSelectedSourceCoordinatesAreAuthenticated]' passed (0.193 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testForgeriesOfDecisionsIndicesPathsObjectsAndSourcesAreRejected]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testForgeriesOfDecisionsIndicesPathsObjectsAndSourcesAreRejected]' passed (1.077 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testJointCandidateAndEfficacyRewriteCannotReplaceTheQuerent]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testJointCandidateAndEfficacyRewriteCannotReplaceTheQuerent]' passed (0.012 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testLiteralClassicalAndCounterconditionFixturesRenderWithOriginalEvidence]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testLiteralClassicalAndCounterconditionFixturesRenderWithOriginalEvidence]' passed (0.598 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testMissingEfficacySymmetryAndLegacyReceipt]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testMissingEfficacySymmetryAndLegacyReceipt]' passed (0.048 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testTupleColumnsDecisionIndicesAndCanonicalPointerMapping]' started.
+Test Case '-[SujiCoreTests.LiuyaoEfficacyTests testTupleColumnsDecisionIndicesAndCanonicalPointerMapping]' passed (0.582 seconds).
+Test Suite 'LiuyaoEfficacyTests' passed at 2026-09-21 09:43:14.846.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 2.509 (2.510) seconds
+Test Suite 'SujiCoreTests.xctest' passed at 2026-09-21 09:43:14.846.
+	 Executed 20 tests, with 0 failures (0 unexpected) in 7.188 (7.190) seconds
+Test Suite 'Selected tests' passed at 2026-09-21 09:43:14.846.
+	 Executed 20 tests, with 0 failures (0 unexpected) in 7.188 (7.190) seconds

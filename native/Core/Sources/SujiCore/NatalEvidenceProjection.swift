@@ -5,6 +5,9 @@ import Foundation
 /// references never point to another reference or an older conversation context.
 enum NatalEvidenceProjection {
     static func wasDelivered(_ receipt: ToolReceipt, in history: [ChatMessage]) -> Bool {
+        if ["cast_liuyao","setup_qimen"].contains(receipt.name),
+           case .object = try? JSONDecoder().decode(JSONValue.self,from:Data(receipt.output.utf8)),
+           (try? CastReceiptStorage.expanded(receipt.output)) == nil {return false}
         for (index,message) in history.enumerated() where message.role == .tool && message.toolCallID == receipt.callID {
             if message.content == receipt.output { return true }
             // Authenticate projected delivery against the full receipt and the
@@ -14,7 +17,8 @@ enum NatalEvidenceProjection {
             // condition dictionary. Authenticate that exact older projection
             // against the same full receipt and original call arguments too.
             if receipt.name == "cast_liuyao" {
-                let shared=castQuestion(receipt.output,name:receipt.name,delivered:Array(history.prefix(index)),callID:receipt.callID)
+                let raw=(try? LiuyaoReceiptStorage.expanded(receipt.output)).map(ReadingVerificationEvidence.encoded) ?? receipt.output
+                let shared=castQuestion(raw,name:receipt.name,delivered:Array(history.prefix(index)),callID:receipt.callID)
                 let legacy=shared.utf16.count > 28_000 ? LiuyaoConditionTransport.encode(shared) : shared
                 if message.content == legacy { return true }
             }
@@ -24,17 +28,22 @@ enum NatalEvidenceProjection {
 
     static func output(_ output: String, name: String, delivered: [ChatMessage], callID: String? = nil) -> String {
         if ["cast_liuyao", "setup_qimen"].contains(name) {
-            let shared=castQuestion(output, name:name, delivered:delivered, callID:callID)
-            return name == "cast_liuyao" && shared.utf16.count > 28_000 ? LiuyaoConditionTransport.encodeLayouts(LiuyaoConditionTransport.encode(shared)) : shared
+            let complete=(try? CastReceiptStorage.expanded(output)).map(ReadingVerificationEvidence.encoded) ?? output
+            let sourced:String
+            if let callID,let value=try? JSONDecoder().decode(JSONValue.self,from:Data(complete.utf8)) {sourced=ReadingVerificationEvidence.encoded(CastSourceDirectory.project(value,name:name,history:delivered,callID:callID))}else{sourced=complete}
+            let shared=castQuestion(sourced, name:name, delivered:delivered, callID:callID)
+            // Source/question references must not disable profitable packing
+            // merely because their partial reduction crossed the threshold.
+            return complete.utf16.count > 28_000 ? JSONValueTransport.encode(LiuyaoConditionTransport.encodeLayouts(name == "cast_liuyao" ? LiuyaoConditionTransport.encode(shared) : QimenTimingTransport.encode(shared))) : shared
         }
         let supported: Set<String> = ["get_domain", "get_ziwei_palace", "get_ziwei_timing"]
         guard supported.contains(name),
               let value = try? JSONDecoder().decode(JSONValue.self, from: Data(output.utf8)),
               case var .object(root) = value, root["error"] == nil, root["reusedFacts"] == nil else { return output }
         let calls = Dictionary(delivered.flatMap { $0.toolCalls ?? [] }.map { ($0.id,$0.name) }, uniquingKeysWith: { first,_ in first })
-        let sources: [(String,JSONValue)] = delivered.compactMap { message in
+        let sources: [(String,JSONValue)] = delivered.enumerated().compactMap { index,message in
             guard message.role == .tool, let id = message.toolCallID, let tool = calls[id], supported.contains(tool),
-                  let raw = message.content, let decoded = try? JSONDecoder().decode(JSONValue.self,from:Data(raw.utf8)),
+                  let raw = message.content, let decoded = ToolOutputWire.decode(raw,name:tool,history:Array(delivered.prefix(index)),callID:id),
                   case let .object(object) = decoded, object["error"] == nil else { return nil }
             return (id,decoded)
         }
@@ -106,11 +115,11 @@ enum NatalEvidenceProjection {
             root = reduced
             references.append(reference)
         }
-        guard !references.isEmpty else { return output }
+        guard !references.isEmpty else { return JSONValueTransport.encode(LiuyaoConditionTransport.encodeLayouts(output)) }
         root["reusedFacts"] = .array(references)
         root["reusedFactsFormat"] = .string("Each missing path has the exact value at the earlier delivered toolCallID and pointer. Use that original tool result as evidence; these are references, not new calculations.")
         let compact = ReadingVerificationEvidence.encoded(JSONValue.object(root))
-        return compact.utf8.count < output.utf8.count ? compact : output
+        return JSONValueTransport.encode(LiuyaoConditionTransport.encodeLayouts(compact.utf8.count < output.utf8.count ? compact : output))
     }
 
     /// Long questions are already present verbatim in the same call's arguments.

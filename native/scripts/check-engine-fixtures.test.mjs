@@ -50,3 +50,13 @@ test('fixture count, nonfinite values, null and type changes are errors', () => 
   const saved=astronomy();assert.ok(compareFixtures([],saved).length);
   for(const value of [null,'1',Infinity,NaN]) {const built=structuredClone(saved);built[0].result.sevenBodies.positions[0].latitudeDegrees=value;assert.ok(compareFixtures(built,saved).length);}
 });
+test('derived angles have bounded drift while methods, epochs, house order and indices stay exact',()=>{
+  const saved=astronomy();saved[0].result.fourResiduals={positions:[{body:'Rahu',longitudeDegrees:123}]};
+  saved[0].result.lifeDegree={palaceDegree:2,rightAscensionDegrees:123,hoursUntilBranchChange:1,mansion:{index:2,entryDegrees:3}};
+  const built=structuredClone(saved);built[0].result.lifeDegree.palaceDegree+=1e-12;built[0].result.fourResiduals.positions[0].longitudeDegrees+=1e-12;
+  assert.deepEqual(compareFixtures(built,saved),[]);
+  for(const mutate of [f=>f.result.lifeDegree.mansion.index+=1e-12,f=>f.result.lifeDegree.hoursUntilBranchChange+=1e-12,
+    f=>f.result.lifeDegree.palaceDegree+=1e-8,f=>f.result.fourResiduals.positions[0].body='Ketu']){
+    const bad=structuredClone(saved);mutate(bad[0]);assert.ok(compareFixtures(bad,saved).length);
+  }
+});

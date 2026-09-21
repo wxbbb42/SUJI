@@ -1,151 +1,79 @@
-/**
- * 人元司令分野
- *
- * 来源：《三命通会》·人元司令
- *
- * 月令藏干不是全月平均作用，而是按节气后天数分段"当值"。
- * 每个月令分为三段（部分月份两段），每段由不同藏干"司令"。
- *
- * 格式：[藏干, 司令天数]
- * 天数从月节（非中气）开始计算
+/** 徐乐吾《子平真诠评注》十二月令人元司令分野表。
+ * This is one source profile, not a universal or astronomically measured rule.
+ * Elapsed days start at zero at 月节; segments use [start,end).
  */
+import type { TianGan, DiZhi, WuXing } from './types';
 
-import type { TianGan, DiZhi } from './types';
+export const SI_LING_SOURCE = {
+  id: 'ziping-xu-renyuan-v1',
+  document: 'docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md',
+  sha256: '8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596',
+  locator: '三、论阴阳生死；十二月令人元司令分野表，第70–72行',
+  quote: '申月 立秋后戊己土十日，壬水三日，庚金十七日',
+  caution: '按此表人元司令日数，虽未可执着',
+  editionStatus: 'electronic-transcription-not-print-collated',
+} as const;
 
-/** 人元司令分段 */
 export interface SiLingSegment {
-  gan: TianGan;    // 司令天干
-  days: number;    // 司令天数
-  label: string;   // 描述（如"前7天"）
+  /** null means the source names multiple stems, not missing information. */
+  gan: TianGan | null;
+  gans: TianGan[];
+  element: WuXing;
+  days: number;
+  label: string;
 }
 
-/**
- * 月令人元司令表（《三命通会》）
- *
- * 每个月令（地支）的藏干分段当值时间
- * 注意：这里的"天数"是从节气开始计算的
- */
-const SILING_TABLE: Record<DiZhi, SiLingSegment[]> = {
-  // 寅月（立春后）：戊7天→丙7天→甲16天
-  寅: [
-    { gan: '戊', days: 7,  label: '前7天戊土司令' },
-    { gan: '丙', days: 7,  label: '中7天丙火司令' },
-    { gan: '甲', days: 16, label: '后16天甲木司令' },
-  ],
-  // 卯月（惊蛰后）：甲10天→乙20天
-  卯: [
-    { gan: '甲', days: 10, label: '前10天甲木司令' },
-    { gan: '乙', days: 20, label: '后20天乙木司令' },
-  ],
-  // 辰月（清明后）：乙9天→癸3天→戊18天
-  辰: [
-    { gan: '乙', days: 9,  label: '前9天乙木司令' },
-    { gan: '癸', days: 3,  label: '中3天癸水司令' },
-    { gan: '戊', days: 18, label: '后18天戊土司令' },
-  ],
-  // 巳月（立夏后）：戊5天→庚9天→丙16天
-  巳: [
-    { gan: '戊', days: 5,  label: '前5天戊土司令' },
-    { gan: '庚', days: 9,  label: '中9天庚金司令' },
-    { gan: '丙', days: 16, label: '后16天丙火司令' },
-  ],
-  // 午月（芒种后）：丙10天→己9天→丁11天
-  午: [
-    { gan: '丙', days: 10, label: '前10天丙火司令' },
-    { gan: '己', days: 9,  label: '中9天己土司令' },
-    { gan: '丁', days: 11, label: '后11天丁火司令' },
-  ],
-  // 未月（小暑后）：丁9天→乙3天→己18天
-  未: [
-    { gan: '丁', days: 9,  label: '前9天丁火司令' },
-    { gan: '乙', days: 3,  label: '中3天乙木司令' },
-    { gan: '己', days: 18, label: '后18天己土司令' },
-  ],
-  // 申月（立秋后）：己7天→壬7天→庚16天
-  申: [
-    { gan: '己', days: 7,  label: '前7天己土司令' },
-    { gan: '壬', days: 7,  label: '中7天壬水司令' },
-    { gan: '庚', days: 16, label: '后16天庚金司令' },
-  ],
-  // 酉月（白露后）：庚10天→辛20天
-  酉: [
-    { gan: '庚', days: 10, label: '前10天庚金司令' },
-    { gan: '辛', days: 20, label: '后20天辛金司令' },
-  ],
-  // 戌月（寒露后）：辛9天→丁3天→戊18天
-  戌: [
-    { gan: '辛', days: 9,  label: '前9天辛金司令' },
-    { gan: '丁', days: 3,  label: '中3天丁火司令' },
-    { gan: '戊', days: 18, label: '后18天戊土司令' },
-  ],
-  // 亥月（立冬后）：戊7天→甲5天→壬18天
-  亥: [
-    { gan: '戊', days: 7,  label: '前7天戊土司令' },
-    { gan: '甲', days: 5,  label: '中5天甲木司令' },
-    { gan: '壬', days: 18, label: '后18天壬水司令' },
-  ],
-  // 子月（大雪后）：壬10天→癸20天
-  子: [
-    { gan: '壬', days: 10, label: '前10天壬水司令' },
-    { gan: '癸', days: 20, label: '后20天癸水司令' },
-  ],
-  // 丑月（小寒后）：癸9天→辛3天→己18天
-  丑: [
-    { gan: '癸', days: 9,  label: '前9天癸水司令' },
-    { gan: '辛', days: 3,  label: '中3天辛金司令' },
-    { gan: '己', days: 18, label: '后18天己土司令' },
-  ],
+const ELEMENT: Record<TianGan, WuXing> = {
+  甲:'木',乙:'木',丙:'火',丁:'火',戊:'土',己:'土',庚:'金',辛:'金',壬:'水',癸:'水',
+};
+const TABLE: Record<DiZhi, [TianGan[], number][]> = {
+  寅: [[['戊'],7],[['丙'],7],[['甲'],16]],
+  卯: [[['甲'],10],[['乙'],20]],
+  辰: [[['乙'],9],[['癸'],3],[['戊'],18]],
+  巳: [[['戊'],5],[['庚'],9],[['丙'],16]],
+  午: [[['丙'],10],[['己'],9],[['丁'],11]],
+  未: [[['丁'],9],[['乙'],3],[['己'],18]],
+  申: [[['戊','己'],10],[['壬'],3],[['庚'],17]],
+  酉: [[['庚'],10],[['辛'],20]],
+  戌: [[['辛'],9],[['丁'],3],[['戊'],18]],
+  亥: [[['戊'],7],[['甲'],5],[['壬'],18]],
+  子: [[['壬'],10],[['癸'],20]],
+  丑: [[['癸'],9],[['辛'],3],[['己'],18]],
 };
 
-/**
- * 获取月令人元司令分段表
- *
- * @param monthZhi 月令地支
- * @returns 该月令的人元司令分段列表
- */
 export function getSiLingSegments(monthZhi: DiZhi): SiLingSegment[] {
-  return SILING_TABLE[monthZhi];
+  if (!Object.prototype.hasOwnProperty.call(TABLE,monthZhi)) throw new RangeError('Unknown solar-month branch');
+  let start = 0;
+  return TABLE[monthZhi].map(([gans, days]) => {
+    const label = `节后${start}至${start + days}日${gans.join('')}${ELEMENT[gans[0]]}司令`;
+    start += days;
+    return { gan:gans.length === 1 ? gans[0] : null, gans:[...gans], element:ELEMENT[gans[0]], days, label };
+  });
 }
 
-/**
- * 根据节气后天数，确定当前司令天干
- *
- * @param monthZhi 月令地支
- * @param daysAfterJie 从月节（立春/惊蛰/清明...）后经过的天数
- * @returns 当前司令天干及描述
- */
-export function getCurrentSiLing(
-  monthZhi: DiZhi,
-  daysAfterJie: number,
-): { gan: TianGan; label: string } {
-  const segments = SILING_TABLE[monthZhi];
-  let accumulated = 0;
-
-  for (const seg of segments) {
-    accumulated += seg.days;
-    if (daysAfterJie <= accumulated) {
-      return { gan: seg.gan, label: seg.label };
+export function getCurrentSiLing(monthZhi: DiZhi, daysAfterJie: number) {
+  if (!Number.isFinite(daysAfterJie) || daysAfterJie < 0) throw new RangeError('Elapsed days after Jie must be finite and nonnegative');
+  const segments = getSiLingSegments(monthZhi);
+  let start = 0;
+  for (const [index, segment] of segments.entries()) {
+    const end = start + segment.days;
+    if (daysAfterJie < end || index === segments.length - 1) {
+      return {
+        ...segment, tableId:SI_LING_SOURCE.id, source:{...SI_LING_SOURCE},
+        interval:{startDay:start,endDay:end,convention:'left-closed-right-open' as const},
+        beyondNominalMonth:daysAfterJie >= 30,
+        tailPolicy:'last-segment-until-next-jie-caller-verifies-month' as const,
+      };
     }
+    start = end;
   }
-
-  // 超出范围则返回最后一段
-  const last = segments[segments.length - 1];
-  return { gan: last.gan, label: last.label };
+  throw new Error('Month commander table is empty');
 }
 
-/**
- * 获取月令默认司令（本气，即占时最长的藏干）
- * 用于简化场景，不需要精确天数时
- *
- * @param monthZhi 月令地支
- * @returns 本气天干
- */
+/** Longest segment in this profile; it is unambiguous in all twelve months. */
 export function getDefaultSiLing(monthZhi: DiZhi): TianGan {
-  const segments = SILING_TABLE[monthZhi];
-  // 取占时最长的段
-  let max = segments[0];
-  for (const seg of segments) {
-    if (seg.days > max.days) max = seg;
-  }
-  return max.gan;
+  const segments = getSiLingSegments(monthZhi);
+  const longest = segments.reduce((max, segment) => segment.days > max.days ? segment : max);
+  if (!longest.gan) throw new Error('Longest month commander is ambiguous');
+  return longest.gan;
 }

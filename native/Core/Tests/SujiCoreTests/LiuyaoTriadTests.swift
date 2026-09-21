@@ -17,12 +17,12 @@ final class LiuyaoTriadTests: XCTestCase {
         let result=try XCTUnwrap(ReadingVerificationEvidence.pointer("/result",in:JSONDecoder().decode(JSONValue.self,from:data)))
         guard case let .string(revision)=ReadingVerificationEvidence.pointer("/provenance/engineRevision",in:result) else { throw EngineError.execution("revision") }
         let context=try ToolContext(birth:nil,engineRevision:revision,referenceDate:ISO8601DateFormatter().date(from:now)!,mode:"起卦")
-        return (.init(callID:"fanfu-original",name:"cast_liuyao",arguments:args,output:ReadingVerificationEvidence.encoded(result),context:context),context)
+        return (.init(callID:"fanfu-original",name:"cast_liuyao",arguments:args,output:try CastReceiptStorage.encode(ReadingVerificationEvidence.encoded(result)),context:context),context)
     }
 
     // Test oracle: explicit route pools and literal branch triples, independent of native validator.
     private func proposed(_ receipt: ToolReceipt) throws -> [String:Any] {
-        var root=try XCTUnwrap(JSONSerialization.jsonObject(with:Data(receipt.output.utf8)) as? [String:Any])
+        var root=try XCTUnwrap(JSONSerialization.jsonObject(with:try CastReceiptStorage.expandedData(receipt.output)) as? [String:Any])
         let lines=root["lines"] as! [[String:Any]], calendar=root["castGanZhi"] as! [String:String]
         let tombs=(root["tombExtinction"] as! [String:Any])["objects"] as! [[String:Any]]
         func b(_ object:[String:Any])->String { String((object["ganZhi"] as! String).suffix(1)) }
@@ -57,7 +57,7 @@ final class LiuyaoTriadTests: XCTestCase {
         let (base,context)=try await fixture([9,8,9,9,8,9])
         let receipt=try changed(base,proposed(base))
         let report=try XCTUnwrap(LiuyaoReferenceReading.render(receipts:[receipt],context:context),"B5b proposed triads must render")
-        let root=try JSONDecoder().decode(JSONValue.self,from:Data(receipt.output.utf8))
+        let root=try JSONDecoder().decode(JSONValue.self,from:try CastReceiptStorage.expandedData(receipt.output))
         let sections=report.sections.filter{$0.id.hasPrefix("triads-")}
         XCTAssertGreaterThan(sections.count,2)
         XCTAssertTrue(sections.contains{$0.text.contains("内卦") && $0.text.contains("木")})
@@ -70,9 +70,9 @@ final class LiuyaoTriadTests: XCTestCase {
     func testActualEngineLayerMatchesIndependentPoolOracleAndIndexesEmptyFields() async throws {
         for values in [[9,8,9,9,8,9],[9,8,6,8,8,8],[7,8,7,9,7,6],[7,7,7,7,7,7],[7,6,7,7,9,7]] {
             let (receipt,context)=try await fixture(values)
-            let root=try JSONDecoder().decode(JSONValue.self,from:Data(receipt.output.utf8))
+            let root=try JSONDecoder().decode(JSONValue.self,from:try CastReceiptStorage.expandedData(receipt.output))
             let expected=try changed(receipt,proposed(receipt))
-            let oracle=try JSONDecoder().decode(JSONValue.self,from:Data(expected.output.utf8))
+            let oracle=try JSONDecoder().decode(JSONValue.self,from:try CastReceiptStorage.expandedData(expected.output))
             XCTAssertEqual(ReadingVerificationEvidence.pointer("/triads",in:root),ReadingVerificationEvidence.pointer("/triads",in:oracle))
             XCTAssertNotNil(LiuyaoReferenceReading.render(receipts:[receipt],context:context),"actual engine \(values)")
             let history:[ChatMessage]=[.assistantToolCalls([.init(id:receipt.callID,name:receipt.name,arguments:receipt.arguments)]),.toolResult(.init(callID:receipt.callID,output:receipt.output))]
@@ -94,7 +94,7 @@ final class LiuyaoTriadTests: XCTestCase {
 
     func testMalformedLayersSourcesAndJointForgeriesCannotRender() async throws {
         let (receipt,context)=try await fixture([9,8,9,9,8,9])
-        let original=try XCTUnwrap(JSONSerialization.jsonObject(with:Data(receipt.output.utf8)) as? [String:Any])
+        let original=try XCTUnwrap(JSONSerialization.jsonObject(with:try CastReceiptStorage.expandedData(receipt.output)) as? [String:Any])
         XCTAssertNotNil(LiuyaoReferenceReading.render(receipts:[receipt],context:context))
         for mutation in 0..<27 {
             var root=original,layer=root["triads"] as! [String:Any],groups=layer["groups"] as! [[String:Any]]
@@ -142,11 +142,12 @@ final class LiuyaoTriadTests: XCTestCase {
 
     func testLegacySymmetryAndMissingEntireGroup() async throws {
         let (receipt,context)=try await fixture([7,7,7,7,7,7])
-        var root=try XCTUnwrap(JSONSerialization.jsonObject(with:Data(receipt.output.utf8)) as? [String:Any])
+        var root=try XCTUnwrap(JSONSerialization.jsonObject(with:try CastReceiptStorage.expandedData(receipt.output)) as? [String:Any])
         let original=root
         root.removeValue(forKey:"triads")
+        root.removeValue(forKey:"efficacy")
         XCTAssertNil(LiuyaoReferenceReading.render(receipts:[try changed(receipt,root)],context:context))
-        root["ruleSources"]=(root["ruleSources"] as! [[String:Any]]).filter{($0["id"] as? String) != "liuyao-triad-selected-v1"}
+        root["ruleSources"]=(root["ruleSources"] as! [[String:Any]]).filter{!["liuyao-triad-selected-v1","liuyao-efficacy-zengshan-v1"].contains($0["id"] as? String ?? "")}
         XCTAssertNotNil(LiuyaoReferenceReading.render(receipts:[try changed(receipt,root)],context:context))
         root=original
         var layer=root["triads"] as! [String:Any];layer["groups"]=[];root["triads"]=layer

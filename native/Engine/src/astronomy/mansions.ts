@@ -17,7 +17,7 @@ export function buildMansionBoundaries(stars:BoundaryStar[]):MansionBoundary[] {
   return stars.map((star,i)=>({...star,nextRightAscensionDegrees:stars[(i+1)%28].rightAscensionDegrees,widthDegrees:widths[i]}));
 }
 
-export function assignMansion(body:SevenBody,rightAscensionDegrees:number,boundaries:MansionBoundary[]):MansionPosition {
+export function assignMansion(body:SevenBody|'LifeDegree',rightAscensionDegrees:number,boundaries:MansionBoundary[]):MansionPosition {
   if(!Number.isFinite(rightAscensionDegrees)||rightAscensionDegrees<0||rightAscensionDegrees>=360)throw new Error('天体赤经超出范围');
   const index=boundaries.findIndex(b=>b.nextRightAscensionDegrees>b.rightAscensionDegrees
     ? rightAscensionDegrees>=b.rightAscensionDegrees&&rightAscensionDegrees<b.nextRightAscensionDegrees

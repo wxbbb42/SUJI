@@ -11,6 +11,9 @@ import CryptoKit
 }
 
 struct Document {
+    init(receiptOutput: String) throws {
+        try self.init(data: CastReceiptStorage.expandedData(receiptOutput))
+    }
     let value: Any
     init(_ value: Any) { self.value = value }
     init(data: Data) throws { value = try JSONSerialization.jsonObject(with: data) }

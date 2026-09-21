@@ -1,0 +1,22 @@
+{
+  "pairedCases": 53,
+  "chartsRestoredExactly": 106,
+  "factsRestoredExactly": 98807,
+  "maxBackendTotalUTF16": 116472,
+  "maxActualChatClientBodyBytes": 177232,
+  "maxMessageUTF16": 28837,
+  "maxToolOutputsBytes": 55630,
+  "maxStoredReceiptBytes": 49063,
+  "maxMessageCount": 12,
+  "allNativeChecksPassed": true,
+  "sourceAndFixtureDigestsUnchanged": true,
+  "limitsUnchanged": {
+    "nativeReferenceBytes": 60000,
+    "storedReceiptBytes": 65536,
+    "modelMessageUTF16": 32000,
+    "toolOutputsBytes": 60000,
+    "backendTotalUTF16": 120000,
+    "backendBodyBytes": 262144
+  },
+  "scope": "Sampled actual-bundle 48 paired fixtures plus five maximum-window cases; original question 8000 Chinese characters, tool questions 1600 Chinese characters, call IDs 200 characters, full instructions and draft. Native ChatClient URLProtocol capture and real backend providerRequest validation; no external model request."
+}

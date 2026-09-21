@@ -358,14 +358,14 @@ import SujiCore
                     try Task.checkCancellation()
                     activity = "正在沿用原盘核对补充"
                     let request: [String: Any] = ["command": "reassess-question", "name": link.original.name, "sourceCallID": link.original.callID,
-                        "original": try JSONSerialization.jsonObject(with: Data(link.original.output.utf8)),
+                        "original": try JSONSerialization.jsonObject(with: CastReceiptStorage.expandedData(link.original.output)),
                         "arguments": try JSONSerialization.jsonObject(with: JSONEncoder().encode(confirmation.call.arguments))]
                     // Finish and persist a started reassessment even if prose is stopped.
                     let calculation = Task { @MainActor in try await store.request(request) }
                     let document = try await calculation.value
                     try Self.checkScope(store, revision: revision, birth: birth)
                     receipt = ToolReceipt(callID: confirmation.call.id, name: link.derivedName, arguments: confirmation.call.arguments,
-                        output: document["result"].json, evidence: document["evidence"].strings, context: context)
+                        output: try CastReceiptStorage.encode(document["result"].json), evidence: document["evidence"].strings, context: context)
                     _ = try link.render(receipt: receipt, confirmation: confirmation, userID: userID, entries: store.state.conversations, context: context)
                     try persist(receipt: receipt, on: userID, store: store, revision: revision, birth: birth)
                 }

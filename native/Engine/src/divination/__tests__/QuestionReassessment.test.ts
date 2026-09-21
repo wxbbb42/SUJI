@@ -14,7 +14,7 @@ async function original(name:string) {
 }
 function immutable(value:any,name:string) {
  const result=copy(value);
- for(const key of ['question','questionType','questionContext','yongShen','yingQi','questionRevision',...(name==='cast_liuyao'?['roleRelations']:[])])delete result[key];
+ for(const key of ['question','questionType','questionContext','yongShen','yingQi','questionRevision',...(name==='cast_liuyao'?['roleRelations','efficacy']:[])])delete result[key];
  return result;
 }
 

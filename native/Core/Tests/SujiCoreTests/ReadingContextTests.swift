@@ -68,6 +68,26 @@ final class ReadingContextTests: XCTestCase {
         XCTAssertNil(try JSONDecoder().decode(ToolReceipt.self, from: JSONSerialization.data(withJSONObject: legacy)).context)
     }
 
+    func testReplayAndReviewKeepCompleteRuleDirectoryBesideItsOwnCall() throws {
+        let context = try ToolContext(birth: nil, engineRevision: "source-directory", referenceDate: date, mode: "起卦")
+        let source: JSONValue = ["id":"explicit-rule", "quote": .string(String(repeating: "source ", count: 4_200) + "完整原文保留"), "limitations": [], "established": false]
+        var entry = ConversationEntry(role: "user", text: "核对依据")
+        entry.toolReceipts = [ToolReceipt(callID: "directory-call", name: "cast_liuyao", arguments: [:],
+            output: ReadingVerificationEvidence.encoded(JSONValue.object(["ruleSources": .array([source]), "lines": []])), context: context)]
+        let history = ReadingPrompt.history(from: [entry], currentUserID: entry.id, context: context)
+        let prefix = "完整规则来源目录（同轮工具证据）：\n"
+        let directories = history.filter { $0.role == .system && ($0.content?.hasPrefix(prefix) ?? false) }
+        XCTAssertEqual(directories.count, 1)
+        let directory = try XCTUnwrap(directories.first)
+        let metadata = try JSONDecoder().decode(JSONValue.self, from: Data(try XCTUnwrap(directory.content).dropFirst(prefix.count).utf8))
+        XCTAssertEqual(ReadingVerificationEvidence.pointer("/toolCallID", in: metadata), "directory-call")
+        XCTAssertEqual(ReadingVerificationEvidence.pointer("/ruleSources", in: metadata), .array([source]))
+        XCTAssertLessThan(try XCTUnwrap(history.firstIndex(of: directory)), try XCTUnwrap(history.firstIndex { !($0.toolCalls ?? []).isEmpty }))
+        let review = ReadingVerifier.messages(draft: "保留原文条件", history: history, question: entry.text)
+        XCTAssertEqual(review.filter { $0.role == .system && ($0.content?.hasPrefix(prefix) ?? false) }, directories)
+        XCTAssertFalse(review.contains { $0.role == .user && ($0.content?.contains(prefix) ?? false) })
+    }
+
     func testFixedBeijingClockDoesNotApplyHistoricalDaylightSaving() throws {
         let profile = try birth.validated()
         let iso = ISO8601DateFormatter().string(from: profile.date!)

@@ -118,7 +118,7 @@ public enum BaziFrameworkReading {
             sources.append((receipt, root))
         }
         guard let (receipt, root) = sources.first else { return nil }
-        let paths = ["pillars", "dayMaster", "strengthReference", "structureReference", "patternAnalysis", "tiaoHou", "interpretationPolicy"]
+        let paths = ["birthDateTime", "pillars", "dayMaster", "strengthReference", "structureReference", "patternAnalysis", "tiaoHou", "interpretationPolicy"]
         // get_domain may legitimately change its domain/ziwei fields, but not these Bazi facts.
         guard sources.allSatisfy({ item in paths.allSatisfy { path in
             value("/bazi/" + path, item.1) == value("/bazi/" + path, root)
@@ -179,10 +179,13 @@ public enum BaziFrameworkReading {
         let trace = patternTrace(root: root)
         let conditionTrace = BaziPatternConditionTrace.make(root:root)
         if value(g + "conditionalEvidence",root) != nil && conditionTrace == nil { return nil }
+        let adjudicationTrace = BaziAdjudicationTrace.make(root:root)
+        if (value(g + "specialPatternEvidence",root) != nil || value(g + "rescueEvidence",root) != nil) && adjudicationTrace == nil { return nil }
+        let conditionText = (conditionTrace?.text ?? "").replacingOccurrences(of:"这些关系的效力未定",with:adjudicationTrace?.text.isEmpty == false ? "除下文已核对的限制外，其余关系效力未定" : "这些关系的效力未定")
         let patternMethod = category == "zhengge" ? "格局用神按本次子平真诠口径，讨论月令结构及其配合。" : "本次格局结果来自特殊格的工程筛查，不能直接套用普通月令取格的解释。"
         claims.append(Claim(id: "pattern", qualification: .candidate,
-                            text: patternMethod + "本次列出\(pattern)候选，格局用神记为\(patternElement.rawValue)\(patternStemText(root))。\(trace.text)这里的格局名称与成败都仍是结构规则候选，不能据此说已经成格。条件：\(conditionText(conditions))。" + (conditionTrace?.text ?? ""),
-                            evidence: evidence([g + "name", g + "assessmentStatus", g + "yongShen", g + "yongShenGan", g + "yongShenShiShen", g + "selectionBasis", g + "category", g + "conditions", policy + "structureYongShen", policy + "status"] + trace.paths + (conditionTrace?.paths ?? [])), ruleIDs: ["bazi.yongshen.priority-chain"] + (conditionTrace == nil ? [] : ["bazi.pattern-conditions-v1"])))
+                            text: patternMethod + "本次列出\(pattern)候选，格局用神记为\(patternElement.rawValue)\(patternStemText(root))。\(trace.text)这里的格局名称与成败都仍是结构规则候选，不能据此说已经成格。条件：\(Self.conditionText(conditions))。" + conditionText + (adjudicationTrace?.text ?? ""),
+                            evidence: evidence([g + "name", g + "assessmentStatus", g + "yongShen", g + "yongShenGan", g + "yongShenShiShen", g + "selectionBasis", g + "category", g + "conditions", policy + "structureYongShen", policy + "status"] + trace.paths + (conditionTrace?.paths ?? []) + (adjudicationTrace?.paths ?? [])), ruleIDs: ["bazi.yongshen.priority-chain"] + (conditionTrace == nil ? [] : ["bazi.pattern-conditions-v1"]) + (adjudicationTrace == nil ? [] : ["bazi.adjudicated-subsets-v1"])))
 
         let edges = relations(to: dayElement)
         let support = edges[0], restrain = edges[1], drain = edges[2], consume = edges[3]
@@ -214,10 +217,10 @@ public enum BaziFrameworkReading {
         let briefCount = strengthTrace.map { "工程计数：帮扶\(String(format: "%g", $0.supportTotal))、克泄耗\(String(format: "%g", $0.drainTotal))，按\(strong ? "≥" : "<")列为\(strong ? "偏强" : "偏弱")。" }
             ?? "当前工程计数列为\(strong ? "偏强" : "偏弱")。"
         brief("strength", briefCount + "扶抑参考用\(strengthElement.rawValue)。含日干一次，未综合月令、根气与调候，不能当作完整强弱结论。")
-        brief("pattern", "\(pattern)只是结构规则候选，用神记为\(patternElement.rawValue)\(patternStemText(root))。条件：\(conditionText(conditions))。尚不能认定成格。")
+        brief("pattern", "\(pattern)只是结构规则候选，用神记为\(patternElement.rawValue)\(patternStemText(root))。条件：\(Self.conditionText(conditions))。尚不能认定成格。" + (adjudicationTrace?.brief ?? ""))
         brief("relations", "相生：木生火、火生土、土生金、金生水、水生木。相克：木克土、土克水、水克火、火克金、金克木。对日主\(dayElement.rawValue)，生\(drain.object.rawValue)为泄，克\(consume.object.rawValue)为耗；这只说明关系，不能直接定用神。")
         if let stems = strings(value("/bazi/tiaoHou/candidateStems", root)), let conditions = strings(value("/bazi/tiaoHou/conditions", root)) {
-            brief("tiaohou", "《穷通宝鉴》\(dayStem)日\(string(p + "month/ganZhi/zhi")!)月条目列\(stems.joined(separator: "、"))为候选。条件：\(conditionText(conditions))。仅核对网络转录，未校印本，也未自动替你取用。")
+            brief("tiaohou", "《穷通宝鉴》\(dayStem)日\(string(p + "month/ganZhi/zhi")!)月条目列\(stems.joined(separator: "、"))为候选。条件：\(Self.conditionText(conditions))。仅核对网络转录，未校印本，也未自动替你取用。")
         }
         brief("climate-unavailable", "本次调候文献与适用条件尚未核齐，暂不列个人候选；扶抑参考未纳入调候，不能替代它。")
         let used = Set(claims.flatMap(\.ruleIDs))
@@ -342,6 +345,7 @@ public enum BaziFrameworkReading {
     }
 
     private static let ruleSources = [
+        RuleSource(id:"bazi.adjudicated-subsets-v1",source:"native/Engine/src/bazi/zhuanWangSources.ts; native/Engine/src/bazi/rescueSources.ts",scope:"Source-profile formation and locally checked combination-role limits bound to original pillars and civil birth context; no global rescue or outcome claim."),
         RuleSource(id:"bazi.pattern-conditions-v1",source:"native/Engine/src/bazi/patternSources.ts; native/Engine/src/bazi/structural.ts#computePatternConditions",scope:"Returned stem relations and constraints, with exact columns and source hashes; no adjudicated remedy efficacy or pattern success."),
         RuleSource(id: "suji.fuyi-counting-v1", source: "native/Engine/src/bazi/BaziEngine.ts#computeWuXingStrength", scope: "Current product counting heuristic; not a complete traditional strength calculation or an empirical prediction."),
         RuleSource(id: "bazi.yongshen.priority-chain", source: "native/Engine/src/bazi/structural.ts#selectYongShen; docs/mingli/reading-notes/2026-05-07-ziping-zhenquan-geju-deepread.md", scope: "Trace only the supplied basis and matching month-hidden/exposed stem; not established pattern success."),

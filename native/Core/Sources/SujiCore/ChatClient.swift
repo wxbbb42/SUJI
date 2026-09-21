@@ -129,6 +129,7 @@ public final class ChatClient: @unchecked Sendable {
         stream: Bool,
         api: ChatAPIStyle
     ) throws -> JSONValue {
+        try ToolOutputWire.validateSourceReferences(messages)
         switch api {
         case .chatCompletions, .automatic:
             var object: [String: JSONValue] = [

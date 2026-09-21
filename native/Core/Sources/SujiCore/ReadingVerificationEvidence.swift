@@ -12,10 +12,9 @@ enum ReadingVerificationEvidence {
     static func facts(_ history: [ChatMessage]) -> [Fact] {
         let calls = Dictionary(history.flatMap { $0.toolCalls ?? [] }.map { ($0.id, $0.name) }, uniquingKeysWith: { first, _ in first })
         var facts: [Fact] = []
-        for message in history where message.role == .tool {
+        for (index,message) in history.enumerated() where message.role == .tool {
             guard let id = message.toolCallID, let name = calls[id], let raw = message.content,
-                  let decoded = try? JSONDecoder().decode(JSONValue.self, from: Data(raw.utf8)),
-                  let object = LiuyaoConditionTransport.expand(decoded),
+                  let object = ToolOutputWire.decode(raw,name:name,history:Array(history.prefix(index)),callID:id),
                   case let .object(root) = object, root["error"] == nil else { continue }
             func add(_ key: String, _ path: String, preserveNull: Bool = false) {
                 guard let value = pointer(path, in: object), preserveNull || value != .null else { return }
@@ -112,23 +111,60 @@ enum ReadingVerificationEvidence {
                 }
                 rows(prefix + ".source",base + "/sources",["id","document","sha256","locator","quote","additionalQuotes","editionStatus"])
             }
+            func baziAdjudications() {
+                let base="/bazi/patternAnalysis",special=base+"/specialPatternEvidence",rescue=base+"/rescueEvidence"
+                func rows(_ key: String,_ path: String,_ keys: [String]) {
+                    if case let .array(items) = pointer(path,in:object) {
+                        for i in items.indices { fields(key+String(i+1),path+"/\(i)",keys) }
+                    }
+                }
+                fields("bazi.special",special,["methodVersion","profileId","status","name","dayElement","outcomeEstablished","unmetConditions","limitations"])
+                fields("bazi.special.season",special+"/season",["status","monthBranch","method"])
+                fields("bazi.special.commander",special+"/season/commander",["gan","gans","element","days","label","tableId","beyondNominalMonth","tailPolicy"])
+                fields("bazi.special.commander.interval",special+"/season/commander/interval",["startDay","endDay","convention"])
+                fields("bazi.special.commander.source",special+"/season/commander/source",["id","document","sha256","locator","quote","editionStatus"])
+                fields("bazi.special.birthMonth",special+"/season/birthMonthContext",["methodVersion","civilBirthTime","monthBranch","elapsedMillis","daysAfterJie","provider","calendarPolicyVersion","solarTimeApplied","timeBasis","termPrecision"])
+                for field in ["jie","nextJie"] { fields("bazi.special.birthMonth."+field,special+"/season/birthMonthContext/"+field,["name","instant"]) }
+                fields("bazi.special.alternative",special+"/alternativeProfile",["id","status"])
+                for (field,keys) in [("formation",["kind","branches","positions"]),("exposedControllers",["position","gan","element"]),
+                    ("externalControllerBranches",["position","branch","element"]),("hiddenControllerContext",["position","branch","gan","inFormation","exposed","handling"]),("outputStems",["position","gan"])] {
+                    rows("bazi.special."+field,special+"/"+field,keys)
+                }
+                fields("bazi.rescue",rescue,["methodVersion","profileId","outcomeEstablished","globalResolution","unresolvedScopes"])
+                rows("bazi.rescue.combination",rescue+"/combinations",["actorPosition","targetPosition","actorGan","targetGan","status","removalEstablished","blockingPositions","competingPositions","sourceIds"])
+                for field in ["rescuePaths","helperProtections"] {
+                    rows("bazi.rescue."+field,rescue+"/"+field,["triggerPosition","remedyPosition","helperPosition","attackerPosition","relation","fromPosition","toPosition","adjacent","interveningPositions","triggerContext","remedyContext","helperContext","attackerContext","status","blockingPositions","sourceIds"])
+                }
+                rows("bazi.rescue.hiddenRole",rescue+"/hiddenRoles",["position","branch","gan","tier","shiShen","role","status","exposedPositions","sourceIds"])
+                rows("bazi.rescue.branchHelper",rescue+"/branchHelpers",["position","branch","blockingPositions","status","sourceIds"])
+                rows("bazi.rescue.threat",rescue+"/threatCoverage",["position","gan","status"])
+                for (key,path) in [("bazi.special",special),("bazi.rescue",rescue)] {
+                    rows(key+".source",path+"/sources",["id","document","sha256","locator","quote","additionalQuotes","editionStatus"])
+                }
+            }
             switch name {
             case "get_natal_astronomy":
                 fields("astronomy", "", ["schemaVersion", "engineRevision", "birthKey", "unsupported", "limitations"])
                 fields("astronomy.time", "/time", ["wallClock", "instantUTC", "interpretation", "utPolicy", "deltaTModel", "julianDayUT", "julianDayTT", "deltaTSeconds"])
-                for module in ["sevenBodies", "mansions"] {
+                for module in ["sevenBodies", "mansions", "fourResiduals"] {
                     let base = "/" + module, key = "astronomy." + module
-                    fields(key,base,["moduleID","methodVersion","inputFingerprint","sourceIDs"])
-                    fields(key+".dependencies",base+"/dependencyVersions",["ephemeris","timePolicy","framePolicy","catalog","transformation","boundary"])
+                    fields(key,base,["moduleID","methodVersion","inputFingerprint","sourceIDs","nodeConvention","limitations"])
+                    fields(key+".dependencies",base+"/dependencyVersions",["ephemeris","timePolicy","framePolicy","catalog","transformation","boundary","lunarElements","inclination","purpleParameters"])
                     if case let .array(positions) = pointer(base+"/positions",in:object) {
                         for index in positions.indices {
                             let path = base+"/positions/\(index)"
                             guard case let .string(body) = pointer(path+"/body",in:object),
-                                  ["Sun","Moon","Mercury","Venus","Mars","Jupiter","Saturn"].contains(body) else { continue }
-                            let prefix = module == "sevenBodies" ? "astronomy.body." : "astronomy.mansion."
-                            fields(prefix+body,path,["body","longitudeDegrees","latitudeDegrees","rightAscensionDegrees","declinationDegrees","correctionPolicy","mansion","index","entryDegrees","widthDegrees","distanceToBoundaryDegrees","boundaryStatus"])
+                                  ["Sun","Moon","Mercury","Venus","Mars","Jupiter","Saturn","Rahu","Ketu","Apogee","PurpleQi"].contains(body) else { continue }
+                            let prefix = module == "sevenBodies" ? "astronomy.body." : module == "mansions" ? "astronomy.mansion." : "astronomy.residual."
+                            fields(prefix+body,path,["body","longitudeDegrees","latitudeDegrees","rightAscensionDegrees","declinationDegrees","correctionPolicy","mansion","index","entryDegrees","widthDegrees","distanceToBoundaryDegrees","boundaryStatus","definition","framePolicy","timeScale"])
                         }
                     }
+                }
+                fields("astronomy.purpleParameters","/fourResiduals/purpleParameters",["epochUTC","periodDays","epochLongitudeDegrees"])
+                fields("astronomy.lifeDegree","/lifeDegree",["moduleID","methodVersion","inputFingerprint","sourceIDs","clockPolicy","coordinatePolicy","mansionPolicy","sunLongitudeDegrees","birthHourBranch","sunPalaceBranch","palaceBranch","palaceRuler","palaceDegree","longitudeDegrees","rightAscensionDegrees","declinationDegrees","degreeRuler","hoursUntilBranchChange","limitations"])
+                fields("astronomy.lifeDegree.mansion","/lifeDegree/mansion",["body","mansion","index","entryDegrees","widthDegrees","distanceToBoundaryDegrees","boundaryStatus"])
+                if case let .array(houses) = pointer("/lifeDegree/houses",in:object) {
+                    for i in houses.indices { fields("astronomy.lifeDegree.house\(i+1)","/lifeDegree/houses/\(i)",["name","branch","ruler","startLongitudeDegrees","endLongitudeDegrees"]) }
                 }
                 if pointer("/mansions",in:object) == .null { add("astronomy.mansions","/mansions",preserveNull:true) }
                 fields("astronomy.uncertainty","/mansions/uncertainty",["birthTimePrecision"])
@@ -144,6 +180,8 @@ enum ReadingVerificationEvidence {
                 for (key, path) in [("year", "yearGanZhi"), ("month", "monthGanZhi"), ("day", "dayGanZhi"), ("term", "solarTerm")] { add("calendar." + key, "/" + path) }
             case "get_domain":
                 patternConditions()
+                baziAdjudications()
+                add("bazi.birthDateTime","/bazi/birthDateTime")
                 for column in ["year", "month", "day", "hour"] {
                     for part in ["gan", "zhi"] { add("bazi.\(column).\(part)", "/bazi/pillars/\(column)/ganZhi/\(part)") }
                     add("bazi.\(column).tenGod", "/bazi/pillars/\(column)/shiShen")
@@ -181,6 +219,21 @@ enum ReadingVerificationEvidence {
                 sources("ziwei.timing")
             case "cast_liuyao":
                 add("liuyao.castTime", "/castTime")
+                // Index the exact v2 tuple cells and dictionaries. A logical
+                // expanded path is not a path in the authenticated receipt.
+                if (try? LiuyaoEfficacyEvidence.decodedReport(root:object)) != nil {
+                    fields("liuyao.efficacy","/efficacy",["methodVersion","sourceId","assessmentStatus","outcomeEstablished","limitations","evidenceLayout","indexBase","objectColumns","calendarStrengthColumns","referenceColumns","triadColumns","decisionColumns","evidenceColumns","factPathColumns","states","ruleIDs","pathRoots","pathSuffixes"])
+                    fields("liuyao.efficacy.selection","/efficacy/selection",["status","candidateIds","eligibleCandidateIds","factPaths"])
+                    add("liuyao.efficacy.selection.selectedCandidateId","/efficacy/selection/selectedCandidateId",preserveNull:true)
+                    add("liuyao.efficacy.selectedEffect","/efficacy/selectedEffect")
+                    for field in ["objects","triads","decisions","evidence","factPaths"] {
+                        let path="/efficacy/"+field
+                        if case let .array(rows) = pointer(path,in:object) {
+                            if rows.isEmpty { add("liuyao.efficacy."+field,path) }
+                            for i in rows.indices { add("liuyao.efficacy."+field+String(i+1),path+"/\(i)") }
+                        }
+                    }
+                }
                 fields("liuyao.calendar", "/castGanZhi", ["month", "day", "hour"])
                 fields("liuyao.method", "/method", ["algorithm", "calendar", "dayBoundary", "caveats"])
                 fields("liuyao.question", "/questionContext", ["subject", "timeHorizon"])
@@ -294,6 +347,18 @@ enum ReadingVerificationEvidence {
                 }
             case "setup_qimen":
                 add("qimen.setupTime", "/setupTime")
+                fields("qimen.timing","/timing",["methodVersion","sourceIDs","event","focus","assessmentStatus","outcomeEstablished","unresolved"])
+                fields("qimen.timing.selection","/timing/selection",["established","candidateId","objectPath","palaceId","symbol","carrierStem","reason"])
+                fields("qimen.timing.searchPolicy","/timing/searchPolicy",["timezone","dayBoundary","yearBoundary","monthBoundary","clockPolicy","solarInversePolicy","includeCurrent","maxCandidates","maxPeriods","requestedEnd","searchedUntil","truncated","searchComplete","reason"])
+                for (field,keys) in [
+                    ("triggers",["ruleId","branches","priority","objectPath","factPaths","sourceId"]),
+                    ("supported",["condition","factPaths","coverage"]),("opposing",["ruleId","reason","factPaths"]),
+                    ("conflicts",["ruleIds","reason"]),
+                    ("dates",["unit","ganZhi","branch","startsAt","endsAt","eligibleStart","eligibleEnd","triggerIds","firstWindow"])] {
+                    if case let .array(rows) = pointer("/timing/"+field,in:object) {
+                        for i in rows.indices { fields("qimen.timing."+field+String(i+1),"/timing/"+field+"/\(i)",keys) }
+                    }
+                }
                 for key in ["yinYangDun", "juNumber", "yuan", "jieqi", "zhiFuStar", "zhiFuPalaceId", "zhiShiMen", "zhiShiPalaceId", "fuTou", "zhiFuSourcePalaceId", "zhiShiSourcePalaceId", "zhiShiRawPalaceId", "tianQinPalaceId", "dayGanZhi", "hourGanZhi", "monthGanZhi", "calculationTime", "trueSolarTime"] { add("qimen." + key, "/" + key) }
                 fields("qimen.method", "/method", ["algorithm", "centerPolicy", "dayBoundary", "solarTermClock", "clockPolicy", "timezone", "longitude", "caveats"])
                 fields("qimen.hourVoid", "/hourVoid", ["scope", "ganZhi", "xun", "branches", "sourceId"])

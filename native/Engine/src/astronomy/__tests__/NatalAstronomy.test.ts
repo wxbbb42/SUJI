@@ -14,7 +14,7 @@ test('natal command returns seven physical objects in a birth-bound fixed-time f
   expect(r).toMatchObject({schemaVersion:1,engineRevision:'development-unbundled',birthKey:JSON.stringify([2000,1,15,12,0,'男',116.4,'Asia/Shanghai']),
     time:{wallClock:'2000-01-15T12:00',instantUTC:'2000-01-15T04:00:00.000Z',interpretation:'fixed-utc-plus-8-v1',utPolicy:'utc-as-ut1-v1',deltaTModel:'espenak-meeus-v1'},
     sevenBodies:{moduleID:'geocentric-seven-bodies',methodVersion:'astronomy-engine-2.1.19-geocentric-v1'},
-    unsupported:['four-residuals','houses','life-degree','traditional-angle-units']});
+    unsupported:['traditional-angle-units','qizheng-event-judgment','qizheng-directions']});
   expect(r.sevenBodies.positions.map((p:any)=>p.body)).toEqual(bodies);
   expect((r.time.julianDayTT-r.time.julianDayUT)*86400).toBeCloseTo(r.time.deltaTSeconds,3);
   for(const p of r.sevenBodies.positions) {

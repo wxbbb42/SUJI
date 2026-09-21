@@ -504,6 +504,7 @@ export interface XiangShenInfo {
 
 /** 救应路径 */
 export interface JiuYingInfo {
+  adjudication?: {status:import('./rescueAdjudication').RescuePathStatus;outcomeEstablished:false};
   triggerGan?: TianGan;
   triggerPosition?: number;    // 0 year / 1 month / 2 day / 3 hour; bind to one occurrence.
   remedyPosition?: number;     // Actual exposed remedy column; not every same-named stem.
@@ -521,6 +522,8 @@ export type GeJuRank = 'shang' | 'zhong' | 'xia';
 
 /** 结构化格局（《子平真诠》成败救应 + 相神 + 高低）*/
 export interface GeJuV2 {
+  rescueEvidence?: import('./rescueAdjudication').RescueAdjudication;
+  specialPatternEvidence?: import('./zhuanWang').ZhuanWangAdjudication;
   conditionalEvidence?: ReturnType<typeof import('./structural').computePatternConditions>;
   phaseId: string;             // 引用 PhaseRegistry
   name: string;

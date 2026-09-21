@@ -219,7 +219,7 @@ import SujiCore
     }
 
     private func isSuccessfulCalculation(_ raw: String) -> Bool {
-        guard let document = try? Document(data: Data(raw.utf8)) else { return false }
+        guard let document = try? Document(receiptOutput: raw) else { return false }
         return !document.dictionary.isEmpty && document.dictionary["error"] == nil
     }
 
@@ -252,8 +252,10 @@ import SujiCore
     }
     @ViewBuilder private func toolResults(_ values: [String]) -> some View {
         ForEach(Array(values.enumerated()), id: \.offset) { _, raw in
-            if let doc = try? Document(data: Data(raw.utf8)), !doc["benGua"]["name"].text.isEmpty { HexagramResultView(document: doc) }
-            else if let doc = try? Document(data: Data(raw.utf8)), !doc["palaces"].array.isEmpty { QimenResultView(document: doc) }
+            if let doc = try? Document(receiptOutput: raw) {
+                if !doc["benGua"]["name"].text.isEmpty { HexagramResultView(document: doc) }
+                else if !doc["palaces"].array.isEmpty { QimenResultView(document: doc) }
+            }
         }
     }
 }

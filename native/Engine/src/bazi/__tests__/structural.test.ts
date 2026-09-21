@@ -389,7 +389,7 @@ describe('detectHuaQi / detectCongGe / detectZhuanWang — 结构化布尔', () 
     expect(r.congWx).toBe('火');
   });
 
-  it('detectZhuanWang: 比劫≥4 + 印≥1 + 克泄≤1 → 曲直格', () => {
+  it('detectZhuanWang: 方局不全的纯印比结构保留徐注候选', () => {
     const r = detectZhuanWang('甲', ['甲', '乙', '甲', '癸'], ['卯', '卯', '卯', '亥']);
     expect(r.isZhuanWang).toBe(true);
     expect(r.name).toBe('曲直格');

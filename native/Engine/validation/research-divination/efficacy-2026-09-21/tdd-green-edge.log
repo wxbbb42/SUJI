@@ -1,0 +1,29 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand --runTestsByPath src/divination/__tests__/Efficacy.test.ts
+
+PASS src/divination/__tests__/Efficacy.test.ts
+  ✓ explicit self selects the actual shi object, while missing relationship retains context gap (4 ms)
+  ✓ unique original remains selected even when void; two appearances never use arbitrary order or void priority (1 ms)
+  ✓ 巳月乙未大过之鼎: rootless target blocks rescue despite actual yuan/ji movers (1 ms)
+  ✓ 申月己丑恒: strong uninjured metal tomb is nonbinding but remains a delayed opening reference
+  ✓ 未月戊辰蛊之损: source month-break opens both actual moving and own-change 丑 tombs (1 ms)
+  ✓ calendar support cannot override an actual moving attacker or a return-control transformation (1 ms)
+  ✓ month support with day control remains balanced, never labelled unconditionally strong
+  ✓ 旺土遇巳论生不论绝; a real attacker prevents automatic override
+  ✓ unrescued weak fire in water season has effective day extinction, not just structural lookup
+  ✓ static triad coincidence does not form a moving combination; one actual mover remains source-limited (1 ms)
+  ✓ two moving and one static keeps the contradictory source reading explicitly
+  ✓ 离之坤: endpoint scopes form, but actual changed 丑 void blocks the outer group now (1 ms)
+  ✓ 小过之艮 calendar shi route is selected; non-shi generalization cannot assert formation (1 ms)
+  ✓ question reassessment recomputes selection and efficacy without changing saved facts or casting (1 ms)
+  ✓ every reported evidence path resolves an existing original fact; no changed cross-position attacker exists (9 ms)
+  ✓ 巳 extinction reference cannot supply its own prerequisite that earth was already supported
+  ✓ a complete three-moving original group is distinct from two-moving text competition
+  ✓ no month/day candidate ever gets replaced by a hidden candidate in the same absent-visible case
+
+Test Suites: 1 passed, 1 total
+Tests:       18 passed, 18 total
+Snapshots:   0 total
+Time:        1.135 s
+Ran all test suites within paths "src/divination/__tests__/Efficacy.test.ts".

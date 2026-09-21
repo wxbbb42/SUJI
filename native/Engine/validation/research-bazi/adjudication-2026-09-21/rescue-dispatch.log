@@ -1,0 +1,16 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand src/ai/tools/__tests__/BaziAdjudicationDispatch.test.ts
+
+PASS src/ai/tools/__tests__/BaziAdjudicationDispatch.test.ts
+  Bazi adjudication through actual get_domain dispatch
+    ✓ returns earth formation and the original civil Jie elapsed context (73 ms)
+    ✓ returns positional rescue limits with same-element roots and preserves the unrescued duplicate (49 ms)
+    ✓ preserves adjudication through durable natal and profile paths: {"year":1980,"month":1,"day":26,"hour":7,"minute":30,"gender":"男","longitude":120,"timeZoneID":"Asia/Shanghai"} (54 ms)
+    ✓ preserves adjudication through durable natal and profile paths: {"year":1993,"month":6,"day":8,"hour":13,"minute":30,"gender":"男","longitude":120,"timeZoneID":"Asia/Shanghai"} (34 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+Snapshots:   0 total
+Time:        1.425 s
+Ran all test suites matching /src\/ai\/tools\/__tests__\/BaziAdjudicationDispatch.test.ts/i.

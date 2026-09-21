@@ -83,6 +83,7 @@ const aggregatedHandlers: Record<string, ToolHandler> = {
       domain,
       bazi: {
         ...baziPart as object,
+        birthDateTime: ctx.mingPan?.birthDateTime,
         pillars: ctx.mingPan?.siZhu,
         dayMaster: ctx.mingPan?.riZhu,
         tenGodRelationships: ctx.mingPan?.shiShenRelations,

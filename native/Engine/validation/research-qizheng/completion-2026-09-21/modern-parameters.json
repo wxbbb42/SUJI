@@ -1,0 +1,46 @@
+{
+  "moira": {
+    "id": "moira-purple-7474e5f",
+    "url": "https://github.com/tutorial0/moira_macOS/blob/7474e5fb6676bc1510dea3501bf9ae905238bad0/moira_s.prop",
+    "quotes": [
+      "dialog_sign_true_north=\"计北罗南\"",
+      "dialog_sign_true_south=\"计南罗北\"",
+      "# 紫炁, period = 10227.1792, on March 13, 1975 at 16:00 GMT, 紫炁 is at 230.5 degree",
+      "purple_period=10227.1792",
+      "purple_base_date=1975, 3, 13, 16, 0",
+      "purple_base_degree=230.5"
+    ],
+    "scope": "Only mathematical parameters and named selectable node-axis conventions; no GPL implementation copied into product.",
+    "rawURL": "https://raw.githubusercontent.com/tutorial0/moira_macOS/7474e5fb6676bc1510dea3501bf9ae905238bad0/moira_s.prop",
+    "rawFile": "moira_s.prop",
+    "rawEncoding": "UTF-16BE with BOM",
+    "rawSHA256": "9e484843e3d2d433851fa6fb8a0c5ff3062f0114476493ecbacb5931f5518a93",
+    "textFile": "moira_s.prop.utf8.txt",
+    "textEncoding": "UTF-8 with BOM",
+    "textSHA256": "483b69d733bf5599ba2a7e9f999e0af1521d860d9218d9666ee04edfe03ab0f0",
+    "conversion": "Decode raw bytes with utf-16-be, retaining U+FEFF, then encode UTF-8 without newline normalization. The former ambiguous sha256 field was this converted-text hash, not the response-body hash.",
+    "epochQuoteLocator": "decoded source lines 1149–1152"
+  },
+  "meanElements": {
+    "id": "iers2003-simon1994",
+    "url": "https://github.com/liberfa/erfa/tree/v2.0.1/src",
+    "definitions": [
+      "faom03 mean ascending node",
+      "faf03 mean longitude minus ascending node",
+      "fal03 mean anomaly"
+    ],
+    "time": "TT approximation to TDB per ERFA documentation",
+    "files": {
+      "faom03.c": "d101f54bc44c92786cc91daa9700625f17d7e83226adc9787e0fe100e148aa49",
+      "faf03.c": "f58a0dc1fc1595af02e906c7d08da3e8e941a66b3ac6df9047a1718db314b3b6",
+      "fal03.c": "0bc94f25a7722de16379f9311da74e9b132e9db52db4e597f7d24e9060529779"
+    }
+  },
+  "meanInclination": {
+    "valueDegrees": 5.1453964,
+    "source": "Astronomical Almanac1996 D2, as cited by Swiss2.10.03 sweph.h",
+    "url": "https://github.com/aloistr/swisseph/blob/v2.10.03/sweph.h#L261",
+    "quote": "#define MOON_MEAN_INCL  5.1453964\t\t/* AA 1996, D2 */",
+    "definition": "Mean lunar plane, not instantaneous true node or osculating apogee"
+  }
+}

@@ -7,7 +7,8 @@ struct ReadingEvidenceView: View {
         List {
             ForEach(receipts, id: \.callID) { receipt in
                 Section(ChatSession.toolLabel(receipt.name)) {
-                    let document = (try? Document(data: Data(receipt.output.utf8))) ?? Document([:])
+                    let data = ["cast_liuyao", "reassess_liuyao", "setup_qimen", "reassess_qimen"].contains(receipt.name) ? (try? CastReceiptStorage.expandedData(receipt.output)) : Data(receipt.output.utf8)
+                    let document = data.flatMap { try? Document(data:$0) } ?? Document([:])
                     if let trace = baziStrengthTrace(pillars: document["bazi"]["pillars"], strength: document["bazi"]["strengthReference"], structure: document["bazi"]["structureReference"]) {
                         VStack(alignment: .leading, spacing: 14) {
                             Text("扶抑参考的来由").font(.headline).accessibilityAddTraits(.isHeader)

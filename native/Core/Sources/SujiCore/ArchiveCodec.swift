@@ -129,7 +129,8 @@ public enum ArchiveCodec {
                 if let context = receipt.context, !context.isValid { throw DomainError.invalidArchive }
                 guard !receipt.callID.isEmpty, receipt.callID.count <= 512,
                       callIDs.insert(receipt.callID).inserted,
-                      ToolOrchestrator.allowedToolNames.contains(receipt.name),
+                      (ToolOrchestrator.allowedToolNames.contains(receipt.name) ||
+                       ["reassess_liuyao", "reassess_qimen"].contains(receipt.name)),
                       receipt.output.count <= 1_000_000,
                       receipt.evidence.count <= 1_000,
                       receipt.evidence.allSatisfy({ $0.count <= 20_000 }) else {

@@ -1,0 +1,1085 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand
+
+FAIL src/divination/__tests__/QuestionCapacity.test.ts (7.613 s)
+  ● exhaustive question metadata and conditional timing capacity probe
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 65536
+    Received:   70872
+
+      15 |  // storage envelope; DivinationEvidenceTests enforce the unchanged real wire
+      16 |  // limits plus exact chart/fact roundtrips through the Swift transport.
+    > 17 |  expect(top[0].size).toBeLessThan(64 * 1024);
+         |                      ^
+      18 | });
+      19 |
+
+      at Object.<anonymous> (src/divination/__tests__/QuestionCapacity.test.ts:17:22)
+
+PASS src/ziwei/__tests__/Accuracy.test.ts
+PASS src/divination/__tests__/GuaRelations.test.ts
+PASS src/divination/__tests__/Triads.test.ts
+PASS src/divination/__tests__/NajiaAccuracy.test.ts
+PASS src/divination/__tests__/ConditionalRules.test.ts
+PASS src/divination/__tests__/Fanfu.test.ts
+FAIL src/divination/__tests__/Efficacy.test.ts
+  ● 巳 extinction reference cannot supply its own prerequisite that earth was already supported
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "conditional"
+    Received: "overridden-by-generation"
+
+      138 | test('巳 extinction reference cannot supply its own prerequisite that earth was already supported',()=>{
+      139 |   const r=run([7,7,7,7,7,7],'癸亥','乙巳'); // 土 at 辰: winter rest; the only support is the contested 巳 itself.
+    > 140 |   expect(object(r,'/lines/2')?.extinctions.find((x:any)=>x.scope==='day')?.status).toBe('conditional');
+          |                                                                                    ^
+      141 | });
+      142 |
+      143 | test('a complete three-moving original group is distinct from two-moving text competition',()=>{
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:140:84)
+
+  ● no month/day candidate ever gets replaced by a hidden candidate in the same absent-visible case
+
+    expect(received).toEqual(expected) // deep equality
+
+    Expected: ["month", "day"]
+    Received: undefined
+
+      150 |   expect(r.efficacy?.selection.status).toBe('multiple-candidates');
+      151 |   expect(r.efficacy?.selection.selectedCandidateId).toBeNull();
+    > 152 |   expect(r.efficacy?.selection.eligibleCandidateIds).toEqual(['month','day']);
+          |                                                      ^
+      153 | });
+      154 |
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:152:54)
+
+PASS src/astronomy/__tests__/NatalAstronomy.test.ts
+PASS src/divination/__tests__/CoreFacts.test.ts
+PASS src/ziwei/__tests__/Monthly.test.ts
+PASS src/bazi/__tests__/zhuanWangAdjudication.test.ts
+PASS src/calendar/__tests__/precision.test.ts
+PASS src/ai/tools/__tests__/bridge.test.ts
+PASS src/ai/tools/__tests__/natal.test.ts
+PASS src/calibration/__tests__/extractZiweiEvents.test.ts
+PASS src/ziwei/__tests__/DayBoundary.test.ts
+PASS src/ziwei/__tests__/Timing.test.ts
+PASS src/divination/__tests__/ProfessionalLiuyaoAudit.test.ts
+PASS src/calibration/__tests__/integration-real.test.ts
+PASS src/calibration/__tests__/buildCandidates.test.ts
+PASS src/ziwei/__tests__/PalaceFlights.test.ts
+PASS src/ziwei/__tests__/ZiweiEngine.test.ts
+PASS src/ziwei/__tests__/PalaceContext.test.ts
+PASS src/bazi/__tests__/strengthEvidence.test.ts
+PASS src/astronomy/__tests__/Mansions.test.ts
+FAIL src/divination/__tests__/QuestionReassessment.test.ts
+  ● existing-chart question reassessment › cast_liuyao retains every original fact without recasting or reading current time
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 33
+    + Received  + 19
+
+    @@ -1168,89 +1168,75 @@
+          "outcomeEstablished": false,
+          "selectedEffect": Object {
+            "blockers": Array [
+              Object {
+                "factPaths": Array [
+    -             "/lines/1/isChanging",
+    +             "/lines/4/isChanging",
+    +             "/lines/4/wuXing",
+                  "/lines/1/wuXing",
+    -             "/lines/5/wuXing",
+                ],
+                "id": "moving-control",
+              },
+              Object {
+                "factPaths": Array [
+    -             "/lines/2/isChanging",
+    -             "/lines/2/ganZhi",
+    -             "/lines/5/ganZhi",
+    +             "/lines/4/isChanging",
+    +             "/lines/4/ganZhi",
+    +             "/lines/1/ganZhi",
+                ],
+                "id": "moving-clash",
+              },
+            ],
+            "conditions": Array [
+              Object {
+                "factPaths": Array [
+    -             "/lines/5/context/month/elementRelation",
+    -           ],
+    -           "id": "calendar-support",
+    -         },
+    -         Object {
+    -           "factPaths": Array [
+    -             "/lines/5/context/day/elementRelation",
+    -           ],
+    -           "id": "calendar-support",
+    -         },
+    -         Object {
+    -           "factPaths": Array [
+    -             "/lines/0/isChanging",
+    -             "/lines/0/wuXing",
+    -             "/lines/5/wuXing",
+    +             "/lines/2/isChanging",
+    +             "/lines/2/wuXing",
+    +             "/lines/1/wuXing",
+                ],
+                "id": "moving-support-requires-actor",
+              },
+              Object {
+                "factPaths": Array [
+    -             "/lines/3/isChanging",
+    -             "/lines/3/wuXing",
+    -             "/lines/5/wuXing",
+    +             "/lines/1/changed/wuXing",
+    +             "/lines/1/wuXing",
+                ],
+    -           "id": "moving-support-requires-actor",
+    +           "id": "return-generation",
+              },
+              Object {
+                "factPaths": Array [
+    -             "/lines/5/changed/wuXing",
+    -             "/lines/5/wuXing",
+    +             "/lines/1/context/isVoid",
+                ],
+    -           "id": "return-generation",
+    +           "id": "current-void",
+              },
+              Object {
+                "factPaths": Array [
+    -             "/tombExtinction/objects/10/month",
+    +             "/tombExtinction/objects/2/day",
+                ],
+                "id": "structural-reference",
+              },
+              Object {
+                "factPaths": Array [
+    -             "/tombExtinction/objects/10/movingTombPositions",
+    +             "/tombExtinction/objects/2/movingExtinctionPositions",
+                ],
+                "id": "structural-reference",
+              },
+            ],
+    -       "status": "conditional",
+    +       "status": "awaiting-condition",
+          },
+          "selection": Object {
+            "candidateIds": Array [
+    -         "original-6",
+    +         "original-2",
+            ],
+            "eligibleCandidateIds": Array [
+    -         "original-6",
+    +         "original-2",
+            ],
+            "factPaths": Array [
+              "/questionContext",
+              "/yongShen/candidates",
+              "/yongShen/missingContext",
+            ],
+    -       "selectedCandidateId": "original-6",
+    +       "selectedCandidateId": "original-2",
+            "status": "selected",
+          },
+          "sourceId": "liuyao-efficacy-zengshan-v1",
+          "triads": Array [
+            Object {
+
+      36 |    const result=envelope.result;
+      37 |    expect(source).toEqual(before);
+    > 38 |    expect(immutable(result,name)).toEqual(immutable(before,name));
+         |                                   ^
+      39 |    expect(result.questionContext).toEqual({subject:'parent',event:'父亲的情况',timeHorizon:'far'});
+      40 |    expect(result.yongShen.selectedCandidateId).toBeNull();
+      41 |    expect(result.yongShen.selectionEstablished).toBe(false);
+
+      at src/divination/__tests__/QuestionReassessment.test.ts:38:35
+
+PASS src/calendar/__tests__/publicBirthAudit.test.ts
+PASS src/divination/__tests__/RoleRelations.test.ts
+PASS src/bazi/__tests__/structural.test.ts
+PASS src/bazi/__tests__/patternConditions.test.ts
+PASS src/bazi/__tests__/SiLing.test.ts
+PASS src/bazi/__tests__/tiaohou.test.ts
+PASS src/divination/__tests__/QuestionJudgment.test.ts
+PASS src/astronomy/__tests__/LicenseNotices.test.ts
+PASS src/bazi/__tests__/professionalAudit.test.ts
+PASS src/bazi/__tests__/stemAccuracy.test.ts
+PASS src/qimen/__tests__/professionalAudit.test.ts
+PASS src/qimen/__tests__/geju.test.ts
+PASS src/ziwei/__tests__/iztro-smoke.test.ts
+PASS src/qimen/__tests__/CoreFacts.test.ts
+PASS src/qimen/helpers/__tests__/accuracy.test.ts
+PASS src/divination/__tests__/HexagramEngine.test.ts
+PASS src/ai/tools/__tests__/index.test.ts
+PASS src/bazi/__tests__/professionalTables.test.ts
+PASS src/qimen/__tests__/QuestionObjects.test.ts
+PASS src/qimen/__tests__/QimenEngine.test.ts
+PASS src/qimen/__tests__/QimenEngine.fixture.test.ts
+PASS src/divination/__tests__/TombExtinction.test.ts
+PASS src/ai/tools/__tests__/validation.test.ts
+PASS src/ai/tools/__tests__/bazi.test.ts
+PASS src/ai/tools/__tests__/qimen.test.ts
+PASS src/qimen/helpers/__tests__/solarTerms.test.ts
+PASS src/ai/tools/__tests__/liuyao.test.ts
+PASS src/qimen/data/__tests__/jieqi-ju.test.ts
+PASS src/ai/tools/__tests__/ziwei.test.ts
+PASS src/bazi/__tests__/phaseRegistry.test.ts
+PASS src/bazi/__tests__/multiSchoolVote.test.ts
+PASS src/calibration/__tests__/extractEvents.test.ts
+PASS src/utils/__tests__/date.test.ts
+PASS src/ai/tools/__tests__/evidence.test.ts
+FAIL src/qimen/__tests__/Timing.test.ts
+  ● source-selected Qimen timing on an immutable original plate › binds employment to the actual opening door and lets palace void override the same palace horse
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 4
+    + Received  + 1
+
+      Object {
+    -   "established": true,
+    -   "objectPath": "/palaces/0/bamen",
+    -   "palaceId": 2,
+    -   "symbol": "开门",
+    +   "established": false,
+      }
+
+      29 |   it('binds employment to the actual opening door and lets palace void override the same palace horse',()=>{
+      30 |     const c=plate(),saved=JSON.stringify(c),r=run(c);
+    > 31 |     expect(r.selection).toMatchObject({established:true,symbol:'开门',palaceId:2,objectPath:'/palaces/0/bamen'});
+         |                         ^
+      32 |     expect(r.triggers.map(t=>[t.ruleId,t.branches])).toEqual([['void-fill',['未','申']],['void-clash',['丑','寅']]]);
+      33 |     expect(r.opposing).toEqual(expect.arrayContaining([expect.objectContaining({ruleId:'horse-value',reason:'suppressed-by-void'})]));
+      34 |     expect(r.supported).toEqual(expect.arrayContaining([expect.objectContaining({condition:'palace-void',factPaths:['/hourVoid/palaces/0'],coverage:'partial'})]));
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:31:25)
+
+  ● source-selected Qimen timing on an immutable original plate › enumerates the chapter-6 Zi-day empty-Kun example as Chou/Yin before fill, with 23:00 boundaries
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 18
+    + Received  +  1
+
+    - Array [
+    -   Array [
+    -     "己丑",
+    -     "2004-05-09T15:00:00.000Z",
+    -     "2004-05-10T15:00:00.000Z",
+    -     Array [
+    -       "void-clash",
+    -     ],
+    -   ],
+    -   Array [
+    -     "庚寅",
+    -     "2004-05-10T15:00:00.000Z",
+    -     "2004-05-11T15:00:00.000Z",
+    -     Array [
+    -       "void-clash",
+    -     ],
+    -   ],
+    - ]
+    + Array []
+
+      38 |   it('enumerates the chapter-6 Zi-day empty-Kun example as Chou/Yin before fill, with 23:00 boundaries',()=>{
+      39 |     const r=run();
+    > 40 |     expect(r.dates.slice(0,2).map(d=>[d.ganZhi,d.startsAt,d.endsAt,d.triggerIds])).toEqual([
+         |                                                                                    ^
+      41 |       ['己丑','2004-05-09T15:00:00.000Z','2004-05-10T15:00:00.000Z',['void-clash']],
+      42 |       ['庚寅','2004-05-10T15:00:00.000Z','2004-05-11T15:00:00.000Z',['void-clash']],
+      43 |     ]);
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:40:84)
+
+  ● source-selected Qimen timing on an immutable original plate › uses fill first in the chapter-6 Si-day empty-Kun example
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 14
+    + Received  +  1
+
+    - Array [
+    -   Array [
+    -     "乙未",
+    -     Array [
+    -       "void-fill",
+    -     ],
+    -   ],
+    -   Array [
+    -     "丙申",
+    -     Array [
+    -       "void-fill",
+    -     ],
+    -   ],
+    - ]
+    + Array []
+
+      47 |   it('uses fill first in the chapter-6 Si-day empty-Kun example',()=>{
+      48 |     const r=run(plate({setupTime:'2004-05-14T04:00:00.000Z',dayGanZhi:'癸巳'}));
+    > 49 |     expect(r.dates.slice(0,2).map(d=>[d.ganZhi,d.triggerIds])).toEqual([['乙未',['void-fill']],['丙申',['void-fill']]]);
+         |                                                                ^
+      50 |   });
+      51 |   it('requires the explicit unit and bounded window despite a near horizon',()=>{
+      52 |     const r=run(plate(),{focus:'employment',event:'本月工作事项'});
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:49:64)
+
+  ● source-selected Qimen timing on an immutable original plate › requires the explicit unit and bounded window despite a near horizon
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 2
+    Received length: 0
+    Received array:  []
+
+      51 |   it('requires the explicit unit and bounded window despite a near horizon',()=>{
+      52 |     const r=run(plate(),{focus:'employment',event:'本月工作事项'});
+    > 53 |     expect(r.triggers).toHaveLength(2);expect(r.dates).toEqual([]);
+         |                        ^
+      54 |     expect(r.unresolved).toEqual(expect.arrayContaining(['time-unit','calendar-window']));
+      55 |   });
+      56 |   it('uses only the selected palace horse, suppresses tomb, and never borrows another palace void',()=>{
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:53:24)
+
+  ● source-selected Qimen timing on an immutable original plate › uses only the selected palace horse, suppresses tomb, and never borrows another palace void
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 14
+    + Received  +  1
+
+    - Array [
+    -   Array [
+    -     "horse-value",
+    -     Array [
+    -       "寅",
+    -     ],
+    -   ],
+    -   Array [
+    -     "horse-clash",
+    -     Array [
+    -       "申",
+    -     ],
+    -   ],
+    - ]
+    + Array []
+
+      59 |     c.horse={...c.horse!,branch:'寅',palaceId:8};
+      60 |     const r=run(c);
+    > 61 |     expect(r.triggers.map(t=>[t.ruleId,t.branches])).toEqual([['horse-value',['寅']],['horse-clash',['申']]]);
+         |                                                      ^
+      62 |     expect(r.opposing).toEqual(expect.arrayContaining([expect.objectContaining({ruleId:'tomb-value',reason:'suppressed-by-horse'})]));
+      63 |     c.horse={...c.horse,branch:'申',palaceId:2};
+      64 |     expect(run(c).triggers.map(t=>[t.ruleId,t.branches])).toEqual([['tomb-value',['丑']],['tomb-clash',['未']]]);
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:61:54)
+
+  ● source-selected Qimen timing on an immutable original plate › retains competing same-tier stem tomb and instrument punishment without making one win
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 20
+    + Received  +  1
+
+    - Array [
+    -   Array [
+    -     "tomb-value",
+    -     Array [
+    -       "丑",
+    -     ],
+    -   ],
+    -   Array [
+    -     "tomb-clash",
+    -     Array [
+    -       "未",
+    -     ],
+    -   ],
+    -   Array [
+    -     "punishment-combine",
+    -     Array [
+    -       "巳",
+    -     ],
+    -   ],
+    - ]
+    + Array []
+
+      67 |     const c=plate({dayGanZhi:'庚子',hourVoid:{...plate().hourVoid!,palaces:[]}});
+      68 |     const r=run(c,{...request,focus:'self'});
+    > 69 |     expect(r.triggers.map(t=>[t.ruleId,t.branches])).toEqual([['tomb-value',['丑']],['tomb-clash',['未']],['punishment-combine',['巳']]]);
+         |                                                      ^
+      70 |     expect(r.conflicts).toEqual(expect.arrayContaining([expect.objectContaining({ruleIds:['tomb-value','tomb-clash','punishment-combine']})]));
+      71 |   });
+      72 |   it('applies the literal Xin-in-Li punishment example to the chosen original stem',()=>{
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:69:54)
+
+  ● source-selected Qimen timing on an immutable original plate › applies the literal Xin-in-Li punishment example to the chosen original stem
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 8
+    + Received  + 1
+
+    - Array [
+    -   Array [
+    -     "punishment-combine",
+    -     Array [
+    -       "未",
+    -     ],
+    -   ],
+    - ]
+    + Array []
+
+      73 |     const c=plate({dayGanZhi:'辛卯'});
+      74 |     const r=run(c,{...request,focus:'self'});
+    > 75 |     expect(r.triggers.map(t=>[t.ruleId,t.branches])).toEqual([['punishment-combine',['未']]]);
+         |                                                      ^
+      76 |     expect(r.dates[0].ganZhi).toBe('乙未');
+      77 |   });
+      78 |   it('refuses wrong/ambiguous occurrences, proxy-self and incompatible chart conventions',()=>{
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:75:54)
+
+  ● source-selected Qimen timing on an immutable original plate › refuses wrong/ambiguous occurrences, proxy-self and incompatible chart conventions
+
+    expect(received).toContain(expected) // indexOf
+
+    Expected value: "incompatible-chart-method"
+    Received array: []
+
+      81 |     expect(run(plate({questionContext:{subject:'parent'}}),{...request,focus:'self'}).selection.established).toBe(false);
+      82 |     const c=plate();c.palaces[1].bamen='开门';expect(run(c).selection.established).toBe(false);
+    > 83 |     c.method.algorithm='other';expect(run(c).unresolved).toContain('incompatible-chart-method');
+         |                                                          ^
+      84 |   });
+      85 |   it('selects hosted sky independently and does not use its earth or center record',()=>{
+      86 |     const c=plate({dayGanZhi:'乙丑'});c.palaces[0].hostedDiPanGan='乙';c.palaces[2].hostedTianPanGan='乙';
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:83:58)
+
+  ● source-selected Qimen timing on an immutable original plate › selects hosted sky independently and does not use its earth or center record
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 3
+    + Received  + 2
+
+      Object {
+    -   "objectPath": "/palaces/2/hostedTianPanGan",
+    -   "palaceId": 9,
+    -   "symbol": "乙",
+    +   "established": false,
+    +   "reason": "not-implemented",
+      }
+
+      86 |     const c=plate({dayGanZhi:'乙丑'});c.palaces[0].hostedDiPanGan='乙';c.palaces[2].hostedTianPanGan='乙';
+      87 |     const r=run(c,{...request,focus:'self'});
+    > 88 |     expect(r.selection).toMatchObject({objectPath:'/palaces/2/hostedTianPanGan',palaceId:9,symbol:'乙'});
+         |                         ^
+      89 |     expect(r.triggers.map(t=>t.ruleId)).toEqual(['palace-branch-reference']);
+      90 |   });
+      91 |   it('uses explicit current inclusion and reports result truncation',()=>{
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:88:25)
+
+  ● source-selected Qimen timing on an immutable original plate › uses explicit current inclusion and reports result truncation
+
+    expect(received).toMatchObject(expected)
+
+    Matcher error: received value must be a non-null object
+
+    Received has value: undefined
+
+      92 |     const c=plate({setupTime:'2004-05-10T04:00:00.000Z'});
+      93 |     const include=run(c,{...request,window:{...request.window!,includeCurrent:true,maxCandidates:1}});
+    > 94 |     expect(include.dates[0]).toMatchObject({ganZhi:'己丑',eligibleStart:'2004-05-10T04:00:00.000Z'});
+         |                              ^
+      95 |     expect(include.searchPolicy).toMatchObject({truncated:true,searchComplete:false,reason:'candidate-limit'});
+      96 |     expect(run(c).dates[0].ganZhi).toBe('庚寅');
+      97 |   });
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:94:30)
+
+  ● source-selected Qimen timing on an immutable original plate › bounds long searches and validates date/unit/limit input instead of interpreting arbitrary JS dates
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 2
+    + Received  + 2
+
+      Object {
+    -   "reason": "period-limit",
+    +   "reason": "not-enumerated",
+        "searchComplete": false,
+    -   "truncated": true,
+    +   "truncated": false,
+      }
+
+       97 |   });
+       98 |   it('bounds long searches and validates date/unit/limit input instead of interpreting arbitrary JS dates',()=>{
+    >  99 |     expect(run(plate(),{...request,window:{end:'2009-01-01T00:00:00Z',maxCandidates:256}}).searchPolicy).toMatchObject({truncated:true,searchComplete:false,reason:'period-limit'});
+          |                                                                                                          ^
+      100 |     for(const window of [{end:'2004-05-20'}, {end:'2004-02-30T00:00:00Z'}, {end:'2004-01-01T00:00:00Z'}, {end:'2005-01-01T00:00:00Z',maxCandidates:0}]) {
+      101 |       expect(()=>run(plate(),{...request,window})).toThrow();
+      102 |     }
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:99:106)
+
+  ● source-selected Qimen timing on an immutable original plate › uses actual Jie and Lichun boundaries for months/years, with all reason IDs retained
+
+    TypeError: Cannot read properties of undefined (reading 'ganZhi')
+
+      104 |   it('uses actual Jie and Lichun boundaries for months/years, with all reason IDs retained',()=>{
+      105 |     const month=run(plate(),{...request,timeUnit:'month',window:{end:'2005-01-01T00:00:00Z'}});
+    > 106 |     expect(month.dates[0].ganZhi).toBe('辛未');
+          |                           ^
+      107 |     expect(month.dates[0].startsAt.slice(0,10)).toBe('2004-07-06'); // 小暑 UTC date, not lunar 6/1.
+      108 |     const year=run(plate(),{...request,timeUnit:'year',window:{end:'2011-01-01T00:00:00Z'}});
+      109 |     expect(year.dates[0].ganZhi).toBe('己丑');
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:106:27)
+
+  ● source-selected Qimen timing on an immutable original plate › matches the source 2004-05-29 noon plate and exposes timing only when requested
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "甲寅"
+    Received: undefined
+
+      118 |     const timed=e.setup({...args,timingRequest:{...request,window:{end:'2004-06-10T00:00:00Z'}}});
+      119 |     expect(timed.palaces).toEqual(original.palaces);
+    > 120 |     expect(timed.timing?.dates[0].ganZhi).toBe('甲寅');
+          |                                           ^
+      121 |     const derived=e.reassessQuestion(timed,{question:'新问财务',questionType:'wealth',questionContext:{subject:'self',event:'新问题',timeHorizon:'far'}});
+      122 |     expect(derived.timing).toBeUndefined();expect(derived.palaces).toBe(timed.palaces);
+      123 |   });
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:120:43)
+
+Summary of all failing tests
+FAIL src/divination/__tests__/QuestionCapacity.test.ts (7.613 s)
+  ● exhaustive question metadata and conditional timing capacity probe
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 65536
+    Received:   70872
+
+      15 |  // storage envelope; DivinationEvidenceTests enforce the unchanged real wire
+      16 |  // limits plus exact chart/fact roundtrips through the Swift transport.
+    > 17 |  expect(top[0].size).toBeLessThan(64 * 1024);
+         |                      ^
+      18 | });
+      19 |
+
+      at Object.<anonymous> (src/divination/__tests__/QuestionCapacity.test.ts:17:22)
+
+FAIL src/divination/__tests__/Efficacy.test.ts
+  ● 巳 extinction reference cannot supply its own prerequisite that earth was already supported
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "conditional"
+    Received: "overridden-by-generation"
+
+      138 | test('巳 extinction reference cannot supply its own prerequisite that earth was already supported',()=>{
+      139 |   const r=run([7,7,7,7,7,7],'癸亥','乙巳'); // 土 at 辰: winter rest; the only support is the contested 巳 itself.
+    > 140 |   expect(object(r,'/lines/2')?.extinctions.find((x:any)=>x.scope==='day')?.status).toBe('conditional');
+          |                                                                                    ^
+      141 | });
+      142 |
+      143 | test('a complete three-moving original group is distinct from two-moving text competition',()=>{
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:140:84)
+
+  ● no month/day candidate ever gets replaced by a hidden candidate in the same absent-visible case
+
+    expect(received).toEqual(expected) // deep equality
+
+    Expected: ["month", "day"]
+    Received: undefined
+
+      150 |   expect(r.efficacy?.selection.status).toBe('multiple-candidates');
+      151 |   expect(r.efficacy?.selection.selectedCandidateId).toBeNull();
+    > 152 |   expect(r.efficacy?.selection.eligibleCandidateIds).toEqual(['month','day']);
+          |                                                      ^
+      153 | });
+      154 |
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:152:54)
+
+FAIL src/divination/__tests__/QuestionReassessment.test.ts
+  ● existing-chart question reassessment › cast_liuyao retains every original fact without recasting or reading current time
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 33
+    + Received  + 19
+
+    @@ -1168,89 +1168,75 @@
+          "outcomeEstablished": false,
+          "selectedEffect": Object {
+            "blockers": Array [
+              Object {
+                "factPaths": Array [
+    -             "/lines/1/isChanging",
+    +             "/lines/4/isChanging",
+    +             "/lines/4/wuXing",
+                  "/lines/1/wuXing",
+    -             "/lines/5/wuXing",
+                ],
+                "id": "moving-control",
+              },
+              Object {
+                "factPaths": Array [
+    -             "/lines/2/isChanging",
+    -             "/lines/2/ganZhi",
+    -             "/lines/5/ganZhi",
+    +             "/lines/4/isChanging",
+    +             "/lines/4/ganZhi",
+    +             "/lines/1/ganZhi",
+                ],
+                "id": "moving-clash",
+              },
+            ],
+            "conditions": Array [
+              Object {
+                "factPaths": Array [
+    -             "/lines/5/context/month/elementRelation",
+    -           ],
+    -           "id": "calendar-support",
+    -         },
+    -         Object {
+    -           "factPaths": Array [
+    -             "/lines/5/context/day/elementRelation",
+    -           ],
+    -           "id": "calendar-support",
+    -         },
+    -         Object {
+    -           "factPaths": Array [
+    -             "/lines/0/isChanging",
+    -             "/lines/0/wuXing",
+    -             "/lines/5/wuXing",
+    +             "/lines/2/isChanging",
+    +             "/lines/2/wuXing",
+    +             "/lines/1/wuXing",
+                ],
+                "id": "moving-support-requires-actor",
+              },
+              Object {
+                "factPaths": Array [
+    -             "/lines/3/isChanging",
+    -             "/lines/3/wuXing",
+    -             "/lines/5/wuXing",
+    +             "/lines/1/changed/wuXing",
+    +             "/lines/1/wuXing",
+                ],
+    -           "id": "moving-support-requires-actor",
+    +           "id": "return-generation",
+              },
+              Object {
+                "factPaths": Array [
+    -             "/lines/5/changed/wuXing",
+    -             "/lines/5/wuXing",
+    +             "/lines/1/context/isVoid",
+                ],
+    -           "id": "return-generation",
+    +           "id": "current-void",
+              },
+              Object {
+                "factPaths": Array [
+    -             "/tombExtinction/objects/10/month",
+    +             "/tombExtinction/objects/2/day",
+                ],
+                "id": "structural-reference",
+              },
+              Object {
+                "factPaths": Array [
+    -             "/tombExtinction/objects/10/movingTombPositions",
+    +             "/tombExtinction/objects/2/movingExtinctionPositions",
+                ],
+                "id": "structural-reference",
+              },
+            ],
+    -       "status": "conditional",
+    +       "status": "awaiting-condition",
+          },
+          "selection": Object {
+            "candidateIds": Array [
+    -         "original-6",
+    +         "original-2",
+            ],
+            "eligibleCandidateIds": Array [
+    -         "original-6",
+    +         "original-2",
+            ],
+            "factPaths": Array [
+              "/questionContext",
+              "/yongShen/candidates",
+              "/yongShen/missingContext",
+            ],
+    -       "selectedCandidateId": "original-6",
+    +       "selectedCandidateId": "original-2",
+            "status": "selected",
+          },
+          "sourceId": "liuyao-efficacy-zengshan-v1",
+          "triads": Array [
+            Object {
+
+      36 |    const result=envelope.result;
+      37 |    expect(source).toEqual(before);
+    > 38 |    expect(immutable(result,name)).toEqual(immutable(before,name));
+         |                                   ^
+      39 |    expect(result.questionContext).toEqual({subject:'parent',event:'父亲的情况',timeHorizon:'far'});
+      40 |    expect(result.yongShen.selectedCandidateId).toBeNull();
+      41 |    expect(result.yongShen.selectionEstablished).toBe(false);
+
+      at src/divination/__tests__/QuestionReassessment.test.ts:38:35
+
+FAIL src/qimen/__tests__/Timing.test.ts
+  ● source-selected Qimen timing on an immutable original plate › binds employment to the actual opening door and lets palace void override the same palace horse
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 4
+    + Received  + 1
+
+      Object {
+    -   "established": true,
+    -   "objectPath": "/palaces/0/bamen",
+    -   "palaceId": 2,
+    -   "symbol": "开门",
+    +   "established": false,
+      }
+
+      29 |   it('binds employment to the actual opening door and lets palace void override the same palace horse',()=>{
+      30 |     const c=plate(),saved=JSON.stringify(c),r=run(c);
+    > 31 |     expect(r.selection).toMatchObject({established:true,symbol:'开门',palaceId:2,objectPath:'/palaces/0/bamen'});
+         |                         ^
+      32 |     expect(r.triggers.map(t=>[t.ruleId,t.branches])).toEqual([['void-fill',['未','申']],['void-clash',['丑','寅']]]);
+      33 |     expect(r.opposing).toEqual(expect.arrayContaining([expect.objectContaining({ruleId:'horse-value',reason:'suppressed-by-void'})]));
+      34 |     expect(r.supported).toEqual(expect.arrayContaining([expect.objectContaining({condition:'palace-void',factPaths:['/hourVoid/palaces/0'],coverage:'partial'})]));
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:31:25)
+
+  ● source-selected Qimen timing on an immutable original plate › enumerates the chapter-6 Zi-day empty-Kun example as Chou/Yin before fill, with 23:00 boundaries
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 18
+    + Received  +  1
+
+    - Array [
+    -   Array [
+    -     "己丑",
+    -     "2004-05-09T15:00:00.000Z",
+    -     "2004-05-10T15:00:00.000Z",
+    -     Array [
+    -       "void-clash",
+    -     ],
+    -   ],
+    -   Array [
+    -     "庚寅",
+    -     "2004-05-10T15:00:00.000Z",
+    -     "2004-05-11T15:00:00.000Z",
+    -     Array [
+    -       "void-clash",
+    -     ],
+    -   ],
+    - ]
+    + Array []
+
+      38 |   it('enumerates the chapter-6 Zi-day empty-Kun example as Chou/Yin before fill, with 23:00 boundaries',()=>{
+      39 |     const r=run();
+    > 40 |     expect(r.dates.slice(0,2).map(d=>[d.ganZhi,d.startsAt,d.endsAt,d.triggerIds])).toEqual([
+         |                                                                                    ^
+      41 |       ['己丑','2004-05-09T15:00:00.000Z','2004-05-10T15:00:00.000Z',['void-clash']],
+      42 |       ['庚寅','2004-05-10T15:00:00.000Z','2004-05-11T15:00:00.000Z',['void-clash']],
+      43 |     ]);
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:40:84)
+
+  ● source-selected Qimen timing on an immutable original plate › uses fill first in the chapter-6 Si-day empty-Kun example
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 14
+    + Received  +  1
+
+    - Array [
+    -   Array [
+    -     "乙未",
+    -     Array [
+    -       "void-fill",
+    -     ],
+    -   ],
+    -   Array [
+    -     "丙申",
+    -     Array [
+    -       "void-fill",
+    -     ],
+    -   ],
+    - ]
+    + Array []
+
+      47 |   it('uses fill first in the chapter-6 Si-day empty-Kun example',()=>{
+      48 |     const r=run(plate({setupTime:'2004-05-14T04:00:00.000Z',dayGanZhi:'癸巳'}));
+    > 49 |     expect(r.dates.slice(0,2).map(d=>[d.ganZhi,d.triggerIds])).toEqual([['乙未',['void-fill']],['丙申',['void-fill']]]);
+         |                                                                ^
+      50 |   });
+      51 |   it('requires the explicit unit and bounded window despite a near horizon',()=>{
+      52 |     const r=run(plate(),{focus:'employment',event:'本月工作事项'});
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:49:64)
+
+  ● source-selected Qimen timing on an immutable original plate › requires the explicit unit and bounded window despite a near horizon
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 2
+    Received length: 0
+    Received array:  []
+
+      51 |   it('requires the explicit unit and bounded window despite a near horizon',()=>{
+      52 |     const r=run(plate(),{focus:'employment',event:'本月工作事项'});
+    > 53 |     expect(r.triggers).toHaveLength(2);expect(r.dates).toEqual([]);
+         |                        ^
+      54 |     expect(r.unresolved).toEqual(expect.arrayContaining(['time-unit','calendar-window']));
+      55 |   });
+      56 |   it('uses only the selected palace horse, suppresses tomb, and never borrows another palace void',()=>{
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:53:24)
+
+  ● source-selected Qimen timing on an immutable original plate › uses only the selected palace horse, suppresses tomb, and never borrows another palace void
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 14
+    + Received  +  1
+
+    - Array [
+    -   Array [
+    -     "horse-value",
+    -     Array [
+    -       "寅",
+    -     ],
+    -   ],
+    -   Array [
+    -     "horse-clash",
+    -     Array [
+    -       "申",
+    -     ],
+    -   ],
+    - ]
+    + Array []
+
+      59 |     c.horse={...c.horse!,branch:'寅',palaceId:8};
+      60 |     const r=run(c);
+    > 61 |     expect(r.triggers.map(t=>[t.ruleId,t.branches])).toEqual([['horse-value',['寅']],['horse-clash',['申']]]);
+         |                                                      ^
+      62 |     expect(r.opposing).toEqual(expect.arrayContaining([expect.objectContaining({ruleId:'tomb-value',reason:'suppressed-by-horse'})]));
+      63 |     c.horse={...c.horse,branch:'申',palaceId:2};
+      64 |     expect(run(c).triggers.map(t=>[t.ruleId,t.branches])).toEqual([['tomb-value',['丑']],['tomb-clash',['未']]]);
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:61:54)
+
+  ● source-selected Qimen timing on an immutable original plate › retains competing same-tier stem tomb and instrument punishment without making one win
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 20
+    + Received  +  1
+
+    - Array [
+    -   Array [
+    -     "tomb-value",
+    -     Array [
+    -       "丑",
+    -     ],
+    -   ],
+    -   Array [
+    -     "tomb-clash",
+    -     Array [
+    -       "未",
+    -     ],
+    -   ],
+    -   Array [
+    -     "punishment-combine",
+    -     Array [
+    -       "巳",
+    -     ],
+    -   ],
+    - ]
+    + Array []
+
+      67 |     const c=plate({dayGanZhi:'庚子',hourVoid:{...plate().hourVoid!,palaces:[]}});
+      68 |     const r=run(c,{...request,focus:'self'});
+    > 69 |     expect(r.triggers.map(t=>[t.ruleId,t.branches])).toEqual([['tomb-value',['丑']],['tomb-clash',['未']],['punishment-combine',['巳']]]);
+         |                                                      ^
+      70 |     expect(r.conflicts).toEqual(expect.arrayContaining([expect.objectContaining({ruleIds:['tomb-value','tomb-clash','punishment-combine']})]));
+      71 |   });
+      72 |   it('applies the literal Xin-in-Li punishment example to the chosen original stem',()=>{
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:69:54)
+
+  ● source-selected Qimen timing on an immutable original plate › applies the literal Xin-in-Li punishment example to the chosen original stem
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 8
+    + Received  + 1
+
+    - Array [
+    -   Array [
+    -     "punishment-combine",
+    -     Array [
+    -       "未",
+    -     ],
+    -   ],
+    - ]
+    + Array []
+
+      73 |     const c=plate({dayGanZhi:'辛卯'});
+      74 |     const r=run(c,{...request,focus:'self'});
+    > 75 |     expect(r.triggers.map(t=>[t.ruleId,t.branches])).toEqual([['punishment-combine',['未']]]);
+         |                                                      ^
+      76 |     expect(r.dates[0].ganZhi).toBe('乙未');
+      77 |   });
+      78 |   it('refuses wrong/ambiguous occurrences, proxy-self and incompatible chart conventions',()=>{
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:75:54)
+
+  ● source-selected Qimen timing on an immutable original plate › refuses wrong/ambiguous occurrences, proxy-self and incompatible chart conventions
+
+    expect(received).toContain(expected) // indexOf
+
+    Expected value: "incompatible-chart-method"
+    Received array: []
+
+      81 |     expect(run(plate({questionContext:{subject:'parent'}}),{...request,focus:'self'}).selection.established).toBe(false);
+      82 |     const c=plate();c.palaces[1].bamen='开门';expect(run(c).selection.established).toBe(false);
+    > 83 |     c.method.algorithm='other';expect(run(c).unresolved).toContain('incompatible-chart-method');
+         |                                                          ^
+      84 |   });
+      85 |   it('selects hosted sky independently and does not use its earth or center record',()=>{
+      86 |     const c=plate({dayGanZhi:'乙丑'});c.palaces[0].hostedDiPanGan='乙';c.palaces[2].hostedTianPanGan='乙';
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:83:58)
+
+  ● source-selected Qimen timing on an immutable original plate › selects hosted sky independently and does not use its earth or center record
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 3
+    + Received  + 2
+
+      Object {
+    -   "objectPath": "/palaces/2/hostedTianPanGan",
+    -   "palaceId": 9,
+    -   "symbol": "乙",
+    +   "established": false,
+    +   "reason": "not-implemented",
+      }
+
+      86 |     const c=plate({dayGanZhi:'乙丑'});c.palaces[0].hostedDiPanGan='乙';c.palaces[2].hostedTianPanGan='乙';
+      87 |     const r=run(c,{...request,focus:'self'});
+    > 88 |     expect(r.selection).toMatchObject({objectPath:'/palaces/2/hostedTianPanGan',palaceId:9,symbol:'乙'});
+         |                         ^
+      89 |     expect(r.triggers.map(t=>t.ruleId)).toEqual(['palace-branch-reference']);
+      90 |   });
+      91 |   it('uses explicit current inclusion and reports result truncation',()=>{
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:88:25)
+
+  ● source-selected Qimen timing on an immutable original plate › uses explicit current inclusion and reports result truncation
+
+    expect(received).toMatchObject(expected)
+
+    Matcher error: received value must be a non-null object
+
+    Received has value: undefined
+
+      92 |     const c=plate({setupTime:'2004-05-10T04:00:00.000Z'});
+      93 |     const include=run(c,{...request,window:{...request.window!,includeCurrent:true,maxCandidates:1}});
+    > 94 |     expect(include.dates[0]).toMatchObject({ganZhi:'己丑',eligibleStart:'2004-05-10T04:00:00.000Z'});
+         |                              ^
+      95 |     expect(include.searchPolicy).toMatchObject({truncated:true,searchComplete:false,reason:'candidate-limit'});
+      96 |     expect(run(c).dates[0].ganZhi).toBe('庚寅');
+      97 |   });
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:94:30)
+
+  ● source-selected Qimen timing on an immutable original plate › bounds long searches and validates date/unit/limit input instead of interpreting arbitrary JS dates
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 2
+    + Received  + 2
+
+      Object {
+    -   "reason": "period-limit",
+    +   "reason": "not-enumerated",
+        "searchComplete": false,
+    -   "truncated": true,
+    +   "truncated": false,
+      }
+
+       97 |   });
+       98 |   it('bounds long searches and validates date/unit/limit input instead of interpreting arbitrary JS dates',()=>{
+    >  99 |     expect(run(plate(),{...request,window:{end:'2009-01-01T00:00:00Z',maxCandidates:256}}).searchPolicy).toMatchObject({truncated:true,searchComplete:false,reason:'period-limit'});
+          |                                                                                                          ^
+      100 |     for(const window of [{end:'2004-05-20'}, {end:'2004-02-30T00:00:00Z'}, {end:'2004-01-01T00:00:00Z'}, {end:'2005-01-01T00:00:00Z',maxCandidates:0}]) {
+      101 |       expect(()=>run(plate(),{...request,window})).toThrow();
+      102 |     }
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:99:106)
+
+  ● source-selected Qimen timing on an immutable original plate › uses actual Jie and Lichun boundaries for months/years, with all reason IDs retained
+
+    TypeError: Cannot read properties of undefined (reading 'ganZhi')
+
+      104 |   it('uses actual Jie and Lichun boundaries for months/years, with all reason IDs retained',()=>{
+      105 |     const month=run(plate(),{...request,timeUnit:'month',window:{end:'2005-01-01T00:00:00Z'}});
+    > 106 |     expect(month.dates[0].ganZhi).toBe('辛未');
+          |                           ^
+      107 |     expect(month.dates[0].startsAt.slice(0,10)).toBe('2004-07-06'); // 小暑 UTC date, not lunar 6/1.
+      108 |     const year=run(plate(),{...request,timeUnit:'year',window:{end:'2011-01-01T00:00:00Z'}});
+      109 |     expect(year.dates[0].ganZhi).toBe('己丑');
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:106:27)
+
+  ● source-selected Qimen timing on an immutable original plate › matches the source 2004-05-29 noon plate and exposes timing only when requested
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "甲寅"
+    Received: undefined
+
+      118 |     const timed=e.setup({...args,timingRequest:{...request,window:{end:'2004-06-10T00:00:00Z'}}});
+      119 |     expect(timed.palaces).toEqual(original.palaces);
+    > 120 |     expect(timed.timing?.dates[0].ganZhi).toBe('甲寅');
+          |                                           ^
+      121 |     const derived=e.reassessQuestion(timed,{question:'新问财务',questionType:'wealth',questionContext:{subject:'self',event:'新问题',timeHorizon:'far'}});
+      122 |     expect(derived.timing).toBeUndefined();expect(derived.palaces).toBe(timed.palaces);
+      123 |   });
+
+      at Object.<anonymous> (src/qimen/__tests__/Timing.test.ts:120:43)
+
+
+Test Suites: 4 failed, 58 passed, 62 total
+Tests:       17 failed, 868 passed, 885 total
+Snapshots:   0 total
+Time:        34.959 s
+Ran all test suites.

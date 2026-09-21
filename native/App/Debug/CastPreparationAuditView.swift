@@ -43,9 +43,10 @@ import SujiCore
                         persistConfirmations: { confirmations in try session.persist(confirmations: confirmations, on: sourceID, store: store) }
                     )
                     let result = try await orchestrator.run(history: [], definitions: tools, context: context, questionID: sourceID)
-                    guard let receipt = result.receipts.first,
-                          let value = try JSONSerialization.jsonObject(with: Data(receipt.output.utf8)) as? [String: Any] else { throw EngineError.execution("缺少盘面") }
-                    let event = (value["questionContext"] as? [String: Any])?["event"] as? String ?? "未填写（仅核对盘面）"
+                    guard let receipt = result.receipts.first else { throw EngineError.execution("缺少盘面") }
+                    let value = try Document(receiptOutput:receipt.output)
+                    let restoredEvent = value["questionContext"]["event"].text
+                    let event = restoredEvent.isEmpty ? "未填写（仅核对盘面）" : restoredEvent
                     status = "合成验收 · 确认已保存 · 引擎事项：" + event
                     statusID = "audit.cast.saved"
                 } catch is CancellationError {

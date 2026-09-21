@@ -17,12 +17,12 @@ final class LiuyaoFanfuTests: XCTestCase {
         let result=try XCTUnwrap(ReadingVerificationEvidence.pointer("/result",in:JSONDecoder().decode(JSONValue.self,from:data)))
         guard case let .string(revision)=ReadingVerificationEvidence.pointer("/provenance/engineRevision",in:result) else { throw EngineError.execution("revision") }
         let context=try ToolContext(birth:nil,engineRevision:revision,referenceDate:ISO8601DateFormatter().date(from:now)!,mode:"起卦")
-        return (.init(callID:"fanfu-original",name:"cast_liuyao",arguments:args,output:ReadingVerificationEvidence.encoded(result),context:context),context)
+        return (.init(callID:"fanfu-original",name:"cast_liuyao",arguments:args,output:try CastReceiptStorage.encode(ReadingVerificationEvidence.encoded(result)),context:context),context)
     }
 
     func testDifferentStemsCanRepeatBranchesWithoutGivingStaticLinesChangedObjects() async throws {
         let (receipt,context)=try await fixture([8,7,7,7,9,9]) // 姤→恒，壬申/戌→庚申/戌
-        let root=try JSONDecoder().decode(JSONValue.self,from:Data(receipt.output.utf8))
+        let root=try JSONDecoder().decode(JSONValue.self,from:try CastReceiptStorage.expandedData(receipt.output))
         XCTAssertEqual(ReadingVerificationEvidence.pointer("/fanfu/lines/0/originalPath",in:root),"/lines/4")
         XCTAssertEqual(ReadingVerificationEvidence.pointer("/fanfu/lines/0/sameStem",in:root),false)
         XCTAssertEqual(ReadingVerificationEvidence.pointer("/fanfu/lines/0/sameBranch",in:root),true)
@@ -48,14 +48,14 @@ final class LiuyaoFanfuTests: XCTestCase {
 
     func testBranchOppositionAndSelectedDirectionalOppositionStaySeparate() async throws {
         let (bi,context)=try await fixture([8,6,6,8,7,8]) // 比→井
-        let root=try JSONDecoder().decode(JSONValue.self,from:Data(bi.output.utf8))
+        let root=try JSONDecoder().decode(JSONValue.self,from:try CastReceiptStorage.expandedData(bi.output))
         XCTAssertEqual(ReadingVerificationEvidence.pointer("/fanfu/trigrams/0/branchRelation",in:root),"opposed")
         XCTAssertEqual(ReadingVerificationEvidence.pointer("/fanfu/trigrams/0/directionalOpposition",in:root),false)
         let report=try XCTUnwrap(LiuyaoReferenceReading.render(receipts:[bi],context:context))
         XCTAssertNotNil(report.sections.first{$0.id=="fanfu-line-2"})
         XCTAssertNil(report.sections.first{$0.id=="fanfu-line-1"})
         let (directional,other)=try await fixture([9,7,7,9,7,7]) // 乾→巽
-        let second=try JSONDecoder().decode(JSONValue.self,from:Data(directional.output.utf8))
+        let second=try JSONDecoder().decode(JSONValue.self,from:try CastReceiptStorage.expandedData(directional.output))
         XCTAssertEqual(ReadingVerificationEvidence.pointer("/fanfu/trigrams/0/branchRelation",in:second),"neither")
         XCTAssertEqual(ReadingVerificationEvidence.pointer("/fanfu/trigrams/0/directionalOpposition",in:second),true)
         XCTAssertNotNil(LiuyaoReferenceReading.render(receipts:[directional],context:other)?.sections.first{$0.id=="fanfu-lower"})
@@ -63,7 +63,7 @@ final class LiuyaoFanfuTests: XCTestCase {
 
     func testStaticPureChartAndLegacyArchiveDoNotAcquireDynamicFanfu() async throws {
         let (receipt,context)=try await fixture([7,7,7,7,7,7])
-        var root=try XCTUnwrap(JSONSerialization.jsonObject(with:Data(receipt.output.utf8)) as? [String:Any])
+        var root=try XCTUnwrap(JSONSerialization.jsonObject(with:try CastReceiptStorage.expandedData(receipt.output)) as? [String:Any])
         let layer=try XCTUnwrap(root["fanfu"] as? [String:Any])
         XCTAssertEqual((layer["lines"] as? [Any])?.count,0)
         let report=try XCTUnwrap(LiuyaoReferenceReading.render(receipts:[receipt],context:context))
@@ -71,14 +71,15 @@ final class LiuyaoFanfuTests: XCTestCase {
         root.removeValue(forKey:"fanfu")
         // A pre-fanfu archive also predates the later triad layer that requires it.
         root.removeValue(forKey:"triads")
-        root["ruleSources"]=(root["ruleSources"] as! [[String:Any]]).filter{!["liuyao-fanfu-selected-v1","liuyao-triad-selected-v1"].contains($0["id"] as? String ?? "")}
+        root.removeValue(forKey:"efficacy")
+        root["ruleSources"]=(root["ruleSources"] as! [[String:Any]]).filter{!["liuyao-fanfu-selected-v1","liuyao-triad-selected-v1","liuyao-efficacy-zengshan-v1"].contains($0["id"] as? String ?? "")}
         var legacy=receipt;legacy.output=String(decoding:try JSONSerialization.data(withJSONObject:root),as:UTF8.self)
         XCTAssertNotNil(LiuyaoReferenceReading.render(receipts:[legacy],context:context))
     }
 
     func testWrongScopeMembershipFlagsSourceAndEfficacyCannotRender() async throws {
         let (receipt,context)=try await fixture([8,6,6,8,7,8])
-        let original=try XCTUnwrap(JSONSerialization.jsonObject(with:Data(receipt.output.utf8)) as? [String:Any])
+        let original=try XCTUnwrap(JSONSerialization.jsonObject(with:try CastReceiptStorage.expandedData(receipt.output)) as? [String:Any])
         _=try XCTUnwrap(original["fanfu"])
         for mutation in 0..<13 {
             var root=original,layer=root["fanfu"] as! [String:Any],lines=layer["lines"] as! [[String:Any]],trigrams=layer["trigrams"] as! [[String:Any]]

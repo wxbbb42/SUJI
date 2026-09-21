@@ -1,0 +1,272 @@
+[
+  {
+    "path": "native/Core/Sources/SujiCore/ArchiveCodec.swift",
+    "sha256": "01c173be02513d4f8135a31955db4c3e3dfe6b9083c77199c3fcf8059c992c91",
+    "bytes": 14028
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/BaziAdjudicationTrace.swift",
+    "sha256": "c34e07dad3d071f0a392f619c64d8b805e5e5450148f19677ed9406f7a51bad7",
+    "bytes": 14837
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/BaziFrameworkReading.swift",
+    "sha256": "751231e5102b71283cc68b1656d53e657c74dd57bbb822fc2a7098f7784b8b5f",
+    "bytes": 31763
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/BaziPatternConditionTrace.swift",
+    "sha256": "1c9ac6fb8f28c57112f809120c5b7613c0d05cb25f33efaa8d9c40df7126b063",
+    "bytes": 6024
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/BaziStrengthTrace.swift",
+    "sha256": "39f6a53de465039ed7cd7c5feb071d93e1c8f61cb4d28a0eff53e2b3b232d336",
+    "bytes": 20314
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/BreathingClock.swift",
+    "sha256": "7ef3097cf121a5544add9a27175f9d9d4eb00df60e1ebef44c35139f2f8f4423",
+    "bytes": 4816
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/CastQuestionBinding.swift",
+    "sha256": "332ab9a329964af9385130cdb039195d804a311686c1b6914f9c36309ba4af5e",
+    "bytes": 10529
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/CastQuestionPreparation.swift",
+    "sha256": "70164d4b600585c92b2cdc65a4b5df5ad664d2b6bd4a51e0c54e0e35c0863004",
+    "bytes": 8885
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/CastSourceDirectory.swift",
+    "sha256": "c0955e9510f3ba381cbfef198c9f04ae34af0d2c2de4bb3eaf44386637ff420d",
+    "bytes": 4062
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/CastSupplement.swift",
+    "sha256": "48d85b28205036891f3b15c043c97fa109dfab9599fb78f316b580fb6cba08a6",
+    "bytes": 8378
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/ChatClient.swift",
+    "sha256": "66505a9557bf3be1fe532e9ae038ba336808dd0d54e4c23b308b8d83f24be9e7",
+    "bytes": 19827
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/ChatTypes.swift",
+    "sha256": "cf1f74f56c99e74266eba7b5f12c0eaee6f8c8441ddf8ee068494ae521ba8f70",
+    "bytes": 7397
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/DivinationCalendarAssertions.swift",
+    "sha256": "26d5bb67099fdabafc3cf09dd441d2f96ea4f9b748ff004e9e8eb00c0bc77f0c",
+    "bytes": 5394
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/Domain.swift",
+    "sha256": "347b926c877d8ddb4e9a2c9636c8c5cbd78b23f56d0cb1ccb49e08622b2b8465",
+    "bytes": 7167
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/EngineContract.swift",
+    "sha256": "9d0e82c1bd33b0c640d82cb1ae3f8d27f75c94bb744d7ee58758e91a69aaf564",
+    "bytes": 7629
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/JSONValueTransport.swift",
+    "sha256": "969eb9f4bbda41f74c650ef040e080124a4221e8dae5873103bc847251d4db5c",
+    "bytes": 4859
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/LiuyaoConditionTransport.swift",
+    "sha256": "387d94f2b717dcd4ddb66497ca53e59971848fd049e7068549aeaaa99c94925c",
+    "bytes": 15007
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/LiuyaoEfficacyEvidence.swift",
+    "sha256": "b7d3358e15e65780336a240c08fd0741415ed0f927e22e70a448fb6c21620352",
+    "bytes": 38763
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/LiuyaoFanfuTrace.swift",
+    "sha256": "b7a2b3d6940c5ee8424b90aa4fa6b54922250abcfa3299ce7241345a81d7799a",
+    "bytes": 8649
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/LiuyaoReferenceReading.swift",
+    "sha256": "ae8ebf07404d047faa276ae757ac8c71ecb50449670cc6a23051514b537592f1",
+    "bytes": 52225
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/LiuyaoTombExtinctionTrace.swift",
+    "sha256": "08554ce2ba3a5135eba44d31fe731e5ba1bad3192ddc2b7ef2e0debe7189dcc1",
+    "bytes": 10847
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/LiuyaoTriadTrace.swift",
+    "sha256": "b90974c2c43f7151a5394365dfcc1e6a203cc2d1651584cc1678ef1882960b4a",
+    "bytes": 7624
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/ManagedAI.swift",
+    "sha256": "b6368e446855814d77d2135973a8ed49a9aaa098df9aef377d30d4fac0a558bb",
+    "bytes": 942
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/MingliBridge.swift",
+    "sha256": "1f4b24084788184956166be2b5f5847c67fbdfa960521874c532025db8b4382c",
+    "bytes": 7145
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/NatalAstronomyDossier.swift",
+    "sha256": "292eac68ce536fe2163a0741fb5bf271b108f79adb38eb5ad4c393642ebcfe22",
+    "bytes": 13046
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/NatalDerivedAstronomy.swift",
+    "sha256": "7d46a7bb1603e22dd17d05be72822b008e6e37932cbc5843c2be20ea133fec2c",
+    "bytes": 9064
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/NatalDossier.swift",
+    "sha256": "e205274576a6abc6ea0c3cd1a7c3e74518a590e0ec9c4001218c65bc056aaa9e",
+    "bytes": 1462
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/NatalEvidenceProjection.swift",
+    "sha256": "cb91cdf6a4c3092ca377b02427a5f929fdb9d9850a0182f1e45fa6b4f56df4f6",
+    "bytes": 11389
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/QimenReadingAssertions.swift",
+    "sha256": "a8987ec2043be23596e35da2fefe4e6836558fd1432223ed02af0787c12e0562",
+    "bytes": 7857
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/QimenReferenceReading.swift",
+    "sha256": "509c630fa1179263361e6e6b661f98433a4f78a4fe93a3c3eabae90c280fb591",
+    "bytes": 18809
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/QimenTimingEvidence.swift",
+    "sha256": "14f583f85f9dc055765f4e19675cdeb3af948482ae15d23e814eb2f0c5e1e329",
+    "bytes": 22195
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/QimenTimingTransport.swift",
+    "sha256": "1f30c565050e3a1c2f78e752717976f4bacf08e4e6bd362953cf8389083d2674",
+    "bytes": 7794
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/ReadingContext.swift",
+    "sha256": "0aefbb071fb105602f29d779cbc36b91392c747856a96cb78ecadbda6fa8ea8e",
+    "bytes": 13324
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/ReadingDocument.swift",
+    "sha256": "3a4f97e8ff3b0d32c2398d851d2e3cacb23fe1267b92b5314dfb8ecd35a90663",
+    "bytes": 12105
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/ReadingFactReferenceIndex.swift",
+    "sha256": "1e23430231d947ce2eda874f180cf342e2be32f4f79407d3d63fd1644d538a7a",
+    "bytes": 6438
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/ReadingFallback.swift",
+    "sha256": "e7c02c7c6d60481b2741e6f1c9a049d832a9a9d98e26a149fd3af3a348ed860a",
+    "bytes": 5875
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/ReadingIntent.swift",
+    "sha256": "eb59440f3d9404ec45af3f041116fe32067dd40a65dcab14a5c0382b6d3d7c10",
+    "bytes": 2696
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/ReadingVerificationAssertions.swift",
+    "sha256": "7edb2a1e252d8a1b65affd01f0f16f15be072b11711e088192350882cb2b2763",
+    "bytes": 13753
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/ReadingVerificationEvidence.swift",
+    "sha256": "114e3eebb5726d0014ab6eb00898de2a2afc4c791cda1a5b03caa79a4cd4771d",
+    "bytes": 38569
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/ReadingVerifier.swift",
+    "sha256": "e3b54bf23d56c5a7fe5156040091d1c082a9c3706dc07b05a2826d928ed23746",
+    "bytes": 33487
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/ReflectionConversation.swift",
+    "sha256": "1f33d5505c8c486915e5a1793a3bab3f8f90491ee991c263b6d692ca79f0f85c",
+    "bytes": 5942
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/ReminderSchedule.swift",
+    "sha256": "b37f6e9fb98ee69cf08586b2c395ce5b29e998372e36599a1e6ebcece7bb3219",
+    "bytes": 8026
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/SSEParser.swift",
+    "sha256": "cf5776962a9f0af864a9b8912cdefe790bc0d3f5c7a0374c69b52414a469a6a0",
+    "bytes": 4401
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/SupabaseClient.swift",
+    "sha256": "2bb445cf0b5af429edb95970d01a42dc503dee5f01452d4f771e76f49bdf1632",
+    "bytes": 17718
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/ToolOrchestrator.swift",
+    "sha256": "cf547b75b9d7a7da3db75aab316e0bd04dccaf50838975bc7e3690defb916c3b",
+    "bytes": 24064
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/ToolOutputWire.swift",
+    "sha256": "fb5a01b226f9aacf34ee184971f2291570661c5b36cfaa5c63bd9a18a39dd356",
+    "bytes": 2172
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/ZiweiMonthlyCalendarAssertions.swift",
+    "sha256": "1e9de90e75cd43f0d386bae77870be9cb514fb24888abc5994b20dcbbd2867bb",
+    "bytes": 14636
+  },
+  {
+    "path": "native/Core/Sources/SujiCore/ZiweiReadingAssertions.swift",
+    "sha256": "eae6c12445a065c15dda3ec0eccbd6672ba25e4814fb7b119ad156a8754e8152",
+    "bytes": 18415
+  },
+  {
+    "path": "native/Resources/mingli.js",
+    "sha256": "0ef5d159b60bb73de476cb39d9c9d74c0e1928840b4a00cb79e98a9db303498f",
+    "bytes": 1341378
+  },
+  {
+    "path": "native/Engine/validation/reasoning/adjudication-2026-09-21/divination-native-capacity-probe.swift",
+    "sha256": "ca693c53bdcbd484ca1745e737581507134eabad09be912b5b5a3731f8f4dcc6",
+    "bytes": 9887
+  },
+  {
+    "path": "native/Engine/validation/reasoning/adjudication-2026-09-21/final-wire-decoder.mjs",
+    "sha256": "85b513a8a879c9ba864572a0ef844bd7b6b64d4aab7123767d0d37af21b83f92",
+    "bytes": 10873
+  },
+  {
+    "path": "supabase/functions/suji-chat/handler.mjs",
+    "sha256": "ee9f02471e2587ff4c0f8399b75799d900efc0b1588835cfebab05ed686f8093",
+    "bytes": 9972
+  },
+  {
+    "path": "/tmp/suji-adjudication-capacity/probe",
+    "sha256": "ebead959335b0fa60495cb6db3dba335038d32a1d6cfaf671b430b8685de8618",
+    "bytes": 5532952
+  },
+  {
+    "path": "/tmp/suji-adjudication-capacity/data/fixtures.json",
+    "sha256": "6fffadc8b875e7a3cf73ceba9a6e53587079f284b96be0cc987918fd7957ce42",
+    "bytes": 5318451
+  }
+]

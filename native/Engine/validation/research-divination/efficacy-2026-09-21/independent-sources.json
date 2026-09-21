@@ -1,0 +1,150 @@
+[
+  {
+    "id": "quanxue-index",
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpyindex.html",
+    "bytes": 14339,
+    "sha256": "b6e66cb1737161693b582d465cbbdbe06e9d122dd9db4d93d9b40a118c713f72",
+    "textSha256": "0a1981f85ec6d977570cfc00141241d8136330d8b0b540dfb08fc23b6dd75f71",
+    "file": "quanxue-index.html"
+  },
+  {
+    "id": "quanxue-21",
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy21.html",
+    "bytes": 7247,
+    "sha256": "5d1d4fe65824975462a822227d16ea4584e54173e1bc4848ac240faeb9cb1f17",
+    "textSha256": "4bffdae12b6105016eee8db03fa0b2150ff68786d705e97fe4f599baa2f8efb4",
+    "file": "quanxue-21.html"
+  },
+  {
+    "id": "quanxue-19",
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy19.html",
+    "bytes": 4408,
+    "sha256": "4f65506057732f4ef79d1dcd8fe28d7f87a56dce48120006b771cfc39c60ffa8",
+    "textSha256": "503be9e8fd89a4e5ba1dd76a25c26489193f7bc99941f08d86d9320721f36c47",
+    "file": "quanxue-19.html"
+  },
+  {
+    "id": "hongyeshan-55611",
+    "error": "HTTP Error 422: "
+  },
+  {
+    "id": "quanxue-9",
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy09.html",
+    "bytes": 3058,
+    "sha256": "f3ea262ad33a465dc5e1213c1474bcd5e4998c9e10545a60c6a7ebae0ef2a5ea",
+    "textSha256": "f4a9b9efe91d05dbce957aac1fc145cf638bdf926940822cd40a07c18750dec5",
+    "file": "quanxue-9.html",
+    "retrievedAt": "2026-09-21",
+    "editionStatus": "electronic-transcription-claims-1941-jinzhang-edition-not-print-collated"
+  },
+  {
+    "id": "quanxue-11",
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy11.html",
+    "bytes": 5770,
+    "sha256": "74c82f8be5c04265049119a9383c6bfd1556ad117c9818fc8828feae684873cb",
+    "textSha256": "8fe2be88829a4d884a70f29325c813793e6a39222e4ec621134db558d6f95a8a",
+    "file": "quanxue-11.html",
+    "retrievedAt": "2026-09-21",
+    "editionStatus": "electronic-transcription-claims-1941-jinzhang-edition-not-print-collated"
+  },
+  {
+    "id": "quanxue-17",
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy17.html",
+    "bytes": 2408,
+    "sha256": "c075334632c873522c84365d57f01be4645364e303cb2da9c22235be6dd1638b",
+    "textSha256": "334aa251573cff7ce4bc6acac0e36c3b6502d2208edfd0cd5aa8780568d2c67a",
+    "file": "quanxue-17.html",
+    "retrievedAt": "2026-09-21",
+    "editionStatus": "electronic-transcription-claims-1941-jinzhang-edition-not-print-collated"
+  },
+  {
+    "id": "quanxue-18",
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy18.html",
+    "bytes": 8547,
+    "sha256": "4f74faf658faf94f8cd8bda42691a86a77e0aca4b48bcd86af738d6a16349018",
+    "textSha256": "7245c95e0a59be0e811b556991f76cc3ad61c2e5124411b06b1edfa9ce496df4",
+    "file": "quanxue-18.html",
+    "retrievedAt": "2026-09-21",
+    "editionStatus": "electronic-transcription-claims-1941-jinzhang-edition-not-print-collated"
+  },
+  {
+    "id": "quanxue-22",
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy22.html",
+    "bytes": 5322,
+    "sha256": "af41ab6a4f2c336c4f6452acd2cd1e4762bf187bd4d14c7f42c1fe207190b739",
+    "textSha256": "4c5729fd3413b4ee166b10f0d2c4cf1d3a4e90e64bb83262f39ca58379827282",
+    "file": "quanxue-22.html",
+    "retrievedAt": "2026-09-21",
+    "editionStatus": "electronic-transcription-claims-1941-jinzhang-edition-not-print-collated"
+  },
+  {
+    "id": "quanxue-30",
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy30.html",
+    "bytes": 7030,
+    "sha256": "46159656db96c85292b1ad165de1455fa82e3dc8599fa6f9873e7e9a4b206e68",
+    "textSha256": "d49b7db67c57decb2fadec8cea4a6e0d6039cb345b505691c4ab2bc2eb2cd8e1",
+    "file": "quanxue-30.html",
+    "retrievedAt": "2026-09-21",
+    "editionStatus": "electronic-transcription-claims-1941-jinzhang-edition-not-print-collated"
+  },
+  {
+    "id": "quanxue-31",
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy31.html",
+    "bytes": 4262,
+    "sha256": "7ed19e9471c398c386a04fb195a1a752469a5e5d307b5eeaca490fcb727affa6",
+    "textSha256": "4f850d7d132a0a7414153bc853013b0eadc08066d0072c8c9711eaff267a7207",
+    "file": "quanxue-31.html",
+    "retrievedAt": "2026-09-21",
+    "editionStatus": "electronic-transcription-claims-1941-jinzhang-edition-not-print-collated"
+  },
+  {
+    "id": "quanxue-33",
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy33.html",
+    "bytes": 3913,
+    "sha256": "cda81d33635dd7cb12d8c963721e88534eda52b1c7024748ecf30475ffa86fb2",
+    "textSha256": "8aa87385f74974d936cb484409723c9053fa0d0fad7f08be3f00f187fcf3dff4",
+    "file": "quanxue-33.html",
+    "retrievedAt": "2026-09-21",
+    "editionStatus": "electronic-transcription-claims-1941-jinzhang-edition-not-print-collated"
+  },
+  {
+    "id": "quanxue-35",
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy35.html",
+    "bytes": 9788,
+    "sha256": "b21d10b4d0a2cecda6854fdefcb0ccf9b8631c665c6e45606204867dce8acebf",
+    "textSha256": "2d550d01b400529695986e35f89af53a95a16b170170221f2c73d7d55109b49d",
+    "file": "quanxue-35.html",
+    "retrievedAt": "2026-09-21",
+    "editionStatus": "electronic-transcription-claims-1941-jinzhang-edition-not-print-collated"
+  },
+  {
+    "id": "quanxue-36",
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy36.html",
+    "bytes": 16007,
+    "sha256": "830dbdd09d27d3b0b4c6da439672caf3d9fc6a671f3c92c20181ee38ac361884",
+    "textSha256": "5337b96d44f8d81dd2bf315864a69a91ae636ceb47c9bfc8939e5c2be85b70ed",
+    "file": "quanxue-36.html",
+    "retrievedAt": "2026-09-21",
+    "editionStatus": "electronic-transcription-claims-1941-jinzhang-edition-not-print-collated"
+  },
+  {
+    "id": "quanxue-38",
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy38.html",
+    "bytes": 10829,
+    "sha256": "dda2b500d22d6d43979dae3339ce90cb21289de61aef82a0f8cb17ca11205da5",
+    "textSha256": "d8934d5920150bf7681e728a25528733b90b5a2b9e9acf53dbc420aeb353e8d5",
+    "file": "quanxue-38.html",
+    "retrievedAt": "2026-09-21",
+    "editionStatus": "electronic-transcription-claims-1941-jinzhang-edition-not-print-collated"
+  },
+  {
+    "id": "quanxue-40",
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy40.html",
+    "bytes": 5075,
+    "sha256": "e74764848deb4fd0ffe5e3bd16d696701dd5b06de034a085d74f24a35f0f2c2f",
+    "textSha256": "55a6fd7e4c371c02c11b17357e35a4e407784c32142f814a40a1b719cfb3cba8",
+    "file": "quanxue-40.html",
+    "retrievedAt": "2026-09-21",
+    "editionStatus": "electronic-transcription-claims-1941-jinzhang-edition-not-print-collated"
+  }
+]

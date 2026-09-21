@@ -15,9 +15,13 @@ public enum ReadingFallback {
             let object = value as? [String: Any] ?? [:]
             return text(object["gan"]) + text(object["zhi"])
         }
-        for message in history where message.role == .tool {
-            guard let data = message.content?.data(using: .utf8),
-                  let value = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any] else { continue }
+        for (index,message) in history.enumerated() where message.role == .tool {
+            guard let expanded = ToolOutputWire.decode(message,history:Array(history.prefix(index))),
+                  let expandedData = try? JSONEncoder().encode(expanded),
+                  let value = (try? JSONSerialization.jsonObject(with: expandedData)) as? [String: Any] else { continue }
+            // History contains wire projections, whose question may reference
+            // this call's arguments. Recovery only reads the complete chart facts;
+            // it neither needs that question nor treats the projection as storage.
             guard value["error"] == nil else { hadToolFailure = true; continue }
             successfulResults += 1
             if let year = value["yearGanZhi"] as? String, let month = value["monthGanZhi"] as? String {

@@ -1,0 +1,93 @@
+Building for debugging...
+[2 / 14] SujiCore
+[4 / 16] SujiCore
+[12 / 17] ReadingEvalFixtures-product
+[12 / 17] SujiCoreTests-product
+[15 / 20] SujiCoreTests-product
+[18 / 21] SujiCoreTests-product
+[20 / 24] SujiCoreTests-product
+Build complete! (2.48秒)
+Test Suite 'Selected tests' started at 2026-09-21 09:24:46.881.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 09:24:46.881.
+Test Suite 'CastReceiptStorageTests' started at 2026-09-21 09:24:46.882.
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testComplete48PairedCapacityMatrix]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/CastReceiptStorageTests.swift:56: -[SujiCoreTests.CastReceiptStorageTests testComplete48PairedCapacityMatrix] : Test skipped - Set the existing paired-matrix artifact path for the integration capacity probe
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testComplete48PairedCapacityMatrix]' skipped (0.001 seconds).
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testCompleteStorageRoundtripRenderingAndFactLedger]' started.
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testCompleteStorageRoundtripRenderingAndFactLedger]' passed (2.670 seconds).
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testMalformedStorageFailsClosedAndDoesNotBorrowQuestionFromOtherCalls]' started.
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testMalformedStorageFailsClosedAndDoesNotBorrowQuestionFromOtherCalls]' passed (0.292 seconds).
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testOrchestratorPersistsPackedThenReusesIdenticalBytesWithoutExecution]' started.
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testOrchestratorPersistsPackedThenReusesIdenticalBytesWithoutExecution]' passed (0.483 seconds).
+Test Suite 'CastReceiptStorageTests' passed at 2026-09-21 09:24:50.327.
+	 Executed 4 tests, with 1 test skipped and 0 failures (0 unexpected) in 3.445 (3.446) seconds
+Test Suite 'CastSupplementTests' started at 2026-09-21 09:24:50.327.
+Test Case '-[SujiCoreTests.CastSupplementTests testBothMethodsSupplementOriginalAndRetainSourceAcrossFurtherSupplements]' started.
+Test Case '-[SujiCoreTests.CastSupplementTests testBothMethodsSupplementOriginalAndRetainSourceAcrossFurtherSupplements]' passed (0.630 seconds).
+Test Case '-[SujiCoreTests.CastSupplementTests testDerivedRecordRejectsImmutableChangesWrongArgumentsAndIdentity]' started.
+Test Case '-[SujiCoreTests.CastSupplementTests testDerivedRecordRejectsImmutableChangesWrongArgumentsAndIdentity]' passed (2.544 seconds).
+Test Case '-[SujiCoreTests.CastSupplementTests testOldQuestionDependentFieldsCannotMasqueradeAsAcceptedSupplement]' started.
+Test Case '-[SujiCoreTests.CastSupplementTests testOldQuestionDependentFieldsCannotMasqueradeAsAcceptedSupplement]' passed (0.440 seconds).
+Test Case '-[SujiCoreTests.CastSupplementTests testOriginalProvenanceCannotDisagreeWithOriginalChartTimeOrCalendarPolicy]' started.
+Test Case '-[SujiCoreTests.CastSupplementTests testOriginalProvenanceCannotDisagreeWithOriginalChartTimeOrCalendarPolicy]' passed (0.178 seconds).
+Test Case '-[SujiCoreTests.CastSupplementTests testSourceMustExistUnambiguouslyEarlierInSameHistoryAndMatchSnapshot]' started.
+Test Case '-[SujiCoreTests.CastSupplementTests testSourceMustExistUnambiguouslyEarlierInSameHistoryAndMatchSnapshot]' passed (0.190 seconds).
+Test Suite 'CastSupplementTests' passed at 2026-09-21 09:24:54.309.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 3.981 (3.982) seconds
+Test Suite 'LiuyaoConditionTransportTests' started at 2026-09-21 09:24:54.309.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testLayoutProjectionAuthenticationRejectsValidEditedValues]' started.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testLayoutProjectionAuthenticationRejectsValidEditedValues]' passed (0.048 seconds).
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testLayoutReservedKeyCollisionsAreNotReencoded]' started.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testLayoutReservedKeyCollisionsAreNotReencoded]' passed (0.000 seconds).
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testLegacyAndUnknownConditionFieldsRemainIntact]' started.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testLegacyAndUnknownConditionFieldsRemainIntact]' passed (0.002 seconds).
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testLosslessRoundTripPreservesOrderEmptyPathsStatesAndEveryOtherField]' started.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testLosslessRoundTripPreservesOrderEmptyPathsStatesAndEveryOtherField]' passed (0.017 seconds).
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testMalformedLayoutOrRowsCannotYieldPartialEvidence]' started.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testMalformedLayoutOrRowsCannotYieldPartialEvidence]' passed (0.040 seconds).
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testMalformedObjectLayoutsFailClosedWithoutPartialFacts]' started.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testMalformedObjectLayoutsFailClosedWithoutPartialFacts]' passed (0.112 seconds).
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testObjectLayoutsRestoreNestedFieldsNullFalseAndLegacyConditionsExactly]' started.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testObjectLayoutsRestoreNestedFieldsNullFalseAndLegacyConditionsExactly]' passed (0.029 seconds).
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testProjectedReceiptAuthenticationRejectsEditedConditionsAndMissingQuestionSource]' started.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testProjectedReceiptAuthenticationRejectsEditedConditionsAndMissingQuestionSource]' passed (0.070 seconds).
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testUnknownSpecialAndEmptyObjectKeysRoundTripWithoutPrototypeSemantics]' started.
+Test Case '-[SujiCoreTests.LiuyaoConditionTransportTests testUnknownSpecialAndEmptyObjectKeysRoundTripWithoutPrototypeSemantics]' passed (0.002 seconds).
+Test Suite 'LiuyaoConditionTransportTests' passed at 2026-09-21 09:24:54.630.
+	 Executed 9 tests, with 0 failures (0 unexpected) in 0.320 (0.320) seconds
+Test Suite 'ZiweiEvidenceTests' started at 2026-09-21 09:24:54.630.
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testAggregatedDomainKeepsNestedPointers]' started.
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testAggregatedDomainKeepsNestedPointers]' passed (0.001 seconds).
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testLargePalaceFlightReadingLeavesRoomForQuestionAndDraft]' started.
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testLargePalaceFlightReadingLeavesRoomForQuestionAndDraft]' passed (1.903 seconds).
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testMalformedObjectValuesAreNotAdmittedAsStarFacts]' started.
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testMalformedObjectValuesAreNotAdmittedAsStarFacts]' passed (0.000 seconds).
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testMonthlyAndPalaceFlightReadingFitsActualRequestAndReplay]' started.
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testMonthlyAndPalaceFlightReadingFitsActualRequestAndReplay]' passed (5.593 seconds).
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testOnlyNamedPalaceAssertionsBindToTheirOwnPalace]' started.
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testOnlyNamedPalaceAssertionsBindToTheirOwnPalace]' passed (0.002 seconds).
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testPalaceFlightsIndexEachDirectedIdentityAndPreserveEmptyAndFalse]' started.
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testPalaceFlightsIndexEachDirectedIdentityAndPreserveEmptyAndFalse]' passed (0.002 seconds).
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testPalaceIdentityScopesStarsAndTransformations]' started.
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testPalaceIdentityScopesStarsAndTransformations]' passed (0.001 seconds).
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testRealNatalAndTimingToolsFitLiveAndReplayBudgets]' started.
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testRealNatalAndTimingToolsFitLiveAndReplayBudgets]' passed (1.232 seconds).
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testRelatedPalaceFlightReadingLeavesRoomForFullContext]' started.
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testRelatedPalaceFlightReadingLeavesRoomForFullContext]' passed (2.524 seconds).
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testTimingKeepsAnnualDecadalAndNatalIdentitiesSeparate]' started.
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testTimingKeepsAnnualDecadalAndNatalIdentitiesSeparate]' passed (0.001 seconds).
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testUnavailableAndMalformedPalaceFlightsDoNotBecomeInventedStarFacts]' started.
+Test Case '-[SujiCoreTests.ZiweiEvidenceTests testUnavailableAndMalformedPalaceFlightsDoNotBecomeInventedStarFacts]' passed (0.000 seconds).
+Test Suite 'ZiweiEvidenceTests' passed at 2026-09-21 09:25:05.890.
+	 Executed 11 tests, with 0 failures (0 unexpected) in 11.259 (11.260) seconds
+Test Suite 'SujiCoreTests.xctest' passed at 2026-09-21 09:25:05.890.
+	 Executed 29 tests, with 1 test skipped and 0 failures (0 unexpected) in 19.006 (19.008) seconds
+Test Suite 'Selected tests' passed at 2026-09-21 09:25:05.890.
+	 Executed 29 tests, with 1 test skipped and 0 failures (0 unexpected) in 19.006 (19.009) seconds
+Ziwei temporal delivery: 54247 bytes
+Ziwei temporal delivery: 57685 bytes
+Ziwei temporal delivery: 57581 bytes
+Ziwei temporal delivery: 57607 bytes
+Ziwei temporal delivery: 49802 bytes
+Ziwei temporal delivery: 54331 bytes
+Ziwei temporal delivery: 54317 bytes

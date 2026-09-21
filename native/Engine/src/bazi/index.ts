@@ -24,6 +24,12 @@ export { DayunEngine } from './DayunEngine';
 export { InsightEngine } from './InsightEngine';
 export { getCurrentSiLing, getDefaultSiLing, getSiLingSegments } from './SiLing';
 export type { SiLingSegment } from './SiLing';
+export { adjudicateZhuanWang } from './zhuanWang';
+export type { ZhuanWangAdjudication, ZhuanWangOptions } from './zhuanWang';
+export { getBirthMonthContext } from './birthMonthContext';
+export type { BirthMonthContext } from './birthMonthContext';
+export { adjudicateRescue } from './rescueAdjudication';
+export type { RescueAdjudication, RescuePathStatus } from './rescueAdjudication';
 export { CITY_LONGITUDES, getTrueSolarTimeInfo, toTrueSolarTime } from './TrueSolarTime';
 
 // 结构化命理原语（通根、得令、清浊、寒暖燥湿、五档强弱、格局判定）

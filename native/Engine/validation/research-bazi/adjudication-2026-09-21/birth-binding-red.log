@@ -1,0 +1,33 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand src/ai/tools/__tests__/BaziAdjudicationDispatch.test.ts
+
+FAIL src/ai/tools/__tests__/BaziAdjudicationDispatch.test.ts
+  Bazi adjudication through actual get_domain dispatch
+    ✕ returns earth formation and the original civil Jie elapsed context (71 ms)
+    ✓ returns positional rescue limits with same-element roots and preserves the unrescued duplicate (47 ms)
+    ✓ preserves adjudication through durable natal and profile paths: {"year":1980,"month":1,"day":26,"hour":7,"minute":30,"gender":"男","longitude":120,"timeZoneID":"Asia/Shanghai"} (51 ms)
+    ✓ preserves adjudication through durable natal and profile paths: {"year":1993,"month":6,"day":8,"hour":13,"minute":30,"gender":"男","longitude":120,"timeZoneID":"Asia/Shanghai"} (32 ms)
+
+  ● Bazi adjudication through actual get_domain dispatch › returns earth formation and the original civil Jie elapsed context
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "1980-01-25T23:30:00.000Z"
+    Received: undefined
+
+      10 |   test('returns earth formation and the original civil Jie elapsed context',async()=>{
+      11 |     const result=json(await domain(earthBirth));
+    > 12 |     expect(result.result.bazi.birthDateTime).toBe('1980-01-25T23:30:00.000Z');
+         |                                              ^
+      13 |     const pattern=result.result.bazi.patternAnalysis;
+      14 |     expect(pattern).toMatchObject({name:'稼穑格',category:'zhuanwang',assessmentStatus:'heuristic-candidate',specialPatternEvidence:{
+      15 |       status:'established',outcomeEstablished:false,season:{commander:{gan:'己',element:'土'},birthMonthContext:{
+
+      at Object.<anonymous> (src/ai/tools/__tests__/BaziAdjudicationDispatch.test.ts:12:46)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 3 passed, 4 total
+Snapshots:   0 total
+Time:        1.034 s
+Ran all test suites matching /src\/ai\/tools\/__tests__\/BaziAdjudicationDispatch.test.ts/i.
