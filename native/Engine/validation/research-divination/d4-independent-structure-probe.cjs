@@ -1,0 +1,20 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+const root=process.cwd();
+const {astro}=require(root+'/native/Engine/node_modules/iztro');
+const {getMutagensByHeavenlyStem}=require(root+'/native/Engine/node_modules/iztro/lib/utils');
+const {Solar}=require(root+'/native/Engine/node_modules/lunar-javascript');
+const code=fs.readFileSync(root+'/native/Resources/mingli.js','utf8');const ctx=vm.createContext({console});vm.runInContext(code,ctx);const dispatch=async r=>JSON.parse(JSON.stringify(await ctx.SujiNative.dispatch(r)));
+const keys=['sourcePosition','sourceStem','sourcePalace','star','transformation','targetPosition','targetPalace','isSelf'];const canonical=edges=>edges.map(e=>keys.map(k=>e[k])).sort((a,b)=>JSON.stringify(a).localeCompare(JSON.stringify(b)));const labels=['化禄','化权','化科','化忌'];const norm=s=>s.endsWith('宫')?s:s+'宫';
+(async()=>{
+const oracle=JSON.parse(fs.readFileSync(root+'/native/Engine/validation/research-divination/ziwei-palace-flight-independent-oracle.json','utf8'));const oracleBirth={...oracle.input,minute:0,longitude:120};const literal=await dispatch({command:'natal',birth:oracleBirth});assert.deepEqual(canonical(literal.ziweiPan.palaceFlights.edges),canonical(oracle.edges));
+let count=0,edgesChecked=0,maxIncoming=0;const candidates=[];
+for(const year of [1901,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,2099])for(const hour of [0,7,14,23])for(const gender of ['男','女']){
+ const birth={year,month:8,day:15,hour,minute:30,gender,longitude:120};const natal=await dispatch({command:'natal',birth});const pan=natal.ziweiPan;
+ const date=Solar.fromYmd(year,8,15).next(hour===23?1:0).toYmd();const idx=hour===23?0:Math.floor((hour+1)/2);const a=astro.bySolar(date,idx,gender,true,'zh-CN');
+ const expected=a.palaces.flatMap(p=>{const actual=a.palace(p.name),stars=getMutagensByHeavenlyStem(p.heavenlyStem);return actual.mutagedPlaces().map((t,i)=>({sourcePosition:p.earthlyBranch,sourceStem:p.heavenlyStem,sourcePalace:norm(p.name),star:stars[i],transformation:labels[i],targetPosition:t.earthlyBranch,targetPalace:norm(t.name),isSelf:p.earthlyBranch===t.earthlyBranch}))});assert.deepEqual(canonical(pan.palaceFlights.edges),canonical(expected));count++;edgesChecked+=48;
+ const outputs=[];for(const p of pan.palaces){const r=await dispatch({command:'tool',name:'get_ziwei_palace',birth,natal,now:'2025-01-29T04:00:00Z',arguments:{palace:p.name,withPalaceFlights:true}});outputs.push({name:'get_ziwei_palace',arguments:{palace:p.name,withPalaceFlights:true},output:r.result,size:Buffer.byteLength(JSON.stringify(r.result))});maxIncoming=Math.max(maxIncoming,r.result.palaceFlights.incoming.length);}
+ outputs.sort((a,b)=>b.size-a.size);let top=[];for(const domain of ['事业','婚姻']){const r=await dispatch({command:'tool',name:'get_domain',birth,natal,now:'2025-01-29T04:00:00Z',arguments:{domain}});top.push({name:'get_domain',arguments:{domain},output:r.result});}top.push(...outputs.slice(0,2));const timing=await dispatch({command:'tool',name:'get_ziwei_timing',birth,natal,now:'2025-01-29T04:00:00Z',arguments:{date:'2025-01-29'}});top.push({name:'get_ziwei_timing',arguments:{date:'2025-01-29'},output:timing.result});candidates.push({birth,rows:top,rawBytes:top.reduce((s,r)=>s+Buffer.byteLength(JSON.stringify(r.output)),0)});
+}
+candidates.sort((a,b)=>b.rawBytes-a.rawBytes);fs.writeFileSync('/tmp/suji-d4-capacity-fixtures.json',JSON.stringify(candidates.slice(0,12)));
+const report={bundleSHA:crypto.createHash('sha256').update(code).digest('hex'),engineRevision:literal.engineRevision,literal48:'pass',compatibilityCharts:count,compatibilityEdges:edgesChecked,maxIncoming,largestRawFiveToolBytes:candidates[0].rawBytes,largestBirth:candidates[0].birth,nativeFixtures:'/tmp/suji-d4-capacity-fixtures.json'};fs.writeFileSync('/tmp/suji-d4-review-report.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
+})().catch(e=>{console.error(e);process.exit(1)});

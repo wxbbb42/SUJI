@@ -1,0 +1,50 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand --runTestsByPath src/divination/__tests__/EventAssessment.test.ts
+
+FAIL src/divination/__tests__/EventAssessment.test.ts
+  ✓ uninjured monthly target establishes the source-profile favorable direction, never empirical certainty (5 ms)
+  ✓ 大过之鼎 no-root target defeats both moving rescue edges and yields adverse profile (2 ms)
+  ✓ two appearances retain both event candidates and do not silently select an empty timing object (1 ms)
+  ✓ a question with missing role cannot gain a verdict through candidate agreement (1 ms)
+  ✓ effective 子忌→卯元→巳用 redirects the incoming attack, with balanced calendar supported by the moving yuan (1 ms)
+  ✓ changing only the calendar makes the same yuan month-broken and cannot retain the favorable transmission (1 ms)
+  ✓ added 申金 moving attack on the yuan blocks the complete rescue chain (1 ms)
+  ✓ uninjured monthly target in the current void is awaiting a condition, never permanently adverse or already obtained
+  ✓ month-break alone never satisfies the no-root adverse condition (1 ms)
+  ✓ monthly effective moving 忌 with no calendar support or moving rescue gives adverse direction (1 ms)
+  ✓ two identical rootless objects can share a source direction while selection and timing remain open
+  ✓ incoming ji also needs usable force; a supported yuan does not repair a broken incoming actor (1 ms)
+  ✓ no-root removal of only the day control condition cannot inherit target-cannot-receive (1 ms)
+  ✓ event evidence dictionary keeps every source rule and original pointer locally available (1 ms)
+  ✓ even an unresolved moving rescue prevents the no-rescue monthly-ji adverse rule (1 ms)
+  ✕ matching contested candidates do not masquerade as an invariant established direction (2 ms)
+
+  ● matching contested candidates do not masquerade as an invariant established direction
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+        "outcome": "contested",
+        "ruleOutcomeEstablished": false,
+    -   "selectionStatus": "multiple-object-ambiguity",
+    +   "selectionStatus": "candidate-invariant-direction",
+      }
+
+      110 |   const r=cast([7,7,7,7,7,7],'甲申','丙寅','parents',{subject:'parent',event:'父母'});
+      111 |   expect(r.eventAssessment?.candidates.map((x:any)=>x.outcome)).toEqual(['contested','contested']);
+    > 112 |   expect(r.eventAssessment).toMatchObject({outcome:'contested',selectionStatus:'multiple-object-ambiguity',ruleOutcomeEstablished:false});
+          |                             ^
+      113 | });
+      114 |
+
+      at Object.<anonymous> (src/divination/__tests__/EventAssessment.test.ts:112:29)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 15 passed, 16 total
+Snapshots:   0 total
+Time:        0.67 s, estimated 1 s
+Ran all test suites within paths "src/divination/__tests__/EventAssessment.test.ts".

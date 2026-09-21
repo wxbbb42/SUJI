@@ -1,0 +1,95 @@
+Optional(Attributes: Application, 0x117c10a00, pid: 15296, label: '有时'
+Element subtree:
+ →Application, 0x117c10a00, pid: 15296, label: '有时'
+    Window (Main), 0x117c11e00, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x117c108c0, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x117c10780, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x117c10640, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x117c10500, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x117c103c0, {{0.0, 0.0}, {402.0, 874.0}}
+                NavigationBar, 0x117c10280, {{0.0, 62.0}, {402.0, 54.0}}, identifier: '计算依据'
+                  Button, 0x117c10140, {{16.0, 62.0}, {44.0, 44.0}}, identifier: 'BackButton', label: '问道'
+                  StaticText, 0x117c10000, {{167.0, 73.7}, {67.7, 20.7}}, label: '计算依据'
+                Other, 0x117c12d00, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x117c126c0, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x117c11180, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x117c12bc0, {{0.0, 0.0}, {402.0, 874.0}}
+                        CollectionView, 0x117c11040, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x117c112c0, {{-16.0, -2084.7}, {434.0, 5733.7}}
+                          Cell, 0x117c11540, {{16.0, -296.3}, {370.0, 1412.0}}
+                            Other, 0x117c121c0, {{16.0, -296.3}, {370.0, 1412.0}}
+                              Other, 0x117c12440, {{16.0, -296.3}, {370.0, 1412.0}}
+                            Other, 0x117c12580, {{16.0, -296.3}, {370.0, 1412.0}}
+                              Other, 0x117c11cc0, {{16.0, -296.3}, {370.0, 1412.0}}
+                                Other, 0x117c11680, {{16.0, -296.3}, {370.0, 1412.0}}
+                                  StaticText, 0x117c117c0, {{32.0, -273.3}, {118.0, 20.3}}, label: '扶抑参考的来由'
+                                  StaticText, 0x117c11900, {{32.0, -239.0}, {318.7, 71.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.summary', label: '当前工程启发式的固定权重计数：帮扶 4，克泄耗 4。两侧相等，按当前“≥”规则列为偏强。'
+                                  StaticText, 0x117c12a80, {{32.0, -156.0}, {336.0, 54.7}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.qualification', label: '这些数字是工程权重，不是实测力量。计数包含日干本人一次，未综合月令旺衰、根气、合化与调候，不能替代完整传统强弱辨析。'
+                                  Button, 0x117c12940, {{32.0, -89.3}, {338.0, 44.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.toggle', label: '查看强弱判断依据'
+                                    StaticText, 0x117c12800, {{32.0, -89.3}, {119.3, 44.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.toggle', label: '查看强弱判断依据'
+                                    Button, 0x117c10f00, {{359.7, -74.3}, {10.3, 14.0}}
+                                      Image, 0x117c10dc0, {{359.7, -74.3}, {10.3, 14.0}}, identifier: 'expanded'
+                                  StaticText, 0x117c10c80, {{32.0, -17.3}, {101.3, 20.3}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.group.count', label: '工程计数明细'
+                                  StaticText, 0x117c10b40, {{32.0, 17.0}, {63.7, 18.0}}, label: '年柱 庚午'
+                                  StaticText, 0x117c11400, {{32.0, 41.0}, {262.7, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.year', label: '天干庚金计 1；午藏丁火 0.7、己土 0.3。'
+                                  StaticText, 0x117c11b80, {{32.0, 73.0}, {63.7, 18.0}}, label: '月柱 甲申'
+                                  StaticText, 0x117c12080, {{32.0, 97.0}, {333.3, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.month', label: '天干甲木计 1；申藏庚金 0.6、壬水 0.2、戊土 0.2。'
+                                  StaticText, 0x117c12300, {{32.0, 129.0}, {63.7, 18.0}}, label: '日柱 壬子'
+                                  StaticText, 0x117c11f40, {{32.0, 153.0}, {178.3, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.day', label: '天干壬水计 1；子藏癸水 1。'
+                                  StaticText, 0x10af00780, {{32.0, 185.0}, {63.7, 18.0}}, label: '时柱 乙巳'
+                                  StaticText, 0x10af012c0, {{32.0, 209.0}, {333.3, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.hour', label: '天干乙木计 1；巳藏丙火 0.6、戊土 0.2、庚金 0.2。'
+                                  StaticText, 0x10af00b40, {{32.0, 251.0}, {84.3, 20.3}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.group.totals', label: '分组与边界'
+                                  StaticText, 0x10af02440, {{32.0, 285.3}, {78.0, 18.0}}, label: '同我（比劫）'
+                                  StaticText, 0x10af026c0, {{32.0, 285.3}, {338.0, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.peer', label: '同我（比劫）, 2.2'
+                                  StaticText, 0x10af02580, {{32.0, 317.3}, {63.0, 18.0}}, label: '生我（印）'
+                                  StaticText, 0x10af00640, {{32.0, 317.3}, {338.0, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.resource', label: '生我（印）, 1.8'
+                                  StaticText, 0x10af01040, {{32.0, 349.3}, {63.0, 18.0}}, label: '我生（泄）'
+                                  StaticText, 0x10af01900, {{32.0, 349.3}, {338.0, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.output', label: '我生（泄）, 2'
+                                  StaticText, 0x10af00c80, {{32.0, 381.3}, {63.0, 18.0}}, label: '我克（耗）'
+                                  StaticText, 0x10af00f00, {{32.0, 381.3}, {338.0, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.wealth', label: '我克（耗）, 1.3'
+                                  StaticText, 0x10af008c0, {{32.0, 413.3}, {78.0, 18.0}}, label: '克我（制约）'
+                                  StaticText, 0x10af00a00, {{32.0, 413.3}, {338.0, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.officer', label: '克我（制约）, 0.7'
+                                  StaticText, 0x10af00dc0, {{32.0, 445.3}, {119.3, 18.0}}, label: '日主本人计入一次'
+                                  StaticText, 0x10af01180, {{32.0, 469.3}, {337.0, 41.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.day-master', label: '日干壬计 1；其余帮扶合计 3。不含日干的数字仅供核对，没有用于本次强弱判定。'
+                                  StaticText, 0x117b85b80, {{32.0, 524.3}, {119.3, 18.0}}, label: '相等时也列为偏强'
+                                  StaticText, 0x117b86d00, {{32.0, 548.3}, {229.0, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.threshold', label: '规则为帮扶 ≥ 克泄耗；本次 4 ≥ 4。'
+                                  StaticText, 0x117b86080, {{32.0, 580.3}, {104.3, 18.0}}, label: '月令未额外加权'
+                                  StaticText, 0x117b86e40, {{32.0, 604.3}, {327.7, 41.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.month', label: '月干和月支按上面相同的计数规则加入；此结果不能解释成“因为得令所以身强”。'
+                                  StaticText, 0x117b87d40, {{32.0, 669.3}, {219.3, 20.3}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.group.structure', label: '月令与根气：另一个观察角度'
+                                  StaticText, 0x117b861c0, {{32.0, 703.7}, {59.7, 18.0}}, label: '月支本气'
+                                  StaticText, 0x117b870c0, {{32.0, 727.7}, {313.0, 41.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.month-qi', label: '申中本气为庚金，相对日主为生我。这不是前述计数额外采用的月令系数。'
+                                  StaticText, 0x117b85e00, {{32.0, 782.7}, {74.7, 18.0}}, label: '同五行藏干'
+                                  StaticText, 0x117b85f40, {{32.0, 806.7}, {171.7, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.same-roots', label: '月支申藏壬、日支子藏癸。'
+                                  StaticText, 0x117b85180, {{32.0, 838.7}, {134.3, 18.0}}, label: '印的支持，单独列出'
+                                  StaticText, 0x117b852c0, {{32.0, 862.7}, {171.7, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.resource-roots', label: '月支申藏庚、时支巳藏庚。'
+                                  StaticText, 0x117b86440, {{32.0, 894.7}, {164.0, 18.0}}, label: '根印分档使用另一套权重'
+                                  StaticText, 0x117b84f00, {{32.0, 918.7}, {326.7, 64.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.root-scale', label: '本气1、中气0.5、余气0.2；同五行藏干 1.5 + 印支持 1.2 = 2.7，旧档名为“强根”。边界依次为0.3、0.7、1.5、2.5；档名不等于实际有根或无根。'
+                                  StaticText, 0x117b87e80, {{32.0, 996.7}, {151.7, 18.0}}, label: '结构规则参考为“太旺”'
+                                  StaticText, 0x117b86940, {{32.0, 1020.7}, {332.7, 64.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.separate-grade', label: '命中条件：月令关系为得令、根印合计落入“强根”档，且日支有坐刃或根印支持。这套工程矩阵未综合其他透干，与固定计数的输出不能相互证明。'
+                          Other, 0x117b87ac0, {{0.0, 0.0}, {402.0, 874.0}}
+                            Other, 0x117b85cc0, {{0.0, 0.0}, {402.0, 170.8}}
+                          Other, 0x117b85040, {{0.0, 0.0}, {402.0, 874.0}}
+                            Other, 0x117b84dc0, {{0.0, 0.0}, {402.0, 170.8}}
+                              Image, 0x117b86300, {{-120.0, -166.0}, {642.0, 332.0}}, identifier: 'AdditionalDimmingOverlay'
+                              Other, 0x117ba4500, {{0.0, 0.0}, {402.0, 106.0}}
+                              Other, 0x117ba43c0, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x117ba4280, {{0.0, 0.0}, {402.0, 170.8}}
+                              Other, 0x117ba4140, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x117ba4000, {{0.0, 0.0}, {402.0, 170.8}}
+                              Other, 0x117ba4780, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x117ba4640, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x117ba4a00, {{0.0, 0.0}, {402.0, 170.8}}
+                          Other, 0x117ba48c0, {{369.0, 116.0}, {30.0, 696.0}}, label: 'Vertical scroll bar, 4 pages', value: 30%
+                            Other, 0x117ba4c80, {{396.0, 249.7}, {3.0, 252.7}}
+                          Other, 0x117ba4b40, {{369.0, 116.0}, {30.0, 696.0}}, label: 'Vertical scroll bar, 4 pages', value: 30%
+                            Other, 0x117ba4dc0, {{396.0, 249.7}, {3.0, 252.7}}
+                Other, 0x117ba4f00, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x117ba5040, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x117c10a00, pid: 15296, label: '有时'
+Query chain:
+ →Find: Target Application 'app.suji.native'
+  Output: {
+    Application, 0x117ba5180, pid: 15296, label: '有时'
+  }
+)

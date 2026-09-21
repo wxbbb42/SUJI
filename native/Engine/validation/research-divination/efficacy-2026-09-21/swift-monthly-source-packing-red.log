@@ -1,0 +1,24 @@
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 124]
+[Planning deferred tasks]
+[1 / 10] SujiCore
+[6 / 17] SujiCoreTests-product
+[8 / 19] SujiCoreTests-product
+[14 / 18] SujiCoreTests-product
+[15 / 18] SujiCoreTests-product
+Build complete! (7.17秒)
+Test Suite 'Selected tests' started at 2026-09-21 10:04:21.532.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 10:04:21.535.
+Test Suite 'CastSourcePackingTests' started at 2026-09-21 10:04:21.535.
+Test Case '-[SujiCoreTests.CastSourcePackingTests testSourceDirectoryCannotDisablePackingForFortyMonthlyCandidates]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/CastSourcePackingTests.swift:29: error: -[SujiCoreTests.CastSourcePackingTests testSourceDirectoryCannotDisablePackingForFortyMonthlyCandidates] : XCTAssertLessThanOrEqual failed: ("27760") is greater than ("24000")
+Test Case '-[SujiCoreTests.CastSourcePackingTests testSourceDirectoryCannotDisablePackingForFortyMonthlyCandidates]' failed (1.644 seconds).
+Test Suite 'CastSourcePackingTests' failed at 2026-09-21 10:04:23.180.
+	 Executed 1 test, with 1 failure (0 unexpected) in 1.644 (1.645) seconds
+Test Suite 'SujiCoreTests.xctest' failed at 2026-09-21 10:04:23.180.
+	 Executed 1 test, with 1 failure (0 unexpected) in 1.644 (1.645) seconds
+Test Suite 'Selected tests' failed at 2026-09-21 10:04:23.180.
+	 Executed 1 test, with 1 failure (0 unexpected) in 1.644 (1.648) seconds
+Note: Some test targets reported failures:
+  - SujiCoreTests (XCTest)

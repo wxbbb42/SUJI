@@ -1,0 +1,57 @@
+{
+  "engine": {
+    "suites": 58,
+    "tests": 785,
+    "passed": true
+  },
+  "swiftCore": {
+    "tests": 372,
+    "timezone": "America/Los_Angeles",
+    "passed": true
+  },
+  "backend": {
+    "tests": 15,
+    "passed": true
+  },
+  "nativeHosted": {
+    "tests": 34,
+    "passed": true
+  },
+  "nativeUI": {
+    "tests": 6,
+    "passed": true
+  },
+  "liuyaoActualWire": {
+    "cases": 48,
+    "passed": true,
+    "maxTotalUTF16": 111399,
+    "maxMessageUTF16": 30872,
+    "maxBodyBytes": 168290
+  },
+  "astronomyActualWire": {
+    "cases": 2,
+    "passed": true,
+    "maxTotalUTF16": 22418,
+    "maxMessageUTF16": 6888,
+    "maxBodyBytes": 41576
+  },
+  "knowledgeRegistry": {
+    "sources": 59,
+    "claims": 70
+  },
+  "deployment": {
+    "projectRef": "kwhjutkuntfuhpkrlbly",
+    "function": "suji-chat",
+    "version": 3,
+    "status": "ACTIVE",
+    "unauthenticatedSmokeHTTPStatus": 401,
+    "newLiveModelInterpretationTested": false
+  },
+  "scope": "Local integration acceptance. Exact Git remote and CI state are verified after commit; App Store distribution not included.",
+  "fixtureComparison": {
+    "tests": 6,
+    "passed": true,
+    "toleranceDegrees": 1e-09,
+    "scope": "Astronomy coordinates only; production unchanged"
+  }
+}

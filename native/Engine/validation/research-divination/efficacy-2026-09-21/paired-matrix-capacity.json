@@ -1,0 +1,626 @@
+[
+  {
+    "index": 44,
+    "bytes": 65674,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "career"
+  },
+  {
+    "index": 5,
+    "bytes": 65546,
+    "values": [
+      6,
+      6,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "parents"
+  },
+  {
+    "index": 45,
+    "bytes": 65424,
+    "values": [
+      9,
+      9,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "kids"
+  },
+  {
+    "index": 43,
+    "bytes": 65277,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "career"
+  },
+  {
+    "index": 20,
+    "bytes": 65077,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "career"
+  },
+  {
+    "index": 32,
+    "bytes": 65077,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "career"
+  },
+  {
+    "index": 36,
+    "bytes": 65077,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "career"
+  },
+  {
+    "index": 40,
+    "bytes": 65077,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "career"
+  },
+  {
+    "index": 47,
+    "bytes": 64910,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "parents"
+  },
+  {
+    "index": 41,
+    "bytes": 64877,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "career"
+  },
+  {
+    "index": 42,
+    "bytes": 64877,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "career"
+  },
+  {
+    "index": 23,
+    "bytes": 64868,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "career"
+  },
+  {
+    "index": 35,
+    "bytes": 64868,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "career"
+  },
+  {
+    "index": 39,
+    "bytes": 64868,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "career"
+  },
+  {
+    "index": 21,
+    "bytes": 64843,
+    "values": [
+      9,
+      9,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "kids"
+  },
+  {
+    "index": 33,
+    "bytes": 64843,
+    "values": [
+      9,
+      9,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "kids"
+  },
+  {
+    "index": 37,
+    "bytes": 64843,
+    "values": [
+      9,
+      9,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "kids"
+  },
+  {
+    "index": 0,
+    "bytes": 64827,
+    "values": [
+      9,
+      9,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "kids"
+  },
+  {
+    "index": 12,
+    "bytes": 64827,
+    "values": [
+      9,
+      9,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "kids"
+  },
+  {
+    "index": 16,
+    "bytes": 64827,
+    "values": [
+      9,
+      9,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "kids"
+  },
+  {
+    "index": 1,
+    "bytes": 64736,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "career"
+  },
+  {
+    "index": 13,
+    "bytes": 64736,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "career"
+  },
+  {
+    "index": 17,
+    "bytes": 64736,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "career"
+  },
+  {
+    "index": 3,
+    "bytes": 64685,
+    "values": [
+      9,
+      9,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "parents"
+  },
+  {
+    "index": 15,
+    "bytes": 64685,
+    "values": [
+      9,
+      9,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "parents"
+  },
+  {
+    "index": 19,
+    "bytes": 64685,
+    "values": [
+      9,
+      9,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "parents"
+  },
+  {
+    "index": 2,
+    "bytes": 64651,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "parents"
+  },
+  {
+    "index": 14,
+    "bytes": 64651,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "parents"
+  },
+  {
+    "index": 18,
+    "bytes": 64651,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "parents"
+  },
+  {
+    "index": 22,
+    "bytes": 64651,
+    "values": [
+      9,
+      9,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "kids"
+  },
+  {
+    "index": 34,
+    "bytes": 64651,
+    "values": [
+      9,
+      9,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "kids"
+  },
+  {
+    "index": 38,
+    "bytes": 64651,
+    "values": [
+      9,
+      9,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "kids"
+  },
+  {
+    "index": 26,
+    "bytes": 64313,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "parents"
+  },
+  {
+    "index": 27,
+    "bytes": 64202,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "career"
+  },
+  {
+    "index": 31,
+    "bytes": 64131,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      9,
+      9
+    ],
+    "type": "parents"
+  },
+  {
+    "index": 28,
+    "bytes": 64117,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "marriage"
+  },
+  {
+    "index": 29,
+    "bytes": 64115,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "type": "wealth"
+  },
+  {
+    "index": 46,
+    "bytes": 63945,
+    "values": [
+      6,
+      6,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "parents"
+  },
+  {
+    "index": 30,
+    "bytes": 63864,
+    "values": [
+      6,
+      9,
+      9,
+      6,
+      6,
+      6
+    ],
+    "type": "marriage"
+  },
+  {
+    "index": 25,
+    "bytes": 63842,
+    "values": [
+      6,
+      6,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "parents"
+  },
+  {
+    "index": 24,
+    "bytes": 63462,
+    "values": [
+      6,
+      6,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "parents"
+  },
+  {
+    "index": 6,
+    "bytes": 63348,
+    "values": [
+      6,
+      6,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "parents"
+  },
+  {
+    "index": 4,
+    "bytes": 63241,
+    "values": [
+      6,
+      6,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "parents"
+  },
+  {
+    "index": 7,
+    "bytes": 63085,
+    "values": [
+      6,
+      6,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "marriage"
+  },
+  {
+    "index": 8,
+    "bytes": 63067,
+    "values": [
+      6,
+      6,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "wealth"
+  },
+  {
+    "index": 9,
+    "bytes": 62823,
+    "values": [
+      6,
+      6,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "career"
+  },
+  {
+    "index": 10,
+    "bytes": 62638,
+    "values": [
+      6,
+      6,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "health"
+  },
+  {
+    "index": 11,
+    "bytes": 62059,
+    "values": [
+      6,
+      9,
+      6,
+      6,
+      9,
+      9
+    ],
+    "type": "kids"
+  }
+]

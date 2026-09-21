@@ -1,0 +1,282 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand --runTestsByPath src/divination/__tests__/Efficacy.test.ts
+
+FAIL src/divination/__tests__/Efficacy.test.ts
+  ✕ explicit self selects the actual shi object, while missing relationship retains context gap (4 ms)
+  ✕ unique original remains selected even when void; two appearances never use arbitrary order or void priority
+  ✕ 巳月乙未大过之鼎: rootless target blocks rescue despite actual yuan/ji movers (1 ms)
+  ✕ 申月己丑恒: strong uninjured metal tomb is nonbinding but remains a delayed opening reference (1 ms)
+  ✕ 未月戊辰蛊之损: source month-break opens both actual moving and own-change 丑 tombs
+  ✕ calendar support cannot override an actual moving attacker or a return-control transformation (1 ms)
+  ✕ month support with day control remains balanced, never labelled unconditionally strong
+  ✕ 旺土遇巳论生不论绝; a real attacker prevents automatic override
+  ✕ unrescued weak fire in water season has effective day extinction, not just structural lookup
+  ✕ static triad coincidence does not form a moving combination; one actual mover remains source-limited (1 ms)
+  ✕ two moving and one static keeps the contradictory source reading explicitly
+  ✕ 离之坤: endpoint scopes form, but actual changed 丑 void blocks the outer group now
+  ✕ 小过之艮 calendar shi route is selected; non-shi generalization cannot assert formation (1 ms)
+  ✕ question reassessment recomputes selection and efficacy without changing saved facts or casting
+  ✕ every reported evidence path resolves an existing original fact; no changed cross-position attacker exists
+
+  ● explicit self selects the actual shi object, while missing relationship retains context gap
+
+    expect(received).toMatchObject(expected)
+
+    Matcher error: received value must be a non-null object
+
+    Received has value: undefined
+
+      22 | test('explicit self selects the actual shi object, while missing relationship retains context gap',()=>{
+      23 |   const r=run([7,7,7,7,7,7],'甲寅','庚戌');
+    > 24 |   expect(r.efficacy?.selection).toMatchObject({status:'selected',selectedCandidateId:'original-6'});
+         |                                 ^
+      25 |   const unknown=run([7,7,7,7,7,7],'甲寅','庚戌','wealth',{event:'求财'});
+      26 |   expect(unknown.efficacy?.selection).toMatchObject({status:'requires-context',selectedCandidateId:null});
+      27 | });
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:24:33)
+
+  ● unique original remains selected even when void; two appearances never use arbitrary order or void priority
+
+    expect(received).toMatchObject(expected)
+
+    Matcher error: received value must be a non-null object
+
+    Received has value: undefined
+
+      29 | test('unique original remains selected even when void; two appearances never use arbitrary order or void priority',()=>{
+      30 |   const r=run([7,7,7,7,8,7],'甲寅','庚戌','wealth',{subject:'self',event:'求财'}); // 大有
+    > 31 |   expect(r.efficacy?.selection).toMatchObject({status:'selected',selectedCandidateId:'original-2'});
+         |                                 ^
+      32 |   expect(object(r,'/lines/1')?.availability.status).toBe('awaiting-void-fill');
+      33 |   const two=run([7,7,7,8,7,7],'癸未','庚子','wealth',{subject:'self',event:'求财'}); // 小畜
+      34 |   expect(two.efficacy?.selection).toMatchObject({status:'multiple-candidates',selectedCandidateId:null,candidateIds:['original-3','original-4']});
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:31:33)
+
+  ● 巳月乙未大过之鼎: rootless target blocks rescue despite actual yuan/ji movers
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "rootless-condition"
+    Received: undefined
+
+      38 |   const r=run([8,7,7,7,9,6],'乙巳','乙未');
+      39 |   expect([r.benGua.name,r.bianGua.name]).toEqual(['泽风大过','火风鼎']);
+    > 40 |   expect(object(r,'/lines/3')?.calendarStrength.status).toBe('rootless-condition');
+         |                                                         ^
+      41 |   expect(object(r,'/lines/3')?.vitality.status).toBe('rootless');
+      42 |   expect(r.efficacy?.selectedEffect.status).toBe('blocked');
+      43 | });
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:40:57)
+
+  ● 申月己丑恒: strong uninjured metal tomb is nonbinding but remains a delayed opening reference
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "supported-unopposed"
+    Received: undefined
+
+      45 | test('申月己丑恒: strong uninjured metal tomb is nonbinding but remains a delayed opening reference',()=>{
+      46 |   const r=run([8,7,7,7,8,8],'壬申','己丑');
+    > 47 |   expect(object(r,'/lines/2')?.vitality.status).toBe('supported-unopposed');
+         |                                                 ^
+      48 |   expect(object(r,'/lines/2')?.tombs).toEqual(expect.arrayContaining([expect.objectContaining({scope:'day',status:'nonbinding-strength'})]));
+      49 |   expect(r.efficacy?.selectedEffect.status).toBe('awaiting-condition');
+      50 | });
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:47:49)
+
+  ● 未月戊辰蛊之损: source month-break opens both actual moving and own-change 丑 tombs
+
+    expect(received).toEqual(expected) // deep equality
+
+    Expected: ArrayContaining [ObjectContaining {"scope": "moving", "sourcePath": "/lines/0", "status": "opened"}, ObjectContaining {"scope": "own-change", "sourcePath": "/lines/2/changed", "status": "opened"}]
+    Received: undefined
+
+      52 | test('未月戊辰蛊之损: source month-break opens both actual moving and own-change 丑 tombs',()=>{
+      53 |   const r=run([6,7,9,8,8,7],'癸未','戊辰');
+    > 54 |   expect(object(r,'/lines/2')?.tombs).toEqual(expect.arrayContaining([
+         |                                       ^
+      55 |     expect.objectContaining({scope:'moving',sourcePath:'/lines/0',status:'opened'}),
+      56 |     expect.objectContaining({scope:'own-change',sourcePath:'/lines/2/changed',status:'opened'}),
+      57 |   ]));
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:54:39)
+
+  ● calendar support cannot override an actual moving attacker or a return-control transformation
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "supported"
+    Received: undefined
+
+      60 | test('calendar support cannot override an actual moving attacker or a return-control transformation',()=>{
+      61 |   const r=run([7,7,7,9,7,7],'壬申','己丑'); // moving 午 attacks 申 metal
+    > 62 |   expect(object(r,'/lines/4')?.calendarStrength.status).toBe('supported');
+         |                                                         ^
+      63 |   expect(object(r,'/lines/4')?.vitality.status).toBe('contested');
+      64 |   expect(object(r,'/lines/4')?.tombs.find((t:any)=>t.scope==='day')?.status).toBe('conditional');
+      65 |   const back=run([8,6,7,7,7,7],'壬申','戊午'); // 遯→姤 午化亥
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:62:57)
+
+  ● month support with day control remains balanced, never labelled unconditionally strong
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "balanced"
+    Received: undefined
+
+      70 | test('month support with day control remains balanced, never labelled unconditionally strong',()=>{
+      71 |   const r=run([7,7,7,7,7,7],'甲寅','庚申');
+    > 72 |   expect(object(r,'/lines/1')?.calendarStrength.status).toBe('balanced');
+         |                                                         ^
+      73 |   expect(object(r,'/lines/1')?.vitality.status).toBe('contested');
+      74 | });
+      75 |
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:72:57)
+
+  ● 旺土遇巳论生不论绝; a real attacker prevents automatic override
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "overridden-by-generation"
+    Received: undefined
+
+      76 | test('旺土遇巳论生不论绝; a real attacker prevents automatic override',()=>{
+      77 |   const r=run([7,7,7,7,7,7],'戊辰','乙巳');
+    > 78 |   expect(object(r,'/lines/2')?.extinctions.find((x:any)=>x.scope==='day')?.status).toBe('overridden-by-generation');
+         |                                                                                    ^
+      79 |   const attacked=run([7,9,7,7,7,7],'戊辰','乙巳');
+      80 |   expect(object(attacked,'/lines/2')?.extinctions.find((x:any)=>x.scope==='day')?.status).toBe('conditional');
+      81 | });
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:78:84)
+
+  ● unrescued weak fire in water season has effective day extinction, not just structural lookup
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "opposed-unrescued"
+    Received: undefined
+
+      83 | test('unrescued weak fire in water season has effective day extinction, not just structural lookup',()=>{
+      84 |   const r=run([7,7,7,7,7,7],'癸亥','乙亥');
+    > 85 |   expect(object(r,'/lines/3')?.vitality.status).toBe('opposed-unrescued');
+         |                                                 ^
+      86 |   expect(object(r,'/lines/3')?.extinctions.find((x:any)=>x.scope==='day')?.status).toBe('effective');
+      87 | });
+      88 |
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:85:49)
+
+  ● static triad coincidence does not form a moving combination; one actual mover remains source-limited
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "not-formed"
+    Received: undefined
+
+      89 | test('static triad coincidence does not form a moving combination; one actual mover remains source-limited',()=>{
+      90 |   const r=run([7,7,7,7,7,7],'戊辰','戊子');
+    > 91 |   expect(triad(r,'visible-originals','火')?.formation.status).toBe('not-formed');
+         |                                                              ^
+      92 | });
+      93 |
+      94 | test('two moving and one static keeps the contradictory source reading explicitly',()=>{
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:91:62)
+
+  ● two moving and one static keeps the contradictory source reading explicitly
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "competing-text"
+    Received: undefined
+
+      94 | test('two moving and one static keeps the contradictory source reading explicitly',()=>{
+      95 |   const r=run([7,7,7,9,7,9],'乙巳','丁酉'); // 乾→需 寅 static 午戌 move
+    > 96 |   expect(triad(r,'visible-originals','火')?.formation.status).toBe('competing-text');
+         |                                                              ^
+      97 | });
+      98 |
+      99 | test('离之坤: endpoint scopes form, but actual changed 丑 void blocks the outer group now',()=>{
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:96:62)
+
+  ● 离之坤: endpoint scopes form, but actual changed 丑 void blocks the outer group now
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "formed"
+    Received: undefined
+
+       99 | test('离之坤: endpoint scopes form, but actual changed 丑 void blocks the outer group now',()=>{
+      100 |   const r=run([9,8,9,9,8,9],'乙卯','丁巳');
+    > 101 |   expect(triad(r,'inner-change','木')?.formation.status).toBe('formed');
+          |                                                         ^
+      102 |   expect(triad(r,'outer-change','金')?.formation.status).toBe('formed');
+      103 |   expect(triad(r,'outer-change','金')?.efficacy.status).toBe('awaiting-void-break');
+      104 |   expect(triad(r,'outer-change','金')?.efficacy.conditions.some((c:any)=>c.factPaths.includes('/lines/3/changed/context/isVoid'))).toBe(true);
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:101:57)
+
+  ● 小过之艮 calendar shi route is selected; non-shi generalization cannot assert formation
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "formed"
+    Received: undefined
+
+      107 | test('小过之艮 calendar shi route is selected; non-shi generalization cannot assert formation',()=>{
+      108 |   const r=run([8,8,7,9,8,6],'甲戌','甲寅');
+    > 109 |   expect(triad(r,'calendar-moving-anchor','火')?.formation.status).toBe('formed');
+          |                                                                   ^
+      110 |   const other=run([7,7,7,9,7,7],'甲戌','甲寅');
+      111 |   expect(triad(other,'calendar-moving-anchor','火')?.formation.status).toBe('requires-scope-evidence');
+      112 | });
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:109:67)
+
+  ● question reassessment recomputes selection and efficacy without changing saved facts or casting
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "multiple-candidates"
+    Received: undefined
+
+      115 |   const r=run([7,7,7,7,7,7],'癸亥','乙亥');const saved=JSON.stringify(r);
+      116 |   const revised=engine.reassessQuestion(r,{question:'父母',questionType:'parents',questionContext:{subject:'parent',event:'父母'}}) as any;
+    > 117 |   expect(revised.efficacy?.selection.status).toBe('multiple-candidates');
+          |                                              ^
+      118 |   expect(revised.efficacy?.selectedEffect.status).toBe('requires-selection');
+      119 |   expect(revised.lines).toBe(r.lines);expect(revised.triads).toBe(r.triads);
+      120 |   expect(JSON.stringify(r)).toBe(saved);
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:117:46)
+
+  ● every reported evidence path resolves an existing original fact; no changed cross-position attacker exists
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+      123 | test('every reported evidence path resolves an existing original fact; no changed cross-position attacker exists',()=>{
+      124 |   const r=run([6,6,9,9,9,6],'癸未','戊辰');
+    > 125 |   expect(r.efficacy).toBeDefined();
+          |                      ^
+      126 |   const visit=(value:any):void=>{
+      127 |     if(!value||typeof value!=='object')return;
+      128 |     for(const [k,v] of Object.entries(value)){
+
+      at Object.<anonymous> (src/divination/__tests__/Efficacy.test.ts:125:22)
+
+Test Suites: 1 failed, 1 total
+Tests:       15 failed, 15 total
+Snapshots:   0 total
+Time:        0.75 s
+Ran all test suites within paths "src/divination/__tests__/Efficacy.test.ts".

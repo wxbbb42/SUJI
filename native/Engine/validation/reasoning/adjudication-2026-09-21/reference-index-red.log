@@ -1,0 +1,20 @@
+Building for debugging...
+[1 / 1]
+[2 / 7] SujiCoreTests-product
+[4 / 9] SujiCoreTests-product
+[9 / 13] SujiCoreTests-product
+Build complete! (1.99秒)
+Test Suite 'Selected tests' started at 2026-09-21 09:56:11.232.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 09:56:11.233.
+Test Suite 'ReadingFactReferenceIndexTests' started at 2026-09-21 09:56:11.233.
+Test Case '-[SujiCoreTests.ReadingFactReferenceIndexTests testNumericRangesLiteralZerosEscapedPointersAndConflictingToolsRestoreExactly]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/ReadingFactReferenceIndexTests.swift:14: error: -[SujiCoreTests.ReadingFactReferenceIndexTests testNumericRangesLiteralZerosEscapedPointersAndConflictingToolsRestoreExactly] : XCTUnwrap failed: expected non-nil value of type "Array<String>"
+Test Case '-[SujiCoreTests.ReadingFactReferenceIndexTests testNumericRangesLiteralZerosEscapedPointersAndConflictingToolsRestoreExactly]' failed (0.176 seconds).
+Test Suite 'ReadingFactReferenceIndexTests' failed at 2026-09-21 09:56:11.409.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.176 (0.176) seconds
+Test Suite 'SujiCoreTests.xctest' failed at 2026-09-21 09:56:11.409.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.176 (0.176) seconds
+Test Suite 'Selected tests' failed at 2026-09-21 09:56:11.409.
+	 Executed 1 test, with 1 failure (0 unexpected) in 0.176 (0.177) seconds
+Note: Some test targets reported failures:
+  - SujiCoreTests (XCTest)

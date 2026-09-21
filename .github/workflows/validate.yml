@@ -1,0 +1,71 @@
+name: Validate native engine and core
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  engine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: SwiftUI is the only client
+        run: python3 native/scripts/check-native-only.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: native/Engine/package-lock.json
+      - run: npm ci --prefix native/Engine
+      - run: npm run typecheck --prefix native/Engine
+      - run: npm test --prefix native/Engine
+      - run: npm run build --prefix native/Engine
+      - name: Bundled resources and notices are current
+        run: |
+          git diff --exit-code -- native/Resources/mingli.js native/Resources/ThirdPartyNotices.txt
+          node --test native/scripts/check-engine-fixtures.test.mjs
+          node native/scripts/check-engine-fixtures.mjs
+      - run: npm ci --prefix supabase
+      - run: npm test --prefix supabase
+  swift-core:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Core, boundary contracts, and JavaScriptCore parity outside Beijing
+        run: TZ=America/Los_Angeles swift test --package-path native/Core
+  native-app:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare offline test configuration
+        env:
+          SUPABASE_URL: https://example.supabase.co
+          SUPABASE_ANON_KEY: sb_publishable_offline_native_test_configuration
+        run: python3 native/scripts/configure-public.py
+      - name: Select an available iPhone simulator
+        run: |
+          device_id=$(xcrun simctl list devices available -j | python3 -c 'import json,sys; print(next(d["udid"] for group in json.load(sys.stdin)["devices"].values() for d in group if "iPhone" in d["name"]))')
+          echo "SUJI_TEST_DEVICE=$device_id" >> "$GITHUB_ENV"
+      - name: Build app and test persistence, dossiers and login gate
+        run: |
+          xcodebuild -project native/Suji.xcodeproj -scheme Suji -destination "platform=iOS Simulator,id=$SUJI_TEST_DEVICE" -resultBundlePath /tmp/SujiNative.xcresult test \
+            -only-testing:SujiTests/AppPersistenceTests \
+            -only-testing:SujiTests/StoreRegressionTests \
+            -only-testing:SujiTests/NatalDossierStoreTests \
+            -only-testing:SujiTests/NatalAstronomyStoreTests \
+            -only-testing:SujiTests/CastQuestionConfirmationTests \
+            -only-testing:SujiTests/CastSupplementSessionTests \
+            -only-testing:SujiUITests/CastQuestionUITests \
+            -only-testing:SujiUITests/NatalAstronomyUITests \
+            -only-testing:SujiUITests/SujiUITests/testAccountGateBlocksNotebookBeforeLogin \
+            -only-testing:SujiUITests/SujiUITests/testBirthFormRequiresConfirmationAndBuildsDossier
+      - name: Export UI screenshots
+        if: always()
+        run: xcrun xcresulttool export attachments --path /tmp/SujiNative.xcresult --output-path /tmp/SujiNativeScreenshots
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-test-results
+          path: |
+            /tmp/SujiNative.xcresult
+            /tmp/SujiNativeScreenshots

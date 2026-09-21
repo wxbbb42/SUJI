@@ -1,0 +1,84 @@
+Building for debugging...
+[2 / 4] SujiCore
+[4 / 6] SujiCore
+[10 / 11] SujiCoreTests-product
+[14 / 15] ReadingEvalFixtures-product
+Build complete! (2.17秒)
+Test Suite 'Selected tests' started at 2026-09-21 11:35:07.862.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 11:35:07.862.
+Test Suite 'BaziAdjudicationTraceTests' started at 2026-09-21 11:35:07.862.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testActualEarthFormationExplainsSelectedSubsetWithCivilCommander]' started.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testActualEarthFormationExplainsSelectedSubsetWithCivilCommander]' passed (0.085 seconds).
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testActualRootedCombinationNamesTheRetainedRole]' started.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testActualRootedCombinationNamesTheRetainedRole]' passed (0.078 seconds).
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testFrameworkFullAndBriefClaimsKeepBoundLocalFindings]' started.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testFrameworkFullAndBriefClaimsKeepBoundLocalFindings]' passed (0.101 seconds).
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testRejectsMismatchedBirthMonthCommanderAndSources]' started.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testRejectsMismatchedBirthMonthCommanderAndSources]' passed (0.097 seconds).
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testRejectsRootRemovalAndWrongCombinationObject]' started.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testRejectsRootRemovalAndWrongCombinationObject]' passed (0.089 seconds).
+Test Suite 'BaziAdjudicationTraceTests' passed at 2026-09-21 11:35:08.314.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.451 (0.452) seconds
+Test Suite 'BaziFrameworkIntegrationTests' started at 2026-09-21 11:35:08.314.
+Test Case '-[SujiCoreTests.BaziFrameworkIntegrationTests testActualEngineFollowupsAcquireOneCurrentReceiptEachWithoutModelPlanning]' started.
+Test Case '-[SujiCoreTests.BaziFrameworkIntegrationTests testActualEngineFollowupsAcquireOneCurrentReceiptEachWithoutModelPlanning]' passed (0.685 seconds).
+Test Case '-[SujiCoreTests.BaziFrameworkIntegrationTests testCurrentEngineAcrossTwelveBirthMonthsCompilesSourceBoundClaims]' started.
+Test Case '-[SujiCoreTests.BaziFrameworkIntegrationTests testCurrentEngineAcrossTwelveBirthMonthsCompilesSourceBoundClaims]' passed (0.560 seconds).
+Test Suite 'BaziFrameworkIntegrationTests' passed at 2026-09-21 11:35:09.559.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 1.245 (1.245) seconds
+Test Suite 'BaziPatternConditionTests' started at 2026-09-21 11:35:09.559.
+Test Case '-[SujiCoreTests.BaziPatternConditionTests testAbsentExposedRescueEvidenceSurvivesDocumentPersistence]' started.
+Test Case '-[SujiCoreTests.BaziPatternConditionTests testAbsentExposedRescueEvidenceSurvivesDocumentPersistence]' passed (0.096 seconds).
+Test Case '-[SujiCoreTests.BaziPatternConditionTests testConditionalIndexKeepsOriginalPositionsSourcesAndUnresolvedEffectiveness]' started.
+Test Case '-[SujiCoreTests.BaziPatternConditionTests testConditionalIndexKeepsOriginalPositionsSourcesAndUnresolvedEffectiveness]' passed (0.002 seconds).
+Test Case '-[SujiCoreTests.BaziPatternConditionTests testFrameworkExplainsConditionalRescueAndRejectsWrongObjectOrSource]' started.
+Test Case '-[SujiCoreTests.BaziPatternConditionTests testFrameworkExplainsConditionalRescueAndRejectsWrongObjectOrSource]' passed (0.125 seconds).
+Test Suite 'BaziPatternConditionTests' passed at 2026-09-21 11:35:09.782.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.223 (0.223) seconds
+Test Suite 'BaziRescueDependencyTests' started at 2026-09-21 11:35:09.782.
+Test Case '-[SujiCoreTests.BaziRescueDependencyTests testActualJSCFullBriefAndArchivedDocumentKeepResolvedAndBlockedDependencies]' started.
+Test Case '-[SujiCoreTests.BaziRescueDependencyTests testActualJSCFullBriefAndArchivedDocumentKeepResolvedAndBlockedDependencies]' passed (0.197 seconds).
+Test Case '-[SujiCoreTests.BaziRescueDependencyTests testActualPositionCompetitionSurvivesNativeReadingAndDocumentLimits]' started.
+Test Case '-[SujiCoreTests.BaziRescueDependencyTests testActualPositionCompetitionSurvivesNativeReadingAndDocumentLimits]' passed (0.128 seconds).
+Test Case '-[SujiCoreTests.BaziRescueDependencyTests testCatalogRejectsContradictoryOrMissingSelectedYongInNewReceipt]' started.
+Test Case '-[SujiCoreTests.BaziRescueDependencyTests testCatalogRejectsContradictoryOrMissingSelectedYongInNewReceipt]' passed (0.121 seconds).
+Test Case '-[SujiCoreTests.BaziRescueDependencyTests testIndependentPropagationExplainsProtectionAndBlocking]' started.
+Test Case '-[SujiCoreTests.BaziRescueDependencyTests testIndependentPropagationExplainsProtectionAndBlocking]' passed (0.054 seconds).
+Test Case '-[SujiCoreTests.BaziRescueDependencyTests testLegacyReceiptWithoutNewSourceAndPayloadRemainsReadable]' started.
+Test Case '-[SujiCoreTests.BaziRescueDependencyTests testLegacyReceiptWithoutNewSourceAndPayloadRemainsReadable]' passed (0.004 seconds).
+Test Case '-[SujiCoreTests.BaziRescueDependencyTests testPositionSelectionAndCoSupportedPathsRemainDistinctFromGlobalSuccess]' started.
+Test Case '-[SujiCoreTests.BaziRescueDependencyTests testPositionSelectionAndCoSupportedPathsRemainDistinctFromGlobalSuccess]' passed (0.016 seconds).
+Test Case '-[SujiCoreTests.BaziRescueDependencyTests testRejectsAlteredDependencyAndMissingNewPayloadWithoutLegacyDowngrade]' started.
+Test Case '-[SujiCoreTests.BaziRescueDependencyTests testRejectsAlteredDependencyAndMissingNewPayloadWithoutLegacyDowngrade]' passed (0.015 seconds).
+Test Suite 'BaziRescueDependencyTests' passed at 2026-09-21 11:35:10.318.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.535 (0.535) seconds
+Test Suite 'BaziStrengthTraceTests' started at 2026-09-21 11:35:10.318.
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testAllTenDayStemsProduceUsableRecordedTrace]' started.
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testAllTenDayStemsProduceUsableRecordedTrace]' passed (0.810 seconds).
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testCountTraceCannotRewriteRecordedContributionsOrAggregate]' started.
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testCountTraceCannotRewriteRecordedContributionsOrAggregate]' passed (0.085 seconds).
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testEvidencePresentationRequiresSameSourceAndAllInputFields]' started.
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testEvidencePresentationRequiresSameSourceAndAllInputFields]' passed (0.097 seconds).
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testMonthHourGridKeepsExpandedEvidenceWithinPersistedDocumentLimits]' started.
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testMonthHourGridKeepsExpandedEvidenceWithinPersistedDocumentLimits]' passed (14.674 seconds).
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testRealFloatingPointBoundaryUsesRecordedExactTie]' started.
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testRealFloatingPointBoundaryUsesRecordedExactTie]' passed (0.083 seconds).
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testStructuralLabelAndRuleMustMatchRecordedMonthAndRootFacts]' started.
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testStructuralLabelAndRuleMustMatchRecordedMonthAndRootFacts]' passed (0.089 seconds).
+Test Suite 'BaziStrengthTraceTests' passed at 2026-09-21 11:35:26.156.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 15.838 (15.839) seconds
+Test Suite 'ReadingContinuityBoundaryTests' started at 2026-09-21 11:35:26.156.
+Test Case '-[SujiCoreTests.ReadingContinuityBoundaryTests testEverydayRelationshipsAndChoicesDoNotBecomeBaziClaims]' started.
+Test Case '-[SujiCoreTests.ReadingContinuityBoundaryTests testEverydayRelationshipsAndChoicesDoNotBecomeBaziClaims]' passed (0.045 seconds).
+Test Suite 'ReadingContinuityBoundaryTests' passed at 2026-09-21 11:35:26.201.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.045 (0.045) seconds
+Test Suite 'ReadingDocumentTests' started at 2026-09-21 11:35:26.201.
+Test Case '-[SujiCoreTests.ReadingDocumentTests testTopicSwitchesAndRefusalsDoNotInheritBaziExplanation]' started.
+Test Case '-[SujiCoreTests.ReadingDocumentTests testTopicSwitchesAndRefusalsDoNotInheritBaziExplanation]' passed (0.013 seconds).
+Test Suite 'ReadingDocumentTests' passed at 2026-09-21 11:35:26.214.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.013 (0.013) seconds
+Test Suite 'SujiCoreTests.xctest' passed at 2026-09-21 11:35:26.214.
+	 Executed 25 tests, with 0 failures (0 unexpected) in 18.349 (18.351) seconds
+Test Suite 'Selected tests' passed at 2026-09-21 11:35:26.214.
+	 Executed 25 tests, with 0 failures (0 unexpected) in 18.349 (18.352) seconds
+Strength trace capacity: 144 actual month/hour cases; largest persisted evidence value 3539 bytes

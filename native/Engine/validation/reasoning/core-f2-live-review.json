@@ -1,0 +1,20 @@
+{
+  "sha256": "7c3f8a705b442d9a942683b8c2b7e642cc57d956eaa41d763c61ad387f53a009",
+  "providerRequests": 4,
+  "cases": [
+    {
+      "id": "liuyao-question-conditions",
+      "status": "locally-rendered-liuyao",
+      "receipts": 1,
+      "resolvedFieldReferences": 770,
+      "answerCharacters": 1890
+    },
+    {
+      "id": "liuyao-tool-failure",
+      "status": "liuyao-reference-unavailable",
+      "receipts": 0,
+      "resolvedFieldReferences": 0,
+      "answerCharacters": 28
+    }
+  ]
+}

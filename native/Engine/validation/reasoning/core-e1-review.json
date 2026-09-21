@@ -1,0 +1,17 @@
+{
+  "report": "core-e1-results.json",
+  "reportSHA256": "9c9decf8e54eb1ae063d3c16402d28661e3ffe53a17f58d4bc3a6993f366c0d4",
+  "scope": "Actual DeepSeek with shipping Swift orchestration, writer and verifier. Synthetic auth/quota, not production auth or UI acceptance. One fixed synthetic cast, preserved once.",
+  "providerRequests": 5,
+  "status": "interpretation-not-accepted",
+  "observed": [
+    "Planner supplied explicit self, wealth, event and near context; receipt has both original wealth candidates and dependency-only changed references.",
+    "Writer incorrectly stated 丙寅 month; chart is 乙丑 at 2024-02-04 12:00 Beijing before LiChun.",
+    "Writer invented day same-element control and turned wealth at Shi into relatively positive personal initiative; no supporting conclusion exists in tool facts.",
+    "Verifier first alleged day-clash against monthClash and ungrounded rule violations; local protocol rejected these.",
+    "Verifier retried correct month pointer/value, but value quote included 月 and local calendar binding was not implemented. Response fell back rather than publishing erroneous prose.",
+    "New null pointerSuffix format reconstructed month pointer correctly in real reviewer output; this does not establish semantic acceptance.",
+    "Engine timing unresolved flags wrongly named dark movement for a moving candidate; actual moving counterexample added and condition limited to static day-clash."
+  ],
+  "next": "F: local calendar/line/scope binding, source-and-object claim checking and renewed actual model replay. Do not mark core complete."
+}

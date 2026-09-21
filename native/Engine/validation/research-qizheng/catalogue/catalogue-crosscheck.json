@@ -1,0 +1,178 @@
+{
+  "status": "28-catalog-identities-crosschecked-not-historical-policy-accepted",
+  "sourceHashes": {
+    "hipparcos-28.tsv": "01fe75f6ec320ffa452beb68d0e970dc72a8d65de7447754487a7ae980239d80",
+    "simbad-28.json": "fe2ec8bacdb9c9e4dc42556d92448e8ab9d294da0972b61746b84d05106d303c"
+  },
+  "checks": [
+    {
+      "name": "角",
+      "hip": 65474,
+      "simbadMainID": "* alf Vir",
+      "propagatedHipVsSimbadArcseconds": 0.00925082482579726
+    },
+    {
+      "name": "亢",
+      "hip": 69427,
+      "simbadMainID": "* kap Vir",
+      "propagatedHipVsSimbadArcseconds": 0.014902226374477278
+    },
+    {
+      "name": "氐",
+      "hip": 72622,
+      "simbadMainID": "* alf02 Lib",
+      "propagatedHipVsSimbadArcseconds": 0.006001193674743339
+    },
+    {
+      "name": "房",
+      "hip": 78265,
+      "simbadMainID": "* pi. Sco",
+      "propagatedHipVsSimbadArcseconds": 0.010684964121398856
+    },
+    {
+      "name": "心",
+      "hip": 80112,
+      "simbadMainID": "* sig Sco",
+      "propagatedHipVsSimbadArcseconds": 0.016208631056078122
+    },
+    {
+      "name": "尾",
+      "hip": 82514,
+      "simbadMainID": "* mu.01 Sco",
+      "propagatedHipVsSimbadArcseconds": 0.0852726929630937
+    },
+    {
+      "name": "箕",
+      "hip": 88635,
+      "simbadMainID": "* gam02 Sgr",
+      "propagatedHipVsSimbadArcseconds": 0.01644024576673263
+    },
+    {
+      "name": "斗",
+      "hip": 92041,
+      "simbadMainID": "* phi Sgr",
+      "propagatedHipVsSimbadArcseconds": 0.043765774121521606
+    },
+    {
+      "name": "牛",
+      "hip": 100345,
+      "simbadMainID": "* bet01 Cap",
+      "propagatedHipVsSimbadArcseconds": 0.19598268053604356
+    },
+    {
+      "name": "女",
+      "hip": 102618,
+      "simbadMainID": "* eps Aqr",
+      "propagatedHipVsSimbadArcseconds": 0.027938059284724835
+    },
+    {
+      "name": "虚",
+      "hip": 106278,
+      "simbadMainID": "* bet Aqr",
+      "propagatedHipVsSimbadArcseconds": 0.030787912255199876
+    },
+    {
+      "name": "危",
+      "hip": 109074,
+      "simbadMainID": "* alf Aqr",
+      "propagatedHipVsSimbadArcseconds": 0.0028803197906304956
+    },
+    {
+      "name": "室",
+      "hip": 113963,
+      "simbadMainID": "* alf Peg",
+      "propagatedHipVsSimbadArcseconds": 0.010977955408599107
+    },
+    {
+      "name": "壁",
+      "hip": 1067,
+      "simbadMainID": "* gam Peg",
+      "propagatedHipVsSimbadArcseconds": 0.01143984644333897
+    },
+    {
+      "name": "奎",
+      "hip": 4463,
+      "simbadMainID": "* eta And",
+      "propagatedHipVsSimbadArcseconds": 0.00833471833272747
+    },
+    {
+      "name": "娄",
+      "hip": 8903,
+      "simbadMainID": "* bet Ari",
+      "propagatedHipVsSimbadArcseconds": 0.02872559419161823
+    },
+    {
+      "name": "胃",
+      "hip": 12719,
+      "simbadMainID": "*  35 Ari",
+      "propagatedHipVsSimbadArcseconds": 0.022336832015512783
+    },
+    {
+      "name": "昴",
+      "hip": 17499,
+      "simbadMainID": "*  17 Tau",
+      "propagatedHipVsSimbadArcseconds": 0.005844416078641197
+    },
+    {
+      "name": "毕",
+      "hip": 20889,
+      "simbadMainID": "* eps Tau",
+      "propagatedHipVsSimbadArcseconds": 0.013966818861148969
+    },
+    {
+      "name": "觜",
+      "hip": 26207,
+      "simbadMainID": "* lam Ori",
+      "propagatedHipVsSimbadArcseconds": 0.011879834974487686
+    },
+    {
+      "name": "参",
+      "hip": 26727,
+      "simbadMainID": "* zet Ori",
+      "propagatedHipVsSimbadArcseconds": 0.00866925238238676
+    },
+    {
+      "name": "井",
+      "hip": 30343,
+      "simbadMainID": "* mu. Gem",
+      "propagatedHipVsSimbadArcseconds": 0.011377808781890042
+    },
+    {
+      "name": "鬼",
+      "hip": 41822,
+      "simbadMainID": "* tet Cnc",
+      "propagatedHipVsSimbadArcseconds": 0.008085370511099848
+    },
+    {
+      "name": "柳",
+      "hip": 42313,
+      "simbadMainID": "* del Hya",
+      "propagatedHipVsSimbadArcseconds": 0.029168662070856517
+    },
+    {
+      "name": "星",
+      "hip": 46390,
+      "simbadMainID": "* alf Hya",
+      "propagatedHipVsSimbadArcseconds": 0.013730477570791573
+    },
+    {
+      "name": "张",
+      "hip": 48356,
+      "simbadMainID": "* ups01 Hya",
+      "propagatedHipVsSimbadArcseconds": 0.28733377039460334
+    },
+    {
+      "name": "翼",
+      "hip": 53740,
+      "simbadMainID": "* alf Crt",
+      "propagatedHipVsSimbadArcseconds": 0.01199125649150393
+    },
+    {
+      "name": "轸",
+      "hip": 59803,
+      "simbadMainID": "* gam Crv",
+      "propagatedHipVsSimbadArcseconds": 0.009132136358757736
+    }
+  ],
+  "maxSeparationArcseconds": 0.28733377039460334
+}

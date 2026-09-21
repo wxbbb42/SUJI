@@ -1,0 +1,22 @@
+Another instance of SwiftPM (PID: 67474) is already running using '/Users/xiaqobenwang/Documents/SUJI/native/Core/.build', waiting until that process has finished execution...Building for debugging...
+[1 / 4] SujiCore
+[2 / 7] SujiCoreTests-product
+[4 / 9] SujiCoreTests-product
+[9 / 13] SujiCoreTests-product
+Build complete! (2.16秒)
+Test Suite 'Selected tests' started at 2026-09-21 10:00:52.311.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 10:00:52.311.
+Test Suite 'ReadingFactReferenceIndexTests' started at 2026-09-21 10:00:52.311.
+Test Case '-[SujiCoreTests.ReadingFactReferenceIndexTests testNumericRangesLiteralZerosEscapedPointersAndConflictingToolsRestoreExactly]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/ReadingFactReferenceIndexTests.swift:42: error: -[SujiCoreTests.ReadingFactReferenceIndexTests testNumericRangesLiteralZerosEscapedPointersAndConflictingToolsRestoreExactly] : XCTAssertNil failed: "array([SujiCore.JSONValue.string("/leaf"), SujiCore.JSONValue.null])"
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/ReadingFactReferenceIndexTests.swift:76: error: -[SujiCoreTests.ReadingFactReferenceIndexTests testNumericRangesLiteralZerosEscapedPointersAndConflictingToolsRestoreExactly] : XCTAssertEqual failed: ("363") is not equal to ("364")
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/ReadingFactReferenceIndexTests.swift:77: error: -[SujiCoreTests.ReadingFactReferenceIndexTests testNumericRangesLiteralZerosEscapedPointersAndConflictingToolsRestoreExactly] : XCTAssertEqual failed: ("Optional(SujiCore.JSONValue.array([SujiCore.JSONValue.string("/fixed01"), SujiCore.JSONValue.array([])]))") is not equal to ("Optional(SujiCore.JSONValue.array([SujiCore.JSONValue.string("/leaf"), SujiCore.JSONValue.null]))")
+Test Case '-[SujiCoreTests.ReadingFactReferenceIndexTests testNumericRangesLiteralZerosEscapedPointersAndConflictingToolsRestoreExactly]' failed (0.229 seconds).
+Test Suite 'ReadingFactReferenceIndexTests' failed at 2026-09-21 10:00:52.540.
+	 Executed 1 test, with 3 failures (0 unexpected) in 0.229 (0.229) seconds
+Test Suite 'SujiCoreTests.xctest' failed at 2026-09-21 10:00:52.540.
+	 Executed 1 test, with 3 failures (0 unexpected) in 0.229 (0.229) seconds
+Test Suite 'Selected tests' failed at 2026-09-21 10:00:52.540.
+	 Executed 1 test, with 3 failures (0 unexpected) in 0.229 (0.230) seconds
+Note: Some test targets reported failures:
+  - SujiCoreTests (XCTest)

@@ -1,0 +1,281 @@
+{
+  "sourceAssertions": 5,
+  "special": [
+    {
+      "id": "source-wood-output",
+      "expect": "曲直格",
+      "observed": {
+        "isZhuanWang": true,
+        "name": "曲直格",
+        "adjudication": {
+          "methodVersion": "zhuanwang-adjudication-v1",
+          "profileId": "ditianshui-ren-full-formation-v1",
+          "status": "established",
+          "unmetConditions": [],
+          "alternativeProfile": {
+            "id": "ziping-xu-pure-peer-resource",
+            "status": "not-evaluated"
+          }
+        }
+      }
+    },
+    {
+      "id": "source-metal-hidden-fire",
+      "expect": "从革格",
+      "observed": {
+        "isZhuanWang": true,
+        "name": "从革格",
+        "adjudication": {
+          "methodVersion": "zhuanwang-adjudication-v1",
+          "profileId": "ditianshui-ren-full-formation-v1",
+          "status": "established",
+          "unmetConditions": [],
+          "alternativeProfile": {
+            "id": "ziping-xu-pure-peer-resource",
+            "status": "not-evaluated"
+          }
+        }
+      }
+    },
+    {
+      "id": "source-water-hidden-earth",
+      "expect": "润下格",
+      "observed": {
+        "isZhuanWang": true,
+        "name": "润下格",
+        "adjudication": {
+          "methodVersion": "zhuanwang-adjudication-v1",
+          "profileId": "ditianshui-ren-full-formation-v1",
+          "status": "established",
+          "unmetConditions": [],
+          "alternativeProfile": {
+            "id": "ziping-xu-pure-peer-resource",
+            "status": "not-evaluated"
+          }
+        }
+      }
+    },
+    {
+      "id": "source-fire-triad",
+      "expect": "炎上格",
+      "observed": {
+        "isZhuanWang": true,
+        "name": "炎上格",
+        "adjudication": {
+          "methodVersion": "zhuanwang-adjudication-v1",
+          "profileId": "ditianshui-ren-full-formation-v1",
+          "status": "established",
+          "unmetConditions": [],
+          "alternativeProfile": {
+            "id": "ziping-xu-pure-peer-resource",
+            "status": "not-evaluated"
+          }
+        }
+      }
+    },
+    {
+      "id": "independent-fire-output-no-resource",
+      "expect": "炎上格",
+      "observed": {
+        "isZhuanWang": true,
+        "name": "炎上格",
+        "adjudication": {
+          "methodVersion": "zhuanwang-adjudication-v1",
+          "profileId": "ditianshui-ren-full-formation-v1",
+          "status": "established",
+          "unmetConditions": [],
+          "alternativeProfile": {
+            "id": "ziping-xu-pure-peer-resource",
+            "status": "not-evaluated"
+          }
+        }
+      }
+    },
+    {
+      "id": "independent-earth-output",
+      "expect": "稼穑格",
+      "observed": {
+        "isZhuanWang": false,
+        "name": null,
+        "adjudication": {
+          "methodVersion": "zhuanwang-adjudication-v1",
+          "profileId": "ditianshui-ren-full-formation-v1",
+          "status": "needs-month-commander",
+          "unmetConditions": [],
+          "alternativeProfile": {
+            "id": "ziping-xu-pure-peer-resource",
+            "status": "not-evaluated"
+          }
+        }
+      }
+    },
+    {
+      "id": "independent-metal-output",
+      "expect": "从革格",
+      "observed": {
+        "isZhuanWang": true,
+        "name": "从革格",
+        "adjudication": {
+          "methodVersion": "zhuanwang-adjudication-v1",
+          "profileId": "ditianshui-ren-full-formation-v1",
+          "status": "established",
+          "unmetConditions": [],
+          "alternativeProfile": {
+            "id": "ziping-xu-pure-peer-resource",
+            "status": "not-evaluated"
+          }
+        }
+      }
+    },
+    {
+      "id": "independent-water-output",
+      "expect": "润下格",
+      "observed": {
+        "isZhuanWang": true,
+        "name": "润下格",
+        "adjudication": {
+          "methodVersion": "zhuanwang-adjudication-v1",
+          "profileId": "ditianshui-ren-full-formation-v1",
+          "status": "established",
+          "unmetConditions": [],
+          "alternativeProfile": {
+            "id": "ziping-xu-pure-peer-resource",
+            "status": "not-evaluated"
+          }
+        }
+      }
+    },
+    {
+      "id": "wood-visible-controller",
+      "expect": "fails-unmixed-condition",
+      "observed": {
+        "isZhuanWang": false,
+        "name": null,
+        "adjudication": {
+          "methodVersion": "zhuanwang-adjudication-v1",
+          "profileId": "ditianshui-ren-full-formation-v1",
+          "status": "not-established-in-selected-profile",
+          "unmetConditions": [
+            "exposed-controller"
+          ],
+          "alternativeProfile": {
+            "id": "ziping-xu-pure-peer-resource",
+            "status": "not-evaluated"
+          }
+        }
+      }
+    },
+    {
+      "id": "wood-rooted-controller",
+      "expect": "fails-unmixed-condition",
+      "observed": {
+        "isZhuanWang": false,
+        "name": null,
+        "adjudication": {
+          "methodVersion": "zhuanwang-adjudication-v1",
+          "profileId": "ditianshui-ren-full-formation-v1",
+          "status": "not-established-in-selected-profile",
+          "unmetConditions": [
+            "exposed-controller",
+            "external-controller-branch",
+            "external-hidden-controller-unadjudicated"
+          ],
+          "alternativeProfile": {
+            "id": "ziping-xu-pure-peer-resource",
+            "status": "not-evaluated"
+          }
+        }
+      }
+    },
+    {
+      "id": "wood-out-of-season",
+      "expect": "fails-in-season-condition",
+      "observed": {
+        "isZhuanWang": false,
+        "name": null,
+        "adjudication": {
+          "methodVersion": "zhuanwang-adjudication-v1",
+          "profileId": "ditianshui-ren-full-formation-v1",
+          "status": "not-established-in-selected-profile",
+          "unmetConditions": [
+            "not-in-selected-season"
+          ],
+          "alternativeProfile": {
+            "id": "ziping-xu-pure-peer-resource",
+            "status": "not-evaluated"
+          }
+        }
+      }
+    },
+    {
+      "id": "wood-incomplete-xu-allowed",
+      "expect": "xu-school-pure-dominance",
+      "observed": {
+        "isZhuanWang": true,
+        "name": "曲直格",
+        "adjudication": {
+          "methodVersion": "zhuanwang-adjudication-v1",
+          "profileId": "ditianshui-ren-full-formation-v1",
+          "status": "not-established-in-selected-profile",
+          "unmetConditions": [
+            "full-formation-missing"
+          ],
+          "alternativeProfile": {
+            "id": "ziping-xu-pure-peer-resource",
+            "status": "candidate"
+          }
+        }
+      }
+    },
+    {
+      "id": "legacy-incomplete-example",
+      "expect": "xu-school-pure-dominance",
+      "observed": {
+        "isZhuanWang": true,
+        "name": "曲直格",
+        "adjudication": {
+          "methodVersion": "zhuanwang-adjudication-v1",
+          "profileId": "ditianshui-ren-full-formation-v1",
+          "status": "not-established-in-selected-profile",
+          "unmetConditions": [
+            "full-formation-missing"
+          ],
+          "alternativeProfile": {
+            "id": "ziping-xu-pure-peer-resource",
+            "status": "candidate"
+          }
+        }
+      }
+    }
+  ],
+  "siLingShen": [
+    {
+      "gan": null,
+      "gans": [
+        "戊",
+        "己"
+      ],
+      "element": "土",
+      "days": 10,
+      "label": "节后0至10日戊己土司令"
+    },
+    {
+      "gan": "壬",
+      "gans": [
+        "壬"
+      ],
+      "element": "水",
+      "days": 3,
+      "label": "节后10至13日壬水司令"
+    },
+    {
+      "gan": "庚",
+      "gans": [
+        "庚"
+      ],
+      "element": "金",
+      "days": 17,
+      "label": "节后13至30日庚金司令"
+    }
+  ]
+}

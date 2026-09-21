@@ -1,0 +1,18 @@
+Test Suite 'Selected tests' started at 2026-09-21 11:16:30.367.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 11:16:30.368.
+Test Suite 'LiuyaoEventAssessmentTests' started at 2026-09-21 11:16:30.368.
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testSourceDirectionsRenderAndReplayWithEveryEvidencePointerIntact]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/LiuyaoEventAssessmentTests.swift:18: error: -[SujiCoreTests.LiuyaoEventAssessmentTests testSourceDirectionsRenderAndReplayWithEveryEvidencePointerIntact] : XCTUnwrap failed: expected non-nil value of type "Report" - monthly
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testSourceDirectionsRenderAndReplayWithEveryEvidencePointerIntact]' failed (0.230 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testSymmetricAbsencePreservesOldReceiptsAndCannotHideNewVerdicts]' started.
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testSymmetricAbsencePreservesOldReceiptsAndCannotHideNewVerdicts]' passed (0.060 seconds).
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testTamperedDirectionChainEvidenceSelectionAndSourceRejected]' started.
+Test Case '-[SujiCoreTests.LiuyaoEventAssessmentTests testTamperedDirectionChainEvidenceSelectionAndSourceRejected]' passed (0.324 seconds).
+Test Suite 'LiuyaoEventAssessmentTests' failed at 2026-09-21 11:16:30.982.
+	 Executed 3 tests, with 1 failure (0 unexpected) in 0.614 (0.614) seconds
+Test Suite 'SujiCoreTests.xctest' failed at 2026-09-21 11:16:30.982.
+	 Executed 3 tests, with 1 failure (0 unexpected) in 0.614 (0.614) seconds
+Test Suite 'Selected tests' failed at 2026-09-21 11:16:30.982.
+	 Executed 3 tests, with 1 failure (0 unexpected) in 0.614 (0.615) seconds
+Note: Some test targets reported failures:
+  - SujiCoreTests (XCTest)

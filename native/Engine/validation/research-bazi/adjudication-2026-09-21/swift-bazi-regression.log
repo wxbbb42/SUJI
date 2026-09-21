@@ -1,0 +1,117 @@
+Building for debugging...
+[2 / 14] SujiCore
+[4 / 16] SujiCore
+[9 / 18] SujiCore
+[12 / 13] ReadingEvalFixtures-product
+[13 / 16] SujiCoreTests-product
+Build complete! (2.46秒)
+Test Suite 'Selected tests' started at 2026-09-21 09:16:37.769.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 09:16:37.769.
+Test Suite 'BaziAdjudicationTraceTests' started at 2026-09-21 09:16:37.769.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testActualEarthFormationExplainsSelectedSubsetWithCivilCommander]' started.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testActualEarthFormationExplainsSelectedSubsetWithCivilCommander]' passed (0.083 seconds).
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testActualRootedCombinationNamesTheRetainedRole]' started.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testActualRootedCombinationNamesTheRetainedRole]' passed (0.075 seconds).
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testFrameworkFullAndBriefClaimsKeepBoundLocalFindings]' started.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testFrameworkFullAndBriefClaimsKeepBoundLocalFindings]' passed (0.087 seconds).
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testRejectsMismatchedBirthMonthCommanderAndSources]' started.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testRejectsMismatchedBirthMonthCommanderAndSources]' passed (0.078 seconds).
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testRejectsRootRemovalAndWrongCombinationObject]' started.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testRejectsRootRemovalAndWrongCombinationObject]' passed (0.082 seconds).
+Test Suite 'BaziAdjudicationTraceTests' passed at 2026-09-21 09:16:38.175.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.406 (0.406) seconds
+Test Suite 'BaziFrameworkIntegrationTests' started at 2026-09-21 09:16:38.175.
+Test Case '-[SujiCoreTests.BaziFrameworkIntegrationTests testActualEngineFollowupsAcquireOneCurrentReceiptEachWithoutModelPlanning]' started.
+Test Case '-[SujiCoreTests.BaziFrameworkIntegrationTests testActualEngineFollowupsAcquireOneCurrentReceiptEachWithoutModelPlanning]' passed (0.415 seconds).
+Test Case '-[SujiCoreTests.BaziFrameworkIntegrationTests testCurrentEngineAcrossTwelveBirthMonthsCompilesSourceBoundClaims]' started.
+Test Case '-[SujiCoreTests.BaziFrameworkIntegrationTests testCurrentEngineAcrossTwelveBirthMonthsCompilesSourceBoundClaims]' passed (0.447 seconds).
+Test Suite 'BaziFrameworkIntegrationTests' passed at 2026-09-21 09:16:39.037.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.861 (0.862) seconds
+Test Suite 'BaziPatternConditionTests' started at 2026-09-21 09:16:39.037.
+Test Case '-[SujiCoreTests.BaziPatternConditionTests testAbsentExposedRescueEvidenceSurvivesDocumentPersistence]' started.
+Test Case '-[SujiCoreTests.BaziPatternConditionTests testAbsentExposedRescueEvidenceSurvivesDocumentPersistence]' passed (0.092 seconds).
+Test Case '-[SujiCoreTests.BaziPatternConditionTests testConditionalIndexKeepsOriginalPositionsSourcesAndUnresolvedEffectiveness]' started.
+Test Case '-[SujiCoreTests.BaziPatternConditionTests testConditionalIndexKeepsOriginalPositionsSourcesAndUnresolvedEffectiveness]' passed (0.002 seconds).
+Test Case '-[SujiCoreTests.BaziPatternConditionTests testFrameworkExplainsConditionalRescueAndRejectsWrongObjectOrSource]' started.
+Test Case '-[SujiCoreTests.BaziPatternConditionTests testFrameworkExplainsConditionalRescueAndRejectsWrongObjectOrSource]' passed (0.116 seconds).
+Test Suite 'BaziPatternConditionTests' passed at 2026-09-21 09:16:39.247.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.209 (0.210) seconds
+Test Suite 'BaziStrengthTraceTests' started at 2026-09-21 09:16:39.247.
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testAllTenDayStemsProduceUsableRecordedTrace]' started.
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testAllTenDayStemsProduceUsableRecordedTrace]' passed (0.759 seconds).
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testCountTraceCannotRewriteRecordedContributionsOrAggregate]' started.
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testCountTraceCannotRewriteRecordedContributionsOrAggregate]' passed (0.077 seconds).
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testEvidencePresentationRequiresSameSourceAndAllInputFields]' started.
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testEvidencePresentationRequiresSameSourceAndAllInputFields]' passed (0.074 seconds).
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testMonthHourGridKeepsExpandedEvidenceWithinPersistedDocumentLimits]' started.
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testMonthHourGridKeepsExpandedEvidenceWithinPersistedDocumentLimits]' passed (13.461 seconds).
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testRealFloatingPointBoundaryUsesRecordedExactTie]' started.
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testRealFloatingPointBoundaryUsesRecordedExactTie]' passed (0.077 seconds).
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testStructuralLabelAndRuleMustMatchRecordedMonthAndRootFacts]' started.
+Test Case '-[SujiCoreTests.BaziStrengthTraceTests testStructuralLabelAndRuleMustMatchRecordedMonthAndRootFacts]' passed (0.082 seconds).
+Test Suite 'BaziStrengthTraceTests' passed at 2026-09-21 09:16:53.777.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 14.530 (14.531) seconds
+Test Suite 'ReadingContinuityBoundaryTests' started at 2026-09-21 09:16:53.777.
+Test Case '-[SujiCoreTests.ReadingContinuityBoundaryTests testEverydayRelationshipsAndChoicesDoNotBecomeBaziClaims]' started.
+Test Case '-[SujiCoreTests.ReadingContinuityBoundaryTests testEverydayRelationshipsAndChoicesDoNotBecomeBaziClaims]' passed (0.040 seconds).
+Test Suite 'ReadingContinuityBoundaryTests' passed at 2026-09-21 09:16:53.818.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.040 (0.041) seconds
+Test Suite 'ReadingDocumentTests' started at 2026-09-21 09:16:53.818.
+Test Case '-[SujiCoreTests.ReadingDocumentTests testTopicSwitchesAndRefusalsDoNotInheritBaziExplanation]' started.
+Test Case '-[SujiCoreTests.ReadingDocumentTests testTopicSwitchesAndRefusalsDoNotInheritBaziExplanation]' passed (0.011 seconds).
+Test Suite 'ReadingDocumentTests' passed at 2026-09-21 09:16:53.829.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.011 (0.011) seconds
+Test Suite 'TypedClaimBoundaryTests' started at 2026-09-21 09:16:53.829.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testAcceptedOrderingCannotSplitClaimFromItsQualification]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testAcceptedOrderingCannotSplitClaimFromItsQualification]' passed (0.008 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testAdversarialModelSelectionFallsBackToFullLocalAnswer]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testAdversarialModelSelectionFallsBackToFullLocalAnswer]' passed (0.008 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testComparisonScopeDoesNotCaptureRefusalsOrOtherModes]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testComparisonScopeDoesNotCaptureRefusalsOrOtherModes]' passed (0.000 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testConditionalQuotationRequiresApplicableSourceAndConditions]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testConditionalQuotationRequiresApplicableSourceAndConditions]' passed (0.042 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testConflictingDomainFactsCannotBeMergedIntoOneStory]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testConflictingDomainFactsCannotBeMergedIntoOneStory]' passed (0.041 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testContradictoryPatternStemElementCannotGenerateAConfidentTrace]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testContradictoryPatternStemElementCannotGenerateAConfidentTrace]' passed (0.005 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testErrorsAndUnrelatedToolsCannotMasqueradeAsDomainEvidence]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testErrorsAndUnrelatedToolsCannotMasqueradeAsDomainEvidence]' passed (0.005 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testEveryEvidencePointerResolvesToExactCurrentReceiptValue]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testEveryEvidencePointerResolvesToExactCurrentReceiptValue]' passed (0.178 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testFiveElementRelationsUseDayMasterPerspectiveForAllFiveElements]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testFiveElementRelationsUseDayMasterPerspectiveForAllFiveElements]' passed (0.000 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testHistoricalFalseAcceptancesBecomeUsefulQualifiedComparisons]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testHistoricalFalseAcceptancesBecomeUsefulQualifiedComparisons]' passed (0.015 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testLegacyPatternLabelCannotOverrideQualifiedAnalysis]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testLegacyPatternLabelCannotOverrideQualifiedAnalysis]' passed (0.006 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testLocalRulesHaveResolvableSourceFilesAndDoNotAlterSourceConditions]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testLocalRulesHaveResolvableSourceFilesAndDoNotAlterSourceConditions]' passed (0.008 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testMatchingDomainReceiptsDoNotMultiplyEvidenceOrValidationClaims]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testMatchingDomainReceiptsDoNotMultiplyEvidenceOrValidationClaims]' passed (0.011 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testMissingEvidenceRecoveryIsNativeAndPreservesActualBirthState]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testMissingEvidenceRecoveryIsNativeAndPreservesActualBirthState]' passed (0.000 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testMissingOrUpgradedQualificationCannotCreateAnUnqualifiedCatalog]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testMissingOrUpgradedQualificationCannotCreateAnUnqualifiedCatalog]' passed (0.027 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testNamedSchoolCannotBeInferredFromAnUnspecifiedOrDifferentPolicy]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testNamedSchoolCannotBeInferredFromAnUnspecifiedOrDifferentPolicy]' passed (0.020 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testOptionalOrderingTransportFailureStillReturnsFullLocalExplanation]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testOptionalOrderingTransportFailureStillReturnsFullLocalExplanation]' passed (0.007 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testOrderingCancellationIsNotReclassifiedAsTransportFailure]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testOrderingCancellationIsNotReclassifiedAsTransportFailure]' passed (0.007 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testRetryPlannerCanStopWithoutLosingThisQuestionsExistingReceipt]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testRetryPlannerCanStopWithoutLosingThisQuestionsExistingReceipt]' passed (0.007 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testStaleOrImportedReceiptsCannotSupplyCurrentClaims]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testStaleOrImportedReceiptsCannotSupplyCurrentClaims]' passed (0.028 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testTraceUsesActualExposedColumnInsteadOfHistoricalYearStem]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testTraceUsesActualExposedColumnInsteadOfHistoricalYearStem]' passed (0.008 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testUnsupportedSelectionBasisCannotClaimBenqiExposure]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testUnsupportedSelectionBasisCannotClaimBenqiExposure]' passed (0.021 seconds).
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testWeakStrengthBranchDoesNotBecomeMutualValidationWhenElementsMatch]' started.
+Test Case '-[SujiCoreTests.TypedClaimBoundaryTests testWeakStrengthBranchDoesNotBecomeMutualValidationWhenElementsMatch]' passed (0.013 seconds).
+Test Suite 'TypedClaimBoundaryTests' passed at 2026-09-21 09:16:54.298.
+	 Executed 23 tests, with 0 failures (0 unexpected) in 0.468 (0.469) seconds
+Test Suite 'SujiCoreTests.xctest' passed at 2026-09-21 09:16:54.298.
+	 Executed 41 tests, with 0 failures (0 unexpected) in 16.526 (16.529) seconds
+Test Suite 'Selected tests' passed at 2026-09-21 09:16:54.299.
+	 Executed 41 tests, with 0 failures (0 unexpected) in 16.526 (16.530) seconds
+Strength trace capacity: 144 actual month/hour cases; largest persisted evidence value 3539 bytes

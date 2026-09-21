@@ -1,0 +1,66 @@
+{
+  "version": "public-birth-audit-1",
+  "accessed": "2026-09-20",
+  "purpose": "Public historical birth facts for local calculation/clock sensitivity checks, never biographical prediction fitting.",
+  "sourceLimit": "Astro-Databank pages and source notes were read in the browser. Their AA/A ratings describe their collection, not independent inspection of an original certificate by SUJI. Store factual fields and short source descriptions only.",
+  "cases": [
+    {
+      "id": "elizabeth-ii",
+      "name": "Elizabeth II",
+      "localDateTime": "1926-04-21T02:40:00",
+      "ianaZone": "Europe/London",
+      "utcOffsetHours": 1,
+      "instant": "1926-04-21T01:40:00Z",
+      "longitude": -0.15,
+      "gender": "女",
+      "sourceRating": "AA",
+      "source": "https://www.astro.com/wiki/astro-databank/index.php?title=Elizabeth_II,_Queen_of_the_United_Kingdom&oldid=339137",
+      "sourceDescription": "Source notes cite an official announcement and The Times, London, 22 April 1926, p.14. The page specifies daylight time UTC+1.",
+      "uncertainty": "Published time is minute-resolution; original contemporary newspaper not independently inspected."
+    },
+    {
+      "id": "elvis-presley",
+      "name": "Elvis Presley",
+      "localDateTime": "1935-01-08T04:35:00",
+      "ianaZone": "America/Chicago",
+      "utcOffsetHours": -6,
+      "instant": "1935-01-08T10:35:00Z",
+      "longitude": -88.7,
+      "gender": "男",
+      "sourceRating": "AA",
+      "source": "https://www.astro.com/wiki/astro-databank/index.php?title=Presley,_Elvis&oldid=333707",
+      "sourceDescription": "Collector reports certificate/record in hand and a doctor's log at 04:35; notes also record a conflicting family recollection of 03:30.",
+      "alternateLocalTimes": ["1935-01-08T03:30:00"],
+      "uncertainty": "04:35 is the record-backed working input, not a guarantee; 03:30 retained as a sensitivity variant."
+    },
+    {
+      "id": "diana",
+      "name": "Diana, Princess of Wales",
+      "localDateTime": "1961-07-01T19:45:00",
+      "ianaZone": "Europe/London",
+      "utcOffsetHours": 1,
+      "instant": "1961-07-01T18:45:00Z",
+      "longitude": 0.5,
+      "gender": "女",
+      "sourceRating": "A",
+      "source": "https://www.astro.com/wiki/astro-databank/index.php?title=Diana,_Princess_of_Wales&oldid=344180",
+      "sourceDescription": "Source notes describe a Buckingham Palace letter dated 13 April 1981 relaying her mother's 19:45 recollection; earlier 14:00 reporting is also documented.",
+      "alternateLocalTimes": ["1961-07-01T14:00:00"],
+      "uncertainty": "Family recollection, not certificate-grade; both reported times are tested without rectifying against her life."
+    },
+    {
+      "id": "john-f-kennedy",
+      "name": "John F. Kennedy",
+      "localDateTime": "1917-05-29T15:00:00",
+      "ianaZone": "America/New_York",
+      "utcOffsetHours": -5,
+      "instant": "1917-05-29T20:00:00Z",
+      "longitude": -71.11666666666666,
+      "gender": "男",
+      "sourceRating": "A",
+      "source": "https://www.astro.com/wiki/astro-databank/index.php?title=Kennedy,_John_F.&oldid=344458",
+      "sourceDescription": "Source notes cite his mother's recollection and several biographies; one says shortly after 15:00. The page specifies standard time UTC-5, not modern May daylight time.",
+      "uncertainty": "Rounded family memory near an hour-branch boundary; +/-30 minute sensitivity is essential. A later astrologer's 15:17 rectification is excluded."
+    }
+  ]
+}

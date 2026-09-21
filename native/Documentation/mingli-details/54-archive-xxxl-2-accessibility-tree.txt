@@ -1,0 +1,81 @@
+Optional(Attributes: Application, 0x116f8e580, pid: 70716, label: '有时'
+Element subtree:
+ →Application, 0x116f8e580, pid: 70716, label: '有时'
+    Window (Main), 0x116f8e6c0, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x116f8e800, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x116f8e940, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x116f8ea80, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x116f8ebc0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x116f8ed00, {{0.0, 0.0}, {402.0, 874.0}}
+                NavigationBar, 0x116f8ee40, {{0.0, 62.0}, {402.0, 54.0}}, identifier: '整理记录验收'
+                  Button, 0x116f8ef80, {{16.0, 62.0}, {44.0, 44.0}}, identifier: 'BackButton', label: '明细界面验收'
+                  StaticText, 0x116f8f0c0, {{140.7, 71.3}, {120.3, 25.3}}, label: '整理记录验收'
+                Other, 0x116f8f5c0, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x116f8f200, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x116f8f340, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x116f8f700, {{0.0, 0.0}, {402.0, 874.0}}
+                        ScrollView, 0x116f8f840, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x116f8f980, {{0.0, -2908.7}, {402.0, 3616.7}}
+                            StaticText, 0x116f8fac0, {{24.0, -2872.7}, {240.0, 172.7}}, label: '整理记录验收'
+                            StaticText, 0x116f8fc00, {{24.0, -2676.0}, {334.0, 226.7}}, label: '合成界面记录，不是真实经历或模型回信；本次没有调用 AI。'
+                            StaticText, 0x116f8fd40, {{24.0, -2425.3}, {334.3, 232.7}}, label: '登录后即可开始 AI 整理，回信会保存在当前账户的册页。'
+                            Button, 0x116f8fe80, {{24.0, -2168.7}, {231.3, 58.7}}, label: '账户与登录'
+                            StaticText, 0x116f8cc80, {{42.0, -2068.0}, {40.7, 51.3}}, label: '你'
+                            StaticText, 0x116f8f480, {{42.0, -2006.7}, {300.3, 273.3}}, label: '【合成测试记录】当前资料：这一轮还没有回信。'
+                            StaticText, 0x116f5b700, {{24.0, -1691.3}, {332.7, 208.7}}, label: '上一条补充还没有完成回信。重试会接着整理同一条内容。'
+                            Button, 0x116f5abc0, {{24.0, -1458.7}, {277.7, 58.7}}, label: '重试这次整理', Disabled
+                            Button, 0x116f5b0c0, {{24.0, -1376.0}, {354.0, 124.7}}, label: '较早的整理（只读）'
+                              StaticText, 0x116f5a6c0, {{24.0, -1376.0}, {354.0, 124.7}}, label: '较早的整理（只读）'
+                              Image, 0x116f59e00, {{343.3, -1321.7}, {37.3, 21.7}}, identifier: 'expanded'
+                            StaticText, 0x116f5a940, {{24.0, -1235.3}, {332.7, 312.7}}, label: '这里保留了其他资料、主题或计算版本下的整理。每段记录独立展示，不会用于本次 AI 整理。'
+                            Button, 0x116f5af80, {{24.0, -900.7}, {354.0, 235.3}}, identifier: 'reflection.archive.ui-audit:previous-birth', label: '2026年9月18日 12:00, 【合成测试记录】旧出生资料：当时填写的是上午十点。'
+                              StaticText, 0x116f5aa80, {{24.0, -900.7}, {354.0, 235.3}}, label: '2026年9月18日 12:00, 【合成测试记录】旧出生资料：当时填写的是上午十点。'
+                                StaticText, 0x116f5b200, {{24.0, -896.7}, {255.7, 116.7}}, label: '2026年9月18日 12:00'
+                                StaticText, 0x116f5ad00, {{24.0, -774.0}, {307.7, 104.7}}, label: '【合成测试记录】旧出生资料：当时填写的是上午十点。'
+                              Image, 0x116f5ae40, {{354.0, -801.7}, {21.7, 37.3}}, identifier: 'collapsed'
+                            Button, 0x116f5b480, {{24.0, -643.3}, {354.0, 235.3}}, identifier: 'reflection.archive.ui-audit:previous-engine', label: '2026年9月17日 12:00, 【合成测试记录】旧计算版本：保留当时的整理记录。'
+                              StaticText, 0x116f5a580, {{24.0, -643.3}, {354.0, 235.3}}, label: '2026年9月17日 12:00, 【合成测试记录】旧计算版本：保留当时的整理记录。'
+                                StaticText, 0x116f76f80, {{24.0, -639.3}, {255.7, 116.7}}, label: '2026年9月17日 12:00'
+                                StaticText, 0x116f770c0, {{24.0, -516.7}, {307.7, 104.7}}, label: '【合成测试记录】旧计算版本：保留当时的整理记录。'
+                              Image, 0x116f752c0, {{354.0, -544.3}, {21.7, 37.3}}, identifier: 'collapsed'
+                            StaticText, 0x116f766c0, {{42.0, -120.7}, {40.7, 51.3}}, identifier: 'reflection.archive.ui-audit:imported', label: '你'
+                            StaticText, 0x116f77340, {{42.0, -59.3}, {300.3, 343.7}}, identifier: 'reflection.archive.ui-audit:imported', label: '【合成测试记录】导入旧记录：原资料与版本无法验证。'
+                            StaticText, 0x116f76a80, {{24.0, 324.3}, {81.3, 51.3}}, identifier: 'reflection.archive.ui-audit:imported', label: '有时'
+                            Button, 0x116f76800, {{24.0, -386.0}, {354.0, 1045.0}}, identifier: 'reflection.archive.ui-audit:imported', label: '2026年9月16日 12:00, 【合成测试记录】导入旧记录：原资料与版本无法验证。'
+                              StaticText, 0x116f77480, {{24.0, -386.0}, {354.0, 235.3}}, label: '2026年9月16日 12:00, 【合成测试记录】导入旧记录：原资料与版本无法验证。'
+                                StaticText, 0x116f76bc0, {{24.0, -382.0}, {255.7, 116.7}}, label: '2026年9月16日 12:00'
+                                StaticText, 0x116f76d00, {{24.0, -259.3}, {307.7, 104.7}}, label: '【合成测试记录】导入旧记录：原资料与版本无法验证。'
+                              Image, 0x116f77200, {{343.3, -276.3}, {37.3, 21.7}}, identifier: 'expanded'
+                            StaticText, 0x116f76940, {{24.0, 385.7}, {350.3, 273.3}}, identifier: 'reflection.archive.ui-audit:imported', label: '【合成测试记录】导入记录的占位段落，非模型回信。'
+                          Other, 0x116f90c80, {{0.0, 0.0}, {402.0, 874.0}}
+                            Other, 0x116f90640, {{0.0, 0.0}, {402.0, 170.8}}
+                          Other, 0x116f90b40, {{0.0, 0.0}, {402.0, 874.0}}
+                            Other, 0x116f90780, {{0.0, 0.0}, {402.0, 170.8}}
+                              Image, 0x117004000, {{-120.0, -166.0}, {642.0, 332.0}}, identifier: 'AdditionalDimmingOverlay'
+                              Other, 0x117004140, {{0.0, 0.0}, {402.0, 106.0}}
+                              Other, 0x117004280, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x1170043c0, {{0.0, 0.0}, {402.0, 170.8}}
+                              Other, 0x117004500, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x117004640, {{0.0, 0.0}, {402.0, 170.8}}
+                              Other, 0x117004780, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x1170048c0, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x117004a00, {{0.0, 0.0}, {402.0, 170.8}}
+                          Other, 0x117004b40, {{369.0, 157.7}, {30.0, 550.3}}, label: 'Vertical scroll bar, 7 pages', value: 100%
+                            Other, 0x117004c80, {{396.0, 584.3}, {3.0, 120.7}}
+                          Other, 0x117004dc0, {{369.0, 157.7}, {30.0, 550.3}}, label: 'Vertical scroll bar, 7 pages', value: 100%
+                            Other, 0x117004f00, {{396.0, 584.3}, {3.0, 120.7}}
+                        TextField, 0x117005040, {{30.0, 746.0}, {282.0, 64.0}}, identifier: 'reflection.input', label: '补充你的经历或想法', placeholderValue: '补充你的经历或想法…'
+                          Other, 0x117005180, {{30.0, 777.0}, {282.0, 30.0}}, label: 'Horizontal scroll bar, 1 pages', value: 0%
+                            Other, 0x1170052c0, {{33.0, 804.0}, {276.0, 3.0}}
+                        Button, 0x117005400, {{338.0, 776.0}, {48.0, 48.0}}, identifier: 'arrow.up', label: '发送补充', Disabled
+                        StaticText, 0x117005540, {{0.0, 0.0}, {402.0, 157.7}}, identifier: 'audit.synthetic', label: '界面验收 · 合成数据 · 未调用 AI'
+                Other, 0x117005680, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x1170057c0, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x116f8e580, pid: 70716, label: '有时'
+Query chain:
+ →Find: Target Application 'app.suji.native'
+  Output: {
+    Application, 0x117005900, pid: 70716, label: '有时'
+  }
+)

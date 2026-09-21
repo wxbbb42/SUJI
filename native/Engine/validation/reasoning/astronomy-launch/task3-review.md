@@ -1,0 +1,25 @@
+# Independent Task 3 review
+
+2026-09-20. Reviewed the astronomy Engine implementation, bridge and tool integration, native payload/dossier contracts, evidence indexing, prompt and backend allowlist changes, build revision inputs, relevant focused tests, and implementation report. AppStore/UI and final synchronized runtime/transport acceptance remain outside this review. No implementation edits or full-suite reruns. The reviewer authored Task2 catalogue research, so this report does not independently approve that research or its catalogue identities.
+
+## Findings
+
+**No production correctness blocker found in the reviewed scope.**
+
+**[P3] Refresh the frozen handoff contract and report to match the selected production policy.** `task3-contract.md` still specifies `revised28-equatorial-v1` and describes `mansions:null` until catalogue research completes; `task3-report.md` likewise says the production identity policy is pending. Actual TS and Swift validators require the complete `contemporary-first-star28-equatorial-v1` module, and the actual production output includes it. These are stale implementation artifacts, not an observed runtime defect. Refresh the contract/report and sample after final integration so a subsequent implementer does not build against an invalid policy/null payload. Parent notified directly.
+
+## Spec and correctness assessment
+
+The physical instant consistently comes from original birth-clock fields interpreted as fixed UTC+8. It is distinct from the existing solar-time/longitude corrections; the lower supported original-clock boundary legitimately maps into UTC1900. UTC≈UT1 and Espenak/Meeus TT are explicit, including predictive uncertainty. Seven-body coordinates use the declared geocentric calls and true equator/ecliptic of date, with a separate Moon correction policy. The implementation does not invent observer latitude, topocentric corrections, 四余, houses, 命度 or ancient angle units.
+
+The mansion builder checks the raw cyclic RA differences before wrap normalization, requires exactly one wrap and positive nonzero segments, and produces a full nonuniform 360° partition. Membership is left-closed/right-open and retains angular distance to the nearest boundary. Tangent motion uses Hipparcos μRA*cos(dec) correctly, a Julian-year epoch interval, and the declared precession/nutation transform. The omitted effects and ICRS frame-bias approximation are disclosed; uncertain birth precision and null numerical error bounds do not falsely certify boundary stability. This assessment covers the mathematical implementation, not an independent re-review of the catalogue authored by this reviewer.
+
+Cache validation binds the current policies, source IDs, engine payload revision, birth key and physical time; it rejects nonfinite/out-of-range coordinates, identity/order changes, broken boundaries and inconsistent memberships. Semantic object comparison permits native sorted-key serialization. Native dossier ownership binds the full BirthProfile/account, actual engine resource revision, embedded revision and immutable payload digest. Cached coordinates intentionally are not recomputed: authenticity must come from native-owned creation and admission, whose AppStore paths require the separate Task4 review.
+
+Model arguments allow only the body selector. The trusted snapshot is a top-level native sidecar; arbitrary model birth/time/cache properties are rejected before invocation. The tool returns bounded body and referenced-boundary subsets while retaining original mansion index, policies, sources, time and uncertainty. These subsets are documented as readouts rather than reusable full snapshots. Native evidence pointers address the actual delivered subset; body fact keys retain real body identities. The existing projection leaves astronomy output intact, so no unrelated fact-sharing mechanism removes its facts. Backend allowlisting does not relax provider budgets.
+
+## Verification scope and remaining integration evidence
+
+Reviewed focused tests cover original-clock range/leap edges, historical-DST/longitude invariance, all seven bodies, strict model arguments, cache mutation rejection, no GeoVector calls on cache hits, sorted-key roundtrip, circle/order/edge geometry, native owner/profile/revision/digest binding, and original tool-relative evidence pointers. The archive-backed comparison preserves all 5,600 Swiss same-TT rows and the 13 default-UT future-Moon failures rather than silently accepting a stronger precision claim. The ERFA screen covers 84 reference-star transforms; its reported 0.136042268 arcsec sample maximum is not a global bound. This reviewer read those tests/artifacts but did not independently rerun the full suites.
+
+Final acceptance still needs the parent's synchronized Engine/native/JSC checks, actual current mansion-bearing evidence/transport matrix, and Task4 lifecycle/UI review. The native evidence unit test currently exercises a synthetic Moon/null-mansions payload, so it alone does not demonstrate the complete production mansion evidence path. No global launch-pass claim is made here.

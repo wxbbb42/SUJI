@@ -1,0 +1,77 @@
+Building for debugging...
+[2 / 7] SujiCoreTests-product
+[5 / 10] SujiCoreTests-product
+[9 / 12] SujiCoreTests-product
+[11 / 15] SujiCoreTests-product
+Build complete! (1.40秒)
+Test Suite 'Selected tests' started at 2026-09-21 10:01:21.403.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 10:01:21.404.
+Test Suite 'DivinationEvidenceTests' started at 2026-09-21 10:01:21.404.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testCandidateRolesIndexKeepsSeparateObjectsEmptyRolesAndMovingPairs]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testCandidateRolesIndexKeepsSeparateObjectsEmptyRolesAndMovingPairs]' passed (0.015 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testCombinedRealChartsAndEvidenceFitBackendContextLimits]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testCombinedRealChartsAndEvidenceFitBackendContextLimits]' passed (23.293 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testCompactIndexPreservesEveryFactAndItsToolIdentity]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testCompactIndexPreservesEveryFactAndItsToolIdentity]' passed (0.008 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testConditionalRelationsKeepDirectionsStatesAndNoVerdict]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testConditionalRelationsKeepDirectionsStatesAndNoVerdict]' passed (0.004 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testIndependentLargestEscapedRequestPreservesOriginalReceiptsAndMargin]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testIndependentLargestEscapedRequestPreservesOriginalReceiptsAndMargin]' passed (6.188 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testLargestReviewedCastPreservesBothChartsWithMaximumLegalCallIDs]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testLargestReviewedCastPreservesBothChartsWithMaximumLegalCallIDs]' passed (6.124 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testLegacySparsePayloadDoesNotInventFactsAndIgnoresUnlistedInterpretation]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testLegacySparsePayloadDoesNotInventFactsAndIgnoresUnlistedInterpretation]' passed (0.004 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testLiuyaoCapacityAtIndependentWorstCaseDatesPreservesBothCasts]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testLiuyaoCapacityAtIndependentWorstCaseDatesPreservesBothCasts]' passed (11.773 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testLiuyaoChartIndexRejectsNestedInterpretationsAndKeepsStaticTransition]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testLiuyaoChartIndexRejectsNestedInterpretationsAndKeepsStaticTransition]' passed (0.004 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testLiuyaoGuaRelationsSurviveActualJavaScriptCoreTransportAndReplay]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testLiuyaoGuaRelationsSurviveActualJavaScriptCoreTransportAndReplay]' passed (2.209 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testLiuyaoWholeChartPairsAndMovingClashesKeepSeparateEvidence]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testLiuyaoWholeChartPairsAndMovingClashesKeepSeparateEvidence]' passed (0.017 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testMalformedContextAndProvenanceCannotSmuggleObjectsIntoScalarFacts]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testMalformedContextAndProvenanceCannotSmuggleObjectsIntoScalarFacts]' passed (0.004 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testMaximumEscapedEventAndCallIDsPreserveBothChartsAndVerificationBudget]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testMaximumEscapedEventAndCallIDsPreserveBothChartsAndVerificationBudget]' passed (6.147 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testMethodsCandidateScopeAndSourceVersionAreCitable]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testMethodsCandidateScopeAndSourceVersionAreCitable]' passed (0.003 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testOriginalChangedAndHiddenContextsHaveDistinctPointers]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testOriginalChangedAndHiddenContextsHaveDistinctPointers]' passed (0.004 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testQimenEarthHostingIsIndependentOfSkyHostingAndArrayOrder]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testQimenEarthHostingIsIndependentOfSkyHostingAndArrayOrder]' passed (0.004 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testQimenFactsUsePalaceIdentityAndPreserveHourScope]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testQimenFactsUsePalaceIdentityAndPreserveHourScope]' passed (0.001 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testQimenQuestionObjectsKeepScopedPointersNullAndUnresolvedTiming]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testQimenQuestionObjectsKeepScopedPointersNullAndUnresolvedTiming]' passed (0.010 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testQuestionObjectAndTimingIndexPreservesCandidatesAndUnresolvedPremises]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testQuestionObjectAndTimingIndexPreservesCandidatesAndUnresolvedPremises]' passed (0.003 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testRepeatedFieldLayoutsPreserveValuesAndAllReceiptCoordinates]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testRepeatedFieldLayoutsPreserveValuesAndAllReceiptCoordinates]' passed (0.040 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testRepeatedStableChartIndicesFitMessageLimit]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testRepeatedStableChartIndicesFitMessageLimit]' passed (0.337 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testSharedIndexRetainsAgreeingAndConflictingReceiptIdentities]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testSharedIndexRetainsAgreeingAndConflictingReceiptIdentities]' passed (0.002 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testSharedLongReceiptIDsRestoreAgreeingAndConflictingGroupsExactly]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testSharedLongReceiptIDsRestoreAgreeingAndConflictingGroupsExactly]' passed (0.007 seconds).
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testTombReferencesKeepObjectIdentityFalseEfficacyAndEmptyActorSets]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testTombReferencesKeepObjectIdentityFalseEfficacyAndEmptyActorSets]' passed (0.009 seconds).
+Test Suite 'DivinationEvidenceTests' passed at 2026-09-21 10:02:17.614.
+	 Executed 24 tests, with 0 failures (0 unexpected) in 56.208 (56.210) seconds
+Test Suite 'ReadingFactReferenceIndexTests' started at 2026-09-21 10:02:17.614.
+Test Case '-[SujiCoreTests.ReadingFactReferenceIndexTests testNumericRangesLiteralZerosEscapedPointersAndConflictingToolsRestoreExactly]' started.
+Test Case '-[SujiCoreTests.ReadingFactReferenceIndexTests testNumericRangesLiteralZerosEscapedPointersAndConflictingToolsRestoreExactly]' passed (0.017 seconds).
+Test Suite 'ReadingFactReferenceIndexTests' passed at 2026-09-21 10:02:17.631.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.017 (0.017) seconds
+Test Suite 'SujiCoreTests.xctest' passed at 2026-09-21 10:02:17.631.
+	 Executed 25 tests, with 0 failures (0 unexpected) in 56.225 (56.227) seconds
+Test Suite 'Selected tests' passed at 2026-09-21 10:02:17.631.
+	 Executed 25 tests, with 0 failures (0 unexpected) in 56.225 (56.228) seconds
+Divination evidence capacity: 84487 UTF-16 code units, 9 messages, cast UTF-16 [23663, 12740], casts 41195 bytes, request 124711 bytes
+Divination evidence capacity: 89031 UTF-16 code units, 9 messages, cast UTF-16 [26818, 12740], casts 44390 bytes, request 129687 bytes
+Divination evidence capacity: 89541 UTF-16 code units, 9 messages, cast UTF-16 [27205, 12692], casts 44683 bytes, request 130251 bytes
+Divination evidence capacity: 89445 UTF-16 code units, 9 messages, cast UTF-16 [27320, 12739], casts 44891 bytes, request 130179 bytes
+Divination evidence capacity: 97815 UTF-16 code units, 9 messages, cast UTF-16 [28444, 15245], casts 48187 bytes, request 142298 bytes
+Divination evidence capacity: 90409 UTF-16 code units, 9 messages, cast UTF-16 [27560, 12680], casts 44860 bytes, request 131590 bytes
+Divination evidence capacity: 89058 UTF-16 code units, 9 messages, cast UTF-16 [27287, 12482], casts 44415 bytes, request 129583 bytes
+Divination evidence capacity: 91095 UTF-16 code units, 9 messages, cast UTF-16 [27281, 14082], casts 46657 bytes, request 132520 bytes
+Divination evidence capacity: 94389 UTF-16 code units, 9 messages, cast UTF-16 [28555, 13675], casts 46054 bytes, request 134376 bytes

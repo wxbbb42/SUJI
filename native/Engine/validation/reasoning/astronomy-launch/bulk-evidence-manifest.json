@@ -1,0 +1,41 @@
+{
+  "archiveSHA256": "d90cc93cd1782e7ec4af54d989b92165ad7327f706f6c765201c373f1253453d",
+  "members": {
+    "data/final-capacity-request-0.json": {
+      "bytes": 41468,
+      "sha256": "e645d7695d90d30e52d318cb3eb3014c60d493a0ed380ea6914fbef9eec82a82"
+    },
+    "data/final-capacity-request-1.json": {
+      "bytes": 34772,
+      "sha256": "3cf4362cae7076630140d99ad52478cacdfca398e2923db295bc317126ca8035"
+    },
+    "data/final-expected-facts-0.json": {
+      "bytes": 55030,
+      "sha256": "c7aa74f988468642f176c611431b8cd17d67793f1e6fd65fcbaefae5da6938a3"
+    },
+    "data/final-expected-facts-1.json": {
+      "bytes": 18048,
+      "sha256": "672d59f1978c435e28c537595dd60401330fa13af808984d36855b4ecc2b3299"
+    },
+    "data/final-native-capacity-report.json": {
+      "bytes": 651,
+      "sha256": "cb644f0ad70bfb9e8cfb6ca70950f9a075ffc5236c88ec2448bccb15aeccf975"
+    },
+    "data/final-wire-decoder-report.json": {
+      "bytes": 1256,
+      "sha256": "db0ee3f743dbdaf9355f10b2830c83c7638b62f0486550cc2f02253dcf327e32"
+    },
+    "data/final-wire-request-0.json": {
+      "bytes": 41576,
+      "sha256": "9174d79d2dca9b9208bdd72d4e8d3dfb45a7f15df8922be9ec4e49d35c37e193"
+    },
+    "data/final-wire-request-1.json": {
+      "bytes": 34880,
+      "sha256": "277ae10903d535a30ca2096f0ded6f7170de8fc9853e68b69f063cec68e88a34"
+    },
+    "data/fixtures.json": {
+      "bytes": 10463,
+      "sha256": "ba5c2a91af8099a5e458cd6e16468dc08b6f85f9e82240022f74447aa180589a"
+    }
+  }
+}

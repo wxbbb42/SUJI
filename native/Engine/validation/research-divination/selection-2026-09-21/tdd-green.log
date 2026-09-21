@@ -1,0 +1,20 @@
+PASS src/qimen/__tests__/SpecializedSelection.test.ts
+  source-specific Qimen object selection
+    ✓ weather-rain retains every expressly named peer object without weather adjudication (12 ms)
+    ✓ weather-snow retains every expressly named peer object without weather adjudication (3 ms)
+    ✓ weather-wind retains every expressly named peer object without weather adjudication (2 ms)
+    ✓ weather-river-level retains every expressly named peer object without weather adjudication (1 ms)
+    ✓ dwelling roles remain distinct, including direct stems on separately labelled plates (2 ms)
+    ✓ entrance selects the actual duty door and verifies its palace identity (1 ms)
+    ✓ reordered palaces keep exact original array pointers and never select a duplicate first (1 ms)
+    ✓ explicit event, broad-category conflict and compatible method are independently required (7 ms)
+    ✓ center records and missing original symbols never become effective role objects (1 ms)
+    ✓ Jia hour uses its own pillar carrier and preserves original stem identity (1 ms)
+    ✓ each quoted selection rule matches newly archived raw bytes and full text (3 ms)
+    ✓ supplement replaces the request/source, preserves the original palaces and removes absent selection (1 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       12 passed, 12 total
+Snapshots:   0 total
+Time:        0.917 s, estimated 1 s
+Ran all test suites matching /src\/qimen\/__tests__\/SpecializedSelection.test.ts/i.

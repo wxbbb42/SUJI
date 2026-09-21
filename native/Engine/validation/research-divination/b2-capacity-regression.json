@@ -1,0 +1,70 @@
+[
+  {
+    "revision": "base",
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "date": "2026-09-11T04:00:00Z",
+    "questionType": "career",
+    "subject": "self",
+    "units": 30931,
+    "bytes": 37625,
+    "combinedBytes": 57891
+  },
+  {
+    "revision": "base",
+    "values": [
+      6,
+      6,
+      6,
+      6,
+      9,
+      9
+    ],
+    "date": "2026-09-12T04:00:00Z",
+    "questionType": "parents",
+    "subject": "parent",
+    "units": 30267,
+    "bytes": 36965,
+    "combinedBytes": 59475
+  },
+  {
+    "revision": "current",
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "date": "2026-09-11T04:00:00Z",
+    "questionType": "career",
+    "subject": "self",
+    "units": 32191,
+    "bytes": 39063,
+    "combinedBytes": 59329
+  },
+  {
+    "revision": "current",
+    "values": [
+      6,
+      6,
+      6,
+      6,
+      9,
+      9
+    ],
+    "date": "2026-09-12T04:00:00Z",
+    "questionType": "parents",
+    "subject": "parent",
+    "units": 31500,
+    "bytes": 38396,
+    "combinedBytes": 60906
+  }
+]

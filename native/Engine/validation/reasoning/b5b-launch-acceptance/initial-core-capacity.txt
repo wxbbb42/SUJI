@@ -1,0 +1,20 @@
+Building for debugging...
+[1 / 9] SujiCoreTests-product
+Build complete! (0.52秒)
+Test Suite 'Selected tests' started at 2026-09-20 07:36:53.882.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-20 07:36:53.885.
+Test Suite 'DivinationEvidenceTests' started at 2026-09-20 07:36:53.885.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testIndependentLargestEscapedRequestPreservesOriginalReceiptsAndMargin]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/DivinationEvidenceTests.swift:271: error: -[SujiCoreTests.DivinationEvidenceTests testIndependentLargestEscapedRequestPreservesOriginalReceiptsAndMargin] : XCTAssertLessThanOrEqual failed: ("30065") is greater than ("29000") - Reviewed worst cases need room below the per-message limit
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/DivinationEvidenceTests.swift:289: error: -[SujiCoreTests.DivinationEvidenceTests testIndependentLargestEscapedRequestPreservesOriginalReceiptsAndMargin] : XCTAssertLessThanOrEqual failed: ("126245") is greater than ("120000") - Backend rejects a valid two-chart review when the fact index repeats too much metadata
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/DivinationEvidenceTests.swift:290: error: -[SujiCoreTests.DivinationEvidenceTests testIndependentLargestEscapedRequestPreservesOriginalReceiptsAndMargin] : XCTAssertLessThanOrEqual failed: ("126245") is greater than ("117500") - Reviewed worst cases need at least 2,500 UTF-16 units of context margin
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testIndependentLargestEscapedRequestPreservesOriginalReceiptsAndMargin]' failed (0.791 seconds).
+Test Suite 'DivinationEvidenceTests' failed at 2026-09-20 07:36:54.676.
+	 Executed 1 test, with 3 failures (0 unexpected) in 0.791 (0.791) seconds
+Test Suite 'SujiCoreTests.xctest' failed at 2026-09-20 07:36:54.676.
+	 Executed 1 test, with 3 failures (0 unexpected) in 0.791 (0.791) seconds
+Test Suite 'Selected tests' failed at 2026-09-20 07:36:54.676.
+	 Executed 1 test, with 3 failures (0 unexpected) in 0.791 (0.794) seconds
+Divination evidence capacity: 126245 UTF-16 code units, 15 messages, cast UTF-16 [30065, 15245], casts 55904 bytes, request 185118 bytes
+Note: Some test targets reported failures:
+  - SujiCoreTests (XCTest)

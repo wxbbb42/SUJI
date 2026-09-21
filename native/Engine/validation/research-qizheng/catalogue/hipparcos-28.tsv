@@ -1,0 +1,66 @@
+#
+#   VizieR Astronomical Server vizier.cds.unistra.fr
+#    Date: 2026-09-20T14:27:15 [V7.6]
+#   In case of problem, please report to:	cds-question@unistra.fr
+#
+#
+#Coosys	J2000:	eq_FK5 J2000
+#INFO	service_protocol=ASU	  IVOID of the protocol through which the data was retrieved
+#INFO	request_date=2026-09-20T14:27:15	  Query execution date
+#INFO	request=https://vizier.cds.unistra.fr/viz-bin/asu-tsv?-source=I%2f239%2fhip_main&HIP=65474%2c69427%2c72622%2c78265%2c80112%2c82514%2c88635%2c92041%2c100345%2c102618%2c106278%2c109074%2c113963%2c1067%2c4463%2c8903%2c12719%2c17499%2c20889%2c26207%2c26727%2c30343%2c41822%2c42313%2c46390%2c48356%2c53740%2c59803&-out=HIP%2cRAICRS%2cDEICRS%2cpmRA%2cpmDE	  Full request URL
+#INFO	contact=cds-question@unistra.fr	  Email or URL to contact publisher
+#INFO	server_software=VizieR/7.6	  Software version
+#INFO	publisher=CDS	  Data centre that produced the VOTable
+#INFO	MaxTuples=50000	
+
+#RESOURCE=yCat_1239
+#Name: I/239
+#Title: The Hipparcos and Tycho Catalogues (ESA 1997)
+#INFO	ivoid=ivo://cds.vizier/i/239	    IVOID of underlying data collection
+#INFO	data_ivoid=ivo://cds.vizier/i/239	    IVOID of underlying data collection
+#INFO	creator=ESA 1997	    First author or institution
+#INFO	cites=1997HIP...C......0E	    Article or Data origin sources
+#INFO	reference_url=https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239	    Dataset landing page
+#INFO	publication_date=2021-11-18	    Date of first publication in the data centre
+#INFO	rights_uri=https://cds.unistra.fr/vizier-org/licences_vizier.html	    Licence URI
+#Coosys	H_1991.250:	ICRS
+#Table	I_239_hip_main:
+#Name: I/239/hip_main
+#Title: The Hipparcos Main Catalogue
+#Column	HIP	(I6)	Identifier (HIP number) (H1)	[ucd=meta.id;meta.main]
+#Column	RAICRS	(F12.8)	? alpha, degrees (ICRS, Epoch=J1991.25) (H8)	[ucd=pos.eq.ra;meta.main]
+#Column	DEICRS	(F12.8)	? delta, degrees (ICRS, Epoch=J1991.25) (H9)	[ucd=pos.eq.dec;meta.main]
+#Column	pmRA	(F8.2)	*? Proper motion mu_alpha.cos(delta), ICRS(H12)	[ucd=pos.pm;pos.eq.ra]
+#Column	pmDE	(F8.2)	*? Proper motion mu_delta, ICRS (H13)	[ucd=pos.pm;pos.eq.dec]
+HIP	RAICRS	DEICRS	pmRA	pmDE
+ 	deg	deg	mas/yr	mas/yr
+------	------------	------------	--------	--------
+  1067	003.30895828	+15.18361593	    4.70	   -8.24
+  4463	014.30178237	+23.41775997	  -43.72	  -46.06
+  8903	028.65978771	+20.80829949	   96.32	 -108.80
+ 12719	040.86296031	+27.70717078	    3.51	   -9.97
+ 17499	056.21884811	+24.11344840	   21.55	  -44.92
+ 20889	067.15388879	+19.18052092	  107.23	  -36.77
+ 26207	083.78449043	+09.93416294	   -1.03	   -1.86
+ 26727	085.18968672	-01.94257841	    3.99	    2.54
+ 30343	095.73996302	+22.51385027	   56.84	 -108.79
+ 41822	127.89902880	+18.09455771	  -60.05	  -56.50
+ 42313	129.41419739	+05.70379868	  -70.27	   -6.99
+ 46390	141.89688260	-08.65868335	  -14.49	   33.25
+ 48356	147.86951033	-14.84654997	   18.68	  -21.88
+ 53740	164.94478664	-18.29909723	 -462.39	  129.11
+ 59803	183.95194937	-17.54198370	 -159.58	   22.31
+ 65474	201.29835230	-11.16124491	  -42.50	  -31.73
+ 69427	213.22392088	-10.27404400	    8.04	  140.79
+ 72622	222.71990536	-16.04161047	 -105.69	  -69.00
+ 78265	239.71300283	-26.11404280	  -12.00	  -25.71
+ 80112	245.29717718	-25.59275259	  -10.03	  -18.03
+ 82514	252.96766195	-38.04732717	   -8.84	  -21.60
+ 88635	271.45218586	-30.42365007	  -55.75	 -181.53
+ 92041	281.41397083	-26.99077940	   51.15	    0.45
+100345	305.25269347	-14.78140119	   48.42	   14.00
+102618	311.91888574	-09.49568988	   31.89	  -35.32
+106278	322.88966951	-05.57115593	   22.79	   -6.70
+109074	331.44593869	-00.31982656	   17.90	   -9.93
+113963	346.19007020	+15.20536786	   61.10	  -42.56
+

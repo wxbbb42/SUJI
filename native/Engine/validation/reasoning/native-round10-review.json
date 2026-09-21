@@ -1,0 +1,272 @@
+{
+  "report": "native-round10-results.json",
+  "reportSHA256": "a13f9a88a6ace2524e8d07394b2f4110be02f0d483fe5dafceacf0ee3f390aa7",
+  "scope": "Independent field binding and selected scenario assertions over the actual Swift synthetic report; no claim of full semantic accuracy, deployed auth, or SwiftUI network E2E.",
+  "providerRequests": 14,
+  "cases": [
+    {
+      "id": "claims-strength-evidence",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "strength"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength"
+      ],
+      "bodyCharacters": 133,
+      "receiptCount": 1,
+      "exactReceiptBindings": true,
+      "largestEvidenceValueUTF8Bytes": 3121
+    },
+    {
+      "id": "claims-strength-evidence-turn2",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "strength"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength"
+      ],
+      "bodyCharacters": 133,
+      "receiptCount": 1,
+      "exactReceiptBindings": true,
+      "largestEvidenceValueUTF8Bytes": 3121
+    },
+    {
+      "id": "claims-strength-evidence-turn3",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "strength"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength"
+      ],
+      "bodyCharacters": 133,
+      "receiptCount": 1,
+      "exactReceiptBindings": true,
+      "largestEvidenceValueUTF8Bytes": 3121
+    },
+    {
+      "id": "claims-strength-evidence-turn4",
+      "presentation": {
+        "detail": "brief",
+        "focuses": [
+          "strength"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength-brief"
+      ],
+      "bodyCharacters": 81,
+      "receiptCount": 1,
+      "exactReceiptBindings": true,
+      "largestEvidenceValueUTF8Bytes": 3121
+    },
+    {
+      "id": "claims-mixed-topics",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "strength",
+          "pattern",
+          "climate"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength",
+        "pattern",
+        "tiaohou"
+      ],
+      "bodyCharacters": 473,
+      "receiptCount": 1,
+      "exactReceiptBindings": true,
+      "largestEvidenceValueUTF8Bytes": 3121
+    },
+    {
+      "id": "claims-mixed-topics-turn2",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "strength",
+          "climate"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength",
+        "tiaohou"
+      ],
+      "bodyCharacters": 296,
+      "receiptCount": 1,
+      "exactReceiptBindings": true,
+      "largestEvidenceValueUTF8Bytes": 3121
+    },
+    {
+      "id": "claims-mixed-topics-turn3",
+      "presentation": {
+        "detail": "brief",
+        "focuses": [
+          "strength",
+          "climate"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength-brief",
+        "tiaohou-brief"
+      ],
+      "bodyCharacters": 189,
+      "receiptCount": 1,
+      "exactReceiptBindings": true,
+      "largestEvidenceValueUTF8Bytes": 3121
+    },
+    {
+      "id": "claims-mixed-topics-turn4",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "strength",
+          "climate"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength",
+        "tiaohou"
+      ],
+      "bodyCharacters": 296,
+      "receiptCount": 1,
+      "exactReceiptBindings": true,
+      "largestEvidenceValueUTF8Bytes": 3121
+    },
+    {
+      "id": "claims-natural-followups",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "comparison"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "strength",
+        "pattern",
+        "relations",
+        "tiaohou",
+        "comparison"
+      ],
+      "bodyCharacters": 761,
+      "receiptCount": 1,
+      "exactReceiptBindings": true,
+      "largestEvidenceValueUTF8Bytes": 3121
+    },
+    {
+      "id": "claims-natural-followups-turn2",
+      "presentation": {
+        "detail": "brief",
+        "focuses": [
+          "overview"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "overview"
+      ],
+      "bodyCharacters": 125,
+      "receiptCount": 1,
+      "exactReceiptBindings": true,
+      "largestEvidenceValueUTF8Bytes": 27
+    },
+    {
+      "id": "claims-natural-followups-turn3",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "pattern"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "pattern"
+      ],
+      "bodyCharacters": 199,
+      "receiptCount": 1,
+      "exactReceiptBindings": true,
+      "largestEvidenceValueUTF8Bytes": 169
+    },
+    {
+      "id": "claims-natural-followups-turn4",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "relations"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "relations"
+      ],
+      "bodyCharacters": 149,
+      "receiptCount": 1,
+      "exactReceiptBindings": true,
+      "largestEvidenceValueUTF8Bytes": 5
+    },
+    {
+      "id": "claims-natural-followups-turn5",
+      "presentation": {
+        "detail": "standard",
+        "focuses": [
+          "climate"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "tiaohou"
+      ],
+      "bodyCharacters": 185,
+      "receiptCount": 1,
+      "exactReceiptBindings": true,
+      "largestEvidenceValueUTF8Bytes": 187
+    },
+    {
+      "id": "claims-natural-followups-turn6",
+      "presentation": {
+        "detail": "brief",
+        "focuses": [
+          "climate"
+        ]
+      },
+      "sectionIDs": [
+        "chart",
+        "tiaohou-brief"
+      ],
+      "bodyCharacters": 130,
+      "receiptCount": 1,
+      "exactReceiptBindings": true,
+      "largestEvidenceValueUTF8Bytes": 187
+    }
+  ],
+  "unresolvedFindings": [
+    {
+      "caseID": "claims-strength-evidence-turn2",
+      "status": "content-incomplete",
+      "finding": "Root question receives the same count-summary body as turn 1. Exact roots are bound in the evidence and can be expanded in SwiftUI, but the body does not answer which pillars or explain same-stem versus same-element roots."
+    },
+    {
+      "caseID": "claims-strength-evidence-turn3",
+      "status": "content-partial",
+      "finding": "Calculation follow-up repeats totals and threshold; the detailed arithmetic remains in expandable trace, not the direct answer body."
+    }
+  ]
+}

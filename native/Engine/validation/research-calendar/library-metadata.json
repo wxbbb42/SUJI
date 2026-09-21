@@ -1,0 +1,267 @@
+[
+  {
+    "full_name": "waterbeside/lunisolar",
+    "html_url": "https://github.com/waterbeside/lunisolar",
+    "description": "Typescript农历库，支持阴历公历互转，支持各类黄历数据查询，如八字四柱、阴历、神煞宜忌、建除十二神、胎神占方、吉神方位、五行纳音等。支持自定义插件。",
+    "stargazers_count": 404,
+    "forks_count": 49,
+    "pushed_at": "2025-08-01T10:12:10Z",
+    "updated_at": "2026-09-18T01:07:52Z",
+    "archived": false,
+    "default_branch": "main",
+    "license": {
+      "key": "gpl-3.0",
+      "name": "GNU General Public License v3.0",
+      "spdx_id": "GPL-3.0",
+      "url": "https://api.github.com/licenses/gpl-3.0",
+      "node_id": "MDc6TGljZW5zZTk="
+    },
+    "retrieved_at": "2026-09-19",
+    "head_sha": "541bd5ea513a3eb32966ef9e2ee7391d5ae12b66",
+    "commit_date": "2025-08-01T08:14:43Z"
+  },
+  {
+    "full_name": "6tail/lunar-javascript",
+    "html_url": "https://github.com/6tail/lunar-javascript",
+    "description": "日历、公历(阳历)、农历(阴历、老黄历)、佛历、道历，支持节假日、星座、儒略日、干支、生肖、节气、节日、彭祖百忌、每日宜忌、吉神宜趋凶煞宜忌、吉神(喜神/福神/财神/阳贵神/阴贵神)方位、胎神方位、冲煞、纳音、星宿、八字、五行、十神、建除十二值星、青龙名堂等十二神、黄道黑道日及吉凶等。lunar is a calendar library for Solar and Chinese Lunar.",
+    "stargazers_count": 1674,
+    "forks_count": 297,
+    "pushed_at": "2025-11-05T12:20:14Z",
+    "updated_at": "2026-09-19T03:19:59Z",
+    "archived": false,
+    "default_branch": "master",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "retrieved_at": "2026-09-19",
+    "head_sha": "4c45a59f79b856125516f31aefa8295035c16afd",
+    "commit_date": "2025-11-05T03:04:25Z"
+  },
+  {
+    "full_name": "6tail/tyme4ts",
+    "html_url": "https://github.com/6tail/tyme4ts",
+    "description": "Tyme是一个非常强大的日历工具库，可以看作 Lunar 的升级版，拥有更优的设计和扩展性，支持公历、农历、藏历、回历、星座、干支、生肖、节气、月相、法定假日等。",
+    "stargazers_count": 500,
+    "forks_count": 91,
+    "pushed_at": "2026-08-17T09:47:13Z",
+    "updated_at": "2026-09-13T04:34:52Z",
+    "archived": false,
+    "default_branch": "master",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "retrieved_at": "2026-09-19",
+    "head_sha": "9e776099e164c43fd932684875057fe345773241",
+    "commit_date": "2026-08-17T09:47:13Z"
+  },
+  {
+    "full_name": "6tail/lunar-python",
+    "html_url": "https://github.com/6tail/lunar-python",
+    "description": "日历、公历(阳历)、农历(阴历、老黄历)、佛历、道历，支持节假日、星座、儒略日、干支、生肖、节气、节日、彭祖百忌、每日宜忌、吉神宜趋凶煞宜忌、吉神(喜神/福神/财神/阳贵神/阴贵神)方位、胎神方位、冲煞、纳音、星宿、八字、五行、十神、建除十二值星、青龙名堂等十二神、黄道黑道日及吉凶等。lunar is a calendar library for Solar and Chinese Lunar.",
+    "stargazers_count": 657,
+    "forks_count": 157,
+    "pushed_at": "2026-01-24T03:07:22Z",
+    "updated_at": "2026-09-19T03:37:48Z",
+    "archived": false,
+    "default_branch": "master",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "retrieved_at": "2026-09-19",
+    "head_sha": "448f397c1695cadab3899bf460e0042cab7f0e66",
+    "commit_date": "2026-01-24T03:07:22Z"
+  },
+  {
+    "full_name": "sxwnl/sxwnl",
+    "html_url": "https://github.com/sxwnl/sxwnl",
+    "description": "寿星天文历(万年历)5.10 原版来自农历论坛：http://bbs.nongli.net/dispbbs_2_14995.html",
+    "stargazers_count": 316,
+    "forks_count": 94,
+    "pushed_at": "2026-09-02T15:24:00Z",
+    "updated_at": "2026-09-18T14:09:55Z",
+    "archived": false,
+    "default_branch": "main",
+    "license": null,
+    "retrieved_at": "2026-09-19",
+    "head_sha": "ed985a0738f9b08f2c130cfba0dbc2a8ec6a6cae",
+    "commit_date": "2026-09-02T15:24:00Z"
+  },
+  {
+    "full_name": "yuangu/sxtwl_cpp",
+    "html_url": "https://github.com/yuangu/sxtwl_cpp",
+    "description": "寿星天文历的C++实现版本",
+    "stargazers_count": 254,
+    "forks_count": 88,
+    "pushed_at": "2024-11-08T07:42:42Z",
+    "updated_at": "2026-09-09T17:41:59Z",
+    "archived": false,
+    "default_branch": "master",
+    "license": {
+      "key": "bsd-3-clause",
+      "name": "BSD 3-Clause \"New\" or \"Revised\" License",
+      "spdx_id": "BSD-3-Clause",
+      "url": "https://api.github.com/licenses/bsd-3-clause",
+      "node_id": "MDc6TGljZW5zZTU="
+    },
+    "retrieved_at": "2026-09-19",
+    "head_sha": "7598b0601a76cfdaa9266257b1b5690720c1e2ce",
+    "commit_date": "2024-11-04T02:35:39Z"
+  },
+  {
+    "full_name": "cosinekitty/astronomy",
+    "html_url": "https://github.com/cosinekitty/astronomy",
+    "description": "Astronomy Engine: multi-language calculation of Sun, Moon, and planet positions. Predicts lunar phases, eclipses, transits, oppositions, conjunctions, equinoxes, solstices, rise/set times, and other events. Provides vector and angular coordinate transforms among equatorial, ecliptic, horizontal, and galactic orientations.",
+    "stargazers_count": 1020,
+    "forks_count": 132,
+    "pushed_at": "2025-01-27T19:41:55Z",
+    "updated_at": "2026-09-17T11:46:16Z",
+    "archived": false,
+    "default_branch": "master",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "retrieved_at": "2026-09-19",
+    "head_sha": "865d3da7d8112bbc7911238052c6af4aaf877181",
+    "commit_date": "2025-01-27T19:41:18Z"
+  },
+  {
+    "full_name": "commenthol/date-chinese",
+    "html_url": "https://github.com/commenthol/date-chinese",
+    "description": "Chinese Calendar",
+    "stargazers_count": 49,
+    "forks_count": 12,
+    "pushed_at": "2022-05-21T08:41:38Z",
+    "updated_at": "2026-05-20T17:46:24Z",
+    "archived": false,
+    "default_branch": "master",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "retrieved_at": "2026-09-19",
+    "head_sha": "9251ba1cc33af47de861b8faec90d19e6d632bee",
+    "commit_date": "2022-05-21T08:41:00Z"
+  },
+  {
+    "full_name": "lidaobing/python-lunardate",
+    "html_url": "https://github.com/lidaobing/python-lunardate",
+    "description": "A Chinese Calendar Library in Pure Python",
+    "stargazers_count": 74,
+    "forks_count": 22,
+    "pushed_at": "2026-07-07T05:14:05Z",
+    "updated_at": "2026-07-07T05:12:36Z",
+    "archived": false,
+    "default_branch": "master",
+    "license": {
+      "key": "gpl-3.0",
+      "name": "GNU General Public License v3.0",
+      "spdx_id": "GPL-3.0",
+      "url": "https://api.github.com/licenses/gpl-3.0",
+      "node_id": "MDc6TGljZW5zZTk="
+    },
+    "retrieved_at": "2026-09-19",
+    "head_sha": "c37bf77c730a4ed8c6d49ccdffdb5e61e16f311c",
+    "commit_date": "2026-07-07T05:12:32Z"
+  },
+  {
+    "full_name": "hkargc/paipan",
+    "html_url": "https://github.com/hkargc/paipan",
+    "description": "PHP JavaScript 农历公历干支历互转,万年历,四柱,六十甲子,属相,十二星座,二十四节气,支持从-1000到3000年间的八字排盘及大运推算,支持真太阳时,支持分析刑冲合害关系",
+    "stargazers_count": 165,
+    "forks_count": 59,
+    "pushed_at": "2026-03-25T04:16:32Z",
+    "updated_at": "2026-09-09T02:05:29Z",
+    "archived": false,
+    "default_branch": "master",
+    "license": {
+      "key": "wtfpl",
+      "name": "Do What The F*ck You Want To Public License",
+      "spdx_id": "WTFPL",
+      "url": "https://api.github.com/licenses/wtfpl",
+      "node_id": "MDc6TGljZW5zZTE4"
+    },
+    "retrieved_at": "2026-09-19",
+    "head_sha": "0785b33e14c9e57a49cfd6e78d84510de30eaa60",
+    "commit_date": "2026-03-25T04:08:21Z"
+  },
+  {
+    "full_name": "china-testing/bazi",
+    "html_url": "https://github.com/china-testing/bazi",
+    "description": "python八字排盘软件。清晰看出冲刑合会、阴阳等关系，并有凝聚大师多年经验的评判。另有合婚、风水等功能及手相教程。",
+    "stargazers_count": 1511,
+    "forks_count": 482,
+    "pushed_at": "2026-09-04T07:24:53Z",
+    "updated_at": "2026-09-18T12:49:47Z",
+    "archived": false,
+    "default_branch": "master",
+    "license": null,
+    "retrieved_at": "2026-09-19",
+    "head_sha": "33b18354d5407727640e545c3aaec0efb4bf5282",
+    "commit_date": "2026-09-04T07:24:48Z"
+  },
+  {
+    "full_name": "XiaoChu-1208/bazi-life-curves",
+    "html_url": "https://github.com/XiaoChu-1208/bazi-life-curves",
+    "description": "Quantify Chinese Bazi (Four Pillars of Destiny) into auditable life curves. Three-school scoring (Fuyi / Tiaohou / Geju) fused with blind-school event detection, structural protection rules, two-round handshake validation, and historical backtesting. Outputs spirit / wealth / fame curves with falsifiable annual interpretations.",
+    "stargazers_count": 4,
+    "forks_count": 0,
+    "pushed_at": "2026-04-28T05:17:51Z",
+    "updated_at": "2026-08-14T13:12:41Z",
+    "archived": false,
+    "default_branch": "main",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "retrieved_at": "2026-09-19",
+    "head_sha": "ad8fdeceac3d74b9682ce1df362e7a497dc91d2c",
+    "commit_date": "2026-04-28T05:17:19Z"
+  },
+  {
+    "repo": "soulteary/lunar-calendar",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "full_name": "OPN48/cnlunar",
+    "html_url": "https://github.com/OPN48/cnlunar",
+    "description": "农历，中国农历历法项目，无需数据库环境，以《钦定协纪辨方书》为核心的python3 农历、黄历、二十四节气、节假日、星次、每日凶煞、每日值神、农历建除十二神、农历每日宜忌、彭祖百忌、每日五行、二十八星宿、天干地支、农历生辰八字、时辰凶吉等开源项目。",
+    "stargazers_count": 844,
+    "forks_count": 198,
+    "pushed_at": "2026-02-24T07:49:42Z",
+    "updated_at": "2026-09-13T03:54:58Z",
+    "archived": false,
+    "default_branch": "master",
+    "license": {
+      "key": "mit",
+      "name": "MIT License",
+      "spdx_id": "MIT",
+      "url": "https://api.github.com/licenses/mit",
+      "node_id": "MDc6TGljZW5zZTEz"
+    },
+    "retrieved_at": "2026-09-19",
+    "head_sha": "1d7f868967cc533c9b577ed0c3ffb3cb67bb5352",
+    "commit_date": "2026-02-24T07:49:37Z"
+  }
+]

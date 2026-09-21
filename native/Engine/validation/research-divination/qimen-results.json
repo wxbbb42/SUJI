@@ -1,0 +1,114 @@
+{
+  "oracle": "qfdk/qimen a32544aa24bd9c7d8e3d24aa456085d5533edafb MIT (package.json says ISC; no code copied)",
+  "checks": {
+    "earth": 18,
+    "star": 1080,
+    "door": 960,
+    "centerExcluded": 120,
+    "mismatches": 0
+  },
+  "limitations": "Upstream bamen expects a non-central source; 120 central-source cases excluded and covered by separately derived raw-palace regression. qfdk calendar and its 2026-06-05 fixture are not used as an oracle.",
+  "diffs": [],
+  "fixtures": [
+    {
+      "dun": "阳",
+      "ju": 1,
+      "xun": "戊",
+      "hour": "甲子",
+      "source": 1,
+      "expected": {
+        "1": "休门",
+        "2": "死门",
+        "3": "伤门",
+        "4": "杜门",
+        "6": "开门",
+        "7": "惊门",
+        "8": "生门",
+        "9": "景门"
+      },
+      "zhiShiMen": "休门",
+      "zhiShiPalaceId": 1,
+      "zhiShiRawPalaceId": 1
+    },
+    {
+      "dun": "阳",
+      "ju": 1,
+      "xun": "戊",
+      "hour": "乙丑",
+      "source": 1,
+      "expected": {
+        "1": "杜门",
+        "2": "休门",
+        "3": "死门",
+        "4": "惊门",
+        "6": "伤门",
+        "7": "生门",
+        "8": "景门",
+        "9": "开门"
+      },
+      "zhiShiMen": "休门",
+      "zhiShiPalaceId": 2,
+      "zhiShiRawPalaceId": 2
+    },
+    {
+      "dun": "阳",
+      "ju": 1,
+      "xun": "戊",
+      "hour": "戊辰",
+      "source": 1,
+      "expected": {
+        "1": "杜门",
+        "2": "休门",
+        "3": "死门",
+        "4": "惊门",
+        "6": "伤门",
+        "7": "生门",
+        "8": "景门",
+        "9": "开门"
+      },
+      "zhiShiMen": "休门",
+      "zhiShiPalaceId": 2,
+      "zhiShiRawPalaceId": 5
+    },
+    {
+      "dun": "阴",
+      "ju": 2,
+      "xun": "戊",
+      "hour": "甲子",
+      "source": 2,
+      "expected": {
+        "1": "休门",
+        "2": "死门",
+        "3": "伤门",
+        "4": "杜门",
+        "6": "开门",
+        "7": "惊门",
+        "8": "生门",
+        "9": "景门"
+      },
+      "zhiShiMen": "死门",
+      "zhiShiPalaceId": 2,
+      "zhiShiRawPalaceId": 2
+    },
+    {
+      "dun": "阴",
+      "ju": 2,
+      "xun": "戊",
+      "hour": "戊辰",
+      "source": 2,
+      "expected": {
+        "1": "开门",
+        "2": "景门",
+        "3": "生门",
+        "4": "伤门",
+        "6": "惊门",
+        "7": "死门",
+        "8": "休门",
+        "9": "杜门"
+      },
+      "zhiShiMen": "死门",
+      "zhiShiPalaceId": 7,
+      "zhiShiRawPalaceId": 7
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "acceptedDuplicateReceiptCounts" : {
+    "1" : true,
+    "4" : true,
+    "5" : false,
+    "8" : false,
+    "9" : false
+  },
+  "acceptedMutations" : [
+
+  ],
+  "actualGates" : {
+    "不要奇门，只用六爻" : true,
+    "不要起卦，只解释六爻里的世爻和应爻" : false,
+    "六爻和紫微一起看" : false,
+    "六爻结合八字" : false,
+    "用六爻与奇门看" : false,
+    "用六爻與奇門看" : false,
+    "解释什么是六爻" : false,
+    "请用六爻问收款" : true
+  },
+  "allMovingDarkMentions" : [
+
+  ],
+  "badEvidence" : 0,
+  "evidenceFields" : 2446086,
+  "firstNil" : [
+
+  ],
+  "nilCount" : 0,
+  "records" : 5376,
+  "rendered" : 5376
+}

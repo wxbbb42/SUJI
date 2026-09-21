@@ -1,0 +1,15 @@
+native/Core/Sources/SujiCore/LiuyaoConditionTransport.swift:124:50: warning: trailing closure in this context is confusable with the body of the statement; pass as a parenthesized argument to silence this warning
+122 |               case var .object(root)=value,root[key] == nil else { return raw }
+123 |         var ids:[String]=[],factPaths:[JSONValue]=[]
+124 |         guard let converted=try? transform(root) { row in
+    |                                                  `- warning: trailing closure in this context is confusable with the body of the statement; pass as a parenthesized argument to silence this warning
+125 |             guard case let .object(condition)=row,Set(condition.keys) == Set(["id","state","factPaths"]),
+126 |                   case let .string(id)=condition["id"],!id.isEmpty,
+
+native/Core/Sources/SujiCore/LiuyaoConditionTransport.swift:171:50: warning: trailing closure in this context is confusable with the body of the statement; pass as a parenthesized argument to silence this warning
+169 |         guard ids.count == values.count,Set(ids).count == ids.count else { return nil }
+170 |         var used=Set<Int>(),usedPaths=Set<Int>()
+171 |         guard let converted=try? transform(root) { row in
+    |                                                  `- warning: trailing closure in this context is confusable with the body of the statement; pass as a parenthesized argument to silence this warning
+172 |             guard case let .array(fields)=row,fields.count == 3,
+173 |                   case let .integer(rawIndex)=fields[0],rawIndex >= 0,rawIndex < ids.count,

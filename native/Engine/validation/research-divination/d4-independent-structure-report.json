@@ -1,0 +1,19 @@
+{
+  "bundleSHA": "bfe775b3a0082370cb533f24bfce871268885c96438bb41b0fce63d2d4199b9b",
+  "engineRevision": "cc50bb6404e4633096eceda951472dbde6bd548da001618fe51019bf1aa196ab",
+  "literal48": "pass",
+  "compatibilityCharts": 96,
+  "compatibilityEdges": 4608,
+  "maxIncoming": 13,
+  "largestRawFiveToolBytes": 78116,
+  "largestBirth": {
+    "year": 1989,
+    "month": 8,
+    "day": 15,
+    "hour": 7,
+    "minute": 30,
+    "gender": "男",
+    "longitude": 120
+  },
+  "nativeFixtures": "/tmp/suji-d4-capacity-fixtures.json"
+}

@@ -1,0 +1,66 @@
+[
+  {
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/img/22_1.jpg",
+    "file": "quanxue-chart-22_1.jpg",
+    "bytes": 53639,
+    "sha256": "c7f0eac1c8218e776c5c07d9097928a5414b12002ed9681c57d964e739b59670",
+    "retrievedAt": "2026-09-21",
+    "purpose": "source diagram archival; not printed-edition scan"
+  },
+  {
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/img/22_2.jpg",
+    "file": "quanxue-chart-22_2.jpg",
+    "bytes": 56091,
+    "sha256": "5a8df3c9cc93a93ebd521f09431d413fa2ada95f5e2ee0a5afb4b5555e4e1b5f",
+    "retrievedAt": "2026-09-21",
+    "purpose": "source diagram archival; not printed-edition scan"
+  },
+  {
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/img/22_3.jpg",
+    "file": "quanxue-chart-22_3.jpg",
+    "bytes": 52379,
+    "sha256": "3a0f1f55d8a10562c930c55c15eb6f0c1beaadfc760eec9dfcd8c1e6948ccee4",
+    "retrievedAt": "2026-09-21",
+    "purpose": "source diagram archival; not printed-edition scan"
+  },
+  {
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/img/22_4.jpg",
+    "file": "quanxue-chart-22_4.jpg",
+    "bytes": 48630,
+    "sha256": "8d92d62a78862820da51a4c68cd4e87f710e20d619c437f331dd365caff607ce",
+    "retrievedAt": "2026-09-21",
+    "purpose": "source diagram archival; not printed-edition scan"
+  },
+  {
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/img/18_6.jpg",
+    "file": "quanxue-chart-18_6.jpg",
+    "bytes": 12267,
+    "sha256": "8590f52d2bc0db34f3f72399c39b6f32c08c7f979f3a1f8d0ecbbaea6ecf4d47",
+    "retrievedAt": "2026-09-21",
+    "purpose": "source diagram archival; not printed-edition scan"
+  },
+  {
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/img/18_7.jpg",
+    "file": "quanxue-chart-18_7.jpg",
+    "bytes": 54557,
+    "sha256": "3ceddd2713770caa49f1d41564c5778b7399a3b60e112700e61bde54a260fc00",
+    "retrievedAt": "2026-09-21",
+    "purpose": "source diagram archival; not printed-edition scan"
+  },
+  {
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/img/11_2.jpg",
+    "file": "quanxue-chart-11_2.jpg",
+    "bytes": 21069,
+    "sha256": "f7766ac643340cc5cfd05c4bffc1a9b00d077247b574b2090ee35a7e70203100",
+    "retrievedAt": "2026-09-21",
+    "purpose": "source diagram archival; not printed-edition scan"
+  },
+  {
+    "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/img/31_1.jpg",
+    "file": "quanxue-chart-31_1.jpg",
+    "bytes": 49234,
+    "sha256": "3198c83239789cbd01df9e8c6272a183706f81633b7f5657bc69ec095b85a74b",
+    "retrievedAt": "2026-09-21",
+    "purpose": "source diagram archival; not printed-edition scan"
+  }
+]

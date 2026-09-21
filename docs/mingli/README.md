@@ -34,7 +34,7 @@ This is not a dump of occult text. It is a source-grounded working knowledge bas
 ## Workflow
 
 ```bash
-npm run kb:mingli
+node scripts/ingest-mingli-kb.mjs
 ```
 
 The script validates `sources.json` / `claims.json` and regenerates:
@@ -62,3 +62,7 @@ For code comments:
 - 紫微斗数古籍还只是 candidate metadata；需要补版本、卷次、摘录和 fixture 对照。
 - 六爻只记录了《周易》和《火珠林》候选；纳甲、世应、用神体系需要继续拆 claim。
 - 奇门需要把已实现的地盘/天盘/寄宫规则拆成 claim，并标出三源验证状态。
+
+## SwiftUI source locations
+
+The maintained calculation sources now live under `native/Engine/src` (formerly `lib`). The source registry and generated indexes use their current paths. Older audits and reading notes retain their original paths and line numbers as historical records; the retired client can be inspected at Git commit `328bcff`.

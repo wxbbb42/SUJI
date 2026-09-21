@@ -1,0 +1,54 @@
+{
+  "cancellationStages" : [
+    "after-prepare",
+    "after-persist"
+  ],
+  "gateCancellationConfirmRaces" : 100,
+  "noConfirmationOriginalUnchanged" : true,
+  "savedEditedInputsSurviveRetry" : true,
+  "status" : "passed",
+  "verifierBudgetCases" : [
+    {
+      "completeConfirmationsRetained" : true,
+      "confirmationCount" : 1,
+      "encoding" : "bmp",
+      "originalUTF8Bytes" : 24000,
+      "receivedQuestionUTF8Bytes" : 23932
+    },
+    {
+      "completeConfirmationsRetained" : true,
+      "confirmationCount" : 2,
+      "encoding" : "bmp",
+      "originalUTF8Bytes" : 24000,
+      "receivedQuestionUTF8Bytes" : 23933
+    },
+    {
+      "completeConfirmationsRetained" : true,
+      "confirmationCount" : 1,
+      "encoding" : "supplementary",
+      "originalUTF8Bytes" : 24000,
+      "receivedQuestionUTF8Bytes" : 23932
+    },
+    {
+      "completeConfirmationsRetained" : true,
+      "confirmationCount" : 2,
+      "encoding" : "supplementary",
+      "originalUTF8Bytes" : 24000,
+      "receivedQuestionUTF8Bytes" : 23933
+    },
+    {
+      "completeConfirmationsRetained" : true,
+      "confirmationCount" : 1,
+      "encoding" : "json-escaped-control",
+      "originalUTF8Bytes" : 24000,
+      "receivedQuestionUTF8Bytes" : 23932
+    },
+    {
+      "completeConfirmationsRetained" : true,
+      "confirmationCount" : 2,
+      "encoding" : "json-escaped-control",
+      "originalUTF8Bytes" : 24000,
+      "receivedQuestionUTF8Bytes" : 23933
+    }
+  ]
+}

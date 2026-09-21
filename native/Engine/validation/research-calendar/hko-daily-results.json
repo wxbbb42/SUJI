@@ -1,0 +1,2040 @@
+{
+  "comparison": "Production lunar-javascript through fixed-UTC+08 facade versus independent official Hong Kong Observatory PDF cells and explicit official TXT fallback",
+  "precisionSourceSha256": "d771ac0a86e95ff11fc5f83dcc8073c04d0a71e8f8cfafd8f0f6521644abe1aa",
+  "sourceManifestSha256": "a14a6ad980383ecac7dd120f0cfb3969d82633a2ebbdc568e09819c38097f494",
+  "provider": "1.7.7",
+  "summary": {
+    "requestedYears": [
+      1901,
+      2100
+    ],
+    "filesRequested": 200,
+    "filesParsed": 200,
+    "downloadOrParseFailures": 0,
+    "pdfFilesParsed": 198,
+    "officialTextFallbackFiles": 2,
+    "daysCompared": 73049,
+    "fullLunarDatesCompared": 73000,
+    "partialLunarDatesCompared": 49,
+    "mismatchDays": 30,
+    "conversionErrors": 0,
+    "mismatchIntervals": [
+      {
+        "start": "2057-09-28",
+        "end": "2057-10-27",
+        "days": 30
+      }
+    ]
+  },
+  "limitations": [
+    "HKO PDF date tables are an independent published reference, not a proof that either future astronomical model is universally correct.",
+    "The first partial lunar month has no printed month/leap label. Unknown fields stay null until the official sequence establishes them; production data never fills the oracle.",
+    "No birth-time, pillars, solar-term seconds, fortune-telling rules, or historical local time/DST are validated by this civil lunar-date comparison."
+  ],
+  "perYear": [
+    {
+      "year": 1901,
+      "comparedDays": 365,
+      "fullDatesCompared": 316,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1902,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1903,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1904,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1905,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1906,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1907,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1908,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1909,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1910,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1911,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1912,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1913,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1914,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1915,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1916,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1917,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1918,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1919,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1920,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1921,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1922,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1923,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1924,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1925,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1926,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1927,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1928,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1929,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1930,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1931,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1932,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1933,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1934,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1935,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1936,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1937,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1938,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1939,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1940,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1941,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1942,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1943,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1944,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1945,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1946,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1947,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1948,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1949,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1950,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1951,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1952,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1953,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1954,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1955,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1956,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1957,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1958,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1959,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1960,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1961,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1962,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1963,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1964,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1965,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1966,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1967,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1968,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1969,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1970,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1971,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1972,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1973,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1974,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1975,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1976,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1977,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1978,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1979,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1980,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1981,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1982,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1983,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1984,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1985,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1986,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1987,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1988,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1989,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1990,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1991,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1992,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1993,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1994,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1995,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1996,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1997,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1998,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 1999,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2000,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2001,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2002,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2003,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2004,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2005,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2006,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2007,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2008,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2009,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2010,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2011,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2012,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2013,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2014,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2015,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2016,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2017,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2018,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2019,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2020,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2021,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2022,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2023,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2024,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2025,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2026,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2027,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2028,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2029,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2030,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2031,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2032,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2033,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2034,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2035,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2036,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2037,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2038,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2039,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2040,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2041,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2042,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2043,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2044,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2045,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2046,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2047,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2048,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2049,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2050,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2051,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2052,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2053,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2054,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2055,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2056,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2057,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 30,
+      "errors": 0
+    },
+    {
+      "year": 2058,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2059,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2060,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2061,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2062,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2063,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2064,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2065,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2066,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2067,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2068,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2069,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2070,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2071,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2072,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2073,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2074,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2075,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2076,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2077,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2078,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2079,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2080,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2081,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2082,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2083,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2084,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2085,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2086,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2087,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2088,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2089,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2090,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2091,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2092,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2093,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2094,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2095,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2096,
+      "comparedDays": 366,
+      "fullDatesCompared": 366,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2097,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2098,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2099,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    },
+    {
+      "year": 2100,
+      "comparedDays": 365,
+      "fullDatesCompared": 365,
+      "mismatches": 0,
+      "errors": 0
+    }
+  ],
+  "mismatches": [
+    {
+      "date": "2057-09-28",
+      "fields": [
+        "lunarMonth",
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 1
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 8,
+        "leap": false,
+        "lunarDay": 30
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-09-29",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 2
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 1
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-09-30",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 3
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 2
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-01",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 4
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 3
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-02",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 5
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 4
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-03",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 6
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 5
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-04",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 7
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 6
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-05",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 8
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 7
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-06",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 9
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 8
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-07",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 10
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 9
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-08",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 11
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 10
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-09",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 12
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 11
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-10",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 13
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 12
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-11",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 14
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 13
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-12",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 15
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 14
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-13",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 16
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 15
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-14",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 17
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 16
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-15",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 18
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 17
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-16",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 19
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 18
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-17",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 20
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 19
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-18",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 21
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 20
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-19",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 22
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 21
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-20",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 23
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 22
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-21",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 24
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 23
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-22",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 25
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 24
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-23",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 26
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 25
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-24",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 27
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 26
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-25",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 28
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 27
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-26",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 29
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 28
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    },
+    {
+      "date": "2057-10-27",
+      "fields": [
+        "lunarDay"
+      ],
+      "expected": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 30
+      },
+      "actual": {
+        "lunarYear": 2057,
+        "lunarMonth": 9,
+        "leap": false,
+        "lunarDay": 29
+      },
+      "officialPDF": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "actualOracleSource": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf"
+    }
+  ],
+  "errors": []
+}

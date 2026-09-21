@@ -1,0 +1,86 @@
+{
+  "scope": "Production-bundle deterministic regression, no model call",
+  "now": "2024-02-04T04:00:00Z",
+  "bundleSHA256": "451036e701144f190def6f733d70b0d7589b95d8586ef02d0d70365c8d3fe9b0",
+  "metadata": {
+    "engineRevision": "4e1ef94cee4d5cd6fff63a2f36d05cd1c139ff075e81328a32cdb718ee727082",
+    "calendarPolicy": {
+      "version": "suji-calendar-2",
+      "provider": "lunar-javascript@1.7.7",
+      "timezone": "UTC+08:00",
+      "yearBoundary": "exact-lichun",
+      "monthBoundary": "exact-jie",
+      "dayBoundary": "zi-hour-23:00",
+      "lunarDayBoundary": "civil-midnight",
+      "solarTimeScope": "day-and-hour-only",
+      "yun": "year-polarity-gender; jie; three-days-per-year; sect-2-minute-conversion",
+      "supportedCivilYears": [
+        1901,
+        2100
+      ]
+    }
+  },
+  "zhiFuStar": "天任",
+  "zhiFuPalaceId": 3,
+  "zhiShiMen": "生门",
+  "zhiShiPalaceId": 3,
+  "geJu": [
+    {
+      "name": "值符临三吉门",
+      "type": "中性",
+      "description": "八神值符与开、休、生之一同宫；仅列同宫事实",
+      "palaceIds": [
+        3
+      ],
+      "assessmentStatus": "structural-fact-only"
+    },
+    {
+      "name": "值使为三吉门",
+      "type": "中性",
+      "description": "实际值使门为开、休、生之一；只标实际值使宫，不把所有吉门都称为值使",
+      "palaceIds": [
+        3
+      ],
+      "assessmentStatus": "structural-fact-only"
+    },
+    {
+      "name": "上格",
+      "type": "凶",
+      "description": "天盘庚加地盘壬；仅为传统叠盘条件，不据此推定现实事件",
+      "palaceIds": [
+        7
+      ],
+      "assessmentStatus": "traditional-condition-only",
+      "source": {
+        "title": "烟波钓叟歌（在线转录）",
+        "url": "https://zh.wikisource.org/wiki/煙波釣叟歌",
+        "quote": "加壬之時為上格，又嫌歲月日時逢。",
+        "editionStatus": "transcription-not-checked-against-print"
+      }
+    },
+    {
+      "name": "丙奇遇吉门",
+      "type": "吉",
+      "description": "天盘丙与开、休、生之一同宫；只成立此局部配合，不代表现实结果有利",
+      "palaceIds": [
+        8
+      ],
+      "assessmentStatus": "traditional-condition-only",
+      "source": {
+        "title": "烟波钓叟歌（在线转录）",
+        "url": "https://zh.wikisource.org/wiki/煙波釣叟歌",
+        "quote": "吉門偶合爾三奇……更合從旁加檢點，餘宮不可有微疵。",
+        "editionStatus": "transcription-not-checked-against-print"
+      }
+    },
+    {
+      "name": "丁与庚叠盘",
+      "type": "中性",
+      "description": "丁与庚分居同宫天地盘；只报告叠盘，不统一称庚克三奇（丙丁为火，不是庚金所克）",
+      "palaceIds": [
+        2
+      ],
+      "assessmentStatus": "structural-fact-only"
+    }
+  ]
+}

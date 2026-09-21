@@ -1,0 +1,14 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand --runTestsByPath src/bazi/__tests__/SiLing.test.ts src/bazi/__tests__/zhuanWangAdjudication.test.ts src/bazi/__tests__/structural.test.ts src/bazi/__tests__/patternConditions.test.ts
+
+PASS src/bazi/__tests__/zhuanWangAdjudication.test.ts
+PASS src/bazi/__tests__/SiLing.test.ts
+PASS src/bazi/__tests__/structural.test.ts
+PASS src/bazi/__tests__/patternConditions.test.ts
+
+Test Suites: 4 passed, 4 total
+Tests:       118 passed, 118 total
+Snapshots:   0 total
+Time:        0.94 s, estimated 1 s
+Ran all test suites within paths "src/bazi/__tests__/SiLing.test.ts", "src/bazi/__tests__/zhuanWangAdjudication.test.ts", "src/bazi/__tests__/structural.test.ts", "src/bazi/__tests__/patternConditions.test.ts".

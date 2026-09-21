@@ -1,0 +1,30 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand src/bazi/__tests__/rescueAdjudication.test.ts
+
+PASS src/bazi/__tests__/rescueAdjudication.test.ts
+  ✓ rooted Ding retains its role, including a same-element Bing root in Yin (2 ms)
+  ✓ day-master self combination never removes the other actor
+  ✓ Jia cannot cross controlling Geng to combine Ji; no generic all-remote veto (1 ms)
+  ✓ year-month combination is not converted to contention by matching day master
+  ✓ non-day competing copies remain unresolved and preserve every occurrence
+  ✓ Yi/Geng redirected killing role is distinguished from removal (1 ms)
+  ✓ documented rooted Bing/Xin counterexample remains an explicit source conflict
+  ✓ unopposed canonical Gui restraint is available locally without a global outcome
+  ✓ rootless helper bound by rooted Wu cannot continue to rescue Ding (1 ms)
+  ✓ rooted Gui blocks an automatic removal claim but still needs Wu/Gui relative efficacy
+  ✓ canonical Ding wealth helper Ji loses restraint when rootless and bound by Jia
+  ✓ canonical remote Wu protects Ding from rootless Gui; rooted Gui prevents that conclusion
+  ✓ rooted peer does not become a fully rescued wealth threat solely through combining (1 ms)
+  ✓ source-attested hidden wealth can act, while a changed chart is not generalized from it
+  ✓ hidden Ding in the documented resource case is not blindly robbed by Zi resource
+  ✓ Mao and Yin branch helpers retain their own You/Shen clash blockers
+  ✓ regular production output exposes the same scoped adjudication without changing assessment scope
+  ✓ all rescue quotations match the exact archived electronic witnesses (3 ms)
+  ✓ a threat with no candidate path is retained in coverage (1 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       19 passed, 19 total
+Snapshots:   0 total
+Time:        0.852 s, estimated 1 s
+Ran all test suites matching /src\/bazi\/__tests__\/rescueAdjudication.test.ts/i.

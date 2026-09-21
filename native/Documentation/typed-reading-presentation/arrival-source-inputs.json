@@ -1,0 +1,246 @@
+{
+  "algorithm": "SHA256 of sorted relative-path + NUL + per-file SHA256 + LF; Swift App/Core Sources/Widget/AppTests/UITests plus engine bundle and generated project",
+  "aggregateSHA256": "1058aaf2f8373203e6c1591098fe95e489fe447009fc337e2a9c350d3ae0215c",
+  "files": [
+    {
+      "path": "native/App/Debug/MingliDetailAuditData.swift",
+      "sha256": "892f1b724eaeac7d864013756cdcf5a3b6c70ca771b040aa4fe299a5a100106e"
+    },
+    {
+      "path": "native/App/Debug/MingliDetailAuditView.swift",
+      "sha256": "4069cd11f327b055683e4576487cda1159a528a31f6b1dc78b37521d10ad6b57"
+    },
+    {
+      "path": "native/App/Debug/ReadingPresentationAuditView.swift",
+      "sha256": "d9d835122aa7f16db2aac1244c2e8f8b9386cb3f0404646bd4a6379488f48450"
+    },
+    {
+      "path": "native/App/Design/SujiTheme.swift",
+      "sha256": "818ff9d026ec6fc9a0510d6d96dbd7206afdf05355bcb3512cb8dbedf36587a9"
+    },
+    {
+      "path": "native/App/Features/Calm/CalmView.swift",
+      "sha256": "a894a79942638419be69b580c1480f019777b1cb9870717ca357967beecbb9f7"
+    },
+    {
+      "path": "native/App/Features/Calm/SolarTermAmbiencePreset.swift",
+      "sha256": "ace1a03122ea7d5d2d225dc3017e0e8262bbe35d900f27fdd85674f283fad007"
+    },
+    {
+      "path": "native/App/Features/Chat/ChatView.swift",
+      "sha256": "de504e9c78e1dc914580f212487be6a265e502d81871c53b142080af60a0074f"
+    },
+    {
+      "path": "native/App/Features/Chat/ReadingDocumentView.swift",
+      "sha256": "e0724fbb8573ac0f7e4ad9e0d4e355b20ef83f9b49f2dcebba43d3563bafb385"
+    },
+    {
+      "path": "native/App/Features/Chat/ReadingEvidenceView.swift",
+      "sha256": "ab4bb65a18ee749bb4a4c9f058f0fc00932c5a310fbe7f5559f43a9df001c63c"
+    },
+    {
+      "path": "native/App/Features/Journal/JournalViews.swift",
+      "sha256": "5260dd91386263afb78a2fdfb3d4c560033fa1faec57d65dcdb3ae2359fb4e37"
+    },
+    {
+      "path": "native/App/Features/Profile/ObservationViews.swift",
+      "sha256": "cff18fcbb2f4ac75e36f6480c7f695f8effcaacd45d90b6d25d8fe80f8339726"
+    },
+    {
+      "path": "native/App/Features/Profile/ProfileDetailComponents.swift",
+      "sha256": "2a4bb4bc2305d8239cc092ab0ca21f9b2579cb1529467fc79946e38f26774bbe"
+    },
+    {
+      "path": "native/App/Features/Profile/ProfileView.swift",
+      "sha256": "a09c828c5ef7006224270b53455c3e2a0b186c3961c83cab27f8489ccf7b2e7d"
+    },
+    {
+      "path": "native/App/Features/Reflection/ReflectionView.swift",
+      "sha256": "01fe4e27421540f899145cc0bfac33a3ad250124b466402c5bf608c38a369f67"
+    },
+    {
+      "path": "native/App/Features/Settings/AccountView.swift",
+      "sha256": "16e38934efcc5716d7641a03046136549b99dab0b0afc82bae7b177972bf75a6"
+    },
+    {
+      "path": "native/App/Features/Settings/ReminderSettingsView.swift",
+      "sha256": "1422e62b74f895eb0898284f7dd030f3f7cac29e41fef1caa75cb17557eb7452"
+    },
+    {
+      "path": "native/App/Features/Settings/SettingsView.swift",
+      "sha256": "94939af89e1dbd5f113d91dbe617ecda72e478a890ab7be3c0b634ed60f07104"
+    },
+    {
+      "path": "native/App/Features/Today/TodayView.swift",
+      "sha256": "9ce6505eab768816b94b85726425a9dfd6345054d7baea52a0e4f47fd8e3b8ed"
+    },
+    {
+      "path": "native/App/Services/AccountSession.swift",
+      "sha256": "928bc2c5df98a502bc753f9c72522f285ebed1f37da4bdd3336107a461c389eb"
+    },
+    {
+      "path": "native/App/Services/AmbienceAudio.swift",
+      "sha256": "541a79d69bc4e339f5ee2a1f5ea4d5db366e098c30fad1168486724cb8894789"
+    },
+    {
+      "path": "native/App/Services/AppStore.swift",
+      "sha256": "f2575d7b8c1bac85df341f29d1fa00bf6351f45b82277dd8c166a5f28c8449d6"
+    },
+    {
+      "path": "native/App/Services/ChatSession.swift",
+      "sha256": "2605f008c67332260e50548e7325fb8d9874ba84b0b71231e3e7b38a516aaa16"
+    },
+    {
+      "path": "native/App/Services/KeychainStore.swift",
+      "sha256": "efba59f13f097bf33b043dfaf32f00fdc3114c007ebe9414c9e542b6f5dd671e"
+    },
+    {
+      "path": "native/App/Services/NotificationRouting.swift",
+      "sha256": "983b09f24c115526ba4513de1f295ee4ce44c69dcc1223ff586a39e370f2cbdf"
+    },
+    {
+      "path": "native/App/Services/PersistenceBootstrap.swift",
+      "sha256": "19f84caadca5c08cc5b5f0e08e93463013fc24532350ed5c192069e7ae88675b"
+    },
+    {
+      "path": "native/App/Services/ReflectionSession.swift",
+      "sha256": "6461aebe26aecc4176bb83185df2c5ef84e96be028cd6752c7b52af646d48d18"
+    },
+    {
+      "path": "native/App/Services/ReminderService.swift",
+      "sha256": "2c488915a9cb46015db10e6901d4b3c2af76495764485dd937b5ff2d6c603c43"
+    },
+    {
+      "path": "native/App/Services/WidgetSnapshotService.swift",
+      "sha256": "6583c50e8a71d19aa4ff6f535d14b1bda44e82b5163d0507aaaa18cd4fe64723"
+    },
+    {
+      "path": "native/App/SujiApp.swift",
+      "sha256": "7d114cb5492e7c51caddff48ca258cefd1531a4997780011cb17b98a55058844"
+    },
+    {
+      "path": "native/AppTests/AppPersistenceTests.swift",
+      "sha256": "3b50c69537004ba8364378d231faf1a0cad778e439669ed5dc08f34c3836297b"
+    },
+    {
+      "path": "native/AppTests/AudioLifecycleTests.swift",
+      "sha256": "08e53e26ee532a23a6cbcf895a7c1d170cf0dc40a2495010cd6970d24927adc0"
+    },
+    {
+      "path": "native/AppTests/StoreRegressionTests.swift",
+      "sha256": "823171da2887e1ea485e4e5c515a0f8b387bead65581cf07874830f490a4ed37"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ArchiveCodec.swift",
+      "sha256": "4c9ef706d9b3b189d5372925dc5d43e90d3c51000722595a94831ec45dca58fe"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BaziFrameworkReading.swift",
+      "sha256": "87b63b462702529b463ccc1a15a87b2af8cf034649d6209d13b44b6bb6bf55a5"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BreathingClock.swift",
+      "sha256": "7ef3097cf121a5544add9a27175f9d9d4eb00df60e1ebef44c35139f2f8f4423"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ChatClient.swift",
+      "sha256": "19d89f1760d4fcaa91d3edd385334143593a0c4b24aa52a1c3dc5c3734f8639c"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ChatTypes.swift",
+      "sha256": "cf1f74f56c99e74266eba7b5f12c0eaee6f8c8441ddf8ee068494ae521ba8f70"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/Domain.swift",
+      "sha256": "7ddd80b84bfe99a46de2d9b8bdd8b0f0241aadfafe8ffaeaac1431bc1861f057"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/EngineContract.swift",
+      "sha256": "db4efe179e56758ef4ad28ef37ba1bbd7da4c03aaf8c89eae4a6654d218fa4b0"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ManagedAI.swift",
+      "sha256": "b6368e446855814d77d2135973a8ed49a9aaa098df9aef377d30d4fac0a558bb"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/MingliBridge.swift",
+      "sha256": "1f4b24084788184956166be2b5f5847c67fbdfa960521874c532025db8b4382c"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingContext.swift",
+      "sha256": "eccbac9cc1018070da8dbb8b17e89c7738da978415fc1e2360df7f713b0ad85f"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingDocument.swift",
+      "sha256": "2c03ad30c9c2a11c44c789f32cf9a4471c34ca82b9059d82fb95ba3cefcb0029"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingFallback.swift",
+      "sha256": "201ef6ec94312a6fef227cbfebd774b5f37a7f8539125b79571c172e3f897ded"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingIntent.swift",
+      "sha256": "5510aface671258e3ca892130489a6d7aa3882579919bcbf8e622f38e80698ab"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingVerificationAssertions.swift",
+      "sha256": "00372b9505ff9302a0f7ec313928fee3efbcf08a0ee78662c5d82c3750a946e3"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingVerificationEvidence.swift",
+      "sha256": "21b5d7848bcb8c2a31f451b037bbee2429d584a7a132517a168da4f27be440f5"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingVerifier.swift",
+      "sha256": "ccaf9f1c617050c64120fdc9226db8f556c671aabcaa63c9dce655c23c98d835"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReflectionConversation.swift",
+      "sha256": "1f33d5505c8c486915e5a1793a3bab3f8f90491ee991c263b6d692ca79f0f85c"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReminderSchedule.swift",
+      "sha256": "b37f6e9fb98ee69cf08586b2c395ce5b29e998372e36599a1e6ebcece7bb3219"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/SSEParser.swift",
+      "sha256": "cf5776962a9f0af864a9b8912cdefe790bc0d3f5c7a0374c69b52414a469a6a0"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/SupabaseClient.swift",
+      "sha256": "2bb445cf0b5af429edb95970d01a42dc503dee5f01452d4f771e76f49bdf1632"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ToolOrchestrator.swift",
+      "sha256": "38b3df4c2ee3cb9f2ab4bb5e570db639815d148b43b88348be0aab0a0de797b0"
+    },
+    {
+      "path": "native/Resources/mingli.js",
+      "sha256": "451036e701144f190def6f733d70b0d7589b95d8586ef02d0d70365c8d3fe9b0"
+    },
+    {
+      "path": "native/Suji.xcodeproj/project.pbxproj",
+      "sha256": "b9ab692d4eaee5811fadfdfb8bcba725e9c30b2ece36170a9a8f823ed9221037"
+    },
+    {
+      "path": "native/UITests/MingliAuditUITests.swift",
+      "sha256": "96b0f6bfc6c636f0b1df3e6408fc9390c96056c1e26b1e9368175c361e0d02a2"
+    },
+    {
+      "path": "native/UITests/MingliDetailsUITests.swift",
+      "sha256": "380c962029bd48213f9251be4ec826e75f45fec1d531b34113a21611cb6ca7ac"
+    },
+    {
+      "path": "native/UITests/ReadingPresentationUITests.swift",
+      "sha256": "93c4f0e6e748535678bf48257c6d5b6ad0e745c46ea6bb86816a0c3b0e410515"
+    },
+    {
+      "path": "native/UITests/SujiUITests.swift",
+      "sha256": "d3d4ad552dc85044648213d73a9dd42a82b00289151a90217232ad04b8746443"
+    },
+    {
+      "path": "native/Widget/SujiWidget.swift",
+      "sha256": "7845988890e207d2575048c96dd146e567cc26868244d7f5986b925281ba601b"
+    }
+  ]
+}

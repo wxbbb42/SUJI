@@ -1,0 +1,13 @@
+{
+  "verifiedAt": "2026-09-20T10:11:41.639381+00:00",
+  "algorithm": "SHA-256",
+  "files": {
+    "native/Core/Sources/SujiCore/ZiweiMonthlyCalendarAssertions.swift": "ceefc5907be0dd8fb1cf2c39f70de2f36eebfa55f0d291c9f74f6c0818361600",
+    "native/Core/Sources/SujiCore/ReadingVerifier.swift": "3cfb8d02495e1ec15df03c8776ee710b99f42bb92387dae6894cb27b652288ec",
+    "native/Core/Tests/SujiCoreTests/ZiweiMonthlyCalendarAssertionTests.swift": "a28d79553b1a7c172b851f93c160ddb8bd0fcfa0fae312b6dd48be716bfa43b8",
+    "native/Core/Tools/ReadingEvalFixtures/NativeReadingEvaluation.swift": "02fa2d7d50b9a0aa865867cd08b2e65a73dea79c16166e93f44f6f956c1a056e",
+    "native/Engine/validation/reasoning/evaluate-native.mjs": "4dba42d462043798555bf346e2389ddfa3a15641d2f218a3ed4d22ad7f025d6b",
+    "native/Engine/validation/reasoning/core-d5-results.json": "3c635fe17e3585db7f3ea2dbb5e417b04ecad76c7c7fdfc43ccef99bc3fc44cd",
+    "native/Engine/validation/reasoning/core-f5-replay-results.json": "69648245ba49d3e5ec2bf335d4df9dcf10b2f08e053937bb72dbc020122bf37b"
+  }
+}

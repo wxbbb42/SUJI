@@ -1,0 +1,183 @@
+[
+  {
+    "actualToolUTF16" : 31903,
+    "capacityError" : false,
+    "case" : "native-capacity-id-32",
+    "deliveredEvidence" : [
+      "cast-record"
+    ],
+    "projectedUTF16" : 31903,
+    "savedFull" : true,
+    "savedReceipts" : 1
+  },
+  {
+    "actualToolUTF16" : 32000,
+    "capacityError" : false,
+    "case" : "native-capacity-id-129",
+    "deliveredEvidence" : [
+      "cast-record"
+    ],
+    "projectedUTF16" : 32000,
+    "savedFull" : true,
+    "savedReceipts" : 1
+  },
+  {
+    "actualToolUTF16" : 48,
+    "capacityError" : true,
+    "case" : "native-capacity-id-130",
+    "deliveredEvidence" : [
+
+    ],
+    "projectedUTF16" : 32001,
+    "savedFull" : true,
+    "savedReceipts" : 1
+  },
+  {
+    "actualToolUTF16" : 48,
+    "capacityError" : true,
+    "case" : "native-capacity-id-200",
+    "deliveredEvidence" : [
+
+    ],
+    "projectedUTF16" : 32071,
+    "savedFull" : true,
+    "savedReceipts" : 1
+  },
+  {
+    "authenticated" : false,
+    "case" : "missing-layout-metadata",
+    "expandAccepted" : true,
+    "factCount" : 795,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "metadata-null",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "metadata-version-2",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "metadata-extra-key",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "columns-reordered",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "tuple-short",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "tuple-object",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "tuple-index-invalid",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "tuple-state-invalid",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "tuple-path-invalid",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "line-missing-rules",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : true,
+    "case" : "valid-state-tamper",
+    "expandAccepted" : true,
+    "factCount" : 893,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "valid-question-tamper",
+    "expandAccepted" : true,
+    "factCount" : 893,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "duplicate-dictionary-id",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "originalFactCount" : 893
+  },
+  {
+    "authenticated" : false,
+    "case" : "unused-dictionary-id",
+    "expandAccepted" : false,
+    "factCount" : 0,
+    "originalFactCount" : 893
+  },
+  {
+    "case" : "row-object-swap",
+    "renderAccepted" : false
+  },
+  {
+    "case" : "row-own-change-reversal",
+    "renderAccepted" : false
+  },
+  {
+    "case" : "false-final-efficacy",
+    "renderAccepted" : false
+  },
+  {
+    "case" : "actor-support-self",
+    "renderAccepted" : false
+  },
+  {
+    "case" : "changed-cross-actor",
+    "renderAccepted" : false
+  },
+  {
+    "case" : "context-day-branch-borrowed",
+    "renderAccepted" : false
+  },
+  {
+    "case" : "context-void-toggled",
+    "renderAccepted" : true
+  },
+  {
+    "case" : "missing-last-object",
+    "renderAccepted" : false
+  }
+]

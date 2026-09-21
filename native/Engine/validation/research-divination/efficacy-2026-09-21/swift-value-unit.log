@@ -1,0 +1,26 @@
+Another instance of SwiftPM (PID: 54730) is already running using '/Users/xiaqobenwang/Documents/SUJI/native/Core/.build', waiting until that process has finished execution...Building for debugging...
+[Planning deferred tasks]
+[6 / 17] SujiCoreTests-product
+[9 / 20] SujiCoreTests-product
+[13 / 19] SujiCoreTests-product
+[15 / 19] SujiCoreTests-product
+Build complete! (1.96秒)
+Test Suite 'Selected tests' started at 2026-09-21 09:28:51.428.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 09:28:51.429.
+Test Suite 'JSONValueTransportTests' started at 2026-09-21 09:28:51.429.
+Test Case '-[SujiCoreTests.JSONValueTransportTests testExactRoundtripUnknownFieldsOrderAndNestedSharedValues]' started.
+Test Case '-[SujiCoreTests.JSONValueTransportTests testExactRoundtripUnknownFieldsOrderAndNestedSharedValues]' passed (0.036 seconds).
+Test Case '-[SujiCoreTests.JSONValueTransportTests testMissingForwardCyclicOutOfBoundsUnusedDuplicateAndReservedValuesFailClosed]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/JSONValueTransportTests.swift:39: error: -[SujiCoreTests.JSONValueTransportTests testMissingForwardCyclicOutOfBoundsUnusedDuplicateAndReservedValuesFailClosed] : XCTAssertNil failed: "null"
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/JSONValueTransportTests.swift:39: error: -[SujiCoreTests.JSONValueTransportTests testMissingForwardCyclicOutOfBoundsUnusedDuplicateAndReservedValuesFailClosed] : XCTAssertThrowsError failed: did not throw an error
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/JSONValueTransportTests.swift:42: error: -[SujiCoreTests.JSONValueTransportTests testMissingForwardCyclicOutOfBoundsUnusedDuplicateAndReservedValuesFailClosed] : XCTAssertNil failed: "null"
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/JSONValueTransportTests.swift:42: error: -[SujiCoreTests.JSONValueTransportTests testMissingForwardCyclicOutOfBoundsUnusedDuplicateAndReservedValuesFailClosed] : XCTAssertNil failed: "null"
+Test Case '-[SujiCoreTests.JSONValueTransportTests testMissingForwardCyclicOutOfBoundsUnusedDuplicateAndReservedValuesFailClosed]' failed (0.219 seconds).
+Test Suite 'JSONValueTransportTests' failed at 2026-09-21 09:28:51.684.
+	 Executed 2 tests, with 4 failures (0 unexpected) in 0.255 (0.255) seconds
+Test Suite 'SujiCoreTests.xctest' failed at 2026-09-21 09:28:51.684.
+	 Executed 2 tests, with 4 failures (0 unexpected) in 0.255 (0.255) seconds
+Test Suite 'Selected tests' failed at 2026-09-21 09:28:51.684.
+	 Executed 2 tests, with 4 failures (0 unexpected) in 0.255 (0.256) seconds
+Note: Some test targets reported failures:
+  - SujiCoreTests (XCTest)

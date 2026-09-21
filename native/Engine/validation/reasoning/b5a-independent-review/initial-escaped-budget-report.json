@@ -1,0 +1,33 @@
+{
+  "scope": "Exact string replacement of the event in two existing actual native chart outputs and two argument strings; fanfu/calendar/facts do not depend on event. This is a constructed pre-fix payload, not a delivered capacity-fallback request.",
+  "cases": [
+    {
+      "seedIndex": 0,
+      "replacements": 4,
+      "maxToolUTF16": 32888,
+      "backendTotalUTF16": 121991,
+      "providerValidator": "invalid_content"
+    },
+    {
+      "seedIndex": 6,
+      "replacements": 4,
+      "maxToolUTF16": 32621,
+      "backendTotalUTF16": 123187,
+      "providerValidator": "invalid_content"
+    },
+    {
+      "seedIndex": 26,
+      "replacements": 4,
+      "maxToolUTF16": 32558,
+      "backendTotalUTF16": 121805,
+      "providerValidator": "invalid_content"
+    },
+    {
+      "seedIndex": 40,
+      "replacements": 4,
+      "maxToolUTF16": 32480,
+      "backendTotalUTF16": 119427,
+      "providerValidator": "invalid_content"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "scope": "F1 cast-calendar assertion binding; narrow literal templates only. Not overall reading acceptance.",
+  "reports": [
+    {
+      "path": "core-f1-results.json",
+      "sha256": "f8a95a511986ca7a5e59706e15ea9b8d53f1cf0f6e45fb1ea3acaeac098da214",
+      "status": "fact-fallback",
+      "providerRequests": 5,
+      "executableSHA256": "afbd32030c8e411e7824075f04a834735c31a48dd0b33d730830629092ac6996"
+    },
+    {
+      "path": "core-f1-final-results.json",
+      "sha256": "933ca2efb3dfb46ba84b51a62b10a655f27809b03669b0a9caf64886f3661a75",
+      "status": "fact-fallback",
+      "providerRequests": 5,
+      "executableSHA256": "4daca504113a4c38879789bd31e8f6a08c60d31615c7421b1819a9ec29dc1cf6"
+    }
+  ],
+  "findings": [
+    "Both live drafts retained correct calendar fields where mentioned; neither live run reproduced the old wrong-month sentence. The archived E1 wrong draft and full history are a permanent local verifier regression.",
+    "Both live readings failed and fell back without recasting. First still inferred favorable wealth/collection process from candidates. Final invented 丑戌相合 instead of original辰/changed酉, mixed source roles and reintroduced dark-movement wording for all-moving lines.",
+    "Model reviewer allegations failed exact-value/field/sentence binding; no invalid draft reached the final answer. Interpretation remains unaccepted.",
+    "Final run uses the final production implementation and verifier instruction; auth/quota synthetic, not deployed authentication or UI E2E."
+  ],
+  "localVerification": {
+    "swiftCoreTests": 250,
+    "targetedTests": 9,
+    "timezone": "America/Los_Angeles",
+    "independentAssertions": 39,
+    "independentReview": "All material false-correction findings cleared after permanent RED/GREEN counterexamples."
+  },
+  "next": [
+    "Source-bound line relation interpretation (F2)",
+    "Ziwei transformation/empty-palace/dynamic-layer interpretation D3",
+    "Qimen question-object/conditional timing E2"
+  ]
+}

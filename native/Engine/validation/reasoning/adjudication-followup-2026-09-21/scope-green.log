@@ -1,0 +1,48 @@
+Building for debugging...
+[2 / 6] SujiCore
+[3 / 7] SujiCore
+[9 / 11] SujiCore
+[14 / 16] SujiCore
+[19 / 21] SujiCore
+[22 / 25] SujiCoreTests-product
+[32 / 36] SujiCoreTests-product
+[33 / 36] SujiCoreTests-product
+[35 / 36] SujiCoreTests-product
+[41 / 45] ReadingEvalFixtures-product
+[44 / 47] ReadingEvalFixtures-product
+[46 / 47] ReadingEvalFixtures-product
+Build complete! (10.26秒)
+Test Suite 'Selected tests' started at 2026-09-21 11:26:33.793.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 11:26:33.793.
+Test Suite 'AdjudicationFollowupIntegrationTests' started at 2026-09-21 11:26:33.794.
+Test Case '-[SujiCoreTests.AdjudicationFollowupIntegrationTests testExplicitChoicesRejectUnknownFocusAndCategoryConflictAndReferenceOnlyClearsRequest]' started.
+Test Case '-[SujiCoreTests.AdjudicationFollowupIntegrationTests testExplicitChoicesRejectUnknownFocusAndCategoryConflictAndReferenceOnlyClearsRequest]' passed (0.002 seconds).
+Test Case '-[SujiCoreTests.AdjudicationFollowupIntegrationTests testLiuyaoEventAssessmentRebindsOnOriginalChartAndSurvivesStorageReplayAndArchive]' started.
+Test Case '-[SujiCoreTests.AdjudicationFollowupIntegrationTests testLiuyaoEventAssessmentRebindsOnOriginalChartAndSurvivesStorageReplayAndArchive]' passed (0.818 seconds).
+Test Case '-[SujiCoreTests.AdjudicationFollowupIntegrationTests testModelProposedSpecialSelectionIsNotAlreadyUserConfirmation]' started.
+Test Case '-[SujiCoreTests.AdjudicationFollowupIntegrationTests testModelProposedSpecialSelectionIsNotAlreadyUserConfirmation]' passed (0.000 seconds).
+Test Case '-[SujiCoreTests.AdjudicationFollowupIntegrationTests testPersistedExplicitSpecialSelectionValidatesAndKeepsExactRequest]' started.
+Test Case '-[SujiCoreTests.AdjudicationFollowupIntegrationTests testPersistedExplicitSpecialSelectionValidatesAndKeepsExactRequest]' passed (0.001 seconds).
+Test Case '-[SujiCoreTests.AdjudicationFollowupIntegrationTests testQimenSelectionReconfirmationOriginalPlateStorageReplayAndArchive]' started.
+Test Case '-[SujiCoreTests.AdjudicationFollowupIntegrationTests testQimenSelectionReconfirmationOriginalPlateStorageReplayAndArchive]' passed (0.494 seconds).
+Test Case '-[SujiCoreTests.AdjudicationFollowupIntegrationTests testReferenceOnlySupplementAndReplayKeepFactsWithoutEventDirection]' started.
+Test Case '-[SujiCoreTests.AdjudicationFollowupIntegrationTests testReferenceOnlySupplementAndReplayKeepFactsWithoutEventDirection]' passed (0.641 seconds).
+Test Suite 'AdjudicationFollowupIntegrationTests' passed at 2026-09-21 11:26:35.750.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 1.956 (1.957) seconds
+Test Suite 'CastSupplementTests' started at 2026-09-21 11:26:35.750.
+Test Case '-[SujiCoreTests.CastSupplementTests testBothMethodsSupplementOriginalAndRetainSourceAcrossFurtherSupplements]' started.
+Test Case '-[SujiCoreTests.CastSupplementTests testBothMethodsSupplementOriginalAndRetainSourceAcrossFurtherSupplements]' passed (0.676 seconds).
+Test Case '-[SujiCoreTests.CastSupplementTests testDerivedRecordRejectsImmutableChangesWrongArgumentsAndIdentity]' started.
+Test Case '-[SujiCoreTests.CastSupplementTests testDerivedRecordRejectsImmutableChangesWrongArgumentsAndIdentity]' passed (3.373 seconds).
+Test Case '-[SujiCoreTests.CastSupplementTests testOldQuestionDependentFieldsCannotMasqueradeAsAcceptedSupplement]' started.
+Test Case '-[SujiCoreTests.CastSupplementTests testOldQuestionDependentFieldsCannotMasqueradeAsAcceptedSupplement]' passed (0.526 seconds).
+Test Case '-[SujiCoreTests.CastSupplementTests testOriginalProvenanceCannotDisagreeWithOriginalChartTimeOrCalendarPolicy]' started.
+Test Case '-[SujiCoreTests.CastSupplementTests testOriginalProvenanceCannotDisagreeWithOriginalChartTimeOrCalendarPolicy]' passed (0.230 seconds).
+Test Case '-[SujiCoreTests.CastSupplementTests testSourceMustExistUnambiguouslyEarlierInSameHistoryAndMatchSnapshot]' started.
+Test Case '-[SujiCoreTests.CastSupplementTests testSourceMustExistUnambiguouslyEarlierInSameHistoryAndMatchSnapshot]' passed (0.212 seconds).
+Test Suite 'CastSupplementTests' passed at 2026-09-21 11:26:40.768.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 5.017 (5.018) seconds
+Test Suite 'SujiCoreTests.xctest' passed at 2026-09-21 11:26:40.768.
+	 Executed 11 tests, with 0 failures (0 unexpected) in 6.973 (6.975) seconds
+Test Suite 'Selected tests' passed at 2026-09-21 11:26:40.768.
+	 Executed 11 tests, with 0 failures (0 unexpected) in 6.973 (6.976) seconds

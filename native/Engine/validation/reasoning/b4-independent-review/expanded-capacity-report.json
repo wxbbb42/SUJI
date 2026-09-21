@@ -1,0 +1,50 @@
+{
+  "cases": 73728,
+  "scope": "Lossless same-call question argument reference; original chart JSON checked field-for-field. All64 all-moving patterns across 12 months x 12 day branches (2024 monthly days7..18) x all8 categories with matched subjects; 1600-char question/200-char event; projected JSON UTF16/UTF8; combined with questionType career Qimen",
+  "max": {
+    "rawUnits": 36692,
+    "rawBytes": 45442,
+    "objectCount": 14,
+    "units": 31907,
+    "bytes": 37457,
+    "combinedBytes": 53811,
+    "values": [
+      6,
+      6,
+      9,
+      9,
+      6,
+      6
+    ],
+    "date": "2024-07-11T04:00:00Z",
+    "questionType": "career",
+    "subject": "self",
+    "original": "雷山小过",
+    "resulting": "风泽中孚"
+  },
+  "pairMax": {
+    "bytes": 55568,
+    "case": {
+      "rawUnits": 36062,
+      "rawBytes": 44806,
+      "objectCount": 14,
+      "units": 31277,
+      "bytes": 36821,
+      "combinedBytes": 55568,
+      "values": [
+        6,
+        6,
+        9,
+        9,
+        6,
+        6
+      ],
+      "date": "2024-06-07T04:00:00Z",
+      "questionType": "parents",
+      "subject": "parent",
+      "original": "雷山小过",
+      "resulting": "风泽中孚"
+    }
+  },
+  "failures": []
+}

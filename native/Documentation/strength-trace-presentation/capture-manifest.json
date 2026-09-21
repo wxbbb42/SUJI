@@ -1,0 +1,510 @@
+{
+  "device": "iPhone 17 Pro",
+  "simulatorID": "09FF0B1D-9E60-4F2A-9465-3B156C88BD28",
+  "iOS": "26.5 (23F77)",
+  "Xcode": "26.6 (17F113)",
+  "syntheticBirth": "1990-08-15 10:00 女，longitude 120",
+  "referenceDate": "2026-09-19T04:00:00Z",
+  "provenance": "Real local engine and production SwiftUI; synthetic data, no account or model call.",
+  "runs": [
+    {
+      "id": "baseline",
+      "resultBundle": "/tmp/suji-strength-trace-final.xcresult",
+      "summary": "baseline-test-summary.json",
+      "sourceManifest": "source-inputs.json",
+      "sourceAggregateSHA256": "9f88410c0c5c37a530d116fabeb38902352195ef99e5a2893e432a5210e56749",
+      "passed": 22,
+      "failed": 2,
+      "note": "Includes resolved diagnostics; see report for rerun coverage."
+    },
+    {
+      "id": "verified",
+      "resultBundle": "/tmp/suji-strength-trace-verified.xcresult",
+      "summary": "verified-test-summary.json",
+      "sourceManifest": "final-source-inputs.json",
+      "sourceAggregateSHA256": "8de6f513191024f92ade9c64b98d36ed7a02f5cbda312042a4be842a3fe486b6",
+      "passed": 17,
+      "failed": 1,
+      "note": "Includes resolved diagnostics; see report for rerun coverage."
+    },
+    {
+      "id": "accessibility",
+      "resultBundle": "/tmp/suji-strength-trace-accessibility.xcresult",
+      "summary": "accessibility-test-summary.json",
+      "sourceManifest": "accessibility-source-inputs.json",
+      "sourceAggregateSHA256": "0e4038b53febdff44fcd4b8bdc0292f6cb18566aaca858afd4ed1b6571b522e2",
+      "passed": 3,
+      "failed": 0,
+      "note": "All selected tests passed."
+    }
+  ],
+  "finalProductionBinarySHA256": {
+    "Suji": "81b0c59fa32ce540b1cbbd4f62698277d93368052b97799f589b62c474060c47",
+    "Suji.debug.dylib": "fee1ed51148e96912501bc264a6be97d59e0b89afbcd7c31237886e6dcaa3a1a"
+  },
+  "binaryIdentityNote": "Recorded for verified and accessibility runs and confirmed identical. Baseline binaries were not retained; baseline captures are identified by their source manifest and result bundle.",
+  "finalSourceMatchesRecordedInput": true,
+  "artifactCounts": {
+    "png": 25,
+    "accessibilityTrees": 25
+  },
+  "artifacts": [
+    {
+      "file": "10-light-chat-boundary-accessibility-tree.txt",
+      "sha256": "0eb5cb0976bfa3fe2b2b324f2907035e53f274244c0651b44ceb5167f5fcec62",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceLight()",
+      "exportedFile": "DFF373C0-1462-4144-87A3-29FAB97D116F.txt",
+      "timestamp": 1789873571.199
+    },
+    {
+      "file": "10-light-chat-boundary.png",
+      "sha256": "c6687900622c925808befe07904f0af0b2f1593ac31b904b747d5a200ded88aa",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceLight()",
+      "exportedFile": "9D7744CF-A35F-4AE1-BA0D-4ACE43EBE6A5.png",
+      "timestamp": 1789873571.039
+    },
+    {
+      "file": "10-light-chat-collapsed-accessibility-tree.txt",
+      "sha256": "5cac655ee6011d3e526d1faf089b05ff55b77808a55c28174dcc67e05e6a0c3b",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceLight()",
+      "exportedFile": "B794041E-0028-4D4C-BAB8-B6928AF92C29.txt",
+      "timestamp": 1789873561.292
+    },
+    {
+      "file": "10-light-chat-collapsed.png",
+      "sha256": "0bf29c429e6d4b0be6aa23a897675a357a3b088a1d9565a5b689e0a6e9254930",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceLight()",
+      "exportedFile": "32E7F68A-7E7E-4555-A419-502C7DD80F59.png",
+      "timestamp": 1789873561.162
+    },
+    {
+      "file": "10-light-chat-first-group-accessibility-tree.txt",
+      "sha256": "4652f6dd1af1a381336da9ebb257930ee3c556ad5b6d73615e4d998e89576eec",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceLight()",
+      "exportedFile": "1272A97F-8C92-46DC-9029-6798D57BBA51.txt",
+      "timestamp": 1789873564.734
+    },
+    {
+      "file": "10-light-chat-first-group.png",
+      "sha256": "388adb3a9ab8dad015cf635e0ef2a40fca9b39ab065cbbeff804bf1fb63bccd4",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceLight()",
+      "exportedFile": "540E10E1-C7F2-431F-9B5E-2697D7E19E9E.png",
+      "timestamp": 1789873564.561
+    },
+    {
+      "file": "10-light-chat-last-group-accessibility-tree.txt",
+      "sha256": "c22722c05ed0d9a63707d29dd71e4fef85dd7f8dd4ad38a9ea34034844dd7f1b",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceLight()",
+      "exportedFile": "2D40C7D3-A2C3-42F5-8294-C477CE07ED09.txt",
+      "timestamp": 1789873572.899
+    },
+    {
+      "file": "10-light-chat-last-group.png",
+      "sha256": "f2c84d39cd407eb924a6587d5ef8ad60a62e7bf508a88b9ab3ca5b3451c77a84",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceLight()",
+      "exportedFile": "9BF435E6-FDDA-4064-916D-DE0A059CC87B.png",
+      "timestamp": 1789873572.743
+    },
+    {
+      "file": "10-light-evidence-boundary-accessibility-tree.txt",
+      "sha256": "935607016b9d3a9020440a78da4569cbc7415069386f3bf1da26a485b0f0aa13",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceLight()",
+      "exportedFile": "FAC91EC5-BC4B-4471-9462-8A17C30C5BED.txt",
+      "timestamp": 1789873597.052
+    },
+    {
+      "file": "10-light-evidence-boundary.png",
+      "sha256": "8d9c0c7921d7af71464c080422afea9205127e5bb3af63765e0e14c2cee3938a",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceLight()",
+      "exportedFile": "9F07F86A-328B-4558-BF6A-886314865AE0.png",
+      "timestamp": 1789873596.945
+    },
+    {
+      "file": "10-light-evidence-entry-accessibility-tree.txt",
+      "sha256": "41c192b4d93a99e7741518dc1bf05f022e98d8ce18038f1279623ad03460dd5c",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceLight()",
+      "exportedFile": "F2466007-41C3-4CEB-86A3-BA1089C38F99.txt",
+      "timestamp": 1789873588.036
+    },
+    {
+      "file": "10-light-evidence-entry.png",
+      "sha256": "237c96e3d2aea4b72bf424b2d0a54939519a3d6e12c57256a3c1aa432b9000ee",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceLight()",
+      "exportedFile": "560CA5C2-0D08-42C0-9A6D-E206BA31E97D.png",
+      "timestamp": 1789873587.899
+    },
+    {
+      "file": "10-light-evidence-first-group-accessibility-tree.txt",
+      "sha256": "da2278b5f678f949b117408b846514c69b25899077801e20e3068745635100b7",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceLight()",
+      "exportedFile": "77A11A55-F027-4710-A369-84B94377579D.txt",
+      "timestamp": 1789873592.913
+    },
+    {
+      "file": "10-light-evidence-first-group.png",
+      "sha256": "1bca04bd273838e2a1243371db30c7ffcdf5b574728c4748ce4dd442f3471dc4",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceLight()",
+      "exportedFile": "5B458C06-54A2-4AC3-8CEE-CC8425A82001.png",
+      "timestamp": 1789873592.801
+    },
+    {
+      "file": "20-dark-chat-boundary-accessibility-tree.txt",
+      "sha256": "9db1e2d3488ed53274c1e03263918721de302836d324512c468191975a25d94b",
+      "run": "baseline",
+      "sourceManifest": "source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceDark()",
+      "exportedFile": "41F81BFE-35F8-4649-B954-3F80C0605CB0.txt",
+      "timestamp": 1789873252.454
+    },
+    {
+      "file": "20-dark-chat-boundary.png",
+      "sha256": "05c0f6a9d804590dab8859186b491ad9631e0344ec0ed66342d6276afa22fae6",
+      "run": "baseline",
+      "sourceManifest": "source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceDark()",
+      "exportedFile": "134B7E85-81C3-4DC6-A28D-17A6B62AB9B4.png",
+      "timestamp": 1789873252.24
+    },
+    {
+      "file": "20-dark-chat-first-group-accessibility-tree.txt",
+      "sha256": "32b5e6da6f6fe0bbe6635c68bbdea7bc92824d92221809e18c0b3a83e87a265e",
+      "run": "baseline",
+      "sourceManifest": "source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceDark()",
+      "exportedFile": "44A8CF7E-A7F4-4CE4-B7D5-BAA4BB7BB4B1.txt",
+      "timestamp": 1789873246.025
+    },
+    {
+      "file": "20-dark-chat-first-group.png",
+      "sha256": "e05a2d98016a9673fb2ff6dd50022b0bd8a508cd3f05df7793fabf16d7682de5",
+      "run": "baseline",
+      "sourceManifest": "source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceDark()",
+      "exportedFile": "8593C49D-0175-47DC-B2AC-59F95C93CF59.png",
+      "timestamp": 1789873245.829
+    },
+    {
+      "file": "20-dark-evidence-entry-accessibility-tree.txt",
+      "sha256": "2ecf8b05830d01420ece654d179c38136c8f5fc0a109854661260a2100e962f2",
+      "run": "baseline",
+      "sourceManifest": "source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceDark()",
+      "exportedFile": "07DE5B11-24C2-4BA1-9276-938A0EA6BD93.txt",
+      "timestamp": 1789873269.602
+    },
+    {
+      "file": "20-dark-evidence-entry.png",
+      "sha256": "efa3b2f80c36d7053930b51b21098a327191c0789ee9139e118a0bbfd7615030",
+      "run": "baseline",
+      "sourceManifest": "source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceDark()",
+      "exportedFile": "30AA5BFD-931F-4CC7-A971-8D6AD4B4A5D1.png",
+      "timestamp": 1789873269.461
+    },
+    {
+      "file": "30-xxxl-chat-boundary-accessibility-tree.txt",
+      "sha256": "0d5ff7a4e0870f7dbe6d54552301d85a4acd6542fbe452e3834b6ea9298445fc",
+      "run": "baseline",
+      "sourceManifest": "source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceAtXXXL()",
+      "exportedFile": "75407B0C-8EA3-4E1A-83B7-B1F672D3B1E2.txt",
+      "timestamp": 1789873113.514
+    },
+    {
+      "file": "30-xxxl-chat-boundary.png",
+      "sha256": "0b9930afc9bc733c8447a1e94c4e164aec9636d5d6e5d2871b121f40632e1ee5",
+      "run": "baseline",
+      "sourceManifest": "source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceAtXXXL()",
+      "exportedFile": "E6B833C9-7AAC-414C-A04A-33580E066768.png",
+      "timestamp": 1789873113.35
+    },
+    {
+      "file": "30-xxxl-chat-first-group-accessibility-tree.txt",
+      "sha256": "bebd6d9a63d0a78fd199caba739758a185b70f09f939adcec411e697cfccee08",
+      "run": "baseline",
+      "sourceManifest": "source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceAtXXXL()",
+      "exportedFile": "18E32CD0-A9CE-406F-8426-F03ED2A5EFC6.txt",
+      "timestamp": 1789873091.254
+    },
+    {
+      "file": "30-xxxl-chat-first-group.png",
+      "sha256": "d543ec33c703c3541e86d7737759b06b9622e67bfcc8dbe1a7de152ab0b98c5c",
+      "run": "baseline",
+      "sourceManifest": "source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceAtXXXL()",
+      "exportedFile": "8F009A0B-5408-41FB-B061-588D42478814.png",
+      "timestamp": 1789873091.07
+    },
+    {
+      "file": "30-xxxl-evidence-boundary-accessibility-tree.txt",
+      "sha256": "568b0930df1a0fb2d58e89075b33bd039ada12227b0baeba685bc4d530b7dd92",
+      "run": "baseline",
+      "sourceManifest": "source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceAtXXXL()",
+      "exportedFile": "28B0146C-F283-4284-ADD6-43D3DD57F768.txt",
+      "timestamp": 1789873203.801
+    },
+    {
+      "file": "30-xxxl-evidence-boundary.png",
+      "sha256": "7c9577bd0ce3013dc66367bb5e8bd74b653c9421fbb271f66191f26490336e08",
+      "run": "baseline",
+      "sourceManifest": "source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceAtXXXL()",
+      "exportedFile": "AECBF635-17FB-4807-AF44-1F781D2FD65F.png",
+      "timestamp": 1789873203.698
+    },
+    {
+      "file": "30-xxxl-evidence-entry-accessibility-tree.txt",
+      "sha256": "04c7532346680be48f545df43636cc1a6c7ae74d425f3c3490dbf3ac05a67263",
+      "run": "baseline",
+      "sourceManifest": "source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceAtXXXL()",
+      "exportedFile": "91C4FC33-C042-4E65-81F1-89BCEF652647.txt",
+      "timestamp": 1789873172.013
+    },
+    {
+      "file": "30-xxxl-evidence-entry.png",
+      "sha256": "1982328c1dd67d385cc284c7b8a090e937b439f99e6e59eccd6cf99dd265fcb9",
+      "run": "baseline",
+      "sourceManifest": "source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceAtXXXL()",
+      "exportedFile": "CC9229A2-87C5-44B9-9E13-218ACA32D1A4.png",
+      "timestamp": 1789873171.921
+    },
+    {
+      "file": "40-light-profile-boundary-accessibility-tree.txt",
+      "sha256": "80c424cef9c529261290560177ad33caa875ae7e92c42421e26fd0468b22114c",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceProfile()",
+      "exportedFile": "BE0C739A-9504-445C-9F57-DBF9B9D6DD07.txt",
+      "timestamp": 1789873621.295
+    },
+    {
+      "file": "40-light-profile-boundary.png",
+      "sha256": "793ff7b386e3285d3661487a317f97007efb7bef475e20f541f932e8f7800115",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceProfile()",
+      "exportedFile": "660264F9-7DC8-4120-B22B-6A50AEF7443E.png",
+      "timestamp": 1789873621.166
+    },
+    {
+      "file": "40-light-profile-first-group-accessibility-tree.txt",
+      "sha256": "68e4f70cad0a9be5efb2a48f56a8999a0a167ca4828b6640ec6ea81087c39f13",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceProfile()",
+      "exportedFile": "88F2FB53-0313-4F16-B4B6-F50FA5D5E212.txt",
+      "timestamp": 1789873617.075
+    },
+    {
+      "file": "40-light-profile-first-group.png",
+      "sha256": "2cb9dd83a1483037b9d34c4b2ed0ac59c55ac3424c9b90caa671cb08d3c69ccd",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceProfile()",
+      "exportedFile": "BBEF5A20-7B63-402B-9B6E-6570E30537C2.png",
+      "timestamp": 1789873616.925
+    },
+    {
+      "file": "40-light-profile-summary-accessibility-tree.txt",
+      "sha256": "22355b78ce1c70102897e1119f9f7951d928c3df310ee81ae891e45fbc179f3f",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceProfile()",
+      "exportedFile": "17A96297-3F9B-4E3A-8691-EF3717F6284E.txt",
+      "timestamp": 1789873612.26
+    },
+    {
+      "file": "40-light-profile-summary.png",
+      "sha256": "fbd9f79364c127b5910a2a8d4df7328770028d1632809ffc7d413c8999280709",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceProfile()",
+      "exportedFile": "FAAD64AE-F9EE-4F27-9FD1-E919EF411D3C.png",
+      "timestamp": 1789873612.144
+    },
+    {
+      "file": "50-xxxl-profile-boundary-accessibility-tree.txt",
+      "sha256": "3335c6472b0dcf6effd6b5b661f5fde335ce61f5117cc63c24a14ff3722e2e7c",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceProfileAtXXXL()",
+      "exportedFile": "64B50452-5723-4EA0-87AF-45B2131BDC7F.txt",
+      "timestamp": 1789873671.313
+    },
+    {
+      "file": "50-xxxl-profile-boundary.png",
+      "sha256": "27c2772444c8fe5759de882a8282f770d00d017efeff8b81e8ba7872fa0eefa0",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceProfileAtXXXL()",
+      "exportedFile": "B31F10FB-DD04-4158-9C66-E8F716034796.png",
+      "timestamp": 1789873671.199
+    },
+    {
+      "file": "50-xxxl-profile-count-labels-accessibility-tree.txt",
+      "sha256": "13ce86915cbd7e49fe02825ade117ad15299943e8d669124d39bcb88dff2c905",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceProfileAtXXXL()",
+      "exportedFile": "23514826-AB6B-4472-8C0B-E9FBF1A3398C.txt",
+      "timestamp": 1789873639.858
+    },
+    {
+      "file": "50-xxxl-profile-count-labels.png",
+      "sha256": "3247d0f0d77a12c7a577b4064838d1a38858d2acceb499cd9a0c03fc3d2c2d95",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceProfileAtXXXL()",
+      "exportedFile": "15630B96-5AA7-4476-82B2-8A45EC867658.png",
+      "timestamp": 1789873639.754
+    },
+    {
+      "file": "50-xxxl-profile-first-group-accessibility-tree.txt",
+      "sha256": "a0ead980076659fe39c903ebf5e19c4073c5df964d1a8d1165c68796992a09fe",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceProfileAtXXXL()",
+      "exportedFile": "23702D7C-602B-4B73-A951-46A215A75722.txt",
+      "timestamp": 1789873653.701
+    },
+    {
+      "file": "50-xxxl-profile-first-group.png",
+      "sha256": "06dcc841f7162fee4b791e543c8225fc21fcad2dd1a5b6133fde20c4c9f5a9ab",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceProfileAtXXXL()",
+      "exportedFile": "053D0E2A-FDB0-40D6-BA85-D28662915A30.png",
+      "timestamp": 1789873653.575
+    },
+    {
+      "file": "50-xxxl-profile-summary-accessibility-tree.txt",
+      "sha256": "f08c6956eb129b5cc913b74d18777f1416bb204021d47203f6996f43942e32b1",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceProfileAtXXXL()",
+      "exportedFile": "C18D399A-59D3-42B4-BEAB-EB8182209555.txt",
+      "timestamp": 1789873643.911
+    },
+    {
+      "file": "50-xxxl-profile-summary.png",
+      "sha256": "df2bc6db93527c74f21833c994a1e5fd7f8ab039e18ec4ff13855ce7e2420124",
+      "run": "verified",
+      "sourceManifest": "final-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testStrengthTraceProfileAtXXXL()",
+      "exportedFile": "0316BA91-C1EF-49A8-A0D0-C8040DA7B0CE.png",
+      "timestamp": 1789873643.821
+    },
+    {
+      "file": "60-brief-chat-collapsed-accessibility-tree.txt",
+      "sha256": "62ab4d601f8e6f75887c673488325fbef72d1d7ec9dc637a2f7ddb43005ebe72",
+      "run": "accessibility",
+      "sourceManifest": "accessibility-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testBriefStrengthKeepsQualificationsWithoutRepeatingLongFootnote()",
+      "exportedFile": "1C7BAB5E-5215-4FDF-92D2-0ACB54B9AF68.txt",
+      "timestamp": 1789874248.379
+    },
+    {
+      "file": "60-brief-chat-collapsed.png",
+      "sha256": "ce8668a8893cbe61108a0f7ceeb1ed65298c54cdd9657a9df9b58ffa87c9b6bf",
+      "run": "accessibility",
+      "sourceManifest": "accessibility-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testBriefStrengthKeepsQualificationsWithoutRepeatingLongFootnote()",
+      "exportedFile": "F985AD93-3225-44EA-B254-E07516330F42.png",
+      "timestamp": 1789874248.175
+    },
+    {
+      "file": "61-brief-chat-opened-accessibility-tree.txt",
+      "sha256": "8995e04bcae39f287693475be331a969c48fa3104e84f538062d30d3df2d3825",
+      "run": "accessibility",
+      "sourceManifest": "accessibility-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testBriefStrengthKeepsQualificationsWithoutRepeatingLongFootnote()",
+      "exportedFile": "A2ED3894-7EF6-4430-9282-57A942BB28E9.txt",
+      "timestamp": 1789874251.636
+    },
+    {
+      "file": "61-brief-chat-opened.png",
+      "sha256": "9b932619d06503fa7f17a3ec99420ed3bcd1cc78a867490fc3eb43558395c439",
+      "run": "accessibility",
+      "sourceManifest": "accessibility-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testBriefStrengthKeepsQualificationsWithoutRepeatingLongFootnote()",
+      "exportedFile": "B2FB9E18-BEA7-4BDD-8B42-9F64345C9F21.png",
+      "timestamp": 1789874251.371
+    },
+    {
+      "file": "70-xxxl-structure-heading-accessibility-tree.txt",
+      "sha256": "d0c2cc630865dd05053b2aa079f81da91950d424329f80ed31210f17ca1ec8aa",
+      "run": "accessibility",
+      "sourceManifest": "accessibility-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testLargeTextStructureHeadingAndEvidenceMetadata()",
+      "exportedFile": "12FFE774-A77B-481E-BE1B-556FDE5B0FD3.txt",
+      "timestamp": 1789874316.174
+    },
+    {
+      "file": "70-xxxl-structure-heading.png",
+      "sha256": "ee9d306130fe3ced34e46e176800c7b39861c07c6ee7fca0c236bd514d7b1d9e",
+      "run": "accessibility",
+      "sourceManifest": "accessibility-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testLargeTextStructureHeadingAndEvidenceMetadata()",
+      "exportedFile": "9755E177-873D-4D4C-A5CC-768DB35CEC0D.png",
+      "timestamp": 1789874316.009
+    },
+    {
+      "file": "71-xxxl-evidence-metadata-accessibility-tree.txt",
+      "sha256": "4a6c30f6828d2efecac8a3723d4e49a36a593dc9c7c86f7f2de7d88f27565281",
+      "run": "accessibility",
+      "sourceManifest": "accessibility-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testLargeTextStructureHeadingAndEvidenceMetadata()",
+      "exportedFile": "88740AA4-8088-45D1-91D2-93EB91E5DD6B.txt",
+      "timestamp": 1789874379.16
+    },
+    {
+      "file": "71-xxxl-evidence-metadata.png",
+      "sha256": "4402fb40c549c6d0fd795a607bd43f32bb8cdfece4dbb6e2b7a412f92d8bf8c7",
+      "run": "accessibility",
+      "sourceManifest": "accessibility-source-inputs.json",
+      "test": "StrengthTracePresentationUITests/testLargeTextStructureHeadingAndEvidenceMetadata()",
+      "exportedFile": "9E9F37F4-DCFF-463E-846F-36AA51703632.png",
+      "timestamp": 1789874379.051
+    }
+  ],
+  "limitations": [
+    "Long text is scrollable; a single capture does not show an entire group.",
+    "No manual VoiceOver speech, rotor or gesture verification.",
+    "No physical device or iOS 18 runtime verification.",
+    "No live AI or predictive validity claim.",
+    "Dark and chat XXXL captures are from baseline, before final resolver and brief-footnote changes; they are not evidence of the final binary."
+  ]
+}

@@ -1,0 +1,15 @@
+Selected XCTest result lines from /tmp/suji-astronomy-schedule-mutant.log
+Test Suite 'Selected tests' started at 2026-09-21 10:32:15.286.
+Test Suite 'SujiTests.xctest' started at 2026-09-21 10:32:15.287.
+Test Suite 'NatalAstronomyStoreTests' started at 2026-09-21 10:32:15.287.
+Test Case '-[SujiTests.NatalAstronomyStoreTests testWarmMetadataQueuedDiskHitCannotReviveReplacedBirth]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/AppTests/NatalAstronomyStoreTests.swift:112: error: -[SujiTests.NatalAstronomyStoreTests testWarmMetadataQueuedDiskHitCannotReviveReplacedBirth] : failed - Queued disk hit must recheck birth
+/Users/xiaqobenwang/Documents/SUJI/native/AppTests/NatalAstronomyStoreTests.swift:116: error: -[SujiTests.NatalAstronomyStoreTests testWarmMetadataQueuedDiskHitCannotReviveReplacedBirth] : XCTAssertNil failed: "NatalAstronomyDossier(schemaVersion: 1, ownerID: "user:one", birth: SujiCore.BirthProfile(year: 1995, month: 8, day: 15, hour: 19, minute: 30, gender: "女", city: "上海", longitude: 121.47, timeZoneID: "Asia/Shanghai"), engineRevision: "0ef5d159b60bb73de476cb39d9c9d74c0e1928840b4a00cb79e98a9db303498f", enginePayloadRevision: "822fe10e4c075703e9da5bc6ac975ecaafa40182df14bfcf548bc74e395f90ec", createdAt: 2026-09-21 02:32:15 +0000, payload: 15463 bytes, payloadDigest: "ae843f390eb3db924d07abf0766517356fa92927513f455a0990532a5547d02d")"
+Test Case '-[SujiTests.NatalAstronomyStoreTests testWarmMetadataQueuedDiskHitCannotReviveReplacedBirth]' failed (0.238 seconds).
+Test Suite 'NatalAstronomyStoreTests' failed at 2026-09-21 10:32:15.525.
+	 Executed 1 test, with 2 failures (0 unexpected) in 0.238 (0.239) seconds
+Test Suite 'SujiTests.xctest' failed at 2026-09-21 10:32:15.526.
+	 Executed 1 test, with 2 failures (0 unexpected) in 0.238 (0.239) seconds
+Test Suite 'Selected tests' failed at 2026-09-21 10:32:15.526.
+	 Executed 1 test, with 2 failures (0 unexpected) in 0.238 (0.239) seconds
+** TEST FAILED **

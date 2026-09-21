@@ -1,0 +1,87 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand
+
+PASS src/divination/__tests__/QuestionCapacity.test.ts (11.242 s)
+PASS src/divination/__tests__/GuaRelations.test.ts
+PASS src/divination/__tests__/Triads.test.ts
+PASS src/ziwei/__tests__/Accuracy.test.ts (5.112 s)
+PASS src/divination/__tests__/CoreFacts.test.ts (5.208 s)
+PASS src/divination/__tests__/ProfessionalLiuyaoAudit.test.ts
+PASS src/divination/__tests__/ConditionalRules.test.ts
+PASS src/divination/__tests__/Fanfu.test.ts
+PASS src/divination/__tests__/NajiaAccuracy.test.ts
+PASS src/bazi/__tests__/rescueDependenciesDispatch.test.ts
+PASS src/ziwei/__tests__/Monthly.test.ts
+PASS src/astronomy/__tests__/NatalAstronomy.test.ts
+PASS src/calendar/__tests__/precision.test.ts
+PASS src/ziwei/__tests__/Timing.test.ts
+PASS src/ai/tools/__tests__/bridge.test.ts
+PASS src/ziwei/__tests__/DayBoundary.test.ts
+PASS src/calibration/__tests__/integration-real.test.ts
+PASS src/calibration/__tests__/extractZiweiEvents.test.ts
+PASS src/divination/__tests__/QuestionJudgment.test.ts
+PASS src/qimen/__tests__/Timing.test.ts
+PASS src/divination/__tests__/RoleRelations.test.ts
+PASS src/ai/tools/__tests__/BaziAdjudicationDispatch.test.ts
+PASS src/ai/tools/__tests__/natal.test.ts
+PASS src/calibration/__tests__/buildCandidates.test.ts
+PASS src/astronomy/__tests__/LicenseNotices.test.ts
+PASS src/ziwei/__tests__/PalaceFlights.test.ts
+PASS src/astronomy/__tests__/Residuals.test.ts
+PASS src/bazi/__tests__/strengthEvidence.test.ts
+PASS src/ziwei/__tests__/ZiweiEngine.test.ts
+PASS src/bazi/__tests__/birthMonthContext.test.ts
+PASS src/ziwei/__tests__/PalaceContext.test.ts
+PASS src/divination/__tests__/HexagramEngine.test.ts
+PASS src/bazi/__tests__/tiaohou.test.ts
+PASS src/calendar/__tests__/publicBirthAudit.test.ts
+PASS src/divination/__tests__/QuestionReassessment.test.ts
+PASS src/bazi/__tests__/stemAccuracy.test.ts
+PASS src/divination/__tests__/TombExtinction.test.ts
+PASS src/divination/__tests__/Efficacy.test.ts
+PASS src/qimen/__tests__/CoreFacts.test.ts
+PASS src/ai/tools/__tests__/QimenTimingDispatch.test.ts
+PASS src/divination/__tests__/ReceiptLayout.test.ts
+PASS src/qimen/__tests__/geju.test.ts
+PASS src/qimen/helpers/__tests__/accuracy.test.ts
+PASS src/bazi/__tests__/professionalAudit.test.ts
+PASS src/bazi/__tests__/professionalTables.test.ts
+PASS src/astronomy/__tests__/ResidualsLifeIntegration.test.ts
+PASS src/ai/tools/__tests__/index.test.ts
+PASS src/ziwei/__tests__/iztro-smoke.test.ts
+PASS src/astronomy/__tests__/LifeDegree.test.ts
+PASS src/qimen/__tests__/professionalAudit.test.ts
+PASS src/ai/tools/__tests__/QimenSelectionDispatch.test.ts
+PASS src/astronomy/__tests__/Mansions.test.ts
+PASS src/bazi/__tests__/zhuanWangAdjudication.test.ts
+PASS src/qimen/__tests__/SpecializedSelection.test.ts
+PASS src/qimen/__tests__/QimenEngine.test.ts
+PASS src/ai/tools/__tests__/validation.test.ts
+PASS src/qimen/__tests__/QuestionObjects.test.ts
+PASS src/qimen/__tests__/QimenEngine.fixture.test.ts
+PASS src/ai/tools/__tests__/qimen.test.ts
+PASS src/divination/__tests__/EventAssessment.test.ts
+PASS src/bazi/__tests__/rescueAdjudication.test.ts
+PASS src/ai/tools/__tests__/bazi.test.ts
+PASS src/qimen/__tests__/TimingReceipt.test.ts
+PASS src/bazi/__tests__/patternConditions.test.ts
+PASS src/bazi/__tests__/structural.test.ts
+PASS src/bazi/__tests__/SiLing.test.ts
+PASS src/qimen/data/__tests__/jieqi-ju.test.ts
+PASS src/ai/tools/__tests__/liuyao.test.ts
+PASS src/qimen/helpers/__tests__/solarTerms.test.ts
+PASS src/divination/__tests__/ValueReceipt.test.ts
+PASS src/bazi/__tests__/multiSchoolVote.test.ts
+PASS src/bazi/__tests__/phaseRegistry.test.ts
+PASS src/bazi/__tests__/rescueDependencies.test.ts
+PASS src/ai/tools/__tests__/ziwei.test.ts
+PASS src/utils/__tests__/date.test.ts
+PASS src/calibration/__tests__/extractEvents.test.ts
+PASS src/ai/tools/__tests__/evidence.test.ts
+
+Test Suites: 77 passed, 77 total
+Tests:       1016 passed, 1016 total
+Snapshots:   0 total
+Time:        52.459 s, estimated 61 s
+Ran all test suites.

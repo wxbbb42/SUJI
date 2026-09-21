@@ -1,50 +1,42 @@
-# SUJI（岁吉）
+# SUJI（有时）
 
-中式美学 self-care App — 手撕黄历 / AI 解读 / 命理可视化。给焦虑的年轻人一份有仪式感的精神自留地。
-
-## 技术栈
-
-- **客户端**：Expo SDK 54 + React Native 0.81 + React 19 + TypeScript（strict）
-- **路由**：expo-router（文件系统路由）
-- **状态**：Zustand
-- **3D / 动效**：react-three-fiber + drei + expo-gl，Reanimated 4
-- **后端**：Supabase（Auth + Postgres + Realtime）
-- **AI**：当前为 BYOK 客户端直连 OpenAI / DeepSeek / custom；生产级后端代理仍是目标架构
-- **命理引擎**：lunisolar（农历/干支/节气）+ iztro（紫微）+ 自研 bazi/qimen/liuyao
-- **测试**：jest + jest-expo + @testing-library/react-native
+SwiftUI 是唯一维护的 iPhone 客户端。旧 Expo / React Native 构建已退役，不再添加 Expo 页面、Metro 配置、Zustand store 或客户端 provider key 设置。
 
 ## 仓库地图
 
+- `native/App`：SwiftUI 功能页面、主题与原生服务。
+- `native/Core`：Swift Package；账户、聊天、归档、工具编排与领域模型。
+- `native/Widget`：WidgetKit，仅共享每日卡片快照。
+- `native/Engine/src`：本地确定性历法与命理算法，原 `lib/` 的保留部分。
+- `native/Resources`：随 App 分发的引擎 bundle、字体、素材与 parity fixtures。
+- `supabase`：Auth / profiles 迁移、托管 DeepSeek 接口和限流测试。
+- `docs/mingli`：算法来源、规则边界、文献与阅读记录。
+- `docs/archive/expo`：历史设计，不是当前实现或待办的依据。
+
+## 当前约束
+
+- iOS 18+，Xcode 26+；页面使用 SwiftUI，音频使用 AVAudioEngine，持久化使用 SwiftData，账号凭据存放 Keychain。
+- AI 需要登录，固定使用 Supabase → DeepSeek Flash；模型密钥仅存服务端。不要恢复 BYOK 或通过旧归档配置改变 provider 路由。
+- 原生本地 notebook 按账号隔离，云端 profile 同步由用户主动触发。不要把日记、会话或密钥混入 profiles。
+- JavaScriptCore 仅运行本地计算；保留 TypeScript 源码用于复现和验证，不引入 JavaScript UI / 网络运行时。
+- 算法规则需要可追溯的出处和边界，不凭感觉补全；保留不确定性和现有 fixtures。
+- 当前视觉依据为 `native/design-qa.md`、`native/App/Design` 和 `.impeccable.md`；尊重 Dynamic Type、Reduce Motion 与标准 Apple 导航。
+
+## 验证与文档
+
+运行方式、产品状态和范围以 `README.md`、`native/README.md`、`native/VERIFICATION.md` 为准。按改动运行相关检查：
+
+```sh
+TZ=America/Los_Angeles swift test --package-path native/Core
+xcodebuild -project native/Suji.xcodeproj -scheme Suji -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test
+npm ci --prefix native/Engine
+npm run typecheck --prefix native/Engine
+npm test --prefix native/Engine
+npm run build --prefix native/Engine
+npm ci --prefix supabase
+npm test --prefix supabase
 ```
-app/         expo-router 屏幕（_layout.tsx 是主题/Provider 入口）
-components/  按领域分子目录：ai/ bazi/ calendar/ chat/ divination/ qimen/
-lib/         纯逻辑：ai/ bazi/ ziwei/ qimen/ liuyao/ marriage/ store/ supabase/ utils/ design/ calendar/
-constants/   Colors.ts（其他 design tokens 散落在 _layout.tsx — 待统一）
-supabase/    schema / migrations / edge functions
-docs/        PRD / ARCHITECTURE / TASKS / DESIGN_GUIDELINE / ONBOARDING
-docs/superpowers/  plans/ 与 specs/（功能级设计稿）
-```
 
-## 关键事实
+新增 Swift 文件后重新运行 `python3 native/scripts/generate-project.py`。修改引擎后提交重新生成的 bundle / fixtures，再验证 Swift 跨时区 parity。不要在同一 DerivedData 目录并行构建，也不要关闭模拟器签名：Keychain 和 App Group 需要 entitlements。
 
-- **当前成熟度**：promising prototype / hardening 阶段，不要把 docs 里的目标功能默认当作已完成。
-- **Auth providers**：Google + Email，**不再支持 Apple Sign-In**（2026-04-24 移除）。新代码不要加回 Apple。
-- **API Key**：用户 AI key 当前只保存在设备本地，不上传 Supabase profiles；不要把 `api_key` 加进云端 schema。
-- **命理准确性**：奇门、格局、应期等仍有 MVP 简化项；不要把 TODO 简化包装成完整传统推演。
-- **语言**：代码、注释、commit 都可中英混用（参考 `git log` 风格：`qimen: 用神选择…`）。文档以中文为主。
-- **跑测试**：`npm test`。新功能要尽量带单测，命理算法尤其需要（参见 `lib/__tests__/`）。
-- **平台优先级**：iOS。Android / Web 是 expo 顺带产出，不阻塞 iOS 体验。
-
-## 工作规约
-
-- **任何视觉 / UI / 动效 / Slide / Mock 任务** — 严格遵循 @docs/DESIGN_GUIDELINE.md，并先对齐 @docs/AESTHETIC_DIRECTION.md 的岁吉美学方向（已在下方 import）。
-- **新增功能 / 较大重构** — 先看 `docs/PRD.md` 对齐产品意图，看 `docs/ARCHITECTURE.md` 对齐目标架构；如与当前代码冲突，以 README/CLAUDE 的“当前实现状态”为准，并同步修文档。
-- **任务进度** — `docs/TASKS.md` 是 ground truth，完成项就划掉。
-- **风险动作**（覆盖未提交改动、删分支、`--force` push、改 supabase 生产 schema）— 做之前先确认，不要默认执行。
-- **不当的"补全"** — 不要凭感觉给命理算法加占位逻辑；不确定的规则就明确标 TODO，并补 fixture/test 或停下来问。命理结果是产品核心，错一条规则可能毁信任。
-- **质量门禁** — 改完至少跑 `npm test -- --runInBand` 和 `npx tsc --noEmit`；不能用 `any` 或跳过类型检查掩盖核心问题。
-
-## 导入
-
-@docs/DESIGN_GUIDELINE.md
-@docs/AESTHETIC_DIRECTION.md
+`.env.local` 和 `native/Resources/PublicConfig.plist` 只承载公开 Supabase 配置并被忽略。`supabase/.env.local` 属于后端密钥，不能提交、打印或打包进 App。

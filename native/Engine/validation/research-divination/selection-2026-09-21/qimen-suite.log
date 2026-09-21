@@ -1,0 +1,22 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand --testPathPattern=src/qimen
+
+PASS src/qimen/__tests__/Timing.test.ts
+PASS src/qimen/__tests__/geju.test.ts
+PASS src/qimen/__tests__/professionalAudit.test.ts
+PASS src/qimen/__tests__/CoreFacts.test.ts
+PASS src/qimen/helpers/__tests__/accuracy.test.ts
+PASS src/qimen/__tests__/QimenEngine.test.ts
+PASS src/qimen/__tests__/QimenEngine.fixture.test.ts
+PASS src/qimen/__tests__/QuestionObjects.test.ts
+PASS src/qimen/__tests__/SpecializedSelection.test.ts
+PASS src/qimen/data/__tests__/jieqi-ju.test.ts
+PASS src/qimen/helpers/__tests__/solarTerms.test.ts
+PASS src/qimen/__tests__/TimingReceipt.test.ts
+
+Test Suites: 12 passed, 12 total
+Tests:       180 passed, 180 total
+Snapshots:   0 total
+Time:        1.948 s
+Ran all test suites matching /src\/qimen/i.

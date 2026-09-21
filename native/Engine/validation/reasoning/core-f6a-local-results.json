@@ -1,0 +1,71 @@
+{
+  "batch": "F6a-first-cast-confirmation",
+  "recordedAt": "2026-09-20T10:40:18.748004+00:00",
+  "baseCommit": "6f7446679b1ae75ba9716d3cbc772bf421dc635b",
+  "checks": {
+    "engine": {
+      "tests": 720,
+      "suites": 51,
+      "typecheck": "passed",
+      "resourceRebuild": "unchanged"
+    },
+    "core": {
+      "tests": 337,
+      "newTests": 12,
+      "failures": 0,
+      "timezone": "America/Los_Angeles"
+    },
+    "backend": {
+      "tests": 15,
+      "failures": 0
+    },
+    "native": {
+      "unitTests": 25,
+      "newUnitTests": 6,
+      "uiTests": 2,
+      "failures": 0,
+      "resultBundle": "/tmp/SujiF6Verified.xcresult",
+      "uiFixture": "explicitly synthetic, production sheet + orchestrator + actual bundled engine"
+    }
+  },
+  "independentReview": "f6-independent-review/review-results.json",
+  "redEvidence": {
+    "missingAPIs": [
+      "/tmp/suji-f6-red.log",
+      "/tmp/suji-f6-native-red.log",
+      "/tmp/suji-f6-session-red.log"
+    ],
+    "intentPropagationAssertionFailure": "/tmp/suji-f6-scope-red.log",
+    "reviewTruncationFailure": "f6-independent-review/before-fix-probe.swift"
+  },
+  "testHarnessCorrection": "SwiftUI.VerticalTextView exposed differing legacy/modern automation types; UI test now queries the existing accessibility identifier independent of type. All native tests and both UI cases passed on rerun. Failed run stalled in diagnostics collection and was terminated; final run disabled diagnostics collection, retained explicit screenshots and exited 0.",
+  "screenshotsInspected": [
+    "f6-missing-event",
+    "f6-accessibility-cancel",
+    "f6-confirmed-actual-engine"
+  ],
+  "localLogHashes": {
+    "core": {
+      "path": "/tmp/suji-f6-core-final.log",
+      "sha256": "d0a96938af370a8bfea11c3450cf260449926ce25f6fb09bc974d2bf1c3b8c1d"
+    },
+    "native": {
+      "path": "/tmp/suji-f6-native-verified.log",
+      "sha256": "d0608bd8ec3f134aab4b723c24ac2bd351fbd295e82d2884437a1e977f264fd7"
+    },
+    "backend": {
+      "path": "/tmp/suji-f6-supabase.log",
+      "sha256": "0bbf99195a6d69878a9967c258cdc119d1cb01be221adad874aff34af037f8d8"
+    },
+    "engineBuild": {
+      "path": "/tmp/suji-f6-engine-build.log",
+      "sha256": "31ececa11c8b4c332d3ff80c500021870ae956f1e5bae10965f215aa26093e1f"
+    }
+  },
+  "limitations": [
+    "No new live-provider request or deployed Supabase E2E; native HTTP planner/auth fixtures are synthetic.",
+    "No claim of final object selection, outcome or exact timing.",
+    "Cross-turn original-chart re-adjudication is F6b and remains open.",
+    "Broader core acceptance and extension feasibility remain open."
+  ]
+}

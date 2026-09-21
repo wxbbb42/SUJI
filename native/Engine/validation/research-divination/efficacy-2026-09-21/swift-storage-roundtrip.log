@@ -1,0 +1,20 @@
+Building for debugging...
+Build complete! (0.20秒)
+Test Suite 'Selected tests' started at 2026-09-21 09:21:10.735.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 09:21:10.735.
+Test Suite 'CastReceiptStorageTests' started at 2026-09-21 09:21:10.735.
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testComplete48PairedCapacityMatrix]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/CastReceiptStorageTests.swift:56: -[SujiCoreTests.CastReceiptStorageTests testComplete48PairedCapacityMatrix] : Test skipped - Set the existing paired-matrix artifact path for the integration capacity probe
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testComplete48PairedCapacityMatrix]' skipped (0.001 seconds).
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testCompleteStorageRoundtripRenderingAndFactLedger]' started.
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testCompleteStorageRoundtripRenderingAndFactLedger]' passed (2.675 seconds).
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testMalformedStorageFailsClosedAndDoesNotBorrowQuestionFromOtherCalls]' started.
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testMalformedStorageFailsClosedAndDoesNotBorrowQuestionFromOtherCalls]' passed (0.291 seconds).
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testOrchestratorPersistsPackedThenReusesIdenticalBytesWithoutExecution]' started.
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testOrchestratorPersistsPackedThenReusesIdenticalBytesWithoutExecution]' passed (0.497 seconds).
+Test Suite 'CastReceiptStorageTests' passed at 2026-09-21 09:21:14.199.
+	 Executed 4 tests, with 1 test skipped and 0 failures (0 unexpected) in 3.463 (3.464) seconds
+Test Suite 'SujiCoreTests.xctest' passed at 2026-09-21 09:21:14.199.
+	 Executed 4 tests, with 1 test skipped and 0 failures (0 unexpected) in 3.463 (3.464) seconds
+Test Suite 'Selected tests' passed at 2026-09-21 09:21:14.199.
+	 Executed 4 tests, with 1 test skipped and 0 failures (0 unexpected) in 3.463 (3.464) seconds

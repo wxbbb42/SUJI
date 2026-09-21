@@ -1,0 +1,314 @@
+{
+  "scope": "4096 line-value arrays x10 question/subject cases; independent literal five-element role table; candidate/moving-pair coverage; separately five preexisting handwritten ch9/ch10/ch28 cases. Calendar stub isolates rules, not ancient Gregorian dates.",
+  "casts": 40960,
+  "groups": 32768,
+  "candidateRefs": 43136,
+  "calendarRefs": 1024,
+  "roleMemberships": 115200,
+  "jyPairs": 10688,
+  "cjPairs": 11040,
+  "absentYuanWithChou": 5824,
+  "multipleTargets": 10368,
+  "mismatches": [],
+  "sourceRawFilesIdentical": true,
+  "handwrittenCases": [
+    {
+      "id": "ch9-qian-xiaoxu",
+      "coordinates": {
+        "month": "甲辰",
+        "day": "戊申",
+        "hour": "甲子"
+      },
+      "roles": {
+        "targetElement": "土",
+        "candidateRefs": [
+          {
+            "id": "original-3",
+            "objectPath": "/lines/2",
+            "contextPath": "/lines/2/context"
+          },
+          {
+            "id": "original-6",
+            "objectPath": "/lines/5",
+            "contextPath": "/lines/5/context"
+          }
+        ],
+        "elements": {
+          "yuan": "火",
+          "ji": "木",
+          "chou": "水"
+        },
+        "yuanPositions": [
+          4
+        ],
+        "jiPositions": [
+          2
+        ],
+        "chouPositions": [
+          1
+        ],
+        "jiYuanMovingPairs": [],
+        "chouJiMovingPairs": []
+      },
+      "targetContext": {
+        "isVoid": false,
+        "month": {
+          "ganZhi": "甲辰",
+          "branch": "辰",
+          "element": "土",
+          "elementRelation": "同类",
+          "sameBranch": true,
+          "clash": false,
+          "combination": false
+        },
+        "day": {
+          "ganZhi": "戊申",
+          "branch": "申",
+          "element": "金",
+          "elementRelation": "爻生",
+          "sameBranch": false,
+          "clash": false,
+          "combination": false
+        },
+        "monthState": "旺"
+      }
+    },
+    {
+      "id": "ch10-daguo-ding",
+      "coordinates": {
+        "month": "乙巳",
+        "day": "乙未",
+        "hour": "甲子"
+      },
+      "roles": {
+        "targetElement": "水",
+        "candidateRefs": [
+          {
+            "id": "original-4",
+            "objectPath": "/lines/3",
+            "contextPath": "/lines/3/context"
+          }
+        ],
+        "elements": {
+          "yuan": "金",
+          "ji": "土",
+          "chou": "火"
+        },
+        "yuanPositions": [
+          3,
+          5
+        ],
+        "jiPositions": [
+          1,
+          6
+        ],
+        "chouPositions": [],
+        "jiYuanMovingPairs": [
+          {
+            "jiPosition": 6,
+            "yuanPosition": 5
+          }
+        ],
+        "chouJiMovingPairs": []
+      },
+      "targetContext": {
+        "isVoid": false,
+        "month": {
+          "ganZhi": "乙巳",
+          "branch": "巳",
+          "element": "火",
+          "elementRelation": "爻克",
+          "sameBranch": false,
+          "clash": true,
+          "combination": false
+        },
+        "day": {
+          "ganZhi": "乙未",
+          "branch": "未",
+          "element": "土",
+          "elementRelation": "克爻",
+          "sameBranch": false,
+          "clash": false,
+          "combination": false
+        },
+        "monthState": "囚"
+      }
+    },
+    {
+      "id": "ch10-dui-jie",
+      "coordinates": {
+        "month": "乙酉",
+        "day": "辛亥",
+        "hour": "甲子"
+      },
+      "roles": {
+        "targetElement": "木",
+        "candidateRefs": [
+          {
+            "id": "original-2",
+            "objectPath": "/lines/1",
+            "contextPath": "/lines/1/context"
+          }
+        ],
+        "elements": {
+          "yuan": "水",
+          "ji": "金",
+          "chou": "土"
+        },
+        "yuanPositions": [
+          4
+        ],
+        "jiPositions": [
+          5
+        ],
+        "chouPositions": [
+          3,
+          6
+        ],
+        "jiYuanMovingPairs": [],
+        "chouJiMovingPairs": []
+      },
+      "targetContext": {
+        "isVoid": true,
+        "month": {
+          "ganZhi": "乙酉",
+          "branch": "酉",
+          "element": "金",
+          "elementRelation": "克爻",
+          "sameBranch": false,
+          "clash": true,
+          "combination": false
+        },
+        "day": {
+          "ganZhi": "辛亥",
+          "branch": "亥",
+          "element": "水",
+          "elementRelation": "生爻",
+          "sameBranch": false,
+          "clash": false,
+          "combination": false
+        },
+        "monthState": "死"
+      }
+    },
+    {
+      "id": "ch28-gou-hidden",
+      "coordinates": {
+        "month": "甲申",
+        "day": "甲申",
+        "hour": "甲子"
+      },
+      "roles": {
+        "targetElement": "木",
+        "candidateRefs": [
+          {
+            "id": "hidden-2",
+            "objectPath": "/lines/1/hidden",
+            "contextPath": "/lines/1/hidden/context"
+          }
+        ],
+        "elements": {
+          "yuan": "水",
+          "ji": "金",
+          "chou": "土"
+        },
+        "yuanPositions": [
+          2
+        ],
+        "jiPositions": [
+          3,
+          5
+        ],
+        "chouPositions": [
+          1,
+          6
+        ],
+        "jiYuanMovingPairs": [],
+        "chouJiMovingPairs": []
+      },
+      "targetContext": {
+        "isVoid": false,
+        "month": {
+          "ganZhi": "甲申",
+          "branch": "申",
+          "element": "金",
+          "elementRelation": "克爻",
+          "sameBranch": false,
+          "clash": true,
+          "combination": false
+        },
+        "day": {
+          "ganZhi": "甲申",
+          "branch": "申",
+          "element": "金",
+          "elementRelation": "克爻",
+          "sameBranch": false,
+          "clash": true,
+          "combination": false
+        },
+        "monthState": "死"
+      }
+    },
+    {
+      "id": "static-qian-counterexample",
+      "coordinates": {
+        "month": "甲辰",
+        "day": "戊申",
+        "hour": "甲子"
+      },
+      "roles": {
+        "targetElement": "土",
+        "candidateRefs": [
+          {
+            "id": "original-3",
+            "objectPath": "/lines/2",
+            "contextPath": "/lines/2/context"
+          },
+          {
+            "id": "original-6",
+            "objectPath": "/lines/5",
+            "contextPath": "/lines/5/context"
+          }
+        ],
+        "elements": {
+          "yuan": "火",
+          "ji": "木",
+          "chou": "水"
+        },
+        "yuanPositions": [
+          4
+        ],
+        "jiPositions": [
+          2
+        ],
+        "chouPositions": [
+          1
+        ],
+        "jiYuanMovingPairs": [],
+        "chouJiMovingPairs": []
+      },
+      "targetContext": {
+        "isVoid": false,
+        "month": {
+          "ganZhi": "甲辰",
+          "branch": "辰",
+          "element": "土",
+          "elementRelation": "同类",
+          "sameBranch": true,
+          "clash": false,
+          "combination": false
+        },
+        "day": {
+          "ganZhi": "戊申",
+          "branch": "申",
+          "element": "金",
+          "elementRelation": "爻生",
+          "sameBranch": false,
+          "clash": false,
+          "combination": false
+        },
+        "monthState": "旺"
+      }
+    }
+  ]
+}

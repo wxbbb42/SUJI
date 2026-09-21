@@ -1,0 +1,15 @@
+{
+  "passed": 16,
+  "objectLayoutCharts": 17,
+  "objectLayoutRows": 1531,
+  "packedCharts": 0,
+  "packedRows": 0,
+  "emptyPathRows": 0,
+  "IDDictionaryMessages": 24,
+  "layoutMessages": 16,
+  "sourceDirectories": 0,
+  "maxBackendTotalUTF16": 81958,
+  "maxBodyBytes": 122651,
+  "maxMessageUTF16": 28975,
+  "scope": "Actual native ChatClient captured request body, real backend providerRequest, MAX_BODY_BYTES; independent JS decoding of question references, exact rule-source directories with SHA256, recursive object layouts, condition tuples including path dictionary, reviewer fact prefix/layout/receipt-ID dictionaries and token-prefix-node/numeric-reference index; exact equality to full Engine objects and full native facts. No provider call."
+}

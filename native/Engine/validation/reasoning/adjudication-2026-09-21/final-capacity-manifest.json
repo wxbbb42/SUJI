@@ -1,0 +1,904 @@
+{
+  "scope": "Final exact native HTTP captures, synthetic fixtures, complete fact expectations; no external model request",
+  "members": [
+    {
+      "path": "divination/fixtures.json",
+      "bytes": 5318451,
+      "sha256": "6fffadc8b875e7a3cf73ceba9a6e53587079f284b96be0cc987918fd7957ce42"
+    },
+    {
+      "path": "divination/final-native-capacity-report.json",
+      "bytes": 63224,
+      "sha256": "09a1f6f941d56e0e8940f3ba274b05527bdba3a250fa1c5ecf33ebf4e6a074ea"
+    },
+    {
+      "path": "divination/final-wire-decoder-report.json",
+      "bytes": 17938,
+      "sha256": "d075a9a3e502626b712cc419255a53dbbaf8c6b6ee06cce59789fb2814fe841c"
+    },
+    {
+      "path": "divination/final-wire-request-0.json",
+      "bytes": 156011,
+      "sha256": "7b2b02b3446c535a7040299dc5deccc88f5bed4de060ac841476120779c9bf86"
+    },
+    {
+      "path": "divination/final-expected-facts-0.json",
+      "bytes": 613278,
+      "sha256": "f14ee02d8a877c046db96ee66509adee28a0a9bf33e19f20a01d314389b0361d"
+    },
+    {
+      "path": "divination/final-wire-request-1.json",
+      "bytes": 155516,
+      "sha256": "2d3910adbdce7ed3cdc60fc5eabd155c7ae8aece0b74f3aa01a96e36136d79a1"
+    },
+    {
+      "path": "divination/final-expected-facts-1.json",
+      "bytes": 612619,
+      "sha256": "232d2fe4170bbd139870eb4e2e30119aedbdf81c626e4d728672d9ff88b7630b"
+    },
+    {
+      "path": "divination/final-wire-request-2.json",
+      "bytes": 155433,
+      "sha256": "f985307417c113bfa9fe91ba4f71c18bc31a8163cc3087959406c6214c5d472d"
+    },
+    {
+      "path": "divination/final-expected-facts-2.json",
+      "bytes": 611585,
+      "sha256": "742979d3627958867d52287724aa2afe39c742955580b1269f67ca52fa0b388c"
+    },
+    {
+      "path": "divination/final-wire-request-3.json",
+      "bytes": 155720,
+      "sha256": "4427412bbeeb41b0eb3fce2a758bd298e0200b80c966e871b9b6c279e8630cec"
+    },
+    {
+      "path": "divination/final-expected-facts-3.json",
+      "bytes": 609152,
+      "sha256": "96074e62da676e039bf85b52be09b5b4cef43c7da02e91a7579c1e0c39e8cb17"
+    },
+    {
+      "path": "divination/final-wire-request-4.json",
+      "bytes": 155057,
+      "sha256": "4cc51a93c58e2f829763b793629b52b507ef1c724772b0f1d37b2e67bd40d764"
+    },
+    {
+      "path": "divination/final-expected-facts-4.json",
+      "bytes": 590960,
+      "sha256": "c7670e5992f8fdcfbd68ce08dfb4a924c6155a9d4b2ce0c8407b11d174ffe8ed"
+    },
+    {
+      "path": "divination/final-wire-request-5.json",
+      "bytes": 157974,
+      "sha256": "df56bf86b622ba7793e1b94ace499b7fb2783f80090b672eb0887359afae3a88"
+    },
+    {
+      "path": "divination/final-expected-facts-5.json",
+      "bytes": 633323,
+      "sha256": "4b4e26120d55b7d0f954773148acdd5cdde187d7a6a21d850846d9befcb8eb28"
+    },
+    {
+      "path": "divination/final-wire-request-6.json",
+      "bytes": 158453,
+      "sha256": "4096cd3286012d76efe8d7a3286205a9e04cb1b3e1b96be4d0846196aa93dc77"
+    },
+    {
+      "path": "divination/final-expected-facts-6.json",
+      "bytes": 602851,
+      "sha256": "7aa0037b89b08578f38901272b66aed7a96f7c0b0e5d6e98cdbc4c79d8f4068e"
+    },
+    {
+      "path": "divination/final-wire-request-7.json",
+      "bytes": 158065,
+      "sha256": "f0a51d10704ad4b9520454abecebf9f0c84d161603daa138fd48c7757cfce2a1"
+    },
+    {
+      "path": "divination/final-expected-facts-7.json",
+      "bytes": 598304,
+      "sha256": "209664a11690c0b5f8f14e7a814073f121f28780dfdd2d1df65db3d1fe07df41"
+    },
+    {
+      "path": "divination/final-wire-request-8.json",
+      "bytes": 157995,
+      "sha256": "7067b7254bebe04998a3c14b368ace87d591d4c1768bb303274a5dff08bf03e9"
+    },
+    {
+      "path": "divination/final-expected-facts-8.json",
+      "bytes": 598242,
+      "sha256": "4f64b18e18bfa56bffd0045ae672d1fabd1288cc86ecdf9c3d05f4ded305ffdc"
+    },
+    {
+      "path": "divination/final-wire-request-9.json",
+      "bytes": 157747,
+      "sha256": "ff56c3feddadea9ec89507f248324da7dff40e8f5332054bfefa59fa7970c033"
+    },
+    {
+      "path": "divination/final-expected-facts-9.json",
+      "bytes": 596004,
+      "sha256": "26a18843a49f6ce2f4bff2f14ba483ac5bb01b9a613126e5a5e6fd68abe6e199"
+    },
+    {
+      "path": "divination/final-wire-request-10.json",
+      "bytes": 157824,
+      "sha256": "0f717a56e902a1914d93ba14afe962455bfe7157f4e61037a8b27b88b1077ff4"
+    },
+    {
+      "path": "divination/final-expected-facts-10.json",
+      "bytes": 594421,
+      "sha256": "c5af33a756d06826fd477e2aba4d0dd5d62d7d4b797bd2bd8745c7a99ffe4093"
+    },
+    {
+      "path": "divination/final-wire-request-11.json",
+      "bytes": 157689,
+      "sha256": "dbfcc98538bafebea8ae0820d722dc6c7d28ee1d21c338962a1950c87dfadb3c"
+    },
+    {
+      "path": "divination/final-expected-facts-11.json",
+      "bytes": 598548,
+      "sha256": "18286d1cafca418bd9fd9ac4de3e0ac69ad5cae842c9f1c011b31c0acad62696"
+    },
+    {
+      "path": "divination/final-wire-request-12.json",
+      "bytes": 156011,
+      "sha256": "7b2b02b3446c535a7040299dc5deccc88f5bed4de060ac841476120779c9bf86"
+    },
+    {
+      "path": "divination/final-expected-facts-12.json",
+      "bytes": 613278,
+      "sha256": "f14ee02d8a877c046db96ee66509adee28a0a9bf33e19f20a01d314389b0361d"
+    },
+    {
+      "path": "divination/final-wire-request-13.json",
+      "bytes": 155516,
+      "sha256": "2d3910adbdce7ed3cdc60fc5eabd155c7ae8aece0b74f3aa01a96e36136d79a1"
+    },
+    {
+      "path": "divination/final-expected-facts-13.json",
+      "bytes": 612619,
+      "sha256": "232d2fe4170bbd139870eb4e2e30119aedbdf81c626e4d728672d9ff88b7630b"
+    },
+    {
+      "path": "divination/final-wire-request-14.json",
+      "bytes": 155433,
+      "sha256": "f985307417c113bfa9fe91ba4f71c18bc31a8163cc3087959406c6214c5d472d"
+    },
+    {
+      "path": "divination/final-expected-facts-14.json",
+      "bytes": 611585,
+      "sha256": "742979d3627958867d52287724aa2afe39c742955580b1269f67ca52fa0b388c"
+    },
+    {
+      "path": "divination/final-wire-request-15.json",
+      "bytes": 155720,
+      "sha256": "4427412bbeeb41b0eb3fce2a758bd298e0200b80c966e871b9b6c279e8630cec"
+    },
+    {
+      "path": "divination/final-expected-facts-15.json",
+      "bytes": 609152,
+      "sha256": "96074e62da676e039bf85b52be09b5b4cef43c7da02e91a7579c1e0c39e8cb17"
+    },
+    {
+      "path": "divination/final-wire-request-16.json",
+      "bytes": 156011,
+      "sha256": "7b2b02b3446c535a7040299dc5deccc88f5bed4de060ac841476120779c9bf86"
+    },
+    {
+      "path": "divination/final-expected-facts-16.json",
+      "bytes": 613278,
+      "sha256": "f14ee02d8a877c046db96ee66509adee28a0a9bf33e19f20a01d314389b0361d"
+    },
+    {
+      "path": "divination/final-wire-request-17.json",
+      "bytes": 155516,
+      "sha256": "2d3910adbdce7ed3cdc60fc5eabd155c7ae8aece0b74f3aa01a96e36136d79a1"
+    },
+    {
+      "path": "divination/final-expected-facts-17.json",
+      "bytes": 612619,
+      "sha256": "232d2fe4170bbd139870eb4e2e30119aedbdf81c626e4d728672d9ff88b7630b"
+    },
+    {
+      "path": "divination/final-wire-request-18.json",
+      "bytes": 155433,
+      "sha256": "f985307417c113bfa9fe91ba4f71c18bc31a8163cc3087959406c6214c5d472d"
+    },
+    {
+      "path": "divination/final-expected-facts-18.json",
+      "bytes": 611585,
+      "sha256": "742979d3627958867d52287724aa2afe39c742955580b1269f67ca52fa0b388c"
+    },
+    {
+      "path": "divination/final-wire-request-19.json",
+      "bytes": 155720,
+      "sha256": "4427412bbeeb41b0eb3fce2a758bd298e0200b80c966e871b9b6c279e8630cec"
+    },
+    {
+      "path": "divination/final-expected-facts-19.json",
+      "bytes": 609152,
+      "sha256": "96074e62da676e039bf85b52be09b5b4cef43c7da02e91a7579c1e0c39e8cb17"
+    },
+    {
+      "path": "divination/final-wire-request-20.json",
+      "bytes": 156854,
+      "sha256": "6cdef5d24a974fd31e17dbe979d8921411e7c355d0372687c74e2fb018bb7a76"
+    },
+    {
+      "path": "divination/final-expected-facts-20.json",
+      "bytes": 612594,
+      "sha256": "eb651bf7c499608035b92b16c8ffbb0fb6d3c833f6586e0b8165636d2f0030ef"
+    },
+    {
+      "path": "divination/final-wire-request-21.json",
+      "bytes": 155459,
+      "sha256": "87106b57fe1261b128a8908294977c886feb622a4f23e357aa67f7591b8b33fb"
+    },
+    {
+      "path": "divination/final-expected-facts-21.json",
+      "bytes": 613294,
+      "sha256": "91fd570f693b39de41614079dbff00c435b63d4f1f469fdd13f3d1627e188963"
+    },
+    {
+      "path": "divination/final-wire-request-22.json",
+      "bytes": 156472,
+      "sha256": "48012e7f8c327b77e49e97f2b25690553ab72b0aef85800b21cfcf8da9388bcb"
+    },
+    {
+      "path": "divination/final-expected-facts-22.json",
+      "bytes": 610579,
+      "sha256": "568cc8080e1063b17478b98bd6df96e55417a2eec2c3a43bd1e0f6f4c2cb32db"
+    },
+    {
+      "path": "divination/final-wire-request-23.json",
+      "bytes": 157852,
+      "sha256": "6ce8d915b7eebb6fb37a9c300f12d6f44c4d871b03ee8d585751c3d9ce0b1a8d"
+    },
+    {
+      "path": "divination/final-expected-facts-23.json",
+      "bytes": 612462,
+      "sha256": "8d55b49f835a9a47d5e2720322175df9b54cea6772a00edce08e18aa96d2ca50"
+    },
+    {
+      "path": "divination/final-wire-request-24.json",
+      "bytes": 155943,
+      "sha256": "73259724fbab72087ec485f2772ed74519df2bd1a0fc7777e2d0d3ce080eb732"
+    },
+    {
+      "path": "divination/final-expected-facts-24.json",
+      "bytes": 594311,
+      "sha256": "2f96edbb59a5a159adad996d2310aa2a2c92e518ea0b43dec2ab6e644ac2fcb1"
+    },
+    {
+      "path": "divination/final-wire-request-25.json",
+      "bytes": 156790,
+      "sha256": "68e429a9e77719536631f9150320cd227b3a32e6e42d5fd0506edec11829abc0"
+    },
+    {
+      "path": "divination/final-expected-facts-25.json",
+      "bytes": 597500,
+      "sha256": "dfd2392245a7eaf61d0aab40ed43ec1df19d0d8e792ae7b0a2029fa97124405b"
+    },
+    {
+      "path": "divination/final-wire-request-26.json",
+      "bytes": 159461,
+      "sha256": "538510767a6a34afc4c7b1b19d398f3d1da94c59b07edd34889f79c4d8d38225"
+    },
+    {
+      "path": "divination/final-expected-facts-26.json",
+      "bytes": 613254,
+      "sha256": "a2c9c6e23c8a8e79e1c1cb60af9862df134bc1aa1638738258065a66bd6d5ef9"
+    },
+    {
+      "path": "divination/final-wire-request-27.json",
+      "bytes": 159346,
+      "sha256": "f00c2ad26df7856fa8498c4715c6e8546a61697ca2d1c3ec6dd9b0a4e9bf945b"
+    },
+    {
+      "path": "divination/final-expected-facts-27.json",
+      "bytes": 612100,
+      "sha256": "5192ef8c655bd593ec0e659bba907afbd7490c5eab501cc4ecfe7c451ccc7b81"
+    },
+    {
+      "path": "divination/final-wire-request-28.json",
+      "bytes": 159382,
+      "sha256": "1d209e5e8b3e4be026834a0603dda414d50d0a9415f17a28b7d2b8c3094525f7"
+    },
+    {
+      "path": "divination/final-expected-facts-28.json",
+      "bytes": 612391,
+      "sha256": "aa72b0c834cf19e66af9294c22cee6308c42f5924b789dd60a3b6eb7151fcc14"
+    },
+    {
+      "path": "divination/final-wire-request-29.json",
+      "bytes": 159328,
+      "sha256": "c64001ff6049e061685da6a497a15349a725be3c02b414ea4ca48f1e6fca8dd9"
+    },
+    {
+      "path": "divination/final-expected-facts-29.json",
+      "bytes": 612345,
+      "sha256": "54307590ea7ed77e7e1229331b43df98b898e7b03f868901552d5775862fa12a"
+    },
+    {
+      "path": "divination/final-wire-request-30.json",
+      "bytes": 158465,
+      "sha256": "285a928d2dc2636e59f18685661f890cf290478635cbd82236ddf6dbe8381201"
+    },
+    {
+      "path": "divination/final-expected-facts-30.json",
+      "bytes": 603881,
+      "sha256": "b6b7b7fe8a720086ee060ca186e7ae3fc5718fedd4231e83efdf8ad9641a1f50"
+    },
+    {
+      "path": "divination/final-wire-request-31.json",
+      "bytes": 159733,
+      "sha256": "67c8d062b52791523dd1067b10f935dc3736e23e23a898ab49eabdfdf947a517"
+    },
+    {
+      "path": "divination/final-expected-facts-31.json",
+      "bytes": 612019,
+      "sha256": "9d362f0d2eba44defb1634610c539a20472b70883b5fca9657c7086f9c381ed3"
+    },
+    {
+      "path": "divination/final-wire-request-32.json",
+      "bytes": 156854,
+      "sha256": "6cdef5d24a974fd31e17dbe979d8921411e7c355d0372687c74e2fb018bb7a76"
+    },
+    {
+      "path": "divination/final-expected-facts-32.json",
+      "bytes": 612594,
+      "sha256": "eb651bf7c499608035b92b16c8ffbb0fb6d3c833f6586e0b8165636d2f0030ef"
+    },
+    {
+      "path": "divination/final-wire-request-33.json",
+      "bytes": 155459,
+      "sha256": "87106b57fe1261b128a8908294977c886feb622a4f23e357aa67f7591b8b33fb"
+    },
+    {
+      "path": "divination/final-expected-facts-33.json",
+      "bytes": 613294,
+      "sha256": "91fd570f693b39de41614079dbff00c435b63d4f1f469fdd13f3d1627e188963"
+    },
+    {
+      "path": "divination/final-wire-request-34.json",
+      "bytes": 156472,
+      "sha256": "48012e7f8c327b77e49e97f2b25690553ab72b0aef85800b21cfcf8da9388bcb"
+    },
+    {
+      "path": "divination/final-expected-facts-34.json",
+      "bytes": 610579,
+      "sha256": "568cc8080e1063b17478b98bd6df96e55417a2eec2c3a43bd1e0f6f4c2cb32db"
+    },
+    {
+      "path": "divination/final-wire-request-35.json",
+      "bytes": 157852,
+      "sha256": "6ce8d915b7eebb6fb37a9c300f12d6f44c4d871b03ee8d585751c3d9ce0b1a8d"
+    },
+    {
+      "path": "divination/final-expected-facts-35.json",
+      "bytes": 612462,
+      "sha256": "8d55b49f835a9a47d5e2720322175df9b54cea6772a00edce08e18aa96d2ca50"
+    },
+    {
+      "path": "divination/final-wire-request-36.json",
+      "bytes": 156854,
+      "sha256": "6cdef5d24a974fd31e17dbe979d8921411e7c355d0372687c74e2fb018bb7a76"
+    },
+    {
+      "path": "divination/final-expected-facts-36.json",
+      "bytes": 612594,
+      "sha256": "eb651bf7c499608035b92b16c8ffbb0fb6d3c833f6586e0b8165636d2f0030ef"
+    },
+    {
+      "path": "divination/final-wire-request-37.json",
+      "bytes": 155459,
+      "sha256": "87106b57fe1261b128a8908294977c886feb622a4f23e357aa67f7591b8b33fb"
+    },
+    {
+      "path": "divination/final-expected-facts-37.json",
+      "bytes": 613294,
+      "sha256": "91fd570f693b39de41614079dbff00c435b63d4f1f469fdd13f3d1627e188963"
+    },
+    {
+      "path": "divination/final-wire-request-38.json",
+      "bytes": 156472,
+      "sha256": "48012e7f8c327b77e49e97f2b25690553ab72b0aef85800b21cfcf8da9388bcb"
+    },
+    {
+      "path": "divination/final-expected-facts-38.json",
+      "bytes": 610579,
+      "sha256": "568cc8080e1063b17478b98bd6df96e55417a2eec2c3a43bd1e0f6f4c2cb32db"
+    },
+    {
+      "path": "divination/final-wire-request-39.json",
+      "bytes": 157852,
+      "sha256": "6ce8d915b7eebb6fb37a9c300f12d6f44c4d871b03ee8d585751c3d9ce0b1a8d"
+    },
+    {
+      "path": "divination/final-expected-facts-39.json",
+      "bytes": 612462,
+      "sha256": "8d55b49f835a9a47d5e2720322175df9b54cea6772a00edce08e18aa96d2ca50"
+    },
+    {
+      "path": "divination/final-wire-request-40.json",
+      "bytes": 156854,
+      "sha256": "6cdef5d24a974fd31e17dbe979d8921411e7c355d0372687c74e2fb018bb7a76"
+    },
+    {
+      "path": "divination/final-expected-facts-40.json",
+      "bytes": 612594,
+      "sha256": "eb651bf7c499608035b92b16c8ffbb0fb6d3c833f6586e0b8165636d2f0030ef"
+    },
+    {
+      "path": "divination/final-wire-request-41.json",
+      "bytes": 157654,
+      "sha256": "0c57cd44730266acdb2a2737cca0b7a3bc2e3d159514a7121fbfcd220b24b5ec"
+    },
+    {
+      "path": "divination/final-expected-facts-41.json",
+      "bytes": 612594,
+      "sha256": "eb651bf7c499608035b92b16c8ffbb0fb6d3c833f6586e0b8165636d2f0030ef"
+    },
+    {
+      "path": "divination/final-wire-request-42.json",
+      "bytes": 157654,
+      "sha256": "d56013ad8e8f0e608e6b9ab24a9dbfc3952a79e4142ebfcdf6ab3e956c1b63c7"
+    },
+    {
+      "path": "divination/final-expected-facts-42.json",
+      "bytes": 612594,
+      "sha256": "eb651bf7c499608035b92b16c8ffbb0fb6d3c833f6586e0b8165636d2f0030ef"
+    },
+    {
+      "path": "divination/final-wire-request-43.json",
+      "bytes": 157654,
+      "sha256": "28b2bef3b6835fa99e96597503498f6c9f9fe10107e18518afb74f27cc90e99b"
+    },
+    {
+      "path": "divination/final-expected-facts-43.json",
+      "bytes": 612594,
+      "sha256": "eb651bf7c499608035b92b16c8ffbb0fb6d3c833f6586e0b8165636d2f0030ef"
+    },
+    {
+      "path": "divination/final-wire-request-44.json",
+      "bytes": 160038,
+      "sha256": "c50b960a8968544b31ff053a3da0aedfbd0376c4850471fe4fc7b02e289a157c"
+    },
+    {
+      "path": "divination/final-expected-facts-44.json",
+      "bytes": 612594,
+      "sha256": "eb651bf7c499608035b92b16c8ffbb0fb6d3c833f6586e0b8165636d2f0030ef"
+    },
+    {
+      "path": "divination/final-wire-request-45.json",
+      "bytes": 159195,
+      "sha256": "d23ffa805def325978caeb0cc9be55f220a7e82638b93e7aedffe395415e9bb2"
+    },
+    {
+      "path": "divination/final-expected-facts-45.json",
+      "bytes": 613278,
+      "sha256": "f14ee02d8a877c046db96ee66509adee28a0a9bf33e19f20a01d314389b0361d"
+    },
+    {
+      "path": "divination/final-wire-request-46.json",
+      "bytes": 161637,
+      "sha256": "8050201eec4922d26fedffa6ec4acdffa56a732923b7b73a5ad1270e9e8b3030"
+    },
+    {
+      "path": "divination/final-expected-facts-46.json",
+      "bytes": 602851,
+      "sha256": "7aa0037b89b08578f38901272b66aed7a96f7c0b0e5d6e98cdbc4c79d8f4068e"
+    },
+    {
+      "path": "divination/final-wire-request-47.json",
+      "bytes": 162645,
+      "sha256": "260470148a9a61859fd1d0dd5907568c28873e9280b83141095366fb8a075108"
+    },
+    {
+      "path": "divination/final-expected-facts-47.json",
+      "bytes": 613254,
+      "sha256": "a2c9c6e23c8a8e79e1c1cb60af9862df134bc1aa1638738258065a66bd6d5ef9"
+    },
+    {
+      "path": "divination/final-wire-request-48.json",
+      "bytes": 175384,
+      "sha256": "a5b8837edb652ec92177a829821004adbe52fbd4497e387c8297b027061a41d2"
+    },
+    {
+      "path": "divination/final-expected-facts-48.json",
+      "bytes": 1106065,
+      "sha256": "fa336bbc2e8a20849e32e24cc9a26e7a42f545aacf5fba373efaeb30e7175a63"
+    },
+    {
+      "path": "divination/final-wire-request-49.json",
+      "bytes": 174435,
+      "sha256": "6b077ab0ead5dbab21faa893eb7716957b33c1a1e10300050a5dffb0bff670d8"
+    },
+    {
+      "path": "divination/final-expected-facts-49.json",
+      "bytes": 625902,
+      "sha256": "28e754c6acbd42671db2449e1abe749d3a28236410bb802fd04ce1d596de363d"
+    },
+    {
+      "path": "divination/final-wire-request-50.json",
+      "bytes": 169963,
+      "sha256": "489adab3b7d22659a7e49f5b07285d0499c47260a0e41b1750e8db0819c06379"
+    },
+    {
+      "path": "divination/final-expected-facts-50.json",
+      "bytes": 720204,
+      "sha256": "6128410682a2085af49a5f3610d0361e7901cca7544fdaa2c250c2e35c95b71f"
+    },
+    {
+      "path": "divination/final-wire-request-51.json",
+      "bytes": 177180,
+      "sha256": "014683fffade30407a75c23ade14311983c95c8daae739bc2d0df7378d6ec9d3"
+    },
+    {
+      "path": "divination/final-expected-facts-51.json",
+      "bytes": 1110235,
+      "sha256": "f49e8febee2ead8e35a2617ba8d8ab4b83b9f5c9a8df51e94403ecfc0b575016"
+    },
+    {
+      "path": "divination/final-wire-request-52.json",
+      "bytes": 177232,
+      "sha256": "96fdfe1676d694fb229c75216c626be237a7d77b144d0198ed02937cfecce6d7"
+    },
+    {
+      "path": "divination/final-expected-facts-52.json",
+      "bytes": 1104477,
+      "sha256": "19a0f664c5f52d871ebb441bbc1395e1f315103aa0fcc196da9907a202ba7671"
+    },
+    {
+      "path": "astronomy/fixtures.json",
+      "bytes": 270467,
+      "sha256": "750d36e43fdf2cce3c066c3f6b5c826760b9abd705f413ab187147d983de9a86"
+    },
+    {
+      "path": "astronomy/final-native-capacity-report.json",
+      "bytes": 3626,
+      "sha256": "47abe58b05616a1ebb1dbc6d8fa22f2d7329c09b764c901797205602964caf79"
+    },
+    {
+      "path": "astronomy/final-wire-decoder-report.json",
+      "bytes": 4199,
+      "sha256": "ecf577b00f59f33d5f364655e821753cc22591734e230b14711bc496f54925ff"
+    },
+    {
+      "path": "astronomy/final-wire-request-0.json",
+      "bytes": 56389,
+      "sha256": "e63f4f8cacd45dd2350f5535bb2475213a4564681128f96f277cb93698419557"
+    },
+    {
+      "path": "astronomy/final-expected-facts-0.json",
+      "bytes": 97973,
+      "sha256": "904b1a48b3bf2a1a8a9dbb28fcdc8b74af7c7016a3807a316b954f35ff7ff55a"
+    },
+    {
+      "path": "astronomy/final-wire-request-1.json",
+      "bytes": 37150,
+      "sha256": "aac22c338d4b73f3658357e026faa98f2b6ae35411777158083f46d41e31b58f"
+    },
+    {
+      "path": "astronomy/final-expected-facts-1.json",
+      "bytes": 18141,
+      "sha256": "9f96271a98b776f7306872370fc070b50b58d251782aad47e3ffece0394f38fa"
+    },
+    {
+      "path": "astronomy/final-wire-request-2.json",
+      "bytes": 38700,
+      "sha256": "b12d634b871d98663cf6957e3d385eb72220f9fd574f9dce7ed18fb43898fe5a"
+    },
+    {
+      "path": "astronomy/final-expected-facts-2.json",
+      "bytes": 18907,
+      "sha256": "a33546a54d4a0b536e33d42ffd83ba0f5b4a18137b6882c0c71b85968327b24c"
+    },
+    {
+      "path": "astronomy/final-wire-request-3.json",
+      "bytes": 38700,
+      "sha256": "0cfd3b280721920998c3972d39c7e31eb815ecc310fdc703c1e2a84869578a3c"
+    },
+    {
+      "path": "astronomy/final-expected-facts-3.json",
+      "bytes": 18907,
+      "sha256": "9ff946ce8ef5f1c0545d284f2ce6ff597b307d7885976899f554441a49a41621"
+    },
+    {
+      "path": "astronomy/final-wire-request-4.json",
+      "bytes": 38734,
+      "sha256": "fccf2ffb9b9854e4461de2e0be6c3c17c0df554a5cee9859dd15ef5788e7d13b"
+    },
+    {
+      "path": "astronomy/final-expected-facts-4.json",
+      "bytes": 18934,
+      "sha256": "a50a2b69855c877d70b80b416ba91c99a64e9bf7d7cc08cca845fcf1204c84b2"
+    },
+    {
+      "path": "astronomy/final-wire-request-5.json",
+      "bytes": 38732,
+      "sha256": "e5dedc6ffa23c30321a8b7b2e2c315a422d3eaaf6995a442fd19d083e3330ceb"
+    },
+    {
+      "path": "astronomy/final-expected-facts-5.json",
+      "bytes": 18943,
+      "sha256": "ebc6830ce4cc97e132a3d390f3f251ee01589970a80b01c54fb924ecdb9db9d9"
+    },
+    {
+      "path": "astronomy/final-wire-request-6.json",
+      "bytes": 43761,
+      "sha256": "ec697a8aa0b35bbaa2c03a3793f95ded1ebc19e7e81e210c8654d1aa212b6459"
+    },
+    {
+      "path": "astronomy/final-expected-facts-6.json",
+      "bytes": 41015,
+      "sha256": "ed87319157ad3bae39371720c2b23a41b29d7d9e52798bc4ba7ec3d1ab2f1eef"
+    },
+    {
+      "path": "astronomy/final-wire-request-7.json",
+      "bytes": 100511,
+      "sha256": "73b24c388615473d46947c5c02550e88ced516477377a3490a7b9cd5f38de38b"
+    },
+    {
+      "path": "astronomy/final-expected-facts-7.json",
+      "bytes": 241785,
+      "sha256": "ecf1daf081be8560feed02a18cf24e7d82838016226fcd9aedcf1979f5c094e1"
+    },
+    {
+      "path": "astronomy/final-wire-request-8.json",
+      "bytes": 74504,
+      "sha256": "5d878bc8d545fa34c60be43636886f051e02f196f40b8c4936be404ab47295ac"
+    },
+    {
+      "path": "astronomy/final-expected-facts-8.json",
+      "bytes": 126165,
+      "sha256": "cb06c307c9c14d8f394d59d3102a3a6300a389abfb661c8dd7c524a8c1ce44fb"
+    },
+    {
+      "path": "astronomy/final-wire-request-9.json",
+      "bytes": 105205,
+      "sha256": "7f704693b6c9ec53197f68e268020583501ffbb8c69666b2333ecb06e2633715"
+    },
+    {
+      "path": "astronomy/final-expected-facts-9.json",
+      "bytes": 271129,
+      "sha256": "0f3574456e4ac3d7a6402ff4e4397da48ad33e952ce2b016f73166ef8a7a5908"
+    },
+    {
+      "path": "astronomy/final-wire-request-10.json",
+      "bytes": 119052,
+      "sha256": "3788ebcaf3f9e947dcbe815787652c16ba65b5cf59f859561003699eeb93d96b"
+    },
+    {
+      "path": "astronomy/final-expected-facts-10.json",
+      "bytes": 304714,
+      "sha256": "21fb8dba284f6628603287a5d9bba4b713648bf22d6d70b122f08e2a3edde1d2"
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "native/Core/Sources/SujiCore/ArchiveCodec.swift",
+      "sha256": "01c173be02513d4f8135a31955db4c3e3dfe6b9083c77199c3fcf8059c992c91"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BaziAdjudicationTrace.swift",
+      "sha256": "c34e07dad3d071f0a392f619c64d8b805e5e5450148f19677ed9406f7a51bad7"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BaziFrameworkReading.swift",
+      "sha256": "751231e5102b71283cc68b1656d53e657c74dd57bbb822fc2a7098f7784b8b5f"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BaziPatternConditionTrace.swift",
+      "sha256": "1c9ac6fb8f28c57112f809120c5b7613c0d05cb25f33efaa8d9c40df7126b063"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BaziStrengthTrace.swift",
+      "sha256": "39f6a53de465039ed7cd7c5feb071d93e1c8f61cb4d28a0eff53e2b3b232d336"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BreathingClock.swift",
+      "sha256": "7ef3097cf121a5544add9a27175f9d9d4eb00df60e1ebef44c35139f2f8f4423"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/CastQuestionBinding.swift",
+      "sha256": "332ab9a329964af9385130cdb039195d804a311686c1b6914f9c36309ba4af5e"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/CastQuestionPreparation.swift",
+      "sha256": "70164d4b600585c92b2cdc65a4b5df5ad664d2b6bd4a51e0c54e0e35c0863004"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/CastSourceDirectory.swift",
+      "sha256": "c0955e9510f3ba381cbfef198c9f04ae34af0d2c2de4bb3eaf44386637ff420d"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/CastSupplement.swift",
+      "sha256": "48d85b28205036891f3b15c043c97fa109dfab9599fb78f316b580fb6cba08a6"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ChatClient.swift",
+      "sha256": "66505a9557bf3be1fe532e9ae038ba336808dd0d54e4c23b308b8d83f24be9e7"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ChatTypes.swift",
+      "sha256": "cf1f74f56c99e74266eba7b5f12c0eaee6f8c8441ddf8ee068494ae521ba8f70"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/DivinationCalendarAssertions.swift",
+      "sha256": "26d5bb67099fdabafc3cf09dd441d2f96ea4f9b748ff004e9e8eb00c0bc77f0c"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/Domain.swift",
+      "sha256": "347b926c877d8ddb4e9a2c9636c8c5cbd78b23f56d0cb1ccb49e08622b2b8465"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/EngineContract.swift",
+      "sha256": "9d0e82c1bd33b0c640d82cb1ae3f8d27f75c94bb744d7ee58758e91a69aaf564"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/JSONValueTransport.swift",
+      "sha256": "969eb9f4bbda41f74c650ef040e080124a4221e8dae5873103bc847251d4db5c"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/LiuyaoConditionTransport.swift",
+      "sha256": "387d94f2b717dcd4ddb66497ca53e59971848fd049e7068549aeaaa99c94925c"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/LiuyaoEfficacyEvidence.swift",
+      "sha256": "b7d3358e15e65780336a240c08fd0741415ed0f927e22e70a448fb6c21620352"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/LiuyaoFanfuTrace.swift",
+      "sha256": "b7a2b3d6940c5ee8424b90aa4fa6b54922250abcfa3299ce7241345a81d7799a"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/LiuyaoReferenceReading.swift",
+      "sha256": "ae8ebf07404d047faa276ae757ac8c71ecb50449670cc6a23051514b537592f1"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/LiuyaoTombExtinctionTrace.swift",
+      "sha256": "08554ce2ba3a5135eba44d31fe731e5ba1bad3192ddc2b7ef2e0debe7189dcc1"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/LiuyaoTriadTrace.swift",
+      "sha256": "b90974c2c43f7151a5394365dfcc1e6a203cc2d1651584cc1678ef1882960b4a"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ManagedAI.swift",
+      "sha256": "b6368e446855814d77d2135973a8ed49a9aaa098df9aef377d30d4fac0a558bb"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/MingliBridge.swift",
+      "sha256": "1f4b24084788184956166be2b5f5847c67fbdfa960521874c532025db8b4382c"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/NatalAstronomyDossier.swift",
+      "sha256": "292eac68ce536fe2163a0741fb5bf271b108f79adb38eb5ad4c393642ebcfe22"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/NatalDerivedAstronomy.swift",
+      "sha256": "7d46a7bb1603e22dd17d05be72822b008e6e37932cbc5843c2be20ea133fec2c"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/NatalDossier.swift",
+      "sha256": "e205274576a6abc6ea0c3cd1a7c3e74518a590e0ec9c4001218c65bc056aaa9e"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/NatalEvidenceProjection.swift",
+      "sha256": "cb91cdf6a4c3092ca377b02427a5f929fdb9d9850a0182f1e45fa6b4f56df4f6"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/QimenReadingAssertions.swift",
+      "sha256": "a8987ec2043be23596e35da2fefe4e6836558fd1432223ed02af0787c12e0562"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/QimenReferenceReading.swift",
+      "sha256": "509c630fa1179263361e6e6b661f98433a4f78a4fe93a3c3eabae90c280fb591"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/QimenTimingEvidence.swift",
+      "sha256": "14f583f85f9dc055765f4e19675cdeb3af948482ae15d23e814eb2f0c5e1e329"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/QimenTimingTransport.swift",
+      "sha256": "1f30c565050e3a1c2f78e752717976f4bacf08e4e6bd362953cf8389083d2674"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingContext.swift",
+      "sha256": "0aefbb071fb105602f29d779cbc36b91392c747856a96cb78ecadbda6fa8ea8e"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingDocument.swift",
+      "sha256": "3a4f97e8ff3b0d32c2398d851d2e3cacb23fe1267b92b5314dfb8ecd35a90663"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingFactReferenceIndex.swift",
+      "sha256": "1e23430231d947ce2eda874f180cf342e2be32f4f79407d3d63fd1644d538a7a"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingFallback.swift",
+      "sha256": "e7c02c7c6d60481b2741e6f1c9a049d832a9a9d98e26a149fd3af3a348ed860a"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingIntent.swift",
+      "sha256": "eb59440f3d9404ec45af3f041116fe32067dd40a65dcab14a5c0382b6d3d7c10"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingVerificationAssertions.swift",
+      "sha256": "7edb2a1e252d8a1b65affd01f0f16f15be072b11711e088192350882cb2b2763"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingVerificationEvidence.swift",
+      "sha256": "114e3eebb5726d0014ab6eb00898de2a2afc4c791cda1a5b03caa79a4cd4771d"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingVerifier.swift",
+      "sha256": "e3b54bf23d56c5a7fe5156040091d1c082a9c3706dc07b05a2826d928ed23746"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReflectionConversation.swift",
+      "sha256": "1f33d5505c8c486915e5a1793a3bab3f8f90491ee991c263b6d692ca79f0f85c"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReminderSchedule.swift",
+      "sha256": "b37f6e9fb98ee69cf08586b2c395ce5b29e998372e36599a1e6ebcece7bb3219"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/SSEParser.swift",
+      "sha256": "cf5776962a9f0af864a9b8912cdefe790bc0d3f5c7a0374c69b52414a469a6a0"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/SupabaseClient.swift",
+      "sha256": "2bb445cf0b5af429edb95970d01a42dc503dee5f01452d4f771e76f49bdf1632"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ToolOrchestrator.swift",
+      "sha256": "cf547b75b9d7a7da3db75aab316e0bd04dccaf50838975bc7e3690defb916c3b"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ToolOutputWire.swift",
+      "sha256": "fb5a01b226f9aacf34ee184971f2291570661c5b36cfaa5c63bd9a18a39dd356"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ZiweiMonthlyCalendarAssertions.swift",
+      "sha256": "1e9de90e75cd43f0d386bae77870be9cb514fb24888abc5994b20dcbbd2867bb"
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ZiweiReadingAssertions.swift",
+      "sha256": "eae6c12445a065c15dda3ec0eccbd6672ba25e4814fb7b119ad156a8754e8152"
+    },
+    {
+      "path": "native/Engine/validation/reasoning/adjudication-2026-09-21/astronomy-native-probe.swift",
+      "sha256": "3b608233e24ed66827c5080b294764aab6898d42e765ac9bff6de2d9979fad5d"
+    },
+    {
+      "path": "native/Engine/validation/reasoning/adjudication-2026-09-21/divination-capacity-fixtures.cjs",
+      "sha256": "74a145acb7133da5a948c692d88bcdc0e1a815890c985326207046ae60e98566"
+    },
+    {
+      "path": "native/Engine/validation/reasoning/adjudication-2026-09-21/divination-native-capacity-probe.swift",
+      "sha256": "ca693c53bdcbd484ca1745e737581507134eabad09be912b5b5a3731f8f4dcc6"
+    },
+    {
+      "path": "native/Engine/validation/reasoning/adjudication-2026-09-21/final-wire-decoder.mjs",
+      "sha256": "85b513a8a879c9ba864572a0ef844bd7b6b64d4aab7123767d0d37af21b83f92"
+    },
+    {
+      "path": "native/Engine/validation/reasoning/adjudication-2026-09-21/verify-sources.mjs",
+      "sha256": "404fc45cc4a70957dd4a846efcd402a6e072a44a586cc54e5916a27f479adfac"
+    },
+    {
+      "path": "native/Resources/mingli.js",
+      "sha256": "0ef5d159b60bb73de476cb39d9c9d74c0e1928840b4a00cb79e98a9db303498f"
+    },
+    {
+      "path": "supabase/functions/suji-chat/handler.mjs",
+      "sha256": "ee9f02471e2587ff4c0f8399b75799d900efc0b1588835cfebab05ed686f8093"
+    }
+  ],
+  "archive": {
+    "path": "final-capacity-evidence.tar.gz",
+    "bytes": 4987112,
+    "sha256": "a93b511a63606da486cc68a3ed0adc11e6d237ce607a25ccdd855d5a349b7b30"
+  },
+  "captureSourceCommit": "6b15617914b244f648442591ffd6bf04953c4c8d",
+  "subsequentChange": "Swift compiler compatibility only: split two equivalent array/evidence assembly expressions in LiuyaoEfficacyEvidence.swift and LiuyaoReferenceReading.swift. Archived source hashes identify the captured commit, not later source revisions."
+}

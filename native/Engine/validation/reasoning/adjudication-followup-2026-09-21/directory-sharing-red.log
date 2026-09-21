@@ -1,0 +1,28 @@
+Evidence excerpt; lines longer than 1200 characters are truncated.
+Building for debugging...
+[1 / 10]
+[2 / 11] SujiCore
+[4 / 13] SujiCore
+[5 / 14] SujiCore
+[12 / 15] SujiCoreTests-product
+[23 / 26] SujiCoreTests-product
+[29 / 31] SujiCoreTests-product
+[33 / 37] ReadingEvalFixtures-product
+[37 / 40] ReadingEvalFixtures-product
+[39 / 40] ReadingEvalFixtures-product
+Build complete! (3.81秒)
+Test Suite 'Selected tests' started at 2026-09-21 11:40:03.399.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 11:40:03.400.
+Test Suite 'CastSourceConsumerTests' started at 2026-09-21 11:40:03.400.
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testSharedDirectoryRestoresLegacyFormAndRejectsBrokenDictionary]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/CastSourceConsumerTests.swift:28: error: -[SujiCoreTests.CastSourceConsumerTests testSharedDirectoryRestoresLegacyFormAndRejectsBrokenDictionary] : XCTAssertNotNil failed
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/CastSourceConsumerTests.swift:36: error: -[SujiCoreTests.CastSourceConsumerTests testSharedDirectoryRestoresLegacyFormAndRejectsBrokenDictionary] : XCTAssertNil failed: "object(["xunKong": SujiCore.JSONValue.array([SujiCore.JSONValue.string("戌"), SujiCore.JSONValue.string("亥")]), "method": SujiCore.JSONValue.object(["caveats": SujiCore.JSONValue.array([SujiCore.JSONValue.string("旺相休囚死仅表示月建五行关系，不等于综合旺衰或事件结果"), SujiCore.JSONValue.string("用神按提问类别初选；多个候选爻全部保留，需结合具体所问再判断"), SujiCore.JSONValue.string("旬空、月破、日冲和伏神是排盘事实，不自动判定吉凶或应期")]), "calendar": SujiCore.JSONValue.string("Beijing civil time; exact solar-term month"), "algorithm": SujiCore.JSONValue.string("jingfang-najia-v1"), "dayBoundary": SujiCore.JSONValue.string("zi-hour")]), "yingQi": SujiCore.JSONValue.object(["description": SujiCore.JSONValue.string("未推定具体应期；以下只列候选对象的条件触发支，不能当作事件必然发生的日期"), "outcomeEstablished": SujiCore.JSONValue.bool(false), "factors": SujiCore.JSONValue.array([SujiCore.JSONValue.string("静值冲、动值合、空破填实与合待冲开可以同时存在；先裁定所问对象、效力和事件方向")]), "branchesByCandidate": SujiCore.JSONValue.array([SujiCore.JSONValue.object(["candidateId": SujiCore.JSONValue.string [long value omitted]
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testSharedDirectoryRestoresLegacyFormAndRejectsBrokenDictionary]' failed (0.623 seconds).
+Test Suite 'CastSourceConsumerTests' failed at 2026-09-21 11:40:04.023.
+	 Executed 1 test, with 2 failures (0 unexpected) in 0.623 (0.623) seconds
+Test Suite 'SujiCoreTests.xctest' failed at 2026-09-21 11:40:04.023.
+	 Executed 1 test, with 2 failures (0 unexpected) in 0.623 (0.623) seconds
+Test Suite 'Selected tests' failed at 2026-09-21 11:40:04.023.
+	 Executed 1 test, with 2 failures (0 unexpected) in 0.623 (0.624) seconds
+Note: Some test targets reported failures:
+  - SujiCoreTests (XCTest)

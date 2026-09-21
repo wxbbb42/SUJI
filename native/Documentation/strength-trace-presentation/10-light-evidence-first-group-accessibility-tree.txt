@@ -1,0 +1,91 @@
+Optional(Attributes: Application, 0x117bfcdc0, pid: 15296, label: '有时'
+Element subtree:
+ →Application, 0x117bfcdc0, pid: 15296, label: '有时'
+    Window (Main), 0x117bfcc80, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x117bfcf00, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x117bfd040, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x117bfd180, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x117bfd2c0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x117bfd400, {{0.0, 0.0}, {402.0, 874.0}}
+                NavigationBar, 0x117bfd540, {{0.0, 62.0}, {402.0, 54.0}}, identifier: '计算依据'
+                  Button, 0x117bfd680, {{16.0, 62.0}, {44.0, 44.0}}, identifier: 'BackButton', label: '问道'
+                  StaticText, 0x117bfd7c0, {{167.0, 73.7}, {67.7, 20.7}}, label: '计算依据'
+                Other, 0x117bfd900, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x117bfda40, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x117bfdb80, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x117bfdcc0, {{0.0, 0.0}, {402.0, 874.0}}
+                        CollectionView, 0x117bfde00, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x117bfdf40, {{-16.0, -1632.0}, {434.0, 5733.7}}
+                          Other, 0x117bfe080, {{0.0, 0.0}, {402.0, 874.0}}
+                            Other, 0x117bfea80, {{0.0, 0.0}, {402.0, 170.8}}
+                          Other, 0x117bfc000, {{0.0, 0.0}, {402.0, 874.0}}
+                          Cell, 0x117bfc140, {{16.0, 116.0}, {370.0, 40.3}}
+                            Other, 0x117bfc280, {{16.0, 116.0}, {370.0, 40.3}}
+                            Other, 0x117bfc3c0, {{16.0, 116.0}, {370.0, 40.3}}
+                              Other, 0x117bfc500, {{16.0, 116.0}, {370.0, 40.3}}
+                                Other, 0x117bfc640, {{16.0, 116.0}, {370.0, 40.3}}
+                                  StaticText, 0x117bfc780, {{16.0, 116.0}, {370.0, 40.3}}, label: '参照你的命盘'
+                          Cell, 0x117bfc8c0, {{16.0, 156.3}, {370.0, 1412.0}}
+                            Other, 0x117bfca00, {{16.0, 156.3}, {370.0, 1412.0}}
+                              Other, 0x117bfcb40, {{16.0, 156.3}, {370.0, 1412.0}}
+                            Other, 0x117bfe300, {{16.0, 156.3}, {370.0, 1412.0}}
+                              Other, 0x117bfe440, {{16.0, 156.3}, {370.0, 1412.0}}
+                                Other, 0x117bfe580, {{16.0, 156.3}, {370.0, 1412.0}}
+                                  StaticText, 0x117bfe6c0, {{32.0, 179.3}, {118.0, 20.3}}, label: '扶抑参考的来由'
+                                  StaticText, 0x117bfe800, {{32.0, 213.7}, {318.7, 71.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.summary', label: '当前工程启发式的固定权重计数：帮扶 4，克泄耗 4。两侧相等，按当前“≥”规则列为偏强。'
+                                  StaticText, 0x117bfe940, {{32.0, 296.7}, {336.0, 54.7}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.qualification', label: '这些数字是工程权重，不是实测力量。计数包含日干本人一次，未综合月令旺衰、根气、合化与调候，不能替代完整传统强弱辨析。'
+                                  Button, 0x117bfebc0, {{32.0, 363.3}, {338.0, 44.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.toggle', label: '查看强弱判断依据'
+                                    StaticText, 0x117bfed00, {{32.0, 363.3}, {119.3, 44.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.toggle', label: '查看强弱判断依据'
+                                    Button, 0x117bfee40, {{359.7, 378.3}, {10.3, 14.0}}
+                                      Image, 0x117bfef80, {{359.7, 378.3}, {10.3, 14.0}}, identifier: 'expanded'
+                                  StaticText, 0x117bff0c0, {{32.0, 435.3}, {101.3, 20.3}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.group.count', label: '工程计数明细'
+                                  StaticText, 0x117bff200, {{32.0, 469.7}, {63.7, 18.0}}, label: '年柱 庚午'
+                                  StaticText, 0x117bff340, {{32.0, 493.7}, {262.7, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.year', label: '天干庚金计 1；午藏丁火 0.7、己土 0.3。'
+                                  StaticText, 0x117bff480, {{32.0, 525.7}, {63.7, 18.0}}, label: '月柱 甲申'
+                                  StaticText, 0x117bff5c0, {{32.0, 549.7}, {333.3, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.month', label: '天干甲木计 1；申藏庚金 0.6、壬水 0.2、戊土 0.2。'
+                                  StaticText, 0x117bff700, {{32.0, 581.7}, {63.7, 18.0}}, label: '日柱 壬子'
+                                  StaticText, 0x117bff840, {{32.0, 605.7}, {178.3, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.day', label: '天干壬水计 1；子藏癸水 1。'
+                                  StaticText, 0x117bff980, {{32.0, 637.7}, {63.7, 18.0}}, label: '时柱 乙巳'
+                                  StaticText, 0x117bffac0, {{32.0, 661.7}, {333.3, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.hour', label: '天干乙木计 1；巳藏丙火 0.6、戊土 0.2、庚金 0.2。'
+                                  StaticText, 0x117bffc00, {{32.0, 703.7}, {84.3, 20.3}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.group.totals', label: '分组与边界'
+                                  StaticText, 0x117bffd40, {{32.0, 738.0}, {78.0, 18.0}}, label: '同我（比劫）'
+                                  StaticText, 0x117bffe80, {{32.0, 738.0}, {338.0, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.peer', label: '同我（比劫）, 2.2'
+                                  StaticText, 0x10af01180, {{32.0, 770.0}, {63.0, 18.0}}, label: '生我（印）'
+                                  StaticText, 0x10af00dc0, {{32.0, 770.0}, {338.0, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.resource', label: '生我（印）, 1.8'
+                                  StaticText, 0x10af00a00, {{32.0, 802.0}, {63.0, 18.0}}, label: '我生（泄）'
+                                  StaticText, 0x10af008c0, {{32.0, 802.0}, {338.0, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.output', label: '我生（泄）, 2'
+                                  StaticText, 0x10af00f00, {{32.0, 834.0}, {63.0, 18.0}}, label: '我克（耗）'
+                                  StaticText, 0x10af00c80, {{32.0, 834.0}, {338.0, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.wealth', label: '我克（耗）, 1.3'
+                                  StaticText, 0x10af01900, {{32.0, 866.0}, {78.0, 18.0}}, label: '克我（制约）'
+                                  StaticText, 0x10af01040, {{32.0, 866.0}, {338.0, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.officer', label: '克我（制约）, 0.7'
+                                  StaticText, 0x10af00640, {{32.0, 898.0}, {119.3, 18.0}}, label: '日主本人计入一次'
+                                  StaticText, 0x10af02580, {{32.0, 922.0}, {337.0, 41.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.day-master', label: '日干壬计 1；其余帮扶合计 3。不含日干的数字仅供核对，没有用于本次强弱判定。'
+                                  StaticText, 0x10af026c0, {{32.0, 977.0}, {119.3, 18.0}}, label: '相等时也列为偏强'
+                                  StaticText, 0x10af02440, {{32.0, 1001.0}, {229.0, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.threshold', label: '规则为帮扶 ≥ 克泄耗；本次 4 ≥ 4。'
+                                  StaticText, 0x10af00b40, {{32.0, 1033.0}, {104.3, 18.0}}, label: '月令未额外加权'
+                                  StaticText, 0x10af012c0, {{32.0, 1057.0}, {327.7, 41.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.month', label: '月干和月支按上面相同的计数规则加入；此结果不能解释成“因为得令所以身强”。'
+                                  StaticText, 0x10af00780, {{32.0, 1122.0}, {219.3, 20.3}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.group.structure', label: '月令与根气：另一个观察角度'
+                                  StaticText, 0x117b87ac0, {{32.0, 1156.3}, {59.7, 18.0}}, label: '月支本气'
+                                  StaticText, 0x117b86940, {{32.0, 1180.3}, {313.0, 41.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.month-qi', label: '申中本气为庚金，相对日主为生我。这不是前述计数额外采用的月令系数。'
+                                  StaticText, 0x117b87e80, {{32.0, 1235.3}, {74.7, 18.0}}, label: '同五行藏干'
+                                  StaticText, 0x117b84f00, {{32.0, 1259.3}, {171.7, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.same-roots', label: '月支申藏壬、日支子藏癸。'
+                                  StaticText, 0x117b86440, {{32.0, 1291.3}, {134.3, 18.0}}, label: '印的支持，单独列出'
+                                  StaticText, 0x117b852c0, {{32.0, 1315.3}, {171.7, 18.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.resource-roots', label: '月支申藏庚、时支巳藏庚。'
+                                  StaticText, 0x117b85180, {{32.0, 1347.3}, {164.0, 18.0}}, label: '根印分档使用另一套权重'
+                                  StaticText, 0x117b85f40, {{32.0, 1371.3}, {326.7, 64.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.root-scale', label: '本气1、中气0.5、余气0.2；同五行藏干 1.5 + 印支持 1.2 = 2.7，旧档名为“强根”。边界依次为0.3、0.7、1.5、2.5；档名不等于实际有根或无根。'
+                                  StaticText, 0x117b85e00, {{32.0, 1449.3}, {151.7, 18.0}}, label: '结构规则参考为“太旺”'
+                                  StaticText, 0x117b870c0, {{32.0, 1473.3}, {332.7, 64.0}}, identifier: 'evidence.strength.trace.ui-audit:bazi-framework.row.separate-grade', label: '命中条件：月令关系为得令、根印合计落入“强根”档，且日支有坐刃或根印支持。这套工程矩阵未综合其他透干，与固定计数的输出不能相互证明。'
+                          Other, 0x117b87d40, {{369.0, 116.0}, {30.0, 696.0}}, label: 'Vertical scroll bar, 4 pages', value: 0%
+                            Other, 0x117b861c0, {{396.0, 119.0}, {3.0, 482.7}}
+                          Other, 0x117b86080, {{369.0, 116.0}, {30.0, 696.0}}, label: 'Vertical scroll bar, 4 pages', value: 0%
+                            Other, 0x117b86e40, {{396.0, 119.0}, {3.0, 482.7}}
+                Other, 0x117b85b80, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x117b86d00, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x117bfcdc0, pid: 15296, label: '有时'
+Query chain:
+ →Find: Target Application 'app.suji.native'
+  Output: {
+    Application, 0x117b85cc0, pid: 15296, label: '有时'
+  }
+)

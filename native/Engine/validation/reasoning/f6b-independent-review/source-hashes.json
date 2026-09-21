@@ -1,0 +1,232 @@
+{
+  "compiler": "Apple Swift 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)",
+  "compiledSources": [
+    {
+      "path": "native/Core/Sources/SujiCore/ArchiveCodec.swift",
+      "reviewedSHA256": "4c9ef706d9b3b189d5372925dc5d43e90d3c51000722595a94831ec45dca58fe",
+      "currentSHA256": "4c9ef706d9b3b189d5372925dc5d43e90d3c51000722595a94831ec45dca58fe",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BaziFrameworkReading.swift",
+      "reviewedSHA256": "514b934b9fbb94875ebaeeb26bf8b74c6f7ff66e3aa78a9379179a9560aae8e2",
+      "currentSHA256": "514b934b9fbb94875ebaeeb26bf8b74c6f7ff66e3aa78a9379179a9560aae8e2",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BaziPatternConditionTrace.swift",
+      "reviewedSHA256": "1c9ac6fb8f28c57112f809120c5b7613c0d05cb25f33efaa8d9c40df7126b063",
+      "currentSHA256": "1c9ac6fb8f28c57112f809120c5b7613c0d05cb25f33efaa8d9c40df7126b063",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BaziStrengthTrace.swift",
+      "reviewedSHA256": "39f6a53de465039ed7cd7c5feb071d93e1c8f61cb4d28a0eff53e2b3b232d336",
+      "currentSHA256": "39f6a53de465039ed7cd7c5feb071d93e1c8f61cb4d28a0eff53e2b3b232d336",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/BreathingClock.swift",
+      "reviewedSHA256": "7ef3097cf121a5544add9a27175f9d9d4eb00df60e1ebef44c35139f2f8f4423",
+      "currentSHA256": "7ef3097cf121a5544add9a27175f9d9d4eb00df60e1ebef44c35139f2f8f4423",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/CastQuestionBinding.swift",
+      "reviewedSHA256": "332ab9a329964af9385130cdb039195d804a311686c1b6914f9c36309ba4af5e",
+      "currentSHA256": "332ab9a329964af9385130cdb039195d804a311686c1b6914f9c36309ba4af5e",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/CastQuestionPreparation.swift",
+      "reviewedSHA256": "0c2eca177a9e69b3c37e042b86244ba9fd4aaaccc91d7fad5e20bb4790ace639",
+      "currentSHA256": "0c2eca177a9e69b3c37e042b86244ba9fd4aaaccc91d7fad5e20bb4790ace639",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/CastSupplement.swift",
+      "reviewedSHA256": "6cf32c890d3ef984edc8e4375fa507b858fd6399aa4572e939f16e63ef0391a1",
+      "currentSHA256": "6cf32c890d3ef984edc8e4375fa507b858fd6399aa4572e939f16e63ef0391a1",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ChatClient.swift",
+      "reviewedSHA256": "19d89f1760d4fcaa91d3edd385334143593a0c4b24aa52a1c3dc5c3734f8639c",
+      "currentSHA256": "19d89f1760d4fcaa91d3edd385334143593a0c4b24aa52a1c3dc5c3734f8639c",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ChatTypes.swift",
+      "reviewedSHA256": "cf1f74f56c99e74266eba7b5f12c0eaee6f8c8441ddf8ee068494ae521ba8f70",
+      "currentSHA256": "cf1f74f56c99e74266eba7b5f12c0eaee6f8c8441ddf8ee068494ae521ba8f70",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/DivinationCalendarAssertions.swift",
+      "reviewedSHA256": "26d5bb67099fdabafc3cf09dd441d2f96ea4f9b748ff004e9e8eb00c0bc77f0c",
+      "currentSHA256": "26d5bb67099fdabafc3cf09dd441d2f96ea4f9b748ff004e9e8eb00c0bc77f0c",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/Domain.swift",
+      "reviewedSHA256": "347b926c877d8ddb4e9a2c9636c8c5cbd78b23f56d0cb1ccb49e08622b2b8465",
+      "currentSHA256": "347b926c877d8ddb4e9a2c9636c8c5cbd78b23f56d0cb1ccb49e08622b2b8465",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/EngineContract.swift",
+      "reviewedSHA256": "c78d0036fbf0492dca600e257764709eb9654f0b6f51c0ebd997cba4eab9873d",
+      "currentSHA256": "c78d0036fbf0492dca600e257764709eb9654f0b6f51c0ebd997cba4eab9873d",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/LiuyaoReferenceReading.swift",
+      "reviewedSHA256": "7499fa58b8a6d1ff647019449c375b1dd9fb8d7928b3aaa623ab7896b8feeb9e",
+      "currentSHA256": "7499fa58b8a6d1ff647019449c375b1dd9fb8d7928b3aaa623ab7896b8feeb9e",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ManagedAI.swift",
+      "reviewedSHA256": "b6368e446855814d77d2135973a8ed49a9aaa098df9aef377d30d4fac0a558bb",
+      "currentSHA256": "b6368e446855814d77d2135973a8ed49a9aaa098df9aef377d30d4fac0a558bb",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/MingliBridge.swift",
+      "reviewedSHA256": "1f4b24084788184956166be2b5f5847c67fbdfa960521874c532025db8b4382c",
+      "currentSHA256": "1f4b24084788184956166be2b5f5847c67fbdfa960521874c532025db8b4382c",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/NatalDossier.swift",
+      "reviewedSHA256": "e205274576a6abc6ea0c3cd1a7c3e74518a590e0ec9c4001218c65bc056aaa9e",
+      "currentSHA256": "e205274576a6abc6ea0c3cd1a7c3e74518a590e0ec9c4001218c65bc056aaa9e",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/NatalEvidenceProjection.swift",
+      "reviewedSHA256": "dcbadd9128b81f378708c3aa7c8a5c2d10cb709c1d5e93b1e711a84943963550",
+      "currentSHA256": "dcbadd9128b81f378708c3aa7c8a5c2d10cb709c1d5e93b1e711a84943963550",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/QimenReadingAssertions.swift",
+      "reviewedSHA256": "a8987ec2043be23596e35da2fefe4e6836558fd1432223ed02af0787c12e0562",
+      "currentSHA256": "a8987ec2043be23596e35da2fefe4e6836558fd1432223ed02af0787c12e0562",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/QimenReferenceReading.swift",
+      "reviewedSHA256": "31fb419894387686f09a9fb6c47d13d09f4d58619f536c103f9c98b0429bdbd7",
+      "currentSHA256": "31fb419894387686f09a9fb6c47d13d09f4d58619f536c103f9c98b0429bdbd7",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingContext.swift",
+      "reviewedSHA256": "a02c1a5f4afdc5a9348f5fd109cd05bdd42d886bd2993b0ba4c86227b565452a",
+      "currentSHA256": "a02c1a5f4afdc5a9348f5fd109cd05bdd42d886bd2993b0ba4c86227b565452a",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingDocument.swift",
+      "reviewedSHA256": "3a4f97e8ff3b0d32c2398d851d2e3cacb23fe1267b92b5314dfb8ecd35a90663",
+      "currentSHA256": "3a4f97e8ff3b0d32c2398d851d2e3cacb23fe1267b92b5314dfb8ecd35a90663",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingFallback.swift",
+      "reviewedSHA256": "201ef6ec94312a6fef227cbfebd774b5f37a7f8539125b79571c172e3f897ded",
+      "currentSHA256": "201ef6ec94312a6fef227cbfebd774b5f37a7f8539125b79571c172e3f897ded",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingIntent.swift",
+      "reviewedSHA256": "eb59440f3d9404ec45af3f041116fe32067dd40a65dcab14a5c0382b6d3d7c10",
+      "currentSHA256": "eb59440f3d9404ec45af3f041116fe32067dd40a65dcab14a5c0382b6d3d7c10",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingVerificationAssertions.swift",
+      "reviewedSHA256": "7edb2a1e252d8a1b65affd01f0f16f15be072b11711e088192350882cb2b2763",
+      "currentSHA256": "7edb2a1e252d8a1b65affd01f0f16f15be072b11711e088192350882cb2b2763",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingVerificationEvidence.swift",
+      "reviewedSHA256": "537692b83a8048c37882579be6da36640d39246273aff36ee38b9bfa5e11cc90",
+      "currentSHA256": "537692b83a8048c37882579be6da36640d39246273aff36ee38b9bfa5e11cc90",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReadingVerifier.swift",
+      "reviewedSHA256": "3cfb8d02495e1ec15df03c8776ee710b99f42bb92387dae6894cb27b652288ec",
+      "currentSHA256": "3cfb8d02495e1ec15df03c8776ee710b99f42bb92387dae6894cb27b652288ec",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReflectionConversation.swift",
+      "reviewedSHA256": "1f33d5505c8c486915e5a1793a3bab3f8f90491ee991c263b6d692ca79f0f85c",
+      "currentSHA256": "1f33d5505c8c486915e5a1793a3bab3f8f90491ee991c263b6d692ca79f0f85c",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ReminderSchedule.swift",
+      "reviewedSHA256": "b37f6e9fb98ee69cf08586b2c395ce5b29e998372e36599a1e6ebcece7bb3219",
+      "currentSHA256": "b37f6e9fb98ee69cf08586b2c395ce5b29e998372e36599a1e6ebcece7bb3219",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/SSEParser.swift",
+      "reviewedSHA256": "cf5776962a9f0af864a9b8912cdefe790bc0d3f5c7a0374c69b52414a469a6a0",
+      "currentSHA256": "cf5776962a9f0af864a9b8912cdefe790bc0d3f5c7a0374c69b52414a469a6a0",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/SupabaseClient.swift",
+      "reviewedSHA256": "2bb445cf0b5af429edb95970d01a42dc503dee5f01452d4f771e76f49bdf1632",
+      "currentSHA256": "2bb445cf0b5af429edb95970d01a42dc503dee5f01452d4f771e76f49bdf1632",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ToolOrchestrator.swift",
+      "reviewedSHA256": "3d535af204242c7e2bd0c852394e9d2acec9d680c4c5048768ca296b9d10adc6",
+      "currentSHA256": "3d535af204242c7e2bd0c852394e9d2acec9d680c4c5048768ca296b9d10adc6",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ZiweiMonthlyCalendarAssertions.swift",
+      "reviewedSHA256": "ceefc5907be0dd8fb1cf2c39f70de2f36eebfa55f0d291c9f74f6c0818361600",
+      "currentSHA256": "ceefc5907be0dd8fb1cf2c39f70de2f36eebfa55f0d291c9f74f6c0818361600",
+      "matches": true
+    },
+    {
+      "path": "native/Core/Sources/SujiCore/ZiweiReadingAssertions.swift",
+      "reviewedSHA256": "eae6c12445a065c15dda3ec0eccbd6672ba25e4814fb7b119ad156a8754e8152",
+      "currentSHA256": "eae6c12445a065c15dda3ec0eccbd6672ba25e4814fb7b119ad156a8754e8152",
+      "matches": true
+    },
+    {
+      "path": "native/App/Services/ChatSession.swift",
+      "reviewedSHA256": "655f4ef44e74dedad5b0eeeb00c838289a87a1e43c83874c6c2a3e3cd019c4e7",
+      "currentSHA256": "655f4ef44e74dedad5b0eeeb00c838289a87a1e43c83874c6c2a3e3cd019c4e7",
+      "matches": true
+    },
+    {
+      "path": "native/App/Services/CastQuestionConfirmation.swift",
+      "reviewedSHA256": "1b4041aa3412b7c4d5b02257b5fe782e6eb54f6b16cc7a3640396a50444ecbd3",
+      "currentSHA256": "1b4041aa3412b7c4d5b02257b5fe782e6eb54f6b16cc7a3640396a50444ecbd3",
+      "matches": true
+    }
+  ],
+  "bundleSHA256": "7821c3addb85c44709cc1a7d25a9c1ea0878df0c4bb263ad231bff20c15424f5",
+  "results": {
+    "before-session-results.json": "972f4cae6999cb2b55b6e3e306ee930cbae1e0360388276893fc628556b7961b",
+    "before-core-results.json": "6cc24fea9aee0b042dd79b8afa8196b35ecd66d0fd8fce8dc3ab93434c28b967",
+    "engine-results.json": "ff337683e09b56b12e99729da243a8e9573e987540883ea1be8a6bdb288c4afe",
+    "sweep-results.json": "9d97ca7714eb8387446919a9e9f342b4371c8dc6bbbe4bcb38e8f5ecfdc2bb59",
+    "after-core-results.json": "29b9d41b5227737d07d1a1ea2550b44a09ffad2d56967adeb3e35f2ba016a679",
+    "target-results.json": "3995d28d0b7434b13d09f18d478e8090e1f6dc1d448eee52210cc86c4c92924b",
+    "after-session-results.json": "1f9176c479acb8e6096b91543348785671c0bf091838b920c2087b4ddf606de3"
+  },
+  "finalPresentationChange": "Localized error text only; rebuilt final Core library and reran 6 negative cases, account scope reproduction, and 18 targeted cases. The 768-case sweep preceded only this message change; binding logic is identical."
+}

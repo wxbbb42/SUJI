@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "lib": ["ES2020"],
+    "strict": true,
+    "esModuleInterop": true,
+    "useDefineForClassFields": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "types": ["node", "jest"],
+    "baseUrl": ".",
+    "paths": { "@engine/*": ["src/*"] }
+  },
+  "include": ["bridge.ts", "src/**/*.ts"]
+}

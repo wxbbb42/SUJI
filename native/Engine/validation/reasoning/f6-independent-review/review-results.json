@@ -1,0 +1,34 @@
+{
+  "scope": "F6a first-cast preparation diff only; independent source review and standalone probes",
+  "status": "No outstanding findings in the bounded reviewed paths",
+  "resolved_findings": [
+    {
+      "id": "F6-REVIEW-1",
+      "priority": "P2",
+      "description": "Appending confirmations after the original allowed a 24,000-byte original to evict all confirmed edits and reference-only purpose from ReadingVerifier.messages.",
+      "original_reproduction": {
+        "original_characters": 8000,
+        "original_utf8_bytes": 24000,
+        "reviewer_retains_reference_only_scope": false,
+        "reviewer_retains_corrected_question": false
+      },
+      "fix": "ReadingPrompt.verificationQuestion puts complete confirmed intent before the bounded original; ChatSession validates confirmations then passes this value to verification. Writer system text explicitly prioritizes confirmation.",
+      "fix_locations": [
+        "native/Core/Sources/SujiCore/ReadingContext.swift:80",
+        "native/App/Services/ChatSession.swift:201",
+        "native/App/Services/ChatSession.swift:208"
+      ],
+      "fixed_probe_result": "All six maximum-size encoding/count cases retain every complete confirmation in actual ReadingVerifier.messages."
+    }
+  ],
+  "independent_runtime_results": "probe-results.json",
+  "source_and_probe_hashes": "source-hashes.json",
+  "limitations": [
+    "No independent SwiftUI/simulator execution in this review.",
+    "No independent AppStore/SwiftData persistence integration execution; native tests are being run by the parent task.",
+    "No new live-provider call or end-to-end generated-answer acceptance.",
+    "Standalone probes compile a source snapshot with Apple Swift 6.4; they do not use or validate the existing Swift 6.3.3 Core build cache.",
+    "Core interpretation efficacy, outcome/date adjudication, F6b cross-turn supplementation, and broader G/H acceptance are not established.",
+    "No review claim for simultaneous unrelated workflow, debug UI, UI-test, or project-file edits."
+  ]
+}

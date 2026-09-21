@@ -1,0 +1,158 @@
+Optional(Attributes: Application, 0x113447840, pid: 17161, label: '有时'
+Element subtree:
+ →Application, 0x113447840, pid: 17161, label: '有时'
+    Window (Main), 0x113447480, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x1134470c0, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x11234c140, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x11234c280, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x11234c3c0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x112349b80, {{0.0, 0.0}, {402.0, 874.0}}
+                NavigationBar, 0x11234b5c0, {{0.0, 62.0}, {402.0, 54.0}}, identifier: '问道'
+                  StaticText, 0x112349180, {{184.0, 73.7}, {34.0, 20.7}}, label: '问道'
+                  Other, 0x112349040, {{346.0, 66.0}, {36.0, 36.0}}, label: '更多'
+                    Other, 0x11234a580, {{346.0, 66.0}, {36.0, 36.0}}
+                      Button, 0x11234bc00, {{350.0, 66.0}, {28.0, 36.0}}, label: '更多'
+                        Button, 0x11234bd40, {{350.0, 66.0}, {28.0, 36.0}}
+                          Image, 0x11234b840, {{354.0, 82.0}, {20.0, 4.3}}, identifier: 'ellipsis', label: '更多'
+                Other, 0x1123497c0, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x112349a40, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x11234bac0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x1060392c0, {{0.0, 0.0}, {402.0, 874.0}}
+                        ScrollView, 0x1062eda40, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x1062ed180, {{0.0, -145.0}, {402.0, 803.0}}
+                            StaticText, 0x1062ee580, {{44.0, -101.0}, {12.0, 14.3}}, label: '你'
+                            StaticText, 0x1062ec000, {{328.7, -100.5}, {29.3, 13.3}}, label: '12:00'
+                            StaticText, 0x1062ed540, {{44.0, -70.7}, {303.3, 48.7}}, label: '为什么扶抑用神和格局用神不同？可以结合我的资料解释吗？'
+                            StaticText, 0x1062ed680, {{24.0, 28.0}, {24.0, 14.3}}, label: '有时'
+                            StaticText, 0x1062ed7c0, {{348.7, 28.5}, {29.3, 13.3}}, label: '12:00'
+                            Button, 0x1062ed900, {{24.0, 58.3}, {354.0, 44.0}}, identifier: 'reading.evidence.top', label: '查看完整计算依据'
+                              Image, 0x1062ee300, {{26.0, 72.3}, {12.3, 16.0}}, identifier: 'text.book.closed', label: 'text.book.closed'
+                              StaticText, 0x1062ef980, {{24.0, 58.3}, {354.0, 44.0}}, label: '查看完整计算依据'
+                              Image, 0x1062efac0, {{371.0, 75.0}, {6.3, 10.7}}, identifier: 'chevron.right', label: '前进'
+                            Other, 0x1062efc00, {{24.0, 118.3}, {304.3, 113.7}}, identifier: 'reading.section.chart'
+                              StaticText, 0x1062efd40, {{24.0, 118.3}, {92.0, 33.3}}, identifier: 'reading.title.chart', label: '本次命盘'
+                              StaticText, 0x1062efe80, {{24.0, 157.7}, {51.7, 15.7}}, identifier: 'reading.qualification.chart', label: '本地计算'
+                              StaticText, 0x1062ef0c0, {{24.0, 185.3}, {304.3, 46.7}}, identifier: 'reading.body.chart', label: '本次四柱为庚午、甲申、壬子、乙巳，日主壬水。'
+                            Other, 0x1062ef200, {{24.0, 260.0}, {354.0, 204.0}}, identifier: 'reading.section.strength-brief'
+                              StaticText, 0x1062ef340, {{24.0, 260.0}, {92.0, 33.3}}, identifier: 'reading.title.strength-brief', label: '扶抑参考'
+                              StaticText, 0x1062ef480, {{24.0, 299.3}, {181.0, 15.7}}, identifier: 'reading.qualification.strength-brief', label: '启发式参考 · 尚未验证预测效力'
+                              StaticText, 0x1062ed2c0, {{24.0, 327.0}, {344.3, 73.0}}, identifier: 'reading.body.strength-brief', label: '工程计数：帮扶4、克泄耗4，按≥列为偏强。扶抑参考用土。含日干一次，未综合月令、根气与调候，不能当作完整强弱结论。'
+                              Button, 0x1062ed400, {{24.0, 412.0}, {354.0, 52.0}}, identifier: 'reading.strength.trace.toggle', label: '查看强弱判断依据'
+                                StaticText, 0x1062ee6c0, {{24.0, 412.0}, {354.0, 52.0}}, identifier: 'reading.strength.trace.toggle', label: '查看强弱判断依据'
+                                Image, 0x1062ee800, {{370.3, 432.0}, {7.0, 12.0}}, identifier: 'collapsed'
+                            Button, 0x1062ee940, {{24.0, 492.0}, {102.0, 44.0}}, identifier: 'reading.copy', label: '复制完整回信'
+                              Image, 0x1062eea80, {{25.7, 506.0}, {13.0, 16.0}}, identifier: 'doc.on.doc', label: '拷贝'
+                              StaticText, 0x1062eebc0, {{24.0, 492.0}, {102.0, 44.0}}, label: '复制完整回信'
+                            Button, 0x1062eed00, {{24.0, 552.0}, {354.0, 44.0}}, identifier: 'reading.evidence.bottom', label: '查看完整计算依据'
+                              Image, 0x1062eee40, {{26.0, 566.0}, {12.3, 16.0}}, identifier: 'text.book.closed', label: 'text.book.closed'
+                              StaticText, 0x1062eef80, {{24.0, 552.0}, {354.0, 44.0}}, label: '查看完整计算依据'
+                              Image, 0x112344000, {{371.0, 568.7}, {6.3, 10.7}}, identifier: 'chevron.right', label: '前进'
+                          Other, 0x112344140, {{0.0, 0.0}, {402.0, 874.0}}
+                            Other, 0x112344280, {{0.0, 0.0}, {402.0, 170.8}}
+                          Other, 0x1123443c0, {{0.0, 0.0}, {402.0, 874.0}}
+                            Other, 0x112344500, {{0.0, 0.0}, {402.0, 170.8}}
+                              Image, 0x112344640, {{-120.0, -166.0}, {642.0, 332.0}}, identifier: 'AdditionalDimmingOverlay'
+                              Other, 0x112344780, {{0.0, 0.0}, {402.0, 106.0}}
+                              Other, 0x1123448c0, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x112344a00, {{0.0, 0.0}, {402.0, 170.8}}
+                              Other, 0x112344b40, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x112344c80, {{0.0, 0.0}, {402.0, 170.8}}
+                              Other, 0x112344dc0, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x112344f00, {{0.0, 0.0}, {402.0, 170.8}}
+                                Other, 0x112345040, {{0.0, 0.0}, {402.0, 170.8}}
+                          Other, 0x112345180, {{369.0, 150.3}, {30.0, 507.7}}, label: 'Vertical scroll bar, 2 pages', value: 100%
+                            Other, 0x1123452c0, {{396.0, 280.0}, {3.0, 375.0}}
+                          Other, 0x112345400, {{369.0, 150.3}, {30.0, 507.7}}, label: 'Vertical scroll bar, 2 pages', value: 100%
+                            Other, 0x112345540, {{396.0, 280.0}, {3.0, 375.0}}
+                        StaticText, 0x112345680, {{0.0, 0.0}, {402.0, 150.3}}, identifier: 'audit.synthetic', label: '界面验收 · 合成资料 · 未调用 AI'
+                        Other, 0x1123457c0, {{0.0, 666.0}, {402.0, 208.0}}, identifier: 'chat.composer'
+                          StaticText, 0x112345900, {{20.0, 692.8}, {158.0, 14.3}}, label: '登录后，AI 才能为你写回信。'
+                          Button, 0x112345a40, {{342.0, 693.0}, {36.0, 14.3}}, label: '去登录'
+                          SegmentedControl, 0x112345b80, {{20.0, 734.0}, {362.0, 31.0}}
+                            Button, 0x112345cc0, {{20.0, 734.0}, {120.0, 32.0}}, label: '倾诉'
+                            Button, 0x112345e00, {{140.0, 734.0}, {121.0, 32.0}}, label: '命理', Selected
+                            Button, 0x112345f40, {{261.0, 734.0}, {121.0, 32.0}}, label: '起卦'
+                          TextField, 0x112346080, {{34.0, 791.0}, {274.0, 23.0}}, identifier: 'chat.input', label: '写下此刻的心事', placeholderValue: '写下此刻的心事…', Keyboard Focused
+                            Other, 0x1123461c0, {{34.0, 791.0}, {0.0, 0.0}}, identifier: '_UITextSelectionRangeAdjustmentContainerView'
+                              Other, 0x112346300, {{34.0, 791.0}, {0.0, 0.0}}, identifier: 'com.apple.text.grabber.leading'
+                                Other, 0x112346440, {{26.8, 777.5}, {16.5, 16.5}}
+                                Other, 0x112346580, {{34.0, 791.0}, {2.0, 0.0}}
+                              Other, 0x1123466c0, {{34.0, 791.0}, {0.0, 0.0}}, identifier: 'com.apple.text.grabber.leading'
+                                Other, 0x112346800, {{26.8, 777.5}, {16.5, 16.5}}
+                                Other, 0x112346940, {{34.0, 791.0}, {2.0, 0.0}}
+                            Other, 0x112346a80, {{36.0, 799.5}, {272.0, 11.5}}, label: 'Horizontal scroll bar, 1 pages', value: 0%
+                              Other, 0x112346bc0, {{39.0, 808.0}, {266.0, 3.0}}
+                          Button, 0x112346d00, {{334.0, 780.0}, {48.0, 48.0}}, identifier: 'arrow.up', label: '发送', Disabled
+                Other, 0x112346e40, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x112346f80, {{0.0, 0.0}, {402.0, 874.0}}
+    Window, 0x1123470c0, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x112347200, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x112347340, {{0.0, 0.0}, {402.0, 874.0}}
+    Window, 0x112347480, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x1123475c0, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x112347700, {{0.0, 874.0}, {402.0, 311.0}}
+          Other, 0x112347840, {{0.0, 874.0}, {402.0, 78.0}}, identifier: 'SystemInputAssistantView'
+            Other, 0x112347980, {{0.0, 874.0}, {402.0, 78.0}}
+              Other, 0x112347ac0, {{0.0, 874.0}, {402.0, 44.0}}, identifier: 'CenterPageView'
+                Other, 0x112347c00, {{0.0, 274.0}, {402.0, 1244.0}}
+                  ScrollView, 0x112347d40, {{0.0, 874.0}, {402.0, 44.0}}
+                Other, 0x112347e80, {{0.0, 874.0}, {402.0, 44.0}}
+                  Other, 0x115644000, {{0.0, 874.0}, {402.0, 44.0}}, label: 'Typing Predictions'
+                    Other, 0x115644140, {{0.0, 874.0}, {402.0, 44.0}}
+                      Other, 0x115644280, {{0.0, 874.0}, {402.0, 44.0}}
+                        Other, 0x1156443c0, {{0.0, 874.0}, {134.0, 44.0}}, label: 'I'
+                        Other, 0x115644500, {{134.0, 874.0}, {134.0, 44.0}}, label: 'The'
+                        Other, 0x115644640, {{268.0, 874.0}, {134.0, 44.0}}, label: 'I’m'
+          Other, 0x115644780, {{0.0, 874.0}, {402.0, 311.0}}
+            Other, 0x1156448c0, {{0.0, 874.0}, {402.0, 311.0}}
+              Other, 0x115644a00, {{0.0, 874.0}, {402.0, 311.0}}
+          Other, 0x115644b40, {{0.0, 952.0}, {402.0, 233.0}}
+            Keyboard, 0x115644c80, {{0.0, 952.0}, {402.0, 233.0}}
+              Other, 0x115644dc0, {{0.0, 952.0}, {402.0, 233.0}}
+                Other, 0x115644f00, {{0.0, 952.0}, {402.0, 233.0}}, identifier: 'UIKeyboardLayoutStar Preview'
+                  Key, 0x115645040, {{0.0, 952.0}, {0.0, 0.0}}, label: 'Padding-Left'
+                  Key, 0x115645180, {{4.7, 959.0}, {39.3, 54.0}}, label: 'Q'
+                  Key, 0x1156452c0, {{44.0, 959.0}, {39.7, 54.0}}, label: 'W'
+                  Key, 0x115645400, {{83.7, 959.0}, {39.3, 54.0}}, label: 'E'
+                  Key, 0x115645540, {{123.0, 959.0}, {39.7, 54.0}}, label: 'R'
+                  Key, 0x115645680, {{162.7, 959.0}, {39.3, 54.0}}, label: 'T'
+                  Key, 0x1156457c0, {{202.0, 959.0}, {39.7, 54.0}}, label: 'Y'
+                  Key, 0x115645900, {{241.7, 959.0}, {39.3, 54.0}}, label: 'U'
+                  Key, 0x115645a40, {{281.0, 959.0}, {39.7, 54.0}}, label: 'I'
+                  Key, 0x115645b80, {{320.7, 959.0}, {39.3, 54.0}}, label: 'O'
+                  Key, 0x115645cc0, {{360.0, 959.0}, {39.7, 54.0}}, label: 'P'
+                  Key, 0x115645e00, {{0.0, 952.0}, {0.0, 0.0}}, label: 'Padding-Right'
+                  Key, 0x115645f40, {{0.0, 952.0}, {0.0, 0.0}}, label: 'Padding-Left'
+                  Key, 0x115646080, {{24.3, 1013.0}, {39.3, 54.0}}, label: 'A'
+                  Key, 0x1156461c0, {{63.7, 1013.0}, {39.7, 54.0}}, label: 'S'
+                  Key, 0x115646300, {{103.3, 1013.0}, {39.3, 54.0}}, label: 'D'
+                  Key, 0x115646440, {{142.7, 1013.0}, {39.7, 54.0}}, label: 'F'
+                  Key, 0x115646580, {{182.3, 1013.0}, {39.3, 54.0}}, label: 'G'
+                  Key, 0x1156466c0, {{221.7, 1013.0}, {39.7, 54.0}}, label: 'H'
+                  Key, 0x115646800, {{261.3, 1013.0}, {39.3, 54.0}}, label: 'J'
+                  Key, 0x115646940, {{300.7, 1013.0}, {39.7, 54.0}}, label: 'K'
+                  Key, 0x115646a80, {{340.3, 1013.0}, {39.3, 54.0}}, label: 'L'
+                  Key, 0x115646bc0, {{0.0, 952.0}, {0.0, 0.0}}, label: 'Padding-Right'
+                  Button, 0x115646d00, {{4.7, 1067.0}, {51.3, 54.0}}, identifier: 'shift', label: 'shift', Selected
+                  Key, 0x115646e40, {{0.0, 952.0}, {0.0, 0.0}}, label: 'Padding-Left'
+                  Key, 0x115646f80, {{63.7, 1067.0}, {39.7, 54.0}}, label: 'Z'
+                  Key, 0x1156470c0, {{103.3, 1067.0}, {39.3, 54.0}}, label: 'X'
+                  Key, 0x115647200, {{142.7, 1067.0}, {39.7, 54.0}}, label: 'C'
+                  Key, 0x115647340, {{182.3, 1067.0}, {39.3, 54.0}}, label: 'V'
+                  Key, 0x115647480, {{221.7, 1067.0}, {39.7, 54.0}}, label: 'B'
+                  Key, 0x1156475c0, {{261.3, 1067.0}, {39.3, 54.0}}, label: 'N'
+                  Key, 0x115647700, {{300.7, 1067.0}, {39.7, 54.0}}, label: 'M'
+                  Key, 0x115647840, {{0.0, 952.0}, {0.0, 0.0}}, label: 'Padding-Right'
+                  Key, 0x115647980, {{348.0, 1067.0}, {51.7, 54.0}}, identifier: 'delete', label: 'delete'
+                  Key, 0x115647ac0, {{4.7, 1121.0}, {49.3, 54.0}}, identifier: 'more', label: 'numbers'
+                  Button, 0x115647c00, {{54.0, 1121.0}, {49.3, 54.0}}, identifier: 'emoji', label: 'Emoji'
+                  Key, 0x115647d40, {{103.3, 1121.0}, {197.3, 54.0}}, identifier: 'space', label: ' '
+                  Button, 0x115647e80, {{300.7, 1121.0}, {99.0, 54.0}}, identifier: 'Return', label: 'return'
+Path to element:
+ →Application, 0x113447840, pid: 17161, label: '有时'
+Query chain:
+ →Find: Target Application 'app.suji.native'
+  Output: {
+    Application, 0x1134475c0, pid: 17161, label: '有时'
+  }
+)

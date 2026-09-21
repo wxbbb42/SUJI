@@ -1,0 +1,41 @@
+Building for debugging...
+[Planning deferred tasks]
+[8 / 34] SujiCore
+[10 / 36] SujiCore
+[23 / 36] ReadingEvalFixtures-product
+[23 / 36] SujiCoreTests-product
+[33 / 47] SujiCoreTests-product
+[34 / 47] SujiCoreTests-product
+[35 / 47] SujiCoreTests-product
+[41 / 47] SujiCoreTests-product
+[41 / 47] ReadingEvalFixtures-product
+[41 / 47] SujiCoreTests-product
+[43 / 47] SujiCoreTests-product
+Build complete! (3.63秒)
+Test Suite 'Selected tests' started at 2026-09-21 09:10:45.262.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 09:10:45.263.
+Test Suite 'BaziAdjudicationTraceTests' started at 2026-09-21 09:10:45.263.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testActualEarthFormationExplainsSelectedSubsetWithCivilCommander]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/BaziAdjudicationTraceTests.swift:23: error: -[SujiCoreTests.BaziAdjudicationTraceTests testActualEarthFormationExplainsSelectedSubsetWithCivilCommander] : XCTUnwrap failed: expected non-nil value of type "(text: String, brief: String, paths: Array<String>)"
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testActualEarthFormationExplainsSelectedSubsetWithCivilCommander]' failed (0.197 seconds).
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testActualRootedCombinationNamesTheRetainedRole]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/BaziAdjudicationTraceTests.swift:31: error: -[SujiCoreTests.BaziAdjudicationTraceTests testActualRootedCombinationNamesTheRetainedRole] : XCTUnwrap failed: expected non-nil value of type "(text: String, brief: String, paths: Array<String>)"
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testActualRootedCombinationNamesTheRetainedRole]' failed (0.075 seconds).
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testFrameworkFullAndBriefClaimsKeepBoundLocalFindings]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/BaziAdjudicationTraceTests.swift:60: error: -[SujiCoreTests.BaziAdjudicationTraceTests testFrameworkFullAndBriefClaimsKeepBoundLocalFindings] : XCTAssertTrue failed - 格局用神按本次子平真诠口径，讨论月令结构及其配合。本次列出正官格候选，格局用神记为火（丁）。当前返回的取格条件尚不足以在这里逐项复述其成立过程。这里的格局名称与成败都仍是结构规则候选，不能据此说已经成格。条件：成败与等级是当前结构规则的候选输出，不是完整古籍格局裁定；隔位五合不自动合去用神；相邻合一留一不自动判全格破败。救应条件举例：月干戊合年干癸，救应候选月干戊同时见时干癸合戊；月干戊克年干癸，救应候选月干戊同时见时干癸合戊。这些关系的效力未定，仍需连同根气、月令及其他配合审查，不能见合便说已经合去。
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/BaziAdjudicationTraceTests.swift:61: error: -[SujiCoreTests.BaziAdjudicationTraceTests testFrameworkFullAndBriefClaimsKeepBoundLocalFindings] : XCTAssertTrue failed
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/BaziAdjudicationTraceTests.swift:60: error: -[SujiCoreTests.BaziAdjudicationTraceTests testFrameworkFullAndBriefClaimsKeepBoundLocalFindings] : XCTAssertTrue failed - 正官格只是结构规则候选，用神记为火（丁）。条件：成败与等级是当前结构规则的候选输出，不是完整古籍格局裁定；隔位五合不自动合去用神；相邻合一留一不自动判全格破败。尚不能认定成格。
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/BaziAdjudicationTraceTests.swift:61: error: -[SujiCoreTests.BaziAdjudicationTraceTests testFrameworkFullAndBriefClaimsKeepBoundLocalFindings] : XCTAssertTrue failed
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testFrameworkFullAndBriefClaimsKeepBoundLocalFindings]' failed (0.086 seconds).
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testRejectsMismatchedBirthMonthCommanderAndSources]' started.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testRejectsMismatchedBirthMonthCommanderAndSources]' passed (0.075 seconds).
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testRejectsRootRemovalAndWrongCombinationObject]' started.
+Test Case '-[SujiCoreTests.BaziAdjudicationTraceTests testRejectsRootRemovalAndWrongCombinationObject]' passed (0.074 seconds).
+Test Suite 'BaziAdjudicationTraceTests' failed at 2026-09-21 09:10:45.770.
+	 Executed 5 tests, with 6 failures (0 unexpected) in 0.507 (0.507) seconds
+Test Suite 'SujiCoreTests.xctest' failed at 2026-09-21 09:10:45.770.
+	 Executed 5 tests, with 6 failures (0 unexpected) in 0.507 (0.507) seconds
+Test Suite 'Selected tests' failed at 2026-09-21 09:10:45.770.
+	 Executed 5 tests, with 6 failures (0 unexpected) in 0.507 (0.508) seconds
+Note: Some test targets reported failures:
+  - SujiCoreTests (XCTest)

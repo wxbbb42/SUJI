@@ -1,0 +1,627 @@
+{
+  "generatedUTC": "2026-09-19T08:18:06.392258+00:00",
+  "scriptSha256": "8f948a52e432a9ee35e04fba8bca99648461c59ac66bd4969d6c7aca6e2899d9",
+  "scope": "2057-09-27 to 2057-10-28, one conjunction; no production mutation or 200-year rerun",
+  "sources": [
+    {
+      "url": "https://www.hko.gov.hk/en/gts/time/conversion.htm",
+      "retrievedUTC": "2026-09-19T08:14:56.714222+00:00",
+      "status": 200,
+      "headers": {
+        "Date": "Sat, 19 Sep 2026 08:14:56 GMT",
+        "Content-Type": "text/html; charset=utf-8",
+        "Last-Modified": "Fri, 10 Jan 2025 09:15:10 GMT",
+        "ETag": "W/\"6780e51e-b3f5\""
+      },
+      "path": "validation/research-calendar/hko-cache/2057-investigation/hko-conversion.html",
+      "bytes": 46069,
+      "sha256": "a3b1a96465876ff4bbeb5218d21009ec61cbe1da57e063fbad972a501a0f2a71",
+      "file": "hko-conversion.html"
+    },
+    {
+      "url": "https://www.hko.gov.hk/tc/gts/time/conversion.htm",
+      "retrievedUTC": "2026-09-19T08:15:21.968182+00:00",
+      "status": 200,
+      "headers": {
+        "Date": "Sat, 19 Sep 2026 08:15:21 GMT",
+        "Content-Type": "text/html; charset=utf-8",
+        "Last-Modified": "Fri, 10 Jan 2025 09:15:10 GMT",
+        "ETag": "W/\"6780e51e-b1db\""
+      },
+      "path": "validation/research-calendar/hko-cache/2057-investigation/hko-conversion-zh.html",
+      "bytes": 45531,
+      "sha256": "895e11d871163f8b89c6faa6a615ff58bc914ae53b584ee2c707766ca98f485f",
+      "file": "hko-conversion-zh.html"
+    },
+    {
+      "url": "https://www.hko.gov.hk/en/gts/time/calendar/text/files/T2057e.txt",
+      "retrievedUTC": "2026-09-19T08:14:57.862197+00:00",
+      "status": 200,
+      "headers": {
+        "Date": "Sat, 19 Sep 2026 08:14:57 GMT",
+        "Content-Type": "text/plain; charset=utf-8",
+        "Last-Modified": "Thu, 12 Dec 2019 13:45:54 GMT",
+        "ETag": "\"5df24492-713b\""
+      },
+      "path": "validation/research-calendar/hko-cache/2057-investigation/hko-T2057e.txt",
+      "bytes": 28987,
+      "sha256": "a8a6582d79f2214f68c5e1f7429cf267a50541f5546e494b1a88639fe28ce23d",
+      "file": "hko-T2057e.txt"
+    },
+    {
+      "url": "https://www.hko.gov.hk/en/gts/time/calendar/pdf/files/2057e.pdf",
+      "retrievedUTC": "2026-09-19T08:14:59.781298+00:00",
+      "status": 200,
+      "headers": {
+        "Date": "Sat, 19 Sep 2026 08:14:59 GMT",
+        "Content-Type": "application/pdf",
+        "Last-Modified": "Wed, 09 Jan 2019 04:20:43 GMT"
+      },
+      "path": "validation/research-calendar/hko-cache/2057-investigation/hko-2057e-current.pdf",
+      "bytes": 209809,
+      "sha256": "72ffdafa83df80c8625c5f5efad3f6458e1f69928a37f5c6c64156122eb83f15",
+      "file": "hko-2057e-current.pdf"
+    },
+    {
+      "url": "https://eclipse.gsfc.nasa.gov/phase/phases2001.html",
+      "retrievedUTC": "2026-09-19T08:16:45.698672+00:00",
+      "status": 200,
+      "headers": {
+        "Content-Type": "text/html",
+        "Date": "Sat, 19 Sep 2026 08:16:43 GMT",
+        "Etag": "\"1f4ca-65864e147fb59\"",
+        "Last-Modified": "Thu, 06 Aug 2026 18:15:59 GMT"
+      },
+      "path": "validation/research-calendar/hko-cache/2057-investigation/nasa-phases2001.html",
+      "bytes": 128202,
+      "sha256": "ceb16de952edaf9bf1f7c6d1daf13c7487632c3a5ad78808bd40120a76c9fbd8",
+      "file": "nasa-phases2001.html"
+    },
+    {
+      "url": "https://eclipse.gsfc.nasa.gov/SEhelp/deltatpoly2004.html",
+      "retrievedUTC": "2026-09-19T08:15:04.038097+00:00",
+      "status": 200,
+      "headers": {
+        "Content-Type": "text/html",
+        "Date": "Sat, 19 Sep 2026 08:15:03 GMT",
+        "Etag": "\"22c2-4dfff69f28a80\"",
+        "Last-Modified": "Tue, 25 Jun 2013 19:19:54 GMT"
+      },
+      "path": "validation/research-calendar/hko-cache/2057-investigation/nasa-deltatpoly.html",
+      "bytes": 8898,
+      "sha256": "a6ec749c89057f5324da228cad402e3d08661c369519eeaded10de5edeee9687",
+      "file": "nasa-deltatpoly.html"
+    },
+    {
+      "url": "https://ssd.jpl.nasa.gov/ftp/eph/planets/bsp/de440s.bsp",
+      "retrievedUTC": "2026-09-19T08:16:05.241251+00:00",
+      "status": 200,
+      "headers": {
+        "Date": "Sat, 19 Sep 2026 08:15:54 GMT",
+        "Content-Type": "application/octet-stream",
+        "Last-Modified": "Tue, 22 Dec 2020 00:56:36 GMT",
+        "ETag": "\"5fe14444-1f35c00\""
+      },
+      "path": "validation/research-calendar/hko-cache/2057-investigation/jpl-de440s.bsp",
+      "bytes": 32726016,
+      "sha256": "c1c7feeab882263fc493a9d5a5b2ddd71b54826cdf65d8d17a76126b260a49f2",
+      "file": "jpl-de440s.bsp"
+    },
+    {
+      "url": "https://rhodesmill.org/skyfield/time.html",
+      "retrievedUTC": "2026-09-19T08:16:07.149921+00:00",
+      "status": 200,
+      "headers": {
+        "Content-Type": "text/html; charset=utf-8",
+        "Last-Modified": "Fri, 07 Aug 2026 20:18:46 GMT",
+        "ETag": "\"6a763da6-12a1b\"",
+        "Date": "Sat, 19 Sep 2026 08:16:07 GMT"
+      },
+      "path": "validation/research-calendar/hko-cache/2057-investigation/skyfield-time.html",
+      "bytes": 76315,
+      "sha256": "dcf6b8d3f4e2a4520d9b3ed15ca80d46a3439b6c86a9670a55ee7244c6db61dc",
+      "file": "skyfield-time.html"
+    },
+    {
+      "url": "https://ssd.jpl.nasa.gov/planets/eph_export.html",
+      "retrievedUTC": "2026-09-19T08:16:08.746854+00:00",
+      "status": 200,
+      "headers": {
+        "Date": "Sat, 19 Sep 2026 08:16:08 GMT",
+        "Content-Type": "text/html",
+        "Last-Modified": "Thu, 27 Aug 2026 19:13:36 GMT",
+        "ETag": "\"6a908c60-751b\""
+      },
+      "path": "validation/research-calendar/hko-cache/2057-investigation/jpl-de440.html",
+      "bytes": 29979,
+      "sha256": "ce7db9fc032a395318911b6b07cb2f12717f2849dc9938cbd207cb662f4d1687",
+      "file": "jpl-de440.html"
+    }
+  ],
+  "failedSourceAttempts": [
+    {
+      "url": "https://www.hko.gov.hk/en/gts/astron2057/files/2057MoonPhases_e.txt",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "https://eclipse.gsfc.nasa.gov/phase/phase2051gmt.html",
+      "error": "HTTP Error 404: Not Found"
+    }
+  ],
+  "hko": {
+    "officialPDFMatchesPreviousAudit": true,
+    "pdfTextAll365CellsAgree": true,
+    "pdfMetadata": "Title:           2057.xls\nAuthor:          nwli\nCreator:         PScript5.dll Version 5.2.2\nProducer:        Acrobat Distiller 5.0.5 (Windows)\nCreationDate:    Thu Dec  9 16:06:59 2004 CST\nModDate:         Thu Dec  9 16:06:59 2004 CST\nCustom Metadata: no\nMetadata Stream: yes\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           1\nEncrypted:       no\nPage size:       595 x 842 pts (A4)\nPage rot:        90\nFile size:       209809 bytes\nOptimized:       yes\nPDF version:     1.3\n",
+    "officialDisclaimer": "由於計算數十年後的月相及節氣時間可能會有數分鐘的誤差，若新月(即農曆初一)或節氣時間很接近午夜零時，「對照表」內相關農曆月份或節氣的日期可能會有一日之差別。這些情況會出現在2057年9月28日、2089年9月4日及2097年8月7日的新月、2021年的冬至、2051年的春分、2083年的立春和2084年的春分。 "
+  },
+  "nasaPublishedMinutePrecision": {
+    "source": "https://eclipse.gsfc.nasa.gov/phase/phases2001.html",
+    "lines": [
+      " 2057   Jan  5  09:49 T   Jan 12  15:34     Jan 20  20:01     Jan 28  03:44      00h02m",
+      "        Sep 28  16:00     Oct  5  13:13     Oct 12  15:01     Oct 20  16:09    ",
+      "        Oct 28  03:19     Nov  3  20:24     Nov 11  06:24     Nov 19  11:31    "
+    ],
+    "interpretation": "16:00 UT is the date boundary at UT+08; rounded minutes cannot decide its side. Annual 00h02m is also rounded; do not use as exact delta T."
+  },
+  "lunar": {
+    "version": "1.7.7",
+    "sourceSha256": "9750324bfe1aa63c146f8c72b1143df924466c11c8a5277d7d9225c541a18aaa",
+    "ttJD": 2472635.167969184,
+    "ttCalendar": "2057-09-28T16:01:52.537",
+    "deltaTSeconds": 87.92297112963486,
+    "utJD": 2472635.166951557,
+    "utCalendar": "2057-09-28T16:00:24.614",
+    "utPlus08Calendar": "2057-09-29T00:00:24.614",
+    "highPrecisionFallbackUsed": true
+  },
+  "astronomyEngine": {
+    "version": "2.1.19",
+    "ttJD": 2472635.1683926308,
+    "ttCalendar": "2057-09-28T16:02:29.123",
+    "deltaTSeconds": 108.8673535734415,
+    "utJD": 2472635.167132592,
+    "utCalendar": "2057-09-28T16:00:40.255",
+    "utPlus08Calendar": "2057-09-29T00:00:40.255"
+  },
+  "skyfieldDE440s": {
+    "version": "1.54",
+    "ephemeris": "JPL DE440s",
+    "algorithm": "skyfield.almanac.moon_phases: apparent geocentric ecliptic longitudes of date",
+    "ttJD": 2472635.1679791654,
+    "ttCalendar": "2057-09-28T16:01:53.399",
+    "deltaTSeconds": 73.50884835406825,
+    "ut1JD": 2472635.1671283687,
+    "ut1Calendar": "2057-09-28T16:00:39.891",
+    "ut1Plus08Calendar": "2057-09-29T00:00:39.891",
+    "phaseDegreesAtRoot": 6.440979452087946e-09
+  },
+  "sameTimeScaleDifferencesSeconds": {
+    "lunarTTMinusDE440TT": -0.8623972535133362,
+    "astronomyEngineTTMinusDE440TT": 35.723403096199036
+  },
+  "deltaTThresholdForDE440RootToFallBeforeMidnightSeconds": 113.39990794658661,
+  "fixedEphemerisDeltaTSensitivity": [
+    {
+      "deltaTModel": "skyfield",
+      "deltaTSeconds": 73.50884835406825,
+      "fixedDE440ttUTPlus08": "2057-09-29T00:00:39.891",
+      "secondsAfterMidnight": 39.89105959251836
+    },
+    {
+      "deltaTModel": "lunar-javascript",
+      "deltaTSeconds": 87.92297112963486,
+      "fixedDE440ttUTPlus08": "2057-09-29T00:00:25.476",
+      "secondsAfterMidnight": 25.47693681695175
+    },
+    {
+      "deltaTModel": "Espenak-Meeus/astronomy-engine",
+      "deltaTSeconds": 108.8673535734415,
+      "fixedDE440ttUTPlus08": "2057-09-29T00:00:04.532",
+      "secondsAfterMidnight": 4.5325543731451035
+    },
+    {
+      "deltaTModel": "illustrative 120 seconds; not an HKO parameter",
+      "deltaTSeconds": 120,
+      "fixedDE440ttUTPlus08": "2057-09-28T23:59:53.399",
+      "secondsAfterMidnight": -6.600092053413391
+    }
+  ],
+  "boundaryComparisons": [
+    {
+      "date": "2057-09-27",
+      "officialDay": 29,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-09-27",
+        "year": 2057,
+        "month": 8,
+        "day": 29
+      },
+      "dayMatches": true
+    },
+    {
+      "date": "2057-09-28",
+      "officialDay": 1,
+      "officialNewMonthMarker": 9,
+      "lunarJavascript": {
+        "date": "2057-09-28",
+        "year": 2057,
+        "month": 8,
+        "day": 30
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-09-29",
+      "officialDay": 2,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-09-29",
+        "year": 2057,
+        "month": 9,
+        "day": 1
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-09-30",
+      "officialDay": 3,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-09-30",
+        "year": 2057,
+        "month": 9,
+        "day": 2
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-01",
+      "officialDay": 4,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-01",
+        "year": 2057,
+        "month": 9,
+        "day": 3
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-02",
+      "officialDay": 5,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-02",
+        "year": 2057,
+        "month": 9,
+        "day": 4
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-03",
+      "officialDay": 6,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-03",
+        "year": 2057,
+        "month": 9,
+        "day": 5
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-04",
+      "officialDay": 7,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-04",
+        "year": 2057,
+        "month": 9,
+        "day": 6
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-05",
+      "officialDay": 8,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-05",
+        "year": 2057,
+        "month": 9,
+        "day": 7
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-06",
+      "officialDay": 9,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-06",
+        "year": 2057,
+        "month": 9,
+        "day": 8
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-07",
+      "officialDay": 10,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-07",
+        "year": 2057,
+        "month": 9,
+        "day": 9
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-08",
+      "officialDay": 11,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-08",
+        "year": 2057,
+        "month": 9,
+        "day": 10
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-09",
+      "officialDay": 12,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-09",
+        "year": 2057,
+        "month": 9,
+        "day": 11
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-10",
+      "officialDay": 13,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-10",
+        "year": 2057,
+        "month": 9,
+        "day": 12
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-11",
+      "officialDay": 14,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-11",
+        "year": 2057,
+        "month": 9,
+        "day": 13
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-12",
+      "officialDay": 15,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-12",
+        "year": 2057,
+        "month": 9,
+        "day": 14
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-13",
+      "officialDay": 16,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-13",
+        "year": 2057,
+        "month": 9,
+        "day": 15
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-14",
+      "officialDay": 17,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-14",
+        "year": 2057,
+        "month": 9,
+        "day": 16
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-15",
+      "officialDay": 18,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-15",
+        "year": 2057,
+        "month": 9,
+        "day": 17
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-16",
+      "officialDay": 19,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-16",
+        "year": 2057,
+        "month": 9,
+        "day": 18
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-17",
+      "officialDay": 20,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-17",
+        "year": 2057,
+        "month": 9,
+        "day": 19
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-18",
+      "officialDay": 21,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-18",
+        "year": 2057,
+        "month": 9,
+        "day": 20
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-19",
+      "officialDay": 22,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-19",
+        "year": 2057,
+        "month": 9,
+        "day": 21
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-20",
+      "officialDay": 23,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-20",
+        "year": 2057,
+        "month": 9,
+        "day": 22
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-21",
+      "officialDay": 24,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-21",
+        "year": 2057,
+        "month": 9,
+        "day": 23
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-22",
+      "officialDay": 25,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-22",
+        "year": 2057,
+        "month": 9,
+        "day": 24
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-23",
+      "officialDay": 26,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-23",
+        "year": 2057,
+        "month": 9,
+        "day": 25
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-24",
+      "officialDay": 27,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-24",
+        "year": 2057,
+        "month": 9,
+        "day": 26
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-25",
+      "officialDay": 28,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-25",
+        "year": 2057,
+        "month": 9,
+        "day": 27
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-26",
+      "officialDay": 29,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-26",
+        "year": 2057,
+        "month": 9,
+        "day": 28
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-27",
+      "officialDay": 30,
+      "officialNewMonthMarker": null,
+      "lunarJavascript": {
+        "date": "2057-10-27",
+        "year": 2057,
+        "month": 9,
+        "day": 29
+      },
+      "dayMatches": false
+    },
+    {
+      "date": "2057-10-28",
+      "officialDay": 1,
+      "officialNewMonthMarker": 10,
+      "lunarJavascript": {
+        "date": "2057-10-28",
+        "year": 2057,
+        "month": 10,
+        "day": 1
+      },
+      "dayMatches": true
+    }
+  ],
+  "dependencyVersions": {
+    "skyfield": "1.54",
+    "jplephem": "2.24",
+    "numpy": "2.0.2",
+    "sgp4": "2.25"
+  },
+  "limits": [
+    "Future UT1 and UTC are not interchangeable exact known quantities. TT calendar strings are time-scale coordinates, not UTC timestamps.",
+    "No HKO exact 2057 conjunction time or its original ephemeris/delta-T parameter was found; numerical attribution to its particular model remains unproven.",
+    "The synthetic 120-second delta-T scenario is a sensitivity example, not an official HKO setting or a confidence interval.",
+    "Subsecond numerical root agreement is not a demonstrated universal error bound. No future Earth-rotation prediction is proven by this comparison."
+  ]
+}

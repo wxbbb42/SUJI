@@ -1,0 +1,26 @@
+Evidence excerpt; lines longer than 1200 characters are truncated.
+Building for debugging...
+[2 / 5] SujiCoreTests-product
+[4 / 7] SujiCoreTests-product
+[10 / 12] SujiCoreTests-product
+[12 / 12] SujiCoreTests-product
+Build complete! (2.51秒)
+Test Suite 'Selected tests' started at 2026-09-21 11:37:44.131.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 11:37:44.131.
+Test Suite 'DivinationEvidenceTests' started at 2026-09-21 11:37:44.131.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testMaximumTimingAndSpecializedSelectionReviewsKeepAllFactsWithinBudget]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/DivinationEvidenceTests.swift:305: error: -[SujiCoreTests.DivinationEvidenceTests testMaximumTimingAndSpecializedSelectionReviewsKeepAllFactsWithinBudget] : XCTAssertLessThanOrEqual failed: ("122974") is greater than ("120000") - Backend rejects a valid two-chart review when the fact index repeats too much metadata
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/DivinationEvidenceTests.swift:306: error: -[SujiCoreTests.DivinationEvidenceTests testMaximumTimingAndSpecializedSelectionReviewsKeepAllFactsWithinBudget] : XCTAssertLessThanOrEqual failed: ("122974") is greater than ("117500") - Reviewed worst cases need at least 2,500 UTF-16 units of context margin
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/DivinationEvidenceTests.swift:305: error: -[SujiCoreTests.DivinationEvidenceTests testMaximumTimingAndSpecializedSelectionReviewsKeepAllFactsWithinBudget] : XCTAssertLessThanOrEqual failed: ("122305") is greater than ("120000") - Backend rejects a valid two-chart review when the fact index repeats too much metadata
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/DivinationEvidenceTests.swift:306: error: -[SujiCoreTests.DivinationEvidenceTests testMaximumTimingAndSpecializedSelectionReviewsKeepAllFactsWithinBudget] : XCTAssertLessThanOrEqual failed: ("122305") is greater than ("117500") - Reviewed worst cases need at least 2,500 UTF-16 units of context margin
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testMaximumTimingAndSpecializedSelectionReviewsKeepAllFactsWithinBudget]' failed (20.448 seconds).
+Test Suite 'DivinationEvidenceTests' failed at 2026-09-21 11:38:04.579.
+	 Executed 1 test, with 4 failures (0 unexpected) in 20.448 (20.448) seconds
+Test Suite 'SujiCoreTests.xctest' failed at 2026-09-21 11:38:04.579.
+	 Executed 1 test, with 4 failures (0 unexpected) in 20.448 (20.448) seconds
+Test Suite 'Selected tests' failed at 2026-09-21 11:38:04.579.
+	 Executed 1 test, with 4 failures (0 unexpected) in 20.448 (20.449) seconds
+Divination evidence capacity: 122974 UTF-16 code units, 11 messages, cast UTF-16 [28793, 20691], casts 54196 bytes, request 186149 bytes
+Divination evidence capacity: 122305 UTF-16 code units, 10 messages, cast UTF-16 [28793, 23897], casts 59450 bytes, request 185431 bytes
+Note: Some test targets reported failures:
+  - SujiCoreTests (XCTest)

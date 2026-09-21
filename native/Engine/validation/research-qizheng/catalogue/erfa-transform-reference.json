@@ -1,0 +1,538 @@
+{
+  "status": "independent-transform-reference-research-candidate-only",
+  "erfaVersion": "2.0.1.5",
+  "method": "Cartesian tangent proper motion without distance/radial velocity; ERFA pnm06a includes IAU2006 precession, IAU2000A nutation, frame bias; no aberration/parallax/deflection",
+  "rows": [
+    {
+      "epoch": "1901-01-01T00:00:00 TT",
+      "ttJulianDate": 2415385.5,
+      "stars": [
+        {
+          "name": "角",
+          "hip": 65474,
+          "raDegrees": 199.9982942698567,
+          "decDegrees": -10.64569583102255
+        },
+        {
+          "name": "亢",
+          "hip": 69427,
+          "raDegrees": 211.90745610088075,
+          "decDegrees": -9.813653201001252
+        },
+        {
+          "name": "氐",
+          "hip": 72622,
+          "raDegrees": 221.3545129212,
+          "decDegrees": -15.630772363760281
+        },
+        {
+          "name": "房",
+          "hip": 78265,
+          "raDegrees": 238.22024622171813,
+          "decDegrees": -25.828857717869063
+        },
+        {
+          "name": "心",
+          "hip": 80112,
+          "raDegrees": 243.79727411945674,
+          "decDegrees": -25.354829504767572
+        },
+        {
+          "name": "尾",
+          "hip": 82514,
+          "raDegrees": 251.29612307083704,
+          "decDegrees": -37.87680669312673
+        },
+        {
+          "name": "箕",
+          "hip": 88635,
+          "raDegrees": 269.86704507074467,
+          "decDegrees": -30.42400435408001
+        },
+        {
+          "name": "斗",
+          "hip": 92041,
+          "raDegrees": 279.87264343167396,
+          "decDegrees": -27.090879383803635
+        },
+        {
+          "name": "牛",
+          "hip": 100345,
+          "raDegrees": 303.86641346446976,
+          "decDegrees": -15.092312565062555
+        },
+        {
+          "name": "女",
+          "hip": 102618,
+          "raDegrees": 310.5833998699888,
+          "decDegrees": -9.856082098184071
+        },
+        {
+          "name": "虚",
+          "hip": 106278,
+          "raDegrees": 321.59079879124437,
+          "decDegrees": -6.004580603057777
+        },
+        {
+          "name": "危",
+          "hip": 109074,
+          "raDegrees": 330.1787906702889,
+          "decDegrees": -0.7986550233686428
+        },
+        {
+          "name": "室",
+          "hip": 113963,
+          "raDegrees": 344.9613111454225,
+          "decDegrees": 14.67456291297795
+        },
+        {
+          "name": "壁",
+          "hip": 1067,
+          "raDegrees": 2.0383193686632497,
+          "decDegrees": 14.63480118726801
+        },
+        {
+          "name": "奎",
+          "hip": 4463,
+          "raDegrees": 12.984068921237075,
+          "decDegrees": 22.88453161251639
+        },
+        {
+          "name": "娄",
+          "hip": 8903,
+          "raDegrees": 27.296867381927576,
+          "decDegrees": 20.325025768775305
+        },
+        {
+          "name": "胃",
+          "hip": 12719,
+          "raDegrees": 39.414962002818285,
+          "decDegrees": 27.28637319096472
+        },
+        {
+          "name": "昴",
+          "hip": 17499,
+          "raDegrees": 54.753327490971465,
+          "decDegrees": 23.80201217800149
+        },
+        {
+          "name": "毕",
+          "hip": 20889,
+          "raDegrees": 65.71302717837318,
+          "decDegrees": 18.960399532114113
+        },
+        {
+          "name": "觜",
+          "hip": 26207,
+          "raDegrees": 82.42525047844407,
+          "decDegrees": 9.866814963054859
+        },
+        {
+          "name": "参",
+          "hip": 26727,
+          "raDegrees": 83.94432219727071,
+          "decDegrees": -1.996098476229164
+        },
+        {
+          "name": "井",
+          "hip": 30343,
+          "raDegrees": 94.2470812974091,
+          "decDegrees": 22.562981459317342
+        },
+        {
+          "name": "鬼",
+          "hip": 41822,
+          "raDegrees": 126.49180626090178,
+          "decDegrees": 18.427067590465104
+        },
+        {
+          "name": "柳",
+          "hip": 42313,
+          "raDegrees": 128.10770630348935,
+          "decDegrees": 6.046927527970621
+        },
+        {
+          "name": "星",
+          "hip": 46390,
+          "raDegrees": 140.68437269276276,
+          "decDegrees": -8.231576829794493
+        },
+        {
+          "name": "张",
+          "hip": 48356,
+          "raDegrees": 146.6827375297048,
+          "decDegrees": -14.384443407015183
+        },
+        {
+          "name": "翼",
+          "hip": 53740,
+          "raDegrees": 163.7416520540103,
+          "decDegrees": -17.773541000420263
+        },
+        {
+          "name": "轸",
+          "hip": 59803,
+          "raDegrees": 182.68262537671086,
+          "decDegrees": -16.99382934408435
+        }
+      ],
+      "minimumWidthDegrees": 1.5190717188266376,
+      "maximumWidthDegrees": 32.244724963492686,
+      "widthSumDegrees": 359.9999999999999
+    },
+    {
+      "epoch": "J2000 TT",
+      "ttJulianDate": 2451545.0,
+      "stars": [
+        {
+          "name": "角",
+          "hip": 65474,
+          "raDegrees": 201.294884687059,
+          "decDegrees": -11.159300751983688
+        },
+        {
+          "name": "亢",
+          "hip": 69427,
+          "raDegrees": 213.22048407146278,
+          "decDegrees": -10.271531108249082
+        },
+        {
+          "name": "氐",
+          "hip": 72622,
+          "raDegrees": 222.71612923053334,
+          "decDegrees": -16.039555345442793
+        },
+        {
+          "name": "房",
+          "hip": 78265,
+          "raDegrees": 239.70916689555216,
+          "decDegrees": -26.111941096429607
+        },
+        {
+          "name": "心",
+          "hip": 80112,
+          "raDegrees": 245.2932529132633,
+          "decDegrees": -25.59069347458139
+        },
+        {
+          "name": "尾",
+          "hip": 82514,
+          "raDegrees": 252.96330060834697,
+          "decDegrees": -38.04539325662911
+        },
+        {
+          "name": "箕",
+          "hip": 88635,
+          "raDegrees": 271.4475518639629,
+          "decDegrees": -30.422526361432258
+        },
+        {
+          "name": "斗",
+          "hip": 92041,
+          "raDegrees": 281.4096312294656,
+          "decDegrees": -26.989511011657154
+        },
+        {
+          "name": "牛",
+          "hip": 100345,
+          "raDegrees": 305.248691527716,
+          "decDegrees": -14.780947976975463
+        },
+        {
+          "name": "女",
+          "hip": 102618,
+          "raDegrees": 311.9150462453222,
+          "decDegrees": -9.495613244171713
+        },
+        {
+          "name": "虚",
+          "hip": 106278,
+          "raDegrees": 322.8859628590548,
+          "decDegrees": -5.571435336140952
+        },
+        {
+          "name": "危",
+          "hip": 109074,
+          "raDegrees": 331.44242357636307,
+          "decDegrees": -0.32043986266777535
+        },
+        {
+          "name": "室",
+          "hip": 113963,
+          "raDegrees": 346.1872011135662,
+          "decDegrees": 15.204148127163883
+        },
+        {
+          "name": "壁",
+          "hip": 1067,
+          "raDegrees": 3.3058340127717725,
+          "decDegrees": 15.181961941689966
+        },
+        {
+          "name": "奎",
+          "hip": 4463,
+          "raDegrees": 14.29862813887209,
+          "decDegrees": 23.415755579575983
+        },
+        {
+          "name": "娄",
+          "hip": 8903,
+          "raDegrees": 28.65674517860373,
+          "decDegrees": 20.805910727080008
+        },
+        {
+          "name": "胃",
+          "hip": 12719,
+          "raDegrees": 40.85953012472232,
+          "decDegrees": 27.704929139607252
+        },
+        {
+          "name": "昴",
+          "hip": 17499,
+          "raDegrees": 56.215183833263765,
+          "decDegrees": 24.111147117186206
+        },
+        {
+          "name": "毕",
+          "hip": 20889,
+          "raDegrees": 67.15033990942412,
+          "decDegrees": 19.178353437466605
+        },
+        {
+          "name": "觜",
+          "hip": 26207,
+          "raDegrees": 83.78070289904981,
+          "decDegrees": 9.932396138818781
+        },
+        {
+          "name": "参",
+          "hip": 26727,
+          "raDegrees": 85.18619743937163,
+          "decDegrees": -1.9443006046230615
+        },
+        {
+          "name": "井",
+          "hip": 30343,
+          "raDegrees": 95.73586272787409,
+          "decDegrees": 22.51214374925277
+        },
+        {
+          "name": "鬼",
+          "hip": 41822,
+          "raDegrees": 127.89460852040531,
+          "decDegrees": 18.094102603161698
+        },
+        {
+          "name": "柳",
+          "hip": 42313,
+          "raDegrees": 129.4102582375117,
+          "decDegrees": 5.703522305277971
+        },
+        {
+          "name": "星",
+          "hip": 46390,
+          "raDegrees": 141.89363770497908,
+          "decDegrees": -8.658377755882237
+        },
+        {
+          "name": "张",
+          "hip": 48356,
+          "raDegrees": 147.86658852720112,
+          "decDegrees": -14.846149071300644
+        },
+        {
+          "name": "翼",
+          "hip": 53740,
+          "raDegrees": 164.9407013027379,
+          "decDegrees": -18.297709308198513
+        },
+        {
+          "name": "轸",
+          "hip": 59803,
+          "raDegrees": 183.94846830358318,
+          "decDegrees": -17.54027865009565
+        }
+      ],
+      "minimumWidthDegrees": 1.4054945403218113,
+      "maximumWidthDegrees": 32.15874579253122,
+      "widthSumDegrees": 359.9999999999999
+    },
+    {
+      "epoch": "2100-01-01T00:00:00 TT",
+      "ttJulianDate": 2488069.5,
+      "stars": [
+        {
+          "name": "角",
+          "hip": 65474,
+          "raDegrees": 202.62103985039943,
+          "decDegrees": -11.679649981898244
+        },
+        {
+          "name": "亢",
+          "hip": 69427,
+          "raDegrees": 214.56374349834186,
+          "decDegrees": -10.733436160559537
+        },
+        {
+          "name": "氐",
+          "hip": 72622,
+          "raDegrees": 224.1099943593297,
+          "decDegrees": -16.449914855281108
+        },
+        {
+          "name": "房",
+          "hip": 78265,
+          "raDegrees": 241.23341584104898,
+          "decDegrees": -26.391376360857983
+        },
+        {
+          "name": "心",
+          "hip": 80112,
+          "raDegrees": 246.82381685358547,
+          "decDegrees": -25.821468915937867
+        },
+        {
+          "name": "尾",
+          "hip": 82514,
+          "raDegrees": 254.66899277112418,
+          "decDegrees": -38.20547791341798
+        },
+        {
+          "name": "箕",
+          "hip": 88635,
+          "raDegrees": 273.0594261145028,
+          "decDegrees": -30.409589085121862
+        },
+        {
+          "name": "斗",
+          "hip": 92041,
+          "raDegrees": 282.9749113188734,
+          "decDegrees": -26.875425581922023
+        },
+        {
+          "name": "牛",
+          "hip": 100345,
+          "raDegrees": 306.65452966385055,
+          "decDegrees": -14.455877733004387
+        },
+        {
+          "name": "女",
+          "hip": 102618,
+          "raDegrees": 313.26970130013194,
+          "decDegrees": -9.121540440144415
+        },
+        {
+          "name": "虚",
+          "hip": 106278,
+          "raDegrees": 324.2038846665522,
+          "decDegrees": -5.12477192602139
+        },
+        {
+          "name": "危",
+          "hip": 109074,
+          "raDegrees": 332.72918699273237,
+          "decDegrees": 0.17093711880386034
+        },
+        {
+          "name": "室",
+          "hip": 113963,
+          "raDegrees": 347.43853757201487,
+          "decDegrees": 15.745826487549797
+        },
+        {
+          "name": "壁",
+          "hip": 1067,
+          "raDegrees": 4.601443058617202,
+          "decDegrees": 15.739170577778935
+        },
+        {
+          "name": "奎",
+          "hip": 4463,
+          "raDegrees": 15.644827521455413,
+          "decDegrees": 23.95503877217447
+        },
+        {
+          "name": "娄",
+          "hip": 8903,
+          "raDegrees": 30.04954822011692,
+          "decDegrees": 21.29162193089202
+        },
+        {
+          "name": "胃",
+          "hip": 12719,
+          "raDegrees": 42.34043693655885,
+          "decDegrees": 28.124932922863962
+        },
+        {
+          "name": "昴",
+          "hip": 17499,
+          "raDegrees": 57.71182850299021,
+          "decDegrees": 24.41770654002279
+        },
+        {
+          "name": "毕",
+          "hip": 20889,
+          "raDegrees": 68.61992669649149,
+          "decDegrees": 19.39125505086873
+        },
+        {
+          "name": "觜",
+          "hip": 26207,
+          "raDegrees": 85.16415875421467,
+          "decDegrees": 9.990098426853827
+        },
+        {
+          "name": "参",
+          "hip": 26727,
+          "raDegrees": 86.45354688421556,
+          "decDegrees": -1.899555810233404
+        },
+        {
+          "name": "井",
+          "hip": 30343,
+          "raDegrees": 97.25329755685924,
+          "decDegrees": 22.449892041286766
+        },
+        {
+          "name": "鬼",
+          "hip": 41822,
+          "raDegrees": 129.3207076025279,
+          "decDegrees": 17.747153775491793
+        },
+        {
+          "name": "柳",
+          "hip": 42313,
+          "raDegrees": 130.73580505300097,
+          "decDegrees": 5.346838493564585
+        },
+        {
+          "name": "星",
+          "hip": 46390,
+          "raDegrees": 143.12556271165926,
+          "decDegrees": -9.098173815377077
+        },
+        {
+          "name": "张",
+          "hip": 48356,
+          "raDegrees": 149.0734168328007,
+          "decDegrees": -15.320720920756896
+        },
+        {
+          "name": "翼",
+          "hip": 53740,
+          "raDegrees": 166.16498414674209,
+          "decDegrees": -18.83394654163784
+        },
+        {
+          "name": "轸",
+          "hip": 59803,
+          "raDegrees": 185.2428413266232,
+          "decDegrees": -18.09667618310391
+        }
+      ],
+      "minimumWidthDegrees": 1.2893881300008871,
+      "maximumWidthDegrees": 32.067410045668666,
+      "widthSumDegrees": 359.99999999999994
+    }
+  ]
+}

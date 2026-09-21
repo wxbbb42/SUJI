@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-04-30",
+  "updatedAt": "2026-09-21",
   "purpose": "Ground 有时/SUJI 的命理、占卜、产品解释与设计决策。每条 source 必须有稳定 id，后续所有规则、prompt、UI copy、设计原则都引用 source id，而不是裸写书名。",
   "sourceTiers": {
     "A": "经典/原典/通行古籍，优先用于算法规则和术语定义；需要版本校勘。",
@@ -28,8 +28,8 @@
         "运程综合判断"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
-        "lib/bazi/DayunEngine.ts"
+        "native/Engine/src/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/DayunEngine.ts"
       ],
       "ingestStatus": "seed_metadata",
       "ingestPriority": "P0",
@@ -53,7 +53,7 @@
         "月令气候对日主的影响"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
         "@lunisolar/plugin-thegods"
       ],
       "ingestStatus": "seed_metadata",
@@ -79,18 +79,18 @@
         "十二长生",
         "六合/六害/六破",
         "三会方局",
-        "人元司令",
+        "人元司令异表对照（默认表另见徐注来源）",
         "月令旺相休囚死"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
-        "lib/bazi/DayunEngine.ts",
-        "lib/bazi/SiLing.ts"
+        "native/Engine/src/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/DayunEngine.ts",
+        "native/Engine/src/bazi/SiLing.ts"
       ],
       "ingestStatus": "seed_metadata",
       "ingestPriority": "P0",
       "licenseNote": "古籍文本需优先选公共领域/可引用版本。",
-      "notes": "体系完整，适合作为表格类规则的主 source。"
+      "notes": "体系完整，适合作为表格类规则的来源之一。人元司令在本批仅作正文／玉井异表对照；SiLing.ts默认表明确采用ziping-xu-renyuan-v1，不再将默认表归为三命定本。"
     },
     {
       "id": "bazi-yuanhai-ziping",
@@ -112,8 +112,8 @@
         "大运流年基础"
       ],
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
-        "lib/bazi/DayunEngine.ts"
+        "native/Engine/src/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/DayunEngine.ts"
       ],
       "ingestStatus": "seed_metadata",
       "ingestPriority": "P0",
@@ -122,8 +122,8 @@
     },
     {
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
-        "lib/ai/tools/bazi.ts"
+        "native/Engine/src/bazi/BaziEngine.ts",
+        "native/Engine/src/ai/tools/bazi.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P0",
@@ -166,7 +166,7 @@
         "产品定位的文化语境"
       ],
       "repoRefs": [
-        "lib/bazi/REFERENCES.ts"
+        "native/Engine/src/bazi/REFERENCES.ts"
       ],
       "ingestStatus": "bibliography_only",
       "ingestPriority": "P1",
@@ -175,8 +175,8 @@
     },
     {
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
-        "lib/bazi/DayunEngine.ts"
+        "native/Engine/src/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/DayunEngine.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P1",
@@ -200,7 +200,7 @@
     },
     {
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts"
+        "native/Engine/src/bazi/BaziEngine.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P1",
@@ -225,8 +225,8 @@
     },
     {
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts",
-        "lib/bazi/REFERENCES.ts"
+        "native/Engine/src/bazi/BaziEngine.ts",
+        "native/Engine/src/bazi/REFERENCES.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P1",
@@ -253,7 +253,7 @@
     },
     {
       "repoRefs": [
-        "lib/bazi/SiLing.ts"
+        "native/Engine/src/bazi/SiLing.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P1",
@@ -293,7 +293,7 @@
         "传统概念现代转译"
       ],
       "repoRefs": [
-        "lib/bazi/REFERENCES.ts"
+        "native/Engine/src/bazi/REFERENCES.ts"
       ],
       "ingestStatus": "bibliography_only",
       "ingestPriority": "P2",
@@ -318,7 +318,7 @@
         "术语现代化解释"
       ],
       "repoRefs": [
-        "lib/bazi/REFERENCES.ts"
+        "native/Engine/src/bazi/REFERENCES.ts"
       ],
       "ingestStatus": "bibliography_only",
       "ingestPriority": "P2",
@@ -327,7 +327,7 @@
     },
     {
       "repoRefs": [
-        "lib/bazi/REFERENCES.ts"
+        "native/Engine/src/bazi/REFERENCES.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P2",
@@ -352,7 +352,7 @@
     },
     {
       "repoRefs": [
-        "lib/bazi/REFERENCES.ts"
+        "native/Engine/src/bazi/REFERENCES.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P2",
@@ -378,7 +378,7 @@
     },
     {
       "repoRefs": [
-        "lib/bazi/BaziEngine.ts"
+        "native/Engine/src/bazi/BaziEngine.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P2",
@@ -403,7 +403,7 @@
     },
     {
       "repoRefs": [
-        "lib/ai/tools/bazi.ts"
+        "native/Engine/src/ai/tools/bazi.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P3",
@@ -427,8 +427,8 @@
     },
     {
       "repoRefs": [
-        "app/(tabs)/index.tsx",
-        "lib/calendar/index.ts"
+        "native/App/Features/Today/TodayView.swift",
+        "native/Engine/src/calendar/index.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P1",
@@ -455,7 +455,7 @@
     },
     {
       "repoRefs": [
-        "lib/calendar/index.ts"
+        "native/Engine/src/calendar/index.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P2",
@@ -480,7 +480,7 @@
     },
     {
       "repoRefs": [
-        "lib/ai/index.ts"
+        "native/App/Services/ChatSession.swift"
       ],
       "ingestStatus": "bibliography_only",
       "ingestPriority": "P2",
@@ -506,7 +506,7 @@
     },
     {
       "repoRefs": [
-        "lib/divination/HexagramEngine.ts"
+        "native/Engine/src/divination/HexagramEngine.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P0",
@@ -531,8 +531,10 @@
     },
     {
       "repoRefs": [
-        "lib/divination/HexagramEngine.ts",
-        "lib/ai/tools/liuyao.ts"
+        "native/Engine/src/divination/HexagramEngine.ts",
+        "native/Engine/src/ai/tools/liuyao.ts",
+        "native/Engine/src/divination/roleRelations.ts",
+        "native/Engine/validation/research-divination/liuyao-role-sources.json"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P0",
@@ -552,9 +554,10 @@
         "旺衰生克",
         "动变",
         "分类占例",
-        "现代六爻实务核心参考"
+        "现代六爻实务核心参考",
+        "对象绑定的墓绝表及土巳、金丑、墓爻空破冲条件"
       ],
-      "notes": "六爻实务 P0 source；需要重点核对当前用神/应期实现。"
+      "notes": "六爻实务 P0 source；需要重点核对当前用神/应期实现。 本批逐字读取第九/十章onlyinclude原文，排除后附原劍按；保存原始页和SHA256，按候选对象列元忌仇结构。第十章动化退神异文尚未据此立效力规则。 B4 读取26又1、26又3、15及正文28/30章；火行转录缺项明确记录，日月、动墓、同位化墓、飞伏层分开，墓绝效力未决。"
     },
     {
       "id": "yijing-zhouyi-received",
@@ -575,7 +578,7 @@
         "卦象基础"
       ],
       "repoRefs": [
-        "lib/divination/data/gua64.ts"
+        "native/Engine/src/divination/data/gua64.ts"
       ],
       "ingestStatus": "seed_metadata",
       "ingestPriority": "P0",
@@ -584,7 +587,7 @@
     },
     {
       "repoRefs": [
-        "lib/ai/tools/liuyao.ts"
+        "native/Engine/src/ai/tools/liuyao.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P1",
@@ -625,7 +628,7 @@
         "用神取法"
       ],
       "repoRefs": [
-        "lib/divination/data/liuqin.ts"
+        "native/Engine/src/divination/data/liuqin.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P1",
@@ -634,7 +637,7 @@
     },
     {
       "repoRefs": [
-        "lib/divination/HexagramEngine.ts"
+        "native/Engine/src/divination/HexagramEngine.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P1",
@@ -659,7 +662,7 @@
     },
     {
       "repoRefs": [
-        "lib/ai/tools/liuyao.ts"
+        "native/Engine/src/ai/tools/liuyao.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P2",
@@ -702,7 +705,7 @@
         "寄宫规则"
       ],
       "repoRefs": [
-        "lib/qimen/**",
+        "native/Engine/src/qimen/**",
         "docs/superpowers/specs/2026-04-25-qimen-divination-design.md"
       ],
       "ingestStatus": "seed_metadata",
@@ -712,9 +715,9 @@
     },
     {
       "repoRefs": [
-        "lib/qimen/**"
+        "native/Engine/src/qimen/**"
       ],
-      "ingestStatus": "candidate",
+      "ingestStatus": "selected_passages_reviewed_not_print_collated",
       "ingestPriority": "P0",
       "licenseNote": "古籍文本需优先选公共领域/可引用版本；记录版本、卷次、页码/章节，不 ingest 现代版权全文。",
       "id": "qimen-yanbo-diaosou-ge",
@@ -732,11 +735,12 @@
         "起局/格局口诀",
         "传统术语源流"
       ],
-      "notes": "奇门核心口诀 source；需要逐句拆 claim，不直接机械化。"
+      "notes": "已读取门迫、九星月令段；同行采相异文并以天蓬例互校，门迫采门克宫方向。仅电子转录，未完成纸本校勘。",
+      "url": "https://zh.wikisource.org/w/index.php?title=煙波釣叟歌&oldid=1336835"
     },
     {
       "repoRefs": [
-        "lib/qimen/**"
+        "native/Engine/src/qimen/**"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P0",
@@ -761,8 +765,8 @@
     },
     {
       "repoRefs": [
-        "lib/qimen/**",
-        "lib/ai/tools/qimen.ts"
+        "native/Engine/src/qimen/**",
+        "native/Engine/src/ai/tools/qimen.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P1",
@@ -786,7 +790,7 @@
     },
     {
       "repoRefs": [
-        "lib/qimen/**"
+        "native/Engine/src/qimen/**"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P1",
@@ -810,7 +814,7 @@
     },
     {
       "repoRefs": [
-        "lib/qimen/**"
+        "native/Engine/src/qimen/**"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P2",
@@ -857,7 +861,7 @@
     },
     {
       "repoRefs": [
-        "lib/qimen/**"
+        "native/Engine/src/qimen/**"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P2",
@@ -904,8 +908,8 @@
     },
     {
       "repoRefs": [
-        "lib/divination/data/gua64.ts",
-        "lib/ai/tools/liuyao.ts"
+        "native/Engine/src/divination/data/gua64.ts",
+        "native/Engine/src/ai/tools/liuyao.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P1",
@@ -931,7 +935,7 @@
     },
     {
       "repoRefs": [
-        "lib/divination/data/gua64.ts"
+        "native/Engine/src/divination/data/gua64.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P2",
@@ -956,7 +960,7 @@
     },
     {
       "repoRefs": [
-        "lib/ai/tools/liuyao.ts"
+        "native/Engine/src/ai/tools/liuyao.ts"
       ],
       "ingestStatus": "bibliography_only",
       "ingestPriority": "P3",
@@ -999,7 +1003,7 @@
         "产品合规表达"
       ],
       "repoRefs": [
-        "lib/bazi/REFERENCES.ts"
+        "native/Engine/src/bazi/REFERENCES.ts"
       ],
       "ingestStatus": "bibliography_only",
       "ingestPriority": "P3",
@@ -1008,7 +1012,7 @@
     },
     {
       "repoRefs": [
-        "lib/divination/HexagramEngine.ts"
+        "native/Engine/src/divination/HexagramEngine.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P3",
@@ -1033,7 +1037,7 @@
     },
     {
       "repoRefs": [
-        "lib/divination/data/gua64.ts"
+        "native/Engine/src/divination/data/gua64.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P3",
@@ -1068,20 +1072,18 @@
       "author": "通行本题陈希夷/罗洪先等，版本复杂，待校勘",
       "period": "明清通行本体系",
       "currentUsage": [
-        "待 ingest：十二宫",
-        "十四主星",
-        "安星法",
-        "诸星赋性",
-        "格局/组合"
+        "卷二身命/十二宫/五虎遁/四化/大限方向节选核对",
+        "四化壬干、闰月与大限起法传本差异记录"
       ],
       "repoRefs": [
-        "lib/ziwei/ZiweiEngine.ts",
-        "lib/ai/tools/ziwei.ts"
+        "native/Engine/src/ziwei/ZiweiEngine.ts",
+        "native/Engine/src/ai/tools/ziwei.ts",
+        "native/Engine/validation/research-divination/ziwei-core-sources.json"
       ],
-      "ingestStatus": "candidate",
+      "ingestStatus": "selected_excerpts_archived",
       "ingestPriority": "P0",
       "licenseNote": "优先找公共领域扫描/点校版本；记录具体版本，不混用门派文本。",
-      "notes": "紫微古籍 source 的首要候选，需要尽快补版本与摘录。"
+      "notes": "2026-09-20读取Wikisource卷二电子本并归档哈希与节选，未校纸本。壬句为梁紫府武，与选定默认左辅化科不同；闰月取次月、大限从命前/后一宫的文句亦不能宣称等同当前现代算法。"
     },
     {
       "id": "ziwei-iztro",
@@ -1102,9 +1104,9 @@
         "大限/流年基础数据"
       ],
       "repoRefs": [
-        "package.json",
-        "lib/ziwei/ZiweiEngine.ts",
-        "lib/ziwei/__tests__/iztro-smoke.test.ts"
+        "native/Engine/package.json",
+        "native/Engine/src/ziwei/ZiweiEngine.ts",
+        "native/Engine/src/ziwei/__tests__/iztro-smoke.test.ts"
       ],
       "ingestStatus": "active_dependency",
       "ingestPriority": "P0",
@@ -1128,7 +1130,7 @@
         "四化与限运参考"
       ],
       "repoRefs": [
-        "lib/ziwei/ZiweiEngine.ts"
+        "native/Engine/src/ziwei/ZiweiEngine.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P1",
@@ -1137,7 +1139,7 @@
     },
     {
       "repoRefs": [
-        "lib/ai/tools/ziwei.ts"
+        "native/Engine/src/ai/tools/ziwei.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P1",
@@ -1183,7 +1185,7 @@
     },
     {
       "repoRefs": [
-        "lib/ziwei/ZiweiEngine.ts"
+        "native/Engine/src/ziwei/ZiweiEngine.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P3",
@@ -1206,7 +1208,7 @@
     },
     {
       "repoRefs": [
-        "lib/bazi/REFERENCES.ts"
+        "native/Engine/src/bazi/REFERENCES.ts"
       ],
       "ingestStatus": "candidate",
       "ingestPriority": "P3",
@@ -1248,15 +1250,810 @@
         "PhaseRegistry 注册表设计模式参考"
       ],
       "repoRefs": [
-        "lib/bazi/structural.ts",
-        "lib/bazi/phaseRegistry.ts",
-        "lib/bazi/multiSchoolVote.ts",
+        "native/Engine/src/bazi/structural.ts",
+        "native/Engine/src/bazi/phaseRegistry.ts",
+        "native/Engine/src/bazi/multiSchoolVote.ts",
         "docs/mingli/research/2026-05-07-bazi-life-curves-leverage.md"
       ],
       "ingestStatus": "actively_borrowed",
       "ingestPriority": "P0",
       "licenseNote": "MIT — 借鉴 snippet 必须在 SUJI 代码注释里注明 'adapted from bazi-life-curves (MIT) by XiaoChu-1208' + 仓库 URL。",
       "notes": "C tier — 不可单独作为权威；其经验值（tier 权重、5 档阈值、3 派权重 25/40/30、open_phase 阈值 0.55/0.10）来自 5 人 15 事件回测，仍属工程经验非古籍数；标 engineering_threshold_borrowed_from_open_source。"
+    },
+    {
+      "id": "qimen-go-fixed-rules",
+      "title": "qimen-go 固定版旬空、驿马与支宫表",
+      "domain": [
+        "qimen"
+      ],
+      "tradition": "时家转盘工程参考",
+      "tier": "C",
+      "sourceType": "open_source_implementation",
+      "author": "deminzhang/qimen-go",
+      "currentUsage": [
+        "时旬空与地支宫位",
+        "时支驿马",
+        "时家选用时标"
+      ],
+      "ingestStatus": "selected_tables_reviewed",
+      "ingestPriority": "P0",
+      "repoRefs": [
+        "native/Engine/src/qimen/facts.ts"
+      ],
+      "url": "https://github.com/deminzhang/qimen-go/tree/4d3f58fa0f401b5b3a337f119138e99e90685dda",
+      "notes": "ganzhi.go SHA256 0dd04c5c2f290e87822ff85770f203467c1a7a69ced56990d808c718aa14b401。仅取固定表，不作为天文独立证据或古籍定本。"
+    },
+    {
+      "id": "suji-qimen-reference-policy",
+      "title": "SUJI奇门初始参考点产品约定",
+      "domain": [
+        "qimen"
+      ],
+      "tier": "C",
+      "sourceType": "internal_product_policy",
+      "currentUsage": [
+        "对象身份与盘层投影",
+        "初始参考候选边界"
+      ],
+      "ingestStatus": "explicit_product_convention_not_classical_rule",
+      "ingestPriority": "P0",
+      "repoRefs": [
+        "native/Engine/src/qimen/questionObjects.ts",
+        "docs/mingli/validation/qimen-selection-source-review-2026-09-20.md"
+      ],
+      "notes": "只为产品的有限参考映射和既有盘面投影负责；不证明最终取用或应期成立。未将网页搜索摘要作为古籍引文。"
+    },
+    {
+      "id": "liuyao-yilin-buyi-compatible-fire-table",
+      "title": "易林补遗（卷一兼容火墓绝表项）",
+      "domain": [
+        "liuyao"
+      ],
+      "tradition": "六爻五行墓绝参考",
+      "tier": "A",
+      "sourceType": "classic_text",
+      "currentUsage": [
+        "仅以“离火墓于戌、绝于亥”补证所选五行表的火行"
+      ],
+      "repoRefs": [
+        "native/Engine/src/divination/tombExtinction.ts",
+        "native/Engine/validation/research-divination/lifecycle-source-review.json"
+      ],
+      "ingestStatus": "scoped_electronic_excerpt_reviewed_not_print_collated",
+      "ingestPriority": "P0",
+      "licenseNote": "古籍电子转录；记录原始URL、正文和SHA256；未校印本。",
+      "notes": "不采其与增删不同的土逢巳不可论生效力断法，不据此引入卦变方位、吉凶或完整长生体系。作者、刊年和定本未在本批校勘，不补写。"
+    },
+    {
+      "id": "liuyao-yilin-buyi-fanfu-directions",
+      "title": "易林补遗（卷一反吟方位对照）",
+      "domain": [
+        "liuyao"
+      ],
+      "tradition": "选定卦体方位规则，与支冲分列",
+      "tier": "A",
+      "sourceType": "classic_text",
+      "currentUsage": [
+        "仅选乾巽、坎离、震兑、艮坤方位对照；保留卦犯与爻犯范围差异"
+      ],
+      "repoRefs": [
+        "native/Engine/src/divination/fanfu.ts",
+        "native/Engine/validation/research-divination/triad-fanfu-source-review.json"
+      ],
+      "ingestStatus": "scoped_electronic_excerpt_reviewed_not_print_collated",
+      "ingestPriority": "P0",
+      "licenseNote": "古籍电子转录；原始正文和SHA256存于fanfu-additional-source-review.json，未校印本。",
+      "notes": "不采静态八纯卦伏吟或卦内上下相冲的命名作为动态判定。与增删电子本乾坤、坤震表述有异，分别保留，不推断吉凶或日期。",
+      "url": "https://zh.wikisource.org/wiki/易林補遺/1"
+    },
+    {
+      "id": "liuyao-yilin-buyi-triad-center",
+      "title": "易林补遗（卷一三合中神与生墓位置）",
+      "domain": [
+        "liuyao"
+      ],
+      "tradition": "三合成员位置与异说对照",
+      "tier": "A",
+      "sourceType": "classic_text",
+      "currentUsage": [
+        "三合前字生、中字主象、后字墓的位置；对照其有中神的两支亦称成局异说"
+      ],
+      "repoRefs": [
+        "native/Engine/src/divination/triads.ts",
+        "native/Engine/validation/research-divination/triad-formation-source-review.json"
+      ],
+      "ingestStatus": "scoped_electronic_excerpt_reviewed_not_print_collated",
+      "ingestPriority": "P0",
+      "licenseNote": "古籍电子转录；完整正文、URL和SHA256存于fanfu-additional-source-review.json，定位摘录存于triad-formation-source-review.json；未校印本。",
+      "notes": "三支齐全与缺支仅作集合观察；不采用半吉、全美或必然结果断语，不将其两支成局与增删的待用说混成统一效力规则。",
+      "url": "https://zh.wikisource.org/wiki/易林補遺/1"
+    },
+    {
+      "id": "astronomy-engine-2.1.19",
+      "title": "Astronomy Engine 2.1.19",
+      "domain": [
+        "astronomy",
+        "qizheng"
+      ],
+      "tier": "C",
+      "sourceType": "versioned_software",
+      "currentUsage": [
+        "地心日月水金火木土的位置",
+        "真赤道与真黄道当日坐标变换"
+      ],
+      "ingestStatus": "source_read_independently_compared",
+      "ingestPriority": "P0",
+      "author": "Don Cross",
+      "repoRefs": [
+        "native/Engine/src/astronomy/natal.ts",
+        "native/Engine/validation/research-qizheng/ephemeris/README.md"
+      ],
+      "licenseNote": "MIT；发布包源码头部完整授权随App ThirdPartyNotices分发。",
+      "notes": "固定2.1.19。GeoVector→Ecliptic；EQJ→EQD。月亮直接GeoMoon，不能声称与其余天体具有相同光行时/光行差修正。5600季度样本默认时标对照最大74.05角秒，共同TT最大21.49角秒；不是全时段误差上界。"
+    },
+    {
+      "id": "astronomy-time-policy-v1",
+      "title": "SUJI固定UTC+8输入与UTC≈UT1 / Espenak–Meeus ΔT时间政策",
+      "domain": [
+        "astronomy",
+        "qizheng"
+      ],
+      "tier": "C",
+      "sourceType": "engineering_policy",
+      "currentUsage": [
+        "保持旧出生钟面物理输入不变",
+        "保存UT/TT/ΔT与未来时间模型限制"
+      ],
+      "ingestStatus": "implemented_explicit_policy",
+      "ingestPriority": "P0",
+      "repoRefs": [
+        "native/Engine/src/astronomy/natal.ts",
+        "docs/mingli/astronomy-natal-cache-design.md",
+        "native/Engine/validation/research-qizheng/ephemeris/results/comparison.json"
+      ],
+      "notes": "不应用历史夏令时和八字真太阳时偏移。库以UTC近似UT1；TT取库指定模型。早期日期为前推UTC标签；未来ΔT与独立参考存在约111秒差异，不能将共同时标控制实验当真实时间精度证明。"
+    },
+    {
+      "id": "stellarium-contemporary-first-stars-71885f2e",
+      "title": "Stellarium Chinese Contemporary Sky Culture：二十八宿首星星名与HIP对应",
+      "domain": [
+        "astronomy",
+        "mansions"
+      ],
+      "tier": "C",
+      "sourceType": "versioned_catalogue",
+      "author": "Sun Shuwei and the Stellarium team",
+      "url": "https://api.github.com/repos/Stellarium/stellarium-skycultures/git/blobs/71885f2ea74edb2b8d960b0672d89fbf3e980517",
+      "currentUsage": [
+        "现代星名距星参照：各星宿首星I的HIP身份；不采用其另页有冲突的距星表"
+      ],
+      "repoRefs": [
+        "native/Engine/src/astronomy/mansion-catalog.json",
+        "native/Engine/validation/research-qizheng/catalogue/ATTRIBUTION.md"
+      ],
+      "ingestStatus": "immutable_blob_and_28_identities_crosschecked",
+      "ingestPriority": "P0",
+      "licenseNote": "原始说明为 Text and data: CC BY-SA，未指定版本；作者、原文及修改范围随App分发。",
+      "notes": "原始index SHA256 c6ba9e2c83b52c5a04f64471368d4ce02904582f7eaaa560bda99965eb631197。奎ηAnd、斗φSgr明确属于所选现代首星口径；不声称统一古法距星。"
+    },
+    {
+      "id": "hipparcos-28-esa1997",
+      "title": "The Hipparcos and Tycho Catalogues，I/239/hip_main，选定28行",
+      "domain": [
+        "astronomy",
+        "mansions"
+      ],
+      "tier": "C",
+      "sourceType": "astrometric_catalogue",
+      "author": "ESA (1997), ESA SP-1200",
+      "url": "https://cdsarc.cds.unistra.fr/viz-bin/cat/I/239",
+      "currentUsage": [
+        "J1991.25 ICRS赤经赤纬及切向自行；pmRA包含cos(dec)，毫角秒/儒略年"
+      ],
+      "repoRefs": [
+        "native/Engine/validation/research-qizheng/catalogue/hipparcos-28.tsv",
+        "native/Engine/validation/research-qizheng/catalogue/hipparcos-readme.txt"
+      ],
+      "ingestStatus": "exact_query_rows_and_epoch_units_archived",
+      "ingestPriority": "P0",
+      "licenseNote": "保留ESA/CDS来源与VizieR权利链接，未自行断言具体目录许可版本。",
+      "notes": "28行原文SHA256 01fe75f6ec320ffa452beb68d0e970dc72a8d65de7447754487a7ae980239d80。仅所选目录位置与自行，不包含所有视位置改正或无条件精度保证。"
+    },
+    {
+      "id": "simbad-28-20260920",
+      "title": "SIMBAD：28距星交叉身份及坐标复核，2026-09-20",
+      "domain": [
+        "astronomy",
+        "mansions"
+      ],
+      "tier": "C",
+      "sourceType": "astrometric_database",
+      "author": "CDS, Strasbourg",
+      "url": "http://simbad.cds.unistra.fr/simbad/sim-tap/sync",
+      "currentUsage": [
+        "Bayer/Flamsteed ↔ HIP分量交叉核对及J2000坐标独立比对"
+      ],
+      "repoRefs": [
+        "native/Engine/validation/research-qizheng/catalogue/simbad-28.json",
+        "native/Engine/validation/research-qizheng/catalogue/retrieve-catalogue.py"
+      ],
+      "ingestStatus": "exact_query_and_results_archived",
+      "ingestPriority": "P0",
+      "licenseNote": "保留CDS/SIMBAD来源。",
+      "notes": "原始JSON SHA256 fe2ec8bacdb9c9e4dc42556d92448e8ab9d294da0972b61746b84d05106d303c。身份全部一致；将Hipparcos自行推进8.75年后与SIMBAD比较的最大角距0.28734角秒，仅为该批抽样。"
+    },
+    {
+      "id": "iers2003-simon1994-mean-lunar",
+      "title": "IERS2003 / Simon1994 平月轨道参数（ERFA v2.0.1）",
+      "domain": [
+        "qizheng",
+        "astronomy"
+      ],
+      "tier": "B",
+      "sourceType": "academic_reference",
+      "currentUsage": [
+        "TT近似TDB、平交点与F/l；ERFA衍生许可随包分发"
+      ],
+      "ingestStatus": "source_archived_method_explicit",
+      "ingestPriority": "P0",
+      "repoRefs": [
+        "native/Engine/validation/research-qizheng/completion-2026-09-21",
+        "native/Engine/src/astronomy/residuals.ts",
+        "native/Engine/src/astronomy/lifeDegree.ts"
+      ],
+      "notes": "TT近似TDB、平交点与F/l；ERFA衍生许可随包分发"
+    },
+    {
+      "id": "aa1996-mean-lunar-inclination",
+      "title": "Astronomical Almanac1996 D2 平月球轨道倾角",
+      "domain": [
+        "qizheng",
+        "astronomy"
+      ],
+      "tier": "B",
+      "sourceType": "mathematical_parameter",
+      "currentUsage": [
+        "通过Swiss2.10.03 sweph.h引用核对5.1453964°；未读原年历纸本"
+      ],
+      "ingestStatus": "source_archived_method_explicit",
+      "ingestPriority": "P0",
+      "repoRefs": [
+        "native/Engine/validation/research-qizheng/completion-2026-09-21",
+        "native/Engine/src/astronomy/residuals.ts",
+        "native/Engine/src/astronomy/lifeDegree.ts"
+      ],
+      "notes": "通过Swiss2.10.03 sweph.h引用核对5.1453964°；未读原年历纸本"
+    },
+    {
+      "id": "moira-purple-7474e5f",
+      "title": "Moira 固定提交7474e5f的紫炁参数",
+      "domain": [
+        "qizheng",
+        "astronomy"
+      ],
+      "tier": "C",
+      "sourceType": "software_parameters",
+      "currentUsage": [
+        "仅采用历元1975-03-13T16Z、黄经230.5°、周期10227.1792日及显式罗北计南选项；未复制GPL实现代码"
+      ],
+      "ingestStatus": "source_archived_method_explicit",
+      "ingestPriority": "P0",
+      "repoRefs": [
+        "native/Engine/validation/research-qizheng/completion-2026-09-21",
+        "native/Engine/src/astronomy/residuals.ts",
+        "native/Engine/src/astronomy/lifeDegree.ts"
+      ],
+      "notes": "仅采用历元1975-03-13T16Z、黄经230.5°、周期10227.1792日及显式罗北计南选项；未复制GPL实现代码"
+    },
+    {
+      "id": "tushu567-mao-life-degree-rev1942530",
+      "title": "古今图书集成艺术典567卷：张果星宗安命度法",
+      "domain": [
+        "qizheng",
+        "astronomy"
+      ],
+      "tier": "A",
+      "sourceType": "classic_transcription",
+      "currentUsage": [
+        "维基文库固定revision1942530电子正文；生时加太阳宫顺数遇卯，未声称古宿度表已复原"
+      ],
+      "ingestStatus": "source_archived_method_explicit",
+      "ingestPriority": "P0",
+      "repoRefs": [
+        "native/Engine/validation/research-qizheng/completion-2026-09-21",
+        "native/Engine/src/astronomy/residuals.ts",
+        "native/Engine/src/astronomy/lifeDegree.ts"
+      ],
+      "notes": "维基文库固定revision1942530电子正文；生时加太阳宫顺数遇卯，未声称古宿度表已复原"
+    },
+    {
+      "id": "suji-mao-modern-coordinate-policy-v1",
+      "title": "SUJI遇卯法现代坐标映射约定",
+      "domain": [
+        "qizheng",
+        "astronomy"
+      ],
+      "tier": "C",
+      "sourceType": "product_method_policy",
+      "currentUsage": [
+        "固定UTC+8时支，现代热带十二等宫，保留太阳宫内度；命度参考现代距星赤经，非地平升点"
+      ],
+      "ingestStatus": "source_archived_method_explicit",
+      "ingestPriority": "P0",
+      "repoRefs": [
+        "native/Engine/validation/research-qizheng/completion-2026-09-21",
+        "native/Engine/src/astronomy/residuals.ts",
+        "native/Engine/src/astronomy/lifeDegree.ts"
+      ],
+      "notes": "固定UTC+8时支，现代热带十二等宫，保留太阳宫内度；命度参考现代距星赤经，非地平升点"
+    },
+    {
+      "id": "ziping-xu-renyuan-v1",
+      "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+      "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+      "locator": "三、论阴阳生死；十二月令人元司令分野表，第70–72行",
+      "quote": "申月 立秋后戊己土十日，壬水三日，庚金十七日",
+      "caution": "按此表人元司令日数，虽未可执着",
+      "editionStatus": "electronic-transcription-not-print-collated",
+      "title": "子平真诠徐注：十二月令人元司令表",
+      "domain": [
+        "bazi"
+      ],
+      "tier": "A",
+      "sourceType": "classic_transcription",
+      "currentUsage": [
+        "徐注所选十二月司令；申月戊己十日、壬三日、庚十七日"
+      ],
+      "repoRefs": [
+        "native/Engine/src/bazi/SiLing.ts",
+        "docs/mingli/validation/bazi-adjudication-source-review-2026-09-21.md"
+      ],
+      "notes": "按所列章节、电子转录文件及SHA256固定来源；区分原文与任注／徐注，不宣称完成纸本校勘或形成全流派统一裁定。",
+      "ingestStatus": "selected_passages_reviewed_not_print_collated",
+      "ingestPriority": "P0"
+    },
+    {
+      "id": "ditianshui-ren-duxiang-v1",
+      "document": "docs/mingli/source-texts/bazi/ditianshui-chanwei/tongshen-10-xingxiang-bage.md",
+      "sha256": "141085eeb8f5faba79a29dd1a08c8130fbdea9d2d6b81cea234c188dc6fe8183",
+      "locator": "通神论·形象，独象任氏注，第86–116行",
+      "quote": "木日，或方或局全，不杂金为曲直；火日，或方或局全，不杂水为炎上；土日，四库皆全，不杂木为稼穑；金日，或方或局全，不杂火为从革；水日，或方或局全，不杂土为润下。",
+      "additionalQuotes": [
+        "化者，食伤也，局中化神昌旺",
+        "必要得时当令，遇旺逢生",
+        "庚申 乙酉 庚戌 庚辰",
+        "壬子 辛亥 癸丑 壬子"
+      ],
+      "editionStatus": "electronic-transcription-not-print-collated",
+      "title": "滴天髓阐微任注：独象与完整方局",
+      "domain": [
+        "bazi"
+      ],
+      "tier": "A",
+      "sourceType": "classic_transcription",
+      "currentUsage": [
+        "任氏完整方局专旺剖面；食伤泄秀与季节前提"
+      ],
+      "repoRefs": [
+        "native/Engine/src/bazi/zhuanWang.ts",
+        "native/Engine/src/bazi/zhuanWangSources.ts",
+        "docs/mingli/validation/bazi-adjudication-source-review-2026-09-21.md"
+      ],
+      "notes": "按所列章节、电子转录文件及SHA256固定来源；区分原文与任注／徐注，不宣称完成纸本校勘或形成全流派统一裁定。",
+      "ingestStatus": "selected_passages_reviewed_not_print_collated",
+      "ingestPriority": "P0"
+    },
+    {
+      "id": "ziping-xu-special-v1",
+      "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/43-zage.md",
+      "sha256": "a7998453fbfd09d9e1e32e5b4b36b56ae79e81a408348a64d5ae1995dd961e56",
+      "locator": "四十七、论杂格",
+      "quote": "亦有方局不全者，只要气势专一，从其旺势",
+      "additionalQuotes": [
+        "运以食伤泄其秀气为最美，原局有食伤则财运亦美"
+      ],
+      "editionStatus": "electronic-transcription-not-print-collated",
+      "title": "子平真诠徐注：杂格与方局不全候选",
+      "domain": [
+        "bazi"
+      ],
+      "tier": "A",
+      "sourceType": "classic_transcription",
+      "currentUsage": [
+        "方局不全而气势专一的异法候选；不冒充任氏严格条件已成立"
+      ],
+      "repoRefs": [
+        "native/Engine/src/bazi/zhuanWang.ts",
+        "native/Engine/src/bazi/zhuanWangSources.ts",
+        "docs/mingli/validation/bazi-adjudication-source-review-2026-09-21.md"
+      ],
+      "notes": "按所列章节、电子转录文件及SHA256固定来源；区分原文与任注／徐注，不宣称完成纸本校勘或形成全流派统一裁定。",
+      "ingestStatus": "selected_passages_reviewed_not_print_collated",
+      "ingestPriority": "P0"
+    },
+    {
+      "id": "ziping-xu-earth-command-v1",
+      "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+      "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+      "locator": "三、论阴阳生死，第58、70–72行",
+      "quote": "土旺四季，辰戌丑未各十八日",
+      "additionalQuotes": [
+        "地支所藏之干，本静以待用，透出干头，则显其用矣",
+        "按此表人元司令日数，虽未可执着"
+      ],
+      "editionStatus": "electronic-transcription-not-print-collated",
+      "title": "子平真诠徐注：四季土旺与司令限制",
+      "domain": [
+        "bazi"
+      ],
+      "tier": "A",
+      "sourceType": "classic_transcription",
+      "currentUsage": [
+        "四季月土司令条件；保留司令天数不可执着的原注"
+      ],
+      "repoRefs": [
+        "native/Engine/src/bazi/SiLing.ts",
+        "native/Engine/src/bazi/zhuanWang.ts",
+        "docs/mingli/validation/bazi-adjudication-source-review-2026-09-21.md"
+      ],
+      "notes": "按所列章节、电子转录文件及SHA256固定来源；区分原文与任注／徐注，不宣称完成纸本校勘或形成全流派统一裁定。",
+      "ingestStatus": "selected_passages_reviewed_not_print_collated",
+      "ingestPriority": "P0"
+    },
+    {
+      "id": "ziping-helper-constraints-v1",
+      "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/00-abstract-chapters.md",
+      "sha256": "5b930c11310899b50703696870d9024ba4e00fca6ad177e57d6fa5e3f8a4964f",
+      "locator": "十五、论相神紧要；十二、论格局高低",
+      "quote": "甲用酉官，透丁逢癸印，制伤以护官矣，而又逢戊，癸合戊而不制丁，癸水之相伤矣",
+      "additionalQuotes": [
+        "乙用酉煞，年丁月癸，时上逢戊，则合去癸印以使丁得制煞者，全赖戊之相",
+        "丁用酉财，透癸逢己，食制煞以生财矣，而又透甲，己合甲而不制癸",
+        "若丁火通根，则合之不去",
+        "壬水通根申亥为有力",
+        "庚用午官，而子冲隔丑，则子丑合而解冲",
+        "见寅卯，则水生木，木生午火以解冲，则寅卯为相也"
+      ],
+      "editionStatus": "electronic-transcription-not-print-collated",
+      "title": "子平真诠及徐注：相神保护与受阻命例",
+      "domain": [
+        "bazi"
+      ],
+      "tier": "A",
+      "sourceType": "classic_transcription",
+      "currentUsage": [
+        "甲酉官癸制丁、乙酉杀时戊护丁、丁酉财己制癸等有限依赖链；支助遭冲条件"
+      ],
+      "repoRefs": [
+        "native/Engine/src/bazi/patternSources.ts",
+        "native/Engine/src/bazi/rescueAdjudication.ts",
+        "docs/mingli/validation/bazi-rescue-adjudication-source-review-2026-09-21.md"
+      ],
+      "notes": "按所列章节、电子转录文件及SHA256固定来源；区分原文与任注／徐注，不宣称完成纸本校勘或形成全流派统一裁定。",
+      "ingestStatus": "selected_passages_reviewed_not_print_collated",
+      "ingestPriority": "P0"
+    },
+    {
+      "id": "ziping-position-season-v1",
+      "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+      "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+      "locator": "论十干合而不合；论十干得时不旺失时不弱",
+      "quote": "或虽遥隔而仍作合论，各视其格局配合而已",
+      "additionalQuotes": [
+        "序有先后，不作妒合争合论也",
+        "虽不当令，其用固未尝消失也"
+      ],
+      "editionStatus": "electronic-transcription-not-print-collated",
+      "title": "子平真诠徐注：克合位置次序与得时得势",
+      "domain": [
+        "bazi"
+      ],
+      "tier": "A",
+      "sourceType": "classic_transcription",
+      "currentUsage": [
+        "隔位仍可作合及次序例外；季节条件不直接取消干的作用"
+      ],
+      "repoRefs": [
+        "native/Engine/src/bazi/patternSources.ts",
+        "native/Engine/src/bazi/structural.ts",
+        "docs/mingli/validation/bazi-rescue-adjudication-source-review-2026-09-21.md"
+      ],
+      "notes": "按所列章节、电子转录文件及SHA256固定来源；区分原文与任注／徐注，不宣称完成纸本校勘或形成全流派统一裁定。",
+      "ingestStatus": "selected_passages_reviewed_not_print_collated",
+      "ingestPriority": "P0"
+    },
+    {
+      "id": "ziping-xu-combination-limits-v1",
+      "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+      "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+      "locator": "四、论十干配合性情；五、论十干合而不合",
+      "quote": "如地支通根，则虽合而不失其用，喜忌依然存在",
+      "additionalQuotes": [
+        "甲己中间，以庚间隔之，则甲岂能越克我之庚而合己",
+        "日元之干相合，除合而化，变更性质之外，皆不以合论",
+        "相合则煞不攻身，非谓去之也",
+        "地支所藏之干，本静以待用，透出干头，则显其用矣"
+      ],
+      "editionStatus": "electronic-transcription-not-print-collated",
+      "title": "子平真诠徐注：合而不合与通根保用",
+      "domain": [
+        "bazi"
+      ],
+      "tier": "A",
+      "sourceType": "classic_transcription",
+      "currentUsage": [
+        "逐柱有向五合限制；通根保用、日主不去、甲己庚隔与煞不攻身"
+      ],
+      "repoRefs": [
+        "native/Engine/src/bazi/rescueSources.ts",
+        "native/Engine/src/bazi/rescueAdjudication.ts",
+        "docs/mingli/validation/bazi-rescue-adjudication-source-review-2026-09-21.md"
+      ],
+      "notes": "按所列章节、电子转录文件及SHA256固定来源；区分原文与任注／徐注，不宣称完成纸本校勘或形成全流派统一裁定。",
+      "ingestStatus": "selected_passages_reviewed_not_print_collated",
+      "ingestPriority": "P0"
+    },
+    {
+      "id": "ziping-xu-hidden-action-cases-v1",
+      "document": "docs/mingli/source-texts/bazi/ziping-zhenquan/35-yinshou.md",
+      "sha256": "d87e8f7df9f15175b26a75e9acee2a1b6e50b2df1b4ef1b5f189c38d8aa7a63c",
+      "locator": "三十五、论印绶，朱尚书与庚戌戊子甲戌乙亥两例",
+      "quote": "辰未中皆藏乙木财星，暗损印绶，病重而得药",
+      "additionalQuotes": [
+        "戌中更藏丁火食神，非子印所能夺",
+        "盖印未曾合去也"
+      ],
+      "editionStatus": "electronic-transcription-not-print-collated",
+      "title": "子平真诠徐注：藏财损印与藏食不夺两命例",
+      "domain": [
+        "bazi"
+      ],
+      "tier": "A",
+      "sourceType": "classic_transcription",
+      "currentUsage": [
+        "仅完整原例认定藏干作用；普通藏干仍保留条件，不泛化为无效"
+      ],
+      "repoRefs": [
+        "native/Engine/src/bazi/rescueSources.ts",
+        "native/Engine/src/bazi/rescueAdjudication.ts",
+        "docs/mingli/validation/bazi-rescue-adjudication-source-review-2026-09-21.md"
+      ],
+      "notes": "按所列章节、电子转录文件及SHA256固定来源；区分原文与任注／徐注，不宣称完成纸本校勘或形成全流派统一裁定。",
+      "ingestStatus": "selected_passages_reviewed_not_print_collated",
+      "ingestPriority": "P0"
+    },
+    {
+      "id": "liuyao-efficacy-zengshan-v1",
+      "version": "1",
+      "title": "增删卜易选定条文：取用与有条件效力",
+      "editionStatus": "electronic-transcription-not-print-collated",
+      "scope": "明确所问的唯一对象、日月局部条件、无根与无竞争生扶、逐对象墓绝、限定三合范围；结论仅表示所选条文前提满足",
+      "references": [
+        {
+          "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy09.html",
+          "locator": "用神章；明确人事角色",
+          "sha256": "f3ea262ad33a465dc5e1213c1474bcd5e4998c9e10545a60c6a7ebae0ef2a5ea"
+        },
+        {
+          "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy11.html",
+          "locator": "元神忌神衰旺；大过之鼎无根反例",
+          "sha256": "74c82f8be5c04265049119a9383c6bfd1556ad117c9818fc8828feae684873cb",
+          "quote": "值月破而被克，虽有生扶，奈何生之不起"
+        },
+        {
+          "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy18.html",
+          "locator": "月将章；生克相敌、增克制及旬内仍空",
+          "sha256": "4f74faf658faf94f8cd8bda42691a86a77e0aca4b48bcd86af738d6a16349018",
+          "quote": "月克日生，遇帮扶而愈旺，月生日克，逢克制而亦衰。"
+        },
+        {
+          "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy22.html",
+          "locator": "三合章；四范围、动静竞争、空破墓待成",
+          "sha256": "af41ab6a4f2c336c4f6452acd2cd1e4762bf187bd4d14c7f42c1fe207190b739",
+          "quote": "三合局中，有一值空破者，待填实之日月成之。有一爻入墓者，待冲开之日成之。"
+        },
+        {
+          "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy31.html",
+          "locator": "生旺墓绝；完整火行及土巳例外",
+          "sha256": "7ed19e9471c398c386a04fb195a1a752469a5e5d307b5eeaca490fcb727affa6",
+          "quote": "土爻虽绝于巳，必须休囚无气，又逢巳者，方谓之绝。"
+        },
+        {
+          "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy38.html",
+          "locator": "随鬼入墓；旺者非真、墓破易出及小过之艮日月官局",
+          "sha256": "dda2b500d22d6d43979dae3339ce90cb21289de61aef82a0f8cb17ca11205da5",
+          "quote": "墓神被日月动爻冲破者，亦不为真。"
+        },
+        {
+          "url": "https://www.quanxue.cn/qt_mingxiang/zengshanpy/zengshanpy40.html",
+          "locator": "两现章；用空破的应期反例与多占前提",
+          "sha256": "e74764848deb4fd0ffe5e3bd16d696701dd5b06de034a085d74f24a35f0f2c2f"
+        }
+      ],
+      "limitations": [
+        "劝学电子本目录自述底本为民国三十年锦章书局；未取得影印校勘，现代乾按与居士按不作原典",
+        "唯一候选定用以明确关系与事件、既有类别映射为前提；两现不按空破动静固定排序，月日与伏神不混选",
+        "日月支持只作局部证据；有动克、合、回头克、未决日冲等竞争即不据此宣称综合旺相，未使用积分",
+        "墓源被冲与目标旺而待开分开；结构墓绝不等于真墓真绝，动爻冲墓须另审作用者",
+        "三合两动一静保留同章竞争；非世的日月单动锚点尚无选定效力依据；不混入易林缺中字半局法",
+        "决定的是规则当前适用/受阻/待条件，非现实吉凶、医疗结论、完整合化或公历应期；复杂救应链仍具体列为竞争条件"
+      ],
+      "domain": [
+        "liuyao"
+      ],
+      "tier": "A",
+      "sourceType": "classic_transcription",
+      "currentUsage": [
+        "明确所问的唯一对象、日月局部条件、无根与无竞争生扶、逐对象墓绝、限定三合范围；结论仅表示所选条文前提满足"
+      ],
+      "repoRefs": [
+        "native/Engine/src/divination/efficacy.ts",
+        "native/Core/Sources/SujiCore/LiuyaoEfficacyEvidence.swift",
+        "docs/mingli/validation/liuyao-efficacy-source-review-2026-09-21.md"
+      ],
+      "notes": "逐页正文与卦图已归档；网页目录所称锦章书局底本未经影印校勘，现代乾按／居士按不作原典。所选充分条件不等于事件结果。",
+      "ingestStatus": "selected_passages_reviewed_not_print_collated",
+      "ingestPriority": "P0"
+    },
+    {
+      "id": "qimen-xdyy-timing-v1",
+      "version": "1",
+      "title": "奇门遁甲现代应用技术：对象条件优先应期",
+      "editionStatus": "electronic-transcription-not-print-collated",
+      "scope": "同一选定对象：宫空先于马，马先于墓刑冲合；显式时间单位及有界条件候选",
+      "references": [
+        {
+          "url": "https://www.aqioo.com/qmdjxdyyjs/167816.html",
+          "locator": "第03章 第二节中五寄宫",
+          "sha256": "06c5d8f574ccdfcb8e9df3b8452d8c65829a225e056a3cac81d618d437ea500b",
+          "quote": "需要说明的是奇门遁甲的中五宫在一般的情况下均寄在坤二宫，也就是说中五宫中的九星天禽星和所在的三奇六仪在运转时随坤二宫的天芮星及其三奇六仪运转"
+        },
+        {
+          "url": "https://www.aqioo.com/qmdjxdyyjs/167810.html",
+          "locator": "第06章 第一步及第三步1至6",
+          "sha256": "dab3897adc647067952b8813d4979ebe3db27ed37282a0ebc47753e9b0543ad5",
+          "quote": "如果用神宫逢空亡，无论用神是否临马星、刑冲、生旺、墓绝、庚格、值使门均用冲空、填空为应期。"
+        },
+        {
+          "url": "https://www.aqioo.com/qmdjxdyyjs/167810.html",
+          "locator": "第06章 第三步3：开门入墓直接例证",
+          "sha256": "dab3897adc647067952b8813d4979ebe3db27ed37282a0ebc47753e9b0543ad5",
+          "quote": "如开门为用神，落在艮八宫入墓，戊子日预测，到丑年、月、日、时则为应期或冲丑的未年、月、日、时为应期。"
+        },
+        {
+          "url": "https://www.aqioo.com/qmdjxdyyjs/167817.html",
+          "locator": "第02章 十干长生墓支、十二地支合冲及宫位",
+          "sha256": "6caea61e307f4ced210a012c77d391f23fb01ad8172eae71c93db4ce708e8697"
+        },
+        {
+          "url": "https://www.aqioo.com/qmdjxdyyjs/167813.html",
+          "locator": "第04章 13、六仪击刑六个落宫；与第06章甲午辛例互校",
+          "sha256": "3dd0817ce52fb78ed8ee587a1ea8b5d731ec58fb9dbc91e8a23aca405cf5fa31"
+        },
+        {
+          "url": "https://www.aqioo.com/qmdjxdyyjs/167802.html",
+          "locator": "第08章 工作就业；开门为工作，日干为求测者",
+          "sha256": "cd2fc6c0238e425c2955d5d85ec0cb8ebecf01337ace2eb69a4f46d6ba1e4d01"
+        },
+        {
+          "url": "https://www.aqioo.com/qmdjxdyyjs/167807.html",
+          "locator": "经营求财：生门为利润利息；不等于一切财务事件",
+          "sha256": "e66dc4605a2ea265dc52824df511ae60aae21209d9910c96cb88aa2e70c60c40"
+        },
+        {
+          "url": "https://www.aqioo.com/qmdjxdyyjs/167808.html",
+          "locator": "恋爱婚姻：六合为婚姻用神；不据性别代取伴侣",
+          "sha256": "39f14beac1bde7677c8a55e87e9113508dcc5f6bc3ee7f4ed659ba847e58a574"
+        }
+      ],
+      "limitations": [
+        "网页电子转录未经纸本校勘，不归作已核作者原版",
+        "年月日时必须明确；远近和宫数均不自动转换成期限",
+        "宫空采用全宫触发支，仍公开具体空支及partial/full；不是本宫每一支均为旬空",
+        "墓刑冲合同层未规定唯一顺序，保留竞争分支；不混入转载刑墓优先法",
+        "无空马墓刑冲合时，事件生旺衰墓分支仍未裁决；补充宫支参考不自动生成日期",
+        "不推断事件成功、失败或健康预后；日期仅为所选对象的条件候选",
+        "历法边界、搜索上限、包含当前区间与排序属于显式产品约定"
+      ],
+      "domain": [
+        "qimen"
+      ],
+      "tier": "D",
+      "sourceType": "modern_practical_transcription",
+      "currentUsage": [
+        "同一选定对象：宫空先于马，马先于墓刑冲合；显式时间单位及有界条件候选"
+      ],
+      "repoRefs": [
+        "native/Engine/src/qimen/timing.ts",
+        "native/Core/Sources/SujiCore/QimenTimingEvidence.swift",
+        "docs/mingli/validation/qimen-timing-source-review-2026-09-21.md"
+      ],
+      "notes": "阿启网现代教材电子转录；作者及纸本版次未核实。仅固定坤二、天禽随芮问事盘的对象条件候选，不归作原典或所有流派通则。",
+      "ingestStatus": "selected_passages_reviewed_not_print_collated",
+      "ingestPriority": "P0"
+    },
+    {
+      "id": "qimen-hour-void-horse-v1",
+      "version": "1",
+      "title": "时家旬空与时支驿马固定表",
+      "editionStatus": "pinned-engineering-reference",
+      "scope": "时干支定旬空，时支定马；保留具体空支及所属宫的支位覆盖",
+      "references": [
+        {
+          "url": "https://github.com/deminzhang/qimen-go/blob/4d3f58fa0f401b5b3a337f119138e99e90685dda/xuan/ganzhi.go",
+          "locator": "KongWang / ZhiGong9 / Horse",
+          "sha256": "0dd04c5c2f290e87822ff85770f203467c1a7a69ced56990d808c718aa14b401"
+        },
+        {
+          "url": "https://github.com/deminzhang/qimen-go/blob/4d3f58fa0f401b5b3a337f119138e99e90685dda/xuan/qimen.go",
+          "locator": "时家盘时旬空、时支马选择"
+        }
+      ],
+      "limitations": [
+        "这是明确的时家工程约定，不冒充古籍定本",
+        "partial/full只说明本宫一支或全部支位落空，不裁定宫中事物效力，不混入日马"
+      ],
+      "domain": [
+        "qimen"
+      ],
+      "tier": "C",
+      "sourceType": "pinned_engineering_reference",
+      "currentUsage": [
+        "时家旬空、时支驿马及宫支覆盖；为应期条件提供显式底层事实"
+      ],
+      "ingestStatus": "pinned_reference_with_scoped_usage",
+      "ingestPriority": "P0",
+      "repoRefs": [
+        "native/Engine/src/qimen/facts.ts",
+        "native/Engine/src/qimen/timing.ts",
+        "docs/mingli/validation/qimen-timing-source-review-2026-09-21.md"
+      ],
+      "notes": "源码固定提交与选取范围已公开；工程约定不替代应期规则的正文来源。"
+    },
+    {
+      "id": "suji-civil-jie-commander-policy-v1",
+      "title": "SUJI出生物理时刻与月节司令区间约定",
+      "domain": [
+        "bazi",
+        "calendar"
+      ],
+      "tier": "C",
+      "sourceType": "product_method_policy",
+      "currentUsage": [
+        "原始出生物理时刻绑定十二节的左闭右开区间；经过毫秒换算天数，禁止真太阳时移动节界"
+      ],
+      "ingestStatus": "implemented_explicit_policy",
+      "ingestPriority": "P0",
+      "repoRefs": [
+        "native/Engine/src/bazi/birthMonthContext.ts",
+        "native/Engine/src/calendar/precision.ts",
+        "native/Engine/src/bazi/BaziEngine.ts",
+        "native/Core/Sources/SujiCore/BaziAdjudicationTrace.swift",
+        "docs/mingli/validation/bazi-adjudication-source-review-2026-09-21.md"
+      ],
+      "notes": "birth-month-jie-context-v1采用lunar-javascript@1.7.7与suji-calendar-2的provider-second节时；数值区间、三十日尾段延续及Swift核对方式为实现约定，不声称原典提供现代精密时间或Swift独立重算太阳黄经。"
+    },
+    {
+      "id": "suji-qimen-timing-search-policy-v1",
+      "title": "SUJI奇门条件日期的历法边界与有界搜索约定",
+      "domain": [
+        "qimen",
+        "calendar"
+      ],
+      "tier": "C",
+      "sourceType": "product_method_policy",
+      "currentUsage": [
+        "显式对象、单位和截止时刻；左闭右开区间、当前区间选项、扫描上限、合并排序及完整性标记"
+      ],
+      "ingestStatus": "implemented_explicit_policy",
+      "ingestPriority": "P0",
+      "repoRefs": [
+        "native/Engine/src/qimen/timing.ts",
+        "native/Engine/src/ai/tools/qimen.ts",
+        "native/Core/Sources/SujiCore/CastQuestionPreparation.swift",
+        "docs/mingli/validation/qimen-timing-source-review-2026-09-21.md"
+      ],
+      "notes": "标准时UTC+8、23时换日；真太阳投影仅用于日时，月年采用物理节／立春。扫描上限为512日时、120月、24年，候选默认32且最多256，截断公开。以上为产品约定，不是教材原文或事件保证。"
     }
   ]
 }

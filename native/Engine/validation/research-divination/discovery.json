@@ -1,0 +1,431 @@
+[
+  {
+    "query": "ziwei in:name",
+    "repositories": [
+      {
+        "full_name": "Renhuai123/ziwei-doushu",
+        "url": "https://github.com/Renhuai123/ziwei-doushu",
+        "description": "紫微斗数开源排盘引擎 — 基于倪海夏《天纪》体系，含完整排盘算法、四化系统、格局知识库、古籍原文数据",
+        "stars": 4167,
+        "pushed": "2026-06-24T07:24:36Z",
+        "license": "MIT"
+      },
+      {
+        "full_name": "ziweiknows/ziwei-chart",
+        "url": "https://github.com/ziweiknows/ziwei-chart",
+        "description": "开源紫微斗数命盘工具：精准排盘、真太阳时、可视化分析与 AI 解读。 Open-source Zi Wei Dou Shu charting app.",
+        "stars": 450,
+        "pushed": "2026-09-13T11:42:05Z",
+        "license": "GPL-3.0"
+      },
+      {
+        "full_name": "myCSAI/Ziwei",
+        "url": "https://github.com/myCSAI/Ziwei",
+        "description": "基于已有基座模型微调的算命大模型",
+        "stars": 229,
+        "pushed": "2023-12-26T12:44:41Z",
+        "license": null
+      },
+      {
+        "full_name": "Guo-ziwei/fusion",
+        "url": "https://github.com/Guo-ziwei/fusion",
+        "description": "fuse IMU data and Odometry",
+        "stars": 193,
+        "pushed": "2023-06-18T13:34:35Z",
+        "license": null
+      },
+      {
+        "full_name": "Ziwei-Niu/Generalized_MedIA",
+        "url": "https://github.com/Ziwei-Niu/Generalized_MedIA",
+        "description": "",
+        "stars": 113,
+        "pushed": "2025-08-05T13:11:49Z",
+        "license": null
+      },
+      {
+        "full_name": "ziwei-zh/CorrPM",
+        "url": "https://github.com/ziwei-zh/CorrPM",
+        "description": "Pytorch implementation of CVPR2020 paper \"Correlating Edge, Pose with Parsing\"",
+        "stars": 104,
+        "pushed": "2021-05-17T10:16:35Z",
+        "license": "MIT"
+      },
+      {
+        "full_name": "strawberrynine/ZiWeiDouShu-Master",
+        "url": "https://github.com/strawberrynine/ZiWeiDouShu-Master",
+        "description": "紫微斗数大师级分析，基于古籍 希夷先生《紫微斗数》，融合倪海厦《天纪》体系，含完整排盘算法、四化系统、格局知识库，可以算任意一年/月/日的感情/健康/财运/事业运/学业运/移民运。需要提供具体到小时的出生时间，和具体到市的出生地点。",
+        "stars": 92,
+        "pushed": "2026-09-02T04:50:39Z",
+        "license": null
+      },
+      {
+        "full_name": "cubshuang/ZiWeiDouShu",
+        "url": "https://github.com/cubshuang/ZiWeiDouShu",
+        "description": "簡易紫微斗數命盤產生網頁 simple web page for generate ZiWeiDouShu Chart",
+        "stars": 78,
+        "pushed": "2020-03-23T03:47:16Z",
+        "license": null
+      },
+      {
+        "full_name": "masterai-top/Bazi-Ziwei-Qimen-Dunjia-Divination-System-Source-Code",
+        "url": "https://github.com/masterai-top/Bazi-Ziwei-Qimen-Dunjia-Divination-System-Source-Code",
+        "description": "八字排盘与周易术数系统源码，包含五行、流年、大六壬、七政四余界面及紫微斗数、奇门遁甲扩展方向。Bazi chart source code.",
+        "stars": 64,
+        "pushed": "2026-09-11T09:50:39Z",
+        "license": "NOASSERTION"
+      },
+      {
+        "full_name": "Ziwei-Zheng/Nullu",
+        "url": "https://github.com/Ziwei-Zheng/Nullu",
+        "description": "Code for paper: Nullu: Mitigating Object Hallucinations in Large Vision-Language Models via HalluSpace Projection",
+        "stars": 64,
+        "pushed": "2025-03-13T08:44:46Z",
+        "license": "MIT"
+      }
+    ]
+  },
+  {
+    "query": "紫微斗数 in:name,description",
+    "repositories": [
+      {
+        "full_name": "Dujltqzv/Some-Many-Books",
+        "url": "https://github.com/Dujltqzv/Some-Many-Books",
+        "description": "个人收藏书籍列表　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　",
+        "stars": 23726,
+        "pushed": "2026-06-18T05:36:05Z",
+        "license": null
+      },
+      {
+        "full_name": "cirosantilli/x86-bare-metal-examples",
+        "url": "https://github.com/cirosantilli/x86-bare-metal-examples",
+        "description": "Dozens of minimal operating systems to learn x86 system programming. Tested on Ubuntu 17.10 host in QEMU 2.10 and real hardware. Userland cheat at: https://github.com/cirosantilli/linux-kernel-module-cheat#userland-assem",
+        "stars": 5366,
+        "pushed": "2022-07-18T05:40:51Z",
+        "license": "NOASSERTION"
+      },
+      {
+        "full_name": "SylarLong/iztro",
+        "url": "https://github.com/SylarLong/iztro",
+        "description": "⭐This is a lightweight kit for generating astrolabes for Zi Wei Dou Shu (The Purple Star Astrology), an ancient Chinese astrology. It allows you to obtain your horoscope and personality analysis. 支持多语言轻量级获取紫微斗数排盘信息的javas",
+        "stars": 4173,
+        "pushed": "2026-09-09T04:12:31Z",
+        "license": "MIT"
+      },
+      {
+        "full_name": "Renhuai123/ziwei-doushu",
+        "url": "https://github.com/Renhuai123/ziwei-doushu",
+        "description": "紫微斗数开源排盘引擎 — 基于倪海夏《天纪》体系，含完整排盘算法、四化系统、格局知识库、古籍原文数据",
+        "stars": 4167,
+        "pushed": "2026-06-24T07:24:36Z",
+        "license": "MIT"
+      },
+      {
+        "full_name": "jangviktor-web/nihaixia",
+        "url": "https://github.com/jangviktor-web/nihaixia",
+        "description": "倪海厦视角的中医Agent Skill，基于倪海厦教学资料开发，蒸馏倪师伤寒论、金匮要略、黄帝内经、神农本草经、针灸篇等，人纪/医案/经方思维，六经辨证，八纲辨证，天机道，天纪，紫微斗数，易经，阴阳，八卦，五行，风水，地纪等，总结8个诊断公式+快速诊断流程图+脉舌速查+七步走思维模式，蒸馏129条伤寒论 · 23篇金匮 · 72篇黄帝内经 · 神农本草经374种本草（上137/中110/下127） · 1257 例结构化案例 + 243",
+        "stars": 2973,
+        "pushed": "2026-08-19T13:57:51Z",
+        "license": null
+      },
+      {
+        "full_name": "DestinyLinker/MingLi-Bench",
+        "url": "https://github.com/DestinyLinker/MingLi-Bench",
+        "description": "A benchmark for evaluating LLMs on Chinese traditional fortune telling — Bazi (八字) and Ziwei Doushu (紫微斗数).",
+        "stars": 2402,
+        "pushed": "2026-05-09T17:49:34Z",
+        "license": "MIT"
+      },
+      {
+        "full_name": "FANzR-arch/Numerologist_skills",
+        "url": "https://github.com/FANzR-arch/Numerologist_skills",
+        "description": "🔮 An engineering framework to stop LLM hallucinations in Chinese astrology. / 给“赛博半仙”戴上紧箍咒：减少幻觉、固定排盘步骤的奇门遁甲与紫微斗数 AI skills。",
+        "stars": 1233,
+        "pushed": "2026-08-03T05:05:19Z",
+        "license": null
+      },
+      {
+        "full_name": "learnwithu/mingli-master",
+        "url": "https://github.com/learnwithu/mingli-master",
+        "description": "紫微斗数命盘解读 skill · 基于 iztro-py 精确排盘，生成可视化命盘 HTML",
+        "stars": 730,
+        "pushed": "2026-08-15T12:51:17Z",
+        "license": "MIT"
+      },
+      {
+        "full_name": "hhszzzz/taibu",
+        "url": "https://github.com/hhszzzz/taibu",
+        "description": "🔮 高精度AI算命工具，涵盖八字、紫微斗数、六爻、梅花易数、奇门遁甲、大六壬、小六壬、占星术、太乙神数、塔罗、MBTI、面相手相、合盘配对、每日/每月运势、周公解梦等。支持MCP服务和Skills",
+        "stars": 569,
+        "pushed": "2026-08-01T10:15:02Z",
+        "license": "NOASSERTION"
+      },
+      {
+        "full_name": "SylarLong/react-iztro",
+        "url": "https://github.com/SylarLong/react-iztro",
+        "description": "⭐A react component based on iztro to generate an astrolabe of Zi Wei Dou Shu. 基于iztro实现的紫微斗数星盘React组件。",
+        "stars": 531,
+        "pushed": "2026-08-24T08:50:37Z",
+        "license": "MIT"
+      }
+    ]
+  },
+  {
+    "query": "六爻 in:name,description",
+    "repositories": [
+      {
+        "full_name": "Dujltqzv/Some-Many-Books",
+        "url": "https://github.com/Dujltqzv/Some-Many-Books",
+        "description": "个人收藏书籍列表　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　",
+        "stars": 23726,
+        "pushed": "2026-06-18T05:36:05Z",
+        "license": null
+      },
+      {
+        "full_name": "hhszzzz/taibu",
+        "url": "https://github.com/hhszzzz/taibu",
+        "description": "🔮 高精度AI算命工具，涵盖八字、紫微斗数、六爻、梅花易数、奇门遁甲、大六壬、小六壬、占星术、太乙神数、塔罗、MBTI、面相手相、合盘配对、每日/每月运势、周公解梦等。支持MCP服务和Skills",
+        "stars": 569,
+        "pushed": "2026-08-01T10:15:02Z",
+        "license": "NOASSERTION"
+      },
+      {
+        "full_name": "Brhiza/mingyu",
+        "url": "https://github.com/Brhiza/mingyu",
+        "description": "八字、紫微、星盘、六爻、梅花、奇门、大六壬、小六壬、塔罗、雷诺曼、灵签、择日一站式玄学算命占卜工具包，输出结构化提示词与数据。提供公开 API、MCP Server 与 skill。",
+        "stars": 431,
+        "pushed": "2026-09-19T00:06:14Z",
+        "license": "AGPL-3.0"
+      },
+      {
+        "full_name": "Horace-Maxwell/horosa-skill",
+        "url": "https://github.com/Horace-Maxwell/horosa-skill",
+        "description": "让你的 AI 本地挂载一个玄学家：92 个术数/占星技法全部离线本地算（MCP + CLI）。西占本命·转盘·中点·调波·巴比伦·印占·20+ 推运·主限·卜卦·择日·占星地图·合盘｜八字·紫微·大六壬·奇门遁甲·法奇门·奇门择日·太乙·金口诀·三式合一｜六爻·河洛理数·邵子参评数·一掌经·小六壬·飞宫小奇门·小成图·皇极轨策·统摄法·宿占·灵棋经｜14 神数·神数正传｜塔罗·天文地占·老黄历·通书择日·万年历。Offline-firs",
+        "stars": 413,
+        "pushed": "2026-09-15T04:37:56Z",
+        "license": "AGPL-3.0"
+      },
+      {
+        "full_name": "Horace-Maxwell/Horosa-Web-App-comprehensively-improved-MacOS",
+        "url": "https://github.com/Horace-Maxwell/Horosa-Web-App-comprehensively-improved-MacOS",
+        "description": "十项全能玄学术数 Mac 工作站：命·卜·工具三区 26 门主技法、60+ 子技法流派。占星/八字/紫微/七政/印占/合盘/铁板神数/河洛/策天飞星/演禽/一掌经；含正统主限法在内 20+ 推运技法；六壬/奇门/六爻/太乙/三式合一/风水 17 派/金口诀/地占/塔罗/灵棋经等 15+ 卜法；多模型 AI 分析、3D 天文馆、黄历择日、玄学史、高质量生时数据库。技法全目录见 README。于旧星阙 Horosa 基础上改良制作，请不要忘",
+        "stars": 372,
+        "pushed": "2026-09-01T17:49:04Z",
+        "license": "AGPL-3.0"
+      },
+      {
+        "full_name": "Horace-Maxwell/Horosa-Web-App-comprehensively-improved-Windows",
+        "url": "https://github.com/Horace-Maxwell/Horosa-Web-App-comprehensively-improved-Windows",
+        "description": "十项全能玄学术数 Windows 工作站：命·卜·工具三区 26 门主技法、60+ 子技法流派。占星/八字/紫微/七政/印占/合盘/铁板神数/河洛/策天飞星/演禽/一掌经；含正统主限法在内 20+ 推运技法；六壬/奇门/六爻/太乙/三式合一/风水 17 派/金口诀/地占/塔罗/灵棋经等 15+ 卜法；多模型 AI 分析、3D 天文馆、黄历择日、玄学史、高质量生时数据库。技法全目录见 README。于旧星阙 Horosa 基础上改良制作，",
+        "stars": 368,
+        "pushed": "2026-09-01T22:30:14Z",
+        "license": "AGPL-3.0"
+      },
+      {
+        "full_name": "RealKai42/liu-yao-divining",
+        "url": "https://github.com/RealKai42/liu-yao-divining",
+        "description": "六爻游戏 + GPT 解读 / liu yao divining +  interpreted by GPT",
+        "stars": 348,
+        "pushed": "2025-03-05T06:10:52Z",
+        "license": "MIT"
+      },
+      {
+        "full_name": "kentang2017/ichingshifa",
+        "url": "https://github.com/kentang2017/ichingshifa",
+        "description": "Python 周易筮法、大衍之數、六十四卦、六爻、京房易、爻辭、日期占卦、占卜。A python package of Ichingshifa (also known as I-ching or Yarrow Stalks Divination). ",
+        "stars": 286,
+        "pushed": "2026-06-22T12:18:05Z",
+        "license": "MIT"
+      },
+      {
+        "full_name": "gaoxt/zhouwenwang",
+        "url": "https://github.com/gaoxt/zhouwenwang",
+        "description": "一个现代化的中华传统占卜系统，融合古代智慧与现代AI技术，为用户提供专业的六爻、奇门遁甲、八字推命、手相分析、周公解梦、人生K线图等占卜服务。",
+        "stars": 164,
+        "pushed": "2025-12-16T02:36:42Z",
+        "license": null
+      },
+      {
+        "full_name": "Sudo-Biao/Chinese-Metaphysics-Platform",
+        "url": "https://github.com/Sudo-Biao/Chinese-Metaphysics-Platform",
+        "description": "八卦推演系统是一套将传统东方命理学与现代软件工程深度融合的开源全栈应用。项目以纯 Python 计算引擎为核心，严格依照古籍推算逻辑实现八字四柱、六爻占卜、紫微斗数、奇门遁甲、玄空飞星风水及择日六大子系统，并通过多供应商 LLM 流式引擎（支持 Anthropic、OpenAI、DeepSeek、Gemini、Moonshot 等 13+ 供应商）提供古籍级别的 AI 智能解读。  本项目的核心理念：  忠于古法：年柱以立春为界、月柱用",
+        "stars": 135,
+        "pushed": "2026-08-22T09:42:06Z",
+        "license": "MIT"
+      }
+    ]
+  },
+  {
+    "query": "qimen in:name",
+    "repositories": [
+      {
+        "full_name": "qfdk/qimen",
+        "url": "https://github.com/qfdk/qimen",
+        "description": " 奇门遁甲在线排盘(转盘)",
+        "stars": 203,
+        "pushed": "2026-09-14T10:13:48Z",
+        "license": "MIT"
+      },
+      {
+        "full_name": "nozomi199/qimen_star",
+        "url": "https://github.com/nozomi199/qimen_star",
+        "description": "(End dev and support) My qimen(奇門遁甲), lui yin(大六壬), and astrology(參星) in single html file",
+        "stars": 70,
+        "pushed": "2023-03-07T14:18:00Z",
+        "license": null
+      },
+      {
+        "full_name": "ChuqiCloud/QimenIDC",
+        "url": "https://github.com/ChuqiCloud/QimenIDC",
+        "description": "开源、免费、云原生的多云管理及混合云融合系统。 Open source, free, cloud-native multi-cloud management and hybrid cloud convergence system.",
+        "stars": 69,
+        "pushed": "2026-09-10T09:42:11Z",
+        "license": "AGPL-3.0"
+      },
+      {
+        "full_name": "masterai-top/Bazi-Ziwei-Qimen-Dunjia-Divination-System-Source-Code",
+        "url": "https://github.com/masterai-top/Bazi-Ziwei-Qimen-Dunjia-Divination-System-Source-Code",
+        "description": "八字排盘与周易术数系统源码，包含五行、流年、大六壬、七政四余界面及紫微斗数、奇门遁甲扩展方向。Bazi chart source code.",
+        "stars": 64,
+        "pushed": "2026-09-11T09:50:39Z",
+        "license": "NOASSERTION"
+      },
+      {
+        "full_name": "gaojunxin/yunque-qimen",
+        "url": "https://github.com/gaojunxin/yunque-qimen",
+        "description": "云雀奇门遁甲排盘，通过三维模型构建奇门遁甲排盘软件。",
+        "stars": 52,
+        "pushed": "2025-07-29T00:36:19Z",
+        "license": null
+      },
+      {
+        "full_name": "QiMeng-IPRC/QiMeng-cpu-v1",
+        "url": "https://github.com/QiMeng-IPRC/QiMeng-cpu-v1",
+        "description": "[IJCAI 2024] QiMeng-CPU-v1: Automated CPU Design by Learning from Input-Output Examples",
+        "stars": 35,
+        "pushed": "2025-05-04T01:39:40Z",
+        "license": null
+      },
+      {
+        "full_name": "ownthink/Qimen",
+        "url": "https://github.com/ownthink/Qimen",
+        "description": "Qimen表示的是奇门遁甲之术，用于抽取各种实体的工具。",
+        "stars": 29,
+        "pushed": "2020-01-12T11:04:22Z",
+        "license": "MIT"
+      },
+      {
+        "full_name": "oceanjustinlin/qimen",
+        "url": "https://github.com/oceanjustinlin/qimen",
+        "description": "基于AI的奇门遁甲在线起局，局势分析，定论分析和可视化",
+        "stars": 24,
+        "pushed": "2026-09-11T09:32:29Z",
+        "license": "MIT"
+      },
+      {
+        "full_name": "deminzhang/qimen-go",
+        "url": "https://github.com/deminzhang/qimen-go",
+        "description": "golang版奇门遁甲排盘",
+        "stars": 24,
+        "pushed": "2026-09-16T08:58:12Z",
+        "license": "MIT"
+      },
+      {
+        "full_name": "qianmiao888/qimendunjia",
+        "url": "https://github.com/qianmiao888/qimendunjia",
+        "description": "「数术演天机，代码通玄冥」​​奇门遁甲遇LLM，九天玄女授API。阴阳二至转九宫，祸福吉凶算哈希。排盘精确至分秒，解卦赛过老神仙。若能了达阴阳理，天地都来一掌中    \"卦不敢算尽畏天道无常  码不敢写尽恐Bug无穷\"     🌟 ​Star结缘，功德加一​ —— 当代赛博易学实验，非为占卜，止增笑耳。",
+        "stars": 24,
+        "pushed": "2025-08-17T16:21:11Z",
+        "license": null
+      }
+    ]
+  },
+  {
+    "query": "奇门遁甲 in:name,description",
+    "error": "HTTP Error 403: rate limit exceeded"
+  },
+  {
+    "query": "najia in:name",
+    "repositories": [
+      {
+        "full_name": "bopo/najia",
+        "url": "https://github.com/bopo/najia",
+        "description": "基于python开发的纳甲六爻排盘项目",
+        "stars": 45,
+        "pushed": "2023-08-24T04:26:10Z",
+        "license": "MIT"
+      },
+      {
+        "full_name": "ArthurWong/NajiaDexFix",
+        "url": "https://github.com/ArthurWong/NajiaDexFix",
+        "description": "娜迦DEX文件修复程序",
+        "stars": 26,
+        "pushed": "2017-08-03T10:04:32Z",
+        "license": "Apache-2.0"
+      },
+      {
+        "full_name": "naji0329/NajiAutoScroll",
+        "url": "https://github.com/naji0329/NajiAutoScroll",
+        "description": "Auto Scroll Down Chrome Extension.",
+        "stars": 18,
+        "pushed": "2022-01-16T19:05:48Z",
+        "license": null
+      },
+      {
+        "full_name": "iqbalrahman900/najia_app",
+        "url": "https://github.com/iqbalrahman900/najia_app",
+        "description": "",
+        "stars": 2,
+        "pushed": "2024-07-31T18:00:57Z",
+        "license": null
+      },
+      {
+        "full_name": "Rayze-png/baiguan-najian",
+        "url": "https://github.com/Rayze-png/baiguan-najian",
+        "description": "百官纳谏：召集独立智能体，从多方利益、专业视角与时间尺度审议复杂决策的 Codex Skill",
+        "stars": 2,
+        "pushed": "2026-07-24T09:17:35Z",
+        "license": "MIT"
+      },
+      {
+        "full_name": "Najia-afk/Aria_moltbot",
+        "url": "https://github.com/Najia-afk/Aria_moltbot",
+        "description": "",
+        "stars": 1,
+        "pushed": "2026-08-09T22:13:16Z",
+        "license": "NOASSERTION"
+      },
+      {
+        "full_name": "NajiaHakimi/NajiaHakimi",
+        "url": "https://github.com/NajiaHakimi/NajiaHakimi",
+        "description": "Config files for my GitHub profile.",
+        "stars": 1,
+        "pushed": "2021-04-27T12:01:58Z",
+        "license": null
+      },
+      {
+        "full_name": "najia101/najia101",
+        "url": "https://github.com/najia101/najia101",
+        "description": "Config files for my GitHub profile.",
+        "stars": 1,
+        "pushed": "2023-08-01T09:27:38Z",
+        "license": null
+      },
+      {
+        "full_name": "Najia-Hasan/Najia-Hasan",
+        "url": "https://github.com/Najia-Hasan/Najia-Hasan",
+        "description": "",
+        "stars": 1,
+        "pushed": "2025-08-01T15:44:11Z",
+        "license": null
+      },
+      {
+        "full_name": "najialjarwan/najialjarwan",
+        "url": "https://github.com/najialjarwan/najialjarwan",
+        "description": "My Github Profile Repository",
+        "stars": 1,
+        "pushed": "2026-03-27T21:54:54Z",
+        "license": null
+      }
+    ]
+  }
+]

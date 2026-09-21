@@ -1,0 +1,28 @@
+Building for debugging...
+[2 / 14] SujiCore
+[4 / 16] SujiCore
+[12 / 17] ReadingEvalFixtures-product
+[15 / 20] SujiCoreTests-product
+[20 / 24] SujiCoreTests-product
+Build complete! (2.90秒)
+Test Suite 'Selected tests' started at 2026-09-21 11:28:42.189.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 11:28:42.190.
+Test Suite 'DivinationEvidenceTests' started at 2026-09-21 11:28:42.190.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testIndependentLargestEscapedRequestPreservesOriginalReceiptsAndMargin]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testIndependentLargestEscapedRequestPreservesOriginalReceiptsAndMargin]' passed (6.879 seconds).
+Test Suite 'DivinationEvidenceTests' passed at 2026-09-21 11:28:49.069.
+	 Executed 1 test, with 0 failures (0 unexpected) in 6.879 (6.880) seconds
+Test Suite 'JSONValueTransportTests' started at 2026-09-21 11:28:49.070.
+Test Case '-[SujiCoreTests.JSONValueTransportTests testExactRoundtripUnknownFieldsOrderAndNestedSharedValues]' started.
+Test Case '-[SujiCoreTests.JSONValueTransportTests testExactRoundtripUnknownFieldsOrderAndNestedSharedValues]' passed (0.038 seconds).
+Test Case '-[SujiCoreTests.JSONValueTransportTests testMissingForwardCyclicOutOfBoundsUnusedDuplicateAndReservedValuesFailClosed]' started.
+Test Case '-[SujiCoreTests.JSONValueTransportTests testMissingForwardCyclicOutOfBoundsUnusedDuplicateAndReservedValuesFailClosed]' passed (0.051 seconds).
+Test Case '-[SujiCoreTests.JSONValueTransportTests testShortRepeatedEvidencePathsAreSharedWithoutDroppingIdentity]' started.
+Test Case '-[SujiCoreTests.JSONValueTransportTests testShortRepeatedEvidencePathsAreSharedWithoutDroppingIdentity]' passed (0.005 seconds).
+Test Suite 'JSONValueTransportTests' passed at 2026-09-21 11:28:49.164.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.094 (0.094) seconds
+Test Suite 'SujiCoreTests.xctest' passed at 2026-09-21 11:28:49.164.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 6.973 (6.974) seconds
+Test Suite 'Selected tests' passed at 2026-09-21 11:28:49.164.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 6.973 (6.975) seconds
+Divination evidence capacity: 106046 UTF-16 code units, 10 messages, cast UTF-16 [30831, 15245], casts 50574 bytes, request 152887 bytes

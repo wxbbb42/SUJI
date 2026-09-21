@@ -1,0 +1,858 @@
+{
+  "label": "Compatibility evidence only; literal oracle authored before reading these results",
+  "rows": [
+    {
+      "case": "ordinary-or-query-leap",
+      "date": "2025-01-29",
+      "expected": {
+        "date": "2025-01-29",
+        "lunarMonth": 1,
+        "douJun": "巳",
+        "ming": "巳",
+        "natalPalace": "田宅",
+        "monthGanZhi": "戊寅"
+      },
+      "actual": {
+        "monthGanZhi": "戊寅",
+        "ming": "巳",
+        "natalPalace": "田宅",
+        "monthlyMutagens": [
+          "贪狼",
+          "太阴",
+          "右弼",
+          "天机"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "ordinary-or-query-leap",
+      "date": "2025-02-28",
+      "expected": {
+        "date": "2025-02-28",
+        "lunarMonth": 2,
+        "douJun": "巳",
+        "ming": "午",
+        "natalPalace": "官禄",
+        "monthGanZhi": "己卯"
+      },
+      "actual": {
+        "monthGanZhi": "己卯",
+        "ming": "午",
+        "natalPalace": "官禄",
+        "monthlyMutagens": [
+          "武曲",
+          "贪狼",
+          "天梁",
+          "文曲"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "ordinary-or-query-leap",
+      "date": "2025-03-29",
+      "expected": {
+        "date": "2025-03-29",
+        "lunarMonth": 3,
+        "douJun": "巳",
+        "ming": "未",
+        "natalPalace": "仆役",
+        "monthGanZhi": "庚辰"
+      },
+      "actual": {
+        "monthGanZhi": "庚辰",
+        "ming": "未",
+        "natalPalace": "仆役",
+        "monthlyMutagens": [
+          "太阳",
+          "武曲",
+          "太阴",
+          "天同"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "ordinary-or-query-leap",
+      "date": "2025-04-28",
+      "expected": {
+        "date": "2025-04-28",
+        "lunarMonth": 4,
+        "douJun": "巳",
+        "ming": "申",
+        "natalPalace": "迁移",
+        "monthGanZhi": "辛巳"
+      },
+      "actual": {
+        "monthGanZhi": "辛巳",
+        "ming": "申",
+        "natalPalace": "迁移",
+        "monthlyMutagens": [
+          "巨门",
+          "太阳",
+          "文曲",
+          "文昌"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "ordinary-or-query-leap",
+      "date": "2025-05-27",
+      "expected": {
+        "date": "2025-05-27",
+        "lunarMonth": 5,
+        "douJun": "巳",
+        "ming": "酉",
+        "natalPalace": "疾厄",
+        "monthGanZhi": "壬午"
+      },
+      "actual": {
+        "monthGanZhi": "壬午",
+        "ming": "酉",
+        "natalPalace": "疾厄",
+        "monthlyMutagens": [
+          "天梁",
+          "紫微",
+          "左辅",
+          "武曲"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "ordinary-or-query-leap",
+      "date": "2025-06-25",
+      "expected": {
+        "date": "2025-06-25",
+        "lunarMonth": 6,
+        "douJun": "巳",
+        "ming": "戌",
+        "natalPalace": "财帛",
+        "monthGanZhi": "癸未"
+      },
+      "actual": {
+        "monthGanZhi": "癸未",
+        "ming": "戌",
+        "natalPalace": "财帛",
+        "monthlyMutagens": [
+          "破军",
+          "巨门",
+          "太阴",
+          "贪狼"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "ordinary-or-query-leap",
+      "date": "2025-08-23",
+      "expected": {
+        "date": "2025-08-23",
+        "lunarMonth": 7,
+        "douJun": "巳",
+        "ming": "亥",
+        "natalPalace": "子女",
+        "monthGanZhi": "甲申"
+      },
+      "actual": {
+        "monthGanZhi": "甲申",
+        "ming": "亥",
+        "natalPalace": "子女",
+        "monthlyMutagens": [
+          "廉贞",
+          "破军",
+          "武曲",
+          "太阳"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "ordinary-or-query-leap",
+      "date": "2025-09-22",
+      "expected": {
+        "date": "2025-09-22",
+        "lunarMonth": 8,
+        "douJun": "巳",
+        "ming": "子",
+        "natalPalace": "夫妻",
+        "monthGanZhi": "乙酉"
+      },
+      "actual": {
+        "monthGanZhi": "乙酉",
+        "ming": "子",
+        "natalPalace": "夫妻",
+        "monthlyMutagens": [
+          "天机",
+          "天梁",
+          "紫微",
+          "太阴"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "ordinary-or-query-leap",
+      "date": "2025-10-21",
+      "expected": {
+        "date": "2025-10-21",
+        "lunarMonth": 9,
+        "douJun": "巳",
+        "ming": "丑",
+        "natalPalace": "兄弟",
+        "monthGanZhi": "丙戌"
+      },
+      "actual": {
+        "monthGanZhi": "丙戌",
+        "ming": "丑",
+        "natalPalace": "兄弟",
+        "monthlyMutagens": [
+          "天同",
+          "天机",
+          "文昌",
+          "廉贞"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "ordinary-or-query-leap",
+      "date": "2025-11-20",
+      "expected": {
+        "date": "2025-11-20",
+        "lunarMonth": 10,
+        "douJun": "巳",
+        "ming": "寅",
+        "natalPalace": "命宫",
+        "monthGanZhi": "丁亥"
+      },
+      "actual": {
+        "monthGanZhi": "丁亥",
+        "ming": "寅",
+        "natalPalace": "命宫",
+        "monthlyMutagens": [
+          "太阴",
+          "天同",
+          "天机",
+          "巨门"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "ordinary-or-query-leap",
+      "date": "2025-12-20",
+      "expected": {
+        "date": "2025-12-20",
+        "lunarMonth": 11,
+        "douJun": "巳",
+        "ming": "卯",
+        "natalPalace": "父母",
+        "monthGanZhi": "戊子"
+      },
+      "actual": {
+        "monthGanZhi": "戊子",
+        "ming": "卯",
+        "natalPalace": "父母",
+        "monthlyMutagens": [
+          "贪狼",
+          "太阴",
+          "右弼",
+          "天机"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "ordinary-or-query-leap",
+      "date": "2026-01-19",
+      "expected": {
+        "date": "2026-01-19",
+        "lunarMonth": 12,
+        "douJun": "巳",
+        "ming": "辰",
+        "natalPalace": "福德",
+        "monthGanZhi": "己丑"
+      },
+      "actual": {
+        "monthGanZhi": "己丑",
+        "ming": "辰",
+        "natalPalace": "福德",
+        "monthlyMutagens": [
+          "武曲",
+          "贪狼",
+          "天梁",
+          "文曲"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "ordinary-or-query-leap",
+      "date": "2023-04-05",
+      "expected": {
+        "date": "2023-04-05",
+        "lunarMonth": 2,
+        "lunarDay": 15,
+        "leap": true,
+        "effectiveMonth": 2,
+        "douJun": "卯",
+        "ming": "辰",
+        "natalPalace": "福德",
+        "monthGanZhi": "乙卯"
+      },
+      "actual": {
+        "monthGanZhi": "乙卯",
+        "ming": "辰",
+        "natalPalace": "福德",
+        "monthlyMutagens": [
+          "天机",
+          "天梁",
+          "紫微",
+          "太阴"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "ordinary-or-query-leap",
+      "date": "2023-04-06",
+      "expected": {
+        "date": "2023-04-06",
+        "lunarMonth": 2,
+        "lunarDay": 16,
+        "leap": true,
+        "effectiveMonth": 3,
+        "douJun": "卯",
+        "ming": "巳",
+        "natalPalace": "田宅",
+        "monthGanZhi": "丙辰"
+      },
+      "actual": {
+        "monthGanZhi": "丙辰",
+        "ming": "巳",
+        "natalPalace": "田宅",
+        "monthlyMutagens": [
+          "天同",
+          "天机",
+          "文昌",
+          "廉贞"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "ordinary-or-query-leap",
+      "date": "2023-04-20",
+      "expected": {
+        "date": "2023-04-20",
+        "lunarMonth": 3,
+        "lunarDay": 1,
+        "leap": false,
+        "effectiveMonth": 3,
+        "douJun": "卯",
+        "ming": "巳",
+        "natalPalace": "田宅",
+        "monthGanZhi": "丙辰"
+      },
+      "actual": {
+        "monthGanZhi": "丙辰",
+        "ming": "巳",
+        "natalPalace": "田宅",
+        "monthlyMutagens": [
+          "天同",
+          "天机",
+          "文昌",
+          "廉贞"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "ordinary-or-query-leap",
+      "date": "2025-07-25",
+      "expected": {
+        "date": "2025-07-25",
+        "lunarMonth": 6,
+        "lunarDay": 1,
+        "leap": true,
+        "effectiveMonth": 6,
+        "douJun": "巳",
+        "ming": "戌",
+        "natalPalace": "财帛",
+        "monthGanZhi": "癸未"
+      },
+      "actual": {
+        "monthGanZhi": "癸未",
+        "ming": "戌",
+        "natalPalace": "财帛",
+        "monthlyMutagens": [
+          "破军",
+          "巨门",
+          "太阴",
+          "贪狼"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "ordinary-or-query-leap",
+      "date": "2025-08-08",
+      "expected": {
+        "date": "2025-08-08",
+        "lunarMonth": 6,
+        "lunarDay": 15,
+        "leap": true,
+        "effectiveMonth": 6,
+        "douJun": "巳",
+        "ming": "戌",
+        "natalPalace": "财帛",
+        "monthGanZhi": "癸未"
+      },
+      "actual": {
+        "monthGanZhi": "癸未",
+        "ming": "戌",
+        "natalPalace": "财帛",
+        "monthlyMutagens": [
+          "破军",
+          "巨门",
+          "太阴",
+          "贪狼"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "ordinary-or-query-leap",
+      "date": "2025-08-09",
+      "expected": {
+        "date": "2025-08-09",
+        "lunarMonth": 6,
+        "lunarDay": 16,
+        "leap": true,
+        "effectiveMonth": 7,
+        "douJun": "巳",
+        "ming": "亥",
+        "natalPalace": "子女",
+        "monthGanZhi": "甲申"
+      },
+      "actual": {
+        "monthGanZhi": "甲申",
+        "ming": "亥",
+        "natalPalace": "子女",
+        "monthlyMutagens": [
+          "廉贞",
+          "破军",
+          "武曲",
+          "太阳"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "birth-leap",
+      "expected": {
+        "birthSolarDate": "2023-04-05",
+        "timeIndex": 6,
+        "birthHour": "午",
+        "birthLunarMonth": 2,
+        "birthLunarDay": 15,
+        "birthLeap": true,
+        "effectiveBirthMonth": 2,
+        "natalMing": "酉",
+        "queryDate": "2025-01-29",
+        "douJun": "戌",
+        "ming": "戌",
+        "monthGanZhi": "戊寅"
+      },
+      "actual": {
+        "monthGanZhi": "戊寅",
+        "ming": "戌",
+        "natalPalace": "父母",
+        "monthlyMutagens": [
+          "贪狼",
+          "太阴",
+          "右弼",
+          "天机"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "birth-leap",
+      "expected": {
+        "birthSolarDate": "2023-04-06",
+        "timeIndex": 6,
+        "birthHour": "午",
+        "birthLunarMonth": 2,
+        "birthLunarDay": 16,
+        "birthLeap": true,
+        "effectiveBirthMonth": 3,
+        "natalMing": "戌",
+        "queryDate": "2025-01-29",
+        "douJun": "酉",
+        "ming": "酉",
+        "monthGanZhi": "戊寅"
+      },
+      "actual": {
+        "monthGanZhi": "戊寅",
+        "ming": "酉",
+        "natalPalace": "兄弟",
+        "monthlyMutagens": [
+          "贪狼",
+          "太阴",
+          "右弼",
+          "天机"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "canonical-date-compatibility",
+      "expected": {
+        "reference": "2024-02-09T22:59:00+08:00",
+        "calculationDate": "2024-02-09",
+        "lunarYear": 2023,
+        "lunarMonth": 12,
+        "lunarDay": 30,
+        "yearGanZhi": "癸卯",
+        "douJun": "卯",
+        "ming": "寅",
+        "natalPalace": "命宫",
+        "monthGanZhi": "乙丑"
+      },
+      "actual": {
+        "monthGanZhi": "乙丑",
+        "ming": "寅",
+        "natalPalace": "命宫",
+        "monthlyMutagens": [
+          "天机",
+          "天梁",
+          "紫微",
+          "太阴"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "canonical-date-compatibility",
+      "expected": {
+        "reference": "2024-02-09T23:00:00+08:00",
+        "calculationDate": "2024-02-10",
+        "lunarYear": 2024,
+        "lunarMonth": 1,
+        "lunarDay": 1,
+        "yearGanZhi": "甲辰",
+        "douJun": "辰",
+        "ming": "辰",
+        "natalPalace": "福德",
+        "monthGanZhi": "丙寅"
+      },
+      "actual": {
+        "monthGanZhi": "丙寅",
+        "ming": "辰",
+        "natalPalace": "福德",
+        "monthlyMutagens": [
+          "天同",
+          "天机",
+          "文昌",
+          "廉贞"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "canonical-date-compatibility",
+      "expected": {
+        "reference": "2023-04-05T22:59:00+08:00",
+        "calculationDate": "2023-04-05",
+        "lunarYear": 2023,
+        "lunarMonth": 2,
+        "lunarDay": 15,
+        "leap": true,
+        "yearGanZhi": "癸卯",
+        "douJun": "卯",
+        "ming": "辰",
+        "natalPalace": "福德",
+        "monthGanZhi": "乙卯"
+      },
+      "actual": {
+        "monthGanZhi": "乙卯",
+        "ming": "辰",
+        "natalPalace": "福德",
+        "monthlyMutagens": [
+          "天机",
+          "天梁",
+          "紫微",
+          "太阴"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "canonical-date-compatibility",
+      "expected": {
+        "reference": "2023-04-05T23:00:00+08:00",
+        "calculationDate": "2023-04-06",
+        "lunarYear": 2023,
+        "lunarMonth": 2,
+        "lunarDay": 16,
+        "leap": true,
+        "yearGanZhi": "癸卯",
+        "douJun": "卯",
+        "ming": "巳",
+        "natalPalace": "田宅",
+        "monthGanZhi": "丙辰"
+      },
+      "actual": {
+        "monthGanZhi": "丙辰",
+        "ming": "巳",
+        "natalPalace": "田宅",
+        "monthlyMutagens": [
+          "天同",
+          "天机",
+          "文昌",
+          "廉贞"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "canonical-date-compatibility",
+      "expected": {
+        "reference": "2025-08-08T22:59:00+08:00",
+        "calculationDate": "2025-08-08",
+        "lunarYear": 2025,
+        "lunarMonth": 6,
+        "lunarDay": 15,
+        "leap": true,
+        "yearGanZhi": "乙巳",
+        "douJun": "巳",
+        "ming": "戌",
+        "natalPalace": "财帛",
+        "monthGanZhi": "癸未"
+      },
+      "actual": {
+        "monthGanZhi": "癸未",
+        "ming": "戌",
+        "natalPalace": "财帛",
+        "monthlyMutagens": [
+          "破军",
+          "巨门",
+          "太阴",
+          "贪狼"
+        ]
+      },
+      "pass": true
+    },
+    {
+      "case": "canonical-date-compatibility",
+      "expected": {
+        "reference": "2025-08-08T23:00:00+08:00",
+        "calculationDate": "2025-08-09",
+        "lunarYear": 2025,
+        "lunarMonth": 6,
+        "lunarDay": 16,
+        "leap": true,
+        "yearGanZhi": "乙巳",
+        "douJun": "巳",
+        "ming": "亥",
+        "natalPalace": "子女",
+        "monthGanZhi": "甲申"
+      },
+      "actual": {
+        "monthGanZhi": "甲申",
+        "ming": "亥",
+        "natalPalace": "子女",
+        "monthlyMutagens": [
+          "廉贞",
+          "破军",
+          "武曲",
+          "太阳"
+        ]
+      },
+      "pass": true
+    }
+  ],
+  "raw23": [
+    {
+      "case": "raw-upstream-no-full-rollover",
+      "reference": "2024-02-09T23:00:00+08:00",
+      "canonicalExpected": {
+        "reference": "2024-02-09T23:00:00+08:00",
+        "calculationDate": "2024-02-10",
+        "lunarYear": 2024,
+        "lunarMonth": 1,
+        "lunarDay": 1,
+        "yearGanZhi": "甲辰",
+        "douJun": "辰",
+        "ming": "辰",
+        "natalPalace": "福德",
+        "monthGanZhi": "丙寅"
+      },
+      "rawUpstream": {
+        "monthGanZhi": "乙丑",
+        "ming": "寅",
+        "natalPalace": "命宫",
+        "monthlyMutagens": [
+          "天机",
+          "天梁",
+          "紫微",
+          "太阴"
+        ]
+      },
+      "expectedDifferenceObserved": true
+    },
+    {
+      "case": "raw-upstream-no-full-rollover",
+      "reference": "2023-04-05T23:00:00+08:00",
+      "canonicalExpected": {
+        "reference": "2023-04-05T23:00:00+08:00",
+        "calculationDate": "2023-04-06",
+        "lunarYear": 2023,
+        "lunarMonth": 2,
+        "lunarDay": 16,
+        "leap": true,
+        "yearGanZhi": "癸卯",
+        "douJun": "卯",
+        "ming": "巳",
+        "natalPalace": "田宅",
+        "monthGanZhi": "丙辰"
+      },
+      "rawUpstream": {
+        "monthGanZhi": "乙卯",
+        "ming": "辰",
+        "natalPalace": "福德",
+        "monthlyMutagens": [
+          "天机",
+          "天梁",
+          "紫微",
+          "太阴"
+        ]
+      },
+      "expectedDifferenceObserved": true
+    },
+    {
+      "case": "raw-upstream-no-full-rollover",
+      "reference": "2025-08-08T23:00:00+08:00",
+      "canonicalExpected": {
+        "reference": "2025-08-08T23:00:00+08:00",
+        "calculationDate": "2025-08-09",
+        "lunarYear": 2025,
+        "lunarMonth": 6,
+        "lunarDay": 16,
+        "leap": true,
+        "yearGanZhi": "乙巳",
+        "douJun": "巳",
+        "ming": "亥",
+        "natalPalace": "子女",
+        "monthGanZhi": "甲申"
+      },
+      "rawUpstream": {
+        "monthGanZhi": "癸未",
+        "ming": "戌",
+        "natalPalace": "财帛",
+        "monthlyMutagens": [
+          "破军",
+          "巨门",
+          "太阴",
+          "贪狼"
+        ]
+      },
+      "expectedDifferenceObserved": true
+    }
+  ],
+  "comparison": {
+    "reference": "2023-04-05T12:00:00+08:00",
+    "selectedLunarMonth": "乙卯",
+    "solarTermMonth": "丙辰",
+    "expectedSelected": "乙卯",
+    "expectedSolarTerm": "丙辰"
+  },
+  "counterexample": {
+    "actual": {
+      "monthGanZhi": "戊寅",
+      "ming": "巳",
+      "natalPalace": "田宅",
+      "monthlyMutagens": [
+        "贪狼",
+        "太阴",
+        "右弼",
+        "天机"
+      ]
+    },
+    "expected": {
+      "date": "2025-01-29",
+      "monthlyMing": "巳",
+      "natalPalace": "田宅",
+      "destinationPalaceGanZhi": "丁巳",
+      "monthGanZhi": "戊寅",
+      "monthlyTransformingStem": "戊",
+      "scope": "monthly-month-stem",
+      "transformations": [
+        {
+          "star": "贪狼",
+          "hua": "禄",
+          "position": "巳",
+          "natalPalace": "田宅"
+        },
+        {
+          "star": "太阴",
+          "hua": "权",
+          "position": "辰",
+          "natalPalace": "福德"
+        },
+        {
+          "star": "右弼",
+          "hua": "科",
+          "position": "戌",
+          "natalPalace": "财帛"
+        },
+        {
+          "star": "天机",
+          "hua": "忌",
+          "position": "子",
+          "natalPalace": "夫妻"
+        }
+      ],
+      "coexistingAnnualMark": {
+        "star": "天机",
+        "hua": "禄",
+        "scope": "annual-year-stem",
+        "yearStem": "乙"
+      }
+    },
+    "actualDestinationGanZhi": "丁巳",
+    "targetMatches": [
+      {
+        "star": "贪狼",
+        "expectedPosition": "巳",
+        "actualPosition": "巳",
+        "pass": true
+      },
+      {
+        "star": "太阴",
+        "expectedPosition": "辰",
+        "actualPosition": "辰",
+        "pass": true
+      },
+      {
+        "star": "右弼",
+        "expectedPosition": "戌",
+        "actualPosition": "戌",
+        "pass": true
+      },
+      {
+        "star": "天机",
+        "expectedPosition": "子",
+        "actualPosition": "子",
+        "pass": true
+      }
+    ],
+    "pass": true
+  },
+  "passing": 26,
+  "total": 26
+}

@@ -1,0 +1,162 @@
+[
+  {
+    "case" : "valid-source-0",
+    "directAccepted" : true
+  },
+  {
+    "case" : "valid-source-1",
+    "directAccepted" : true
+  },
+  {
+    "case" : "valid-source-2",
+    "directAccepted" : true
+  },
+  {
+    "case" : "valid-source-3",
+    "directAccepted" : true
+  },
+  {
+    "case" : "valid-source-4",
+    "directAccepted" : true
+  },
+  {
+    "case" : "valid-source-5",
+    "directAccepted" : true
+  },
+  {
+    "case" : "valid-source-6",
+    "directAccepted" : true
+  },
+  {
+    "case" : "valid-source-7",
+    "directAccepted" : true
+  },
+  {
+    "case" : "missing-moving-row",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "static-original-path",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "borrow-other-change",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "wrong-clash",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "wrong-same-stem",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "wrong-same-branch",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "full-projection-as-movers",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "static-as-repeated",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "opposition-scope-confused",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "efficacy-promoted",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "source-id-wrong",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "missing-unknowns",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "extra-field",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "wrong-values-count",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "wrong-moving-index",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "static-change-decoration",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "wrong-projected-stem",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "wrong-actual-change",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "joint-label-projection-and-flags-forgery",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "joint-resulting-label-projection-forgery",
+    "directAccepted" : false,
+    "mutationChanged" : true,
+    "renderAccepted" : false
+  },
+  {
+    "case" : "missing-source",
+    "renderAccepted" : false
+  },
+  {
+    "case" : "hash-corruption",
+    "renderAccepted" : false
+  }
+]

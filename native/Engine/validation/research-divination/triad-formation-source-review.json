@@ -1,0 +1,488 @@
+{
+  "readAt": "2026-09-20",
+  "status": "bounded-source-followup-complete-research-only",
+  "scope": "B5b 三合 source grounding: actual explicit table, inner/outer moving-change scopes, missing member, center/birth/tomb, void/break/tomb and clash qualifications. No production or test edits, calendar reconstruction, medical or event efficacy validation.",
+  "priorReviewCorrection": {
+    "document": "native/Engine/validation/research-divination/triad-fanfu-source-review.json",
+    "priorClaim": "No dedicated complete 三合 chapter was available in the archives; endpoint routes were only a narrow generalization of literal examples.",
+    "correctedFinding": "The page labelled 六合章第十九 (增刪卜易/19) contains a full three-combination section after the 六合 examples. Reading only the heading or the unexpanded root raw text misses it. The /19 hash is already the existing calendar-relations source hash; this follow-up reads and archives its previously missed body section.",
+    "effect": "The inner-change and outer-change endpoint scopes now have explicit textual support. The motion-count conditions remain textually inconsistent; no silently repaired universal formation law is adopted."
+  },
+  "sources": [
+    {
+      "id": "zsgy-19-triad",
+      "title": "增刪卜易/19",
+      "url": "https://zh.wikisource.org/wiki/增刪卜易/19",
+      "rawUrl": "https://zh.wikisource.org/w/index.php?title=%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93%2F19&action=raw",
+      "sha256": "087c35339f209c6d1359c01d8a918a535eb6151729973fc09ef960c1195f3fdf",
+      "bytes": 7054,
+      "editionStatus": "electronic-transcription-not-print-collated",
+      "text": "{{Header2\n | title = [[增刪卜易]]\n | author = 野鶴老人\n | section = 六合章第十九\n}}{{Textquality|50%}}\n<onlyinclude>\n子與丑合、寅與亥合、卯與戌合、辰與酉合、巳與申合，午與未合。相合法有六：日月合爻者一也。爻與爻合者二也。爻動化合者三也，卦逢六合四也。六沖卦變六合卦五也。六合卦變六合卦六也。日、月合爻者，假令丑月占得坎卦，世爻子水與月建作合是也。爻與爻合者，假令得天風姤卦、世爻丑動化出子水作合是也。卦逢六合者卽如天地否卦內外六爻自相和合是也，不動亦是。六沖卦變六和卦者，假令得乾爲天乃是八純六沖卦，若外卦三爻值動，乃是乾之泰卦，謂之六沖變六合是了。六合卦變六合者卽如占得旅卦變賁卦是也。\n\n爻之合者，靜而逢合，謂之合起。動而逢合，合謂之合絆。爻與爻合謂之合好，爻動化合謂之化扶。爻靜或與日月動爻合者得合而起。卽使爻值休囚亦有旺相之意。爻動或與日月動爻合者謂之動逢合而絆住，反不能動之意。爻動與動爻相合，乃得他來合我，與我和好，相助之意。爻動化出之爻回頭相合者，謂之化扶，得他扶助之意。\n\n凡得諸合，諸占皆以爲吉，占名成，占利利就，占婚必成，占身發福，占宅興旺，占風水聚气藏風、占求謀遂心合意，然必用神有气相宜，用若失陷無益。卜書曰：萬事若得三六合，諸事必得久遠，有始有終。但宜吉事逢之，事必就，不宜凶事逢之，事之難結。\n\n如申月丙子日占出門，得明夷小過。\n<pre>\n父母酉金⚋　　官鬼戌土⚋\n兄弟亥水⚋　　父母申金⚋\n官鬼丑土ㄨ世　妻財午火⚊\n兄弟亥水⚊　　父母申金⚊\n官鬼丑土⚋　　妻財午火⚋\n子孫卯木○應　官鬼辰土⚋\n</pre>\n\n世動破，予曰：合住必有事絆，不能動身。伊曰：因何而阻？予曰：卦中子動變鬼，防兒女不安。彼曰：因小女多病，男家催促成婚，今欲往外求取財物以備妝奩。予曰：所得何病？彼曰：血枯成勞。予曰：卯木子孫申月絕之，子日刑之，且動而變鬼，恐嫁之不及矣。後因病重，此人未去，女死辰日，夫應不去者，世動而逢合也，女死辰日者，卯木子孫變辰土之故也。此乃爻之遇合、卦逢六合之驗也。予又驗其六沖卦變六合者。\n\n如未月丁巳日占已悔婚還可成否得離卦變火山旅\n<pre>\n兄弟巳火⚊世　兄弟巳火⚊\n子孫未土⚋　　子孫未土⚋\n妻財酉金⚊　　妻財酉金⚊\n官鬼亥水⚊應　妻財申金⚊\n子孫丑土⚋　　兄弟午火⚋\n父母卯木○　　子孫辰土⚋\n</pre>\n\n斷曰：此卦從來難以吉斷，因得屢驗六沖變合，散而復聚，離而必合，此婚一定還成，果於次年三月仍成婚。\n\n諸合皆以用神旺者爲吉，獨此六沖卦變六合得不看用神，竟以吉斷。占婚姻先吳越而後朱陳，占夫妻先參商後必合好，占功名始則艱駐，終頃榮顯。占求謀先難後易，占身命先困後顯，占風水巧處奇逢，占家宅先衰後盛。\n\n六合卦變六合。爻逢六合已爲吉兆，動而變六合謂始終而作合也。占風水百代顯榮。占宅捨千秋基業、占婚姻白頭相守，占功名仕路亨通，占財帛聚積如山，占兄弟累世同居，宜合吉，不宜合凶，諸占用神臨日月者，吉之又吉也。惟占訟獄不利，冤仇難解，及占憂疑怪事，終不開心，占孕胎安，占產難生，若再用神受克，更爲凶兆。\n\n如卯月甲寅日占風水得困之節。\n<pre>\n父母未土⚋　　子孫子水⚋\n兄弟酉金⚊　　父母戌土⚊\n子孫亥水○應　兄弟申金⚋\n官鬼午火⚋　　父母丑土⚋\n父母辰土⚊　　妻財卯木⚊\n妻財寅木ㄨ世　官鬼巳火⚊\n</pre>\n\n予曰：占祖塋必有其故，自葬後何事不亨？今日之念因何而起？明以告我，方敢決斷。彼曰：自葬之後功名屢困，年近五旬，尙無子息，是以問之曰：此塋之有疑否？予曰：龍自右脈來，水亦從左而還源，流水不歸漕之故耳。彼曰：何以知之，予曰：亥水子孫化申金生之，申爲源流，寅日沖之，若能使水歸漕，不至傍流者，明年起用，再拜丹墀，申年定生鱗種，彼曰：長久安泰否？予曰；六合萬載安然。\n\n申子辰合成水局、巳酉丑合成金局、寅午戌合成火局、亥卯未合成木局。此三合者有四。一卦之內有一爻動而合局者一也。若兩爻動一爻不動亦成合局者二也。有內卦初爻、三爻、動而變出爻成三合者三也。又有外四爻、六爻動、動而變出之爻成三合者四也。然此三合者有凶有吉。如占功名合成官局謂之官旺，合成財局財旺生官，倘若合成子孫局者乃傷煞之神也。如占求財合成財局者謂之財庫；合成子孫局者謂之子局生財；倘若合成兄弟局者乃破財、耗財、阻隔之神也。如占祖塋、家宅宜父母爻而合局也。如占婚姻、夫婦、宜財官旺而合局。凡占求謀喜慶之事宜於成局，永遠堅牢。\n\n若占官訟、憂疑而合局者，終身團結，其心難於消釋，但三合其局者必要世爻在局者爲美，若世爻不在於局內，須要局生世爻爲吉，局克世爻爲凶，三爻若有兩爻動，不成局，須待後之補湊合成其局，謂之虛三待用。一爻明動一爻暗動亦作兩爻動。三合局中若有一空破者，待塡滿之日月成之。有一爻入墓者待沖開之日成之。凡得三合名利婚姻、家宅、風水，用神旺者無不爲吉，必要世爻在局爲美、若不在於局內須要局生世爻爲吉，局克世爻爲凶。如占財，財局生世利於我財，局生應利於他。占出行用神在三合內被合而畱。占行人用神在三合之內被合不回。又有內卦外卦而成三合者須分內外。如占家宅若屬外宅不宜外卦克內，若居內宅須宜內卦生外卦，又如占彼此之形者，內卦爲我，外卦爲他。外卦合局而內卦者爲吉，克內卦者爲凶。\n\n如卯月丁巳日上下兩村因田水撕打得離之坤卦。\n<pre>\n兄弟巳火○世　妻財酉金⚋\n子孫未土⚋　　官鬼亥水⚋\n妻財酉金○　　子孫丑土⚋\n官鬼亥水○應　父母卯木⚋\n子孫丑土⚋　　兄弟巳火⚋\n父母卯木○　　子孫未土⚋\n</pre>\n\n斷曰：內卦爲我村，亥卯未合成木局，外卦爲人村，巳酉丑合金局來克木，幸衰金不克旺木，不足畏也。況系六沖卦變六沖，有人解散必不成訟，後果勸散。\n\n或問：彼此之形，必以世應爲主，如何不言世應？予曰：若無內外合局者，須看世應，今彼此兩村卽內外兩卦人眾同心，彼此合局，神之如用靈驗顯然，故捨世應而不用也，若非卦化六沖，未有不成非也。</onlyinclude>\n{{PD-old}}",
+      "passages": [
+        {
+          "id": "four-sets-and-four-forms",
+          "startUnicodeCodepoint": 1608,
+          "endUnicodeCodepoint": 1722,
+          "sha256": "52e0a25f4ab8392fe309ab7ad98b5fbf0d5b235e596adc8a8728e87a70ab67d7",
+          "text": "申子辰合成水局、巳酉丑合成金局、寅午戌合成火局、亥卯未合成木局。此三合者有四。一卦之內有一爻動而合局者一也。若兩爻動一爻不動亦成合局者二也。有內卦初爻、三爻、動而變出爻成三合者三也。又有外四爻、六爻動、動而變出之爻成三合者四也。"
+        },
+        {
+          "id": "conditional-completion-and-dark-movement",
+          "startUnicodeCodepoint": 1934,
+          "endUnicodeCodepoint": 2012,
+          "sha256": "8a3f5fbd68cdc6b8b31d317596f455859c0212f93c389286266c59f03ccf087b",
+          "text": "三爻若有兩爻動，不成局，須待後之補湊合成其局，謂之虛三待用。一爻明動一爻暗動亦作兩爻動。三合局中若有一空破者，待塡滿之日月成之。有一爻入墓者待沖開之日成之。"
+        },
+        {
+          "id": "inner-outer-separation",
+          "startUnicodeCodepoint": 2116,
+          "endUnicodeCodepoint": 2198,
+          "sha256": "6210456e616879b7018d2b83e0ebd1ba15def91bdfae0ffb26e34a0fd838c7a5",
+          "text": "又有內卦外卦而成三合者須分內外。如占家宅若屬外宅不宜外卦克內，若居內宅須宜內卦生外卦，又如占彼此之形者，內卦爲我，外卦爲他。外卦合局而內卦者爲吉，克內卦者爲凶。\n\n"
+        },
+        {
+          "id": "li-kun-two-scoped-sets",
+          "startUnicodeCodepoint": 2198,
+          "endUnicodeCodepoint": 2473,
+          "sha256": "a887547e4ec6b3b59409890012fec3360858d279e98a59eaaabe416736db55fb",
+          "text": "如卯月丁巳日上下兩村因田水撕打得離之坤卦。\n<pre>\n兄弟巳火○世　妻財酉金⚋\n子孫未土⚋　　官鬼亥水⚋\n妻財酉金○　　子孫丑土⚋\n官鬼亥水○應　父母卯木⚋\n子孫丑土⚋　　兄弟巳火⚋\n父母卯木○　　子孫未土⚋\n</pre>\n\n斷曰：內卦爲我村，亥卯未合成木局，外卦爲人村，巳酉丑合金局來克木，幸衰金不克旺木，不足畏也。況系六沖卦變六沖，有人解散必不成訟，後果勸散。\n\n或問：彼此之形，必以世應爲主，如何不言世應？予曰：若無內外合局者，須看世應，今彼此兩村卽內外兩卦人眾同心，彼此合局，神之如用靈驗顯然，故捨世應而不用也，若非卦化六沖，未有不成非也。"
+        }
+      ],
+      "readScope": "Entire raw page read, including its triad material after the 六合 examples. Only the four-set table, formation scopes, conditional completion and the explicitly separated inner/outer example are candidates for B5b. Earlier 六合 medical/event narratives are not adopted or validated."
+    },
+    {
+      "id": "ylyb-1-triad",
+      "title": "易林補遺/1：反吟伏吟定义比较",
+      "url": "https://zh.wikisource.org/wiki/易林補遺/1",
+      "rawUrl": "https://zh.wikisource.org/w/index.php?title=易林補遺/1&action=raw",
+      "sha256": "abf77e78f3fbf77e33c2520e2a3525898894e5f5b0863fb5fa2c44619daab967",
+      "archive": "native/Engine/validation/research-divination/fanfu-additional-source-review.json#/text",
+      "editionStatus": "electronic-transcription-not-print-collated",
+      "passages": [
+        {
+          "id": "center-birth-tomb-and-two-branch-usage",
+          "startUnicodeCodepoint": 11309,
+          "endUnicodeCodepoint": 11640,
+          "sha256": "034f0f91e6b9a885c95cebc3cb4c45e14411da4e891380ff9a66eed76f308f5f",
+          "text": "三合三刑亦有假真之論，六穿六合豈無生克之分?水会申辰，無鼠牙而不取，木成亥卯，少羊角以無妨。 \n\n凡成局者便爲三合，亦育可成不成之间，三合之局取中字爲主，前一字生而主發，後一字墓而主藏，主象有發有藏，故爲三合。其中有發而不藏者，事当有始無終，但有墓而無生者，事必先难後易。且如水局之論，用子爲主，生于申，墓于辰，若得三字歸完真三合也，如有申子二象無辰字者，虽成水局而少收藏。又如有子辰而缺申字者，亦成水局，嫌少根源。 \n\n故先难後易也，若有申辰二爻獨無子字，水象既無，焉能成局?又如木局無卯字者不成，有亥卯無未字也可合，有卯未無亥字亦成合，但缺一字者断爲半吉，若得三字皆全方爲全美，火金二局皆同。凡用爻值三合者，见贵謀事、嫁娶、求財、科甲、田蚕諸般逐意也。 \n\n"
+        },
+        {
+          "id": "clash-prose",
+          "startUnicodeCodepoint": 11198,
+          "endUnicodeCodepoint": 11309,
+          "sha256": "4c4c24758b7f928189d75ec7f14d20aa73836235c98f1449c06ea17f8481ab41",
+          "text": "合被冲開，無丝毫之力；絕逢生起，有數倍之功。 \n\n合处逢冲者，永不相合也。非惟不合，见冲反凶。凡爻遇絕者却，凡卦無此象也；若得動爻及變爻或日辰生起，便爲絕处逢生，比在卦不絕之爻，其功愈大，用神遇之最吉，忌神遇之最凶。 \n\n"
+        }
+      ],
+      "readScope": "Read these actual archived body paragraphs with surrounding context; source hash recomputed. Explicit center/birth/tomb identities, not an efficacy or outcome proof."
+    },
+    {
+      "id": "zsgy-root-existing-excerpts",
+      "url": "https://zh.wikisource.org/wiki/增刪卜易",
+      "rawUrl": "https://zh.wikisource.org/w/index.php?title=%E5%A2%9E%E5%88%AA%E5%8D%9C%E6%98%93&action=raw",
+      "sha256": "897f963b938ec4582bc892465301b831a6439216f317841f44b888117704ca07",
+      "archive": "native/Engine/validation/research-divination/triad-fanfu-source-review.json#/sources/0",
+      "readScope": "Re-read archived body excerpts; per-excerpt hashes verified here. Full root raw source was not re-fetched in this bounded follow-up. Rendered root search incorporates transcluded /19; raw root alone does not inline that chapter.",
+      "passages": [
+        {
+          "id": "root-current-future-clash",
+          "startUnicodeCodepoint": 23890,
+          "endUnicodeCodepoint": 24060,
+          "sha256": "4cd833b96c4db15b1b95f6f66bc27b4b84a0735490b128e3225e344101d6a418",
+          "text": "合遭破以無功。舊注爻相合﹐如兩人同心﹐事必克濟。若日月動爻沖克者﹐則爲合處逢沖。須防小人挑唆﹐合好之中﹐以生疑忌。只在自爲之事者﹐亦被旁人挑阻﹐我事難成。予得驗者﹐凡三合六合﹐𨿽不宜目下日月動爻沖克﹐又宜後來之月沖開。正所謂如逢合住﹐沖破成功。且如爻中寅與亥合﹐事若在申巳之日月方成其事﹐餘仿此。古之不動﹐宜爲之合﹐非也﹐兩爻皆動﹐始爲合。"
+        },
+        {
+          "id": "root-two-moving-short-prose",
+          "startUnicodeCodepoint": 25092,
+          "endUnicodeCodepoint": 25147,
+          "sha256": "9779123f3750a61a045dd151a4b3260dc386092b5b8f2a2a34f3c5cdf7a7bd13",
+          "text": "又如用爻臨巳字﹐卦中動出亥水﹐動克一火﹐若得卯木同動﹐亥卯未合成木局﹐反來生火﹐亦謂之貪合忘克忘沖﹐餘皆仿此。"
+        },
+        {
+          "id": "root-incomplete-fill-policy",
+          "startUnicodeCodepoint": 25219,
+          "endUnicodeCodepoint": 25711,
+          "sha256": "7b22e87018ff139ede1aa50ddaa648562178677143dd9a6bcd0a0920cd609d33",
+          "text": "並不並因多字眼﹐合非合因少支神。舊注卦爻旣成﹐未免有刑沖並合﹐然多一字不成其名﹐少一字亦不成刑沖並合之名也。且如子日卜卦﹐卦中有一子字而謂之並﹐若有二字則分開而太過也﹐名𨿽爲並﹐其實不能並之﹐二午則不沖﹐二卯則不刑﹐二巳則不克﹐此多一字﹐不成刑沖克害之名。\n<br>\n<br>野鶴曰﹕若爻中二子不合二丑﹐名爲合﹐不成者﹐亦有理也。若以日辰不能並爻出之二子不能沖爻中之二午者非也﹐日月如天﹐無處不沾雨露﹐不然何以爲之巡查六爻之善惡。\n<br>\n<br>卽如丑月壬子日占訟\n<br>\n<br>父母戌土⚊\n<br>兄弟申金⚊應\n<br>官鬼午火⚊\n<br>兄弟申金⚊\n<br>官鬼午火⚋世\n<br>父母辰土⚋\n<br>\n<br>斷﹕世臨午火﹐子日沖之﹐休囚爲日破﹐不爲暗動﹐今日若審﹐必有責罰﹐果於本日見官責杖二十﹐此卽卦見二午﹐豈可謂之一子不沖二午耶﹐又曰寅巳申爲三刑﹐若有寅巳二字﹐而無申字﹐或有寅申二字﹐而無巳字﹐但少一字﹐不成三刑﹐又曰亥卯未爲三合﹐卦有二﹐內少一字者﹐不成三合。\n<br>\n<br>野鶴曰﹕此二者皆非其說﹐殊不知虛一待用﹐待後時之月日可以塡之。\n<br>\n<br>"
+        },
+        {
+          "id": "root-fu-qian",
+          "startUnicodeCodepoint": 27329,
+          "endUnicodeCodepoint": 27547,
+          "sha256": "672aad20accacc07e757d7561b5fa114629402c05af684df2a6b37bc9a28ec5d",
+          "text": "如未月戊辰日占年運\n<br>\n<br>子孫酉金⚋　　子孫酉金⚋\n<br>妻財亥水⚋　　妻財亥水⚋\n<br>兄弟丑土⚋應　兄弟丑土⚋\n<br>兄弟辰土ㄨ　　子孫申金⚊\n<br>官鬼寅木⚋　　父母午火⚋\n<br>妻財子水○世　兄弟辰土⚋\n<br>\n<br>斷曰﹕世爻子水是申子辰三合水局﹐不宜日月克世﹐世爻化回頭克﹐動爻辰土又克﹐此乃世爻休囚無气也﹐卯年占﹐卒於午年﹐應午年者﹐世臨歲破之年也﹐豈可謂之墓中人不沖不發耶。\n<br>\n<br>"
+        },
+        {
+          "id": "root-ge-jiaren",
+          "startUnicodeCodepoint": 57937,
+          "endUnicodeCodepoint": 58162,
+          "sha256": "85d408af1f88848fb3e32c6f0e943e56f14e4748b943b5b6b62305f560d49f3b",
+          "text": "如卯月癸未日占終身財福得革之家人\n<br>\n<br>官鬼未土ㄨ　　子孫卯木⚊\n<br>父母酉金⚊　　妻財巳火⚊\n<br>兄弟亥水○世　官鬼未土⚋\n<br>兄弟亥水⚊　　兄弟亥水⚊\n<br>官鬼丑土⚋　　官鬼丑土⚋\n<br>子孫卯木⚊應　子孫卯木⚊\n<br>\n<br>應外卦世與日月同爲三合﹐以爲吉卦﹐不宜世爻變鬼﹐又化回頭之克﹐上爻未土又克﹐目下𨿽則無妨﹐今年五月沖開其合﹐或是酉月沖開卯木﹐須防不測。果至巳月而生惡瘡﹐卒於酉月。\n<br>\n<br>"
+        },
+        {
+          "id": "root-yi-wuwang",
+          "startUnicodeCodepoint": 117821,
+          "endUnicodeCodepoint": 118120,
+          "sha256": "d3c9ff45d04c8906ac5101f43b582ce5bec968bde66d47783bced6dafc5c8656",
+          "text": "寅月戊午日占地得頤變無妄卦\n<br>\n<br>兄弟寅木⚊　　妻財戌土⚊\n<br>父母子水ㄨ　　官鬼申金⚊\n<br>妻財戌土ㄨ世　子孫午火⚊\n<br>妻財辰土⚋　　妻財辰土⚋\n<br>兄弟寅木⚋　　兄弟寅木⚋\n<br>父母子水⚊應　父母子水⚊\n<br>\n<br>斷曰﹕世爻戌土﹐春天休囚﹐化出午火子孫回頭生世﹐日月世爻其成三合﹐靑龍戲水﹐以化長生﹐水源極遠﹐只因申爲月破﹐戌土克子水﹐又被日神沖散﹐春夏有水﹐秋冬必動。彼曰﹕正是如此。予曰﹕不妨﹐不可求全責備﹐卦中日月世與子孫共成三合﹐死者安而生者樂﹐子孫昌盛﹐何愁不發﹐後竟葬之﹐辰年下葬﹐酉年孫中亞魁﹐及至子年﹐次孫又登鄕榜。\n<br>\n<br>"
+        }
+      ]
+    }
+  ],
+  "boundedLookupAudit": {
+    "editionIndex": {
+      "id": "bushi-edition-index",
+      "title": "卜筮正宗（河潞武子龄校本）",
+      "url": "https://zh.wikisource.org/wiki/卜筮正宗（河潞武子龄校本）",
+      "rawUrl": "https://zh.wikisource.org/w/index.php?title=%E5%8D%9C%E7%AD%AE%E6%AD%A3%E5%AE%97%EF%BC%88%E6%B2%B3%E6%BD%9E%E6%AD%A6%E5%AD%90%E9%BE%84%E6%A0%A1%E6%9C%AC%EF%BC%89&action=raw",
+      "sha256": "7f644d3276c0c00cee8650a812f2f22119188b2278e409a466ae91ea3f695bd0",
+      "bytes": 912,
+      "editionStatus": "electronic-transcription-not-print-collated",
+      "text": "{{header\n | title = 卜筮正宗\n | author = 王洪緒\n | times = 清朝\n | year = 1904\n | notes = 清{{YL|光緒甲辰年}}刻本（[http://read.nlc.cn/allSearch/searchDetail?searchType=&showType=1&indexName=data_892&fid=GBZX0301013045 中國國家圖書館館藏]）\n}}{{Textquality|25%}}\n\n卜筮正宗（河潞武子齡校對，京都崇文門外打磨廠文成堂存板）\n\n* [[/卷前|卷前]]\n* [[/卷01|卜筮正宗卷之一]]\n* [[/卷02|卜筮正宗卷之二]]\n* [[/卷03|卜筮正宗卷之三]]\n* [[/卷04|卜筮正宗卷之四]]\n* [[/卷05|卜筮正宗卷之五]]\n* [[/卷06|卜筮正宗卷之六]]\n* [[/卷07|卜筮正宗卷之七]]\n* [[/卷08|卜筮正宗卷之八]]\n* [[/卷09|卜筮正宗卷之九]]\n* [[/卷10|卜筮正宗卷之十]]\n* [[/卷11|卜筮正宗卷之十一]]\n* [[/卷12|卜筮正宗卷之十二]]\n* [[/卷13|卜筮正宗卷之十三]]\n* [[/卷14|卜筮正宗卷之十四]]\n\n{{PD-old}}"
+    },
+    "existingPreface": {
+      "id": "bushi-existing-preface",
+      "title": "卜筮正宗（河潞武子龄校本）/卷前",
+      "url": "https://zh.wikisource.org/wiki/卜筮正宗（河潞武子龄校本）/卷前",
+      "rawUrl": "https://zh.wikisource.org/w/index.php?title=%E5%8D%9C%E7%AD%AE%E6%AD%A3%E5%AE%97%EF%BC%88%E6%B2%B3%E6%BD%9E%E6%AD%A6%E5%AD%90%E9%BE%84%E6%A0%A1%E6%9C%AC%EF%BC%89%2F%E5%8D%B7%E5%89%8D&action=raw",
+      "sha256": "a873413ab907626f25683722dc91b64d2f76d04b3c184a841781f4d6cbd380bc",
+      "bytes": 1702,
+      "editionStatus": "electronic-transcription-not-print-collated",
+      "text": "{{header\n | title = [[../|卜筮正宗]]\n | author = 王洪緒\n | times = 清朝\n | year = 1904\n | notes = 清{{YL|光緒甲辰年}}刻本（[http://read.nlc.cn/allSearch/searchDetail?searchType=&showType=1&indexName=data_892&fid=GBZX0301013045 中國國家圖書館館藏]）\n | next = [[../卷01]]\n}}\n{{Textquality|50%}}\n\n== 卷前 ==\n\n=== 敘 ===\n自古卜筮之說，莫神於[[左氏春秋]]紫陽。朱子謂三代如太卜太筮職有專官，故其業精而其應神，後世既廢其官，而占驗之，書亦不傳，故鮮有神而明之者。然近代如[[黃金策]]諸篇，始有以窮夫陰陽之閫{{!|𥨩|上門下奧}}、造化之機緘，但其間詮解未諦宗之，占驗者未能無訛，以致有傳書而古人之精意不必與之盡傳。苟有好學深思神明其故者，不難自爲其書，以與之發微闡幽也。\n\n林屋王山人垂簾於吳郡之東，偏與余居密，邇有疑輒往叩焉，奇驗不爽如燭照，數計遠近咸頌之爲神，而山人辭其名不受，曰：「吾有所受之也，新安楊廣含先生吾師之，所授占驗一冊爲坊刻羣書所未及比，年以來增益芟薙编成卷帙。」\n\n付之梨枣，余序之曰：「夫聖賢言理，不言數而大易，實爲卜筮之書所設吉凶，悔吝可以前知者，以數測而實以理斷也。今山人之書具在其精搜妙驗，固爲數之獨神，而苟非貫徹於陰陽變化五行生剋之理，亦何以爲數學哉。故是書爲言數之書，而實言理之書也。是以極深研幾，雖古卜筮之神而明之者亦何以加焉。」\n\n時{{YL|康熙己丑}}歲冬十月，吳郡[[張景崧]]書於蓉江草堂。\n\n[[Category:張景崧]]\n\n\n\n{{PD-old}}"
+    },
+    "interpretation": "The edition claims a 1904 imprint and names the National Library holding; neither print scan nor collation was inspected. The existing preface has no 三合 formation rule.",
+    "actualLinks": {
+      "url": "https://zh.wikisource.org/w/api.php?action=parse&page=%E5%8D%9C%E7%AD%AE%E6%AD%A3%E5%AE%97%EF%BC%88%E6%B2%B3%E6%BD%9E%E6%AD%A6%E5%AD%90%E9%BE%84%E6%A0%A1%E6%9C%AC%EF%BC%89&prop=links&format=json",
+      "sha256": "f10b59e09e4b9b253b90718ffc282305097974c5da183d1dc057718a0f60624a",
+      "rawResponse": "{\"parse\":{\"title\":\"\\u535c\\u7b6e\\u6b63\\u5b97\\uff08\\u6cb3\\u6f5e\\u6b66\\u5b50\\u9f84\\u6821\\u672c\\uff09\",\"pageid\":1089493,\"links\":[{\"ns\":4,\"exists\":\"\",\"*\":\"Wikisource:\\u6b63\\u6587\\u54c1\\u8d28\"},{\"ns\":0,\"exists\":\"\",\"*\":\"\\u535c\\u7b6e\\u6b63\\u5b97\\uff08\\u6cb3\\u6f5e\\u6b66\\u5b50\\u9f84\\u6821\\u672c\\uff09/\\u5377\\u524d\"},{\"ns\":0,\"*\":\"\\u535c\\u7b6e\\u6b63\\u5b97\\uff08\\u6cb3\\u6f5e\\u6b66\\u5b50\\u9f84\\u6821\\u672c\\uff09/\\u537701\"},{\"ns\":0,\"*\":\"\\u535c\\u7b6e\\u6b63\\u5b97\\uff08\\u6cb3\\u6f5e\\u6b66\\u5b50\\u9f84\\u6821\\u672c\\uff09/\\u537702\"},{\"ns\":0,\"*\":\"\\u535c\\u7b6e\\u6b63\\u5b97\\uff08\\u6cb3\\u6f5e\\u6b66\\u5b50\\u9f84\\u6821\\u672c\\uff09/\\u537703\"},{\"ns\":0,\"*\":\"\\u535c\\u7b6e\\u6b63\\u5b97\\uff08\\u6cb3\\u6f5e\\u6b66\\u5b50\\u9f84\\u6821\\u672c\\uff09/\\u537704\"},{\"ns\":0,\"*\":\"\\u535c\\u7b6e\\u6b63\\u5b97\\uff08\\u6cb3\\u6f5e\\u6b66\\u5b50\\u9f84\\u6821\\u672c\\uff09/\\u537705\"},{\"ns\":0,\"*\":\"\\u535c\\u7b6e\\u6b63\\u5b97\\uff08\\u6cb3\\u6f5e\\u6b66\\u5b50\\u9f84\\u6821\\u672c\\uff09/\\u537706\"},{\"ns\":0,\"*\":\"\\u535c\\u7b6e\\u6b63\\u5b97\\uff08\\u6cb3\\u6f5e\\u6b66\\u5b50\\u9f84\\u6821\\u672c\\uff09/\\u537707\"},{\"ns\":0,\"*\":\"\\u535c\\u7b6e\\u6b63\\u5b97\\uff08\\u6cb3\\u6f5e\\u6b66\\u5b50\\u9f84\\u6821\\u672c\\uff09/\\u537708\"},{\"ns\":0,\"*\":\"\\u535c\\u7b6e\\u6b63\\u5b97\\uff08\\u6cb3\\u6f5e\\u6b66\\u5b50\\u9f84\\u6821\\u672c\\uff09/\\u537709\"},{\"ns\":0,\"*\":\"\\u535c\\u7b6e\\u6b63\\u5b97\\uff08\\u6cb3\\u6f5e\\u6b66\\u5b50\\u9f84\\u6821\\u672c\\uff09/\\u537710\"},{\"ns\":0,\"*\":\"\\u535c\\u7b6e\\u6b63\\u5b97\\uff08\\u6cb3\\u6f5e\\u6b66\\u5b50\\u9f84\\u6821\\u672c\\uff09/\\u537711\"},{\"ns\":0,\"*\":\"\\u535c\\u7b6e\\u6b63\\u5b97\\uff08\\u6cb3\\u6f5e\\u6b66\\u5b50\\u9f84\\u6821\\u672c\\uff09/\\u537712\"},{\"ns\":0,\"*\":\"\\u535c\\u7b6e\\u6b63\\u5b97\\uff08\\u6cb3\\u6f5e\\u6b66\\u5b50\\u9f84\\u6821\\u672c\\uff09/\\u537713\"},{\"ns\":0,\"*\":\"\\u535c\\u7b6e\\u6b63\\u5b97\\uff08\\u6cb3\\u6f5e\\u6b66\\u5b50\\u9f84\\u6821\\u672c\\uff09/\\u537714\"},{\"ns\":102,\"*\":\"Author:\\u738b\\u6d2a\\u7dd2\"}]}}",
+      "volumeLinks": [
+        {
+          "title": "卜筮正宗（河潞武子龄校本）/卷前",
+          "exists": true
+        },
+        {
+          "title": "卜筮正宗（河潞武子龄校本）/卷01",
+          "exists": false
+        },
+        {
+          "title": "卜筮正宗（河潞武子龄校本）/卷02",
+          "exists": false
+        },
+        {
+          "title": "卜筮正宗（河潞武子龄校本）/卷03",
+          "exists": false
+        },
+        {
+          "title": "卜筮正宗（河潞武子龄校本）/卷04",
+          "exists": false
+        },
+        {
+          "title": "卜筮正宗（河潞武子龄校本）/卷05",
+          "exists": false
+        },
+        {
+          "title": "卜筮正宗（河潞武子龄校本）/卷06",
+          "exists": false
+        },
+        {
+          "title": "卜筮正宗（河潞武子龄校本）/卷07",
+          "exists": false
+        },
+        {
+          "title": "卜筮正宗（河潞武子龄校本）/卷08",
+          "exists": false
+        },
+        {
+          "title": "卜筮正宗（河潞武子龄校本）/卷09",
+          "exists": false
+        },
+        {
+          "title": "卜筮正宗（河潞武子龄校本）/卷10",
+          "exists": false
+        },
+        {
+          "title": "卜筮正宗（河潞武子龄校本）/卷11",
+          "exists": false
+        },
+        {
+          "title": "卜筮正宗（河潞武子龄校本）/卷12",
+          "exists": false
+        },
+        {
+          "title": "卜筮正宗（河潞武子龄校本）/卷13",
+          "exists": false
+        },
+        {
+          "title": "卜筮正宗（河潞武子龄校本）/卷14",
+          "exists": false
+        }
+      ]
+    },
+    "directFetches": [
+      {
+        "title": "卜筮正宗（河潞武子龄校本）/卷01",
+        "result": "HTTP404; curl --fail exit56"
+      },
+      {
+        "title": "卜筮正宗（河潞武子龄校本）/卷02",
+        "result": "HTTP404; curl --fail exit56"
+      },
+      {
+        "title": "卜筮正宗（河潞武子龄校本）/卷03",
+        "result": "HTTP404; curl --fail exit56"
+      }
+    ],
+    "titleResolution": "Root raw explicitly redirected to 卜筮正宗（河潞武子龄校本）. API links confirm 卷01..14 are red links (no exists key); only 卷前 exists. Traditional 齡 variants of the first three chapters also returned404. Remaining red links were not crawled.",
+    "otherEditionLookup": "allpages prefix query attempted twice; both TLS connection failures. This does not prove absence of other editions or external transcriptions.",
+    "targetedDiscovery": {
+      "query": "\"三合\" \"初爻\"",
+      "url": "https://zh.wikisource.org/w/api.php?action=query&list=search&srsearch=%22%E4%B8%89%E5%90%88%22%20%22%E5%88%9D%E7%88%BB%22&srlimit=10&format=json",
+      "sha256": "20c1d7ac1a3581d122265791ea400bbf8799e85c1349270170b04b64c9345956",
+      "rawResponse": "{\"batchcomplete\":\"\",\"continue\":{\"sroffset\":10,\"continue\":\"-||\"},\"query\":{\"searchinfo\":{\"totalhits\":162},\"search\":[{\"ns\":0,\"title\":\"\\u6b3d\\u5b9a\\u5354\\u7d00\\u8fa8\\u65b9\\u66f8 (\\u56db\\u5eab\\u5168\\u66f8\\u672c)/\\u537706\",\"pageid\":258552,\"size\":38409,\"wordcount\":10130,\"snippet\":\"\\u3000\\u3000\\u6309\\u5730\\u56ca\\u4e43\\u56db\\u6642<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u5366\\u4e4b\\u7d0d\\u7532\\u84cb<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u7121\\u571f\\u5c40\\u800c\\u571f\\u65fa\\u65bc\\u56db\\u5b63\\u6728\\u706b\\u91d1\\u6c34\\u4e4b\\u6240\\u4ee5\\u751f\\u65fa\\u5893\\u8005\\u7121\\u9069\\u975e\\u571f\\u6545\\u7528\\u7576\\u6642<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u5366\\u5185\\u5916\\u5169<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u4e4b\\u7d0d\\u7532\\u70ba\\u5730\\u56ca\\u65e5\\u5176\\u4e00\\u5366\\u5169\\u7528\\u8005\\u5247\\u518d\\u7528\\u4e16\\u61c9\\u4e8c\\u723b\\u4e4b\\u7d0d\\u7532\\u65e5\\u6625\\u6728\\u4ea5\\u5918\\u672a\\u5c40\\u70ba\\u9707\\u5764\\u4e7e\\u5366\\u6b63\\u6708\\u7528\\u9707\\u5185\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u5e9a\\u5b50\\u5916\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u5e9a\\u5348\\u4e8c\\u6708\\u7528\\u5764\\u5185\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u4e59\\u672a\\u5916\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u7678\\u4e11\\u4e09\\u6708\\u7528\\u4e7e\\u5185\\u5366\\u521d\\u652f\\u7532\\u5b50\\u5916\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u58ec\\u5348\\u590f\\u706b\\u5bc5\\u5348\\u620c\\u5c40\\u70ba\\u96e2\\u4e7e\\u826e\\u5366\\u56db\\u6708\\u7528\\u96e2\\u5185\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\",\"timestamp\":\"2016-10-27T11:54:36Z\"},{\"ns\":0,\"title\":\"\\u6b3d\\u5b9a\\u5354\\u7d00\\u8fa8\\u65b9\\u66f8 (\\u56db\\u5eab\\u5168\\u66f8\\u672c)\",\"pageid\":258603,\"size\":40582,\"wordcount\":8764,\"snippet\":\"\\u3000\\u3000\\u4e00\\u5730\\u56ca\\u4e43\\u56db\\u6642<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u5366\\u4e4b\\u7d0d\\u7532\\u84cb<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u7121\\u571f\\u5c40\\u800c\\u571f\\u65fa\\u65bc\\u56db\\u5b63\\u6728\\u706b\\u91d1\\u6c34\\u4e4b\\u6240\\u4ee5\\u751f\\u65fa\\u5893\\u8005\\u7121\\u9069\\u975e\\u571f\\u6545\\u7528\\u7576\\u6642<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u5366\\u5185\\u5916\\u5169<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u4e4b\\u7d0d\\u7532\\u70ba\\u5730\\u56ca\\u65e5\\u5176\\u4e00\\u5366\\u5169\\u7528\\u8005\\u5247\\u518d\\u7528\\u4e16\\u61c9\\u4e8c\\u723b\\u4e4b\\u7d0d\\u7532\\u65e5\\u6625\\u6728\\u4ea5\\u536f\\u672a\\u5c40\\u70ba\\u9707\\u5764\\u4e7e\\u5366\\u6b63\\u6708\\u7528\\u9707\\u5185\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u5e9a\\u5b50\\u5916\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u5e9a\\u5348\\u4e8c\\u6708\\u7528\\u5764\\u5185\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u4e59\\u672a\\u5916\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u7678\\u4e11\\u4e09\\u6708\\u7528\\u4e7e\\u5185\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u7532\\u5b50\\u5916\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u58ec\\u5348\\u590f\\u706b\\u5bc5\\u5348\\u620c\\u5c40\\u70ba\\u96e2\\u4e7e\\u826e\\u5366\\u56db\\u6708\\u7528\\u96e2\\u5185\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\",\"timestamp\":\"2016-10-14T03:23:52Z\"},{\"ns\":0,\"title\":\"\\u589e\\u522a\\u535c\\u6613\",\"pageid\":795607,\"size\":326152,\"wordcount\":89147,\"snippet\":\"\\u7533\\u5b50\\u8fb0\\u5408\\u6210\\u6c34\\u5c40\\u3001\\u5df3\\u9149\\u4e11\\u5408\\u6210\\u91d1\\u5c40\\u3001\\u5bc5\\u5348\\u620c\\u5408\\u6210\\u706b\\u5c40\\u3001\\u4ea5\\u536f\\u672a\\u5408\\u6210\\u6728\\u5c40\\u3002\\u6b64<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u8005\\u6709\\u56db\\u3002\\u4e00\\u5366\\u4e4b\\u5167\\u6709\\u4e00\\u723b\\u52d5\\u800c\\u5408\\u5c40\\u8005\\u4e00\\u4e5f\\u3002\\u82e5\\u5169\\u723b\\u52d5\\u4e00\\u723b\\u4e0d\\u52d5\\u4ea6\\u6210\\u5408\\u5c40\\u8005\\u4e8c\\u4e5f\\u3002\\u6709\\u5167\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u3001\\u4e09\\u723b\\u3001\\u52d5\\u800c\\u8b8a\\u51fa\\u723b\\u6210<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u8005\\u4e09\\u4e5f\\u3002\\u53c8\\u6709\\u5916\\u56db\\u723b\\u3001\\u516d\\u723b\\u52d5\\u3001\\u52d5\\u800c\\u8b8a\\u51fa\\u4e4b\\u723b\\u6210<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u8005\\u56db\\u4e5f\\u3002\\u7136\\u6b64<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u8005\\u6709\\u51f6\\u6709\\u5409\\u3002\\u5982\\u5360\\u529f\\u540d\\u5408\\u6210\\u5b98\\u5c40\\u8b02\\u4e4b\\u5b98\\u65fa\\uff0c\\u5408\\u6210\\u8ca1\\u5c40\\u8ca1\\u65fa\\u751f\\u5b98\\uff0c\\u5018\\u82e5\\u5408\\u6210\",\"timestamp\":\"2025-06-25T11:25:59Z\"},{\"ns\":0,\"title\":\"\\u6b3d\\u5b9a\\u53e4\\u4eca\\u5716\\u66f8\\u96c6\\u6210/\\u535a\\u7269\\u5f59\\u7de8/\\u85dd\\u8853\\u5178/\\u7b2c553\\u5377\",\"pageid\":959885,\"size\":421,\"wordcount\":8015,\"snippet\":\"\\u6c34\\uff0c\\u7686\\u4f5c\\u524d\\u65b7\\u3002\\u770b\\u81e8\\u4f55\\u723b\\uff0c\\u4fbf\\u77e5\\u4f55\\u6642\\u6709\\u96e8\\u3002\\u5982\\u5728<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u751f\\u87fb\\u6642\\uff0c\\u591a\\u88ab\\u9670\\u96e8\\u50b7\\u8836\\u3002\\u9918\\u5023\\u6b64\\u3002 \\u8836\\uff1a\\u737b\\u529f<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\uff0c\\u6703\\u8ca1\\u798f\\u800c\\u65fa\\u76f8\\uff1b\\u5366\\u5bae\\u5b9a\\u4f4d\\u516d\\u723b\\uff0c\\u96a8\\u52d5 \\u975c\\u4ee5\\u63a8\\u8a73\\u3002 \\u5366\\u6709<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\uff0c\\u6700\\u6015\\u6703\\u6210\\u7236\\u5144\\u5b98\\u5c40\\uff0c\\u5927\\u70ba\\u4e0d\\u5229\\u3002\\u84cb\\u6703\\u8d77\\u4e4b\\u723b\\uff0c\\u4e0d\\u8ad6\\u56db\\u6642\\u7686\\u70ba\\u6709\\u6c23\\uff0c\\u4ee5\\u5f7c\\u6709\\u4e8c\\u723b\\u6276\\u6301\\u6545\\u4e5f\\u3002\\u65fa\\u76f8\\u9047\\u4e4b\\uff0c\\u5176\\u52e2\\u6108\\u751a\\u3002\\u6545\\u5360\\u8836\\u5f97<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u8ca1\\u798f\\u4e8c\\u5c40\\uff0c\\u5927\\u5409\\u4e4b\\u5146\\u3002\\u66f4\\u82e5\\u51f6\\u6bba\\u6709\\u5236\\uff0c\\u53ef\\u4f5c\\u5341\\u5206\\u5409\\u65b7\\u3002\",\"timestamp\":\"2020-06-15T03:56:52Z\"},{\"ns\":0,\"title\":\"\\u589e\\u522a\\u535c\\u6613/19\",\"pageid\":1090149,\"size\":7054,\"wordcount\":1654,\"snippet\":\"\\u7533\\u5b50\\u8fb0\\u5408\\u6210\\u6c34\\u5c40\\u3001\\u5df3\\u9149\\u4e11\\u5408\\u6210\\u91d1\\u5c40\\u3001\\u5bc5\\u5348\\u620c\\u5408\\u6210\\u706b\\u5c40\\u3001\\u4ea5\\u536f\\u672a\\u5408\\u6210\\u6728\\u5c40\\u3002\\u6b64<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u8005\\u6709\\u56db\\u3002\\u4e00\\u5366\\u4e4b\\u5167\\u6709\\u4e00\\u723b\\u52d5\\u800c\\u5408\\u5c40\\u8005\\u4e00\\u4e5f\\u3002\\u82e5\\u5169\\u723b\\u52d5\\u4e00\\u723b\\u4e0d\\u52d5\\u4ea6\\u6210\\u5408\\u5c40\\u8005\\u4e8c\\u4e5f\\u3002\\u6709\\u5167\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u3001\\u4e09\\u723b\\u3001\\u52d5\\u800c\\u8b8a\\u51fa\\u723b\\u6210<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u8005\\u4e09\\u4e5f\\u3002\\u53c8\\u6709\\u5916\\u56db\\u723b\\u3001\\u516d\\u723b\\u52d5\\u3001\\u52d5\\u800c\\u8b8a\\u51fa\\u4e4b\\u723b\\u6210<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u8005\\u56db\\u4e5f\\u3002\\u7136\\u6b64<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u8005\\u6709\\u51f6\\u6709\\u5409\\u3002\\u5982\\u5360\\u529f\\u540d\\u5408\\u6210\\u5b98\\u5c40\\u8b02\\u4e4b\\u5b98\\u65fa\\uff0c\\u5408\\u6210\\u8ca1\\u5c40\\u8ca1\\u65fa\\u751f\\u5b98\\uff0c\\u5018\\u82e5\\u5408\\u6210\",\"timestamp\":\"2022-01-20T19:13:46Z\"},{\"ns\":0,\"title\":\"\\u6b3d\\u5b9a\\u5354\\u7d00\\u8fa8\\u65b9\\u66f8 (\\u56db\\u5eab\\u5168\\u66f8\\u672c)/\\u5168\\u89bd1\",\"pageid\":258600,\"size\":3489,\"wordcount\":146136,\"snippet\":\"\\u3000\\u3000\\u4e00\\u5730\\u56ca\\u4e43\\u56db\\u6642<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u5366\\u4e4b\\u7d0d\\u7532\\u84cb<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u7121\\u571f\\u5c40\\u800c\\u571f\\u65fa\\u65bc\\u56db\\u5b63\\u6728\\u706b\\u91d1\\u6c34\\u4e4b\\u6240\\u4ee5\\u751f\\u65fa\\u5893\\u8005\\u7121\\u9069\\u975e\\u571f\\u6545\\u7528\\u7576\\u6642<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u5366\\u5185\\u5916\\u5169<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u4e4b\\u7d0d\\u7532\\u70ba\\u5730\\u56ca\\u65e5\\u5176\\u4e00\\u5366\\u5169\\u7528\\u8005\\u5247\\u518d\\u7528\\u4e16\\u61c9\\u4e8c\\u723b\\u4e4b\\u7d0d\\u7532\\u65e5\\u6625\\u6728\\u4ea5\\u536f\\u672a\\u5c40\\u70ba\\u9707\\u5764\\u4e7e\\u5366\\u6b63\\u6708\\u7528\\u9707\\u5185\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u5e9a\\u5b50\\u5916\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u5e9a\\u5348\\u4e8c\\u6708\\u7528\\u5764\\u5185\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u4e59\\u672a\\u5916\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u7678\\u4e11\\u4e09\\u6708\\u7528\\u4e7e\\u5185\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u7532\\u5b50\\u5916\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u58ec\\u5348\\u590f\\u706b\\u5bc5\\u5348\\u620c\\u5c40\\u70ba\\u96e2\\u4e7e\\u826e\\u5366\\u56db\\u6708\\u7528\\u96e2\\u5185\\u5366<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\",\"timestamp\":\"2016-10-14T03:23:51Z\"},{\"ns\":0,\"title\":\"\\u5fa1\\u5b9a\\u661f\\u53af\\u8003\\u539f (\\u56db\\u5eab\\u5168\\u66f8\\u672c)/\\u53773\",\"pageid\":258535,\"size\":33998,\"wordcount\":9004,\"snippet\":\"<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u5f8c\\u8fb0\\u80fd\\u4f7f\\u842c\\u7269\\u6b7b\\u800c\\u5fa9\\u751f\\u640d\\u800c\\u5fa9\\u76ca\\u5982\\u6b63\\u6708\\u5efa\\u5bc5<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u70ba\\u5bc5\\u5348\\u620c\\u800c\\u620c\\u70ba\\u5bc5\\u4e4b\\u5f8c\\u8fb0\\u662f\\u4e5f\\u9918\\u5023\\u6b64 \\u3000\\u3000\\u516d\\u5408 \\u3000\\u3000\\u795e\\u6a1e\\u7d93\\u66f0\\u516d\\u5408\\u8005\\u65e5\\u6708\\u5408\\u5bbf\\u4e4b\\u8fb0\\u4e5f\\u5176\\u65e5\\u5b9c\\u6703\\u8cd3\\u5ba2\\u7d50\\u89aa\\u59fb\\u7acb\\u5951\\u5238\\u5408\\u4ea4\\u6613\\u25cb\\u674e\\u9f0e\\u795a\\u66f0\\u6b63\\u6708\\u5728\\u4ea5\\u9006\\u884c\\u5341\\u4e8c\\u8fb0 \\u3000\\u3000\\u6309\\u516d\\u5408\\u8005\\u6708\\u5efa\\u8207\\u6708\\u5c07\\u76f8\\u5408\\u4e5f\\u7fa9\\u898b\\u7b2c\\u4e00\\u5377 \\u3000\\u3000<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span> \\u3000\\u3000\\u66fe\\u9580\\u7d93\\u66f0<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u8005\\u7570\\u4f4d\\u800c\\u540c\\u6c23\\u4e5f\\u5bc5\\u5348\\u620c\\u706b\\u4e4b<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\\u5df3\\u9149\\u4e11\\u91d1\\u4e4b<span class=\\\"searchmatch\\\">\\u4e09\\u5408</span>\",\"timestamp\":\"2016-10-26T19:04:00Z\"},{\"ns\":0,\"title\":\"\\u5922\\u6eaa\\u7b46\\u8ac7 (\\u56db\\u5eab\\u5168\\u66f8\\u672c)/\\u88dc\\u7b46\\u8ac7\\u5377\\u4e0a\",\"pageid\":274511,\"size\":27874,\"wordcount\":7301,\"snippet\":\"\\u3000\\u3000\\u88dc\\u7b2c\\u516d\\u5377\\u4e09\\u4ef6\\u3008\\u4e00\\u4e2d\\u4e8c\\u5f8c\\u3009 \\u3000\\u3000\\u53c8\\u4e00\\u8aac\\u5b50\\u5348\\u5c6c\\u5e9a \\u3000\\u3000\\u6b64\\u7d0d\\u7532\\u4e4b\\u6cd5\\u9707<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u7d0d\\u5e9a\\u5b50\\u5e9a\\u5348\\u4e5f \\u3000\\u3000\\u4e11\\u672a\\u5c6c\\u8f9b \\u3000\\u3000\\u38b2<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u7d0d\\u8f9b\\u4e11\\u8f9b\\u672a\\u4e5f \\u3000\\u3000\\u536f\\u9149\\u5c6c\\u5df2 \\u3000\\u3000\\u96e2<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u7d0d\\u5df1\\u536f\\u5df3\\u9149\\u4e5f \\u3000\\u3000\\u5bc5\\u7533\\u5c6c\\u620a \\u3000\\u3000\\u574e<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u7d0d\\u620a\\u5bc5\\u620a\\u7533\\u4e5f \\u3000\\u3000\\u8fb0\\u620c\\u5c6c\\u4e19 \\u3000\\u3000\\u826e<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u7d0d\\u4e19\\u8fb0\\u4e19\\u620c\\u4e5f \\u3000\\u3000\\u5df1\\u4ea5\\u5c6c\\u4e01 \\u3000\\u3000\\u5151<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u7d0d\\u4e01\\u5df3\\u4e01\\u4ea5\\u4e5f \\u3000\\u3000\\u4e00\\u8a00\\u800c\\u5f97\\u4e4b\\u8005\\u5bab\\u8207\\u571f\\u4e5f\",\"timestamp\":\"2016-10-15T12:47:28Z\"},{\"ns\":0,\"title\":\"\\u6b3d\\u5b9a\\u53e4\\u4eca\\u5716\\u66f8\\u96c6\\u6210/\\u7406\\u5b78\\u5f59\\u7de8/\\u5b78\\u884c\\u5178/\\u7b2c025\\u5377\",\"pageid\":941919,\"size\":405,\"wordcount\":4919,\"snippet\":\"\\u4e7e\\u70ba\\u300a\\u5764\\u300b\\uff0c\\u800c\\u5366\\u8207\\u723b\\u7686\\u4e0d\\u8449\\u3002\\u518d\\u8b8a\\u516d\\u4e94\\u70ba\\u300a\\u574e\\u300b\\uff0c\\u5247\\u723b\\u8449\\u800c \\u8207\\u4e0b\\u5366\\u96e2\\u70ba\\u6c34\\u706b\\u65e2\\u6fdf\\u3002\\u5730\\u5728\\u4e0a\\u800c\\u5929\\u5728\\u4e0b\\uff0c\\u6709\\u4ea4\\u901a\\u4e4b \\u7406\\uff0c\\u4e0d\\u5fa9\\u8b8a\\u5366\\u77e3\\u3002 \\u5176\\u5366\\u5728\\u300a\\u660e\\u5937\\u300b\\u4e4b\\u521d\\u4e8c\\u4e09\\u723b\\u3002<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u4ee5\\u967d\\u5c45\\u967d\\u4f4d\\uff0c\\u4e43\\u5167\\u5366 \\u96e2\\u70ba\\u300a\\u574e\\u300b\\uff0c<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u4e0d\\u8449\\uff0c\\u53c8\\u8b8a\\u4e0b\\u723b\\u70ba\\u300a\\u514c\\u300b\\uff0c\\u662f\\u5730\\u6fa4\\uff0c\\u300a\\u81e8\\u300b\\u5373\\u723b\\u5366 \\u7686\\u8449\\uff0c\\u65bc\\u662f\\u4ee5\\u6b64\\u81e8\\u5366\\uff0c\\u800c\\u904b\\u5366\\u300a\\u65e2\\u6fdf\\u300b\\u3002\\u4ee5\\u300a\\u65e2\\u6fdf\\u300b\\u5728\\u5de6\\uff0c\\u300a\\u574e\\u300b\\u975e \\u5929\\u5366\\uff0c\\u4e0d\\u8449\\uff0c\\u8b8a\\u70ba\\u300a\\u81e8\\u300b\\uff0c\\u96e2\\u5366\\u5728\\u53f3\\uff0c\\u4ea6\\u975e\\u5730\\u5366\\uff0c\\u4e43\\u8b8a\\u5167\\u5366\\u4e4b\",\"timestamp\":\"2020-06-15T08:30:08Z\"},{\"ns\":0,\"title\":\"\\u6b3d\\u5b9a\\u53e4\\u4eca\\u5716\\u66f8\\u96c6\\u6210/\\u535a\\u7269\\u5f59\\u7de8/\\u85dd\\u8853\\u5178/\\u7b2c556\\u5377\",\"pageid\":959850,\"size\":423,\"wordcount\":13356,\"snippet\":\"\\u6728\\u5b98\\u885d\\u524b\\uff0c\\u63a5\\u6597\\u65b7\\u6881\\u3002\\u300d <span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u8ad6\\u6839\\u57fa\\uff0c\\u9b3c\\u52d5\\u537b\\u975e\\u5b9c\\uff0c\\u5b85\\u908a\\u6709\\u53e4\\u5893\\uff0c\\u707d\\u6b83\\u640d\\u5c0f\\u5152\\uff0c \\u967d\\u5713\\u9670\\u65b9\\u5730\\u5408\\u65b9\\uff0c\\u9577\\u751f\\u57fa\\u885d\\u56db\\u5211\\u5c16\\u524a\\u524b\\u7834\\u5408\\u5713\\u57fa \\u524b\\u4e94\\u5b85\\u9577\\uff0c\\u75c5\\uff0c\\u524b\\u4e8c\\u5b85\\u6bcd\\u5371\\u3002\\u4e16\\u723b\\u82e5\\u503c\\u6b64\\uff0c\\u5169\\u8655\\u8d77\\u6839\\u57fa\\u3002 \\u6709\\u6c34\\u5fc5\\u6709\\u4e95\\uff0c\\u660e\\u5802\\u6709\\u4e95\\u9b3c\\uff0c\\u767d\\u864e\\u540c\\u81e8\\u4f4d\\uff0c\\u5b9a\\u4e3b\\u6709\\u6a4b\\u9839\\u3002 \\u52d5\\u5316\\u65e5\\u8fb0\\u5408\\uff0c\\u6697\\u4e95\\u63a9\\u7121\\u6ce5\\u3002<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u7236\\u5b50\\u5409\\uff0c\\u5144\\u9b3c\\u5916\\u4eba\\u57fa\\uff0c \\u66f4\\u82e5<span class=\\\"searchmatch\\\">\\u521d</span><span class=\\\"searchmatch\\\">\\u723b</span>\\u52d5\\uff0c\\u574d\\u640d\\u6709\\u9ad8\\u4f4e\\u3002\\u8ca1\\u503c\\u8eab\\u65fa\\u5730\\uff0c\\u4f11\\u56da\\u503c\\u4e0d\\u5b9c\\uff0c\",\"timestamp\":\"2020-06-15T03:57:22Z\"}]}}",
+      "use": "Search snippet used only to locate /19, then full raw body fetched/read. Unrelated calendar-selection and other search results were not treated as 六爻 formation rules."
+    }
+  },
+  "scopeVerdicts": [
+    {
+      "scope": "four triad branch sets",
+      "verdict": "directly grounded",
+      "basis": [
+        "four-sets-and-four-forms"
+      ],
+      "recommendation": "Use 申子辰水、巳酉丑金、寅午戌火、亥卯未木 directly from /19. No longer need to infer金/火 rows through 易林刑表. Three distinct branches describes complete membership; it does not establish transformation or efficacy."
+    },
+    {
+      "scope": "inner-change",
+      "verdict": "directly grounded selected route",
+      "basis": [
+        "four-sets-and-four-forms",
+        "li-kun-two-scoped-sets"
+      ],
+      "recommendation": "Require both actual original endpoints1 and3 moving; inspect those originals and their actual own changed objects. Keep repeated identities and exact original/changed paths. No result projection at static position2 and no arbitrary cross-half changed pool."
+    },
+    {
+      "scope": "outer-change",
+      "verdict": "directly grounded selected route",
+      "basis": [
+        "four-sets-and-four-forms",
+        "li-kun-two-scoped-sets"
+      ],
+      "recommendation": "Require both actual original endpoints4 and6 moving; inspect only those originals and own actual changed objects. The explicit example separately names inner木 and outer金, so do not merge both halves into an unqualified cross-line transformation verdict."
+    },
+    {
+      "scope": "moving-calendar",
+      "verdict": "bounded structural pool, not a sourced exhaustive formation formula",
+      "basis": [
+        "root-two-moving-short-prose",
+        "root-ge-jiaren",
+        "root-yi-wuwang",
+        "conditional-completion-and-dark-movement"
+      ],
+      "recommendation": "Existing 日月世 and 明动 examples can support explicit month/day/original membership observations. The new /19 passage does not itself prescribe arbitrary calendar+moving-object pooling. Keep the policy disclosed; do not turn pool completeness into effective成局 or import every changed/hidden object."
+    },
+    {
+      "scope": "calendar-original with static anchor",
+      "verdict": "not strengthened by this follow-up",
+      "basis": [
+        "root-ge-jiaren",
+        "root-yi-wuwang"
+      ],
+      "recommendation": "The available concrete 日月世 examples have moving anchors. Either defer static-anchor route or label it an explicit branch-table projection, never a newly sourced classical formation rule. No hidden-anchor extension is established."
+    },
+    {
+      "scope": "one/two/three moving originals and visible statics",
+      "verdict": "formation threshold unresolved due source-internal inconsistency",
+      "basis": [
+        "four-sets-and-four-forms",
+        "conditional-completion-and-dark-movement"
+      ],
+      "recommendation": "Do not pick a universal minimum moving count from this transcription. Keep all-static visible branch groups out of an asserted formed局 classification. Static witnesses in a particular proposed structural route require explicit policy and source distinction."
+    },
+    {
+      "scope": "missing-one, center, birth, tomb",
+      "verdict": "structural labels grounded; efficacy thresholds differ",
+      "basis": [
+        "center-birth-tomb-and-two-branch-usage",
+        "root-incomplete-fill-policy",
+        "conditional-completion-and-dark-movement"
+      ],
+      "recommendation": "Report exact missing branch and whether center is missing; retain three-part identities. 易林 explicitly calls center-present pairs成局 but calls申辰 without子 unable to form; do not attribute a uniform all-two-branch-incomplete efficacy rule to it. Selected complete/missing statuses describe set membership only."
+    },
+    {
+      "scope": "day-clashed static witness",
+      "verdict": "conditional witness only",
+      "basis": [
+        "conditional-completion-and-dark-movement"
+      ],
+      "recommendation": "一爻明動一爻暗動亦作兩爻動 is explicit, but this does not make every日冲static object proven暗动. Reference existing day-clash condition path and keep暗动effectiveness unresolved; do not silently add it to confirmed明动."
+    },
+    {
+      "scope": "void, month break, tomb, clash",
+      "verdict": "retain per-member conditions, do not delete structure or infer release",
+      "basis": [
+        "conditional-completion-and-dark-movement",
+        "root-current-future-clash",
+        "clash-prose"
+      ],
+      "recommendation": "/19 says one空破member waits filling and入墓member waits冲开. Existing tomb facts are structural参照, so do not equate every墓relation with proved入墓. Preserve exact member contexts and conflicting facts. Present clash versus later unlock and the differing易林language as source-aware unresolved conditions, not dates/outcomes."
+    }
+  ],
+  "textualDisagreements": [
+    {
+      "id": "motion-count",
+      "source": "zsgy-19-triad",
+      "quotes": [
+        "一卦之內有一爻動而合局者一也。若兩爻動一爻不動亦成合局者二也。",
+        "三爻若有兩爻動，不成局，須待後之補湊合成其局，謂之虛三待用。"
+      ],
+      "handling": "These statements cannot safely define one uniform current formation threshold as written. Preserve literal一/三 and虛三; do not silently substitute familiar modern versions without a collated edition."
+    },
+    {
+      "id": "two-branch-center-policy",
+      "sources": [
+        "zsgy-root-existing-excerpts",
+        "ylyb-1-triad",
+        "zsgy-19-triad"
+      ],
+      "quotes": [
+        "卦有二﹐內少一字者﹐不成三合。",
+        "殊不知虛一待用﹐待後時之月日可以塡之。",
+        "如有申子二象無辰字者，虽成水局而少收藏。",
+        "若有申辰二爻獨無子字，水象既無，焉能成局?"
+      ],
+      "handling": "No single合局truth value across sources. Missing-branch set notation is a deliberate neutral representation, with source-specific terminology separately disclosed."
+    },
+    {
+      "id": "clash-time-scope",
+      "sources": [
+        "zsgy-root-existing-excerpts",
+        "ylyb-1-triad"
+      ],
+      "quotes": [
+        "𨿽不宜目下日月動爻沖克﹐又宜後來之月沖開。",
+        "合处逢冲者，永不相合也。非惟不合，见冲反凶。"
+      ],
+      "handling": "Keep current interference and later opening separate; do not implement either quote as universal effectiveness or outcome law."
+    }
+  ],
+  "literalStructuralVector": {
+    "id": "zsgy19-li-kun",
+    "sourcePassage": "li-kun-two-scoped-sets",
+    "calendar": {
+      "monthBranch": "卯",
+      "dayGanZhi": "丁巳",
+      "gregorianDate": null
+    },
+    "sourceLineOrder": "Printed top-down; all arrays below are declared bottom-up.",
+    "values": [
+      9,
+      8,
+      9,
+      9,
+      8,
+      9
+    ],
+    "original": "離為火",
+    "resulting": "坤為地",
+    "movingPositions": [
+      1,
+      3,
+      4,
+      6
+    ],
+    "originalBranches": [
+      "卯",
+      "丑",
+      "亥",
+      "酉",
+      "未",
+      "巳"
+    ],
+    "fullResultProjectionBranches": [
+      "未",
+      "巳",
+      "卯",
+      "丑",
+      "亥",
+      "酉"
+    ],
+    "expectedRoutes": [
+      {
+        "scope": "inner-change",
+        "element": "木",
+        "membersByBranch": [
+          {
+            "branch": "亥",
+            "paths": [
+              "/lines/2"
+            ]
+          },
+          {
+            "branch": "卯",
+            "paths": [
+              "/lines/0",
+              "/lines/2/changed"
+            ]
+          },
+          {
+            "branch": "未",
+            "paths": [
+              "/lines/0/changed"
+            ]
+          }
+        ],
+        "forbiddenProjectedPath": "/lines/1/changed"
+      },
+      {
+        "scope": "outer-change",
+        "element": "金",
+        "membersByBranch": [
+          {
+            "branch": "巳",
+            "paths": [
+              "/lines/5"
+            ]
+          },
+          {
+            "branch": "酉",
+            "paths": [
+              "/lines/3",
+              "/lines/5/changed"
+            ]
+          },
+          {
+            "branch": "丑",
+            "paths": [
+              "/lines/3/changed"
+            ]
+          }
+        ],
+        "forbiddenProjectedPath": "/lines/4/changed"
+      }
+    ],
+    "adverseOrConflictingText": "原文同时说外金克内木，又说幸衰金不克旺木；说明结构克关系与效力裁定分开。此处只核对支、动位、范围与引用，不验证其械斗或解散结果。",
+    "independentCheck": "Manual literal 3-bit trigram map離=101、坤=000; actual moving positions are bit differences1/3/4/6. Literal納支 table離(inner卯丑亥,outer酉未巳),坤(inner未巳卯,outer丑亥酉) reproduces the printed six original/result columns. No production Engine imported."
+  },
+  "recommendation": {
+    "decision": "Proceed only with explicitly scoped structural B5b; no effective formation classifier from this transcription.",
+    "minimumGroundedScope": [
+      "Four distinct branch sets directly quoted from/19",
+      "Explicit inner1/3 and outer4/6 actual moving-change routes",
+      "Exact complete/missing/center membership and preserved per-member contexts",
+      "Source-aware unresolved empty/broken/tomb/dark/clash conditions"
+    ],
+    "deferOrDisclose": [
+      "Universal count-of-moving or static-member formation rule",
+      "Static calendar-anchor and arbitrary moving-calendar pool as classical formation law",
+      "Any free hidden/changed actor pool",
+      "Strength, binding, transformation efficacy, event outcome and concrete future dates"
+    ],
+    "oldResearchHandling": "This standalone follow-up supersedes only the earlier no-explicit-endpoint-text limitation. Keep prior contradictory-source disclosures and literal vectors; do not silently rewrite earlier archive."
+  },
+  "limitations": [
+    "Electronic transcripts only; no print-image collation. The 1904 date is claimed by the 卜筮正宗 edition page, not independently verified.",
+    "卜筮正宗正文 unavailable at linked Wiki chapter pages; no rules attributed to its unread chapters.",
+    "No efficacy, medical outcome, event outcome or new calendar tested; new example retains source lunar-month/day coordinates only.",
+    "This is a bounded source comparison, not an exhaustive corpus survey or production implementation."
+  ]
+}

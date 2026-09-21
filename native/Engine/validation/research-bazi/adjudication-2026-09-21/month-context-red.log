@@ -1,0 +1,147 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand --runTestsByPath src/bazi/__tests__/birthMonthContext.test.ts
+
+FAIL src/bazi/__tests__/birthMonthContext.test.ts
+  production commander is bound to the original civil birth instant
+    ✕ uses the preceding Jie across the civil new year (15 ms)
+    ✕ changes the term and resets elapsed at the exact Jie millisecond (5 ms)
+    ✕ does not restart at the intervening Zhongqi (2 ms)
+    ✕ keeps elapsed identical when longitude crosses Lichun in apparent solar time (4 ms)
+    ✕ makes the earth commander available in the real production result (2 ms)
+    ✕ resolves a valid civil endpoint: 1901-01-01T00:00:00+08:00 (7 ms)
+    ✕ resolves a valid civil endpoint: 2100-12-31T23:59:59+08:00 (8 ms)
+
+  ● production commander is bound to the original civil birth instant › uses the preceding Jie across the civil new year
+
+    expect(received).toMatchObject(expected)
+
+    Matcher error: received value must be a non-null object
+
+    Received has value: undefined
+
+       5 | describe('production commander is bound to the original civil birth instant', () => {
+       6 |   it('uses the preceding Jie across the civil new year', () => {
+    >  7 |     expect(season('2024-01-01T04:00:00.000Z').birthMonthContext).toMatchObject({
+         |                                                                  ^
+       8 |       monthBranch:'子',civilBirthTime:'2024-01-01T04:00:00.000Z',
+       9 |       jie:{name:'大雪',instant:'2023-12-07T09:32:55.000Z'},
+      10 |       nextJie:{name:'小寒',instant:'2024-01-05T20:49:22.000Z'},
+
+      at Object.<anonymous> (src/bazi/__tests__/birthMonthContext.test.ts:7:66)
+
+  ● production commander is bound to the original civil birth instant › changes the term and resets elapsed at the exact Jie millisecond
+
+    expect(received).toMatchObject(expected)
+
+    Matcher error: received value must be a non-null object
+
+    Received has value: undefined
+
+      15 |     const exact=season('2024-02-04T08:27:07.000Z').birthMonthContext;
+      16 |     const after=season('2024-02-04T08:27:07.001Z').birthMonthContext;
+    > 17 |     expect(before).toMatchObject({monthBranch:'丑',jie:{name:'小寒'}});
+         |                    ^
+      18 |     expect(exact).toMatchObject({monthBranch:'寅',elapsedMillis:0,daysAfterJie:0,jie:{name:'立春'}});
+      19 |     expect(after).toMatchObject({monthBranch:'寅',elapsedMillis:1});
+      20 |     expect(after.daysAfterJie).toBe(1/86400000);
+
+      at Object.<anonymous> (src/bazi/__tests__/birthMonthContext.test.ts:17:20)
+
+  ● production commander is bound to the original civil birth instant › does not restart at the intervening Zhongqi
+
+    expect(received).toMatchObject(expected)
+
+    Matcher error: received value must be a non-null object
+
+    Received has value: undefined
+
+      23 |     const before=season('2024-04-19T13:59:46.999Z').birthMonthContext;
+      24 |     const exact=season('2024-04-19T13:59:47.000Z').birthMonthContext;
+    > 25 |     expect(before).toMatchObject({monthBranch:'辰',jie:{name:'清明',instant:'2024-04-04T07:02:17.000Z'}});
+         |                    ^
+      26 |     expect(exact.jie).toEqual(before.jie);
+      27 |     expect(exact.elapsedMillis-before.elapsedMillis).toBe(1);
+      28 |     expect(exact.daysAfterJie).toBeGreaterThan(15);
+
+      at Object.<anonymous> (src/bazi/__tests__/birthMonthContext.test.ts:25:20)
+
+  ● production commander is bound to the original civil birth instant › keeps elapsed identical when longitude crosses Lichun in apparent solar time
+
+    expect(received).toMatchObject(expected)
+
+    Matcher error: received value must be a non-null object
+
+    Received has value: undefined
+
+      33 |     const corrected=season(birth,87.6).birthMonthContext;
+      34 |     expect(corrected).toEqual(plain);
+    > 35 |     expect(corrected).toMatchObject({monthBranch:'寅',elapsedMillis:173000,solarTimeApplied:false});
+         |                       ^
+      36 |   });
+      37 |   it('makes the earth commander available in the real production result', () => {
+      38 |     expect(season('2024-04-16T07:02:16.999Z')).toMatchObject({commander:{gan:'癸'}});
+
+      at Object.<anonymous> (src/bazi/__tests__/birthMonthContext.test.ts:35:23)
+
+  ● production commander is bound to the original civil birth instant › makes the earth commander available in the real production result
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 3
+    + Received  + 1
+
+      Object {
+    -   "commander": Object {
+    -     "gan": "癸",
+    -   },
+    +   "commander": null,
+      }
+
+      36 |   });
+      37 |   it('makes the earth commander available in the real production result', () => {
+    > 38 |     expect(season('2024-04-16T07:02:16.999Z')).toMatchObject({commander:{gan:'癸'}});
+         |                                                ^
+      39 |     expect(season('2024-04-16T07:02:17.000Z')).toMatchObject({commander:{gan:'戊',element:'土'},birthMonthContext:{daysAfterJie:12}});
+      40 |   });
+      41 |   it.each(['1901-01-01T00:00:00+08:00','2100-12-31T23:59:59+08:00'])('resolves a valid civil endpoint: %s', iso => {
+
+      at Object.<anonymous> (src/bazi/__tests__/birthMonthContext.test.ts:38:48)
+
+  ● production commander is bound to the original civil birth instant › resolves a valid civil endpoint: 1901-01-01T00:00:00+08:00
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+      41 |   it.each(['1901-01-01T00:00:00+08:00','2100-12-31T23:59:59+08:00'])('resolves a valid civil endpoint: %s', iso => {
+      42 |     const context=season(iso).birthMonthContext;
+    > 43 |     expect(context).toBeDefined();
+         |                     ^
+      44 |     expect(new Date(context.jie.instant).getTime()).toBeLessThanOrEqual(new Date(iso).getTime());
+      45 |     expect(new Date(context.nextJie.instant).getTime()).toBeGreaterThan(new Date(iso).getTime());
+      46 |   });
+
+      at src/bazi/__tests__/birthMonthContext.test.ts:43:21
+
+  ● production commander is bound to the original civil birth instant › resolves a valid civil endpoint: 2100-12-31T23:59:59+08:00
+
+    expect(received).toBeDefined()
+
+    Received: undefined
+
+      41 |   it.each(['1901-01-01T00:00:00+08:00','2100-12-31T23:59:59+08:00'])('resolves a valid civil endpoint: %s', iso => {
+      42 |     const context=season(iso).birthMonthContext;
+    > 43 |     expect(context).toBeDefined();
+         |                     ^
+      44 |     expect(new Date(context.jie.instant).getTime()).toBeLessThanOrEqual(new Date(iso).getTime());
+      45 |     expect(new Date(context.nextJie.instant).getTime()).toBeGreaterThan(new Date(iso).getTime());
+      46 |   });
+
+      at src/bazi/__tests__/birthMonthContext.test.ts:43:21
+
+Test Suites: 1 failed, 1 total
+Tests:       7 failed, 7 total
+Snapshots:   0 total
+Time:        0.717 s
+Ran all test suites within paths "src/bazi/__tests__/birthMonthContext.test.ts".

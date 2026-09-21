@@ -1,0 +1,45 @@
+Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[1 / 6] SujiCoreTests-product
+[2 / 13] SujiCore
+[4 / 15] SujiCore
+[9 / 17] SujiCore
+[12 / 13] SujiCore-product
+[12 / 13] ReadingEvalFixtures-product
+[12 / 13] SujiCoreTests-product
+[13 / 16] SujiCoreTests-product
+[16 / 16] ReadingEvalFixtures-product
+Build complete! (7.78秒)
+Test Suite 'Selected tests' started at 2026-09-21 10:05:04.562.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 10:05:04.566.
+Test Suite 'CastSourcePackingTests' started at 2026-09-21 10:05:04.566.
+Test Case '-[SujiCoreTests.CastSourcePackingTests testSourceDirectoryCannotDisablePackingForFortyMonthlyCandidates]' started.
+Test Case '-[SujiCoreTests.CastSourcePackingTests testSourceDirectoryCannotDisablePackingForFortyMonthlyCandidates]' passed (0.722 seconds).
+Test Suite 'CastSourcePackingTests' passed at 2026-09-21 10:05:05.288.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.722 (0.722) seconds
+Test Suite 'NatalEvidenceProjectionTests' started at 2026-09-21 10:05:05.288.
+Test Case '-[SujiCoreTests.NatalEvidenceProjectionTests testEarlierHistoryAndBudgetRejectedOutputsCannotBecomeReferenceSources]' started.
+Test Case '-[SujiCoreTests.NatalEvidenceProjectionTests testEarlierHistoryAndBudgetRejectedOutputsCannotBecomeReferenceSources]' passed (0.002 seconds).
+Test Case '-[SujiCoreTests.NatalEvidenceProjectionTests testFourRealDomainsPreserveFullReceiptsAndDeliverEveryPalaceWithResolvableReferences]' started.
+Test Case '-[SujiCoreTests.NatalEvidenceProjectionTests testFourRealDomainsPreserveFullReceiptsAndDeliverEveryPalaceWithResolvableReferences]' passed (8.787 seconds).
+Test Case '-[SujiCoreTests.NatalEvidenceProjectionTests testLongCastQuestionReferencesOnlyItsExactCallArgument]' started.
+Test Case '-[SujiCoreTests.NatalEvidenceProjectionTests testLongCastQuestionReferencesOnlyItsExactCallArgument]' passed (0.005 seconds).
+Test Case '-[SujiCoreTests.NatalEvidenceProjectionTests testProjectionRequiresEqualDeliveredValuesAndNeverBuildsReferenceChains]' started.
+Test Case '-[SujiCoreTests.NatalEvidenceProjectionTests testProjectionRequiresEqualDeliveredValuesAndNeverBuildsReferenceChains]' passed (0.002 seconds).
+Test Case '-[SujiCoreTests.NatalEvidenceProjectionTests testRelatedPalaceFieldsShareOnlyConcreteSamePalaceValuesAcrossReorderedArrays]' started.
+Test Case '-[SujiCoreTests.NatalEvidenceProjectionTests testRelatedPalaceFieldsShareOnlyConcreteSamePalaceValuesAcrossReorderedArrays]' passed (0.006 seconds).
+Test Case '-[SujiCoreTests.NatalEvidenceProjectionTests testSourceReferencesRequireSameSourceVersionAndIndex]' started.
+Test Case '-[SujiCoreTests.NatalEvidenceProjectionTests testSourceReferencesRequireSameSourceVersionAndIndex]' passed (0.004 seconds).
+Test Case '-[SujiCoreTests.NatalEvidenceProjectionTests testStandalonePalaceReferencesKeepIdentityOriginalSourceAndCompleteReceipts]' started.
+Test Case '-[SujiCoreTests.NatalEvidenceProjectionTests testStandalonePalaceReferencesKeepIdentityOriginalSourceAndCompleteReceipts]' passed (0.014 seconds).
+Test Suite 'NatalEvidenceProjectionTests' passed at 2026-09-21 10:05:14.109.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 8.820 (8.820) seconds
+Test Suite 'SujiCoreTests.xctest' passed at 2026-09-21 10:05:14.109.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 9.541 (9.543) seconds
+Test Suite 'Selected tests' passed at 2026-09-21 10:05:14.109.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 9.541 (9.546) seconds
+Four-domain delivery: 41704 UTF-8 bytes, review 96950 bytes
+Four-domain delivery: 40695 UTF-8 bytes, review 87212 bytes
+Four-domain delivery: 42523 UTF-8 bytes, review 97156 bytes
+Four-domain delivery: 41914 UTF-8 bytes, review 94999 bytes

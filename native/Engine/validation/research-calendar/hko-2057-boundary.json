@@ -1,0 +1,8 @@
+{
+  "reference": "astronomy-engine",
+  "version": "2.1.19",
+  "operation": "SearchMoonPhase(0, new Date(\"2057-09-27T00:00:00Z\"), 4)",
+  "newMoonUTC": "2057-09-28T16:00:40.255Z",
+  "newMoonBeijing": "2057-09-29T00:00:40.255+08:00",
+  "interpretation": "Independent astronomical estimate close to midnight; does not settle model/Delta-T differences against HKO."
+}

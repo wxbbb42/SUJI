@@ -1,0 +1,41 @@
+{
+  "reportSHA256": "973b0b6d279e1ada8dc39f46bcf8fd72fbc409a8712003799aa21541977f8270",
+  "firstAttempt": "core-d4-results.json: provider HTTP503 before receipts",
+  "retryStatus": "error",
+  "retryError": "AI 服务暂时不可用（HTTP 503）。请稍后重试。",
+  "providerRequests": 3,
+  "receipts": [
+    {
+      "tool": "get_ziwei_palace",
+      "palace": "命宫",
+      "arguments": {
+        "palace": "命宫",
+        "withPalaceFlights": true,
+        "withSihua": true
+      },
+      "status": "available",
+      "outgoing": 4,
+      "incoming": 5,
+      "allScoped": true
+    },
+    {
+      "tool": "get_ziwei_palace",
+      "palace": "迁移宫",
+      "arguments": {
+        "palace": "迁移宫",
+        "withPalaceFlights": true,
+        "withSihua": true
+      },
+      "status": "available",
+      "outgoing": 4,
+      "incoming": 2,
+      "allScoped": true
+    }
+  ],
+  "interpretationAccepted": false,
+  "limitations": [
+    "Live provider planner selected the new option, but writing failed with HTTP503. No semantic interpretation pass.",
+    "Authentication and quota synthetic, not deployed auth or SwiftUI E2E.",
+    "Trial preceded transport sharing fix; historical report retained."
+  ]
+}

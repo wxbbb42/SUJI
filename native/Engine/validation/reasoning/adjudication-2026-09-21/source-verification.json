@@ -1,0 +1,144 @@
+{
+  "scope": "Exact archived bytes and normalized quoted substrings; electronic transcription, not print collation.",
+  "references": [
+    {
+      "id": "ditianshui-ren-duxiang-v1",
+      "sha256": "141085eeb8f5faba79a29dd1a08c8130fbdea9d2d6b81cea234c188dc6fe8183",
+      "archive": "docs/mingli/source-texts/bazi/ditianshui-chanwei/tongshen-10-xingxiang-bage.md",
+      "quotesChecked": 5
+    },
+    {
+      "id": "ziping-xu-special-v1",
+      "sha256": "a7998453fbfd09d9e1e32e5b4b36b56ae79e81a408348a64d5ae1995dd961e56",
+      "archive": "docs/mingli/source-texts/bazi/ziping-zhenquan/43-zage.md",
+      "quotesChecked": 2
+    },
+    {
+      "id": "ziping-xu-earth-command-v1",
+      "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+      "archive": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+      "quotesChecked": 3
+    },
+    {
+      "id": "ziping-helper-constraints-v1",
+      "sha256": "5b930c11310899b50703696870d9024ba4e00fca6ad177e57d6fa5e3f8a4964f",
+      "archive": "docs/mingli/source-texts/bazi/ziping-zhenquan/00-abstract-chapters.md",
+      "quotesChecked": 7
+    },
+    {
+      "id": "ziping-position-season-v1",
+      "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+      "archive": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+      "quotesChecked": 3
+    },
+    {
+      "id": "ziping-xu-combination-limits-v1",
+      "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+      "archive": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+      "quotesChecked": 5
+    },
+    {
+      "id": "ziping-xu-hidden-action-cases-v1",
+      "sha256": "d87e8f7df9f15175b26a75e9acee2a1b6e50b2df1b4ef1b5f189c38d8aa7a63c",
+      "archive": "docs/mingli/source-texts/bazi/ziping-zhenquan/35-yinshou.md",
+      "quotesChecked": 3
+    },
+    {
+      "id": "ziping-xu-renyuan-v1",
+      "sha256": "8ea626e3744bb7129351b57dd3c4d6b6be595484345d8ea8101df50611993596",
+      "archive": "docs/mingli/source-texts/bazi/ziping-zhenquan/01-foundations.md",
+      "quotesChecked": 1
+    },
+    {
+      "id": "liuyao-efficacy-zengshan-v1",
+      "sha256": "f3ea262ad33a465dc5e1213c1474bcd5e4998c9e10545a60c6a7ebae0ef2a5ea",
+      "archive": "native/Engine/validation/research-divination/efficacy-2026-09-21/quanxue-9.html",
+      "quotesChecked": 0
+    },
+    {
+      "id": "liuyao-efficacy-zengshan-v1",
+      "sha256": "74c82f8be5c04265049119a9383c6bfd1556ad117c9818fc8828feae684873cb",
+      "archive": "native/Engine/validation/research-divination/efficacy-2026-09-21/quanxue-11.html",
+      "quotesChecked": 1
+    },
+    {
+      "id": "liuyao-efficacy-zengshan-v1",
+      "sha256": "4f74faf658faf94f8cd8bda42691a86a77e0aca4b48bcd86af738d6a16349018",
+      "archive": "native/Engine/validation/research-divination/efficacy-2026-09-21/quanxue-18.html",
+      "quotesChecked": 1
+    },
+    {
+      "id": "liuyao-efficacy-zengshan-v1",
+      "sha256": "af41ab6a4f2c336c4f6452acd2cd1e4762bf187bd4d14c7f42c1fe207190b739",
+      "archive": "native/Engine/validation/research-divination/efficacy-2026-09-21/quanxue-22.html",
+      "quotesChecked": 1
+    },
+    {
+      "id": "liuyao-efficacy-zengshan-v1",
+      "sha256": "7ed19e9471c398c386a04fb195a1a752469a5e5d307b5eeaca490fcb727affa6",
+      "archive": "native/Engine/validation/research-divination/efficacy-2026-09-21/quanxue-31.html",
+      "quotesChecked": 1
+    },
+    {
+      "id": "liuyao-efficacy-zengshan-v1",
+      "sha256": "dda2b500d22d6d43979dae3339ce90cb21289de61aef82a0f8cb17ca11205da5",
+      "archive": "native/Engine/validation/research-divination/efficacy-2026-09-21/quanxue-38.html",
+      "quotesChecked": 1
+    },
+    {
+      "id": "liuyao-efficacy-zengshan-v1",
+      "sha256": "e74764848deb4fd0ffe5e3bd16d696701dd5b06de034a085d74f24a35f0f2c2f",
+      "archive": "native/Engine/validation/research-divination/efficacy-2026-09-21/quanxue-40.html",
+      "quotesChecked": 0
+    },
+    {
+      "id": "qimen-xdyy-timing-v1",
+      "sha256": "06c5d8f574ccdfcb8e9df3b8452d8c65829a225e056a3cac81d618d437ea500b",
+      "archive": "native/Engine/validation/research-divination/timing-2026-09-21/167816.html",
+      "quotesChecked": 1
+    },
+    {
+      "id": "qimen-xdyy-timing-v1",
+      "sha256": "dab3897adc647067952b8813d4979ebe3db27ed37282a0ebc47753e9b0543ad5",
+      "archive": "native/Engine/validation/research-divination/timing-2026-09-21/167810.html",
+      "quotesChecked": 1
+    },
+    {
+      "id": "qimen-xdyy-timing-v1",
+      "sha256": "dab3897adc647067952b8813d4979ebe3db27ed37282a0ebc47753e9b0543ad5",
+      "archive": "native/Engine/validation/research-divination/timing-2026-09-21/167810.html",
+      "quotesChecked": 1
+    },
+    {
+      "id": "qimen-xdyy-timing-v1",
+      "sha256": "6caea61e307f4ced210a012c77d391f23fb01ad8172eae71c93db4ce708e8697",
+      "archive": "native/Engine/validation/research-divination/timing-2026-09-21/167817.html",
+      "quotesChecked": 0
+    },
+    {
+      "id": "qimen-xdyy-timing-v1",
+      "sha256": "3dd0817ce52fb78ed8ee587a1ea8b5d731ec58fb9dbc91e8a23aca405cf5fa31",
+      "archive": "native/Engine/validation/research-divination/timing-2026-09-21/167813.html",
+      "quotesChecked": 0
+    },
+    {
+      "id": "qimen-xdyy-timing-v1",
+      "sha256": "cd2fc6c0238e425c2955d5d85ec0cb8ebecf01337ace2eb69a4f46d6ba1e4d01",
+      "archive": "native/Engine/validation/research-divination/timing-2026-09-21/167802.html",
+      "quotesChecked": 0
+    },
+    {
+      "id": "qimen-xdyy-timing-v1",
+      "sha256": "e66dc4605a2ea265dc52824df511ae60aae21209d9910c96cb88aa2e70c60c40",
+      "archive": "native/Engine/validation/research-divination/timing-2026-09-21/167807.html",
+      "quotesChecked": 0
+    },
+    {
+      "id": "qimen-xdyy-timing-v1",
+      "sha256": "39f14beac1bde7677c8a55e87e9113508dcc5f6bc3ee7f4ed659ba847e58a574",
+      "archive": "native/Engine/validation/research-divination/timing-2026-09-21/167808.html",
+      "quotesChecked": 0
+    }
+  ],
+  "failures": []
+}

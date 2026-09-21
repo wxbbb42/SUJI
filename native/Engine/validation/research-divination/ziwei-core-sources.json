@@ -1,0 +1,84 @@
+{
+  "readAt": "2026-09-20",
+  "title": "紫微斗數全書/卷二",
+  "url": "https://zh.wikisource.org/wiki/紫微斗數全書/卷二",
+  "rawUrl": "https://zh.wikisource.org/w/index.php?title=%E7%B4%AB%E5%BE%AE%E6%96%97%E6%95%B8%E5%85%A8%E6%9B%B8/%E5%8D%B7%E4%BA%8C&action=raw",
+  "sha256": "1e255c6ae99e6f89ae124ab342554ef1347fc8e68fb8908cba7290d1a38cbb72",
+  "bytes": 106736,
+  "editionStatus": "electronic-transcription-not-print-collated",
+  "sections": [
+    {
+      "name": "安身命例",
+      "characterOffset": 142,
+      "excerpt": "===安身命例===\n\n大抵人命俱从寅上起正月，顺数至本生月止，又自人生月起子时逆至本生时安命，顺至本生时安身。\n假如正月生子时就在寅宫安身命，丑时逆转丑安命，顺去卯安身，寅时逆转子安命，顺至辰安身，\n余宫仿此，\n又若闰月正月生者要在二月内起安身命，凡有闰月具要依此为例，纳音甲子歌误要熟读。\n如甲生人安命在寅却起甲己之年丙为首，是丙寅丁卯炉中火，却去火局寻某日生期起紫微帝王，\n如是正月初一生者是火局，酉宫起初一日，就从酉宫起紫微，数无差迟，若错了则失之毫厘，差之千里矣。\n\n",
+      "sha256": "a21712d2fddb99c5ab56b471974e76df386f038788e7f07a408688d2cdd37105"
+    },
+    {
+      "name": "十二宫与五虎遁",
+      "characterOffset": 381,
+      "excerpt": "'''安十二宫例''' 男女俱从逆转切忌莫顺去\n\n一 命宫、二兄弟、三妻妾、四子女、五财帛、六疾厄、七迁移、八奴仆、九官禄、十田宅、十一福德、十二父母\n\n'''起五行寅例\n'''\n甲己之岁起丙寅，乙庚之岁起戊寅，丙辛之岁起庚寅，丁壬之岁起壬寅，戊癸之岁起甲寅。\n\n",
+      "sha256": "55e4ce07b036531537e1d64a71ee5938c15a18c49c1271226bb88bcbdb3d8f0c"
+    },
+    {
+      "name": "四化",
+      "characterOffset": 1502,
+      "excerpt": "安禄权科忌四星变化诀 论生年干 挟火而化\n\n甲廉破武阳为伴，乙机梁紫月交侵，丙同机昌廉贞位，丁月同机巨门寻，\n\n戊贪月弼机为主，己武贪梁曲最平，庚日武阴同为首，辛巨阳曲昌至临，\n\n壬梁紫府武宿是，癸破巨阴贪狼停。\n\n如甲生人廉贞化禄、破军化权、武曲化科、太阳化忌是也，余仿此。\n\n",
+      "sha256": "95e18b60ced9a603c7bcbb872a931a20596eb6f7126c659a1639a2a8c2354e7b"
+    },
+    {
+      "name": "大限",
+      "characterOffset": 2908,
+      "excerpt": "安大限诀\n\n阳男阴女从命前一宫起顺行 是父母宫。阴男阳女从命后一宫起逆行 是兄弟宫\n\n",
+      "sha256": "01861fe6787356a03df04dccd031ddb8ebb54d5cbbc0b73bb8ad1c2b6c06bcfa"
+    }
+  ],
+  "selectedPolicyDifferences": [
+    "闰月原文取次月，SUJI取前15日当月、后15日次月",
+    "壬梁紫府武原文取天府化科，SUJI所选iztro默认表取左辅化科",
+    "安大限原文从命前/后一宫起，所选现代算法首限在命宫、按局数起龄；不得称为原文逐字实现",
+    "晚子完整换日是本产品所选边界政策，不能由上述摘录声称全流派一致"
+  ],
+  "engineeringReferences": [
+    {
+      "url": "https://unpkg.com/iztro@2.5.8/lib/astro/palace.js",
+      "sha256": "e8473fcb49ab2da101633b6ab4db1faa09b538735cf6bb74c781bfaa59e06ac6",
+      "bytes": 8557,
+      "excerpts": [
+        {
+          "startLine": 142,
+          "endLine": 185,
+          "text": " * @param timeIndex 出生时索引\n * @param gender 性别\n * @param fixLeap 是否修正闰月，若修正，则闰月前15天按上月算，后15天按下月算\n * @returns 从寅宫开始的大限年龄段\n */\nvar getHoroscope = function (param) {\n    var _a, _b;\n    var solarDate = param.solarDate, timeIndex = param.timeIndex, gender = param.gender, from = param.from;\n    var decadals = [];\n    var genderKey = (0, i18n_1.kot)(gender);\n    var yearly = (0, lunar_lite_1.getHeavenlyStemAndEarthlyBranchBySolarDate)(solarDate, timeIndex, {\n        // 起大限应该与配置同步\n        year: (0, astro_1.getConfig)().yearDivide,\n    }).yearly;\n    var heavenlyStem = (0, i18n_1.kot)(yearly[0], 'Heavenly');\n    var earthlyBranch = (0, i18n_1.kot)(yearly[1], 'Earthly');\n    var _c = (0, exports.getSoulAndBody)(param), soulIndex = _c.soulIndex, heavenlyStemOfSoul = _c.heavenlyStemOfSoul, earthlyBranchOfSoul = _c.earthlyBranchOfSoul;\n    var fiveElementsClass = (0, i18n_1.kot)((0, exports.getFiveElementsClass)((_a = from === null || from === void 0 ? void 0 : from.heavenlyStem) !== null && _a !== void 0 ? _a : heavenlyStemOfSoul, (_b = from === null || from === void 0 ? void 0 : from.earthlyBranch) !== null && _b !== void 0 ? _b : earthlyBranchOfSoul));\n    // 用五虎遁获取大限起始天干\n    var startHeavenlyStem = data_1.TIGER_RULE[heavenlyStem];\n    for (var i = 0; i < 12; i++) {\n        var idx = data_1.GENDER[genderKey] === data_1.earthlyBranches[earthlyBranch].yinYang ? (0, utils_1.fixIndex)(soulIndex + i) : (0, utils_1.fixIndex)(soulIndex - i);\n        var start = data_1.FiveElementsClass[fiveElementsClass] + 10 * i;\n        var heavenlyStemIndex = (0, utils_1.fixIndex)(data_1.HEAVENLY_STEMS.indexOf(startHeavenlyStem) + idx, 10);\n        var earthlyBranchIndex = (0, utils_1.fixIndex)(data_1.EARTHLY_BRANCHES.indexOf('yinEarthly') + idx);\n        decadals[idx] = {\n            range: [start, start + 9],\n            heavenlyStem: (0, i18n_1.t)(data_1.HEAVENLY_STEMS[heavenlyStemIndex]),\n            earthlyBranch: (0, i18n_1.t)(data_1.EARTHLY_BRANCHES[earthlyBranchIndex]),\n        };\n    }\n    var ageIdx = (0, utils_1.getAgeIndex)(yearly[1]);\n    var ages = [];\n    for (var i = 0; i < 12; i++) {\n        var age = [];\n        for (var j = 0; j < 10; j++) {\n            age.push(12 * j + i + 1);\n        }\n        var idx = (0, i18n_1.kot)(gender) === 'male' ? (0, utils_1.fixIndex)(ageIdx + i) : (0, utils_1.fixIndex)(ageIdx - i);\n        ages[idx] = age;\n    }\n    return { decadals: decadals, ages: ages };\n};\nexports.getHoroscope = getHoroscope;"
+        }
+      ]
+    },
+    {
+      "url": "https://unpkg.com/iztro@2.5.8/lib/astro/FunctionalAstrolabe.js",
+      "sha256": "843f55ba39e20107bb00e83f26116ceb3281d88f092081e1d4bb1a9e0e5ab5fc",
+      "bytes": 12595,
+      "excerpts": [
+        {
+          "startLine": 39,
+          "endLine": 75,
+          "text": "    var _birthday = (0, lunar_lite_1.solar2lunar)($.solarDate);\n    var _date = (0, lunar_lite_1.solar2lunar)(targetDate);\n    var convertTimeIndex = (0, utils_1.timeToIndex)((0, dayjs_1.default)(targetDate).hour());\n    var _a = (0, lunar_lite_1.getHeavenlyStemAndEarthlyBranchBySolarDate)(targetDate, timeIndex || convertTimeIndex, {\n        // 允许配置运限分割点\n        year: (0, astro_1.getConfig)().horoscopeDivide,\n        month: (0, astro_1.getConfig)().horoscopeDivide,\n    }), yearly = _a.yearly, monthly = _a.monthly, daily = _a.daily, hourly = _a.hourly;\n    // 虚岁\n    var nominalAge = _date.lunarYear - _birthday.lunarYear;\n    // 是否童限\n    var isChildhood = false;\n    if ((0, astro_1.getConfig)().ageDivide === 'birthday') {\n        // 假如目标日期已经过了生日，则需要加1岁\n        // 比如 2022年九月初一 出生的人，在出生后虚岁为 1 岁\n        // 但在 2023年九月初二 以后，虚岁则为 2 岁\n        if ((_date.lunarYear === _birthday.lunarYear &&\n            _date.lunarMonth === _birthday.lunarMonth &&\n            _date.lunarDay > _birthday.lunarDay) ||\n            _date.lunarMonth > _birthday.lunarMonth) {\n            nominalAge += 1;\n        }\n    }\n    else {\n        // 以自然年为界，直接加1岁\n        nominalAge += 1;\n    }\n    // 大限索引\n    var decadalIndex = -1;\n    // 大限天干\n    var heavenlyStemOfDecade = 'jia';\n    // 大限地支\n    var earthlyBranchOfDecade = 'zi';\n    // 小限索引\n    var ageIndex = -1;\n    // 流年索引\n    var yearlyIndex = (0, utils_1.fixEarthlyBranchIndex)(yearly[1]);"
+        },
+        {
+          "startLine": 138,
+          "endLine": 163,
+          "text": "            index: decadalIndex,\n            name: isChildhood ? (0, i18n_1.t)('childhood') : (0, i18n_1.t)('decadal'),\n            heavenlyStem: (0, i18n_1.t)((0, i18n_1.kot)(heavenlyStemOfDecade, 'Heavnly')),\n            earthlyBranch: (0, i18n_1.t)((0, i18n_1.kot)(earthlyBranchOfDecade, 'Earthly')),\n            palaceNames: (0, palace_1.getPalaceNames)(decadalIndex),\n            mutagen: (0, utils_1.getMutagensByHeavenlyStem)(heavenlyStemOfDecade),\n            stars: (0, star_1.getHoroscopeStar)(heavenlyStemOfDecade, earthlyBranchOfDecade, 'decadal'),\n        },\n        age: {\n            index: ageIndex,\n            nominalAge: nominalAge,\n            name: (0, i18n_1.t)('turn'),\n            heavenlyStem: heavenlyStemOfAge,\n            earthlyBranch: earthlyBranchOfAge,\n            palaceNames: (0, palace_1.getPalaceNames)(ageIndex),\n            mutagen: (0, utils_1.getMutagensByHeavenlyStem)(heavenlyStemOfAge),\n        },\n        yearly: {\n            index: yearlyIndex,\n            name: (0, i18n_1.t)('yearly'),\n            heavenlyStem: (0, i18n_1.t)((0, i18n_1.kot)(yearly[0], 'Heavenly')),\n            earthlyBranch: (0, i18n_1.t)((0, i18n_1.kot)(yearly[1], 'Earthly')),\n            palaceNames: (0, palace_1.getPalaceNames)(yearlyIndex),\n            mutagen: (0, utils_1.getMutagensByHeavenlyStem)(yearly[0]),\n            stars: (0, star_1.getHoroscopeStar)(yearly[0], yearly[1], 'yearly'),\n            yearlyDecStar: (0, star_1.getYearly12)(targetDate),"
+        }
+      ]
+    },
+    {
+      "url": "https://unpkg.com/iztro@2.5.8/lib/data/heavenlyStems.js",
+      "sha256": "4eb6ee5e3a09db4ede931053de526ab258d0d76908922a1f980d7f996f226191",
+      "bytes": 2638,
+      "excerpts": [
+        {
+          "startLine": 1,
+          "endLine": 170,
+          "text": "\"use strict\";\nObject.defineProperty(exports, \"__esModule\", { value: true });\nexports.heavenlyStems = void 0;\n/**\n * 十天干信息\n * 其中包含：\n * 1. 阴阳（yinYang）\n * 2. 五行（fiveElements）\n * 3. 天干相冲（crash）\n *    - 甲庚相冲\n *    - 乙辛相冲\n *    - 壬丙相冲\n *    - 癸丁相冲\n *    - 戊己土居中央，故无冲。\n * 4. 紫微斗数十天干四化(mutagen)\n *\n *    顺序为【禄，权，科，忌】\n *    - 甲:【廉，破，武，阳】\n *    - 乙:【机，梁，紫，月】\n *    - 丙:【同，机，昌，廉】\n *    - 丁:【阴，同，机，巨】\n *    - 戊:【贪，月，弼，机】\n *    - 己:【武，贪，梁，曲】\n *    - 庚:【阳，武，阴，同】\n *    - 辛:【巨，日，曲，昌】\n *    - 壬:【梁，紫，左，武】\n *    - 癸:【破，巨，阴，贪】\n */\nexports.heavenlyStems = {\n    jiaHeavenly: {\n        yinYang: '阳',\n        fiveElements: '木',\n        crash: 'gengHeavenly',\n        mutagen: ['lianzhenMaj', 'pojunMaj', 'wuquMaj', 'taiyangMaj'],\n    },\n    yiHeavenly: {\n        yinYang: '阴',\n        fiveElements: '木',\n        crash: 'xinHeavenly',\n        mutagen: ['tianjiMaj', 'tianliangMaj', 'ziweiMaj', 'taiyinMaj'],\n    },\n    bingHeavenly: {\n        yinYang: '阳',\n        fiveElements: '火',\n        crash: 'renHeavenly',\n        mutagen: ['tiantongMaj', 'tianjiMaj', 'wenchangMin', 'lianzhenMaj'],\n    },\n    dingHeavenly: {\n        yinYang: '阴',\n        fiveElements: '火',\n        crash: 'guiHeavenly',\n        mutagen: ['taiyinMaj', 'tiantongMaj', 'tianjiMaj', 'jumenMaj'],\n    },\n    wuHeavenly: {\n        yinYang: '阳',\n        fiveElements: '土',\n        mutagen: ['tanlangMaj', 'taiyinMaj', 'youbiMin', 'tianjiMaj'],\n    },\n    jiHeavenly: {\n        yinYang: '阴',\n        fiveElements: '土',\n        mutagen: ['wuquMaj', 'tanlangMaj', 'tianliangMaj', 'wenquMin'],\n    },\n    gengHeavenly: {\n        yinYang: '阳',\n        fiveElements: '金',\n        crash: 'jiaHeavenly',\n        mutagen: ['taiyangMaj', 'wuquMaj', 'taiyinMaj', 'tiantongMaj'],\n    },\n    xinHeavenly: {\n        yinYang: '阴',\n        fiveElements: '金',\n        crash: 'yiHeavenly',\n        mutagen: ['jumenMaj', 'taiyangMaj', 'wenquMin', 'wenchangMin'],\n    },\n    renHeavenly: {\n        yinYang: '阳',\n        fiveElements: '水',\n        crash: 'bingHeavenly',\n        mutagen: ['tianliangMaj', 'ziweiMaj', 'zuofuMin', 'wuquMaj'],\n    },\n    guiHeavenly: {\n        yinYang: '阴',\n        fiveElements: '水',\n        crash: 'dingHeavenly',\n        mutagen: ['pojunMaj', 'jumenMaj', 'taiyinMaj', 'tanlangMaj'],\n    },\n};\n"
+        }
+      ]
+    }
+  ]
+}

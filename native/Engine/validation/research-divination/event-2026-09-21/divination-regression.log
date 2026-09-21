@@ -1,0 +1,43 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand --testPathPattern=src/divination/__tests__
+
+FAIL src/divination/__tests__/QuestionCapacity.test.ts (10.7 s)
+  ● exhaustive question metadata and conditional timing capacity probe
+
+    expect(received).toBeLessThan(expected)
+
+    Expected: < 65536
+    Received:   70212
+
+      15 |  // storage envelope; DivinationEvidenceTests enforce the unchanged real wire
+      16 |  // limits plus exact chart/fact roundtrips through the Swift transport.
+    > 17 |  expect(top[0].size).toBeLessThan(64 * 1024);
+         |                      ^
+      18 | });
+      19 |
+
+      at Object.<anonymous> (src/divination/__tests__/QuestionCapacity.test.ts:17:22)
+
+PASS src/divination/__tests__/Triads.test.ts
+PASS src/divination/__tests__/CoreFacts.test.ts
+PASS src/divination/__tests__/GuaRelations.test.ts
+PASS src/divination/__tests__/NajiaAccuracy.test.ts
+PASS src/divination/__tests__/ConditionalRules.test.ts
+PASS src/divination/__tests__/Fanfu.test.ts
+PASS src/divination/__tests__/ProfessionalLiuyaoAudit.test.ts
+PASS src/divination/__tests__/QuestionReassessment.test.ts
+PASS src/divination/__tests__/RoleRelations.test.ts
+PASS src/divination/__tests__/Efficacy.test.ts
+PASS src/divination/__tests__/QuestionJudgment.test.ts
+PASS src/divination/__tests__/HexagramEngine.test.ts
+PASS src/divination/__tests__/ReceiptLayout.test.ts
+PASS src/divination/__tests__/EventAssessment.test.ts
+PASS src/divination/__tests__/TombExtinction.test.ts
+PASS src/divination/__tests__/ValueReceipt.test.ts
+
+Test Suites: 1 failed, 16 passed, 17 total
+Tests:       1 failed, 219 passed, 220 total
+Snapshots:   0 total
+Time:        31.545 s, estimated 32 s
+Ran all test suites matching /src\/divination\/__tests__/i.

@@ -1,0 +1,31 @@
+{
+  "cases": [
+    {
+      "name": "cast_liuyao",
+      "result": "passes-no-current-Date-or-random",
+      "evidence": [
+        "计算时刻 · 2024-02-04T04:00:00.000Z",
+        "历法 · 北京时间；精确交节；子初换日",
+        "方法 · jingfang-najia-v1",
+        "主卦 · 坤为地",
+        "变卦 · 乾为天",
+        "动爻 · 1/2/3/4/5/6"
+      ]
+    },
+    {
+      "name": "setup_qimen",
+      "result": "passes-no-current-Date-or-random",
+      "evidence": [
+        "计算时刻 · 2024-02-04T04:00:00.000Z",
+        "历法 · 北京时间；精确交节；子初换日",
+        "方法 · zhuanpan-qimen-chai-bu-v1",
+        "节气 · 大寒",
+        "阳遁 · 3局",
+        "取用参考 · 3类候选，尚未定用",
+        "格局 · 值符临三吉门",
+        "格局 · 值使为三吉门"
+      ]
+    }
+  ],
+  "dateConstructions": []
+}

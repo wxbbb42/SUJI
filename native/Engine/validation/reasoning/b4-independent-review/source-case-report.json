@@ -1,0 +1,449 @@
+{
+  "passed": 5,
+  "scope": "Parse five chapter30 chart glyphs/branches from the reviewed archive. Fixed source month/day coordinates only; synthetic month stems/hour and modern timestamp are scaffolding, not historical Gregorian reconstruction. Assert entire original/resulting branch arrays, original elements, every original month/day/tomb actor relation, all actual own-change references. No source narrative outcome validation.",
+  "sourceRawHash": "897f963b938ec4582bc892465301b831a6439216f317841f44b888117704ca07",
+  "cases": [
+    {
+      "anchor": "申月戊辰日占夫病癸亥命",
+      "sourceMonthBranch": "申",
+      "sourceDay": "戊辰",
+      "values": [
+        7,
+        8,
+        7,
+        7,
+        9,
+        7
+      ],
+      "original": "天火同人",
+      "resulting": "离为火",
+      "originalRows": [
+        {
+          "objectPath": "/lines/0",
+          "month": "绝",
+          "day": "neither",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [
+            5
+          ],
+          "supportingMovingPositions": []
+        },
+        {
+          "objectPath": "/lines/1",
+          "month": "neither",
+          "day": "墓",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": []
+        },
+        {
+          "objectPath": "/lines/2",
+          "month": "neither",
+          "day": "墓",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": [
+            5
+          ]
+        },
+        {
+          "objectPath": "/lines/3",
+          "month": "neither",
+          "day": "neither",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": []
+        },
+        {
+          "objectPath": "/lines/4",
+          "month": "neither",
+          "day": "neither",
+          "ownChange": "neither",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": []
+        },
+        {
+          "objectPath": "/lines/5",
+          "month": "neither",
+          "day": "墓",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": []
+        }
+      ],
+      "sourceOriginalBranches": [
+        "卯",
+        "丑",
+        "亥",
+        "午",
+        "申",
+        "戌"
+      ],
+      "sourceResultingBranches": [
+        "卯",
+        "丑",
+        "亥",
+        "酉",
+        "未",
+        "巳"
+      ]
+    },
+    {
+      "anchor": "戌月甲寅日會試能連捷否",
+      "sourceMonthBranch": "戌",
+      "sourceDay": "甲寅",
+      "values": [
+        8,
+        8,
+        7,
+        9,
+        8,
+        6
+      ],
+      "original": "雷山小过",
+      "resulting": "艮为山",
+      "originalRows": [
+        {
+          "objectPath": "/lines/0",
+          "month": "neither",
+          "day": "neither",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": [
+            4,
+            6
+          ]
+        },
+        {
+          "objectPath": "/lines/1",
+          "month": "墓",
+          "day": "neither",
+          "movingTombPositions": [
+            6
+          ],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": [
+            4
+          ]
+        },
+        {
+          "objectPath": "/lines/2",
+          "month": "neither",
+          "day": "绝",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": [
+            6
+          ]
+        },
+        {
+          "objectPath": "/lines/3",
+          "month": "墓",
+          "day": "neither",
+          "ownChange": "墓",
+          "movingTombPositions": [
+            6
+          ],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": []
+        },
+        {
+          "objectPath": "/lines/4",
+          "month": "neither",
+          "day": "绝",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": [
+            6
+          ]
+        },
+        {
+          "objectPath": "/lines/5",
+          "month": "neither",
+          "day": "neither",
+          "ownChange": "neither",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": [
+            4
+          ]
+        }
+      ],
+      "sourceOriginalBranches": [
+        "辰",
+        "午",
+        "申",
+        "午",
+        "申",
+        "戌"
+      ],
+      "sourceResultingBranches": [
+        "辰",
+        "午",
+        "申",
+        "戌",
+        "子",
+        "寅"
+      ]
+    },
+    {
+      "anchor": "申月己丑日占病壬申命得雷風恆",
+      "sourceMonthBranch": "申",
+      "sourceDay": "己丑",
+      "values": [
+        8,
+        7,
+        7,
+        7,
+        8,
+        8
+      ],
+      "original": "雷风恒",
+      "resulting": "雷风恒",
+      "originalRows": [
+        {
+          "objectPath": "/lines/0",
+          "month": "neither",
+          "day": "neither",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": []
+        },
+        {
+          "objectPath": "/lines/1",
+          "month": "neither",
+          "day": "neither",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": []
+        },
+        {
+          "objectPath": "/lines/2",
+          "month": "neither",
+          "day": "墓",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": []
+        },
+        {
+          "objectPath": "/lines/3",
+          "month": "neither",
+          "day": "neither",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": []
+        },
+        {
+          "objectPath": "/lines/4",
+          "month": "neither",
+          "day": "墓",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": []
+        },
+        {
+          "objectPath": "/lines/5",
+          "month": "neither",
+          "day": "neither",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": []
+        }
+      ],
+      "sourceOriginalBranches": [
+        "丑",
+        "亥",
+        "酉",
+        "午",
+        "申",
+        "戌"
+      ],
+      "sourceResultingBranches": [
+        "丑",
+        "亥",
+        "酉",
+        "午",
+        "申",
+        "戌"
+      ]
+    },
+    {
+      "anchor": "未月戊辰日占已定重罪可蒙赦免否",
+      "sourceMonthBranch": "未",
+      "sourceDay": "戊辰",
+      "values": [
+        6,
+        7,
+        9,
+        8,
+        8,
+        7
+      ],
+      "original": "山风蛊",
+      "resulting": "山泽损",
+      "originalRows": [
+        {
+          "objectPath": "/lines/0",
+          "month": "neither",
+          "day": "墓",
+          "ownChange": "绝",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": []
+        },
+        {
+          "objectPath": "/lines/1",
+          "month": "neither",
+          "day": "墓",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": [
+            3
+          ]
+        },
+        {
+          "objectPath": "/lines/2",
+          "month": "neither",
+          "day": "neither",
+          "ownChange": "墓",
+          "movingTombPositions": [
+            1
+          ],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": [
+            1
+          ]
+        },
+        {
+          "objectPath": "/lines/3",
+          "month": "neither",
+          "day": "墓",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": [
+            1
+          ]
+        },
+        {
+          "objectPath": "/lines/4",
+          "month": "neither",
+          "day": "墓",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": [
+            3
+          ]
+        },
+        {
+          "objectPath": "/lines/5",
+          "month": "墓",
+          "day": "neither",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": []
+        }
+      ],
+      "sourceOriginalBranches": [
+        "丑",
+        "亥",
+        "酉",
+        "戌",
+        "子",
+        "寅"
+      ],
+      "sourceResultingBranches": [
+        "巳",
+        "卯",
+        "丑",
+        "戌",
+        "子",
+        "寅"
+      ]
+    },
+    {
+      "anchor": "申月己未日占賊來否得大畜之泰卦",
+      "sourceMonthBranch": "申",
+      "sourceDay": "己未",
+      "values": [
+        7,
+        7,
+        7,
+        8,
+        8,
+        9
+      ],
+      "original": "山天大畜",
+      "resulting": "地天泰",
+      "originalRows": [
+        {
+          "objectPath": "/lines/0",
+          "month": "neither",
+          "day": "neither",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": []
+        },
+        {
+          "objectPath": "/lines/1",
+          "month": "绝",
+          "day": "墓",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": [
+            6
+          ]
+        },
+        {
+          "objectPath": "/lines/2",
+          "month": "neither",
+          "day": "neither",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": []
+        },
+        {
+          "objectPath": "/lines/3",
+          "month": "neither",
+          "day": "neither",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": []
+        },
+        {
+          "objectPath": "/lines/4",
+          "month": "neither",
+          "day": "neither",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": []
+        },
+        {
+          "objectPath": "/lines/5",
+          "month": "绝",
+          "day": "墓",
+          "ownChange": "neither",
+          "movingTombPositions": [],
+          "movingExtinctionPositions": [],
+          "supportingMovingPositions": []
+        }
+      ],
+      "sourceOriginalBranches": [
+        "子",
+        "寅",
+        "辰",
+        "戌",
+        "子",
+        "寅"
+      ],
+      "sourceResultingBranches": [
+        "子",
+        "寅",
+        "辰",
+        "丑",
+        "亥",
+        "酉"
+      ]
+    }
+  ]
+}

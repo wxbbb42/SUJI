@@ -1,0 +1,95 @@
+{
+  "archiveShaMatches": true,
+  "writerHistoryUnchanged": true,
+  "receiptsUnchanged": true,
+  "draftUnchanged": true,
+  "providerExchanges": [
+    "revision",
+    "verifier"
+  ],
+  "actualCalendarStatement": true,
+  "day15And16Correct": true,
+  "effectiveMonthDistinction": true,
+  "douJunSharedCorrect": true,
+  "sourceChecks": [
+    {
+      "date": "2025-08-08",
+      "calendar": {
+        "day": 15,
+        "effectiveMonth": 6,
+        "isLeapMonth": true,
+        "lunarYear": 2025,
+        "month": 6
+      },
+      "douJun": {
+        "natalPalace": "田宅宫",
+        "position": "巳"
+      },
+      "mingGong": {
+        "natalPalace": "财帛宫",
+        "position": "戌"
+      },
+      "ganZhi": "癸未",
+      "mingGongMatched": true,
+      "ganZhiMatched": true,
+      "transformations": [
+        {
+          "expected": "破军化禄落迁移宫（申）",
+          "matchedInCorrectDateSection": true
+        },
+        {
+          "expected": "巨门化权落兄弟宫（丑）",
+          "matchedInCorrectDateSection": true
+        },
+        {
+          "expected": "太阴化科落子女宫（亥）",
+          "matchedInCorrectDateSection": true
+        },
+        {
+          "expected": "贪狼化忌落夫妻宫（子）",
+          "matchedInCorrectDateSection": true
+        }
+      ]
+    },
+    {
+      "date": "2025-08-09",
+      "calendar": {
+        "day": 16,
+        "effectiveMonth": 7,
+        "isLeapMonth": true,
+        "lunarYear": 2025,
+        "month": 6
+      },
+      "douJun": {
+        "natalPalace": "田宅宫",
+        "position": "巳"
+      },
+      "mingGong": {
+        "natalPalace": "子女宫",
+        "position": "亥"
+      },
+      "ganZhi": "甲申",
+      "mingGongMatched": true,
+      "ganZhiMatched": true,
+      "transformations": [
+        {
+          "expected": "廉贞化禄落财帛宫（戌）",
+          "matchedInCorrectDateSection": true
+        },
+        {
+          "expected": "破军化权落迁移宫（申）",
+          "matchedInCorrectDateSection": true
+        },
+        {
+          "expected": "武曲化科落命宫（寅）",
+          "matchedInCorrectDateSection": true
+        },
+        {
+          "expected": "太阳化忌落父母宫（卯）",
+          "matchedInCorrectDateSection": true
+        }
+      ]
+    }
+  ],
+  "manualScopeNote": "Narrow original actual-month/effective-month defect is repaired; every listed monthly palace, month ganzhi and all eight transformations match correct dated source sections. The revision omits the earlier common-background paragraph (natal year, active decade, annual background); it retains no-overwriting of natal/decadal/annual/palace-stem scopes. This is not acceptance of all prose semantics."
+}

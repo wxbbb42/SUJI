@@ -1,45 +1,36 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
-
-# dependencies
+# Local dependencies and build output
 node_modules/
+.build/
+DerivedData*/
+*.tsbuildinfo
+__pycache__/
+*.pyc
+*.xcuserstate
+xcuserdata/
+native/artifacts/
 
-# Expo
-.expo/
-dist/
-web-build/
-expo-env.d.ts
-
-# Native
-.kotlin/
-*.orig.*
-*.jks
+# Credentials and local configuration
+.env*
+!.env.example
+*.pem
+*.key
 *.p8
 *.p12
-*.key
+*.jks
 *.mobileprovision
+native/Resources/PublicConfig.plist
 
-# Metro
-.metro-health-check*
-
-# debug
+# Logs and local tooling
 npm-debug.*
 yarn-debug.*
 yarn-error.*
-
-# macOS
 .DS_Store
-*.pem
-
-# local env files
-.env*.local
-.env
-
-# typescript
-*.tsbuildinfo
-
-# superpowers brainstorm workspace
 .superpowers/
 
-# generated native folders
-/ios
-/android
+# Retired client caches (not maintained or tracked)
+.expo/
+/ios/
+/android/
+/dist/
+/web-build/
+expo-env.d.ts

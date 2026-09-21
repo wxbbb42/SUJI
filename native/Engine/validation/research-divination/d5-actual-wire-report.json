@@ -1,0 +1,9 @@
+{
+  "fixtureIndex": 4,
+  "method": "Actual ChatClient.complete via local URLProtocol capture; no network",
+  "backendStatus": "pass",
+  "withArgumentsUTF16": 113885,
+  "actualBodyBytes": 162361,
+  "bodyWith1024Reserve": 163385,
+  "maxBodyBytes": 262144
+}

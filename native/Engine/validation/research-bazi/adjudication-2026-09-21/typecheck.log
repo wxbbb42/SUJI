@@ -1,0 +1,19 @@
+
+> suji-native-engine@1.0.0 typecheck
+> tsc --noEmit
+
+src/qimen/__tests__/Timing.test.ts(1,61): error TS2307: Cannot find module '../timing' or its corresponding type declarations.
+src/qimen/__tests__/Timing.test.ts(32,27): error TS7006: Parameter 't' implicitly has an 'any' type.
+src/qimen/__tests__/Timing.test.ts(40,35): error TS7006: Parameter 'd' implicitly has an 'any' type.
+src/qimen/__tests__/Timing.test.ts(44,37): error TS7006: Parameter 'd' implicitly has an 'any' type.
+src/qimen/__tests__/Timing.test.ts(45,25): error TS7006: Parameter 'd' implicitly has an 'any' type.
+src/qimen/__tests__/Timing.test.ts(49,35): error TS7006: Parameter 'd' implicitly has an 'any' type.
+src/qimen/__tests__/Timing.test.ts(61,27): error TS7006: Parameter 't' implicitly has an 'any' type.
+src/qimen/__tests__/Timing.test.ts(64,32): error TS7006: Parameter 't' implicitly has an 'any' type.
+src/qimen/__tests__/Timing.test.ts(69,27): error TS7006: Parameter 't' implicitly has an 'any' type.
+src/qimen/__tests__/Timing.test.ts(75,27): error TS7006: Parameter 't' implicitly has an 'any' type.
+src/qimen/__tests__/Timing.test.ts(89,27): error TS7006: Parameter 't' implicitly has an 'any' type.
+src/qimen/__tests__/Timing.test.ts(117,21): error TS2339: Property 'timing' does not exist on type 'QimenChart'.
+src/qimen/__tests__/Timing.test.ts(118,34): error TS2353: Object literal may only specify known properties, and 'timingRequest' does not exist in type 'SetupOptions'.
+src/qimen/__tests__/Timing.test.ts(120,18): error TS2339: Property 'timing' does not exist on type 'QimenChart'.
+src/qimen/__tests__/Timing.test.ts(122,20): error TS2339: Property 'timing' does not exist on type 'QimenChart'.

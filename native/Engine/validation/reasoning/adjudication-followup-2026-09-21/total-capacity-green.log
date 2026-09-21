@@ -1,0 +1,49 @@
+Building for debugging...
+[2 / 6] SujiCore
+[3 / 7] SujiCore
+[7 / 9] SujiCore
+[10 / 11] SujiCoreTests-product
+[14 / 15] ReadingEvalFixtures-product
+Build complete! (2.15秒)
+Test Suite 'Selected tests' started at 2026-09-21 11:40:25.120.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 11:40:25.121.
+Test Suite 'CastSourceConsumerTests' started at 2026-09-21 11:40:25.121.
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testActualDirectoryPreservesExactSourceFactsFallbackAndVerifier]' started.
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testActualDirectoryPreservesExactSourceFactsFallbackAndVerifier]' passed (2.385 seconds).
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testInlineAndReferencedSourcesCannotCoexist]' started.
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testInlineAndReferencedSourcesCannotCoexist]' passed (0.497 seconds).
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testInvalidDirectoryRejectsReviewBeforeAnyCompletionClosureCanAcceptIt]' started.
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testInvalidDirectoryRejectsReviewBeforeAnyCompletionClosureCanAcceptIt]' passed (0.403 seconds).
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testMissingDamagedAmbiguousStaleAndForwardDirectoriesFailClosed]' started.
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testMissingDamagedAmbiguousStaleAndForwardDirectoriesFailClosed]' passed (3.856 seconds).
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testSavedReceiptRebuildsDirectoryForReplayAndNewRetryCallID]' started.
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testSavedReceiptRebuildsDirectoryForReplayAndNewRetryCallID]' passed (0.969 seconds).
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testSharedDirectoryRestoresLegacyFormAndRejectsBrokenDictionary]' started.
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testSharedDirectoryRestoresLegacyFormAndRejectsBrokenDictionary]' passed (0.444 seconds).
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testVerifierCannotRebindAnOlderDirectoryWhenItRemovesConversationText]' started.
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testVerifierCannotRebindAnOlderDirectoryWhenItRemovesConversationText]' passed (0.504 seconds).
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testWireOnlyPayloadCannotAuthenticateAsASavedReceiptByByteEquality]' started.
+Test Case '-[SujiCoreTests.CastSourceConsumerTests testWireOnlyPayloadCannotAuthenticateAsASavedReceiptByByteEquality]' passed (0.463 seconds).
+Test Suite 'CastSourceConsumerTests' passed at 2026-09-21 11:40:34.640.
+	 Executed 8 tests, with 0 failures (0 unexpected) in 9.519 (9.520) seconds
+Test Suite 'CastSourcePackingTests' started at 2026-09-21 11:40:34.640.
+Test Case '-[SujiCoreTests.CastSourcePackingTests testSourceDirectoryCannotDisablePackingForFortyMonthlyCandidates]' started.
+Test Case '-[SujiCoreTests.CastSourcePackingTests testSourceDirectoryCannotDisablePackingForFortyMonthlyCandidates]' passed (0.358 seconds).
+Test Suite 'CastSourcePackingTests' passed at 2026-09-21 11:40:34.999.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.358 (0.359) seconds
+Test Suite 'DivinationEvidenceTests' started at 2026-09-21 11:40:34.999.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testMaximumTimingAndSpecializedSelectionReviewsKeepAllFactsWithinBudget]' started.
+Test Case '-[SujiCoreTests.DivinationEvidenceTests testMaximumTimingAndSpecializedSelectionReviewsKeepAllFactsWithinBudget]' passed (19.366 seconds).
+Test Suite 'DivinationEvidenceTests' passed at 2026-09-21 11:40:54.365.
+	 Executed 1 test, with 0 failures (0 unexpected) in 19.366 (19.366) seconds
+Test Suite 'ReadingFactReferenceIndexTests' started at 2026-09-21 11:40:54.365.
+Test Case '-[SujiCoreTests.ReadingFactReferenceIndexTests testNumericRangesLiteralZerosEscapedPointersAndConflictingToolsRestoreExactly]' started.
+Test Case '-[SujiCoreTests.ReadingFactReferenceIndexTests testNumericRangesLiteralZerosEscapedPointersAndConflictingToolsRestoreExactly]' passed (0.026 seconds).
+Test Suite 'ReadingFactReferenceIndexTests' passed at 2026-09-21 11:40:54.391.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.026 (0.026) seconds
+Test Suite 'SujiCoreTests.xctest' passed at 2026-09-21 11:40:54.391.
+	 Executed 11 tests, with 0 failures (0 unexpected) in 29.269 (29.270) seconds
+Test Suite 'Selected tests' passed at 2026-09-21 11:40:54.391.
+	 Executed 11 tests, with 0 failures (0 unexpected) in 29.269 (29.271) seconds
+Divination evidence capacity: 116952 UTF-16 code units, 10 messages, cast UTF-16 [28793, 20691], casts 54196 bytes, request 179832 bytes
+Divination evidence capacity: 116286 UTF-16 code units, 9 messages, cast UTF-16 [28793, 23897], casts 59450 bytes, request 179123 bytes

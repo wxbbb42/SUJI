@@ -1,0 +1,44 @@
+Building for debugging...
+[2 / 14] SujiCore
+[5 / 17] SujiCore
+[13 / 18] ReadingEvalFixtures-product
+[15 / 20] SujiCoreTests-product
+[19 / 23] SujiCoreTests-product
+Build complete! (2.08秒)
+Test Suite 'Selected tests' started at 2026-09-21 09:39:51.565.
+Test Suite 'SujiCoreTests.xctest' started at 2026-09-21 09:39:51.565.
+Test Suite 'CastReceiptStorageTests' started at 2026-09-21 09:39:51.565.
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testComplete48PairedCapacityMatrix]' started.
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testComplete48PairedCapacityMatrix]' passed (18.659 seconds).
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testCompleteStorageRoundtripRenderingAndFactLedger]' started.
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testCompleteStorageRoundtripRenderingAndFactLedger]' passed (3.237 seconds).
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testMalformedStorageFailsClosedAndDoesNotBorrowQuestionFromOtherCalls]' started.
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testMalformedStorageFailsClosedAndDoesNotBorrowQuestionFromOtherCalls]' passed (0.294 seconds).
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testOrchestratorPersistsPackedThenReusesIdenticalBytesWithoutExecution]' started.
+Test Case '-[SujiCoreTests.CastReceiptStorageTests testOrchestratorPersistsPackedThenReusesIdenticalBytesWithoutExecution]' passed (0.661 seconds).
+Test Suite 'CastReceiptStorageTests' passed at 2026-09-21 09:40:14.417.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 22.851 (22.852) seconds
+Test Suite 'JSONValueTransportTests' started at 2026-09-21 09:40:14.417.
+Test Case '-[SujiCoreTests.JSONValueTransportTests testExactRoundtripUnknownFieldsOrderAndNestedSharedValues]' started.
+Test Case '-[SujiCoreTests.JSONValueTransportTests testExactRoundtripUnknownFieldsOrderAndNestedSharedValues]' passed (0.033 seconds).
+Test Case '-[SujiCoreTests.JSONValueTransportTests testMissingForwardCyclicOutOfBoundsUnusedDuplicateAndReservedValuesFailClosed]' started.
+Test Case '-[SujiCoreTests.JSONValueTransportTests testMissingForwardCyclicOutOfBoundsUnusedDuplicateAndReservedValuesFailClosed]' passed (0.039 seconds).
+Test Suite 'JSONValueTransportTests' passed at 2026-09-21 09:40:14.489.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.072 (0.072) seconds
+Test Suite 'QimenTimingTransportTests' started at 2026-09-21 09:40:14.489.
+Test Case '-[SujiCoreTests.QimenTimingTransportTests testPairedActualChartsPersistReplayAndVerifyUnderExistingBudgets]' started.
+/Users/xiaqobenwang/Documents/SUJI/native/Core/Tests/SujiCoreTests/QimenTimingTransportTests.swift:190: error: -[SujiCoreTests.QimenTimingTransportTests testPairedActualChartsPersistReplayAndVerifyUnderExistingBudgets] : XCTAssertLessThanOrEqual failed: ("182141") is greater than ("120000")
+Test Case '-[SujiCoreTests.QimenTimingTransportTests testPairedActualChartsPersistReplayAndVerifyUnderExistingBudgets]' failed (11.090 seconds).
+Test Suite 'QimenTimingTransportTests' failed at 2026-09-21 09:40:25.579.
+	 Executed 1 test, with 1 failure (0 unexpected) in 11.090 (11.090) seconds
+Test Suite 'SujiCoreTests.xctest' failed at 2026-09-21 09:40:25.580.
+	 Executed 7 tests, with 1 failure (0 unexpected) in 34.014 (34.014) seconds
+Test Suite 'Selected tests' failed at 2026-09-21 09:40:25.580.
+	 Executed 7 tests, with 1 failure (0 unexpected) in 34.014 (34.015) seconds
+48 paired liuyao receipt maximum: 49063 UTF8 bytes; complete semantic roundtrip
+Qimen pair component cast_liuyao raw 48526/60124, stored 35276/46572, wire 33926/42022, args 6087
+Qimen pair component setup_qimen raw 63495/72249, stored 24264/32670, wire 22914/28120, args 7407
+Qimen timing paired wire [27556, 23114], UTF16 [26390, 19898]
+Qimen timing paired verifier 182141 UTF16, 255780 bytes
+Note: Some test targets reported failures:
+  - SujiCoreTests (XCTest)

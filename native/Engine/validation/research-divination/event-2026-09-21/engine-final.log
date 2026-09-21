@@ -1,0 +1,13 @@
+
+> suji-native-engine@1.0.0 test
+> TZ=Asia/Shanghai jest --runInBand --runTestsByPath src/divination/__tests__/EventAssessment.test.ts src/divination/__tests__/Efficacy.test.ts src/divination/__tests__/QuestionReassessment.test.ts
+
+PASS src/divination/__tests__/EventAssessment.test.ts
+PASS src/divination/__tests__/QuestionReassessment.test.ts
+PASS src/divination/__tests__/Efficacy.test.ts
+
+Test Suites: 3 passed, 3 total
+Tests:       42 passed, 42 total
+Snapshots:   0 total
+Time:        1.322 s
+Ran all test suites within paths "src/divination/__tests__/EventAssessment.test.ts", "src/divination/__tests__/Efficacy.test.ts", "src/divination/__tests__/QuestionReassessment.test.ts".

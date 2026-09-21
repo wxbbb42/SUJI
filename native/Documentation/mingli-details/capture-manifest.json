@@ -1,0 +1,522 @@
+{
+  "device": "iPhone 17 Pro / iOS 26.5",
+  "synthetic": true,
+  "engineFixtureSha256": "451036e701144f190def6f733d70b0d7589b95d8586ef02d0d70365c8d3fe9b0",
+  "referenceDate": "2026-09-19T04:00:00Z",
+  "lineValuesBottomToTop": [
+    6,
+    7,
+    8,
+    9,
+    8,
+    7
+  ],
+  "artifacts": [
+    {
+      "file": "31-liuyao-upper-accessibility-tree.txt",
+      "sha256": "228ab4e5b9b93ad1fa5f4c16494d5d1c13ad57e256a9df47777d402fef7f3d0d",
+      "capturedAt": 1789804177.871,
+      "test": "MingliDetailsUITests/testEvidenceDetails()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "31-liuyao-upper.png",
+      "sha256": "0062cc231bf13ebc07a6e3ab323f781c4bb3f445726dfa2b7bdc2cf81c0a0ae9",
+      "capturedAt": 1789804177.719,
+      "test": "MingliDetailsUITests/testEvidenceDetails()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "32-liuyao-lower-accessibility-tree.txt",
+      "sha256": "61aa8ee5a4bc11781929b1e28eb232aa10a7b6c6ea26384682e05b74a1f72f61",
+      "capturedAt": 1789804181.517,
+      "test": "MingliDetailsUITests/testEvidenceDetails()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "32-liuyao-lower.png",
+      "sha256": "78d438821187c5076206a77d8ed03bfa92cbf354ebef16e5e0708ca782cfff08",
+      "capturedAt": 1789804181.347,
+      "test": "MingliDetailsUITests/testEvidenceDetails()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "34-qimen-first-accessibility-tree.txt",
+      "sha256": "0f206fd79025326d35fa55d0aba3cfe26d3f2eee24a3232374483dc62624c757",
+      "capturedAt": 1789804185.229,
+      "test": "MingliDetailsUITests/testEvidenceDetails()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "34-qimen-first.png",
+      "sha256": "7a4950c49dc6208bfe68b493d47e912235e48df01349107667435ba46d509098",
+      "capturedAt": 1789804185.084,
+      "test": "MingliDetailsUITests/testEvidenceDetails()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "35-qimen-center-accessibility-tree.txt",
+      "sha256": "7090ef0fadc90113a4c9d3826cbf27efa3d869d93ac520b6c70af7220cc29b87",
+      "capturedAt": 1789804188.639,
+      "test": "MingliDetailsUITests/testEvidenceDetails()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "35-qimen-center.png",
+      "sha256": "95e06bb65312ea3043118188ec66c9ce52c8ec14bb952ab48043cc2efa78f39f",
+      "capturedAt": 1789804188.488,
+      "test": "MingliDetailsUITests/testEvidenceDetails()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "36-qimen-last-accessibility-tree.txt",
+      "sha256": "6d2ec32a84a6cf7fef90acedab453781b8b658327c874035f96749e171788071",
+      "capturedAt": 1789804191.032,
+      "test": "MingliDetailsUITests/testEvidenceDetails()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "36-qimen-last.png",
+      "sha256": "3eb844a84b4d5d1ab95db1b750975e2dbab6b65e59ebadcaf358850c5db0cccf",
+      "capturedAt": 1789804190.867,
+      "test": "MingliDetailsUITests/testEvidenceDetails()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "37-archives-groups-accessibility-tree.txt",
+      "sha256": "4313d37ca1ed5dced3deaccd00056675c9d74690bfb2730bb8af1c0e4e311b88",
+      "capturedAt": 1789804245.305,
+      "test": "MingliDetailsUITests/testReflectionArchiveGroups()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "37-archives-groups.png",
+      "sha256": "c9d30df3cf3a2cfd0304aca5712cf1b080b980aec7da82cffe3f2eff103b9bef",
+      "capturedAt": 1789804245.212,
+      "test": "MingliDetailsUITests/testReflectionArchiveGroups()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "38-archive-0-accessibility-tree.txt",
+      "sha256": "9109db0a7d7c757c999f43cbc9fb3fc784de1536bcfbf9ff33a449f04de027f6",
+      "capturedAt": 1789804248.218,
+      "test": "MingliDetailsUITests/testReflectionArchiveGroups()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "38-archive-0.png",
+      "sha256": "fd2a29c3bac3dfd6e52aa5de2329a412cfd79a651d07ec3b27d5e6a7346a38f0",
+      "capturedAt": 1789804248.121,
+      "test": "MingliDetailsUITests/testReflectionArchiveGroups()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "39-archive-1-accessibility-tree.txt",
+      "sha256": "2d80d9d0b4901b22e35bcd7a576c4535cd38d4aaf8a0edbd4e29b3c991606308",
+      "capturedAt": 1789804252.174,
+      "test": "MingliDetailsUITests/testReflectionArchiveGroups()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "39-archive-1.png",
+      "sha256": "eb7fef2bcfa8b6e7a21f185daca996470546d3cc833b9b30e154c5270581e42a",
+      "capturedAt": 1789804252.08,
+      "test": "MingliDetailsUITests/testReflectionArchiveGroups()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "40-archive-2-accessibility-tree.txt",
+      "sha256": "585f1c96a373f43c7e260785cbe7c5e90a236e1d027665af7afe66060a6622d9",
+      "capturedAt": 1789804256.073,
+      "test": "MingliDetailsUITests/testReflectionArchiveGroups()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "40-archive-2.png",
+      "sha256": "63d0997dcbdf27d398e573e82ef6303feb4209b49b394dd9cdc8f08e491fe169",
+      "capturedAt": 1789804255.977,
+      "test": "MingliDetailsUITests/testReflectionArchiveGroups()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "41-liuyao-xxxl-upper-accessibility-tree.txt",
+      "sha256": "5e35f514b4d4ff94d0f186e746ef20893f622f8dbfd77237628124c833c38fbf",
+      "capturedAt": 1789804204.813,
+      "test": "MingliDetailsUITests/testEvidenceDetailsAtXXXL()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "41-liuyao-xxxl-upper.png",
+      "sha256": "34d7fd70df0463c8cd9e57f5829966d08625ed0691bfd113bffc560d907ff8d1",
+      "capturedAt": 1789804204.71,
+      "test": "MingliDetailsUITests/testEvidenceDetailsAtXXXL()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "42-liuyao-xxxl-lower-accessibility-tree.txt",
+      "sha256": "ad818af65b42af8d650c5104ea2c7694bfe8b670c8adb07ce14c54fb478fcac5",
+      "capturedAt": 1789804213.801,
+      "test": "MingliDetailsUITests/testEvidenceDetailsAtXXXL()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "42-liuyao-xxxl-lower.png",
+      "sha256": "852b01e61658d58b6668c2f7e109d8b56d2443f77c5ac14cfdd722b204873bf0",
+      "capturedAt": 1789804213.707,
+      "test": "MingliDetailsUITests/testEvidenceDetailsAtXXXL()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "44-qimen-xxxl-first-accessibility-tree.txt",
+      "sha256": "bfbdbbd4b223fa5b1fa312d1aba50337f115c19d00f4d6830755eece9009eb8a",
+      "capturedAt": 1789804223.027,
+      "test": "MingliDetailsUITests/testEvidenceDetailsAtXXXL()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "44-qimen-xxxl-first.png",
+      "sha256": "ca8464d431ffb74ad150c5fc2610ee63d278dddcc69dfab4b8d7955833bc763b",
+      "capturedAt": 1789804222.923,
+      "test": "MingliDetailsUITests/testEvidenceDetailsAtXXXL()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "45-qimen-xxxl-center-accessibility-tree.txt",
+      "sha256": "9e83dfb191e20c4945ce0b14641c3cc9e33afcc098c9b4cca1177e8325bcd695",
+      "capturedAt": 1789804229.04,
+      "test": "MingliDetailsUITests/testEvidenceDetailsAtXXXL()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "45-qimen-xxxl-center.png",
+      "sha256": "322b53b0e3f55b64352f9e6d530b057dc32b7ea288eba34885b36c1e89e37008",
+      "capturedAt": 1789804228.956,
+      "test": "MingliDetailsUITests/testEvidenceDetailsAtXXXL()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "46-qimen-xxxl-last-accessibility-tree.txt",
+      "sha256": "1675b68d42cc32f04b8821c0f1239a1dbc20b424d0f3b9053fb76da0e7176625",
+      "capturedAt": 1789804234.965,
+      "test": "MingliDetailsUITests/testEvidenceDetailsAtXXXL()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "46-qimen-xxxl-last.png",
+      "sha256": "b7aba2489fb4c76ac4926fa3e423f49cf96a377f2ad968b817a399d25bd7a92c",
+      "capturedAt": 1789804234.875,
+      "test": "MingliDetailsUITests/testEvidenceDetailsAtXXXL()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "51-archives-xxxl-groups-accessibility-tree.txt",
+      "sha256": "a497b0136f7e06ca3894c833202add6fd5d233e9fc02b813490bece56b500a9d",
+      "capturedAt": 1789804275.738,
+      "test": "MingliDetailsUITests/testReflectionArchiveGroupsAtXXXL()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "51-archives-xxxl-groups.png",
+      "sha256": "4433cac01b3d4d13c8db04e5c8656ba69619d0bb0999e6bd16044ebb611ceb53",
+      "capturedAt": 1789804275.651,
+      "test": "MingliDetailsUITests/testReflectionArchiveGroupsAtXXXL()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "52-archive-xxxl-0-accessibility-tree.txt",
+      "sha256": "42b355906d8c5dc8be971e7b64e6c95862239b9ff1c58427b3a9436506763d89",
+      "capturedAt": 1789804279.184,
+      "test": "MingliDetailsUITests/testReflectionArchiveGroupsAtXXXL()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "52-archive-xxxl-0.png",
+      "sha256": "9a67332066a8b3c106f8857c45bc5c5262f97f77fe22b926208ca7ba92584ad4",
+      "capturedAt": 1789804279.099,
+      "test": "MingliDetailsUITests/testReflectionArchiveGroupsAtXXXL()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "53-archive-xxxl-1-accessibility-tree.txt",
+      "sha256": "94a0576e958e18c07f91d734270cc4606cc12c39c340aebca615a6bf158768ca",
+      "capturedAt": 1789804289.181,
+      "test": "MingliDetailsUITests/testReflectionArchiveGroupsAtXXXL()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "53-archive-xxxl-1.png",
+      "sha256": "d237eb30cad3868e80b422f55fb27f4786c849fbe7d19f6d4e37d79e8c9dbb45",
+      "capturedAt": 1789804289.094,
+      "test": "MingliDetailsUITests/testReflectionArchiveGroupsAtXXXL()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "54-archive-xxxl-2-accessibility-tree.txt",
+      "sha256": "db09c8020605db11f8196d20b616ca26671727c2168edbe1af00d864f5ca8b77",
+      "capturedAt": 1789804297.319,
+      "test": "MingliDetailsUITests/testReflectionArchiveGroupsAtXXXL()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "54-archive-xxxl-2.png",
+      "sha256": "dcbae8adabd46f08e1097c4b600e42b82292b5582e3284bac528b3767304145a",
+      "capturedAt": 1789804297.24,
+      "test": "MingliDetailsUITests/testReflectionArchiveGroupsAtXXXL()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "60-chat-placeholder-light-accessibility-tree.txt",
+      "sha256": "7af6cf7a8654da4fb5e58469d17c5f29ac1f3b8171e426a7586f0838a1f279dd",
+      "capturedAt": 1789804160.64,
+      "test": "MingliDetailsUITests/testChatPlaceholderLightAndDark()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "60-chat-placeholder-light.png",
+      "sha256": "7924d741296188fddfa2a0cbcb75ad528376dd4e2dc928338a7be17d23e58657",
+      "capturedAt": 1789804160.51,
+      "test": "MingliDetailsUITests/testChatPlaceholderLightAndDark()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "60-placeholder-bounds.txt",
+      "sha256": "b0172df00cba70efdbc227379de6a4b1b2798f11d4e3e118051a1cc81664064d",
+      "capturedAt": 1789804160.678,
+      "test": "MingliDetailsUITests/testChatPlaceholderLightAndDark()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "61-chat-placeholder-dark-accessibility-tree.txt",
+      "sha256": "e82d7450170f4ea8db4424637df28e56d3d1da30e086d6c34cb58a11424d86b2",
+      "capturedAt": 1789804169.064,
+      "test": "MingliDetailsUITests/testChatPlaceholderLightAndDark()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "61-chat-placeholder-dark.png",
+      "sha256": "2af476f628e22f39a99ba94f5f715b6af6be1e305716dd626e1c0fcb753f1198",
+      "capturedAt": 1789804168.942,
+      "test": "MingliDetailsUITests/testChatPlaceholderLightAndDark()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    },
+    {
+      "file": "61-placeholder-bounds.txt",
+      "sha256": "b0172df00cba70efdbc227379de6a4b1b2798f11d4e3e118051a1cc81664064d",
+      "capturedAt": 1789804169.098,
+      "test": "MingliDetailsUITests/testChatPlaceholderLightAndDark()",
+      "resultBundle": "/tmp/suji-mingli-details-final.xcresult",
+      "testPassed": true
+    }
+  ],
+  "build": {
+    "baselineCommit": "3daca79b80c23264aa06a5c6e793faa3c223bf20",
+    "uncommittedChangesIncluded": true,
+    "buildSourceSha256": "1707dc9199c130dc08a589b32ce8c74500df368e60e7ce379854eb6c08efdd33",
+    "buildSourceRule": "Sorted native/App/**/*.swift, native/Core/Sources/**/*.swift, native/Widget/**/*.swift, native/Resources/mingli.js and native/Suji.xcodeproj/project.pbxproj; hash concatenated path + NUL + file SHA256 + LF",
+    "sourceFileCount": 49,
+    "validationStage": "v6 UI capture build",
+    "configuration": "Debug, signed iOS Simulator",
+    "bundleVersions": {
+      "Suji.app": {
+        "CFBundleIdentifier": "app.suji.native",
+        "CFBundleShortVersionString": "1.0.0",
+        "CFBundleVersion": "1",
+        "DTXcodeBuild": "17F113",
+        "DTSDKName": "iphonesimulator26.5"
+      },
+      "SujiWidget.appex": {
+        "CFBundleIdentifier": "app.suji.native.widget",
+        "CFBundleShortVersionString": "1.0.0",
+        "CFBundleVersion": "1",
+        "DTXcodeBuild": "17F113",
+        "DTSDKName": "iphonesimulator26.5"
+      }
+    },
+    "binarySha256": {
+      "Suji.app/Suji": "22be676c8026b6d39d04d96c68e11c8cc0f8abe30d83ebcd873769dc3caeee11",
+      "Suji.app/Suji.debug.dylib": "a22a822fc3beeea182a59addfba1751600d012ad7f793ac53420dfbdacff4e8a",
+      "SujiWidget.appex/SujiWidget": "9e3a6567e1f3b0ac1a0621c0ae9ccd65626bc85ecbb017b7453cddd34df29c78",
+      "SujiWidget.appex/SujiWidget.debug.dylib": "6ed5e8ef97458c89cba1e812cb4635ea00c7be170a5cc4e6fc093755cefa86cf"
+    },
+    "packagedEngineSha256": "451036e701144f190def6f733d70b0d7589b95d8586ef02d0d70365c8d3fe9b0",
+    "codeSignatureVerified": true
+  },
+  "testSummary": {
+    "devicesAndConfigurations": [
+      {
+        "device": {
+          "architecture": "arm64",
+          "deviceId": "09FF0B1D-9E60-4F2A-9465-3B156C88BD28",
+          "deviceName": "iPhone 17 Pro",
+          "modelName": "iPhone 17 Pro",
+          "osBuildNumber": "23F77",
+          "osVersion": "26.5",
+          "platform": "iOS Simulator"
+        },
+        "expectedFailures": 0,
+        "failedTests": 0,
+        "passedTests": 18,
+        "skippedTests": 0,
+        "testPlanConfiguration": {
+          "configurationId": "1",
+          "configurationName": "Test Scheme Action"
+        }
+      }
+    ],
+    "environmentDescription": "Suji · Built with macOS 26.4.1",
+    "expectedFailures": 0,
+    "failedTests": 0,
+    "finishTime": 1789804301.334,
+    "passedTests": 18,
+    "result": "Passed",
+    "skippedTests": 0,
+    "startTime": 1789804141.114,
+    "statistics": [],
+    "testFailures": [],
+    "title": "Test - Suji",
+    "topInsights": [],
+    "totalTestCount": 18
+  },
+  "finalCoreValidation": {
+    "build": {
+      "baselineCommit": "3daca79b80c23264aa06a5c6e793faa3c223bf20",
+      "uncommittedChangesIncluded": true,
+      "buildSourceSha256": "5e4aff20b7405262f47d76461fae8c998f783b36955015b8c564b29c9b55b127",
+      "buildSourceRule": "Sorted native/App/**/*.swift, native/Core/Sources/**/*.swift, native/Widget/**/*.swift, native/Resources/mingli.js and native/Suji.xcodeproj/project.pbxproj; hash concatenated path + NUL + file SHA256 + LF",
+      "sourceFileCount": 49,
+      "validationStage": "v7 final Core build including solar-time comparison fix; UI unchanged",
+      "configuration": "Debug, signed iOS Simulator",
+      "bundleVersions": {
+        "Suji.app": {
+          "CFBundleIdentifier": "app.suji.native",
+          "CFBundleShortVersionString": "1.0.0",
+          "CFBundleVersion": "1",
+          "DTXcodeBuild": "17F113",
+          "DTSDKName": "iphonesimulator26.5"
+        },
+        "SujiWidget.appex": {
+          "CFBundleIdentifier": "app.suji.native.widget",
+          "CFBundleShortVersionString": "1.0.0",
+          "CFBundleVersion": "1",
+          "DTXcodeBuild": "17F113",
+          "DTSDKName": "iphonesimulator26.5"
+        }
+      },
+      "binarySha256": {
+        "Suji.app/Suji": "88fc20feda16b4831919f42f3612f5386f84e5a3af363e6c69f3252eff8f45f5",
+        "Suji.app/Suji.debug.dylib": "a22a822fc3beeea182a59addfba1751600d012ad7f793ac53420dfbdacff4e8a",
+        "SujiWidget.appex/SujiWidget": "9e3a6567e1f3b0ac1a0621c0ae9ccd65626bc85ecbb017b7453cddd34df29c78",
+        "SujiWidget.appex/SujiWidget.debug.dylib": "6ed5e8ef97458c89cba1e812cb4635ea00c7be170a5cc4e6fc093755cefa86cf",
+        "Suji.app/Frameworks/SujiCore_-28EB70513A83BED4_PackageProduct.framework/SujiCore_-28EB70513A83BED4_PackageProduct": "360567f453099c5e0f53506083e503180a2dec90f53b7a10c090716ba94c8d89"
+      },
+      "packagedEngineSha256": "451036e701144f190def6f733d70b0d7589b95d8586ef02d0d70365c8d3fe9b0",
+      "codeSignatureVerified": true,
+      "sourcesUnchangedDuringBuild": true
+    },
+    "testSummary": {
+      "devicesAndConfigurations": [
+        {
+          "device": {
+            "architecture": "arm64",
+            "deviceId": "09FF0B1D-9E60-4F2A-9465-3B156C88BD28",
+            "deviceName": "iPhone 17 Pro",
+            "modelName": "iPhone 17 Pro",
+            "osBuildNumber": "23F77",
+            "osVersion": "26.5",
+            "platform": "iOS Simulator"
+          },
+          "expectedFailures": 0,
+          "failedTests": 0,
+          "passedTests": 13,
+          "skippedTests": 0,
+          "testPlanConfiguration": {
+            "configurationId": "1",
+            "configurationName": "Test Scheme Action"
+          }
+        }
+      ],
+      "environmentDescription": "Suji · Built with macOS 26.4.1",
+      "expectedFailures": 0,
+      "failedTests": 0,
+      "finishTime": 1789804479.055,
+      "passedTests": 13,
+      "result": "Passed",
+      "skippedTests": 0,
+      "startTime": 1789804472.171,
+      "statistics": [],
+      "testFailures": [],
+      "title": "Test - Suji",
+      "topInsights": [],
+      "totalTestCount": 13
+    },
+    "resultBundle": "/tmp/suji-mingli-v7-final-hosted.xcresult",
+    "uiTestsRepeated": false,
+    "reason": "Core-only validation changes after v6 capture; no UI or fixture changes",
+    "appUIDebugDylibMatchesCapture": true
+  },
+  "visualReview": {
+    "retainedPNGs": 20,
+    "allRetainedPNGsViewed": true,
+    "voiceOverSpeechTested": false,
+    "treeContainsLiuyaoLines": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "treeContainsQimenPalaces": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  }
+}

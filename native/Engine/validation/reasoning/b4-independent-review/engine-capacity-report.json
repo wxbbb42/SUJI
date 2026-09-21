@@ -1,0 +1,50 @@
+{
+  "cases": 13824,
+  "scope": "Lossless same-call question argument reference; original chart JSON checked field-for-field. All4096 mixed line patterns at Sep20 wealth/self plus all64 all-moving original charts; 12 consecutive dates (12 day branches); all8 question types; all8 subjects on Sep19, role-matched subjects on other dates; 1600-char question/200-char event; projected JSON UTF16/UTF8; combined with questionType career Qimen",
+  "max": {
+    "rawUnits": 36688,
+    "rawBytes": 45420,
+    "objectCount": 14,
+    "units": 31903,
+    "bytes": 37435,
+    "combinedBytes": 53087,
+    "values": [
+      9,
+      9,
+      6,
+      6,
+      9,
+      9
+    ],
+    "date": "2026-09-20T04:00:00Z",
+    "questionType": "kids",
+    "subject": "child",
+    "original": "风泽中孚",
+    "resulting": "雷山小过"
+  },
+  "pairMax": {
+    "bytes": 54678,
+    "case": {
+      "rawUnits": 36091,
+      "rawBytes": 44859,
+      "objectCount": 14,
+      "units": 31318,
+      "bytes": 36886,
+      "combinedBytes": 54678,
+      "values": [
+        6,
+        6,
+        6,
+        6,
+        9,
+        9
+      ],
+      "date": "2026-09-12T04:00:00Z",
+      "questionType": "parents",
+      "subject": "parent",
+      "original": "风地观",
+      "resulting": "雷天大壮"
+    }
+  },
+  "failures": []
+}

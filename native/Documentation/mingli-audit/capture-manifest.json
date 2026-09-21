@@ -1,0 +1,63 @@
+{
+  "baseline": "df1a7c9",
+  "captured": "2026-09-19",
+  "fixture": "1995-01-01 12:00 female Shanghai longitude 121.47; ephemeral --ui-testing notebook; partner uses same synthetic fixture",
+  "screenshots": [
+    {
+      "file": "01-birth-editor.png",
+      "capturedAt": 1789799287.026,
+      "device": "iPhone 17 Pro",
+      "test": "MingliAuditUITests/testCaptureMingliJourney()"
+    },
+    {
+      "file": "02-profile-reading.png",
+      "capturedAt": 1789799289.367,
+      "device": "iPhone 17 Pro",
+      "test": "MingliAuditUITests/testCaptureMingliJourney()"
+    },
+    {
+      "file": "04-chart-interpretation.png",
+      "capturedAt": 1789799294.296,
+      "device": "iPhone 17 Pro",
+      "test": "MingliAuditUITests/testCaptureMingliJourney()"
+    },
+    {
+      "file": "05-ziwei-palaces.png",
+      "capturedAt": 1789799297.033,
+      "device": "iPhone 17 Pro",
+      "test": "MingliAuditUITests/testCaptureMingliJourney()"
+    },
+    {
+      "file": "06-annual-decadal.png",
+      "capturedAt": 1789799300.667,
+      "device": "iPhone 17 Pro",
+      "test": "MingliAuditUITests/testCaptureMingliJourney()"
+    },
+    {
+      "file": "08-calibration-events.png",
+      "capturedAt": 1789799305.793,
+      "device": "iPhone 17 Pro",
+      "test": "MingliAuditUITests/testCaptureMingliJourney()"
+    },
+    {
+      "file": "09-relationship.png",
+      "capturedAt": 1789799315.381,
+      "device": "iPhone 17 Pro",
+      "test": "MingliAuditUITests/testCaptureMingliJourney()"
+    },
+    {
+      "file": "11-chat-login-required.png",
+      "capturedAt": 1789799322.103,
+      "device": "iPhone 17 Pro",
+      "test": "MingliAuditUITests/testCaptureMingliJourney()"
+    },
+    {
+      "file": "13-large-text-elements.png",
+      "capturedAt": 1789799275.418,
+      "device": "iPhone 17 Pro",
+      "test": "MingliAuditUITests/testCaptureLargeTextChart()"
+    }
+  ],
+  "rawCaptureCount": 13,
+  "retainedCount": 9
+}

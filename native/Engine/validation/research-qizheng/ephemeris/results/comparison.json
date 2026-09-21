@@ -1,0 +1,439 @@
+{
+  "status": "research-feasible-with-time-policy-unresolved-not-production-acceptance",
+  "candidate": "Astronomy Engine 2.1.19",
+  "reference": "pyswisseph 2.10.3.2 / Swiss Ephemeris 2.10.03; explicit Moshier",
+  "samples": 5600,
+  "range": "1901–2100, Jan/Apr/Jul/Oct 15 04:00 nominal UTC",
+  "thresholdArcseconds": 60,
+  "thresholdMeaning": "Preselected feasibility screen per coordinate; not an all-date error bound",
+  "candidateMethod": "GeoVector(body,date,true), Ecliptic(vector), Rotation_EQJ_EQD(date); GeoVector Moon delegates to GeoMoon without separate light-time/aberration correction",
+  "referenceMethod": "Geocentric apparent tropical true ecliptic/equator of date; Moshier with speed; independent default DeltaT then identical candidate TT",
+  "sharedTTMeaning": "Isolates time-model differences; does NOT validate candidate TT against physical UTC",
+  "timeLimitations": "Astronomy Engine approximates UTC as UT1 and uses Espenak/Meeus DeltaT; pre-UTC dates are proleptic clock labels, future DeltaT is predictive",
+  "maximumDeltaTModelDifference": {
+    "differenceSeconds": 110.95790779220296,
+    "instant": "2100-10-15T04:00:00Z",
+    "candidateSeconds": 204.50478619895875,
+    "referenceSeconds": 93.5468784067558
+  },
+  "comparisons": {
+    "defaultUT": {
+      "maxima": {
+        "Sun.longitude": {
+          "arcseconds": 6.303804855724593,
+          "instant": "2098-01-15T04:00:00Z"
+        },
+        "Sun.latitude": {
+          "arcseconds": 1.8161539820644417,
+          "instant": "1904-10-15T04:00:00Z"
+        },
+        "Sun.rightAscensionDegrees": {
+          "arcseconds": 6.527607356019871,
+          "instant": "2098-01-15T04:00:00Z"
+        },
+        "Sun.declination": {
+          "arcseconds": 3.2901960791960505,
+          "instant": "2089-04-15T04:00:00Z"
+        },
+        "Moon.longitude": {
+          "arcseconds": 68.9995974165754,
+          "instant": "2099-10-15T04:00:00Z"
+        },
+        "Moon.latitude": {
+          "arcseconds": 6.719625321010625,
+          "instant": "2096-07-15T04:00:00Z"
+        },
+        "Moon.rightAscensionDegrees": {
+          "arcseconds": 74.05249388530137,
+          "instant": "2098-01-15T04:00:00Z"
+        },
+        "Moon.declination": {
+          "arcseconds": 29.37444551807822,
+          "instant": "2098-04-15T04:00:00Z"
+        },
+        "Mercury.longitude": {
+          "arcseconds": 10.486453507473925,
+          "instant": "2087-07-15T04:00:00Z"
+        },
+        "Mercury.latitude": {
+          "arcseconds": 7.65848846439634,
+          "instant": "2081-01-15T04:00:00Z"
+        },
+        "Mercury.rightAscensionDegrees": {
+          "arcseconds": 11.477228750391077,
+          "instant": "2087-07-15T04:00:00Z"
+        },
+        "Mercury.declination": {
+          "arcseconds": 6.998672414007956,
+          "instant": "1914-07-15T04:00:00Z"
+        },
+        "Venus.longitude": {
+          "arcseconds": 20.407168363067285,
+          "instant": "2026-10-15T04:00:00Z"
+        },
+        "Venus.latitude": {
+          "arcseconds": 9.5440997761715,
+          "instant": "2087-07-15T04:00:00Z"
+        },
+        "Venus.rightAscensionDegrees": {
+          "arcseconds": 20.19368095614027,
+          "instant": "2026-10-15T04:00:00Z"
+        },
+        "Venus.declination": {
+          "arcseconds": 11.086924067878101,
+          "instant": "2009-04-15T04:00:00Z"
+        },
+        "Mars.longitude": {
+          "arcseconds": 10.972620551274304,
+          "instant": "2095-07-15T04:00:00Z"
+        },
+        "Mars.latitude": {
+          "arcseconds": 11.902915463716468,
+          "instant": "1956-10-15T04:00:00Z"
+        },
+        "Mars.rightAscensionDegrees": {
+          "arcseconds": 13.439655399349704,
+          "instant": "2095-07-15T04:00:00Z"
+        },
+        "Mars.declination": {
+          "arcseconds": 8.906808752325901,
+          "instant": "1956-10-15T04:00:00Z"
+        },
+        "Jupiter.longitude": {
+          "arcseconds": 9.429428788916994,
+          "instant": "1949-07-15T04:00:00Z"
+        },
+        "Jupiter.latitude": {
+          "arcseconds": 12.849290673978132,
+          "instant": "2049-01-15T04:00:00Z"
+        },
+        "Jupiter.rightAscensionDegrees": {
+          "arcseconds": 9.917646456119655,
+          "instant": "2003-01-15T04:00:00Z"
+        },
+        "Jupiter.declination": {
+          "arcseconds": 12.700443392569127,
+          "instant": "2049-01-15T04:00:00Z"
+        },
+        "Saturn.longitude": {
+          "arcseconds": 13.05662046576117,
+          "instant": "2001-10-15T04:00:00Z"
+        },
+        "Saturn.latitude": {
+          "arcseconds": 21.485247447450995,
+          "instant": "1951-04-15T04:00:00Z"
+        },
+        "Saturn.rightAscensionDegrees": {
+          "arcseconds": 14.468759420651622,
+          "instant": "2097-04-15T04:00:00Z"
+        },
+        "Saturn.declination": {
+          "arcseconds": 20.83208065716633,
+          "instant": "2090-01-15T04:00:00Z"
+        }
+      },
+      "failures": [
+        {
+          "instant": "2093-04-15T04:00:00Z",
+          "body": "Moon",
+          "errorsArcseconds": {
+            "longitude": 59.20988457127123,
+            "latitude": 3.7642926249617403,
+            "rightAscensionDegrees": 61.263297186690124,
+            "declination": 11.363144863055652
+          }
+        },
+        {
+          "instant": "2094-01-15T04:00:00Z",
+          "body": "Moon",
+          "errorsArcseconds": {
+            "longitude": 61.41924257285609,
+            "latitude": 5.655332537552571,
+            "rightAscensionDegrees": 66.38113342103225,
+            "declination": 4.462972997923487
+          }
+        },
+        {
+          "instant": "2095-07-15T04:00:00Z",
+          "body": "Moon",
+          "errorsArcseconds": {
+            "longitude": 56.27086023519041,
+            "latitude": 5.274995036227592,
+            "rightAscensionDegrees": 61.34393220729635,
+            "declination": 7.176835246475832
+          }
+        },
+        {
+          "instant": "2095-10-15T04:00:00Z",
+          "body": "Moon",
+          "errorsArcseconds": {
+            "longitude": 64.12021985594265,
+            "latitude": 6.684595762786927,
+            "rightAscensionDegrees": 61.76855003959645,
+            "declination": 24.29955459239892
+          }
+        },
+        {
+          "instant": "2096-07-15T04:00:00Z",
+          "body": "Moon",
+          "errorsArcseconds": {
+            "longitude": 62.940000970684196,
+            "latitude": 6.719625321010625,
+            "rightAscensionDegrees": 62.111583481146226,
+            "declination": 22.513679962371214
+          }
+        },
+        {
+          "instant": "2097-04-15T04:00:00Z",
+          "body": "Moon",
+          "errorsArcseconds": {
+            "longitude": 63.81498044914906,
+            "latitude": 6.244465982209757,
+            "rightAscensionDegrees": 66.55956421585643,
+            "declination": 18.391025271895955
+          }
+        },
+        {
+          "instant": "2098-01-15T04:00:00Z",
+          "body": "Moon",
+          "errorsArcseconds": {
+            "longitude": 66.21614091707215,
+            "latitude": 2.7988654131618773,
+            "rightAscensionDegrees": 74.05249388530137,
+            "declination": 6.345702431654843
+          }
+        },
+        {
+          "instant": "2098-04-15T04:00:00Z",
+          "body": "Moon",
+          "errorsArcseconds": {
+            "longitude": 62.18423167987339,
+            "latitude": 6.140566959043969,
+            "rightAscensionDegrees": 55.4986542350548,
+            "declination": 29.37444551807822
+          }
+        },
+        {
+          "instant": "2098-10-15T04:00:00Z",
+          "body": "Moon",
+          "errorsArcseconds": {
+            "longitude": 62.07994857709309,
+            "latitude": 2.8585968132983197,
+            "rightAscensionDegrees": 69.45951035763755,
+            "declination": 7.777434154874641
+          }
+        },
+        {
+          "instant": "2099-07-15T04:00:00Z",
+          "body": "Moon",
+          "errorsArcseconds": {
+            "longitude": 60.92347156946971,
+            "latitude": 1.3325845623768373,
+            "rightAscensionDegrees": 67.87308617465442,
+            "declination": 8.068478341705543
+          }
+        },
+        {
+          "instant": "2099-10-15T04:00:00Z",
+          "body": "Moon",
+          "errorsArcseconds": {
+            "longitude": 68.9995974165754,
+            "latitude": 5.362923787424911,
+            "rightAscensionDegrees": 66.26319366499729,
+            "declination": 27.76502234631124
+          }
+        },
+        {
+          "instant": "2100-04-15T04:00:00Z",
+          "body": "Moon",
+          "errorsArcseconds": {
+            "longitude": 56.861429501384464,
+            "latitude": 0.7847445412370035,
+            "rightAscensionDegrees": 64.41455986650908,
+            "declination": 1.18710480242612
+          }
+        },
+        {
+          "instant": "2100-07-15T04:00:00Z",
+          "body": "Moon",
+          "errorsArcseconds": {
+            "longitude": 65.31515101811465,
+            "latitude": 4.095456267516617,
+            "rightAscensionDegrees": 61.593175539803724,
+            "declination": 27.039759397848684
+          }
+        }
+      ],
+      "failureCount": 13,
+      "status": "exceeds-spike-threshold",
+      "maximumArcseconds": 74.05249388530137
+    },
+    "sharedTT": {
+      "maxima": {
+        "Sun.longitude": {
+          "arcseconds": 1.9616299423091732,
+          "instant": "1998-10-15T04:00:00Z"
+        },
+        "Sun.latitude": {
+          "arcseconds": 1.816154401799949,
+          "instant": "1904-10-15T04:00:00Z"
+        },
+        "Sun.rightAscensionDegrees": {
+          "arcseconds": 2.036703593796574,
+          "instant": "2082-04-15T04:00:00Z"
+        },
+        "Sun.declination": {
+          "arcseconds": 1.966234088065022,
+          "instant": "2089-04-15T04:00:00Z"
+        },
+        "Moon.longitude": {
+          "arcseconds": 3.7072052398002597,
+          "instant": "1904-07-15T04:00:00Z"
+        },
+        "Moon.latitude": {
+          "arcseconds": 2.505638128499553,
+          "instant": "1927-10-15T04:00:00Z"
+        },
+        "Moon.rightAscensionDegrees": {
+          "arcseconds": 3.6279561677019956,
+          "instant": "1909-07-15T04:00:00Z"
+        },
+        "Moon.declination": {
+          "arcseconds": 2.3857807980494528,
+          "instant": "2091-04-15T04:00:00Z"
+        },
+        "Mercury.longitude": {
+          "arcseconds": 9.921981764705379,
+          "instant": "1981-10-15T04:00:00Z"
+        },
+        "Mercury.latitude": {
+          "arcseconds": 6.793989770997899,
+          "instant": "2081-01-15T04:00:00Z"
+        },
+        "Mercury.rightAscensionDegrees": {
+          "arcseconds": 10.067984998374868,
+          "instant": "2100-10-15T04:00:00Z"
+        },
+        "Mercury.declination": {
+          "arcseconds": 6.9981921666652624,
+          "instant": "1914-07-15T04:00:00Z"
+        },
+        "Venus.longitude": {
+          "arcseconds": 20.28087952056694,
+          "instant": "2026-10-15T04:00:00Z"
+        },
+        "Venus.latitude": {
+          "arcseconds": 8.702701810064717,
+          "instant": "2087-07-15T04:00:00Z"
+        },
+        "Venus.rightAscensionDegrees": {
+          "arcseconds": 20.073022434451104,
+          "instant": "2026-10-15T04:00:00Z"
+        },
+        "Venus.declination": {
+          "arcseconds": 11.092316773245159,
+          "instant": "2009-04-15T04:00:00Z"
+        },
+        "Mars.longitude": {
+          "arcseconds": 11.331451910166379,
+          "instant": "2067-10-15T04:00:00Z"
+        },
+        "Mars.latitude": {
+          "arcseconds": 11.90338886815372,
+          "instant": "1956-10-15T04:00:00Z"
+        },
+        "Mars.rightAscensionDegrees": {
+          "arcseconds": 12.766457547786558,
+          "instant": "2095-07-15T04:00:00Z"
+        },
+        "Mars.declination": {
+          "arcseconds": 8.907390902302126,
+          "instant": "1956-10-15T04:00:00Z"
+        },
+        "Jupiter.longitude": {
+          "arcseconds": 9.428879882307228,
+          "instant": "1949-07-15T04:00:00Z"
+        },
+        "Jupiter.latitude": {
+          "arcseconds": 12.84708284221332,
+          "instant": "2049-01-15T04:00:00Z"
+        },
+        "Jupiter.rightAscensionDegrees": {
+          "arcseconds": 9.917390071996124,
+          "instant": "2003-01-15T04:00:00Z"
+        },
+        "Jupiter.declination": {
+          "arcseconds": 12.702232133884195,
+          "instant": "2049-01-15T04:00:00Z"
+        },
+        "Saturn.longitude": {
+          "arcseconds": 13.056644332800715,
+          "instant": "2001-10-15T04:00:00Z"
+        },
+        "Saturn.latitude": {
+          "arcseconds": 21.485238654841154,
+          "instant": "1951-04-15T04:00:00Z"
+        },
+        "Saturn.rightAscensionDegrees": {
+          "arcseconds": 14.658860658391859,
+          "instant": "2097-04-15T04:00:00Z"
+        },
+        "Saturn.declination": {
+          "arcseconds": 20.841086915740448,
+          "instant": "2090-01-15T04:00:00Z"
+        }
+      },
+      "failures": [],
+      "failureCount": 0,
+      "status": "within-spike-threshold",
+      "maximumArcseconds": 21.485238654841154
+    }
+  },
+  "nativeRuntime": {
+    "samples": 5600,
+    "maximumDifferenceDegrees": 5.684341886080802e-14,
+    "sameInstantChecks": [
+      {
+        "body": "Sun",
+        "equal": true
+      },
+      {
+        "body": "Moon",
+        "equal": true
+      },
+      {
+        "body": "Mercury",
+        "equal": true
+      },
+      {
+        "body": "Venus",
+        "equal": true
+      },
+      {
+        "body": "Mars",
+        "equal": true
+      },
+      {
+        "body": "Jupiter",
+        "equal": true
+      },
+      {
+        "body": "Saturn",
+        "equal": true
+      }
+    ],
+    "meaning": "Runtime compatibility, not independent astronomy validation"
+  },
+  "exclusions": [
+    "traditional four residuals",
+    "28 mansion boundaries",
+    "houses and life degree",
+    "topocentric positions",
+    "all-instant accuracy",
+    "interpretation or prediction validity"
+  ],
+  "inputSHA256": {
+    "candidate.json": "cbea79635ded63dfc5683d7f1c568ff579f8e7a283a09238f00ec6d0b2b7e95d",
+    "jsc.json": "95c0d8c0d5384b1ce7089c474306e066da8b9383e1c5ff3b43ce6a564de4430e"
+  }
+}
