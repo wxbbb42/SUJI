@@ -76,6 +76,59 @@ final class SujiUITests: XCTestCase {
         XCTAssertTrue(app.buttons["ritual.journal"].waitForExistence(timeout: 8))
         capture("22-paper-drag-revealed")
     }
+    func testPaperCornerTapAndReachableDrag() {
+        begin()
+        let paper = app.otherElements["ritual.paper"].firstMatch
+        paper.coordinate(withNormalizedOffset: CGVector(dx: 0.94, dy: 0.94)).tap()
+        XCTAssertTrue(app.buttons["ritual.journal"].waitForExistence(timeout: 5))
+        app.terminate()
+        begin()
+        let corner = paper.coordinate(withNormalizedOffset: CGVector(dx: 0.94, dy: 0.94))
+        let reachable = corner.withOffset(CGVector(dx: -80, dy: -88))
+        corner.press(forDuration: 0.1, thenDragTo: reachable, withVelocity: .slow, thenHoldForDuration: 0.2)
+        XCTAssertTrue(app.buttons["ritual.journal"].waitForExistence(timeout: 5))
+        capture("30-reachable-drag-revealed")
+    }
+
+    func testPaperLargeTypeScrollAndShortPullStayUnrevealed() {
+        app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        begin()
+        XCTAssertTrue(app.staticTexts["ritual.season"].waitForExistence(timeout: 5))
+        capture("31-large-paper-top")
+        let reveal = app.buttons["ritual.reveal"]
+        for _ in 0..<8 { if reveal.isHittable { break }; app.swipeUp() }
+        XCTAssertTrue(reveal.isHittable)
+        let handle = app.buttons["ritual.corner"]
+        XCTAssertTrue(handle.isHittable)
+        var corner = handle.coordinate(withNormalizedOffset: CGVector(dx: 0.65, dy: 0.65))
+        corner.press(forDuration: 0.1, thenDragTo: corner.withOffset(CGVector(dx: 0, dy: -55)), withVelocity: .slow, thenHoldForDuration: 0.1)
+        XCTAssertTrue(reveal.exists)
+        XCTAssertFalse(app.buttons["ritual.journal"].exists)
+        for _ in 0..<5 { if reveal.isHittable { break }; app.swipeUp() }
+        corner = handle.coordinate(withNormalizedOffset: CGVector(dx: 0.65, dy: 0.65))
+        corner.press(forDuration: 0.1, thenDragTo: corner.withOffset(CGVector(dx: -18, dy: -20)), withVelocity: .slow, thenHoldForDuration: 0.1)
+        XCTAssertTrue(reveal.exists)
+        capture("32-large-paper-returned")
+        corner.press(forDuration: 0.1, thenDragTo: corner.withOffset(CGVector(dx: -80, dy: -88)), withVelocity: .slow, thenHoldForDuration: 0.1)
+        XCTAssertTrue(app.buttons["ritual.journal"].waitForExistence(timeout: 5))
+        capture("33-large-paper-revealed")
+    }
+
+    func testPaperReduceMotionAndRevisitPreserveRevealedDay() {
+        app.launchArguments += ["--test-reduce-motion"]
+        begin()
+        app.buttons["ritual.reveal"].tap()
+        XCTAssertTrue(app.buttons["ritual.journal"].waitForExistence(timeout: 5))
+        app.tabBars.buttons["静心"].tap()
+        app.tabBars.buttons["今日"].tap()
+        XCTAssertTrue(app.staticTexts["ritual.revealed"].exists)
+        XCTAssertFalse(app.buttons["ritual.reveal"].exists)
+        XCUIDevice.shared.press(.home)
+        app.activate()
+        XCTAssertTrue(app.buttons["ritual.journal"].waitForExistence(timeout: 5))
+        capture("34-reduced-motion-revisited")
+    }
+
     func testBreathingAndBirthProfile() {
         begin(); app.tabBars.buttons["静心"].tap(); capture("07-calm")
         app.buttons["开始"].tap()
