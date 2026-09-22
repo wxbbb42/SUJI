@@ -100,6 +100,7 @@ enum NativeReadingEvaluation {
                 let context = try ToolContext(birth: birth, engineRevision: metadata["engineRevision"] as! String, referenceDate: now, mode: mode)
                 let presentation = BaziReadingRequest.resolveRequest(question: question, mode: mode, entries: conversation, currentUserID: userEntry.id, context: context)
                 let focus = presentation?.focuses.first
+                let todayRequest = focus == nil && TodayReadingRequest.applies(question: question, mode: mode)
                 let instruction = ReadingPrompt.instruction(tone: "温暖", mode: mode, referenceDate: now, hasBirth: birth != nil)
                 var exchanges: [[String: Any]] = []
                 var receipts: [ToolReceipt] = []
@@ -119,8 +120,10 @@ enum NativeReadingEvaluation {
                 do {
                     let available = try ReadingIntent.definitions(from: definitions, mode: mode, question: question, hasBirth: birth != nil)
                     let orchestrator = ToolOrchestrator(complete: { messages, tools in
-                        if focus != nil {
-                            let planned = BaziFrameworkReading.plan(callID: "bazi-" + userEntry.id.uuidString, history: messages, context: context, hasBirth: birth != nil)
+                        if focus != nil || todayRequest {
+                            let planned = todayRequest
+                                ? TodayReadingRequest.plan(callID: "today-" + userEntry.id.uuidString, history: messages, context: context, hasBirth: birth != nil)
+                                : BaziFrameworkReading.plan(callID: "bazi-" + userEntry.id.uuidString, history: messages, context: context, hasBirth: birth != nil)
                             let response: Any
                             switch planned {
                             case let .text(text): response = ["text": text]
@@ -143,6 +146,7 @@ enum NativeReadingEvaluation {
                     var history = result.messages
                     if result.reachedRoundLimit { history.append(.init(role: .user, content: "已达到工具轮次上限，请说明现有依据的限度，不要继续起盘。")) }
                     history[0].content = instruction + "\n" + ReadingPrompt.writer
+                    if todayRequest { history[0].content! += "\n" + ReadingPrompt.todayWriter }
                     if result.evidence.isEmpty { history[0].content! += "\n本次没有取得新的计算证据；只能提供一般建议，不能声称已完成命盘解读。" }
                     record["writerHistory"] = try object(history)
                     if let focus {
@@ -200,7 +204,7 @@ enum NativeReadingEvaluation {
                         } catch let error as ReadingVerifier.Rejected {
                             record["status"] = "fact-fallback"
                             record["rejectionReason"] = error.reason
-                            record["answer"] = ReadingFallback.reply(history: history)
+                            record["answer"] = ReadingFallback.reply(history: history, rejectionReason: error.reason)
                         }
                     }
                 } catch {

@@ -2,6 +2,9 @@ import Foundation
 
 extension ReadingVerificationAssertions {
     private static let calendarFields: [String: (system: String, unit: String)] = [
+        "calendar.year": ("today", "年"),
+        "calendar.month": ("today", "月"),
+        "calendar.day": ("today", "日"),
         "liuyao.calendar.month": ("liuyao", "月"),
         "liuyao.calendar.day": ("liuyao", "日"),
         "liuyao.calendar.hour": ("liuyao", "时"),
@@ -35,6 +38,26 @@ extension ReadingVerificationAssertions {
     static func calendarClaims(in sentence: String, key: String) -> [String] {
         guard let field = calendarFields[key], !conditional(sentence), !denied(sentence),
               !has(sentence, "八字|紫微|紫薇|梅花|六壬|太乙|塔罗|占星|星盘|本命|出生|流年|流月|大限|大运|上次|上一|前一|之前|此前|去年|昨天|曾经|过去|明年|明天|未来|不对|不正确|不成立|不属实|错|假定|假设|说|声称|认为|提到|表示|指出|记载|书中|原文|用户问|[？?]|吗|是否|是不是") else { return [] }
+        if field.system == "today" {
+            guard !has(sentence, "奇门|六爻|起卦|起局") else { return [] }
+            let stemBranch = "[甲乙丙丁戊己庚辛壬癸][子丑寅卯辰巳午未申酉戌亥]"
+            let marker = "(?:^|[，,；;])\\s*(?:今天|今日|本次时刻|当前历法|本次历法)"
+            let join = "(?:的)?\\s*(?:为|是|：|:)?\\s*"
+            let separator = "\\s*[、，,·]?\\s*"
+            let item = stemBranch + "[年月日]"
+            func captures(_ text: String, _ pattern: String) -> [String] {
+                guard let regex = try? NSRegularExpression(pattern: pattern) else { return [] }
+                return regex.matches(in: text, range: NSRange(text.startIndex..., in: text)).compactMap {
+                    Range($0.range(at: 1), in: text).map { String(text[$0]) }
+                }
+            }
+            let end = "(?=\\s*(?:$|[，,；;]))"
+            let slot = "(?:" + field.unit + "柱|" + field.unit + "干支)"
+            var values = captures(sentence, marker + "(?:的)?" + slot + join + "[「『“\"]?(" + stemBranch + ")[」』”\"]?" + end)
+            let sequences = captures(sentence, marker + join + "(" + item + "(?:" + separator + item + "){0,2})" + end)
+            for sequence in sequences { values += captures(sequence, "(" + stemBranch + ")" + field.unit) }
+            return values
+        }
         let isLiuyao = field.system == "liuyao"
         guard !has(sentence, isLiuyao ? "奇门|起局" : "六爻|起卦") else { return [] }
         let marker = "(?:^|[，,；;])\\s*(?:本次|这次|本盘)?" + (isLiuyao ? "(?:六爻(?:起卦)?|起卦)" : "(?:奇门(?:起局)?|起局)")
@@ -74,7 +97,7 @@ extension ReadingVerificationAssertions {
             for sentence in declarativeSentences(draft) {
                 let claims = calendarClaims(in: sentence, key: key)
                 if claims.contains(where: { $0 != actual }) {
-                    issues.append("原句：\(sentence)；本次工具\(fact.toolCallID)的\(key)（\(fact.pointer)）实际值为\(actual)。只按这个原始字段纠正对应的起卦/起局干支，不另算历法，不改变已保存的盘面。")
+                    issues.append("原句：\(sentence)；本次工具\(fact.toolCallID)的\(key)（\(fact.pointer)）实际值为\(actual)。只按这个原始字段纠正对应干支，不另算历法，不改变已保存的盘面。")
                 }
             }
         }

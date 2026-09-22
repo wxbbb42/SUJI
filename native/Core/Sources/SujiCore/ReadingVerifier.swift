@@ -22,7 +22,11 @@ public enum ReadingVerifier {
     public typealias Complete = ([ChatMessage]) async throws -> ChatCompletionResult
 
     public struct Rejected: LocalizedError, Sendable {
-        public var errorDescription: String? { "这次回信与盘面依据未能核对一致，暂未展示。已计算的盘面已保留，可以重试。" }
+        public var errorDescription: String? {
+            reason == "supported_rejection"
+                ? "这次回信未通过依据核对，暂未展示。可以重试。"
+                : "这次解读未完成核对，暂未展示。可以重试，已取得的计算记录会保留。"
+        }
         public let reason: String
         public init(reason: String = "supported_rejection") { self.reason = reason }
     }

@@ -18,7 +18,6 @@ final class ReadingVerifierTests: XCTestCase {
         }
     }
     private let accepted = #"{"protocolVersion":"suji-verification-2","accepted":true,"reviewedSentences":[1],"issues":[]}"#
-    private let rejected = #"{"protocolVersion":"suji-verification-2","accepted":false,"reviewedSentences":[1],"issues":[{"kind":"field_mismatch","candidateQuote":"年柱为甲辰","candidateValueQuote":"甲辰","factKey":"calendar.year","toolCallID":"a","pointer":"/yearGanZhi","actualValue":"癸卯","claimedValue":"甲辰","predicate":"equals"}]}"#
     private var history: [ChatMessage] {
         [ChatMessage(role: .system, content: "出生资料已提供"),
          ChatMessage(role: .assistant, content: "昨日不可信旧答案"),
@@ -34,10 +33,9 @@ final class ReadingVerifierTests: XCTestCase {
 
     func testIncorrectDraftMustBeRevisedAndRechecked() async throws {
         var calls = 0
-        let result = try await ReadingVerifier.verify(draft: "年柱为甲辰", history: history, question: "当前年柱") { messages in
+        let result = try await ReadingVerifier.verify(draft: "今日年柱为甲辰", history: history, question: "当前年柱") { messages in
             calls += 1
-            if calls == 1 { return .text(self.rejected) }
-            if calls == 2 {
+            if messages.last?.content?.hasPrefix(ReadingVerifier.revision) == true {
                 XCTAssertTrue(messages.last!.content!.contains("癸卯"))
                 return .text("仍为癸卯")
             }
@@ -45,19 +43,19 @@ final class ReadingVerifierTests: XCTestCase {
             return .text(self.accepted)
         }
         XCTAssertEqual(result, "仍为癸卯")
-        XCTAssertEqual(calls, 3)
+        XCTAssertEqual(calls, 2)
     }
 
     func testRepeatedRejectionNeverReturnsOriginalOrRevisedDraft() async {
         var calls = 0
         do {
-            _ = try await ReadingVerifier.verify(draft: "年柱为甲辰", history: history, question: "当前年柱") { _ in
+            _ = try await ReadingVerifier.verify(draft: "今日年柱为甲辰", history: history, question: "当前年柱") { _ in
                 calls += 1
-                return .text(calls == 2 ? "年柱为甲辰" : self.rejected)
+                return .text("今日年柱为甲辰")
             }
             XCTFail("Rejected draft must not be displayed")
         } catch { XCTAssertTrue(error is ReadingVerifier.Rejected) }
-        XCTAssertEqual(calls, 3)
+        XCTAssertEqual(calls, 1)
     }
 
     func testMalformedAndContradictoryVerdictsFailClosed() async {

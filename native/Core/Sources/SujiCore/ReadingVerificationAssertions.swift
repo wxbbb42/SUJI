@@ -39,6 +39,17 @@ enum ReadingVerificationAssertions {
         // Do not discard a negation before the group marker while slicing it.
         // Mixed assertions/denials are ambiguous and are never repair evidence.
         guard !conditional(sentence), !denied(sentence) else { return false }
+        if fact.factKey.hasPrefix("calendar.") {
+            if fact.factKey == "calendar.term" {
+                let value = NSRegularExpression.escapedPattern(for: quote)
+                return clauses(sentence).contains {
+                    has($0, "^\\s*(?:今天|今日|当前|本次)(?:的)?节气\\s*(?:是|为|：|:)?\\s*" + value)
+                }
+            }
+            // An unlabeled pillar may be natal or belong to another date. Only
+            // the explicit current-calendar grammar binds it to this receipt.
+            return calendarClaims(in: sentence, key: fact.factKey).contains(quote)
+        }
         if calendarClaims(in: sentence, key: fact.factKey).contains(quote) { return true }
         if ZiweiReadingAssertions.binds(quote,to:fact,in:sentence,facts:facts) { return true }
         if QimenReadingAssertions.handles(fact) { return QimenReadingAssertions.binds(quote,to:fact,in:sentence,facts:facts) }

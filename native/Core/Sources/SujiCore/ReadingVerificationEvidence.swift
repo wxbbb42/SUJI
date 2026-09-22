@@ -194,7 +194,10 @@ enum ReadingVerificationEvidence {
                     }
                 }
             case "get_today_context":
-                for (key, path) in [("year", "yearGanZhi"), ("month", "monthGanZhi"), ("day", "dayGanZhi"), ("term", "solarTerm")] { add("calendar." + key, "/" + path) }
+                // Current receipts use todayGanZhi; keep legacy receipts bound
+                // to their own stored field instead of inventing a pointer.
+                let dayField = root["todayGanZhi"] == nil ? "dayGanZhi" : "todayGanZhi"
+                for (key, path) in [("year", "yearGanZhi"), ("month", "monthGanZhi"), ("day", dayField), ("term", "solarTerm")] { add("calendar." + key, "/" + path) }
             case "get_domain":
                 patternConditions()
                 baziAdjudications()

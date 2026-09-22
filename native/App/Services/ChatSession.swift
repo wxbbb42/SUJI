@@ -1,8 +1,10 @@
 import Foundation
 import Observation
+import OSLog
 import SujiCore
 
 @MainActor @Observable final class ChatSession {
+    private static let logger = Logger(subsystem: "app.suji.native", category: "Reading")
     let castConfirmation = CastQuestionConfirmation()
     var working = false
     var partial = ""
@@ -117,6 +119,7 @@ import SujiCore
                 let instruction = ReadingPrompt.instruction(tone: tone, mode: effectiveMode, referenceDate: referenceDate, hasBirth: birth != nil)
                 let presentation = BaziReadingRequest.resolveRequest(question: originalQuestion, mode: effectiveMode, entries: historyEntries, currentUserID: userID, context: context)
                 let focus = presentation?.focuses.first
+                let todayRequest = focus == nil && TodayReadingRequest.applies(question: originalQuestion, mode: effectiveMode)
                 // These caches belong only to this user entry and passed the
                 // context checks above. A retry planner may need no new calls.
                 var frameworkReceipts = cachedReceipts
@@ -138,6 +141,9 @@ import SujiCore
                         complete: { messages, tools in
                             if focus != nil {
                                 return BaziFrameworkReading.plan(callID: frameworkCallID, history: messages, cachedReceipts: cachedReceipts, context: context, hasBirth: birth != nil)
+                            }
+                            if todayRequest {
+                                return TodayReadingRequest.plan(callID: frameworkCallID, history: messages, cachedReceipts: cachedReceipts, context: context, hasBirth: birth != nil)
                             }
                             return try await client.complete(messages: messages, tools: tools)
                         },
@@ -203,6 +209,7 @@ import SujiCore
                         ))
                     }
                     history[0].content = instruction + "\n" + ReadingPrompt.writer + "\n若本次有用户确认的占问资料，按确认后的问题、对象、事项和范围解读；仅核对盘面时不判断成败或日期。"
+                    if todayRequest { history[0].content! += "\n" + ReadingPrompt.todayWriter }
                     if evidence.isEmpty { history[0].content! += "\n本次没有取得新的计算证据；只能提供一般建议，不能声称已完成命盘解读。" }
 
                 }
@@ -265,8 +272,9 @@ import SujiCore
                         } catch let error as ReadingVerifier.Rejected {
                             try Task.checkCancellation()
                             try Self.checkScope(store, revision: revision, birth: birth)
+                            Self.logger.error("Reading verification rejected: \(error.reason, privacy: .public)")
                             failure = error.localizedDescription
-                            partial = ReadingFallback.reply(history: history)
+                            partial = ReadingFallback.reply(history: history, rejectionReason: error.reason)
                         }
                     }
                 }
