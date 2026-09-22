@@ -55,6 +55,7 @@ jobs:
             -only-testing:SujiTests/NatalAstronomyStoreTests \
             -only-testing:SujiTests/CastQuestionConfirmationTests \
             -only-testing:SujiTests/CastSupplementSessionTests \
+            -only-testing:SujiTests/TodayReadingSessionTests \
             -only-testing:SujiTests/PaperPeelTests \
             -only-testing:SujiUITests/CastQuestionUITests \
             -only-testing:SujiUITests/NatalAstronomyUITests \
