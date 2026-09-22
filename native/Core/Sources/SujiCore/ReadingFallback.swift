@@ -3,7 +3,7 @@ import Foundation
 /// Source-only recovery when generated prose cannot be checked. Never interprets,
 /// recalculates, or repeats the rejected draft. The original chart remains reusable.
 public enum ReadingFallback {
-    public static func reply(history: [ChatMessage]) -> String {
+    public static func reply(history: [ChatMessage], rejectionReason: String = "supported_rejection") -> String {
         var lines: [String] = []
         var successfulResults = 0
         var hadToolFailure = false
@@ -11,9 +11,14 @@ public enum ReadingFallback {
         func add(_ text: String) { if !text.isEmpty && !lines.contains(text) && lines.count < 16 { lines.append(text) } }
         func text(_ value: Any?) -> String { value as? String ?? "" }
         func pillar(_ value: Any?) -> String {
-            if let value = value as? String { return value }
+            if let value = value as? String {
+                let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+                return trimmed.count == 2 ? trimmed : ""
+            }
             let object = value as? [String: Any] ?? [:]
-            return text(object["gan"]) + text(object["zhi"])
+            let gan = text(object["gan"]).trimmingCharacters(in: .whitespacesAndNewlines)
+            let zhi = text(object["zhi"]).trimmingCharacters(in: .whitespacesAndNewlines)
+            return gan.count == 1 && zhi.count == 1 ? gan + zhi : ""
         }
         for (index,message) in history.enumerated() where message.role == .tool {
             guard let expanded = ToolOutputWire.decode(message,history:Array(history.prefix(index))),
@@ -24,10 +29,14 @@ public enum ReadingFallback {
             // it neither needs that question nor treats the projection as storage.
             guard value["error"] == nil else { hadToolFailure = true; continue }
             successfulResults += 1
-            if let year = value["yearGanZhi"] as? String, let month = value["monthGanZhi"] as? String {
-                add("本次时刻：\(year)年 · \(month)月 · \(text(value["dayGanZhi"]))日")
-                if let term = value["solarTerm"] as? String { add("当前节气：" + term) }
+            let year = pillar(value["yearGanZhi"]), month = pillar(value["monthGanZhi"])
+            // Today's tool and the local calendar use different day keys.
+            let day = ["todayGanZhi", "ganZhi", "dayGanZhi"].map { pillar(value[$0]) }.first { !$0.isEmpty } ?? ""
+            if !year.isEmpty && !month.isEmpty && !day.isEmpty {
+                add("本次时刻：\(year)年 · \(month)月 · \(day)日")
             }
+            let term = text(value["solarTerm"]).trimmingCharacters(in: .whitespacesAndNewlines)
+            if !term.isEmpty { add("当前节气：" + term) }
             if let bazi = value["bazi"] as? [String: Any], let pillars = bazi["pillars"] as? [String: Any] {
                 let names = [("year", "年"), ("month", "月"), ("day", "日"), ("hour", "时")]
                 let parts = names.compactMap { key, label -> String? in
@@ -72,9 +81,12 @@ public enum ReadingFallback {
             }
             return "这次生成的解读暂未采用。" + state + recovery
         }
-        let introduction = "这次生成的解读未能与盘面核对一致，暂未采用。我先把已计算的事实留给你："
+        let result = rejectionReason == "supported_rejection"
+            ? "这次生成的解读未能与盘面核对一致，暂未采用。"
+            : "这次解读暂未完成核对，暂未采用。"
+        let introduction = result + "我先把已计算的事实留给你："
         let reuse = hasReusableCast ? "重试会沿用原盘。" : "重试会沿用已保存的计算资料。"
-        guard !lines.isEmpty else { return "这次生成的解读未能与已有资料核对一致，暂未采用。已取得的计算记录保留在“计算依据”中；" + reuse }
+        guard !lines.isEmpty else { return result + "已取得的计算记录保留在“计算依据”中；" + reuse }
         return introduction + "\n\n" + lines.map { "• " + $0 }.joined(separator: "\n") + "\n\n这些是排盘记录，不是对现实事件的预测。完整资料在“计算依据”中；" + reuse
     }
 }

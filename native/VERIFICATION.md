@@ -1,5 +1,7 @@
 # Native rebuild verification
 
+2026-09-22 今日问答调试：日干支字段、固定取数、事实核对及失败恢复的修复和本地验证见 [调试记录](../docs/mingli/validation/today-reading-debug-2026-09-22.md)。修复版尚待原开发团队签名和真机安装；旧版真机观察与最终模拟器验证分开记录。
+
 ## Account-first setup and persistent natal dossiers — 2026-09-20
 
 - Validated implementation: `a39838df3f0c75458d30a7e21e102f7db634d264`; [GitHub Actions 35489808350](https://github.com/wxbbb42/SUJI/actions/runs/35489808350) succeeded for engine, Swift Core and native app jobs.

@@ -29,7 +29,7 @@ public struct ToolContext: Codable, Equatable, Sendable {
 }
 
 public enum ReadingPrompt {
-    public static let version = "suji-grounded-reading-16"
+    public static let version = "suji-grounded-reading-17"
 
     public static func instruction(tone: String, mode: String, referenceDate: Date, hasBirth: Bool) -> String {
         let at = ISO8601DateFormatter().string(from: referenceDate)
@@ -64,7 +64,9 @@ public enum ReadingPrompt {
             ? "\n本次解释八字的扶抑、格局或调候依据（\(focus?.rawValue ?? "comparison")），若已有出生资料，必须先取本次get_domain中的八字字段；各领域返回的是同一八字，只需一次，不重复查询。即使是在追问历史回答，也需取得当前问题上下文的依据；本次重试已有匹配缓存则复用。若用户未指定领域，可读取事业领域的八字部分，不作事业推断。"
             : "")
     }
-    public static let writer = "取证已结束。工具结果的questionFromArguments如出现，表示question完整原文在同一toolCallID的参数/question中，仅复用原文、不改变盘面。回答本次原始问题，简洁回应原始问题，只解释需要的术语；计算问题直接给本次事实，现实建议不要绑定盘面年份或星曜。用两三句说明实际盘面依据、解释口径及局限，不暴露JSON字段、内部状态或核对流程；缺证据的部分明确留空。不沿用历史回答里的未经复算断言。"
+    public static let writer = "取证已结束。工具结果的questionFromArguments如出现，表示question完整原文在同一toolCallID的参数/question中，仅复用原文、不改变盘面。回答本次原始问题，简洁回应原始问题，只解释需要的术语；计算问题直接给本次事实，现实建议不要绑定盘面年份或星曜。用两三句说明实际盘面依据、解释口径及局限，不暴露JSON字段、内部状态或核对流程；缺证据的部分明确留空。没有调用工具只能说本次尚未计算，不能编造计算失败；只有本次工具明确返回错误才说明取数失败。不沿用历史回答里的未经复算断言。"
+
+    public static let todayWriter = "本次是明确的今日问答，以这条提问保存时刻的今日历法结果为依据。成功时简短说明实际干支、节气或十神分类；这些字段没有给出个人今日宜忌、工作方式或精力，不能据此说今天适合独处、学习、社交或推进某事，也不能用‘跟今天的气质搭’把一般建议重新绑定到盘面。具体做什么依据用户的现实目标和可用精力；信息不足时可给一两项自行选择的日常小事，明确它们是一般建议。失败时保留已填的出生资料，说明当前取数状态，不让用户重填，不借用上一条计算冒充本次结果。"
 
     public static func boundedQuestion(_ text: String) -> String {
         guard text.utf8.count > 24_000 else { return text }

@@ -116,9 +116,110 @@ final class ReadingFallbackStateTests: XCTestCase {
     func testSuccessfulCalendarRetainsDataWithoutCallingItACast() {
         let calendar = ChatMessage.toolResult(.init(callID: "calendar", output: #"{"yearGanZhi":"癸卯","monthGanZhi":"乙丑","dayGanZhi":"戊戌"}"#))
         let reply = ReadingFallback.reply(history: [calendar, failed])
-        XCTAssertTrue(reply.contains("癸卯"))
+        XCTAssertTrue(reply.contains("本次时刻：癸卯年 · 乙丑月 · 戊戌日"))
         XCTAssertTrue(reply.contains("重试会沿用已保存的计算资料"))
         XCTAssertFalse(reply.contains("原盘"))
+    }
+
+    private var resources: URL {
+        URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
+            .deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("Resources")
+    }
+
+    private func engineFixtures() throws -> [[String: Any]] {
+        try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: resources.appendingPathComponent("engine-fixtures.json"))) as? [[String: Any]])
+    }
+
+    private func toolHistory(_ output: [String: Any], name: String = "get_today_context") throws -> [ChatMessage] {
+        let raw = String(decoding: try JSONSerialization.data(withJSONObject: output, options: .sortedKeys), as: UTF8.self)
+        let call = ChatToolCall(id: "fallback-facts", name: name, arguments: [:])
+        return [.assistantToolCalls([call]), .toolResult(.init(callID: call.id, output: raw))]
+    }
+
+    func testCurrentTodayContextRendersDayFromActualEngineOutput() async throws {
+        let fixtures = try engineFixtures()
+        let fixture = try XCTUnwrap(fixtures.first { ($0["request"] as? [String: Any])?["name"] as? String == "get_domain" })
+        var request = try XCTUnwrap(fixture["request"] as? [String: Any])
+        request["name"] = "get_today_context"
+        request["arguments"] = [String: String]()
+        let bridge = try MingliBridge(scriptURL: resources.appendingPathComponent("mingli.js"))
+        let requestJSON = String(decoding: try JSONSerialization.data(withJSONObject: request), as: UTF8.self)
+        let data = try await bridge.request(requestJSON)
+        let response = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        let output = try XCTUnwrap(response["result"] as? [String: Any])
+        let history = try toolHistory(output)
+        let decoded = try XCTUnwrap(ToolOutputWire.decode(try XCTUnwrap(history.last), history: Array(history.dropLast())))
+        XCTAssertEqual(ReadingVerificationEvidence.pointer("/todayGanZhi", in: decoded), .string("丙申"))
+        XCTAssertNil(ReadingVerificationEvidence.pointer("/dayGanZhi", in: decoded))
+
+        let reply = ReadingFallback.reply(history: history)
+        XCTAssertTrue(reply.contains("本次时刻：丙午年 · 丁酉月 · 丙申日"))
+        XCTAssertTrue(reply.contains("当前节气：白露"))
+        XCTAssertTrue(reply.contains("重试会沿用已保存的计算资料"))
+        XCTAssertFalse(reply.contains("原盘"))
+    }
+
+    func testCalendarFixturesRenderCompleteDateFromGanZhi() throws {
+        let fixtures = try engineFixtures().filter { ($0["request"] as? [String: Any])?["command"] as? String == "calendar" }
+        XCTAssertFalse(fixtures.isEmpty)
+        for fixture in fixtures {
+            let output = try XCTUnwrap(fixture["result"] as? [String: Any])
+            let history = try toolHistory(output)
+            let decoded = try XCTUnwrap(ToolOutputWire.decode(try XCTUnwrap(history.last), history: Array(history.dropLast())))
+            let year = try XCTUnwrap(output["yearGanZhi"] as? String)
+            let month = try XCTUnwrap(output["monthGanZhi"] as? String)
+            let day = try XCTUnwrap(output["ganZhi"] as? String)
+            XCTAssertEqual(ReadingVerificationEvidence.pointer("/ganZhi", in: decoded), .string(day))
+            XCTAssertNil(ReadingVerificationEvidence.pointer("/dayGanZhi", in: decoded))
+            XCTAssertTrue(ReadingFallback.reply(history: history).contains("本次时刻：\(year)年 · \(month)月 · \(day)日"))
+        }
+    }
+
+    func testIncompleteCalendarNeverRendersEmptyOrPartialDateUnits() throws {
+        let invalid: [Any?] = [nil, NSNull(), "", " \n\t", "甲", 42, [String: String]()]
+        for dayKey in ["todayGanZhi", "ganZhi", "dayGanZhi"] {
+            for key in ["yearGanZhi", "monthGanZhi", dayKey] {
+                for value in invalid {
+                    var output: [String: Any] = ["yearGanZhi": "丙午", "monthGanZhi": "丁酉", dayKey: "丙申", "solarTerm": "白露"]
+                    output[key] = value
+                    let reply = ReadingFallback.reply(history: try toolHistory(output))
+                    XCTAssertFalse(reply.contains("本次时刻："), "\(dayKey), \(key), \(String(describing: value))")
+                    XCTAssertTrue(reply.contains("计算依据"))
+                }
+            }
+        }
+        let blank = ReadingFallback.reply(history: try toolHistory([
+            "yearGanZhi": " ", "monthGanZhi": "", "todayGanZhi": "\n", "solarTerm": " \n"
+        ]))
+        XCTAssertFalse(blank.contains("• "))
+        XCTAssertFalse(blank.contains("当前节气："))
+        XCTAssertTrue(blank.contains("已取得的计算记录"))
+    }
+
+    func testFallbackKeepsCompletePillarsAndSkipsIncompletePillars() throws {
+        let fixtures = try engineFixtures()
+        let fixture = try XCTUnwrap(fixtures.first { ($0["request"] as? [String: Any])?["name"] as? String == "get_domain" })
+        let response = try XCTUnwrap(fixture["result"] as? [String: Any])
+        let output = try XCTUnwrap(response["result"] as? [String: Any])
+        let bazi = try XCTUnwrap(output["bazi"] as? [String: Any])
+        let pillars = try XCTUnwrap(bazi["pillars"] as? [String: Any])
+        XCTAssertTrue(ReadingFallback.reply(history: try toolHistory(output, name: "get_domain"))
+            .contains("年柱 乙亥 · 月柱 甲申 · 日柱 戊寅 · 时柱 壬戌"))
+
+        let invalid: [Any?] = [nil, NSNull(), "", " \n", "甲", [:], ["gan": "甲"], ["zhi": "子"], ["gan": " ", "zhi": "子"], ["gan": "甲", "zhi": "\n"]]
+        for key in ["year", "month", "day", "hour"] {
+            for value in invalid {
+                var entry = try XCTUnwrap(pillars[key] as? [String: Any])
+                entry["ganZhi"] = value
+                var incompletePillars = pillars
+                incompletePillars[key] = entry
+                var incompleteBazi = bazi
+                incompleteBazi["pillars"] = incompletePillars
+                let reply = ReadingFallback.reply(history: try toolHistory(["bazi": incompleteBazi], name: "get_domain"))
+                XCTAssertFalse(reply.contains("年柱 "), "\(key), \(String(describing: value))")
+                XCTAssertTrue(reply.contains("计算依据"))
+            }
+        }
     }
 
     func testSuccessfulUnrenderedPayloadKeepsReceiptButDoesNotInventChart() {
