@@ -55,8 +55,15 @@ jobs:
             -only-testing:SujiTests/NatalAstronomyStoreTests \
             -only-testing:SujiTests/CastQuestionConfirmationTests \
             -only-testing:SujiTests/CastSupplementSessionTests \
+            -only-testing:SujiTests/PaperPeelTests \
             -only-testing:SujiUITests/CastQuestionUITests \
             -only-testing:SujiUITests/NatalAstronomyUITests \
+            -only-testing:SujiUITests/SujiUITests/testPaperDragReturnsThenReveals \
+            -only-testing:SujiUITests/SujiUITests/testPaperCornerTapAndReachableDrag \
+            -only-testing:SujiUITests/SujiUITests/testPaperLargeTypeScrollAndShortPullStayUnrevealed \
+            -only-testing:SujiUITests/SujiUITests/testPaperReduceMotionAndRevisitPreserveRevealedDay \
+            -only-testing:SujiUITests/SujiUITests/testRitualJournalHistoryAndShare \
+            -only-testing:SujiUITests/SujiUITests/testDarkAndAccessibleRitual \
             -only-testing:SujiUITests/SujiUITests/testAccountGateBlocksNotebookBeforeLogin \
             -only-testing:SujiUITests/SujiUITests/testBirthFormRequiresConfirmationAndBuildsDossier
       - name: Export UI screenshots
