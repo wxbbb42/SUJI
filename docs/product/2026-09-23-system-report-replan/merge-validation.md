@@ -97,3 +97,12 @@ xcodebuild -project native/Suji.xcodeproj -scheme Suji \
 已实际查看最后的`theme-06b-large-dark-filled-draft`、`theme-07-large-dark-return`PNG：只有自定义底栏，长草稿内部滚动，回到册页；不代表人工VoiceOver或完整设计验收。普通草稿往返仍出现一次SwiftUI瞬态`Invalid frame dimension`警告，测试最终通过，未定位其所有触发原因，作为后续布局观察项保留，不宣称日志无警告。
 
 磁盘紧张时仅清理了本轮从xcresult导出的重复视频/序列化快照，以及已结束Core构建的可再生编译缓存；保留全部原始xcresult、失败日志、线上原始证据、PNG和源码。新旧真实问答失败判定不变。没有部署、安装、正式发布或新增模型请求。
+
+## 首次远端CI失败与编译兼容修正
+
+保存成果的提交为`d00104a3872a65ef7fd4bc4e63f0ac94b0a3b421`，交接PR为[#9](https://github.com/wxbbb42/SUJI/pull/9)。该提交的[PR CI](https://github.com/wxbbb42/SUJI/actions/runs/35816626841)和[分支push CI](https://github.com/wxbbb42/SUJI/actions/runs/35816581099)均为引擎通过、Core及原生编译失败，尚未进入合并。两项失败均明确为Xcode 16.4的类型推断超时，本机Xcode 27未复现；没有将其重判为通过或更换CI工具链。
+
+- `NatalReadingReportTests`的可选样稿导出：将嵌套map和长字符串拼接拆成有明确类型的中间字符串/数组，输出内容、顺序、断言和测试范围不变。
+- `RootView`：将账号入口、呈现、账号生命周期与系统事件的连续表达式拆成私有计算属性；保持原Group、分支顺序、modifier顺序、scope identity及状态所有权，不使用AnyView或改变登录/档案门槛。
+- 修后本机定向验证：`TZ=America/Los_Angeles swift test --package-path native/Core --filter NatalReadingReportTests`，9项通过；原生重新编译和全部hosted 61项（2项在线专用skip）通过；登录门槛、报告问道往返/草稿保留、真实资料重建间隙三项UI全部通过，94.5秒。
+- 本地证据为忽略目录内`ci-compat-core.log`、`ci-compat-native.log/.xcresult`。此次只调整表达式编译复杂度；最终旧工具链兼容和完整回归仍须读回后续提交的PR CI结果。本段不预先声称CI已通过。PR页面保留失败及后续运行记录，合并状态与main CI以GitHub实时记录为准。

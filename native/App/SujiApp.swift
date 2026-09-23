@@ -62,7 +62,7 @@ struct RootView: View {
 #if DEBUG
     @State private var observedDossierGap = false
 #endif
-    var body: some View {
+    private var accountContent: some View {
         Group {
             if notebookReady {
                 mainTabs.id(store.scopeRevision)
@@ -76,6 +76,9 @@ struct RootView: View {
                 BirthEditor(existing: nil, required: true) { birth in try await store.updateBirth(birth) }
             } else { DossierSetupView() }
         }
+    }
+    private var presentedContent: some View {
+        accountContent
         .background(SujiTheme.paper)
         .sheet(item: $sheet) { item in sheetContent(item) }
         .environment(\.notebookThemeNavigation, themeNavigation)
@@ -91,6 +94,9 @@ struct RootView: View {
         .alert("请留意", isPresented: Binding(get: { store.error != nil }, set: { if !$0 { store.error = nil } })) {
             Button("知道了", role: .cancel) { store.error = nil }
         } message: { Text(store.error ?? "") }
+    }
+    private var accountLifecycleContent: some View {
+        presentedContent
         .onChange(of: store.state.appearance, initial: true) { _, value in SujiTheme.appearance.name = value }
         .task {
             consumePendingNotificationRoute()
@@ -122,6 +128,9 @@ struct RootView: View {
             sheet = nil
             if signedIn { Task { await store.prepareAccount() } }
         }
+    }
+    var body: some View {
+        accountLifecycleContent
         .onChange(of: phase) { _, value in if value == .active { Task { await store.refresh(); await store.syncBirthProfile(); await ReminderService.shared.refreshFromSavedPreferences() } } }
         .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in Task { await store.refresh() } }
         .onReceive(NotificationCenter.default.publisher(for: .NSSystemTimeZoneDidChange)) { _ in Task { await store.refresh() } }

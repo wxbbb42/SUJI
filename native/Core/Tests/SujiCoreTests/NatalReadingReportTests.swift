@@ -74,11 +74,18 @@ final class NatalReadingReportTests: XCTestCase {
             if ProcessInfo.processInfo.environment["SUJI_WRITE_REPORT_SAMPLES"] == "1" {
                 let directory = native.appendingPathComponent("artifacts/report-figma-2026-09-23")
                 try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
-                let prose = reports.map { report in
-                    "## \(report.title)\n\(report.summary)\n\(report.boundary)\n" + report.entries.map { entry in
-                        "### \(entry.title)\n事实：\(entry.summary)\n结构/词义：\(entry.explanation)\n范围：\(entry.boundary)\n" + (entry.reflection.map { "编辑提问：\($0)\n" } ?? "") + entry.evidence.map { "- `\($0.pointer)`：\($0.value)" }.joined(separator: "\n") + "\n" + entry.sources.map { "来源：\($0.title) · \($0.locator) · \($0.note)" }.joined(separator: "\n")
-                    }.joined(separator: "\n\n")
-                }.joined(separator: "\n\n")
+                let reportSections: [String] = reports.map { report in
+                    let heading = "## \(report.title)\n\(report.summary)\n\(report.boundary)\n"
+                    let entries: [String] = report.entries.map { entry in
+                        let details = "### \(entry.title)\n事实：\(entry.summary)\n结构/词义：\(entry.explanation)\n范围：\(entry.boundary)\n"
+                        let reflection = entry.reflection.map { "编辑提问：\($0)\n" } ?? ""
+                        let evidence = entry.evidence.map { "- `\($0.pointer)`：\($0.value)" }.joined(separator: "\n")
+                        let sources = entry.sources.map { "来源：\($0.title) · \($0.locator) · \($0.note)" }.joined(separator: "\n")
+                        return details + reflection + evidence + "\n" + sources
+                    }
+                    return heading + entries.joined(separator: "\n\n")
+                }
+                let prose = reportSections.joined(separator: "\n\n")
                 try ("# 合成样稿 \(index + 1)\n明确合成、非用户资料。\(birth.label)；\(birth.gender)；经度\(birth.longitude)。\n内容版本：\(NatalReadingCompiler.contentVersion)\n\n" + prose).write(to: directory.appendingPathComponent("synthetic-sample-\(index + 1).md"), atomically: true, encoding: .utf8)
             }
         }
