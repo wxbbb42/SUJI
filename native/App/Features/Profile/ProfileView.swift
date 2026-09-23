@@ -137,7 +137,7 @@ struct BirthEditor: View {
                     Picker("排盘性别", selection: $gender) { Text("女").tag("女"); Text("男").tag("男") }.pickerStyle(.segmented)
                 } header: { Text("出生资料") } footer: { Text("填写出生记录上的公历和北京时间，性别用于传统排盘规则。暂未支持未知时刻或海外时区自动换算，请勿用默认时刻代替不确定的资料。") }
                 Section {
-                    LabeledContent("出生地点") { TextField("城市或地点", text: $city).multilineTextAlignment(.trailing).accessibilityLabel("出生地点") }
+                    LabeledContent("出生地点") { TextField("城市或地点", text: $city).multilineTextAlignment(.trailing).accessibilityLabel("出生地点").accessibilityIdentifier("birth.city") }
                     Menu("从常用城市填写") {
                         ForEach(cities, id: \.0) { item in Button(item.0) { city = item.0; longitude = item.1 } }
                     }

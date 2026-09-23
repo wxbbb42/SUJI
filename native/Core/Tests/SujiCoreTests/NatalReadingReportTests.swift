@@ -7,16 +7,19 @@ final class NatalReadingReportTests: XCTestCase {
         BirthProfile(year: 1988, month: 4, day: 9, hour: 6, minute: 20, gender: "女", city: "合成甲", longitude: 116.4),
         BirthProfile(year: 2001, month: 11, day: 22, hour: 23, minute: 40, gender: "男", city: "合成乙", longitude: 121.47)
     ]
+    private var expectedPayloadRevision = ""
     private let revision = String(repeating: "a", count: 64)
     private var native: URL { URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent() }
     private func run(_ command: String, birth: BirthProfile) async throws -> Data {
         let bridge = try MingliBridge(scriptURL: native.appendingPathComponent("Resources/mingli.js"))
+        let metadata = try await bridge.request(#"{"command":"metadata"}"#)
+        expectedPayloadRevision = try XCTUnwrap((JSONSerialization.jsonObject(with: metadata) as? [String: Any])?["engineRevision"] as? String)
         let object = try JSONSerialization.jsonObject(with: JSONEncoder().encode(birth))
         let request = try JSONSerialization.data(withJSONObject: ["command": command, "birth": object], options: [.sortedKeys])
         return try await bridge.request(String(decoding: request, as: UTF8.self))
     }
     private func compile(_ data: Data, birth: BirthProfile) throws -> [NatalReadingReport] {
-        try NatalReadingCompiler.natal(dossier: NatalDossier(ownerID: "synthetic", birth: birth, engineRevision: revision, payload: data), ownerID: "synthetic", birth: birth, engineRevision: revision)
+        try NatalReadingCompiler.natal(dossier: NatalDossier(ownerID: "synthetic", birth: birth, engineRevision: revision, payload: data), ownerID: "synthetic", birth: birth, engineRevision: revision, enginePayloadRevision: expectedPayloadRevision)
     }
     private func changed(_ data: Data, path: [String], value: Any?) throws -> Data {
         func change(_ original: Any, _ path: ArraySlice<String>) -> Any {
@@ -88,10 +91,10 @@ final class NatalReadingReportTests: XCTestCase {
     func testRejectsScopeAndInternalBirthMismatch() async throws {
         let birth = samples[0], data = try await run("natal", birth: samples[0])
         let dossier = try NatalDossier(ownerID: "synthetic", birth: birth, engineRevision: revision, payload: data)
-        XCTAssertThrowsError(try NatalReadingCompiler.natal(dossier: dossier, ownerID: "other", birth: birth, engineRevision: revision))
-        XCTAssertThrowsError(try NatalReadingCompiler.natal(dossier: dossier, ownerID: "synthetic", birth: birth, engineRevision: "different"))
+        XCTAssertThrowsError(try NatalReadingCompiler.natal(dossier: dossier, ownerID: "other", birth: birth, engineRevision: revision, enginePayloadRevision: expectedPayloadRevision))
+        XCTAssertThrowsError(try NatalReadingCompiler.natal(dossier: dossier, ownerID: "synthetic", birth: birth, engineRevision: "different", enginePayloadRevision: expectedPayloadRevision))
         var different = birth; different.city = "另一个显示城市"
-        XCTAssertThrowsError(try NatalReadingCompiler.natal(dossier: dossier, ownerID: "synthetic", birth: different, engineRevision: revision))
+        XCTAssertThrowsError(try NatalReadingCompiler.natal(dossier: dossier, ownerID: "synthetic", birth: different, engineRevision: revision, enginePayloadRevision: expectedPayloadRevision))
         different = birth; different.minute += 1
         XCTAssertThrowsError(try compile(data, birth: different))
         for path in [["mingPan", "birthDateTime"], ["ziweiPan", "birthDateTime"], ["mingPan", "calculationPolicy", "civilBirthTime"]] {
@@ -160,6 +163,11 @@ final class NatalReadingReportTests: XCTestCase {
         XCTAssertTrue(palace.explanation.contains("不判定空宫、单星或同宫组合"))
         XCTAssertFalse(palace.explanation.contains("同宫并列"))
         XCTAssertTrue(palace.evidence.contains { $0.value.contains("合成未知主星") })
+    }
+    func testRejectsPlausibleButUntrustedInnerEngineRevision() async throws {
+        let data = try await run("natal", birth: samples[0])
+        let altered = try changed(data, path: ["engineRevision"], value: String(repeating: "f", count: 64))
+        XCTAssertThrowsError(try compile(altered, birth: samples[0]), "A plausible digest is not the bundled engine's trusted metadata revision")
     }
     func testBirthKeyRequiresTypedNumbersRatherThanCoercingBooleanToOne() async throws {
         let birth = BirthProfile(year: 1999, month: 1, day: 1, hour: 1, minute: 1, gender: "女", city: "合成类型反例", longitude: 116.4)

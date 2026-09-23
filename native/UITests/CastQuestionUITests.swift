@@ -9,8 +9,26 @@ final class CastQuestionUITests: XCTestCase {
         app.launch()
         return app
     }
-    private func reveal(_ element: XCUIElement, app: XCUIApplication) {
-        for _ in 0..<10 { if element.isHittable { return }; app.swipeUp() }
+    private func reveal(_ element: XCUIElement, app: XCUIApplication, towardTop: Bool = false) {
+        // The system keyboard (including its candidate bar) is not form
+        // content. App-wide swipes/taps can hit it while AX still reports an
+        // obscured form switch as hittable. Scroll within the visible form.
+        for _ in 0..<10 {
+            let screen = app.frame
+            let top = app.navigationBars.allElementsBoundByIndex.map { $0.frame.maxY }.max() ?? screen.minY
+            let keyboard = app.keyboards.firstMatch
+            let bottom = keyboard.exists ? keyboard.frame.minY - 60 : screen.maxY - 34
+            let target = element.exists ? element.frame : .zero
+            if element.exists && element.isHittable && target.minY >= top + 8 && target.maxY <= bottom { return }
+            let down = target.isEmpty ? towardTop : target.midY < top + 8
+            let height = max(80, bottom - top - 16)
+            let startY = top + 8 + height * (down ? 0.2 : 0.8)
+            let endY = top + 8 + height * (down ? 0.8 : 0.2)
+            let origin = app.coordinate(withNormalizedOffset: .zero)
+            origin.withOffset(CGVector(dx: screen.width * 0.85, dy: startY))
+                .press(forDuration: 0.05, thenDragTo: origin.withOffset(CGVector(dx: screen.width * 0.85, dy: endY)))
+        }
+        XCTAssertTrue(element.exists && element.isHittable, "The actual form control must be reachable")
     }
     private func capture(_ name: String, app: XCUIApplication) {
         let attachment = XCTAttachment(screenshot: app.screenshot()); attachment.name = name; attachment.lifetime = .keepAlways; add(attachment)
@@ -23,7 +41,7 @@ final class CastQuestionUITests: XCTestCase {
         reveal(confirm, app: app)
         XCTAssertFalse(confirm.isEnabled)
         let event = app.descendants(matching: .any).matching(identifier: "cast.event.setup_qimen").firstMatch
-        for _ in 0..<8 { if event.isHittable { break }; app.swipeDown() }
+        reveal(event, app: app, towardTop: true)
         XCTAssertTrue(event.exists)
         event.tap(); event.typeText("sign office lease")
         app.swipeUp()
@@ -48,7 +66,7 @@ final class CastQuestionUITests: XCTestCase {
         XCTAssertTrue(app.navigationBars["补充这次占问"].waitForExistence(timeout: 10))
         capture("f6b-supplement-confirmation", app: app)
         let event = app.descendants(matching: .any).matching(identifier: "cast.event.setup_qimen").firstMatch
-        for _ in 0..<8 { if event.isHittable { break }; app.swipeDown() }
+        reveal(event, app: app, towardTop: true)
         event.tap(); event.typeText("lease signing details")
         app.swipeUp(); reveal(confirm, app: app)
         XCTAssertEqual(confirm.label, "确认补充并沿用原盘"); confirm.tap()
@@ -86,7 +104,7 @@ final class CastQuestionUITests: XCTestCase {
         let confirm = app.buttons["cast.confirm"]
         reveal(confirm, app: app); XCTAssertFalse(confirm.isEnabled)
         let focus = app.buttons["cast.selection.focus"]
-        for _ in 0..<8 { if focus.isHittable { break }; app.swipeDown() }
+        reveal(focus, app: app, towardTop: true)
         focus.tap(); app.buttons["降雨"].tap()
         reveal(confirm, app: app); XCTAssertTrue(confirm.isEnabled)
         capture("selection-weather-confirmed", app: app)
@@ -122,10 +140,10 @@ final class CastQuestionUITests: XCTestCase {
         reveal(confirm, app: app)
         XCTAssertFalse(confirm.isEnabled)
         let focus = app.buttons["cast.timing.focus"]
-        for _ in 0..<8 { if focus.isHittable { break }; app.swipeDown() }
+        reveal(focus, app: app, towardTop: true)
         focus.tap(); app.buttons["我自己"].tap()
         let unit = app.buttons["cast.timing.unit"]
-        reveal(unit, app: app); unit.tap(); app.buttons["日"].tap()
+        reveal(unit, app: app, towardTop: true); unit.tap(); app.buttons["日"].tap()
         let end = app.textFields["cast.timing.end"]
         reveal(end, app: app); end.tap(); end.typeText("2099-12-31")
         app.swipeUp(); reveal(confirm, app: app)

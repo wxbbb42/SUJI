@@ -21,12 +21,14 @@ private extension NatalReportSystem {
 private struct NotebookReportIdentity: Equatable, Hashable {
     let scope: String
     let revision: UUID
+    let birthRevision: UUID
     let birth: String
     let engine: String
     let content: String
     let adapter: String
     @MainActor init(_ store: AppStore) {
         scope = store.scopeKey; revision = store.scopeRevision
+        birthRevision = store.birthRevision
         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
         birth = (try? encoder.encode(store.state.birth)).map { String(decoding: $0, as: UTF8.self) } ?? "null"
         engine = store.engineRevision
@@ -65,6 +67,7 @@ struct NatalReadingReportView: View {
     @State private var readingPositions: [NatalReportSystem: String] = [:]
     @State private var visiblePosition: String?
     @AccessibilityFocusState private var sourceFocus: String?
+    var focusTheme = false
     private var identity: NotebookReportIdentity { NotebookReportIdentity(store) }
     private var currentReport: NatalReadingReport? {
         let result = system.usesAstronomy ? astronomy : natal
@@ -81,6 +84,10 @@ struct NatalReadingReportView: View {
                 LazyVStack(alignment: .leading, spacing: 20) {
                     introduction.id("report.top")
                     systemPicker
+                    if let report = currentReport, report.system == .bazi,
+                       let theme = try? BaziLifeThemeCompiler.compile(report: report) {
+                        BaziLifeThemeCard(theme: theme).id("report.theme")
+                    }
                     NavigationLink { ProfessionalArchiveView(system: system) } label: {
                         HStack(spacing: 12) {
                             Text("专业档案").font(.subheadline.weight(.medium))
@@ -122,6 +129,11 @@ struct NatalReadingReportView: View {
             .onChange(of: system) { old, new in
                 if let visiblePosition { readingPositions[old] = visiblePosition }
                 proxy.scrollTo(readingPositions[new] ?? "report.top", anchor: .top)
+            }
+            .onChange(of: currentReport?.snapshotID) { _, snapshot in
+                if focusTheme && snapshot != nil && system == .bazi {
+                    proxy.scrollTo("report.theme", anchor: .top)
+                }
             }
         }
         .background(SujiTheme.paper).foregroundStyle(SujiTheme.ink)
@@ -288,7 +300,7 @@ struct NatalReadingReportView: View {
             let dossier = try await store.ensureNatalDossier()
             try Task.checkCancellation()
             guard request == identity else { return }
-            let reports = try NatalReadingCompiler.natal(dossier: dossier, ownerID: request.scope, birth: birth, engineRevision: request.engine)
+            let reports = try NatalReadingCompiler.natal(dossier: dossier, ownerID: request.scope, birth: birth, engineRevision: request.engine, enginePayloadRevision: store.natalPayloadRevision ?? "")
             try Task.checkCancellation()
             guard request == identity else { return }
             natal = NotebookReportResult(identity: request, reports: reports)

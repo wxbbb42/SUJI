@@ -5,6 +5,8 @@ import SujiCore
     @Environment(AppStore.self) private var store
     @Environment(\.openNotebookProfile) private var openProfile
     @Environment(\.editNotebookBirth) private var editBirth
+    @Environment(\.notebookThemeNavigation) private var themeNavigation
+    @Environment(\.returnNotebookTheme) private var returnTheme
     @State private var session: ChatSession
     @State private var input = ""
     @State private var mode = "倾诉"
@@ -21,7 +23,16 @@ import SujiCore
             ScrollViewReader { scroll in
                 ScrollView {
                     VStack(alignment: .leading, spacing: 30) {
-                        if store.state.conversations.isEmpty {
+                        if let pending = themeNavigation?.pending {
+                            themeContext(pending).id("theme.pending")
+                        } else if let message = themeNavigation?.expiredMessage {
+                            VStack(alignment: .leading, spacing: 10) {
+                                Text(message).font(.subheadline).lineSpacing(6)
+                                    .accessibilityIdentifier("theme.expired")
+                                Button("返回册页重新选择", action: returnTheme).frame(minHeight: 44)
+                            }
+                        }
+                        if store.state.conversations.isEmpty && themeNavigation?.pending == nil {
                             VStack(alignment: .leading, spacing: 24) {
                                 Text("听自己说").font(.caption).tracking(3).foregroundStyle(SujiTheme.secondary)
                                 HStack(alignment: .center, spacing: 16) {
@@ -64,6 +75,15 @@ import SujiCore
                                 if entry.role == "assistant", !entry.evidence.isEmpty {
                                     DisclosureGroup("参照的线索") { VStack(alignment: .leading, spacing: 12) { ForEach(entry.evidence, id: \.self) { Text($0).font(.footnote).foregroundStyle(SujiTheme.secondary) } }.frame(maxWidth: .infinity, alignment: .leading).padding(.top, 12) }.font(.footnote)
                                 }
+                                if entry.role == "assistant", entry.themeBinding != nil {
+                                    Button(action: returnTheme) {
+                                        Label("查看当前册页", systemImage: "book")
+                                            .font(.subheadline).frame(minHeight: 44)
+                                    }.accessibilityIdentifier("theme.reply.return")
+                                        .accessibilityHint("打开当前出生资料对应的册页。历史回答保留当时的计算依据。")
+                                    Text("当前册页随资料更新；这条历史回答仍保留当时的计算依据。")
+                                        .font(.footnote).foregroundStyle(SujiTheme.secondary).lineSpacing(5)
+                                }
                                 if entry.role == "user" { supplementActions(entry) }
                                 toolResults(replyTools(for: entry))
                                 if !receipts.isEmpty {
@@ -79,7 +99,7 @@ import SujiCore
                             VStack(alignment: .leading, spacing: 12) {
                                 Text(failure).font(.footnote).foregroundStyle(SujiTheme.secondary).accessibilityIdentifier("chat.failure")
                                 HStack {
-                                    Button("重试") { if let last = store.state.conversations.last(where: { $0.role == "user" }) { session.send(last.text, mode: mode, store: store, appendUser: false) } }
+                                    Button("重试") { if let last = store.state.conversations.last(where: { $0.role == "user" }) { session.send(last.text, mode: mode, store: store, appendUser: false, themeBinding: last.themeBinding) } }
                                         .frame(minWidth: 44, minHeight: 44).accessibilityIdentifier("chat.retry")
                                     NavigationLink("账户与登录") { AccountView(session: store.accountSession) }
                                         .frame(minHeight: 44).accessibilityIdentifier("chat.account")
@@ -120,6 +140,14 @@ import SujiCore
                             // completed document wins over that cleanup, also on retry.
                             scroll.scrollTo(last.id, anchor: .top)
                         }
+                        if !value && themeNavigation?.pending != nil { mode = "命理" }
+                    }
+                    .onChange(of: themeNavigation?.pending?.binding) { _, value in
+                        if value != nil {
+                            focused = false
+                            if !session.working { mode = "命理" }
+                            scroll.scrollTo("theme.pending", anchor: .top)
+                        }
                     }
             }
             .background(SujiTheme.paper).foregroundStyle(SujiTheme.ink)
@@ -152,13 +180,18 @@ import SujiCore
                     Picker("对话方式", selection: $mode) {
                         ForEach(["倾诉", "命理", "起卦"], id: \.self) { Text($0).tag($0) }
                     }.pickerStyle(.segmented).disabled(session.working)
+                        .accessibilityIdentifier("chat.mode")
                     HStack(alignment: .bottom, spacing: 12) {
                         TextField("写下此刻的心事…", text: $input, prompt: Text("写下此刻的心事…").foregroundStyle(SujiTheme.secondary), axis: .vertical)
-                            .lineLimit(1...5).padding(14).background(SujiTheme.surface, in: RoundedRectangle(cornerRadius: 20))
+                            // Keep the conversation reachable at accessibility
+                            // sizes; the draft still scrolls inside this field.
+                            .lineLimit(typeSize.isAccessibilitySize ? 1...2 : 1...5)
+                            .padding(14).background(SujiTheme.surface, in: RoundedRectangle(cornerRadius: 20))
                             .focused($focused).accessibilityLabel("写下此刻的心事").accessibilityIdentifier("chat.input")
-                        Button { if session.working { session.stop() } else { let text = input; input = ""; focused = false; session.send(text, mode: mode, store: store) } } label: {
+                        Button { if session.working { session.stop() } else { sendDraft() } } label: {
                             Image(systemName: session.working ? "stop.fill" : "arrow.up").font(.system(size: 20, weight: .semibold)).frame(width: 48, height: 48).background(SujiTheme.ink, in: Circle()).foregroundStyle(SujiTheme.paper)
                         }.disabled(!session.working && input.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty).accessibilityLabel(session.working ? "停止回答" : "发送")
+                            .accessibilityIdentifier("chat.send")
                     }
                 }.padding(.horizontal, 20).padding(.vertical, 12).background(.regularMaterial)
                     .accessibilityElement(children: .contain).accessibilityIdentifier("chat.composer")
@@ -181,10 +214,60 @@ import SujiCore
             .sheet(item: Binding(get: { session.castConfirmation.pending }, set: { _ in })) { request in
                 CastQuestionConfirmationView(request: request, gate: session.castConfirmation) { session.stop() }
             }
-            .onAppear { if !restoredMode { restoreConversationMode(); restoredMode = true } }
-            .onChange(of: store.scopeRevision) { _, _ in session.stop(); input = ""; restoreConversationMode() }
-            .onChange(of: store.state.birth) { _, _ in if session.working { session.stop() } }
+            .onAppear {
+                if !restoredMode { restoreConversationMode(); restoredMode = true }
+                if themeNavigation?.pending != nil && !session.working { mode = "命理" }
+            }
+            .onChange(of: store.scopeRevision) { _, _ in session.stop(); input = ""; themeNavigation?.resetAccount(); restoreConversationMode() }
+            .onChange(of: store.birthRevision) { _, _ in
+                if session.working { session.stop() }
+                themeNavigation?.invalidateBirth()
+            }
+            .onChange(of: mode) { _, value in
+                if value != "命理" { themeNavigation?.clear() }
+            }
         }
+    }
+
+    private func sendDraft() {
+        let text = input
+        let binding = mode == "命理" ? themeNavigation?.pending?.binding : nil
+        input = ""; focused = false
+        session.send(text, mode: mode, store: store, themeBinding: binding, inheritTheme: false)
+    }
+
+    private func themeContext(_ pending: NotebookThemeNavigation.Intent) -> some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Text("带着册页继续聊 · 命理").font(.caption.weight(.medium)).foregroundStyle(SujiTheme.sage)
+            Text(pending.title).font(SujiTheme.serif(24, relativeTo: .title2)).accessibilityAddTraits(.isHeader)
+            Text(session.working ? "已有回答仍在进行。这页会留到你下次发送时使用。" : "只沿用这页有效的本命依据。问到别人的资料、时间变化或具体事件时，需要另外确认。")
+                .font(.subheadline).foregroundStyle(SujiTheme.secondary).lineSpacing(6)
+            if input.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                Text(pending.prompt).font(.body).lineSpacing(6)
+                Button("用这个问题") {
+                    guard input.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+                    input = pending.prompt; focused = true
+                }.font(.subheadline.weight(.medium)).frame(minHeight: 44)
+                    .accessibilityHint("放入输入框，尚不发送")
+                    .accessibilityIdentifier("theme.pending.usePrompt")
+            } else {
+                Text("你的草稿已保留。发送后，会带着这页的依据继续聊。")
+                    .font(.subheadline).foregroundStyle(SujiTheme.secondary).lineSpacing(6)
+            }
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 20) { themeContextActions }
+                VStack(alignment: .leading, spacing: 4) { themeContextActions }
+            }
+        }.padding(20).frame(maxWidth: .infinity, alignment: .leading)
+            .background(SujiTheme.surface, in: RoundedRectangle(cornerRadius: 20))
+            .accessibilityElement(children: .contain)
+    }
+    @ViewBuilder private var themeContextActions: some View {
+        Button("回到这页", action: returnTheme).frame(minHeight: 44)
+            .accessibilityIdentifier("theme.pending.return")
+        Button("不带这页继续聊") { themeNavigation?.clear() }
+            .frame(minHeight: 44).accessibilityIdentifier("theme.pending.cancel")
+            .accessibilityHint("仅移除当前主题，保留草稿与正在进行的回答")
     }
 
     @ViewBuilder private func supplementActions(_ entry: ConversationEntry) -> some View {

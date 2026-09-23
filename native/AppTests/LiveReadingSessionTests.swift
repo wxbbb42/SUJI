@@ -117,11 +117,13 @@ import SujiCore
 /// Transparent, test-bundle-only observer. Never records authorization headers.
 /// A minimum 6.2 seconds between actual calls keeps this account below 12/minute;
 /// 100 total calls per disposable batch leaves room below the existing daily cap.
-private final class LiveHTTPObserver: URLProtocol, @unchecked Sendable {
+final class LiveHTTPObserver: URLProtocol, @unchecked Sendable {
     private static let lock = NSLock()
     private static var recorded: [[String: Any]] = []
     private static var nextRequest = Date.distantPast
     private static var count = 0
+    private static var budget = 100
+    private static var failNext = false
     private static let forwardingSession: URLSession = {
         let config = URLSessionConfiguration.ephemeral
         config.protocolClasses = []
@@ -129,7 +131,8 @@ private final class LiveHTTPObserver: URLProtocol, @unchecked Sendable {
     }()
     private var forwardingTask: Task<Void, Never>?
     static var exchanges: [[String: Any]] { lock.withLock { recorded } }
-    static func reset() { lock.withLock { recorded = []; nextRequest = .distantPast; count = 0 } }
+    static func reset(maxRequests: Int = 100) { lock.withLock { recorded = []; nextRequest = .distantPast; count = 0; budget = maxRequests; failNext = false } }
+    static func interruptNextRequest() { lock.withLock { failNext = true } }
     override class func canInit(with request: URLRequest) -> Bool { request.url?.path.contains("suji-chat") == true }
     override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }
     override func startLoading() {
@@ -147,6 +150,8 @@ private final class LiveHTTPObserver: URLProtocol, @unchecked Sendable {
                     }
                 }
                 outbound.httpBodyStream = nil; outbound.httpBody = data
+                let interrupted = Self.lock.withLock { let value = Self.failNext; Self.failNext = false; return value }
+                if interrupted { trace["injectedTransportInterruption"] = true; throw URLError(.notConnectedToInternet) }
                 trace["request"] = try JSONSerialization.jsonObject(with: data)
                 trace["endpoint"] = outbound.url?.absoluteString
                 let slot: (Date, Int) = Self.lock.withLock {
@@ -154,7 +159,7 @@ private final class LiveHTTPObserver: URLProtocol, @unchecked Sendable {
                     Self.nextRequest = scheduled.addingTimeInterval(6.2); Self.count += 1
                     return (scheduled, Self.count)
                 }
-                guard slot.1 <= 100 else { throw EngineError.execution("Live test request budget exhausted") }
+                guard slot.1 <= Self.lock.withLock({ Self.budget }) else { throw EngineError.execution("Live test request budget exhausted") }
                 let delay = slot.0.timeIntervalSinceNow
                 if delay > 0 { try await Task.sleep(for: .seconds(delay)) }
                 trace["startedAt"] = ISO8601DateFormatter().string(from: Date())

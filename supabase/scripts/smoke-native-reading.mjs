@@ -9,11 +9,16 @@ const option = name => process.argv[process.argv.indexOf(name) + 1];
 if (!process.argv.includes('--create-test-user') || !process.argv.includes('--xctestrun') || !process.argv.includes('--output')) {
   throw new Error('Usage: --create-test-user --xctestrun built-tests.xctestrun --output new-evidence-directory [--device simulator-id] [--matrix fixture.json] [--cases id,id]');
 }
+const suite = process.argv.includes('--suite') ? option('--suite') : 'LiveReadingSessionTests';
+if (!['LiveReadingSessionTests', 'LiveThemeSessionTests'].includes(suite)) throw new Error('Unsupported live test suite');
+const requestBudget = process.argv.includes('--request-budget') ? Number(option('--request-budget')) : (suite === 'LiveThemeSessionTests' ? 24 : 100);
+if (!Number.isInteger(requestBudget) || requestBudget < 1 || requestBudget > (suite === 'LiveThemeSessionTests' ? 24 : 100)) throw new Error('Invalid bounded request budget');
 const project = 'kwhjutkuntfuhpkrlbly';
 const base = `https://${project}.supabase.co`;
 const output = resolve(option('--output'));
 const matrixPath = resolve(process.argv.includes('--matrix') ? option('--matrix') : 'native/Tests/Fixtures/live-reading-matrix.json');
 const matrix = JSON.parse(readFileSync(matrixPath, 'utf8'));
+if (Object.values(matrix.profiles ?? {}).some(p => p.timeZoneID !== 'Asia/Shanghai')) throw new Error('Synthetic birth fixtures require explicit Asia/Shanghai timeZoneID');
 const selected = process.argv.includes('--cases') ? option('--cases').split(',') : matrix.cases.slice(0, 8).map(c => c.id);
 if (!matrix.syntheticOnly || !selected.length || selected.length > 8 || new Set(selected).size !== selected.length || selected.some(id => !matrix.cases.some(c => c.id === id))) throw new Error('Select 1–8 unique valid synthetic cases per bounded account batch');
 if (existsSync(output)) throw new Error('Use a new output directory to preserve previous evidence');
@@ -38,7 +43,7 @@ try {
   const user = await adminRequest('/auth/v1/admin/users', { email, password, email_confirm: true, user_metadata: { purpose: 'suji-native-live-test' } });
   userID = user.id;
   if (!/^[a-f0-9-]{36}$/.test(userID)) throw new Error('Invalid disposable account identifier');
-  writeFileSync(configPath, JSON.stringify({ email, password, reportPath: join(output, 'report.json'), matrixPath, caseIDs: selected }), { mode: 0o600 });
+  writeFileSync(configPath, JSON.stringify({ email, password, reportPath: join(output, 'report.json'), matrixPath, caseIDs: selected, requestBudget }), { mode: 0o600 });
   execFileSync('python3', ['-c', `import plistlib,sys
 source,dest,config=sys.argv[1:]
 d=plistlib.load(open(source,'rb'))
@@ -55,7 +60,7 @@ with open(dest,'wb') as f: plistlib.dump(d,f)
   console.log('Running actual native login, dossier, reading and deployed model journey with a disposable account');
   const log = createWriteStream(join(output, 'xcodebuild.log'));
   const code = await new Promise((resolveCode, reject) => {
-    const child = spawn('xcodebuild', ['test-without-building', '-xctestrun', runPath, '-destination', `platform=iOS Simulator,id=${process.argv.includes('--device') ? option('--device') : '09FF0B1D-9E60-4F2A-9465-3B156C88BD28'}`, '-only-testing:SujiTests/LiveReadingSessionTests', '-parallel-testing-enabled', 'NO', '-resultBundlePath', join(output, 'tests.xcresult')], { stdio: ['ignore', 'pipe', 'pipe'] });
+    const child = spawn('xcodebuild', ['test-without-building', '-xctestrun', runPath, '-destination', `platform=iOS Simulator,id=${process.argv.includes('--device') ? option('--device') : '09FF0B1D-9E60-4F2A-9465-3B156C88BD28'}`, `-only-testing:SujiTests/${suite}`, '-parallel-testing-enabled', 'NO', '-collect-test-diagnostics', 'never', '-resultBundlePath', join(output, 'tests.xcresult')], { stdio: ['ignore', 'pipe', 'pipe'] });
     child.stdout.pipe(log, { end: false }); child.stderr.pipe(log, { end: false });
     let teardownTimer, selectedTestsFinished = false, terminatedAfterTests = false;
     let tail = '';

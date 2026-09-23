@@ -13,7 +13,7 @@ import SujiCore
         let birth = try XCTUnwrap(store.state.birth)
         let natal = try await store.ensureNatalDossier()
         let astronomy = try await store.ensureNatalAstronomyDossier()
-        return try NatalReadingCompiler.natal(dossier: natal, ownerID: store.scopeKey, birth: birth, engineRevision: store.engineRevision)
+        return try NatalReadingCompiler.natal(dossier: natal, ownerID: store.scopeKey, birth: birth, engineRevision: store.engineRevision, enginePayloadRevision: store.natalPayloadRevision ?? "")
             + NatalReadingCompiler.astronomy(dossier: astronomy, ownerID: store.scopeKey, birth: birth, engineRevision: store.engineRevision, enginePayloadRevision: astronomy.enginePayloadRevision)
     }
     func testReportsRebuildIdenticallyFromSavedAndImportedBirthWithoutModel() async throws {
@@ -43,13 +43,13 @@ import SujiCore
         let edited = try await reports(store)
         XCTAssertTrue(zip(before, edited).allSatisfy { $0.id != $1.id })
         XCTAssertNotEqual(before[0].entries, edited[0].entries)
-        XCTAssertThrowsError(try NatalReadingCompiler.natal(dossier: old, ownerID: store.scopeKey, birth: changed, engineRevision: store.engineRevision))
+        XCTAssertThrowsError(try NatalReadingCompiler.natal(dossier: old, ownerID: store.scopeKey, birth: changed, engineRevision: store.engineRevision, enginePayloadRevision: store.natalPayloadRevision ?? ""))
         let revision = store.scopeRevision
         try await store.switchAccount(from: "report-synthetic-a", to: "report-synthetic-b")
         XCTAssertNil(store.state.birth)
         XCTAssertNil(store.natalDossier)
         XCTAssertNotEqual(revision, store.scopeRevision)
-        XCTAssertThrowsError(try NatalReadingCompiler.natal(dossier: old, ownerID: store.scopeKey, birth: birth, engineRevision: store.engineRevision))
+        XCTAssertThrowsError(try NatalReadingCompiler.natal(dossier: old, ownerID: store.scopeKey, birth: birth, engineRevision: store.engineRevision, enginePayloadRevision: store.natalPayloadRevision ?? ""))
         try await store.updateBirth(birth)
         let other = try await reports(store)
         XCTAssertTrue(zip(before, other).allSatisfy { $0.snapshotID != $1.snapshotID })

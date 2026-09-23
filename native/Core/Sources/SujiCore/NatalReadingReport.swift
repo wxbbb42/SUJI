@@ -32,11 +32,12 @@ public enum NatalReadingCompiler {
     public static let contentVersion = "natal-structure-reading-2026-09-23-v1"
     public static let adapterVersion = "natal-reading-adapter-v1"
 
-    public static func natal(dossier: NatalDossier, ownerID: String, birth: BirthProfile, engineRevision: String) throws -> [NatalReadingReport] {
+    public static func natal(dossier: NatalDossier, ownerID: String, birth: BirthProfile, engineRevision: String, enginePayloadRevision: String) throws -> [NatalReadingReport] {
         guard !ownerID.isEmpty, !engineRevision.isEmpty,
               dossier.matches(ownerID: ownerID, birth: birth, engineRevision: engineRevision) else { throw EngineContract.Failure.invalid }
         do {
             let chart = try JSONDecoder().decode(NatalReadingInput.self, from: dossier.payload)
+            guard NatalAstronomyDossier.revision(enginePayloadRevision), chart.engineRevision == enginePayloadRevision else { throw EngineContract.Failure.invalid }
             try chart.validate(birth: birth)
             let evidence = try NatalReadingEvidence(dossier.payload)
             let entries = [try NatalReadingCatalog.bazi(chart, evidence), try NatalReadingCatalog.ziwei(chart, evidence)]

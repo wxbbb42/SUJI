@@ -31,10 +31,12 @@ struct Document {
     var calendarInfo: Document?
     var profile: Document?
     private(set) var natalDossier: NatalDossier?
+    /// Trusted inner revision read from the bundled engine metadata, never a dossier.
+    private(set) var natalPayloadRevision: String?
     private(set) var natalAstronomyDossier: NatalAstronomyDossier?
     var astronomyError: String?
     private var astronomyPayloadRevision: String?
-    private var astronomyTask: (id: UUID, scope: UUID, birth: BirthProfile, task: Task<NatalAstronomyDossier, Error>)?
+    private var astronomyTask: (id: UUID, scope: UUID, birthGeneration: UUID, birth: BirthProfile, task: Task<NatalAstronomyDossier, Error>)?
 #if DEBUG
     // Synchronous checkpoint for tests that replace captured input before queued work starts.
     @ObservationIgnored var astronomyOperationWillStartForTesting: (() -> Void)?
@@ -52,12 +54,15 @@ struct Document {
     private(set) var preparingAccount = false
     private var preparedScope: String?
     private var syncingProfile = false
-    private var natalTask: (id: UUID, scope: UUID, birth: BirthProfile, task: Task<NatalDossier, Error>)?
+    private var natalTask: (id: UUID, scope: UUID, birthGeneration: UUID, birth: BirthProfile, task: Task<NatalDossier, Error>)?
     var today = Date()
     var computing = false
     var error: String?
     var selectedTab = 0
     private(set) var scopeRevision = UUID()
+    /// Changes on every confirmed birth save, including A → B → A and same-value saves.
+    /// Kept separate from account scope so birth edits do not erase chat drafts.
+    private(set) var birthRevision = UUID()
     private(set) var scopeKey: String
     var widgetStatus: String?
     let engine: MingliBridge
@@ -80,8 +85,8 @@ struct Document {
 
     var isSignedIn: Bool { scopeKey != "local" && accountSession.user?.id == String(scopeKey.dropFirst(5)) }
     var hasNatalDossier: Bool {
-        guard let birth = state.birth else { return false }
-        return natalDossier?.matches(ownerID: scopeKey, birth: birth, engineRevision: engineRevision) == true
+        guard let birth = state.birth, let natalDossier, let expected = natalPayloadRevision else { return false }
+        return matchesNatal(natalDossier, owner: scopeKey, birth: birth, expected: expected)
     }
     var buildingNatalDossier: Bool { natalTask != nil }
 
@@ -120,7 +125,7 @@ struct Document {
         let nextState = try candidate.map { try JSONDecoder().decode(AppState.self, from: $0.data) } ?? AppState()
         let nextRecord = try candidate ?? SavedState(data: JSONEncoder().encode(nextState), key: nextKey)
         if candidate == nil { context.insert(nextRecord); try context.save() }
-        scopeRevision = UUID(); calculationVersion += 1
+        scopeRevision = UUID(); birthRevision = UUID(); calculationVersion += 1
         resetAstronomy()
         natalTask?.task.cancel(); natalTask = nil; natalDossier = nil; dossierError = nil
         cloudProfileStatus = nil; preparedScope = nil; preparingAccount = false
@@ -149,20 +154,21 @@ struct Document {
         } catch { widgetStatus = error.localizedDescription }
     }
     func request(_ payload: [String: Any]) async throws -> Document {
-        let scope = scopeRevision
+        let scope = scopeRevision, birthGeneration = birthRevision
         var payload = payload
         let command = payload["command"] as? String ?? ""
         // Caller/model snapshots never cross the native trust boundary.
         payload.removeValue(forKey: "astronomy")
+        payload.removeValue(forKey: "natal")
         if command == "tool", payload["name"] as? String == "get_natal_astronomy" {
             guard let birth = state.birth, let supplied = payload["birth"],
                   let data = try? JSONSerialization.data(withJSONObject: supplied),
                   (try? JSONDecoder().decode(BirthProfile.self, from: data)) == birth else { throw DomainError.invalidBirth }
             let dossier = try await ensureNatalAstronomyDossier()
-            guard scope == scopeRevision, state.birth == birth else { throw CancellationError() }
+            guard scope == scopeRevision, birthGeneration == birthRevision, state.birth == birth else { throw CancellationError() }
             payload["astronomy"] = try JSONSerialization.jsonObject(with: dossier.payload)
             let result = try await rawRequest(payload)
-            guard scope == scopeRevision, state.birth == birth else { throw CancellationError() }
+            guard scope == scopeRevision, birthGeneration == birthRevision, state.birth == birth else { throw CancellationError() }
             return result
         }
         let cast = ["cast_liuyao", "setup_qimen"].contains(payload["name"] as? String ?? "")
@@ -171,11 +177,11 @@ struct Document {
            let data = try? JSONSerialization.data(withJSONObject: supplied),
            (try? JSONDecoder().decode(BirthProfile.self, from: data)) == birth {
             let dossier = try await ensureNatalDossier()
-            guard scope == scopeRevision, state.birth == birth else { throw CancellationError() }
+            guard scope == scopeRevision, birthGeneration == birthRevision, state.birth == birth else { throw CancellationError() }
             payload["natal"] = try JSONSerialization.jsonObject(with: dossier.payload)
         }
         let result = try await rawRequest(payload)
-        guard scope == scopeRevision else { throw CancellationError() }
+        guard scope == scopeRevision, birthGeneration == birthRevision else { throw CancellationError() }
         return result
     }
     private func rawRequest(_ payload: [String: Any]) async throws -> Document {
@@ -203,7 +209,7 @@ struct Document {
             for saved in try context.fetch(FetchDescriptor<SavedState>(predicate: #Predicate { $0.key == key })) { context.delete(saved) }
             try saveThrowing()
         } catch { context.rollback(); state = old; throw error }
-        scopeRevision = UUID(); calculationVersion += 1
+        scopeRevision = UUID(); birthRevision = UUID(); calculationVersion += 1
         resetAstronomy()
         natalTask?.task.cancel(); natalTask = nil; natalDossier = nil
         profile = nil; dossierError = nil; computing = false; preparingAccount = false
@@ -219,38 +225,67 @@ struct Document {
         state.birth = birth; state.profileNeedsUpload = true
         do { try saveThrowing() }
         catch { context.rollback(); state = old; throw error }
+        birthRevision = UUID(); calculationVersion += 1
+        let birthGeneration = birthRevision
+        natalTask?.task.cancel(); natalTask = nil
         resetAstronomy()
-        profile = nil
+        profile = nil; computing = false
         do { _ = try await ensureNatalDossier() }
         catch {
-            if scopeRevision == scope, state.birth == birth { dossierError = error.localizedDescription }
+            if scopeRevision == scope, birthRevision == birthGeneration, state.birth == birth { dossierError = error.localizedDescription }
             throw error
         }
-        guard scope == scopeRevision, state.birth == birth else { throw CancellationError() }
+        guard scope == scopeRevision, birthGeneration == birthRevision, state.birth == birth else { throw CancellationError() }
         state.hasOnboarded = true
         try saveThrowing()
         await calculateProfile()
+        guard scope == scopeRevision, birthGeneration == birthRevision, state.birth == birth else { throw CancellationError() }
         await syncBirthProfile()
+    }
+
+    private func matchesNatal(_ dossier: NatalDossier, owner: String, birth: BirthProfile, expected: String) -> Bool {
+        guard dossier.matches(ownerID: owner, birth: birth, engineRevision: engineRevision),
+              let document = try? Document(data: dossier.payload) else { return false }
+        return document["engineRevision"].text == expected
     }
 
     func ensureNatalDossier() async throws -> NatalDossier {
         guard let birth = state.birth else { throw DomainError.invalidBirth }
-        if let natalDossier, natalDossier.matches(ownerID: scopeKey, birth: birth, engineRevision: engineRevision) { return natalDossier }
-        let scope = scopeRevision
-        if let pending = natalTask, pending.scope == scope, pending.birth == birth { return try await pending.task.value }
-        let key = "natal:" + scopeKey
-        if let record = try context.fetch(FetchDescriptor<SavedState>(predicate: #Predicate { $0.key == key })).first,
-           let cached = try? JSONDecoder().decode(NatalDossier.self, from: record.data),
-           cached.matches(ownerID: scopeKey, birth: birth, engineRevision: engineRevision) {
-            natalDossier = cached
-            return cached
+        let scope = scopeRevision, birthGeneration = birthRevision
+        if let natalDossier, let expected = natalPayloadRevision,
+           matchesNatal(natalDossier, owner: scopeKey, birth: birth, expected: expected) { return natalDossier }
+        if let pending = natalTask, pending.scope == scope, pending.birthGeneration == birthGeneration, pending.birth == birth {
+            let dossier = try await pending.task.value
+            try Task.checkCancellation()
+            guard scopeRevision == scope, birthRevision == birthGeneration, state.birth == birth else { throw CancellationError() }
+            return dossier
         }
+        natalTask?.task.cancel()
+        let key = "natal:" + scopeKey
+        let owner = scopeKey
         let id = UUID()
         let operation = Task { @MainActor in
+            try Task.checkCancellation()
+            guard self.scopeRevision == scope, self.birthRevision == birthGeneration, self.state.birth == birth else { throw CancellationError() }
+            let expected: String
+            if let revision = self.natalPayloadRevision { expected = revision }
+            else {
+                expected = try await self.rawRequest(["command": "metadata"])["engineRevision"].text
+                try Task.checkCancellation()
+                guard self.scopeRevision == scope, self.birthRevision == birthGeneration, self.state.birth == birth else { throw CancellationError() }
+                self.natalPayloadRevision = expected
+            }
+            if let record = try self.context.fetch(FetchDescriptor<SavedState>(predicate: #Predicate { $0.key == key })).first,
+               let cached = try? JSONDecoder().decode(NatalDossier.self, from: record.data),
+               self.matchesNatal(cached, owner: owner, birth: birth, expected: expected) {
+                self.natalDossier = cached
+                return cached
+            }
             let document = try await self.rawRequest(["command": "natal", "birth": self.birthJSON(birth)])
             try Task.checkCancellation()
-            guard self.scopeRevision == scope, self.state.birth == birth else { throw CancellationError() }
-            let dossier = try NatalDossier(ownerID: self.scopeKey, birth: birth, engineRevision: self.engineRevision, payload: Data(document.json.utf8))
+            guard self.scopeRevision == scope, self.birthRevision == birthGeneration, self.state.birth == birth else { throw CancellationError() }
+            guard document["engineRevision"].text == expected else { throw EngineContract.Failure.invalid }
+            let dossier = try NatalDossier(ownerID: owner, birth: birth, engineRevision: self.engineRevision, payload: Data(document.json.utf8))
             let data = try JSONEncoder().encode(dossier)
             if let existing = try self.context.fetch(FetchDescriptor<SavedState>(predicate: #Predicate { $0.key == key })).first {
                 existing.data = data
@@ -259,16 +294,24 @@ struct Document {
             self.natalDossier = dossier
             return dossier
         }
-        natalTask = (id, scope, birth, operation)
+        natalTask = (id, scope, birthGeneration, birth, operation)
         defer { if natalTask?.id == id { natalTask = nil } }
-        return try await operation.value
+        let dossier = try await operation.value
+        try Task.checkCancellation()
+        guard scopeRevision == scope, birthRevision == birthGeneration, state.birth == birth else { throw CancellationError() }
+        return dossier
     }
 
     func ensureNatalAstronomyDossier() async throws -> NatalAstronomyDossier {
         guard let birth = state.birth else { throw DomainError.invalidBirth }
-        let scope = scopeRevision
+        let scope = scopeRevision, birthGeneration = birthRevision
         if hasNatalAstronomyDossier, let dossier = natalAstronomyDossier { return dossier }
-        if let pending = astronomyTask, pending.scope == scope, pending.birth == birth { return try await pending.task.value }
+        if let pending = astronomyTask, pending.scope == scope, pending.birthGeneration == birthGeneration, pending.birth == birth {
+            let dossier = try await pending.task.value
+            try Task.checkCancellation()
+            guard scopeRevision == scope, birthRevision == birthGeneration, state.birth == birth else { throw CancellationError() }
+            return dossier
+        }
         astronomyTask?.task.cancel()
         natalAstronomyDossier = nil
         let key = "natal-astronomy:" + scopeKey
@@ -279,26 +322,26 @@ struct Document {
             self.astronomyOperationWillStartForTesting?()
 #endif
             try Task.checkCancellation()
-            guard self.scopeRevision == scope, self.state.birth == birth else { throw CancellationError() }
+            guard self.scopeRevision == scope, self.birthRevision == birthGeneration, self.state.birth == birth else { throw CancellationError() }
             let revision: String
             if let cached = self.astronomyPayloadRevision { revision = cached }
             else {
                 revision = try await self.rawRequest(["command":"metadata"])["engineRevision"].text
                 try Task.checkCancellation()
-                guard self.scopeRevision == scope, self.state.birth == birth else { throw CancellationError() }
+                guard self.scopeRevision == scope, self.birthRevision == birthGeneration, self.state.birth == birth else { throw CancellationError() }
                 self.astronomyPayloadRevision = revision
             }
             if let record = try self.context.fetch(FetchDescriptor<SavedState>(predicate: #Predicate { $0.key == key })).first,
                let cached = try? JSONDecoder().decode(NatalAstronomyDossier.self, from: record.data),
                cached.matches(ownerID: owner, birth: birth, engineRevision: self.engineRevision, enginePayloadRevision: revision) {
                 try Task.checkCancellation()
-                guard self.scopeRevision == scope, self.state.birth == birth else { throw CancellationError() }
+                guard self.scopeRevision == scope, self.birthRevision == birthGeneration, self.state.birth == birth else { throw CancellationError() }
                 self.natalAstronomyDossier = cached
                 return cached
             }
             let document = try await self.rawRequest(["command":"natal-astronomy", "birth":self.birthJSON(birth)])
             try Task.checkCancellation()
-            guard self.scopeRevision == scope, self.state.birth == birth else { throw CancellationError() }
+            guard self.scopeRevision == scope, self.birthRevision == birthGeneration, self.state.birth == birth else { throw CancellationError() }
             let dossier = try NatalAstronomyDossier(ownerID: owner, birth: birth, engineRevision: self.engineRevision, enginePayloadRevision: revision, payload: Data(document.json.utf8))
             let data = try JSONEncoder().encode(dossier)
             if let existing = try self.context.fetch(FetchDescriptor<SavedState>(predicate: #Predicate { $0.key == key })).first { existing.data = data }
@@ -307,20 +350,23 @@ struct Document {
             self.natalAstronomyDossier = dossier
             return dossier
         }
-        astronomyTask = (id, scope, birth, operation)
+        astronomyTask = (id, scope, birthGeneration, birth, operation)
         defer { if astronomyTask?.id == id { astronomyTask = nil } }
-        return try await operation.value
+        let dossier = try await operation.value
+        try Task.checkCancellation()
+        guard scopeRevision == scope, birthRevision == birthGeneration, state.birth == birth else { throw CancellationError() }
+        return dossier
     }
 
     func prepareNatalAstronomy() async {
-        let scope = scopeRevision; let birth = state.birth
+        let scope = scopeRevision, birthGeneration = birthRevision; let birth = state.birth
         guard birth != nil else { resetAstronomy(); return }
         do {
             _ = try await ensureNatalAstronomyDossier()
-            guard scope == scopeRevision, birth == state.birth else { return }
+            guard scope == scopeRevision, birthGeneration == birthRevision, birth == state.birth else { return }
             astronomyError = nil
         } catch is CancellationError { }
-        catch { if scope == scopeRevision, birth == state.birth { astronomyError = error.localizedDescription } }
+        catch { if scope == scopeRevision, birthGeneration == birthRevision, birth == state.birth { astronomyError = error.localizedDescription } }
     }
 
     /// Restore only an empty account. Existing local edits always stay local
@@ -328,64 +374,70 @@ struct Document {
     func prepareAccount() async {
         guard isSignedIn, preparedScope != scopeKey else { return }
         let scope = scopeRevision
+        var birthGeneration = birthRevision
         preparedScope = scopeKey; preparingAccount = true
         defer { if scopeRevision == scope { preparingAccount = false } }
         if state.birth == nil, state.profileNeedsUpload != true {
             cloudProfileStatus = nil
             do {
                 if let cloud = try await accountSession.fetchProfile() {
-                    guard scopeRevision == scope, state.birth == nil else { return }
+                    guard scopeRevision == scope, birthRevision == birthGeneration, state.birth == nil else { return }
                     let old = state
                     state = try accountSession.applying(cloud, to: state)
                     do { try saveThrowing() } catch { context.rollback(); state = old; throw error }
+                    birthRevision = UUID(); birthGeneration = birthRevision; calculationVersion += 1
+                    natalTask?.task.cancel(); natalTask = nil
+                    resetAstronomy()
+                    profile = nil
                 }
             } catch {
-                guard scopeRevision == scope else { return }
+                guard scopeRevision == scope, birthRevision == birthGeneration else { return }
                 cloudProfileStatus = "云端资料暂未恢复：\(error.localizedDescription)"
                 preparedScope = nil
             }
         }
-        guard scopeRevision == scope else { return }
+        guard scopeRevision == scope, birthRevision == birthGeneration else { return }
         await calculateProfile()
+        guard scopeRevision == scope, birthRevision == birthGeneration else { return }
         await syncBirthProfile()
     }
 
     func syncBirthProfile() async {
         guard isSignedIn, state.profileNeedsUpload == true, !syncingProfile else { return }
-        let scope = scopeRevision; let birth = state.birth
+        let scope = scopeRevision, birthGeneration = birthRevision; let birth = state.birth
         syncingProfile = true
         defer {
             syncingProfile = false
             // An edit/account change while a request was in flight leaves a
             // newer queued profile; send it only after the older write ends.
-            if (scopeRevision != scope || state.birth != birth), isSignedIn, state.profileNeedsUpload == true {
+            if (scopeRevision != scope || birthRevision != birthGeneration || state.birth != birth), isSignedIn, state.profileNeedsUpload == true {
                 Task { await self.syncBirthProfile() }
             }
         }
         do {
             _ = try await accountSession.pushProfile(from: state)
-            guard scopeRevision == scope, state.birth == birth else { return }
+            guard scopeRevision == scope, birthRevision == birthGeneration, state.birth == birth else { return }
             state.profileNeedsUpload = false
             do { try saveThrowing() } catch { state.profileNeedsUpload = true; throw error }
             cloudProfileStatus = nil
         } catch {
-            guard scopeRevision == scope else { return }
+            guard scopeRevision == scope, birthRevision == birthGeneration else { return }
             cloudProfileStatus = "资料已保存在本机，云端尚未同步。\(error.localizedDescription)"
         }
     }
     func calculateProfile() async {
         calculationVersion += 1
-        let version = calculationVersion
+        let version = calculationVersion, birthGeneration = birthRevision
         guard let birth = state.birth else { profile = nil; computing = false; resetAstronomy(); return }
         computing = true
         dossierError = nil
-        defer { if version == calculationVersion { computing = false } }
+        defer { if version == calculationVersion && birthGeneration == birthRevision { computing = false } }
         do {
             let result = try await request(["command": "profile", "birth": birthJSON(birth), "now": ISO8601DateFormatter().string(from: today)])
-            guard version == calculationVersion else { return }
+            guard version == calculationVersion && birthGeneration == birthRevision else { return }
             profile = result
-        } catch { if version == calculationVersion { profile = nil; dossierError = error.localizedDescription } }
-        guard version == calculationVersion else { return }
+        } catch { if version == calculationVersion && birthGeneration == birthRevision { profile = nil; dossierError = error.localizedDescription } }
+        guard version == calculationVersion && birthGeneration == birthRevision else { return }
         await prepareNatalAstronomy()
     }
 }
