@@ -6,14 +6,17 @@ final class NatalAstronomyUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing", "--notebook-fixtures", "-AppleLanguages", "(zh-Hans)", "-AppleLocale", "zh_CN"]
         app.launch()
-        XCTAssertTrue(app.tabBars.buttons["我的"].waitForExistence(timeout: 15))
-        app.tabBars.buttons["我的"].tap()
+        XCTAssertTrue(app.buttons["nav.profile"].waitForExistence(timeout: 15))
+        app.selectNotebookPage("我的")
         app.buttons["profile.addBirth"].tap()
         let confirm = app.switches["birth.confirm"]
         for _ in 0..<8 { if confirm.isHittable { break }; app.swipeUp() }
         confirm.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
         app.buttons["birth.save"].tap()
-        let entry = app.buttons["profile.astronomy"]
+        XCTAssertTrue(app.staticTexts["profile.dossierReady"].waitForExistence(timeout: 25))
+        app.buttons["profile.report"].tap()
+        app.buttons["report.professional"].tap()
+        let entry = app.buttons["professional.astronomy"]
         XCTAssertTrue(entry.waitForExistence(timeout: 20))
         for _ in 0..<8 { if entry.isHittable { break }; app.swipeUp() }
         entry.tap()

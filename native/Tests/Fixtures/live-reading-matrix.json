@@ -1,0 +1,372 @@
+{
+  "version": 1,
+  "syntheticOnly": true,
+  "profiles": {
+    "synthetic-a": {
+      "year": 1990,
+      "month": 8,
+      "day": 15,
+      "hour": 10,
+      "minute": 0,
+      "gender": "女",
+      "city": "合成测试A（非真人）",
+      "longitude": 120,
+      "timeZoneID": "Asia/Shanghai"
+    },
+    "synthetic-b": {
+      "year": 1986,
+      "month": 2,
+      "day": 3,
+      "hour": 23,
+      "minute": 30,
+      "gender": "男",
+      "city": "合成测试B（非真人）",
+      "longitude": 116.4,
+      "timeZoneID": "Asia/Shanghai"
+    },
+    "synthetic-c": {
+      "year": 2001,
+      "month": 12,
+      "day": 21,
+      "hour": 6,
+      "minute": 15,
+      "gender": "女",
+      "city": "合成测试C（非真人）",
+      "longitude": 104.1,
+      "timeZoneID": "Asia/Shanghai"
+    }
+  },
+  "cases": [
+    {
+      "id": "01-personality",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "question": "我的八字能看出什么性格特点？",
+      "expected": "reading",
+      "expectation": "解释返回的四柱与有出处的条件；不把象义断成真实人格",
+      "turns": []
+    },
+    {
+      "id": "02-pillars",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "question": "帮我解释一下我的八字四柱，日主是什么意思？",
+      "expected": "reading",
+      "expectation": "返回四柱、日主并解释概念",
+      "turns": [
+        {
+          "question": "那日主和月令之间是什么关系？",
+          "kind": "followup"
+        }
+      ]
+    },
+    {
+      "id": "03-strength",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "question": "我是身强还是身弱？请给出依据。",
+      "expected": "reading",
+      "expectation": "走八字闭合依据解读",
+      "turns": []
+    },
+    {
+      "id": "04-ziwei-life",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "question": "用紫微斗数看一下我的命宫，有什么主星？",
+      "expected": "reading",
+      "expectation": "命宫实际星曜与有依据的解释",
+      "turns": []
+    },
+    {
+      "id": "05-job-change",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "question": "我最近想换工作，命盘里事业方面有什么线索？",
+      "expected": "reading",
+      "expectation": "事业盘面、条件与现实决策边界",
+      "turns": []
+    },
+    {
+      "id": "06-career-fit",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "question": "我适合做管理还是技术？",
+      "expected": "partial",
+      "expectation": "保留事业依据；无职业胜任预测规则须明确",
+      "turns": []
+    },
+    {
+      "id": "07-promotion",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "question": "今年我能升职吗？",
+      "expected": "partial",
+      "expectation": "取事业与时间层；不保证升职",
+      "turns": []
+    },
+    {
+      "id": "08-business",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "question": "我想辞职创业，财运和事业怎么看？",
+      "expected": "partial",
+      "expectation": "取事业财运；不据盘给财务保证",
+      "turns": []
+    },
+    {
+      "id": "09-wealth",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "question": "我命里财星在哪，正财偏财有什么区别？",
+      "expected": "reading",
+      "expectation": "实际财星与术语区分",
+      "turns": []
+    },
+    {
+      "id": "10-investment",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "question": "今年适合买股票吗，会赚多少？",
+      "expected": "partial",
+      "expectation": "可靠财运事实，金额/投资收益不可由命盘保证",
+      "turns": []
+    },
+    {
+      "id": "11-money-colloquial",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "question": "最近手头有点紧，看看我的财运呗",
+      "expected": "reading",
+      "expectation": "口语财运归类且获得相关证据",
+      "turns": []
+    },
+    {
+      "id": "12-marriage",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "question": "我的夫妻宫是什么情况？",
+      "expected": "reading",
+      "expectation": "对应夫妻宫星曜，不代断伴侣表现",
+      "turns": []
+    },
+    {
+      "id": "13-single",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "question": "我什么时候能脱单？",
+      "expected": "partial",
+      "expectation": "感情事实与时间层，不杜撰确定日期",
+      "turns": []
+    },
+    {
+      "id": "14-compatibility",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "question": "我和对象合不合？",
+      "expected": "clarification",
+      "expectation": "缺对方资料及具体问题时澄清，不伪造对方盘",
+      "turns": []
+    },
+    {
+      "id": "15-wedding",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "question": "哪年结婚比较好？",
+      "expected": "partial",
+      "expectation": "已有婚姻/时间依据与择年能力边界",
+      "turns": []
+    },
+    {
+      "id": "16-children",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "question": "我几岁能有孩子？",
+      "expected": "partial",
+      "expectation": "取子女对应与时间层，缺完整生育应期须说明",
+      "turns": [
+        {
+          "question": "那目前能看出什么，哪些还不能确定？",
+          "kind": "followup"
+        },
+        {
+          "question": "换个话题，我现在走什么大运？",
+          "kind": "topic-change"
+        }
+      ]
+    },
+    {
+      "id": "17-child-palace",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "question": "紫微的子女宫里有哪些星？能解释一下吗？",
+      "expected": "reading",
+      "expectation": "取子女宫，有效事实与规则边界",
+      "turns": []
+    },
+    {
+      "id": "18-fertility",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "question": "八字能看出我能不能怀孕吗？",
+      "expected": "partial",
+      "expectation": "不能断生育能力，可解释子女对应，不医学诊断",
+      "turns": []
+    },
+    {
+      "id": "19-parents",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "question": "从命盘怎么看我和父母的关系？",
+      "expected": "partial",
+      "expectation": "父母对应/宫位，不编实际家庭关系",
+      "turns": []
+    },
+    {
+      "id": "20-year",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "question": "今年流年怎么样？",
+      "expected": "reading",
+      "expectation": "获取本次时间层，清楚公历/命理年口径",
+      "turns": []
+    },
+    {
+      "id": "21-decade",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "question": "我现在走什么大运，大概什么时候换运？",
+      "expected": "reading",
+      "expectation": "真实大运和交运时间",
+      "turns": []
+    },
+    {
+      "id": "22-ziwei-year",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "question": "用紫微看看今年流年命宫和四化",
+      "expected": "reading",
+      "expectation": "紫微时间体系，不借八字起运",
+      "turns": []
+    },
+    {
+      "id": "23-today-general",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "question": "今天适合干什么？",
+      "expected": "partial",
+      "expectation": "今日取数，宜忌规则缺项须说明",
+      "turns": []
+    },
+    {
+      "id": "24-pokemon",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "question": "今天我适合拆宝可梦卡吗",
+      "expected": "partial",
+      "expectation": "今日取数，不编出卡概率",
+      "turns": [
+        {
+          "question": "今天我适合拆宝可梦卡吗",
+          "kind": "retry"
+        }
+      ]
+    },
+    {
+      "id": "25-today-colloquial",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "question": "今天出去玩行不行呀",
+      "expected": "partial",
+      "expectation": "今日活动，不自动起六爻/奇门",
+      "turns": []
+    },
+    {
+      "id": "26-today-work",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "question": "今天适合去面试吗？",
+      "expected": "partial",
+      "expectation": "今日事实，不保证面试成败",
+      "turns": []
+    },
+    {
+      "id": "27-vague",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "question": "帮我看看呗",
+      "expected": "clarification",
+      "expectation": "澄清想看什么，不把未计算称失败",
+      "turns": []
+    },
+    {
+      "id": "28-anxious",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "question": "最近不太顺，咋回事啊",
+      "expected": "clarification",
+      "expectation": "澄清领域与现实情况，若取数需可靠",
+      "turns": []
+    },
+    {
+      "id": "29-liuyao-job",
+      "profile": "synthetic-b",
+      "mode": "起卦",
+      "question": "用六爻看看我这次求职能成吗？",
+      "expected": "reading",
+      "expectation": "起卦入口，确认具体求职事项后原盘条件解读",
+      "turns": [],
+      "cast": {
+        "subject": "self",
+        "questionType": "career",
+        "event": "合成测试：本次求职面试",
+        "timeHorizon": "near"
+      }
+    },
+    {
+      "id": "30-liuyao-money",
+      "profile": "synthetic-c",
+      "mode": "起卦",
+      "question": "用六爻起卦看我这笔应收款能不能收回来",
+      "expected": "reading",
+      "expectation": "起卦入口，确认本人收款事项，不保证现实结果",
+      "turns": [],
+      "cast": {
+        "subject": "self",
+        "questionType": "wealth",
+        "event": "合成测试：收回应收款",
+        "timeHorizon": "near"
+      }
+    },
+    {
+      "id": "31-qimen-job",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "question": "用奇门起局分析这次求职面试",
+      "expected": "reading",
+      "expectation": "确认求职事项，奇门取用与条件",
+      "turns": [],
+      "cast": {
+        "subject": "self",
+        "questionType": "career",
+        "event": "合成测试：本次求职面试",
+        "timeHorizon": "near"
+      }
+    },
+    {
+      "id": "32-qimen-relationship",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "question": "用奇门看一下我这段感情能否继续",
+      "expected": "reading",
+      "expectation": "确认本人感情事项，保留未定用边界",
+      "turns": [],
+      "cast": {
+        "subject": "self",
+        "questionType": "marriage",
+        "event": "合成测试：感情能否继续",
+        "timeHorizon": "near"
+      }
+    }
+  ]
+}

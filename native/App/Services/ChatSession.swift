@@ -120,6 +120,7 @@ import SujiCore
                 let presentation = BaziReadingRequest.resolveRequest(question: originalQuestion, mode: effectiveMode, entries: historyEntries, currentUserID: userID, context: context)
                 let focus = presentation?.focuses.first
                 let todayRequest = focus == nil && TodayReadingRequest.applies(question: originalQuestion, mode: effectiveMode)
+                let clarification = ReadingFactRequest.clarification(question: originalQuestion, mode: effectiveMode)
                 // These caches belong only to this user entry and passed the
                 // context checks above. A retry planner may need no new calls.
                 var frameworkReceipts = cachedReceipts
@@ -137,15 +138,24 @@ import SujiCore
                     try Self.checkScope(store, revision: revision, birth: birth)
                     history[0].content = instruction + "\n" + ReadingPrompt.plannerInstruction(question: originalQuestion, mode: effectiveMode, focus: focus)
                     let frameworkCallID = "bazi-" + UUID().uuidString
+                    var attemptedMissingFacts = false
                     let orchestrator = ToolOrchestrator(
                         complete: { messages, tools in
+                            if clarification != nil { return .text("") }
                             if focus != nil {
                                 return BaziFrameworkReading.plan(callID: frameworkCallID, history: messages, cachedReceipts: cachedReceipts, context: context, hasBirth: birth != nil)
                             }
                             if todayRequest {
                                 return TodayReadingRequest.plan(callID: frameworkCallID, history: messages, cachedReceipts: cachedReceipts, context: context, hasBirth: birth != nil)
                             }
-                            return try await client.complete(messages: messages, tools: tools)
+                            let completion = try await client.complete(messages: messages, tools: tools)
+                            if case .text = completion, !attemptedMissingFacts {
+                                attemptedMissingFacts = true
+                                let missing = ReadingFactRequest.missingCalls(question: originalQuestion, context: context,
+                                    hasBirth: birth != nil, history: messages, entries: historyEntries, currentUserID: userID)
+                                if !missing.isEmpty { return .toolCalls(missing) }
+                            }
+                            return completion
                         },
                         execute: { call in
                             try Task.checkCancellation()
@@ -249,11 +259,13 @@ import SujiCore
                         ?? LiuyaoReferenceReading.unavailableReply(receipts: frameworkReceipts)
                 } else {
                     activity = "正在写回信"
-                    var draft = ""
-                    for try await delta in client.streamText(messages: history) {
-                        try Task.checkCancellation()
-                        try Self.checkScope(store, revision: revision, birth: birth)
-                        if effectiveMode == "倾诉" { partial += delta } else { draft += delta }
+                    var draft = clarification ?? ""
+                    if clarification == nil {
+                        for try await delta in client.streamText(messages: history) {
+                            try Task.checkCancellation()
+                            try Self.checkScope(store, revision: revision, birth: birth)
+                            if effectiveMode == "倾诉" { partial += delta } else { draft += delta }
+                        }
                     }
                     try Task.checkCancellation()
                     try Self.checkScope(store, revision: revision, birth: birth)

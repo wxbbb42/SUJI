@@ -56,6 +56,7 @@ struct RootView: View {
     @State private var sheet: RootSheet?
     @State private var notificationRoute = NotificationRoute.shared
     @State private var initialized = false
+    @State private var keyboardVisible = false
     var body: some View {
         Group {
             if !initialized {
@@ -89,6 +90,7 @@ struct RootView: View {
             await ReminderService.shared.refreshFromSavedPreferences()
         }
         .task(id: store.scopeKey) { await store.prepareAccount() }
+        .onChange(of: store.scopeKey) { _, _ in sheet = nil }
         .onChange(of: store.isSignedIn) { _, signedIn in
             sheet = nil
             if signedIn { Task { await store.prepareAccount() } }
@@ -116,12 +118,30 @@ struct RootView: View {
             TodayView(date: store.today, lunarDate: store.calendarInfo?["lunarDate"].text ?? "", ganZhi: store.calendarInfo?["ganZhi"].text ?? "", solarTerm: store.calendarInfo?["solarTerm"].text ?? "", quote: store.ritual?.quote ?? store.content.quote, action: store.ritual?.action ?? store.content.action, isRevealed: store.ritual != nil, onReveal: { store.revealToday() }, onJournal: { sheet = .journal }, onHistory: { sheet = .history }, onShare: { sheet = .share }, onReflect: { sheet = .reflection })
                 .tabItem { Label("今日", systemImage: "sun.horizon") }.tag(0)
             ChatView().tabItem { Label("问道", systemImage: "bubble.left.and.text.bubble.right") }.tag(1)
-            CalmView().tabItem { Label("静心", systemImage: "water.waves") }.tag(2)
-            ProfileView().tabItem { Label("我的", systemImage: "person.crop.circle") }.tag(3)
+            NavigationStack {
+                CalmView().navigationBarTitleDisplayMode(.inline)
+                    .toolbar { ToolbarItem(placement: .topBarTrailing) { NotebookProfileButton() } }
+            }.tabItem { Label("静心", systemImage: "water.waves") }.tag(2)
         }
+        .toolbar(.hidden, for: .tabBar)
+        .onAppear { if !(0...2).contains(store.selectedTab) { store.selectedTab = 0 } }
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            if !keyboardVisible {
+                NotebookTabBar(selection: $store.selectedTab)
+            }
+        }
+        .environment(\.openNotebookProfile, {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            sheet = .profile
+        })
+        .environment(\.editNotebookBirth, { sheet = .birth })
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in keyboardVisible = true }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in keyboardVisible = false }
     }
     @ViewBuilder private func sheetContent(_ item: RootSheet) -> some View {
             switch item {
+            case .profile: NotebookProfileSheet { sheet = nil }
+            case .birth: BirthEditor(existing: store.state.birth) { birth in try await store.updateBirth(birth) }
             case .journal: JournalComposer()
             case .history: RitualHistoryView()
             case .share: RitualShareView()
@@ -140,12 +160,16 @@ struct RootView: View {
     private func consumePendingNotificationRoute() {
         if notificationRoute.consumeToday() { openToday() }
     }
-    private func openToday() { sheet = nil; store.selectedTab = 0; Task { await store.refresh() } }
+    private func openToday() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        keyboardVisible = false; sheet = nil; store.selectedTab = 0
+        Task { await store.refresh() }
+    }
 }
 private enum RootSheet: Identifiable {
-    case journal, history, share, reflection, recovery(URL)
+    case profile, birth, journal, history, share, reflection, recovery(URL)
     var id: String {
-        switch self { case .journal: "journal"; case .history: "history"; case .share: "share"; case .reflection: "reflection"; case .recovery: "recovery" }
+        switch self { case .profile: "profile"; case .birth: "birth"; case .journal: "journal"; case .history: "history"; case .share: "share"; case .reflection: "reflection"; case .recovery: "recovery" }
     }
 }
 

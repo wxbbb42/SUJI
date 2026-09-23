@@ -3,6 +3,8 @@ import SujiCore
 
 @MainActor struct ChatView: View {
     @Environment(AppStore.self) private var store
+    @Environment(\.openNotebookProfile) private var openProfile
+    @Environment(\.editNotebookBirth) private var editBirth
     @State private var session: ChatSession
     @State private var input = ""
     @State private var mode = "倾诉"
@@ -144,7 +146,7 @@ import SujiCore
                         HStack {
                             Text("个性化排盘需要出生资料。").font(.caption).foregroundStyle(SujiTheme.secondary)
                             Spacer(minLength: 8)
-                            Button("去填写") { store.selectedTab = 3 }.font(.caption.weight(.medium)).frame(minWidth: 44, minHeight: 44)
+                            Button("去填写", action: editBirth).font(.caption.weight(.medium)).frame(minWidth: 44, minHeight: 44)
                         }
                     }
                     Picker("对话方式", selection: $mode) {
@@ -161,7 +163,20 @@ import SujiCore
                 }.padding(.horizontal, 20).padding(.vertical, 12).background(.regularMaterial)
                     .accessibilityElement(children: .contain).accessibilityIdentifier("chat.composer")
             }
-            .toolbar { ToolbarItem(placement: .topBarTrailing) { Menu { NavigationLink("设置", destination: SettingsView()); Button("清空对话", role: .destructive) { clearConfirmation = true }.disabled(session.working) } label: { Image(systemName: "ellipsis") } } }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Menu {
+                        Button("个人资料与设置", action: openProfile)
+                        Button("清空对话", role: .destructive) { clearConfirmation = true }.disabled(session.working)
+                    } label: { Image(systemName: "ellipsis").frame(minWidth: 44, minHeight: 44) }
+                    .accessibilityLabel("会话菜单").accessibilityIdentifier("chat.menu")
+                }
+                ToolbarItem(placement: .topBarTrailing) { NotebookProfileButton() }
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("收起键盘") { focused = false }.accessibilityIdentifier("chat.dismissKeyboard")
+                }
+            }
             .confirmationDialog("清空本机的全部对话？", isPresented: $clearConfirmation, titleVisibility: .visible) { Button("清空对话", role: .destructive) { store.state.conversations = []; store.save() } }
             .sheet(item: Binding(get: { session.castConfirmation.pending }, set: { _ in })) { request in
                 CastQuestionConfirmationView(request: request, gate: session.castConfirmation) { session.stop() }

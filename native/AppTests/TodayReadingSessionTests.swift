@@ -28,7 +28,7 @@ import SujiCore
     }
 
     func testExplicitTodayQuestionAcquiresFactsBeforeAnyModelRequest() async throws {
-        for question in ["今天适合干什么", "What should I do today?"] {
+        for question in ["今天适合干什么", "What should I do today?", "今天我适合拆宝可梦卡吗"] {
             TodayReadingProtocol.reset()
             let (container, store) = try fixture()
             defer { withExtendedLifetime(container) {} }
@@ -56,7 +56,7 @@ import SujiCore
         let (container, store) = try fixture()
         defer { withExtendedLifetime(container) {} }
         let session = ChatSession(makeClient: { _ in self.client() })
-        session.send("今天适合干什么", mode: "命理", store: store)
+        session.send("今天我适合拆宝可梦卡吗", mode: "命理", store: store)
         try await wait(session)
         XCTAssertTrue(session.failure?.contains("未完成核对") == true)
         let source = try XCTUnwrap(store.state.conversations.first)

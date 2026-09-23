@@ -255,13 +255,13 @@ final class ReadingVerificationProtocolTests: XCTestCase {
         XCTAssertEqual(calls, 2)
     }
 
-    func testRepeatedInvalidVerdictStopsAfterTwoReviews() async {
+    func testRepeatedInvalidVerdictStopsAfterOneRecoveryAndTwoReviewsPerDraft() async {
         var calls = 0
         do {
             _ = try await ReadingVerifier.verify(draft: "变卦下卦为兑", history: history, question: "下卦") { _ in calls += 1; return .text("not JSON") }
             XCTFail("Invalid review cannot authorize display")
         } catch let error as ReadingVerifier.Rejected { XCTAssertEqual(error.reason, "invalid_verdict") }
         catch { XCTFail("Unexpected error: \(error)") }
-        XCTAssertEqual(calls, 2)
+        XCTAssertEqual(calls, 5, "Two reviews, one fixed recovery rewrite, then at most two final reviews")
     }
 }

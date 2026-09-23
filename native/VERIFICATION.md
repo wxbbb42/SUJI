@@ -1,5 +1,9 @@
 # Native rebuild verification
 
+2026-09-23 扩展真实问答验收：32个独立问题、95轮、435个已记录模型请求；逐题人工判定为2通过、2合理澄清、10准确缺项/条件不足、18失败。不能沿用此前两题smoke的结论宣称整体可用。修复漏取数/追问、模糊澄清、奇门入口及若干核验漏洞；最终488 Core（1跳过）、47 hosted（1跳过）、1016 Engine及15 backend回归无失败，但真实业务验收仍有误拒和误接受。完整逐题记录、可重跑脚本、源数据指针与剩余阻塞见[32题验收报告](../docs/mingli/validation/reading-matrix-2026-09-22.md)。未合并、未发布。
+
+2026-09-22 命理产品问答：针对“今天我适合拆宝可梦卡吗”和子女生育年龄追问，已完成真实原生登录、建档、取数、已部署 DeepSeek 回复与持久化复测，修复今日活动取数和泛泛拒答；完整生育应期仍未实现。基线和修复版内容、475 项 Core / 14 项 hosted 回归及验证边界见 [产品问答调试](../docs/mingli/validation/reading-product-debug-2026-09-22.md)。
+
 2026-09-22 今日问答调试：日干支字段、固定取数、事实核对及失败恢复的修复和本地验证见 [调试记录](../docs/mingli/validation/today-reading-debug-2026-09-22.md)。修复版尚待原开发团队签名和真机安装；旧版真机观察与最终模拟器验证分开记录。
 
 ## Account-first setup and persistent natal dossiers — 2026-09-20
