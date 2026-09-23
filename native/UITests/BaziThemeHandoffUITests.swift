@@ -57,7 +57,14 @@ final class BaziThemeHandoffUITests: XCTestCase {
         XCTAssertTrue(element.exists && element.isHittable, "Target is not reachable: \(diagnostic)")
     }
     private func openSyntheticReport() {
-        tap("nav.profile"); tap("profile.addBirth")
+        tap("nav.profile")
+        let birth = app.buttons["profile.addBirth"]
+        XCTAssertTrue(birth.waitForExistence(timeout: 10))
+        // Match NatalReadingReportUITests' successful iOS 18 profile path.
+        // A short press-and-drag can activate the large NavigationLink even
+        // from its gutter; XCTest's native swipe cancels that press correctly.
+        for _ in 0..<9 { if birth.isHittable { break }; app.swipeUp() }
+        XCTAssertTrue(birth.isHittable); birth.tap()
         let confirm = app.switches["birth.confirm"]
         for _ in 0..<12 { if confirm.isHittable { break }; app.swipeUp() }
         XCTAssertTrue(confirm.isHittable)

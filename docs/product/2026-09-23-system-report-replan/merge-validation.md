@@ -119,3 +119,7 @@ xcodebuild -project native/Suji.xcodeproj -scheme Suji \
 最小修正仅涉及两份UI测试：在滚动容器左侧空白边缘开始手势，保留键盘/导航可见范围；去掉输入后重复且可能落入键盘的整屏swipe，交由同一reveal helper定位。保留原有开关状态、实际起盘/补充/草稿往返断言，不改变业务代码、不关掉键盘、不换CI模拟器或降低字号。原失败及录屏保留在上述Actions artifact；本机下载副本和抽帧位于忽略目录，不新增Git图片。
 
 修后本机重新编译并执行完整`BaziThemeHandoffUITests`和`CastQuestionUITests`：10项、0失败，493.5秒。包括大字号完整往返、资料失效与重建、草稿保留、缺事项补填、取用补充和条件应期。日志/结果包为本地`ci-scroll-native.log/.xcresult`。本机运行于iOS 26.5；iOS 18兼容结论仍由同一CI环境后续运行决定，不能用本机通过代替。
+
+`a16829f5fa3949f4a10cef44a9fd7a81da8725f4`的[PR复验](https://github.com/wxbbb42/SUJI/actions/runs/35878337924)仍失败：22项UI中21通过、1失败；占问两例已过，大字号主题在出生资料入口仍误跳“我的册页”。再次实际查看该CI录屏确认：仅改到边缘不足以阻止iOS 18的短按拖动激活NavigationLink，前一定位修正对Profile不充分。相同运行中的`NatalReadingReportUITests/testLargeDarkReportNavigationRemainsReachable`已用原生`app.swipeUp()`走过同一入口并通过；因此只将`openSyntheticReport`的资料入口滚动复用此方式，继续原来的真实建档、主题阅读及问道往返。其余复杂阅读区/键盘表单仍使用已验证的可见范围helper。不删失败用例、不注入预建档案、不修改产品门槛。
+
+资料入口修后本机大字号主题完整用例1项通过，148.1秒；保留`ci-profile-native.log/.xcresult`。最终远端兼容结果继续以PR最新提交的完整CI为准；本文件保留每次失败而不重判。
