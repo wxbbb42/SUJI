@@ -25,8 +25,10 @@ final class CastQuestionUITests: XCTestCase {
             let startY = top + 8 + height * (down ? 0.2 : 0.8)
             let endY = top + 8 + height * (down ? 0.8 : 0.2)
             let origin = app.coordinate(withNormalizedOffset: .zero)
-            origin.withOffset(CGVector(dx: screen.width * 0.85, dy: startY))
-                .press(forDuration: 0.05, thenDragTo: origin.withOffset(CGVector(dx: screen.width * 0.85, dy: endY)))
+            // The right side contains switches. An iOS 18 drag beginning on
+            // one can toggle an unrelated option; use the Form's outer gutter.
+            origin.withOffset(CGVector(dx: screen.width * 0.03, dy: startY))
+                .press(forDuration: 0.05, thenDragTo: origin.withOffset(CGVector(dx: screen.width * 0.03, dy: endY)))
         }
         XCTAssertTrue(element.exists && element.isHittable, "The actual form control must be reachable")
     }
@@ -44,7 +46,6 @@ final class CastQuestionUITests: XCTestCase {
         reveal(event, app: app, towardTop: true)
         XCTAssertTrue(event.exists)
         event.tap(); event.typeText("sign office lease")
-        app.swipeUp()
         reveal(confirm, app: app)
         XCTAssertTrue(confirm.isEnabled)
         confirm.tap()
@@ -57,7 +58,6 @@ final class CastQuestionUITests: XCTestCase {
         XCTAssertTrue(app.navigationBars["确认占问"].waitForExistence(timeout: 10))
         let originalEvent = app.descendants(matching: .any).matching(identifier: "cast.event.setup_qimen").firstMatch
         originalEvent.tap(); originalEvent.typeText("office lease")
-        app.swipeUp()
         let confirm = app.buttons["cast.confirm"]
         reveal(confirm, app: app); XCTAssertTrue(confirm.isEnabled); confirm.tap()
         XCTAssertTrue(app.staticTexts["audit.cast.saved"].waitForExistence(timeout: 10))
@@ -68,7 +68,7 @@ final class CastQuestionUITests: XCTestCase {
         let event = app.descendants(matching: .any).matching(identifier: "cast.event.setup_qimen").firstMatch
         reveal(event, app: app, towardTop: true)
         event.tap(); event.typeText("lease signing details")
-        app.swipeUp(); reveal(confirm, app: app)
+        reveal(confirm, app: app)
         XCTAssertEqual(confirm.label, "确认补充并沿用原盘"); confirm.tap()
         let revised = app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "这是对同一次占问的补充，沿用原盘")).firstMatch
         XCTAssertTrue(revised.waitForExistence(timeout: 10))
@@ -95,7 +95,6 @@ final class CastQuestionUITests: XCTestCase {
         XCTAssertTrue(app.navigationBars["确认占问"].waitForExistence(timeout: 10))
         let event = app.descendants(matching: .any).matching(identifier: "cast.event.setup_qimen").firstMatch
         event.tap(); event.typeText("rain at the office site")
-        app.swipeUp()
         let toggle = app.switches["cast.selection.enabled"]
         reveal(toggle, app: app)
         XCTAssertTrue(toggle.exists)
@@ -130,7 +129,6 @@ final class CastQuestionUITests: XCTestCase {
         XCTAssertTrue(app.navigationBars["确认占问"].waitForExistence(timeout: 10))
         let event = app.descendants(matching: .any).matching(identifier: "cast.event.setup_qimen").firstMatch
         event.tap(); event.typeText("job application response")
-        app.swipeUp()
         let toggle = app.switches["cast.timing.enabled"]
         reveal(toggle, app: app)
         XCTAssertEqual(toggle.value as? String, "0")
@@ -146,7 +144,7 @@ final class CastQuestionUITests: XCTestCase {
         reveal(unit, app: app, towardTop: true); unit.tap(); app.buttons["日"].tap()
         let end = app.textFields["cast.timing.end"]
         reveal(end, app: app); end.tap(); end.typeText("2099-12-31")
-        app.swipeUp(); reveal(confirm, app: app)
+        reveal(confirm, app: app)
         XCTAssertTrue(confirm.isEnabled)
         capture("timing-explicit-inputs", app: app)
         confirm.tap()

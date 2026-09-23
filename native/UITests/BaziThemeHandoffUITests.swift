@@ -46,8 +46,11 @@ final class BaziThemeHandoffUITests: XCTestCase {
                 : min(height * 0.5, max(80, abs(target.midY - midpoint)))
             let startY = top + height * (downward ? 0.25 : 0.75)
             let endY = startY + (downward ? 1 : -1) * distance
-            let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.86, dy: startY / screen.height))
-            let end = app.coordinate(withNormalizedOffset: CGVector(dx: 0.86, dy: endY / screen.height))
+            // Keep the gesture in the scroll view's leading gutter. On iOS
+            // 18 a drag starting on a plain NavigationLink can activate it,
+            // taking the test out of the profile before birth entry.
+            let start = app.coordinate(withNormalizedOffset: CGVector(dx: 0.03, dy: startY / screen.height))
+            let end = app.coordinate(withNormalizedOffset: CGVector(dx: 0.03, dy: endY / screen.height))
             start.press(forDuration: 0.05, thenDragTo: end)
         }
         let diagnostic = element.exists ? String(describing: element.frame) : "not present in the accessibility tree"

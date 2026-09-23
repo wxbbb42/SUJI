@@ -106,3 +106,16 @@ xcodebuild -project native/Suji.xcodeproj -scheme Suji \
 - `RootView`：将账号入口、呈现、账号生命周期与系统事件的连续表达式拆成私有计算属性；保持原Group、分支顺序、modifier顺序、scope identity及状态所有权，不使用AnyView或改变登录/档案门槛。
 - 修后本机定向验证：`TZ=America/Los_Angeles swift test --package-path native/Core --filter NatalReadingReportTests`，9项通过；原生重新编译和全部hosted 61项（2项在线专用skip）通过；登录门槛、报告问道往返/草稿保留、真实资料重建间隙三项UI全部通过，94.5秒。
 - 本地证据为忽略目录内`ci-compat-core.log`、`ci-compat-native.log/.xcresult`。此次只调整表达式编译复杂度；最终旧工具链兼容和完整回归仍须读回后续提交的PR CI结果。本段不预先声称CI已通过。PR页面保留失败及后续运行记录，合并状态与main CI以GitHub实时记录为准。
+
+## CI运行期失败：测试滚动误触
+
+编译修正提交`9a51569b8d2df5c5a78087ef5c83719f3219f5b0`的[PR运行](https://github.com/wxbbb42/SUJI/actions/runs/35873833634)与[push运行](https://github.com/wxbbb42/SUJI/actions/runs/35873824962)均已通过引擎、Core全量（516项、1skip、0失败）和原生hosted（61项、2skip、0失败）。原生UI均为22项、3失败，不能合并。CI选定UI数量为22；不能将此前本机较宽选择的25项写成此次CI范围。
+
+三个失败为大字号主题建档入口、缺事项补填、取用确认。已下载push运行的`native-test-results`，实际查看失败录屏的前后帧：
+
+1. `profile.addBirth`尚在屏外，测试在右侧册页卡片上开始拖动，iOS 18将其触发为NavigationLink，跳进“我的册页”。随后测试当然找不到资料编辑入口；尚未开始主题阅读。
+2. 两个占问用例在右侧开关上开始拖动，误开启了测试没有选择的天气/住宅取用或条件应期。失败末帧明确显示“请选择本次要核对的天气或住宅对象”或“请明确选择应期对象和年、月、日或时单位”；禁用确认按钮符合产品保护要求，不是要放松的门槛。
+
+最小修正仅涉及两份UI测试：在滚动容器左侧空白边缘开始手势，保留键盘/导航可见范围；去掉输入后重复且可能落入键盘的整屏swipe，交由同一reveal helper定位。保留原有开关状态、实际起盘/补充/草稿往返断言，不改变业务代码、不关掉键盘、不换CI模拟器或降低字号。原失败及录屏保留在上述Actions artifact；本机下载副本和抽帧位于忽略目录，不新增Git图片。
+
+修后本机重新编译并执行完整`BaziThemeHandoffUITests`和`CastQuestionUITests`：10项、0失败，493.5秒。包括大字号完整往返、资料失效与重建、草稿保留、缺事项补填、取用补充和条件应期。日志/结果包为本地`ci-scroll-native.log/.xcresult`。本机运行于iOS 26.5；iOS 18兼容结论仍由同一CI环境后续运行决定，不能用本机通过代替。
