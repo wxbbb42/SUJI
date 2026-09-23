@@ -123,3 +123,11 @@ xcodebuild -project native/Suji.xcodeproj -scheme Suji \
 `a16829f5fa3949f4a10cef44a9fd7a81da8725f4`的[PR复验](https://github.com/wxbbb42/SUJI/actions/runs/35878337924)仍失败：22项UI中21通过、1失败；占问两例已过，大字号主题在出生资料入口仍误跳“我的册页”。再次实际查看该CI录屏确认：仅改到边缘不足以阻止iOS 18的短按拖动激活NavigationLink，前一定位修正对Profile不充分。相同运行中的`NatalReadingReportUITests/testLargeDarkReportNavigationRemainsReachable`已用原生`app.swipeUp()`走过同一入口并通过；因此只将`openSyntheticReport`的资料入口滚动复用此方式，继续原来的真实建档、主题阅读及问道往返。其余复杂阅读区/键盘表单仍使用已验证的可见范围helper。不删失败用例、不注入预建档案、不修改产品门槛。
 
 资料入口修后本机大字号主题完整用例1项通过，148.1秒；保留`ci-profile-native.log/.xcresult`。最终远端兼容结果继续以PR最新提交的完整CI为准；本文件保留每次失败而不重判。
+
+## 收尾阻塞：不合并失败CI
+
+实现/测试头提交`a4944dd944721dd88a53e7d695bedddd32590d17`的[push CI](https://github.com/wxbbb42/SUJI/actions/runs/35881103577)仍为失败：引擎、Core通过；hosted 61项（2skip）通过，UI 22项中21通过、1失败。此次`openSyntheticReport`已走完出生资料确认和进入报告，失败前移/后移应按日志区分：现为`BaziThemeHandoffUITests/testLargeDarkThemeCanBeReadAndQuestionChosenExplicitly`在`reveal(theme.boundary)`时无法找到AX元素（第57行），不是上一轮的`profile.addBirth`。日志为本地`ci-profile-native-push.log`，远端同run的`native-test-results`保留结果包与录屏。
+
+尚未完成该最新报告内部滚动失败的截图/AX根因核对，不能提前认定只是测试问题，也不能宣称完整大字号路径已在CI通过。当地仅装有iOS 26.4/26.5/27，不能在本机直接复现CI的iOS 18。有限修正已解决编译超时与两项占问误触，但尚不满足全部检查通过的合并条件。停止继续试改，不降低断言、不跳过该用例、不更换CI运行时、不强行合并。
+
+PR为[#9](https://github.com/wxbbb42/SUJI/pull/9)，[同提交PR CI](https://github.com/wxbbb42/SUJI/actions/runs/35881108127)可继续读回；即使另一个run后来通过，已知push失败仍需解释解决，不应自动合并。此状态说明为文档更新，不改变待验收源码。remote main最后读回`8164f25d12ffc246b9cead96cae64d6760098983`，没有merge SHA或本次main CI；没有部署、安装或发布。下一位agent先从当前PR分支调查此阻塞，再决定收尾；产品新方案仍待用户确认。

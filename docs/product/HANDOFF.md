@@ -6,6 +6,8 @@
 
 仓库：`https://github.com/wxbbb42/SUJI`。收尾分支：`codex/fix-mingli-today-activities`。保留检查点 `776b34f8bd515d53fd7567ebf278e29070750534` 及后续实验；以 PR 的 merge commit 和 Actions 读回结果判断是否已经合并，本文不把本地提交或构建成功等同远端完成或上线。
 
+**当前合并阻塞**：[#9](https://github.com/wxbbb42/SUJI/pull/9)仍未合并。实现/测试头提交`a4944dd944721dd88a53e7d695bedddd32590d17`的[push CI](https://github.com/wxbbb42/SUJI/actions/runs/35881103577)为引擎/Core通过、原生UI 22项中21通过/1失败（hosted 61项、2skip、0失败）。大字号主题测试已通过出生资料入口，但在册页滚动寻找`theme.boundary`时失败，完整流程未获iOS 18验收；本机iOS 26.5通过不能代替。多次有限修正及全部失败见下方验证记录。收尾不绕过失败CI，远端main最后读回仍为`8164f25d12ffc246b9cead96cae64d6760098983`；接手当前成果需从PR分支开始，不能声称这些成果已在main。后续文档提交不改变该未解决代码状态。
+
 ## 接手顺序
 
 1. [修订终稿 R2](2026-09-23-system-report-replan/proposal-final.md)：当前建议，**待用户确认、尚未实施**。结构为 `Profile → 我的册页 → 命理体系 → 体系内模块的易读个体结果/图解 → 专业档案`，不将自我观察/事业/感情改成基础报告一级栏目。
