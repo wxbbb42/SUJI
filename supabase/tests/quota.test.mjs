@@ -21,7 +21,7 @@ test("PostgreSQL quota: RLS, session identity, atomic limits and rollover", asyn
       await db.query("select set_config('request.jwt.claims', $1, false)", [JSON.stringify({ sub, is_anonymous })]);
       await db.exec("set role authenticated");
     };
-    const consume = async () => (await db.query("select public.consume_ai_quota() as result")).rows[0].result;
+    const consume = async (connection = db) => (await connection.query("select public.consume_ai_quota() as result")).rows[0].result;
     const account = "11111111-1111-4111-8111-111111111111";
     const second = "22222222-2222-4222-8222-222222222222";
     await db.exec("set role anon");
@@ -36,7 +36,11 @@ test("PostgreSQL quota: RLS, session identity, atomic limits and rollover", asyn
     await setUser(account);
     await assert.rejects(db.query("select * from public.ai_usage"), /permission denied/);
     await assert.rejects(db.query("delete from public.ai_usage"), /permission denied/);
-    const attempts = await Promise.all(Array.from({ length: 20 }, consume));
+    // PostgreSQL now() is fixed within a transaction. Keep this burst in one
+    // quota minute even when CI crosses a wall-clock minute boundary; window
+    // rollover is exercised separately below. PGlite serializes these calls.
+    const attempts = await db.transaction(async transaction =>
+      Promise.all(Array.from({ length: 20 }, () => consume(transaction))));
     assert.equal(attempts.filter(value => value.allowed).length, 12);
     assert.equal(attempts.filter(value => value.code === "rate_limit").length, 8);
     await db.exec("reset role");

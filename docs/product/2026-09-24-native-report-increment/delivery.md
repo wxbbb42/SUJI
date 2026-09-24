@@ -136,3 +136,9 @@ xcodebuild -project native/Suji.xcodeproj -scheme Suji \
 - 最终独立只读审查 `/root/native_tabs_merge_review` 未发现新增 P0/P1/P2 阻断项；审查涵盖原生 Tab 值与账号 scope、模块来源/候选/局部规则核验、旧专题返回、公开交付资料。审查没有替代旧 SDK CI 或真机验收。
 
 本次提交不包含原始在线响应、真实用户出生资料、密钥、截图或构建产物。前述内容深度不足、历史真实问答失败、运行时尺寸警告及人工验收边界均保留。
+
+### CI 暴露的既有限流测试边界
+
+首个推送的 engine 作业在 `supabase/tests/quota.test.mjs` 失败：20 次请求预期恰好允许 12 次，实际 13 次，日志结束于 UTC 12:19:00。生产函数按 `date_trunc('minute', now())` 重置窗口，而测试把每次调用作为独立事务，未保证它们位于同一分钟；跨分钟允许额外请求符合该固定窗口语义。同一提交的 PR 作业随后通过该检查，保留两次结果，不把首个失败抹去。
+
+跟进仅调整测试：把这组 burst 放入同一 PGlite 事务，利用 PostgreSQL 事务内固定的 `now()` 验证单窗口配额；后续分钟/日期重置、账号隔离、RLS 和全局额度断言保留。PGlite 本来串行执行查询，该测试不代表真实多连接并发压测。未修改生产 SQL、限额或 Supabase 部署。本地完整 Supabase 测试 15 项全部通过、0 失败，退出码 0；日志在本机忽略目录 `native/artifacts/native-report-merge-2026-09-24/supabase-quota-fixed.log`。新的远端检查需在跟进提交上重新完成。
