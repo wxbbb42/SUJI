@@ -58,6 +58,9 @@ public enum ArchiveCodec {
             copy.toolContext = nil
             copy.analysisMode = nil
             copy.readingDocument = nil
+            copy.themeBinding = nil
+            copy.themeAction = nil
+            copy.themeReply = nil
             copy.toolReceipts = entry.toolReceipts?.map { receipt in
                 var historicalReceipt = receipt
                 historicalReceipt.context = nil
@@ -110,6 +113,8 @@ public enum ArchiveCodec {
     }
 
     private static func validate(_ entry: ConversationEntry, ids: inout Set<UUID>) throws {
+        if let binding = entry.themeBinding, !binding.isWellFormed { throw DomainError.invalidArchive }
+        if let reply = entry.themeReply, !reply.isWellFormed { throw DomainError.invalidArchive }
         guard ["user", "assistant"].contains(entry.role),
               ids.insert(entry.id).inserted,
               entry.text.count <= 2_000_000,

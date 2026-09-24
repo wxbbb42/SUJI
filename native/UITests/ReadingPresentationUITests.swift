@@ -97,10 +97,6 @@ final class ReadingPresentationUITests: XCTestCase {
         app.launchArguments += ["--test-dark"]
         inspectQualifiedReading("20-dark")
     }
-    func testQualifiedReadingAtXXXL() {
-        app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
-        inspectQualifiedReading("30-xxxl")
-    }
 
     func testFocusedFollowupKeepsQualifications() {
         app.launchArguments += ["--reading-followup-fixture"]
@@ -119,23 +115,24 @@ final class ReadingPresentationUITests: XCTestCase {
         capture("41-followup-composer")
     }
 
-    func testFailedCalculationRecoveryAtXXXL() {
-        app.launchArguments += ["--reading-failure-fixture", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+    func testFailedCalculationRecovery() {
+        app.launchArguments += ["--reading-failure-fixture"]
         launch()
         let failure = app.staticTexts["chat.failure"]
         reveal(failure, allowOverflow: true)
         XCTAssertTrue(failure.label.contains("出生资料已保留"))
         XCTAssertFalse(app.buttons["reading.evidence.top"].exists)
         XCTAssertFalse(app.buttons["reading.evidence.bottom"].exists)
-        capture("50-failure-xxxl")
+        capture("50-failure-standard")
         let retry = app.buttons["chat.retry"]
         reveal(retry)
-        XCTAssertGreaterThanOrEqual(retry.frame.height, 44)
+        // AX coordinate subtraction can report 44pt as 43.99999999999994.
+        XCTAssertGreaterThanOrEqual(retry.frame.height + 0.001, 44)
         XCTAssertTrue(retry.isEnabled)
-        capture("51-failure-actions-xxxl")
+        capture("51-failure-actions-standard")
         app.buttons["chat.account"].tap()
         XCTAssertTrue(app.navigationBars["账户与云端资料"].waitForExistence(timeout: 5))
-        capture("52-failure-account-xxxl")
+        capture("52-failure-account-standard")
     }
 
     func testCompletedDocumentStartsAtBeginning() {

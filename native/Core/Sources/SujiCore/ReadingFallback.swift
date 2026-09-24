@@ -46,8 +46,30 @@ public enum ReadingFallback {
                 }
                 if parts.count == 4 { add(parts.joined(separator: " · ")) }
             }
-            if let palace = value["palace"] as? String, let main = value["mainStars"] as? [String] {
-                add("\(palace) · \(text(value["ganZhi"]))；主星：\(main.isEmpty ? "无主星" : main.joined(separator: "、"))")
+            // Preserve relevant verified fields even when prose/reviewer fails.
+            // Domain aggregation nests the same palace and six-kin records.
+            for palaceValue in [value, value["ziwei"] as? [String: Any] ?? [:]] {
+                if let palace = palaceValue["palace"] as? String, let main = palaceValue["mainStars"] as? [String] {
+                    add("\(palace) · \(text(palaceValue["ganZhi"]))；主星：\(main.isEmpty ? "无主星" : main.joined(separator: "、"))")
+                }
+            }
+            for kin in [value, value["bazi"] as? [String: Any] ?? [:]] {
+                if let person = kin["person"] as? String, let stars = kin["relevantShiShen"] as? [String], !stars.isEmpty {
+                    add("本口径\(person)对应十神：" + stars.joined(separator: "、"))
+                    for (key, label) in [("positionsInChart", "透干"), ("hiddenPositions", "藏干")] {
+                        if let positions = kin[key] as? [String], !positions.isEmpty { add(label + "：" + positions.joined(separator: "；")) }
+                    }
+                    add(text(kin["correspondencePolicy"]))
+                }
+            }
+            if text(value["scope"]) == "current_dayun", text(value["status"]) == "active",
+               let timing = value["data"] as? [String: Any] {
+                let stemBranch = pillar(timing["ganZhi"])
+                if !stemBranch.isEmpty { add("当前八字大运：" + stemBranch + "；" + text(timing["period"])) }
+            }
+            if let decade = value["activeDecade"] as? [String: Any], let start = decade["startAge"] as? Int,
+               let end = decade["endAge"] as? Int, start <= end, let palace = decade["palace"] as? String {
+                add("当前紫微大限：\(text(decade["ganZhi"])) · \(palace) · \(start)–\(end)虚岁；运限不等于事件发生年龄。")
             }
             if let original = value["benGua"] as? [String: Any], let changed = value["bianGua"] as? [String: Any],
                let raw = value["lineValues"] as? [Int], raw.count == 6 {

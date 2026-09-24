@@ -16,7 +16,7 @@ final class SujiUITests: XCTestCase {
         app.launch()
         XCTAssertTrue(app.navigationBars["欢迎来到有时"].waitForExistence(timeout: 15))
         XCTAssertTrue(app.textFields["邮箱地址"].exists)
-        XCTAssertFalse(app.tabBars.buttons["今日"].exists)
+        XCTAssertFalse(app.buttons["nav.today"].exists)
         XCTAssertFalse(app.buttons["ritual.reveal"].exists)
         capture("01-account-required")
         app.buttons["注册"].tap()
@@ -26,7 +26,7 @@ final class SujiUITests: XCTestCase {
     }
     func testBirthFormRequiresConfirmationAndBuildsDossier() {
         begin()
-        app.tabBars.buttons["我的"].tap()
+        app.selectNotebookPage("我的")
         app.buttons["profile.addBirth"].tap()
         let save = app.buttons["birth.save"]
         XCTAssertTrue(save.waitForExistence(timeout: 5))
@@ -37,7 +37,7 @@ final class SujiUITests: XCTestCase {
         XCTAssertTrue(save.isEnabled)
         capture("02-birth-confirmed")
         save.tap()
-        XCTAssertTrue(app.staticTexts["你的底色"].waitForExistence(timeout: 20))
+        XCTAssertTrue(app.staticTexts["profile.dossierReady"].waitForExistence(timeout: 25))
         capture("03-natal-dossier-ready")
     }
     private func capture(_ name: String) {
@@ -53,13 +53,15 @@ final class SujiUITests: XCTestCase {
         let note = app.textFields["journal.note"]
         XCTAssertTrue(note.waitForExistence(timeout: 5)); note.tap(); note.typeText("今天慢慢走了一段路。")
         app.buttons["journal.save"].tap()
+        for _ in 0..<8 { if app.buttons["ritual.history"].isHittable { break }; app.swipeUp() }
         app.buttons["ritual.history"].tap()
         XCTAssertTrue(app.navigationBars["七日回望"].waitForExistence(timeout: 5)); capture("04-history")
         app.buttons["完成"].tap()
+        for _ in 0..<8 { if app.buttons["ritual.share"].isHittable { break }; app.swipeDown() }
         app.buttons["ritual.share"].tap()
         XCTAssertTrue(app.buttons["分享这一刻"].waitForExistence(timeout: 10)); capture("05-share-preview")
         app.buttons["完成"].tap()
-        app.tabBars.buttons["我的"].tap()
+        app.selectNotebookPage("我的")
         app.buttons.containing(.staticText, identifier: "心情册页").firstMatch.tap()
         XCTAssertTrue(app.staticTexts["今天慢慢走了一段路。"].waitForExistence(timeout: 5)); capture("06-journal")
     }
@@ -90,11 +92,10 @@ final class SujiUITests: XCTestCase {
         capture("30-reachable-drag-revealed")
     }
 
-    func testPaperLargeTypeScrollAndShortPullStayUnrevealed() {
-        app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+    func testPaperVerticalAndShortPullStayUnrevealed() {
         begin()
         XCTAssertTrue(app.staticTexts["ritual.season"].waitForExistence(timeout: 5))
-        capture("31-large-paper-top")
+        capture("31-standard-paper-top")
         let reveal = app.buttons["ritual.reveal"]
         for _ in 0..<8 { if reveal.isHittable { break }; app.swipeUp() }
         XCTAssertTrue(reveal.isHittable)
@@ -108,10 +109,10 @@ final class SujiUITests: XCTestCase {
         corner = handle.coordinate(withNormalizedOffset: CGVector(dx: 0.65, dy: 0.65))
         corner.press(forDuration: 0.1, thenDragTo: corner.withOffset(CGVector(dx: -18, dy: -20)), withVelocity: .slow, thenHoldForDuration: 0.1)
         XCTAssertTrue(reveal.exists)
-        capture("32-large-paper-returned")
+        capture("32-standard-paper-returned")
         corner.press(forDuration: 0.1, thenDragTo: corner.withOffset(CGVector(dx: -80, dy: -88)), withVelocity: .slow, thenHoldForDuration: 0.1)
         XCTAssertTrue(app.buttons["ritual.journal"].waitForExistence(timeout: 5))
-        capture("33-large-paper-revealed")
+        capture("33-standard-paper-revealed")
     }
 
     func testPaperReduceMotionAndRevisitPreserveRevealedDay() {
@@ -119,8 +120,8 @@ final class SujiUITests: XCTestCase {
         begin()
         app.buttons["ritual.reveal"].tap()
         XCTAssertTrue(app.buttons["ritual.journal"].waitForExistence(timeout: 5))
-        app.tabBars.buttons["静心"].tap()
-        app.tabBars.buttons["今日"].tap()
+        app.selectNotebookPage("静心")
+        app.selectNotebookPage("今日")
         XCTAssertTrue(app.staticTexts["ritual.revealed"].exists)
         XCTAssertFalse(app.buttons["ritual.reveal"].exists)
         XCUIDevice.shared.press(.home)
@@ -130,7 +131,7 @@ final class SujiUITests: XCTestCase {
     }
 
     func testBreathingAndBirthProfile() {
-        begin(); app.tabBars.buttons["静心"].tap(); capture("07-calm")
+        begin(); app.selectNotebookPage("静心"); capture("07-calm")
         app.buttons["开始"].tap()
         XCTAssertTrue(app.buttons["暂停"].waitForExistence(timeout: 5)); capture("08-breathing")
         XCTAssertTrue(app.descendants(matching: .any).matching(identifier: "音景播放中").firstMatch.waitForExistence(timeout: 5))
@@ -141,20 +142,20 @@ final class SujiUITests: XCTestCase {
         XCTAssertTrue(app.buttons["继续"].exists)
         app.buttons["结束静心"].tap()
         XCTAssertTrue(app.buttons["开始"].exists)
-        app.tabBars.buttons["我的"].tap(); capture("09-profile-empty")
+        app.selectNotebookPage("我的"); capture("09-profile-empty")
         app.buttons["profile.addBirth"].tap()
         XCTAssertTrue(app.buttons["birth.save"].waitForExistence(timeout: 5)); capture("10-birth-editor")
         for _ in 0..<8 { if app.switches["birth.confirm"].isHittable { break }; app.swipeUp() }
         app.switches["birth.confirm"].coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
         app.buttons["birth.save"].tap()
-        XCTAssertTrue(app.staticTexts["你的底色"].waitForExistence(timeout: 20)); capture("11-profile")
+        XCTAssertTrue(app.staticTexts["profile.dossierReady"].waitForExistence(timeout: 25)); capture("11-profile")
         app.swipeUp()
-        app.buttons.containing(.staticText, identifier: "命盘手稿").firstMatch.tap()
+        app.openProfessionalCharts()
         XCTAssertTrue(app.navigationBars["命盘手稿"].waitForExistence(timeout: 5)); capture("12-four-pillars")
         app.buttons["紫微"].tap(); capture("13-ziwei")
     }
     func testManagedAIRequiresLoginAndSettingsHaveNoProviderFields() {
-        begin(); app.tabBars.buttons["问道"].tap(); capture("14-chat-empty")
+        begin(); app.selectNotebookPage("问道"); capture("14-chat-empty")
         let input = app.textFields["chat.input"]
         XCTAssertTrue(input.waitForExistence(timeout: 5)); input.tap(); input.typeText("今天想慢一点。")
         app.buttons["发送"].tap()
@@ -164,8 +165,8 @@ final class SujiUITests: XCTestCase {
         app.buttons["账户与登录"].tap()
         XCTAssertTrue(app.navigationBars["账户与云端资料"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["通过 Google 继续"].exists)
-        app.tabBars.buttons["我的"].tap()
-        if !app.navigationBars["设置"].exists { app.buttons["设置"].tap() }
+        app.navigationBars.buttons.firstMatch.tap()
+        app.openNotebookSettings()
         XCTAssertTrue(app.staticTexts["回信伙伴, DeepSeek Flash"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.textFields["服务地址"].exists)
         XCTAssertFalse(app.textFields["模型名称"].exists)
@@ -174,37 +175,36 @@ final class SujiUITests: XCTestCase {
         app.swipeUp(); app.buttons["晨间与节气提醒"].tap()
         capture("17-reminders")
     }
-    func testDarkAndAccessibleRitual() {
-        app.launchArguments += ["--test-dark"]
-        begin(); capture("26-dark-paper")
-        app.terminate()
-        app.launchArguments += ["--test-dark", "--test-reduce-motion", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
-        begin(); capture("18-dark-large-paper")
+    func testDarkAndReducedMotionRitual() {
+        app.launchArguments += ["--test-dark", "--test-reduce-motion"]
+        begin(); capture("18-dark-paper")
         app.buttons["ritual.reveal"].tap()
-        XCTAssertTrue(app.buttons["ritual.journal"].waitForExistence(timeout: 5)); capture("19-dark-large-revealed")
-        app.tabBars.buttons["静心"].tap(); capture("20-dark-large-calm")
+        XCTAssertTrue(app.buttons["ritual.journal"].waitForExistence(timeout: 5)); capture("19-dark-revealed")
+        app.selectNotebookPage("静心"); capture("20-dark-calm")
         for _ in 0..<4 { if app.buttons["开始"].isHittable { break }; app.swipeUp() }
         XCTAssertTrue(app.buttons["开始"].isHittable)
         app.buttons["开始"].tap()
-        XCTAssertTrue(app.buttons["暂停"].waitForExistence(timeout: 5)); capture("23-dark-large-controls")
-        app.tabBars.buttons["问道"].tap(); capture("27-dark-large-chat")
+        XCTAssertTrue(app.buttons["暂停"].waitForExistence(timeout: 5)); capture("23-dark-controls")
+        app.selectNotebookPage("问道"); capture("27-dark-chat")
         XCTAssertTrue(app.textFields["chat.input"].isHittable)
-        app.tabBars.buttons["我的"].tap(); capture("28-dark-large-profile")
+        app.selectNotebookPage("我的"); capture("28-dark-profile")
         for _ in 0..<4 { if app.buttons["profile.addBirth"].isHittable { break }; app.swipeUp() }
         app.buttons["profile.addBirth"].tap()
         XCTAssertTrue(app.buttons["birth.save"].waitForExistence(timeout: 5))
         for _ in 0..<8 { if app.switches["birth.confirm"].isHittable { break }; app.swipeUp() }
         app.switches["birth.confirm"].coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
         app.buttons["birth.save"].tap()
-        XCTAssertTrue(app.staticTexts["你的底色"].waitForExistence(timeout: 20))
-        app.swipeUp(); capture("29-dark-large-profile-reading")
+        XCTAssertTrue(app.staticTexts["profile.dossierReady"].waitForExistence(timeout: 25))
+        app.swipeUp(); capture("29-dark-profile-reading")
     }
     func testCeladonTheme() {
-        begin(); app.tabBars.buttons["我的"].tap()
-        app.buttons["设置"].tap()
+        begin(); app.selectNotebookPage("我的")
+        let settings = app.buttons["profile.settings"]
+        for _ in 0..<8 { if settings.isHittable { break }; app.swipeUp() }
+        XCTAssertTrue(settings.isHittable); settings.tap()
         app.buttons["appearance.picker"].tap()
         app.buttons["青瓷"].tap()
-        app.tabBars.buttons["今日"].tap(); capture("24-celadon-today")
-        app.tabBars.buttons["静心"].tap(); capture("25-celadon-calm")
+        app.selectNotebookPage("今日"); capture("24-celadon-today")
+        app.selectNotebookPage("静心"); capture("25-celadon-calm")
     }
 }

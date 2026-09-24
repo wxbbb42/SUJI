@@ -1,0 +1,1790 @@
+{
+  "notice": "仅提交明确合成测试的逐题输入、人工结论、工具名称和本地证据定位；原始模型回答、核验原文、回执、运行时资料与认证材料均不入库。完整原始证据留在被忽略的 native/artifacts 中。",
+  "branch": "codex/fix-mingli-today-activities",
+  "baseHEAD": "8164f25d12ffc246b9cead96cae64d6760098983",
+  "independentQuestions": 32,
+  "finalAdditionalTurns": 4,
+  "allRecordedTurns": 95,
+  "allRecordedModelRequests": 435,
+  "allTurnKinds": {
+    "independent": 83,
+    "followup": 8,
+    "topic-change": 2,
+    "retry": 2
+  },
+  "semanticCounts": {
+    "失败": 18,
+    "通过": 2,
+    "缺项/条件不足": 10,
+    "澄清": 2
+  },
+  "runCounts": [
+    {
+      "run": "baseline-v2",
+      "turns": 7,
+      "requests": 23,
+      "nativeExecutionOK": 1
+    },
+    {
+      "run": "baseline-remaining",
+      "turns": 29,
+      "requests": 124,
+      "nativeExecutionOK": 12
+    },
+    {
+      "run": "repair-v1",
+      "turns": 7,
+      "requests": 40,
+      "nativeExecutionOK": 5
+    },
+    {
+      "run": "final-v19",
+      "turns": 36,
+      "requests": 182,
+      "nativeExecutionOK": 27
+    },
+    {
+      "run": "final-v20",
+      "turns": 8,
+      "requests": 28,
+      "nativeExecutionOK": 6
+    },
+    {
+      "run": "final-v21",
+      "turns": 4,
+      "requests": 16,
+      "nativeExecutionOK": 4
+    },
+    {
+      "run": "final-v22",
+      "turns": 4,
+      "requests": 22,
+      "nativeExecutionOK": 3
+    }
+  ],
+  "cases": [
+    {
+      "id": "01-personality",
+      "turn": 0,
+      "kind": "independent",
+      "question": "我的八字能看出什么性格特点？",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "expected": "reading",
+      "expectation": "解释返回的四柱与有出处的条件；不把象义断成真实人格",
+      "stage": "verification-or-delivery-rejection-with-receipts",
+      "executionOK": false,
+      "failure": "这次解读未完成核对，暂未展示。可以重试，已取得的计算记录会保留。",
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 8,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-20",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v20/batch-1/report.json#/results/0",
+      "fileSHA256": "60b1d747e762fb57d9641f2604a4b442e345276f1ecaaabc5e1d35323dc16ef1",
+      "semanticVerdict": "失败",
+      "manualReason": "已有四柱及命宫/福德宫；两稿仍未取得有效核验，保留事实不算完成性格解读。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-v2/batch-1/report.json#/results/0",
+          "fileSHA256": "69d9eaf1ddc0862f16c5ebaba83c42ca511d2164fa582a6a0ecec15070dcbca0"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-19",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 4,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-1/report.json#/results/0",
+          "fileSHA256": "0f3319014bcd10f9f5f160e804dcbd2ec11cf6045b929d0db4839421b154ebe3"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/repair-v1/batch-1/report.json#/results/0",
+          "fileSHA256": "303dff0efc2af2f528f5f093ee0c4a34810435fced1146449f091ff941fc98dc"
+        }
+      ],
+      "actualTools": [
+        "get_ziwei_palace",
+        "get_ziwei_palace",
+        "get_domain"
+      ],
+      "plannedTools": [
+        "get_ziwei_palace",
+        "get_ziwei_palace",
+        "get_domain"
+      ],
+      "reviewCount": 4
+    },
+    {
+      "id": "02-pillars",
+      "turn": 0,
+      "kind": "independent",
+      "question": "帮我解释一下我的八字四柱，日主是什么意思？",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "expected": "reading",
+      "expectation": "返回四柱、日主并解释概念",
+      "stage": "verification-or-delivery-rejection-with-receipts",
+      "executionOK": false,
+      "failure": "这次解读未完成核对，暂未展示。可以重试，已取得的计算记录会保留。",
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 8,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-22",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v22/batch-1/report.json#/results/0",
+      "fileSHA256": "e8bd77cf97b2fb475b021c09c5ad7845154b6fd141f5458eaa75aeb434d2447c",
+      "semanticVerdict": "失败",
+      "manualReason": "v21误把固定权重计数说成偏强；v22主问题仍被拒绝，四柱保留。日主/月令追问单独通过，不能替代主问题验收。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "network-or-http-failure",
+          "executionOK": false,
+          "modelRequests": 2,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-v2/batch-1/report.json#/results/1",
+          "fileSHA256": "69d9eaf1ddc0862f16c5ebaba83c42ca511d2164fa582a6a0ecec15070dcbca0"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-19",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 8,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-1/report.json#/results/1",
+          "fileSHA256": "0f3319014bcd10f9f5f160e804dcbd2ec11cf6045b929d0db4839421b154ebe3"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-20",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 7,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v20/batch-1/report.json#/results/1",
+          "fileSHA256": "60b1d747e762fb57d9641f2604a4b442e345276f1ecaaabc5e1d35323dc16ef1"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-21",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 7,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v21/batch-1/report.json#/results/0",
+          "fileSHA256": "ca1a25058b05c2255c4b2f0784780f8717342186f1030436bad536caad170cd5"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 7,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/repair-v1/batch-1/report.json#/results/1",
+          "fileSHA256": "303dff0efc2af2f528f5f093ee0c4a34810435fced1146449f091ff941fc98dc"
+        }
+      ],
+      "actualTools": [
+        "get_domain",
+        "get_timing"
+      ],
+      "plannedTools": [
+        "get_domain",
+        "get_timing"
+      ],
+      "reviewCount": 4
+    },
+    {
+      "id": "02-pillars",
+      "turn": 1,
+      "kind": "followup",
+      "question": "那日主和月令之间是什么关系？",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "expected": "reading",
+      "expectation": "返回四柱、日主并解释概念",
+      "stage": "native-closed-render",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 1,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-22",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v22/batch-1/report.json#/results/1",
+      "fileSHA256": "e8bd77cf97b2fb475b021c09c5ad7845154b6fd141f5458eaa75aeb434d2447c",
+      "semanticVerdict": "通过",
+      "manualReason": "本轮重新取得对应八字，输出日主己土、丑月己土同类及旺，和固定权重偏弱分开。原来的同文案失败已消除。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "network-or-http-failure",
+          "executionOK": false,
+          "modelRequests": 3,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-v2/batch-1/report.json#/results/2",
+          "fileSHA256": "69d9eaf1ddc0862f16c5ebaba83c42ca511d2164fa582a6a0ecec15070dcbca0"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-19",
+          "stage": "native-closed-render",
+          "executionOK": true,
+          "modelRequests": 1,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-1/report.json#/results/2",
+          "fileSHA256": "0f3319014bcd10f9f5f160e804dcbd2ec11cf6045b929d0db4839421b154ebe3"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-20",
+          "stage": "native-closed-render",
+          "executionOK": true,
+          "modelRequests": 1,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v20/batch-1/report.json#/results/2",
+          "fileSHA256": "60b1d747e762fb57d9641f2604a4b442e345276f1ecaaabc5e1d35323dc16ef1"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-21",
+          "stage": "native-closed-render",
+          "executionOK": true,
+          "modelRequests": 1,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v21/batch-1/report.json#/results/1",
+          "fileSHA256": "ca1a25058b05c2255c4b2f0784780f8717342186f1030436bad536caad170cd5"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "no-computation-and-rejected",
+          "executionOK": false,
+          "modelRequests": 7,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/repair-v1/batch-1/report.json#/results/2",
+          "fileSHA256": "303dff0efc2af2f528f5f093ee0c4a34810435fced1146449f091ff941fc98dc"
+        }
+      ],
+      "actualTools": [
+        "get_domain"
+      ],
+      "plannedTools": [],
+      "reviewCount": 0
+    },
+    {
+      "id": "03-strength",
+      "turn": 0,
+      "kind": "independent",
+      "question": "我是身强还是身弱？请给出依据。",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "expected": "reading",
+      "expectation": "走八字闭合依据解读",
+      "stage": "native-closed-render",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 1,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-21",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v21/batch-1/report.json#/results/2",
+      "fileSHA256": "ca1a25058b05c2255c4b2f0784780f8717342186f1030436bad536caad170cd5",
+      "semanticVerdict": "通过",
+      "manualReason": "返回帮扶2.8、克泄耗5.2及偏弱；月令本气与五态分开解释，明确工程权重和未综合条件。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "native-closed-render",
+          "executionOK": true,
+          "modelRequests": 1,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-v2/batch-1/report.json#/results/3",
+          "fileSHA256": "69d9eaf1ddc0862f16c5ebaba83c42ca511d2164fa582a6a0ecec15070dcbca0"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-19",
+          "stage": "native-closed-render",
+          "executionOK": true,
+          "modelRequests": 1,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-1/report.json#/results/3",
+          "fileSHA256": "0f3319014bcd10f9f5f160e804dcbd2ec11cf6045b929d0db4839421b154ebe3"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "native-closed-render",
+          "executionOK": true,
+          "modelRequests": 1,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/repair-v1/batch-1/report.json#/results/3",
+          "fileSHA256": "303dff0efc2af2f528f5f093ee0c4a34810435fced1146449f091ff941fc98dc"
+        }
+      ],
+      "actualTools": [
+        "get_domain"
+      ],
+      "plannedTools": [],
+      "reviewCount": 0
+    },
+    {
+      "id": "04-ziwei-life",
+      "turn": 0,
+      "kind": "independent",
+      "question": "用紫微斗数看一下我的命宫，有什么主星？",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "expected": "reading",
+      "expectation": "命宫实际星曜与有依据的解释",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 5,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-1/report.json#/results/4",
+      "fileSHA256": "0f3319014bcd10f9f5f160e804dcbd2ec11cf6045b929d0db4839421b154ebe3",
+      "semanticVerdict": "失败",
+      "manualReason": "命宫、主星、亮度与生年化权正确；附带武曲刚毅/财、天相印星等象义未有本次返回的解释来源，未满足本轮严格来源验收。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "network-or-http-failure",
+          "executionOK": false,
+          "modelRequests": 2,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-v2/batch-1/report.json#/results/4",
+          "fileSHA256": "69d9eaf1ddc0862f16c5ebaba83c42ca511d2164fa582a6a0ecec15070dcbca0"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/repair-v1/batch-1/report.json#/results/4",
+          "fileSHA256": "303dff0efc2af2f528f5f093ee0c4a34810435fced1146449f091ff941fc98dc"
+        }
+      ],
+      "actualTools": [
+        "get_ziwei_palace"
+      ],
+      "plannedTools": [
+        "get_ziwei_palace"
+      ],
+      "reviewCount": 2
+    },
+    {
+      "id": "05-job-change",
+      "turn": 0,
+      "kind": "independent",
+      "question": "我最近想换工作，命盘里事业方面有什么线索？",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "expected": "reading",
+      "expectation": "事业盘面、条件与现实决策边界",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 7,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-1/report.json#/results/5",
+      "fileSHA256": "0f3319014bcd10f9f5f160e804dcbd2ec11cf6045b929d0db4839421b154ebe3",
+      "semanticVerdict": "缺项/条件不足",
+      "manualReason": "保留官杀透干、官禄宫及未裁定格局；没有假定换工作时机。当前未取运限且没有具体换职事件应期规则，不能当完整近期分析。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-v2/batch-1/report.json#/results/5",
+          "fileSHA256": "69d9eaf1ddc0862f16c5ebaba83c42ca511d2164fa582a6a0ecec15070dcbca0"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 7,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/repair-v1/batch-1/report.json#/results/5",
+          "fileSHA256": "303dff0efc2af2f528f5f093ee0c4a34810435fced1146449f091ff941fc98dc"
+        }
+      ],
+      "actualTools": [
+        "get_domain"
+      ],
+      "plannedTools": [
+        "get_domain"
+      ],
+      "reviewCount": 3
+    },
+    {
+      "id": "06-career-fit",
+      "turn": 0,
+      "kind": "independent",
+      "question": "我适合做管理还是技术？",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "expected": "partial",
+      "expectation": "保留事业依据；无职业胜任预测规则须明确",
+      "stage": "verification-or-delivery-rejection-with-receipts",
+      "executionOK": false,
+      "failure": "这次解读未完成核对，暂未展示。可以重试，已取得的计算记录会保留。",
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 6,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-1/report.json#/results/6",
+      "fileSHA256": "0f3319014bcd10f9f5f160e804dcbd2ec11cf6045b929d0db4839421b154ebe3",
+      "semanticVerdict": "失败",
+      "manualReason": "已取事业/福德盘面，但最终核验拒绝，未形成管理与技术的有依据比较。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-v2/batch-1/report.json#/results/6",
+          "fileSHA256": "69d9eaf1ddc0862f16c5ebaba83c42ca511d2164fa582a6a0ecec15070dcbca0"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 8,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/repair-v1/batch-1/report.json#/results/6",
+          "fileSHA256": "303dff0efc2af2f528f5f093ee0c4a34810435fced1146449f091ff941fc98dc"
+        }
+      ],
+      "actualTools": [
+        "get_domain",
+        "get_domain"
+      ],
+      "plannedTools": [
+        "get_domain",
+        "get_domain"
+      ],
+      "reviewCount": 2
+    },
+    {
+      "id": "07-promotion",
+      "turn": 0,
+      "kind": "independent",
+      "question": "今年我能升职吗？",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "expected": "partial",
+      "expectation": "取事业与时间层；不保证升职",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 5,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-2/report.json#/results/0",
+      "fileSHA256": "80a8f5ccfb6a9b1382f8e51efe8d7cced2d3fb48dfc188e6dde718b50bd3c6a5",
+      "semanticVerdict": "失败",
+      "manualReason": "核验放行，但将太岁临官禄及无吉化落宫推广为事业活跃/吉化信号不强，没有返回的个体事件解释规则支持。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-1/report.json#/results/0",
+          "fileSHA256": "7fcb7d8da6ff5053e7d998fe167836914660b95f02395a796aaf6693bc8c4c3d"
+        }
+      ],
+      "actualTools": [
+        "get_domain",
+        "get_timing",
+        "get_ziwei_timing"
+      ],
+      "plannedTools": [
+        "get_domain",
+        "get_timing",
+        "get_ziwei_timing"
+      ],
+      "reviewCount": 2
+    },
+    {
+      "id": "08-business",
+      "turn": 0,
+      "kind": "independent",
+      "question": "我想辞职创业，财运和事业怎么看？",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "expected": "partial",
+      "expectation": "取事业财运；不据盘给财务保证",
+      "stage": "verification-or-delivery-rejection-with-receipts",
+      "executionOK": false,
+      "failure": "这次解读未完成核对，暂未展示。可以重试，已取得的计算记录会保留。",
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 7,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-2/report.json#/results/1",
+      "fileSHA256": "80a8f5ccfb6a9b1382f8e51efe8d7cced2d3fb48dfc188e6dde718b50bd3c6a5",
+      "semanticVerdict": "失败",
+      "manualReason": "取得事业、财帛、八字大运及紫微大限，仍未通过回复核验；保留运限不等于完成创业判断。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-1/report.json#/results/1",
+          "fileSHA256": "7fcb7d8da6ff5053e7d998fe167836914660b95f02395a796aaf6693bc8c4c3d"
+        }
+      ],
+      "actualTools": [
+        "get_domain",
+        "get_domain",
+        "get_timing",
+        "get_ziwei_timing"
+      ],
+      "plannedTools": [
+        "get_domain",
+        "get_domain",
+        "get_timing",
+        "get_ziwei_timing"
+      ],
+      "reviewCount": 2
+    },
+    {
+      "id": "09-wealth",
+      "turn": 0,
+      "kind": "independent",
+      "question": "我命里财星在哪，正财偏财有什么区别？",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "expected": "reading",
+      "expectation": "实际财星与术语区分",
+      "stage": "verification-or-delivery-rejection-with-receipts",
+      "executionOK": false,
+      "failure": "这次解读未完成核对，暂未展示。可以重试，已取得的计算记录会保留。",
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 6,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-20",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v20/batch-1/report.json#/results/3",
+      "fileSHA256": "60b1d747e762fb57d9641f2604a4b442e345276f1ecaaabc5e1d35323dc16ef1",
+      "semanticVerdict": "失败",
+      "manualReason": "已取得财富领域；v19月干误说癸水被模型放行，v20拦住后仍拒绝。后续取配偶星对财星问题偏题，兜底保留事实仍欠财星解读。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-1/report.json#/results/2",
+          "fileSHA256": "7fcb7d8da6ff5053e7d998fe167836914660b95f02395a796aaf6693bc8c4c3d"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-19",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-2/report.json#/results/2",
+          "fileSHA256": "80a8f5ccfb6a9b1382f8e51efe8d7cced2d3fb48dfc188e6dde718b50bd3c6a5"
+        }
+      ],
+      "actualTools": [
+        "get_domain",
+        "get_bazi_star"
+      ],
+      "plannedTools": [
+        "get_domain",
+        "get_bazi_star"
+      ],
+      "reviewCount": 2
+    },
+    {
+      "id": "10-investment",
+      "turn": 0,
+      "kind": "independent",
+      "question": "今年适合买股票吗，会赚多少？",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "expected": "partial",
+      "expectation": "可靠财运事实，金额/投资收益不可由命盘保证",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 5,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-22",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v22/batch-1/report.json#/results/2",
+      "fileSHA256": "e8bd77cf97b2fb475b021c09c5ad7845154b6fd141f5458eaa75aeb434d2447c",
+      "semanticVerdict": "失败",
+      "manualReason": "v19/v21出现盘面到股票仓位/机会波动的推断，新增本地检查覆盖已见句式。v22仍泛称任何传统术数都给不出数字，并以偏财来得快去得快作未溯源象义；未达严格语义验收。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-1/report.json#/results/3",
+          "fileSHA256": "7fcb7d8da6ff5053e7d998fe167836914660b95f02395a796aaf6693bc8c4c3d"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-19",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-2/report.json#/results/3",
+          "fileSHA256": "80a8f5ccfb6a9b1382f8e51efe8d7cced2d3fb48dfc188e6dde718b50bd3c6a5"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-21",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 7,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v21/batch-1/report.json#/results/3",
+          "fileSHA256": "ca1a25058b05c2255c4b2f0784780f8717342186f1030436bad536caad170cd5"
+        }
+      ],
+      "actualTools": [
+        "get_domain",
+        "get_timing",
+        "get_ziwei_timing"
+      ],
+      "plannedTools": [
+        "get_domain",
+        "get_timing",
+        "get_ziwei_timing"
+      ],
+      "reviewCount": 2
+    },
+    {
+      "id": "11-money-colloquial",
+      "turn": 0,
+      "kind": "independent",
+      "question": "最近手头有点紧，看看我的财运呗",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "expected": "reading",
+      "expectation": "口语财运归类且获得相关证据",
+      "stage": "verification-or-delivery-rejection-with-receipts",
+      "executionOK": false,
+      "failure": "这次解读未完成核对，暂未展示。可以重试，已取得的计算记录会保留。",
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 8,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-2/report.json#/results/4",
+      "fileSHA256": "80a8f5ccfb6a9b1382f8e51efe8d7cced2d3fb48dfc188e6dde718b50bd3c6a5",
+      "semanticVerdict": "失败",
+      "manualReason": "财运口语能取到正确领域资料，回复核验仍拒绝。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-1/report.json#/results/4",
+          "fileSHA256": "7fcb7d8da6ff5053e7d998fe167836914660b95f02395a796aaf6693bc8c4c3d"
+        }
+      ],
+      "actualTools": [
+        "get_domain"
+      ],
+      "plannedTools": [
+        "get_domain"
+      ],
+      "reviewCount": 4
+    },
+    {
+      "id": "12-marriage",
+      "turn": 0,
+      "kind": "independent",
+      "question": "我的夫妻宫是什么情况？",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "expected": "reading",
+      "expectation": "对应夫妻宫星曜，不代断伴侣表现",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 7,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-2/report.json#/results/5",
+      "fileSHA256": "80a8f5ccfb6a9b1382f8e51efe8d7cced2d3fb48dfc188e6dde718b50bd3c6a5",
+      "semanticVerdict": "失败",
+      "manualReason": "夫妻宫主星及四化准确；把化权/科/忌解释成关系主导、才情、沟通波折，缺本次来源及适用条件。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 4,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-1/report.json#/results/5",
+          "fileSHA256": "7fcb7d8da6ff5053e7d998fe167836914660b95f02395a796aaf6693bc8c4c3d"
+        }
+      ],
+      "actualTools": [
+        "get_ziwei_palace",
+        "get_bazi_star"
+      ],
+      "plannedTools": [
+        "get_ziwei_palace",
+        "get_bazi_star"
+      ],
+      "reviewCount": 3
+    },
+    {
+      "id": "13-single",
+      "turn": 0,
+      "kind": "independent",
+      "question": "我什么时候能脱单？",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "expected": "partial",
+      "expectation": "感情事实与时间层，不杜撰确定日期",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 8,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-22",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v22/batch-1/report.json#/results/3",
+      "fileSHA256": "e8bd77cf97b2fb475b021c09c5ad7845154b6fd141f5458eaa75aeb434d2447c",
+      "semanticVerdict": "失败",
+      "manualReason": "v19男命以官杀论配偶与政策不符。v22换说男命按财、官论，仍混淆性别与取象；35–44岁未标虚岁。新增窄校验不是完备语义核验。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 6,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-2/report.json#/results/0",
+          "fileSHA256": "aa81a73e82d0455f5e4259dac02224bb22b2497ba8a7d0e52489dbcff322f080"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-19",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 9,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-3/report.json#/results/0",
+          "fileSHA256": "9d28708b5c08ed3badaab1050297a61b2d10ef28cef65a55bda0c0e5f98f4e7d"
+        }
+      ],
+      "actualTools": [
+        "get_domain",
+        "get_ziwei_timing"
+      ],
+      "plannedTools": [
+        "get_domain",
+        "get_ziwei_timing"
+      ],
+      "reviewCount": 4
+    },
+    {
+      "id": "14-compatibility",
+      "turn": 0,
+      "kind": "independent",
+      "question": "我和对象合不合？",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "expected": "clarification",
+      "expectation": "缺对方资料及具体问题时澄清，不伪造对方盘",
+      "stage": "verification-or-delivery-rejection-with-receipts",
+      "executionOK": false,
+      "failure": "这次解读未完成核对，暂未展示。可以重试，已取得的计算记录会保留。",
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 8,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-3/report.json#/results/1",
+      "fileSHA256": "9d28708b5c08ed3badaab1050297a61b2d10ef28cef65a55bda0c0e5f98f4e7d",
+      "semanticVerdict": "失败",
+      "manualReason": "只取得本人的夫妻宫及配偶对应，未有效澄清双方资料；最终拒绝，不能算完成合盘或合理澄清。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 6,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-2/report.json#/results/1",
+          "fileSHA256": "aa81a73e82d0455f5e4259dac02224bb22b2497ba8a7d0e52489dbcff322f080"
+        }
+      ],
+      "actualTools": [
+        "get_domain",
+        "get_bazi_star"
+      ],
+      "plannedTools": [
+        "get_domain",
+        "get_bazi_star"
+      ],
+      "reviewCount": 4
+    },
+    {
+      "id": "15-wedding",
+      "turn": 0,
+      "kind": "independent",
+      "question": "哪年结婚比较好？",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "expected": "partial",
+      "expectation": "已有婚姻/时间依据与择年能力边界",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 7,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-3/report.json#/results/2",
+      "fileSHA256": "9d28708b5c08ed3badaab1050297a61b2d10ef28cef65a55bda0c0e5f98f4e7d",
+      "semanticVerdict": "失败",
+      "manualReason": "四化分层与不指定结婚年合理，但26–35岁的大限没有标明虚岁，容易与八字整岁混淆；未满足年龄口径边界。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 6,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-2/report.json#/results/2",
+          "fileSHA256": "aa81a73e82d0455f5e4259dac02224bb22b2497ba8a7d0e52489dbcff322f080"
+        }
+      ],
+      "actualTools": [
+        "get_bazi_star",
+        "get_ziwei_palace",
+        "get_timing",
+        "get_ziwei_timing"
+      ],
+      "plannedTools": [
+        "get_bazi_star",
+        "get_ziwei_palace",
+        "get_timing",
+        "get_ziwei_timing"
+      ],
+      "reviewCount": 3
+    },
+    {
+      "id": "16-children",
+      "turn": 0,
+      "kind": "independent",
+      "question": "我几岁能有孩子？",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "expected": "partial",
+      "expectation": "取子女对应与时间层，缺完整生育应期须说明",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 4,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-3/report.json#/results/3",
+      "fileSHA256": "9d28708b5c08ed3badaab1050297a61b2d10ef28cef65a55bda0c0e5f98f4e7d",
+      "semanticVerdict": "缺项/条件不足",
+      "manualReason": "子女对应、透干、子女宫和大运事实保留；准确说明未实现生育事件年龄裁定，不把命盘当生育能力判断。语气仍可改善。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-2/report.json#/results/3",
+          "fileSHA256": "aa81a73e82d0455f5e4259dac02224bb22b2497ba8a7d0e52489dbcff322f080"
+        }
+      ],
+      "actualTools": [
+        "get_bazi_star",
+        "get_ziwei_palace",
+        "get_timing"
+      ],
+      "plannedTools": [
+        "get_bazi_star",
+        "get_ziwei_palace",
+        "get_timing"
+      ],
+      "reviewCount": 1
+    },
+    {
+      "id": "16-children",
+      "turn": 1,
+      "kind": "followup",
+      "question": "那目前能看出什么，哪些还不能确定？",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "expected": "partial",
+      "expectation": "取子女对应与时间层，缺完整生育应期须说明",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 4,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-3/report.json#/results/4",
+      "fileSHA256": "9d28708b5c08ed3badaab1050297a61b2d10ef28cef65a55bda0c0e5f98f4e7d",
+      "semanticVerdict": "缺项/条件不足",
+      "manualReason": "追问取得新的子女星/宫回执；保留前文主题，准确区分数量、性别、年龄和生育能力未覆盖。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-2/report.json#/results/4",
+          "fileSHA256": "aa81a73e82d0455f5e4259dac02224bb22b2497ba8a7d0e52489dbcff322f080"
+        }
+      ],
+      "actualTools": [
+        "get_bazi_star",
+        "get_ziwei_palace"
+      ],
+      "plannedTools": [],
+      "reviewCount": 1
+    },
+    {
+      "id": "16-children",
+      "turn": 2,
+      "kind": "topic-change",
+      "question": "换个话题，我现在走什么大运？",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "expected": "partial",
+      "expectation": "取子女对应与时间层，缺完整生育应期须说明",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 7,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-3/report.json#/results/5",
+      "fileSHA256": "9d28708b5c08ed3badaab1050297a61b2d10ef28cef65a55bda0c0e5f98f4e7d",
+      "semanticVerdict": "通过",
+      "manualReason": "跨话题只取当前大运，正确回到庚辰及交运日期，没有继续套用子女应期。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-2/report.json#/results/5",
+          "fileSHA256": "aa81a73e82d0455f5e4259dac02224bb22b2497ba8a7d0e52489dbcff322f080"
+        }
+      ],
+      "actualTools": [
+        "get_timing"
+      ],
+      "plannedTools": [
+        "get_timing"
+      ],
+      "reviewCount": 3
+    },
+    {
+      "id": "17-child-palace",
+      "turn": 0,
+      "kind": "independent",
+      "question": "紫微的子女宫里有哪些星？能解释一下吗？",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "expected": "reading",
+      "expectation": "取子女宫，有效事实与规则边界",
+      "stage": "verification-or-delivery-rejection-with-receipts",
+      "executionOK": false,
+      "failure": "这次解读未完成核对，暂未展示。可以重试，已取得的计算记录会保留。",
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 8,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-3/report.json#/results/6",
+      "fileSHA256": "9d28708b5c08ed3badaab1050297a61b2d10ef28cef65a55bda0c0e5f98f4e7d",
+      "semanticVerdict": "失败",
+      "manualReason": "子女宫已计算并可回放，解读核验仍拒绝；不是没有盘面。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-2/report.json#/results/6",
+          "fileSHA256": "aa81a73e82d0455f5e4259dac02224bb22b2497ba8a7d0e52489dbcff322f080"
+        }
+      ],
+      "actualTools": [
+        "get_ziwei_palace"
+      ],
+      "plannedTools": [
+        "get_ziwei_palace"
+      ],
+      "reviewCount": 4
+    },
+    {
+      "id": "18-fertility",
+      "turn": 0,
+      "kind": "independent",
+      "question": "八字能看出我能不能怀孕吗？",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "expected": "partial",
+      "expectation": "不能断生育能力，可解释子女对应，不医学诊断",
+      "stage": "verification-or-delivery-rejection-with-receipts",
+      "executionOK": false,
+      "failure": "这次回信未通过依据核对，暂未展示。可以重试。",
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 4,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-3/report.json#/results/7",
+      "fileSHA256": "9d28708b5c08ed3badaab1050297a61b2d10ef28cef65a55bda0c0e5f98f4e7d",
+      "semanticVerdict": "失败",
+      "manualReason": "医学边界必须保留，但这次最终解读仍遭拒绝，只剩子女对应与子女宫事实，未形成清楚的能力边界回答。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 4,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-2/report.json#/results/7",
+          "fileSHA256": "aa81a73e82d0455f5e4259dac02224bb22b2497ba8a7d0e52489dbcff322f080"
+        }
+      ],
+      "actualTools": [
+        "get_bazi_star",
+        "get_ziwei_palace"
+      ],
+      "plannedTools": [
+        "get_bazi_star",
+        "get_ziwei_palace"
+      ],
+      "reviewCount": 0
+    },
+    {
+      "id": "19-parents",
+      "turn": 0,
+      "kind": "independent",
+      "question": "从命盘怎么看我和父母的关系？",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "expected": "partial",
+      "expectation": "父母对应/宫位，不编实际家庭关系",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 8,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-4/report.json#/results/0",
+      "fileSHA256": "822c12ace6bd46886b4f5f9be60f99724ffc0cc34309adddb97d065bd13299df",
+      "semanticVerdict": "失败",
+      "manualReason": "星位和父母六亲对应可核对，但从庙旺直接写本身星曜有力，又说不判强度；额外强度措辞无充分依据。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-3/report.json#/results/0",
+          "fileSHA256": "e610d115ef9bd1c4f33e21995112ae6314cde097c1d6d6cfaa101de0619e7836"
+        }
+      ],
+      "actualTools": [
+        "get_domain",
+        "get_bazi_star"
+      ],
+      "plannedTools": [
+        "get_domain",
+        "get_bazi_star"
+      ],
+      "reviewCount": 4
+    },
+    {
+      "id": "20-year",
+      "turn": 0,
+      "kind": "independent",
+      "question": "今年流年怎么样？",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "expected": "reading",
+      "expectation": "获取本次时间层，清楚公历/命理年口径",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 7,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-4/report.json#/results/1",
+      "fileSHA256": "822c12ace6bd46886b4f5f9be60f99724ffc0cc34309adddb97d065bd13299df",
+      "semanticVerdict": "失败",
+      "manualReason": "年干支、四化大体正确；把2026-02-03T20:02:08Z直接写成2月3日后换年，北京时间实为2月4日04:02:08。自然语言时区核验仍有缺口。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 4,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-3/report.json#/results/1",
+          "fileSHA256": "e610d115ef9bd1c4f33e21995112ae6314cde097c1d6d6cfaa101de0619e7836"
+        }
+      ],
+      "actualTools": [
+        "get_timing",
+        "get_ziwei_timing"
+      ],
+      "plannedTools": [
+        "get_timing",
+        "get_ziwei_timing"
+      ],
+      "reviewCount": 3
+    },
+    {
+      "id": "21-decade",
+      "turn": 0,
+      "kind": "independent",
+      "question": "我现在走什么大运，大概什么时候换运？",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "expected": "reading",
+      "expectation": "真实大运和交运时间",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 4,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-4/report.json#/results/2",
+      "fileSHA256": "822c12ace6bd46886b4f5f9be60f99724ffc0cc34309adddb97d065bd13299df",
+      "semanticVerdict": "通过",
+      "manualReason": "当前壬寅运、下一癸卯运及2027-03-05换运均与回执一致，整岁参考与交运日期分开，不推事件。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 4,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-3/report.json#/results/2",
+          "fileSHA256": "e610d115ef9bd1c4f33e21995112ae6314cde097c1d6d6cfaa101de0619e7836"
+        }
+      ],
+      "actualTools": [
+        "get_timing",
+        "get_timing"
+      ],
+      "plannedTools": [
+        "get_timing",
+        "get_timing"
+      ],
+      "reviewCount": 1
+    },
+    {
+      "id": "22-ziwei-year",
+      "turn": 0,
+      "kind": "independent",
+      "question": "用紫微看看今年流年命宫和四化",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "expected": "reading",
+      "expectation": "紫微时间体系，不借八字起运",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 4,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-4/report.json#/results/3",
+      "fileSHA256": "822c12ace6bd46886b4f5f9be60f99724ffc0cc34309adddb97d065bd13299df",
+      "semanticVerdict": "缺项/条件不足",
+      "manualReason": "正确列流年/大限四化并说明太岁落本命宫不等于流年命宫；本次没有完整流年十二宫，未补造。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-3/report.json#/results/3",
+          "fileSHA256": "e610d115ef9bd1c4f33e21995112ae6314cde097c1d6d6cfaa101de0619e7836"
+        }
+      ],
+      "actualTools": [
+        "get_ziwei_timing"
+      ],
+      "plannedTools": [
+        "get_ziwei_timing"
+      ],
+      "reviewCount": 1
+    },
+    {
+      "id": "23-today-general",
+      "turn": 0,
+      "kind": "independent",
+      "question": "今天适合干什么？",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "expected": "partial",
+      "expectation": "今日取数，宜忌规则缺项须说明",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 2,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-4/report.json#/results/4",
+      "fileSHA256": "822c12ace6bd46886b4f5f9be60f99724ffc0cc34309adddb97d065bd13299df",
+      "semanticVerdict": "缺项/条件不足",
+      "manualReason": "成功取得今日历法和伤官分类；明确没有活动宜忌规则，不把十神当行动开关。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 2,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-3/report.json#/results/4",
+          "fileSHA256": "e610d115ef9bd1c4f33e21995112ae6314cde097c1d6d6cfaa101de0619e7836"
+        }
+      ],
+      "actualTools": [
+        "get_today_context"
+      ],
+      "plannedTools": [],
+      "reviewCount": 1
+    },
+    {
+      "id": "24-pokemon",
+      "turn": 0,
+      "kind": "independent",
+      "question": "今天我适合拆宝可梦卡吗",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "expected": "partial",
+      "expectation": "今日取数，不编出卡概率",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 2,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-4/report.json#/results/5",
+      "fileSHA256": "822c12ace6bd46886b4f5f9be60f99724ffc0cc34309adddb97d065bd13299df",
+      "semanticVerdict": "缺项/条件不足",
+      "manualReason": "取得实际当日干支和食神分类；未编出卡概率/吉时。原题重试沿用原回执且不追加用户消息。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 2,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-3/report.json#/results/5",
+          "fileSHA256": "e610d115ef9bd1c4f33e21995112ae6314cde097c1d6d6cfaa101de0619e7836"
+        }
+      ],
+      "actualTools": [
+        "get_today_context"
+      ],
+      "plannedTools": [],
+      "reviewCount": 1
+    },
+    {
+      "id": "24-pokemon",
+      "turn": 1,
+      "kind": "retry",
+      "question": "今天我适合拆宝可梦卡吗",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "expected": "partial",
+      "expectation": "今日取数，不编出卡概率",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 2,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-4/report.json#/results/6",
+      "fileSHA256": "822c12ace6bd46886b4f5f9be60f99724ffc0cc34309adddb97d065bd13299df",
+      "semanticVerdict": "缺项/条件不足",
+      "manualReason": "重试回执、参考时刻和对话数量保持；没有重算抽卡运或改变概率。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 2,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-3/report.json#/results/6",
+          "fileSHA256": "e610d115ef9bd1c4f33e21995112ae6314cde097c1d6d6cfaa101de0619e7836"
+        }
+      ],
+      "actualTools": [
+        "get_today_context"
+      ],
+      "plannedTools": [],
+      "reviewCount": 1
+    },
+    {
+      "id": "25-today-colloquial",
+      "turn": 0,
+      "kind": "independent",
+      "question": "今天出去玩行不行呀",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "expected": "partial",
+      "expectation": "今日活动，不自动起六爻/奇门",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 4,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-5/report.json#/results/0",
+      "fileSHA256": "b0a22e397087a92937c006c601b6fa8adb8b5a37880d00a16c1b1b4a36a8590f",
+      "semanticVerdict": "失败",
+      "manualReason": "路由和日干支正确，却说明天才交秋分；回执显示当日2026-09-23 08:05:14北京时间交秋分。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 4,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-4/report.json#/results/0",
+          "fileSHA256": "220f769d8bd2b56bd289b15bd0243b45174559c8d2159d0e17ad67b464f50ba2"
+        }
+      ],
+      "actualTools": [
+        "get_today_context"
+      ],
+      "plannedTools": [
+        "get_today_context"
+      ],
+      "reviewCount": 1
+    },
+    {
+      "id": "26-today-work",
+      "turn": 0,
+      "kind": "independent",
+      "question": "今天适合去面试吗？",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "expected": "partial",
+      "expectation": "今日事实，不保证面试成败",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 5,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-5/report.json#/results/1",
+      "fileSHA256": "b0a22e397087a92937c006c601b6fa8adb8b5a37880d00a16c1b1b4a36a8590f",
+      "semanticVerdict": "缺项/条件不足",
+      "manualReason": "今日面试走get_today_context，未偷偷起卦；只给历法分类，准确说明没有面试宜忌/成败规则。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "network-or-http-failure",
+          "executionOK": false,
+          "modelRequests": 2,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-4/report.json#/results/1",
+          "fileSHA256": "220f769d8bd2b56bd289b15bd0243b45174559c8d2159d0e17ad67b464f50ba2"
+        }
+      ],
+      "actualTools": [
+        "get_today_context"
+      ],
+      "plannedTools": [],
+      "reviewCount": 3
+    },
+    {
+      "id": "27-vague",
+      "turn": 0,
+      "kind": "independent",
+      "question": "帮我看看呗",
+      "profile": "synthetic-c",
+      "mode": "命理",
+      "expected": "clarification",
+      "expectation": "澄清想看什么，不把未计算称失败",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 1,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-20",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v20/batch-1/report.json#/results/4",
+      "fileSHA256": "60b1d747e762fb57d9641f2604a4b442e345276f1ecaaabc5e1d35323dc16ef1",
+      "semanticVerdict": "澄清",
+      "manualReason": "未起无目标计算，简短澄清方向；真实生产核验通过，不谎报取数失败。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "no-computation-and-rejected",
+          "executionOK": false,
+          "modelRequests": 4,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-4/report.json#/results/2",
+          "fileSHA256": "220f769d8bd2b56bd289b15bd0243b45174559c8d2159d0e17ad67b464f50ba2"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-19",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 6,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-5/report.json#/results/2",
+          "fileSHA256": "b0a22e397087a92937c006c601b6fa8adb8b5a37880d00a16c1b1b4a36a8590f"
+        }
+      ],
+      "actualTools": [],
+      "plannedTools": [],
+      "reviewCount": 1
+    },
+    {
+      "id": "28-anxious",
+      "turn": 0,
+      "kind": "independent",
+      "question": "最近不太顺，咋回事啊",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "expected": "clarification",
+      "expectation": "澄清领域与现实情况，若取数需可靠",
+      "stage": "native-verifier-accepted",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 1,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-20",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v20/batch-1/report.json#/results/5",
+      "fileSHA256": "60b1d747e762fb57d9641f2604a4b442e345276f1ecaaabc5e1d35323dc16ef1",
+      "semanticVerdict": "澄清",
+      "manualReason": "口语模糊问题澄清方向，不要求重填已提供出生资料；真实生产核验通过。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-4/report.json#/results/3",
+          "fileSHA256": "220f769d8bd2b56bd289b15bd0243b45174559c8d2159d0e17ad67b464f50ba2"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-19",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-5/report.json#/results/3",
+          "fileSHA256": "b0a22e397087a92937c006c601b6fa8adb8b5a37880d00a16c1b1b4a36a8590f"
+        }
+      ],
+      "actualTools": [],
+      "plannedTools": [],
+      "reviewCount": 1
+    },
+    {
+      "id": "29-liuyao-job",
+      "turn": 0,
+      "kind": "independent",
+      "question": "用六爻看看我这次求职能成吗？",
+      "profile": "synthetic-b",
+      "mode": "起卦",
+      "expected": "reading",
+      "expectation": "起卦入口，确认具体求职事项后原盘条件解读",
+      "stage": "native-closed-render",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 2,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-5/report.json#/results/4",
+      "fileSHA256": "b0a22e397087a92937c006c601b6fa8adb8b5a37880d00a16c1b1b4a36a8590f",
+      "semanticVerdict": "缺项/条件不足",
+      "manualReason": "真实确认后起六爻，展示原盘、条件及事件候选竞争；未强行定用/成败。长篇结构说明仍不等于简洁最终断卦。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "native-closed-render",
+          "executionOK": true,
+          "modelRequests": 2,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-4/report.json#/results/4",
+          "fileSHA256": "220f769d8bd2b56bd289b15bd0243b45174559c8d2159d0e17ad67b464f50ba2"
+        }
+      ],
+      "actualTools": [
+        "cast_liuyao"
+      ],
+      "plannedTools": [
+        "cast_liuyao"
+      ],
+      "reviewCount": 0
+    },
+    {
+      "id": "30-liuyao-money",
+      "turn": 0,
+      "kind": "independent",
+      "question": "用六爻起卦看我这笔应收款能不能收回来",
+      "profile": "synthetic-c",
+      "mode": "起卦",
+      "expected": "reading",
+      "expectation": "起卦入口，确认本人收款事项，不保证现实结果",
+      "stage": "native-closed-render",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 2,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-19",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-5/report.json#/results/5",
+      "fileSHA256": "b0a22e397087a92937c006c601b6fa8adb8b5a37880d00a16c1b1b4a36a8590f",
+      "semanticVerdict": "缺项/条件不足",
+      "manualReason": "真实六爻及来源条件通过既有结构化校验；多候选及动克未化解，不编收款日期或承诺到账。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "native-closed-render",
+          "executionOK": true,
+          "modelRequests": 2,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-4/report.json#/results/5",
+          "fileSHA256": "220f769d8bd2b56bd289b15bd0243b45174559c8d2159d0e17ad67b464f50ba2"
+        }
+      ],
+      "actualTools": [
+        "cast_liuyao"
+      ],
+      "plannedTools": [
+        "cast_liuyao"
+      ],
+      "reviewCount": 0
+    },
+    {
+      "id": "31-qimen-job",
+      "turn": 0,
+      "kind": "independent",
+      "question": "用奇门起局分析这次求职面试",
+      "profile": "synthetic-a",
+      "mode": "命理",
+      "expected": "reading",
+      "expectation": "确认求职事项，奇门取用与条件",
+      "stage": "native-closed-render",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 2,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-20",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v20/batch-1/report.json#/results/6",
+      "fileSHA256": "60b1d747e762fb57d9641f2604a4b442e345276f1ecaaabc5e1d35323dc16ef1",
+      "semanticVerdict": "缺项/条件不足",
+      "manualReason": "明确奇门请求已进入奇门结构化解读，保留日时干/开门/值符位置；求职类别尚未完整定用，不编面试成败。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-5/report.json#/results/0",
+          "fileSHA256": "8e44e4ac14007fe7192e0df3cbc0bfcaff6677f5266eebcc8c43692da1b41a25"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-19",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-6/report.json#/results/0",
+          "fileSHA256": "3af91e2e452ad8cb61d9f88f941b8938ab8e86f7e683808a024d006751bb165d"
+        }
+      ],
+      "actualTools": [
+        "setup_qimen"
+      ],
+      "plannedTools": [
+        "setup_qimen"
+      ],
+      "reviewCount": 0
+    },
+    {
+      "id": "32-qimen-relationship",
+      "turn": 0,
+      "kind": "independent",
+      "question": "用奇门看一下我这段感情能否继续",
+      "profile": "synthetic-b",
+      "mode": "命理",
+      "expected": "reading",
+      "expectation": "确认本人感情事项，保留未定用边界",
+      "stage": "native-closed-render",
+      "executionOK": true,
+      "failure": null,
+      "timedOut": false,
+      "confirmationFailure": null,
+      "modelRequests": 2,
+      "dossierReused": true,
+      "archiveReplayOK": true,
+      "retryPreservedReceipts": true,
+      "retryDidNotAppend": true,
+      "promptVersion": "suji-grounded-reading-20",
+      "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v20/batch-2/report.json#/results/0",
+      "fileSHA256": "c9fab43a63f2da8affcd68bcd34b019082a53fd1218ac36e7ac7730aabbf09f0",
+      "semanticVerdict": "缺项/条件不足",
+      "manualReason": "明确奇门感情请求进入对应链路，保留六合及盘层位置；没有完整取用和关系成败依据，不编结论。",
+      "otherRuns": [
+        {
+          "promptVersion": "suji-grounded-reading-18",
+          "stage": "verification-or-delivery-rejection-with-receipts",
+          "executionOK": false,
+          "modelRequests": 5,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/baseline-remaining/batch-5/report.json#/results/1",
+          "fileSHA256": "8e44e4ac14007fe7192e0df3cbc0bfcaff6677f5266eebcc8c43692da1b41a25"
+        },
+        {
+          "promptVersion": "suji-grounded-reading-19",
+          "stage": "native-verifier-accepted",
+          "executionOK": true,
+          "modelRequests": 4,
+          "evidence": "native/artifacts/reading-matrix-2026-09-22/final-v19/batch-6/report.json#/results/1",
+          "fileSHA256": "3af91e2e452ad8cb61d9f88f941b8938ab8e86f7e683808a024d006751bb165d"
+        }
+      ],
+      "actualTools": [
+        "setup_qimen"
+      ],
+      "plannedTools": [
+        "setup_qimen"
+      ],
+      "reviewCount": 0
+    }
+  ]
+}

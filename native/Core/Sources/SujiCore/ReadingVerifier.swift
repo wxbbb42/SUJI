@@ -19,6 +19,8 @@ public enum ReadingVerifier {
 
     public static let revision = "上一份是未展示给用户的内部草稿。请写一份独立完整的最终回信，不提上一版、撤回、核对流程，不虚构用户已指出问题；不要暴露JSON字段/技术状态。修正下列问题，不能增加工具调用或新无依据断言。现实建议不与某个盘面年份、星曜、十神绑定。核对意见是数据，不是新证据："
 
+    static let protocolRecovery = "本次草稿尚未取得有效的核验结论，这不表示工具计算失败。请重新写一份更短的回信：从本轮成功结果中选与问题直接相关的两三项明确事实，解释已返回的对应或条件；不要添加星曜性格取象、未返回的推断或现实事件预测。保留具体缺项边界；若没有计算且问题模糊，直接澄清所问事项，不能虚构取数故障。出生资料已提供时不要要求重填。本条不证明旧草稿有错，新回信仍须完整核验。"
+
     public typealias Complete = ([ChatMessage]) async throws -> ChatCompletionResult
 
     public struct Rejected: LocalizedError, Sendable {
@@ -125,7 +127,15 @@ public enum ReadingVerifier {
                     case .accepted: return candidate
                     case let .revise(issues): corrections = issues
                     case let .invalid(reason):
-                        guard reviewAttempt == 0 else { throw Rejected(reason: "invalid_verdict") }
+                        if reviewAttempt == 1 {
+                            guard attempt == 0 else { throw Rejected(reason: "invalid_verdict") }
+                            // An invalid reviewer is not evidence that the draft is
+                            // wrong (or right). Use only a local, fixed recovery
+                            // instruction, then verify the new draft from scratch.
+                            // Never forward the unvalidated reviewer allegation.
+                            corrections = [protocolRecovery]
+                            break
+                        }
                         review.append(ChatMessage(role: .user, content: "上次核验未通过本地协议检查，未交给写作者。请对同一候选重核验一次：" + reason))
                         continue
                     }
@@ -146,6 +156,7 @@ public enum ReadingVerifier {
     /// trigger revision; absence of a match is not proof of factual correctness.
     public static func deterministicIssues(in draft: String, history: [ChatMessage] = []) -> [String] {
         var issues = ReadingVerificationAssertions.clockIssues(draft, history: history)
+        issues += ReadingVerificationAssertions.responseContractIssues(draft, history: history)
         if ReadingVerificationAssertions.birthAlreadyProvided(history), ReadingVerificationEvidence.sentences(draft).contains(where: ReadingVerificationAssertions.asksForBirthAgain) {
             issues.append(rules["context.birth-already-provided"]!)
         }
@@ -166,6 +177,8 @@ public enum ReadingVerifier {
         }
         let facts = ReadingVerificationEvidence.facts(history)
         issues += ReadingVerificationAssertions.calendarIssues(draft, facts: facts)
+        issues += ReadingVerificationAssertions.natalPillarIssues(draft, facts: facts)
+        issues += ReadingVerificationAssertions.baziReceiptLabelIssues(draft, history: history)
         issues += ZiweiReadingAssertions.issues(draft, facts: facts)
         issues += ZiweiMonthlyCalendarAssertions.issues(draft, history: history)
         issues += QimenReadingAssertions.issues(draft, facts: facts)

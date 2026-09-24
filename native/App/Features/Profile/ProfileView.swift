@@ -3,79 +3,87 @@ import SujiCore
 
 struct ProfileView: View {
     @Environment(AppStore.self) private var store
-    @Environment(\.dynamicTypeSize) private var typeSize
-    @State private var editingBirth = false
+    @Environment(\.editNotebookBirth) private var editBirth
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 28) {
-                    HStack(alignment: .top) {
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("我的册页").font(SujiTheme.serif(34))
-                                .fixedSize(horizontal: false, vertical: true)
-                            Text("慢慢认识，也温柔以待。").font(.subheadline).foregroundStyle(SujiTheme.secondary)
-                                .fixedSize(horizontal: false, vertical: true)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 28) {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("慢慢认识自己").font(SujiTheme.serif(32, relativeTo: .largeTitle))
+                        .accessibilityAddTraits(.isHeader)
+                    Text("资料、阅读与生活里的记录，都在这里。")
+                        .font(.subheadline).foregroundStyle(SujiTheme.secondary)
+                }.padding(.top, 12)
+
+                NavigationLink {
+                    NatalReadingReportView().id(profileRequestIdentity(store))
+                } label: {
+                    VStack(alignment: .leading, spacing: 18) {
+                        HStack(alignment: .firstTextBaseline) {
+                            Text("我的册页").font(SujiTheme.serif(27, relativeTo: .title2))
+                            Spacer(minLength: 16)
+                            Image(systemName: "arrow.up.right").font(.title3)
                         }
-                        Spacer(minLength: 0)
-                        if !typeSize.isAccessibilitySize { SujiSeal(text: "自观").padding(.top, 8) }
-                    }.padding(.top, 20)
-                    if let birth = store.state.birth {
-                        Button { editingBirth = true } label: {
-                            HStack {
-                                VStack(alignment: .leading, spacing: 8) {
-                                    Text(birth.label).font(.subheadline).fixedSize(horizontal: false, vertical: true)
-                                    Text("\(birth.city) · 北京时间 · \(birth.gender)").font(.caption).foregroundStyle(SujiTheme.secondary).fixedSize(horizontal: false, vertical: true)
-                                }
-                                Spacer(); Image(systemName: "pencil").foregroundStyle(SujiTheme.secondary)
-                            }.padding(20).background(SujiTheme.surface, in: RoundedRectangle(cornerRadius: 20))
-                        }.buttonStyle(.plain)
-                    } else {
-                        VStack(alignment: .leading, spacing: 20) {
-                            Text("从一份出生资料开始").font(SujiTheme.serif(24))
-                            Text("借传统历法作一面镜子，看看自己的性格与节奏。资料优先保存在本机。").font(.subheadline).foregroundStyle(SujiTheme.secondary).lineSpacing(6)
-                            Button("填写出生资料") { editingBirth = true }.buttonStyle(.borderedProminent).buttonBorderShape(.capsule)
-                                .accessibilityIdentifier("profile.addBirth")
-                        }.padding(24).frame(maxWidth: .infinity, alignment: .leading).background(SujiTheme.surface, in: RoundedRectangle(cornerRadius: 24))
+                        Text(store.hasNatalDossier ? "已有本命资料 · 查看基础读盘" : store.state.birth == nil ? "从出生资料开始，读懂盘面的位置与关系" : "出生资料已保存 · 等待建立本命档案")
+                            .font(.subheadline).foregroundStyle(SujiTheme.secondary).lineSpacing(5)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .accessibilityIdentifier(store.hasNatalDossier ? "profile.dossierReady" : "profile.dossierPending")
+                    }.padding(24).frame(maxWidth: .infinity, alignment: .leading)
+                        .background(SujiTheme.surface, in: RoundedRectangle(cornerRadius: 24))
+                        .contentShape(RoundedRectangle(cornerRadius: 24))
+                }.buttonStyle(.plain).accessibilityIdentifier("profile.report")
+
+                VStack(spacing: 0) {
+                    Button(action: editBirth) {
+                        profileRow("出生资料", subtitle: store.state.birth == nil ? "填写日期、时刻与地点" : "查看与修改已保存的资料", symbol: "person.text.rectangle")
+                    }.buttonStyle(.plain).accessibilityIdentifier("profile.addBirth")
+                    if store.state.birth != nil {
+                        Divider().overlay(SujiTheme.line)
+                        NavigationLink { CalibrationView() } label: {
+                            profileRow("校准出生时辰", subtitle: "比较候选时辰，保留自己的判断", symbol: "clock.arrow.2.circlepath")
+                        }
                     }
-                    if store.computing { ProgressView("正在整理你的册页…").frame(maxWidth: .infinity).padding() }
-                    if store.hasNatalDossier {
-                        Label("本命档案已建立 · 八字 / 紫微", systemImage: "checkmark.seal")
-                            .font(.footnote).foregroundStyle(SujiTheme.secondary)
-                        Text("问答会沿用这份本命盘。修改出生资料或排盘规则更新后，会重新建档。")
-                            .font(.footnote).foregroundStyle(SujiTheme.secondary)
-                    }
-                    if let status = store.cloudProfileStatus {
-                        Text(status).font(.footnote).foregroundStyle(SujiTheme.secondary)
-                        Button("重试同步") { Task { await store.prepareAccount(); await store.syncBirthProfile() } }
-                    }
-                    if let error = store.dossierError {
-                        Text(error).font(.footnote).foregroundStyle(SujiTheme.secondary)
-                        Button("重新读取档案") { Task { await store.calculateProfile() } }
+                }
+                VStack(spacing: 0) {
+                    NavigationLink { JournalListView() } label: {
+                        profileRow("心情册页", subtitle: "\(store.state.journal.count) 份记录，都是生活的回声", symbol: "book.pages")
                     }
                     if store.state.birth != nil {
-                        NavigationLink { NatalAstronomyView() } label: { profileRow("出生星历", subtitle: "七个天体 · 现代星名距星参照", symbol: "moon.stars") }.accessibilityIdentifier("profile.astronomy")
+                        Divider().overlay(SujiTheme.line)
+                        NavigationLink { RelationshipView() } label: {
+                            profileRow("关系里的我们", subtitle: "双方资料与相处中的观察", symbol: "person.2")
+                        }
                     }
-                    if let profile = store.profile {
-                        PersonalitySection(personality: profile["personality"], riZhu: profile["mingPan"]["riZhu"])
-                        NavigationLink { ChartDetailView(profile: profile) } label: { profileRow("命盘手稿", subtitle: "四柱 · 五行 · 紫微十二宫", symbol: "square.grid.3x3") }
-                        NavigationLink { FortuneDetailView() } label: { profileRow("人生的节奏", subtitle: "大运与流年，作为观察的线索", symbol: "chart.xyaxis.line") }
-                        NavigationLink { CalibrationView() } label: { profileRow("校准出生时辰", subtitle: "比较候选时辰，保留自己的判断", symbol: "clock.arrow.2.circlepath") }
-                        NavigationLink { RelationshipView() } label: { profileRow("关系里的我们", subtitle: "理解差异，练习更好的相处", symbol: "person.2") }
+                    Divider().overlay(SujiTheme.line)
+                    NavigationLink { SettingsView() } label: {
+                        profileRow("设置", subtitle: "账号、外观与本机归档", symbol: "slider.horizontal.3")
+                    }.accessibilityIdentifier("profile.settings")
+                }
+                if let status = store.cloudProfileStatus {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(status).font(.footnote).foregroundStyle(SujiTheme.secondary)
+                        Button("重试同步") { Task { await store.prepareAccount(); await store.syncBirthProfile() } }
+                            .frame(minHeight: 44)
                     }
-                    NavigationLink { JournalListView() } label: { profileRow("心情册页", subtitle: "\(store.state.journal.count) 份记录，都是生活的回声", symbol: "book.pages") }
-                    Text("传统文化提供观察的角度，不替你定义人生。").font(.footnote).foregroundStyle(SujiTheme.secondary).lineSpacing(5).padding(.vertical, 12)
-                }.padding(.horizontal, 24).padding(.bottom, 32)
-            }.background(SujiTheme.paper).foregroundStyle(SujiTheme.ink).navigationBarTitleDisplayMode(.inline)
-                .toolbar { ToolbarItem(placement: .topBarTrailing) { NavigationLink { SettingsView() } label: { Image(systemName: "slider.horizontal.3") }.accessibilityLabel("设置") } }
-                .sheet(isPresented: $editingBirth) { BirthEditor(existing: store.state.birth) { birth in try await store.updateBirth(birth) } }
+                }
+                Text("传统文化提供观察的角度，不替你定义人生。")
+                    .font(.footnote).foregroundStyle(SujiTheme.secondary).lineSpacing(5)
+            }.padding(.horizontal, 24).padding(.bottom, 32)
+                .frame(maxWidth: 640).frame(maxWidth: .infinity)
         }
+        .background(SujiTheme.paper).foregroundStyle(SujiTheme.ink)
+        .navigationTitle("我的").navigationBarTitleDisplayMode(.inline)
     }
     private func profileRow(_ title: String, subtitle: String, symbol: String) -> some View {
         HStack(spacing: 18) {
-            Image(systemName: symbol).font(.title3.weight(.light)).foregroundStyle(SujiTheme.secondary).frame(width: 26)
-            VStack(alignment: .leading, spacing: 7) { Text(title).font(.headline.weight(.medium)); Text(subtitle).font(.caption).foregroundStyle(SujiTheme.secondary) }
-            Spacer(); Image(systemName: "chevron.right").font(.caption).foregroundStyle(SujiTheme.secondary)
-        }.foregroundStyle(SujiTheme.ink).padding(.vertical, 12)
+            Image(systemName: symbol).font(.title3.weight(.regular)).foregroundStyle(SujiTheme.secondary).frame(width: 26)
+            VStack(alignment: .leading, spacing: 7) {
+                Text(title).font(.headline.weight(.medium))
+                Text(subtitle).font(.subheadline).foregroundStyle(SujiTheme.secondary)
+            }.fixedSize(horizontal: false, vertical: true)
+            Spacer(minLength: 8)
+            Image(systemName: "chevron.right").font(.caption).foregroundStyle(SujiTheme.secondary)
+        }.foregroundStyle(SujiTheme.ink).frame(maxWidth: .infinity, minHeight: 44).padding(.vertical, 16)
+            .contentShape(Rectangle())
     }
 }
 
@@ -129,7 +137,7 @@ struct BirthEditor: View {
                     Picker("排盘性别", selection: $gender) { Text("女").tag("女"); Text("男").tag("男") }.pickerStyle(.segmented)
                 } header: { Text("出生资料") } footer: { Text("填写出生记录上的公历和北京时间，性别用于传统排盘规则。暂未支持未知时刻或海外时区自动换算，请勿用默认时刻代替不确定的资料。") }
                 Section {
-                    LabeledContent("出生地点") { TextField("城市或地点", text: $city).multilineTextAlignment(.trailing).accessibilityLabel("出生地点") }
+                    LabeledContent("出生地点") { TextField("城市或地点", text: $city).multilineTextAlignment(.trailing).accessibilityLabel("出生地点").accessibilityIdentifier("birth.city") }
                     Menu("从常用城市填写") {
                         ForEach(cities, id: \.0) { item in Button(item.0) { city = item.0; longitude = item.1 } }
                     }
@@ -172,7 +180,11 @@ struct BirthEditor: View {
 struct ChartDetailView: View {
     @Environment(\.dynamicTypeSize) private var typeSize
     let profile: Document
-    @State private var selection = 0
+    @State private var selection: Int
+    init(profile: Document, initialSelection: Int = 0) {
+        self.profile = profile
+        _selection = State(initialValue: initialSelection)
+    }
     private let pillars = [("year","年柱"),("month","月柱"),("day","日柱"),("hour","时柱")]
     var body: some View {
         ScrollView {

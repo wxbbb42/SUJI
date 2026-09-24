@@ -6,6 +6,8 @@
 
 唯一客户端工程为 `native/Suji.xcodeproj`。CI 会拒绝重新加入旧客户端目录、根目录 npm 构建入口及 Expo / React Native 依赖；`native/Engine` 和 `supabase` 的独立工具链继续维护。
 
+最新开发状态见 [收尾交接入口](docs/product/HANDOFF.md)：包含册页修订方案、独立评审、暂停实验和真实问答失败。合并保存成果不代表新方案已实施或解读功能已整体验收。
+
 ## 运行
 
 使用 Xcode 26 或更新版本打开 `native/Suji.xcodeproj`，选择 **Suji** scheme 和 iPhone 模拟器，直接运行。原生工程、历法引擎 bundle 和资源已纳入版本控制，启动 App 无需安装 Node.js。

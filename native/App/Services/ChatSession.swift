@@ -19,6 +19,9 @@ import SujiCore
     }
     private var partialEntryID: UUID?
     private var pendingDocument: ReadingDocument?
+    private var pendingThemeBinding: BaziThemeBinding?
+    private var pendingThemeAction: BaziThemeAnswer.Action?
+    private var pendingThemeReply: BaziThemeReplyRecord?
     private var hasPreservedCalculation = false
 
     func stop() {
@@ -30,7 +33,7 @@ import SujiCore
         task?.cancel()
     }
 
-    func send(_ question: String, mode: String, store: AppStore, appendUser: Bool = true) {
+    func send(_ question: String, mode: String, store: AppStore, appendUser: Bool = true, themeBinding: BaziThemeBinding? = nil, inheritTheme: Bool = true) {
         guard !working else { return }
         if !appendUser, let last = store.state.conversations.last(where: { $0.role == "user" }), last.castSupplement != nil {
             startSupplement(store: store, retryID: last.id)
@@ -38,6 +41,7 @@ import SujiCore
         }
 
         let trimmedQuestion = question.trimmingCharacters(in: .whitespacesAndNewlines)
+        let birthRevision = store.birthRevision
         let revision = store.scopeRevision
         let userID: UUID
         let historyEntries: [ConversationEntry]
@@ -55,6 +59,13 @@ import SujiCore
             var entry = ConversationEntry(role: "user", text: trimmedQuestion)
             entry.toolReceipts = []
             entry.analysisMode = mode
+            if mode == "命理" {
+                // Only the last local reply can continue a topic. No scan through
+                // unrelated history, imported prose, or a different user's turn.
+                let previous = store.state.conversations.last
+                let candidate = themeBinding ?? (inheritTheme && previous?.role == "assistant" ? previous?.themeBinding : nil)
+                if BaziThemeRouting.resolve(trimmedQuestion, hasTheme: candidate != nil) != .standard { entry.themeBinding = candidate }
+            }
             effectiveMode = mode
             originalQuestion = trimmedQuestion
             referenceDate = entry.date
@@ -96,16 +107,38 @@ import SujiCore
         partial = ""
         evidence = []
         pendingDocument = nil
+        pendingThemeBinding = nil; pendingThemeAction = nil; pendingThemeReply = nil
         hasPreservedCalculation = false
         working = true
 
         task = Task {
             defer { castConfirmation.cancel(); working = false; activity = ""; task = nil; pendingDocument = nil }
             do {
+                if let binding = store.state.conversations.first(where: { $0.id == userID })?.themeBinding {
+                    try store.validateThemeBinding(binding)
+                    let theme = try await store.currentBaziTheme()
+                    try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
+                    guard binding == (try store.makeThemeBinding(theme)) else { throw ToolOrchestratorError.staleContext }
+                    let previousFollowUp = BaziThemeHistory.verifiedFollowUp(entries: historyEntries, before: userID, binding: binding, theme: theme)
+                    let route = BaziThemeRouting.resolve(originalQuestion, hasTheme: true, previousFollowUp: previousFollowUp)
+                    if case let .clarify(message) = route {
+                        // A scoped clarification is not a computed or model-authored answer.
+                        partial = message
+                        _ = try persistReply(store, revision: revision, birthRevision: birthRevision, birth: birth, replacing: replacementID)
+                        return
+                    }
+                    if route == .theme {
+                        try await answerTheme(binding, theme: theme, previousFollowUp: previousFollowUp, question: originalQuestion, userID: userID, referenceDate: referenceDate,
+                            historyEntries: historyEntries, cachedReceipts: cachedReceipts, previousContext: previousContext,
+                            store: store, revision: revision, birthRevision: birthRevision, birth: birth, replacing: replacementID)
+                        partialEntryID = nil
+                        return
+                    }
+                }
                 let client = try await makeClient(store)
-                try Self.checkScope(store, revision: revision, birth: birth)
+                try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                 let metadata = try await store.request(["command": "metadata"])
-                try Self.checkScope(store, revision: revision, birth: birth)
+                try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                 let context = try ToolContext(birth: birth, engineRevision: metadata["engineRevision"].text, referenceDate: referenceDate, mode: effectiveMode)
                 guard context.isValid else { throw EngineError.execution("排盘版本信息无效，请更新应用。") }
                 if let previousContext, previousContext != context { throw ToolOrchestratorError.staleContext }
@@ -120,6 +153,7 @@ import SujiCore
                 let presentation = BaziReadingRequest.resolveRequest(question: originalQuestion, mode: effectiveMode, entries: historyEntries, currentUserID: userID, context: context)
                 let focus = presentation?.focuses.first
                 let todayRequest = focus == nil && TodayReadingRequest.applies(question: originalQuestion, mode: effectiveMode)
+                let clarification = ReadingFactRequest.clarification(question: originalQuestion, mode: effectiveMode)
                 // These caches belong only to this user entry and passed the
                 // context checks above. A retry planner may need no new calls.
                 var frameworkReceipts = cachedReceipts
@@ -129,27 +163,36 @@ import SujiCore
                 history.append(contentsOf: ReadingPrompt.history(from: historyEntries, currentUserID: userID, context: context))
 
                 if effectiveMode != "倾诉" {
-                    try Self.checkScope(store, revision: revision, birth: birth)
+                    try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                     activity = "正在整理线索"
                     let definitions = try await loadDefinitions(mode: effectiveMode, question: originalQuestion, birth: birth, store: store)
                     qimenReferenceRequest = QimenReferenceReading.isExclusiveRequest(definitions: definitions, question: originalQuestion)
                     liuyaoReferenceRequest = LiuyaoReferenceReading.isExclusiveRequest(definitions: definitions, question: originalQuestion)
-                    try Self.checkScope(store, revision: revision, birth: birth)
+                    try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                     history[0].content = instruction + "\n" + ReadingPrompt.plannerInstruction(question: originalQuestion, mode: effectiveMode, focus: focus)
                     let frameworkCallID = "bazi-" + UUID().uuidString
+                    var attemptedMissingFacts = false
                     let orchestrator = ToolOrchestrator(
                         complete: { messages, tools in
+                            if clarification != nil { return .text("") }
                             if focus != nil {
                                 return BaziFrameworkReading.plan(callID: frameworkCallID, history: messages, cachedReceipts: cachedReceipts, context: context, hasBirth: birth != nil)
                             }
                             if todayRequest {
                                 return TodayReadingRequest.plan(callID: frameworkCallID, history: messages, cachedReceipts: cachedReceipts, context: context, hasBirth: birth != nil)
                             }
-                            return try await client.complete(messages: messages, tools: tools)
+                            let completion = try await client.complete(messages: messages, tools: tools)
+                            if case .text = completion, !attemptedMissingFacts {
+                                attemptedMissingFacts = true
+                                let missing = ReadingFactRequest.missingCalls(question: originalQuestion, context: context,
+                                    hasBirth: birth != nil, history: messages, entries: historyEntries, currentUserID: userID)
+                                if !missing.isEmpty { return .toolCalls(missing) }
+                            }
+                            return completion
                         },
                         execute: { call in
                             try Task.checkCancellation()
-                            try Self.checkScope(store, revision: revision, birth: birth)
+                            try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                             self.activity = Self.toolLabel(call.name)
                             var request: [String: Any] = [
                                 "command": "tool",
@@ -170,24 +213,24 @@ import SujiCore
                             } else {
                                 document = try await store.request(request)
                             }
-                            try Self.checkScope(store, revision: revision, birth: birth)
+                            try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                             return ToolExecutionResult(
                                 output: document["result"].json,
                                 evidence: document["evidence"].strings
                             )
                         },
                         persistReceipt: { receipt in
-                            try Self.checkScope(store, revision: revision, birth: birth)
-                            try self.persist(receipt: receipt, on: userID, store: store, revision: revision, birth: birth)
+                            try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
+                            try self.persist(receipt: receipt, on: userID, store: store, revision: revision, birthRevision: birthRevision, birth: birth)
                         },
                         prepareCasts: { calls in
                             self.activity = "等待核对占问资料"
                             return try await self.castConfirmation.request(calls: calls, originalQuestion: originalQuestion, userID: userID, context: context) {
-                                try Self.checkScope(store, revision: revision, birth: birth)
+                                try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                             }
                         },
                         persistConfirmations: { confirmations in
-                            try Self.checkScope(store, revision: revision, birth: birth)
+                            try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                             try self.persist(confirmations: confirmations, on: userID, store: store)
                         }
                     )
@@ -222,13 +265,13 @@ import SujiCore
                     activity = "正在整理解释依据"
                     if let catalog = BaziFrameworkReading.catalog(receipts: frameworkReceipts, context: context) {
                         let answer = try await BaziFrameworkReading.compose(catalog: catalog, question: originalQuestion, focus: focus, presentation: presentation) { messages in
-                            try Self.checkScope(store, revision: revision, birth: birth)
+                            try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                             let selected = try await client.complete(messages: messages)
-                            try Self.checkScope(store, revision: revision, birth: birth)
+                            try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                             return selected
                         }
                         try Task.checkCancellation()
-                        try Self.checkScope(store, revision: revision, birth: birth)
+                        try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                         partial = answer.text
                         pendingDocument = ReadingDocument(catalog: catalog, answer: answer, sourceUserID: userID, focus: focus, presentation: presentation)
                     } else {
@@ -237,41 +280,43 @@ import SujiCore
                 } else if qimenReferenceRequest {
                     activity = "正在整理奇门依据"
                     try Task.checkCancellation()
-                    try Self.checkScope(store, revision: revision, birth: birth)
+                    try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                     partial = QimenReferenceReading.render(receipts: frameworkReceipts, context: context)?.text
                         ?? QimenReferenceReading.unavailableReply(receipts: frameworkReceipts)
                 } else if liuyaoReferenceRequest {
                     activity = "正在整理六爻依据"
                     try Task.checkCancellation()
-                    try Self.checkScope(store, revision: revision, birth: birth)
+                    try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                     let referenceOnly = currentConfirmations.contains { $0.call.name == "cast_liuyao" && $0.referenceOnly }
                     partial = LiuyaoReferenceReading.render(receipts: frameworkReceipts, context: context, referenceOnly: referenceOnly)?.text
                         ?? LiuyaoReferenceReading.unavailableReply(receipts: frameworkReceipts)
                 } else {
                     activity = "正在写回信"
-                    var draft = ""
-                    for try await delta in client.streamText(messages: history) {
-                        try Task.checkCancellation()
-                        try Self.checkScope(store, revision: revision, birth: birth)
-                        if effectiveMode == "倾诉" { partial += delta } else { draft += delta }
+                    var draft = clarification ?? ""
+                    if clarification == nil {
+                        for try await delta in client.streamText(messages: history) {
+                            try Task.checkCancellation()
+                            try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
+                            if effectiveMode == "倾诉" { partial += delta } else { draft += delta }
+                        }
                     }
                     try Task.checkCancellation()
-                    try Self.checkScope(store, revision: revision, birth: birth)
+                    try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                     if effectiveMode != "倾诉" {
                         activity = "正在核对盘面依据"
                         do {
                             let verified = try await ReadingVerifier.verify(draft: draft, history: history, question: verificationQuestion) { messages in
-                                try Self.checkScope(store, revision: revision, birth: birth)
+                                try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                                 let result = try await client.complete(messages: messages)
-                                try Self.checkScope(store, revision: revision, birth: birth)
+                                try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                                 return result
                             }
                             try Task.checkCancellation()
-                            try Self.checkScope(store, revision: revision, birth: birth)
+                            try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                             partial = verified
                         } catch let error as ReadingVerifier.Rejected {
                             try Task.checkCancellation()
-                            try Self.checkScope(store, revision: revision, birth: birth)
+                            try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                             Self.logger.error("Reading verification rejected: \(error.reason, privacy: .public)")
                             failure = error.localizedDescription
                             partial = ReadingFallback.reply(history: history, rejectionReason: error.reason)
@@ -279,24 +324,24 @@ import SujiCore
                     }
                 }
                 try Task.checkCancellation()
-                try Self.checkScope(store, revision: revision, birth: birth)
+                try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                 guard !partial.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
                     throw EngineError.execution("模型没有返回内容，请重试。")
                 }
-                _ = try persistReply(store, revision: revision, birth: birth, replacing: replacementID)
+                _ = try persistReply(store, revision: revision, birthRevision: birthRevision, birth: birth, replacing: replacementID)
                 partialEntryID = nil
             } catch {
                 guard store.scopeRevision == revision else {
                     partial = ""
                     return
                 }
-                if store.state.birth != birth {
+                if store.state.birth != birth || store.birthRevision != birthRevision {
                     partial = ""
                     failure = "出生资料已更改，本次解读已停止。请用新资料重新提问。"
                     return
                 }
                 if !partial.isEmpty {
-                    partialEntryID = try? persistReply(store, revision: revision, birth: birth, replacing: replacementID)
+                    partialEntryID = try? persistReply(store, revision: revision, birthRevision: birthRevision, birth: birth, replacing: replacementID)
                 }
                 if !Task.isCancelled && !(error is CancellationError) {
                     failure = error.localizedDescription
@@ -305,21 +350,74 @@ import SujiCore
         }
     }
 
+    private func answerTheme(_ binding: BaziThemeBinding, theme: BaziLifeTheme, previousFollowUp: BaziThemeAnswer.FollowUp?, question: String, userID: UUID, referenceDate: Date,
+        historyEntries: [ConversationEntry], cachedReceipts: [ToolReceipt], previousContext: ToolContext?,
+        store: AppStore, revision: UUID, birthRevision: UUID, birth: BirthProfile?, replacing: UUID?) async throws {
+        activity = "正在核对册页依据"
+        try store.validateThemeBinding(binding)
+        try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
+        guard binding == (try store.makeThemeBinding(theme)) else { throw ToolOrchestratorError.staleContext }
+        let context = try ToolContext(birth: birth, engineRevision: binding.payloadRevision, referenceDate: referenceDate, mode: "命理")
+        if let previousContext, previousContext != context { throw ToolOrchestratorError.staleContext }
+        guard cachedReceipts.count <= 1, cachedReceipts.allSatisfy({ $0.context == context }) else { throw ToolOrchestratorError.staleContext }
+        // Authenticate before any model call. Local report remains available if this fails.
+        let client = try await makeClient(store)
+        try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
+        guard let index = store.state.conversations.firstIndex(where: { $0.id == userID }) else { throw CancellationError() }
+        store.state.conversations[index].toolContext = context
+        try store.saveThrowing()
+        let receipt: ToolReceipt
+        if let cached = cachedReceipts.first {
+            receipt = cached
+        } else {
+            let callID = "theme-" + UUID().uuidString
+            guard let birth else { throw ToolOrchestratorError.staleContext }
+            let document = try await store.request(["command": "tool", "name": "get_domain", "id": callID,
+                "arguments": ["domain": "事业"], "birth": try store.birthJSON(birth),
+                "now": ISO8601DateFormatter().string(from: referenceDate)])
+            try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
+            receipt = ToolReceipt(callID: callID, name: "get_domain", arguments: ["domain": "事业"],
+                output: document["result"].json, evidence: document["evidence"].strings, context: context)
+            try BaziLifeThemeCompiler.validateProjection(theme: theme, receipt: receipt, context: context)
+            try persist(receipt: receipt, on: userID, store: store, revision: revision, birthRevision: birthRevision, birth: birth)
+        }
+        try BaziLifeThemeCompiler.validateProjection(theme: theme, receipt: receipt, context: context)
+        hasPreservedCalculation = true
+        activity = "正在结合这一页回应"
+        let previousQuestions = historyEntries.filter { $0.role == "user" && $0.id != userID && $0.themeBinding == binding }.suffix(2).map(\.text)
+        let answer = try await BaziThemeAnswer.compose(theme: theme, question: question, previousQuestions: Array(previousQuestions), previousFollowUp: previousFollowUp) { messages in
+            try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
+            let result = try await client.complete(messages: messages)
+            try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
+            return result
+        }
+        try Task.checkCancellation()
+        try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
+        try store.validateThemeBinding(binding)
+        partial = answer.text
+        evidence = ["来源于我的册页 · 表达与规则；已核对本次本命投影。", "固定本命主题；不是流年或事件判断。"]
+            + BaziLifeThemeCompiler.sources.filter { theme.sourceIDs.contains($0.id) }.map { $0.locator + "：" + $0.quote + " " + $0.scope }
+        pendingThemeBinding = binding; pendingThemeAction = answer.action
+        pendingThemeReply = BaziThemeReplyRecord(sourceUserID: userID, context: context, theme: theme, action: answer.action, followUp: answer.followUp)
+        _ = try persistReply(store, revision: revision, birthRevision: birthRevision, birth: birth, replacing: replacing)
+    }
+
     func supplement(entryID: UUID, callID: String, store: AppStore) {
         guard !working else { return }
         startSupplement(store: store, selection: (entryID, callID))
     }
 
     private func startSupplement(store: AppStore, selection: (UUID, String)? = nil, retryID: UUID? = nil) {
+        let birthRevision = store.birthRevision
         let revision = store.scopeRevision, birth = store.state.birth
-        failure = nil; partial = ""; evidence = []; pendingDocument = nil
+        failure = nil; partial = ""; evidence = []; pendingDocument = nil; pendingThemeBinding = nil; pendingThemeAction = nil; pendingThemeReply = nil
         hasPreservedCalculation = false; working = true; activity = "正在核对原盘"
         task = Task {
             defer { castConfirmation.cancel(); working = false; activity = ""; task = nil }
             do {
                 let metadata = try await store.request(["command": "metadata"])
                 try Task.checkCancellation()
-                try Self.checkScope(store, revision: revision, birth: birth)
+                try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                 let userID: UUID
                 if let selection {
                     guard let source = store.state.conversations.first(where: { $0.id == selection.0 }), let previous = source.toolContext else { throw ToolOrchestratorError.staleContext }
@@ -348,15 +446,15 @@ import SujiCore
                     activity = "等待核对补充资料"
                     let call = ChatToolCall(id: "supplement-" + UUID().uuidString, name: link.original.name, arguments: link.arguments)
                     let confirmed = try await castConfirmation.request(calls: [call], originalQuestion: entry.text, userID: userID, context: context, reusesOriginal: true, referenceOnly: link.referenceOnly) {
-                        try Self.checkScope(store, revision: revision, birth: birth)
+                        try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                         try link.validate(userID: userID, entries: store.state.conversations, context: context)
                     }
                     try Task.checkCancellation()
-                    try Self.checkScope(store, revision: revision, birth: birth)
+                    try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                     try persist(confirmations: confirmed, on: userID, store: store)
                     confirmation = confirmed[0]
                 }
-                try Self.checkScope(store, revision: revision, birth: birth)
+                try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                 guard confirmation.call.name == link.original.name else { throw ToolOrchestratorError.staleContext }
                 let receipt: ToolReceipt
                 let cached = entry.toolReceipts ?? []
@@ -372,25 +470,25 @@ import SujiCore
                     // Finish and persist a started reassessment even if prose is stopped.
                     let calculation = Task { @MainActor in try await store.request(request) }
                     let document = try await calculation.value
-                    try Self.checkScope(store, revision: revision, birth: birth)
+                    try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                     receipt = ToolReceipt(callID: confirmation.call.id, name: link.derivedName, arguments: confirmation.call.arguments,
                         output: try CastReceiptStorage.encode(document["result"].json), evidence: document["evidence"].strings, context: context)
                     _ = try link.render(receipt: receipt, confirmation: confirmation, userID: userID, entries: store.state.conversations, context: context)
-                    try persist(receipt: receipt, on: userID, store: store, revision: revision, birth: birth)
+                    try persist(receipt: receipt, on: userID, store: store, revision: revision, birthRevision: birthRevision, birth: birth)
                 }
                 hasPreservedCalculation = true
                 let rendered = try link.render(receipt: receipt, confirmation: confirmation, userID: userID, entries: store.state.conversations, context: context)
                 try Task.checkCancellation()
-                try Self.checkScope(store, revision: revision, birth: birth)
+                try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
                 partial = rendered; evidence = receipt.evidence
                 let index = store.state.conversations.firstIndex(where: { $0.id == userID })!
                 let replacement = store.state.conversations.dropFirst(index + 1).first(where: { $0.role == "assistant" })?.id
-                _ = try persistReply(store, revision: revision, birth: birth, replacing: replacement)
+                _ = try persistReply(store, revision: revision, birthRevision: birthRevision, birth: birth, replacing: replacement)
                 partialEntryID = nil
             } catch {
                 partial = ""
                 guard store.scopeRevision == revision else { return }
-                if store.state.birth != birth { failure = "出生资料已更改，本次补充已停止。" }
+                if store.state.birth != birth || store.birthRevision != birthRevision { failure = "出生资料已更改，本次补充已停止。" }
                 else if !Task.isCancelled && !(error is CancellationError) { failure = error.localizedDescription }
             }
         }
@@ -420,9 +518,10 @@ import SujiCore
         on userID: UUID,
         store: AppStore,
         revision: UUID,
+        birthRevision: UUID,
         birth: BirthProfile?
     ) throws {
-        try Self.checkScope(store, revision: revision, birth: birth)
+        try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
         guard let index = store.state.conversations.firstIndex(where: { $0.id == userID && $0.role == "user" }) else {
             throw CancellationError()
         }
@@ -436,28 +535,37 @@ import SujiCore
     }
 
     @discardableResult
-    private func persistReply(_ store: AppStore, revision: UUID, birth: BirthProfile?, replacing id: UUID?) throws -> UUID {
-        try Self.checkScope(store, revision: revision, birth: birth)
+    private func persistReply(_ store: AppStore, revision: UUID, birthRevision: UUID, birth: BirthProfile?, replacing id: UUID?) throws -> UUID {
+        try Self.checkScope(store, revision: revision, birthRevision: birthRevision, birth: birth)
         let uniqueEvidence = Self.unique(evidence)
         if let id, let index = store.state.conversations.firstIndex(where: { $0.id == id && $0.role == "assistant" }) {
+            let previous = store.state.conversations[index]
             store.state.conversations[index].text = partial
             store.state.conversations[index].evidence = uniqueEvidence
             store.state.conversations[index].readingDocument = pendingDocument
-            store.save()
+            store.state.conversations[index].themeBinding = pendingThemeBinding
+            store.state.conversations[index].themeAction = pendingThemeAction
+            store.state.conversations[index].themeReply = pendingThemeReply
+            do { try store.saveThrowing() }
+            catch { store.state.conversations[index] = previous; throw error }
             partial = ""
             return id
         }
         var entry = ConversationEntry(role: "assistant", text: partial)
         entry.evidence = uniqueEvidence
         entry.readingDocument = pendingDocument
+        entry.themeBinding = pendingThemeBinding
+        entry.themeAction = pendingThemeAction
+        entry.themeReply = pendingThemeReply
         store.state.conversations.append(entry)
-        store.save()
+        do { try store.saveThrowing() }
+        catch { store.state.conversations.removeAll { $0.id == entry.id }; throw error }
         partial = ""
         return entry.id
     }
 
-    private static func checkScope(_ store: AppStore, revision: UUID, birth: BirthProfile?) throws {
-        guard store.scopeRevision == revision, store.state.birth == birth else { throw CancellationError() }
+    private static func checkScope(_ store: AppStore, revision: UUID, birthRevision: UUID, birth: BirthProfile?) throws {
+        guard store.scopeRevision == revision, store.birthRevision == birthRevision, store.state.birth == birth else { throw CancellationError() }
     }
 
     private static func unique(_ values: [String]) -> [String] {

@@ -79,9 +79,28 @@ final class ReadingDocumentTests: XCTestCase {
 
     func testDirectPersonalQuestionsNeedNoHistoricalAuthority() throws {
         let f = try fixture()
-        for (question, expected) in [("我的扶抑用神是什么？", ReadingDocument.Focus.strength), ("我的八字格局怎么看？", .pattern), ("我的调候用神呢？", .climate), ("命盘五行生克关系怎么看？", .relations)] {
+        for (question, expected) in [("那日主和月令之间是什么关系？", ReadingDocument.Focus.strength), ("我的扶抑用神是什么？", .strength), ("我的八字格局怎么看？", .pattern), ("我的调候用神呢？", .climate), ("命盘五行生克关系怎么看？", .relations)] {
             XCTAssertEqual(resolve(question, f, entries: []), expected)
         }
+    }
+
+    func testMonthRelationAnswerIncludesReturnedSeasonalBasisWithoutPromotingItToFullStrength() throws {
+        let f = try fixture()
+        let old = try XCTUnwrap(f.receipts.first)
+        var root = try JSONSerialization.jsonObject(with: Data(old.output.utf8)) as! [String: Any]
+        var bazi = root["bazi"] as! [String: Any]
+        bazi["structureReference"] = ["yueLingState": "相", "evidence": ["basis": "engineering-heuristic", "monthMethod": "month-branch-main-qi", "monthBranch": "申", "monthMainQi": "庚", "monthMainElement": "金", "monthRelation": "resource"]]
+        root["bazi"] = bazi
+        let output = String(decoding: try JSONSerialization.data(withJSONObject: root), as: UTF8.self)
+        let receipt = ToolReceipt(callID: old.callID, name: old.name, arguments: old.arguments, output: output, context: f.context)
+        let catalog = try XCTUnwrap(BaziFrameworkReading.catalog(receipts: [receipt], context: f.context))
+        let answer = BaziFrameworkReading.render(selection: nil, catalog: catalog, focus: .strength)
+        XCTAssertTrue(answer.text.contains("月支申"))
+        XCTAssertTrue(answer.text.contains("本气庚金"))
+        XCTAssertTrue(answer.text.contains("生我"))
+        XCTAssertTrue(answer.text.contains("未按月内司令"))
+        XCTAssertFalse(answer.text.contains("得令所以身强"))
+        XCTAssertTrue(ReadingDocument(catalog: catalog, answer: answer, sourceUserID: f.source.id, focus: .strength).isValid)
     }
 
     func testTopicSwitchesAndRefusalsDoNotInheritBaziExplanation() throws {

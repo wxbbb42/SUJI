@@ -17,6 +17,20 @@ final class ReadingVerifierTests: XCTestCase {
             XCTAssertFalse(ReadingIntent.allowsQimen(discussion),discussion)
         }
     }
+    func testExplicitSingleQimenIntentDoesNotExposeUnrequestedNatalTools() throws {
+        let data = Data(#"[{"function":{"name":"get_domain","description":"natal","parameters":{}}},{"function":{"name":"get_today_context","description":"today","parameters":{}}},{"function":{"name":"setup_qimen","description":"qimen","parameters":{}}}]"#.utf8)
+        for question in ["用奇门起局分析这次求职面试", "用奇门看一下我这段感情能否继续"] {
+            let definitions = try ReadingIntent.definitions(from: data, mode: "命理", question: question, hasBirth: true)
+            XCTAssertEqual(definitions.map(\.name), ["setup_qimen"])
+            XCTAssertTrue(QimenReferenceReading.isExclusiveRequest(definitions: definitions, question: question))
+        }
+        for question in ["请用八字和奇门分别分析这次求职", "我今天适合面试吗", "不要用奇门，看看事业", "什么是奇门"] {
+            let definitions = try ReadingIntent.definitions(from: data, mode: "命理", question: question, hasBirth: true)
+            XCTAssertTrue(definitions.contains { $0.name == "get_domain" })
+            XCTAssertFalse(QimenReferenceReading.isExclusiveRequest(definitions: definitions, question: question))
+        }
+    }
+
     private let accepted = #"{"protocolVersion":"suji-verification-2","accepted":true,"reviewedSentences":[1],"issues":[]}"#
     private var history: [ChatMessage] {
         [ChatMessage(role: .system, content: "出生资料已提供"),
@@ -65,6 +79,38 @@ final class ReadingVerifierTests: XCTestCase {
                 XCTFail(value)
             } catch { XCTAssertTrue(error is ReadingVerifier.Rejected) }
         }
+    }
+
+    func testInvalidReviewerCanOnlyRecoverThroughAFreshFullyCheckedDraft() async throws {
+        var calls = 0
+        let poisoned = "UNTRUSTED_REVIEW_INSTRUCTION"
+        let result = try await ReadingVerifier.verify(draft: "仍为癸卯", history: history, question: "当前年柱") { messages in
+            calls += 1
+            if calls <= 2 { return .text(poisoned) }
+            if calls == 3 {
+                XCTAssertTrue(messages.last?.content?.hasPrefix(ReadingVerifier.revision) == true)
+                XCTAssertFalse(messages.contains { $0.content?.contains(poisoned) == true })
+                XCTAssertEqual(messages.filter { $0.role == .tool }, self.history.filter { $0.role == .tool })
+                return .text("当前年柱为癸卯")
+            }
+            XCTAssertTrue(messages.last?.content?.contains("当前年柱为癸卯") == true)
+            return .text(self.accepted)
+        }
+        XCTAssertEqual(result, "当前年柱为癸卯")
+        XCTAssertEqual(calls, 4)
+    }
+
+    func testInvalidReviewRecoveryIsBoundedAndStillFailsClosed() async {
+        var calls = 0
+        do {
+            _ = try await ReadingVerifier.verify(draft: "仍为癸卯", history: history, question: "当前年柱") { _ in
+                calls += 1
+                return .text(calls == 3 ? "当前年柱为癸卯" : "invalid verdict")
+            }
+            XCTFail("Neither draft may be accepted without a valid review")
+        } catch let error as ReadingVerifier.Rejected { XCTAssertEqual(error.reason, "invalid_verdict") }
+        catch { XCTFail("Unexpected error: \(error)") }
+        XCTAssertEqual(calls, 5)
     }
 
     func testOnlyCurrentToolMessagesAreEvidenceAndQuestionIsExplicit() {

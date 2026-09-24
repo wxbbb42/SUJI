@@ -7,11 +7,16 @@ public enum ReadingIntent {
             let function: Function
         }
         let qimenRequested = allowsQimen(question)
+        // A named, single-method request has the same capability set in both
+        // tabs. Otherwise having a natal profile accidentally selects free-form
+        // multi-system writing instead of the existing checked Qimen renderer.
+        let singleQimen = qimenRequested && !["八字", "四柱", "紫微", "紫薇", "六爻", "七政", "星宿", "占星"].contains(where: question.contains)
         return try JSONDecoder().decode([Definition].self, from: data).compactMap { item in
             let f = item.function
             guard ToolOrchestrator.allowedToolNames.contains(f.name) else { return nil }
             let allowed: Bool
             if f.name == "setup_qimen" { allowed = qimenRequested }
+            else if singleQimen { allowed = false }
             else if mode == "起卦" { allowed = f.name == "cast_liuyao" && (!qimenRequested || requestsMethod(question, method: "六爻", other: "奇门")) }
             else { allowed = hasBirth && f.name != "cast_liuyao" }
             return allowed ? ChatToolDefinition(name: f.name, description: f.description, parameters: f.parameters) : nil

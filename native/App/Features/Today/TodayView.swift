@@ -92,6 +92,14 @@ struct TodayView: View {
                         ritualAction
                             .padding(.top, 25)
 
+                        Button(action: onHistory) {
+                            Label("近七天回顾", systemImage: "clock.arrow.circlepath")
+                                .frame(maxWidth: .infinity, minHeight: 44).contentShape(Rectangle())
+                        }
+                            .font(.subheadline).foregroundStyle(SujiTheme.ink)
+                            .padding(.top, 12)
+                            .accessibilityIdentifier("ritual.history")
+
                         Text("本地编辑 · 每日一签")
                             .font(.caption2)
                             .tracking(1)
@@ -123,15 +131,7 @@ struct TodayView: View {
                         .foregroundStyle(SujiTheme.ink)
                         .accessibilityAddTraits(.isHeader)
                 }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: onHistory) {
-                        Image(systemName: "clock.arrow.circlepath")
-                            .font(.system(size: 18, weight: .regular))
-                            .frame(minWidth: 44, minHeight: 44)
-                    }
-                    .accessibilityLabel("近七天回顾")
-                    .accessibilityIdentifier("ritual.history")
-                }
+                ToolbarItem(placement: .topBarTrailing) { NotebookProfileButton() }
             }
             .navigationBarTitleDisplayMode(.inline)
             .tint(SujiTheme.ink)

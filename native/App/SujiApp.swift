@@ -56,29 +56,47 @@ struct RootView: View {
     @State private var sheet: RootSheet?
     @State private var notificationRoute = NotificationRoute.shared
     @State private var initialized = false
-    var body: some View {
+    @State private var keyboardVisible = false
+    @State private var themeNavigation = NotebookThemeNavigation()
+    @State private var admittedScopeRevision: UUID?
+#if DEBUG
+    @State private var observedDossierGap = false
+#endif
+    private var accountContent: some View {
         Group {
-            if !initialized {
+            if notebookReady {
+                mainTabs.id(store.scopeRevision)
+            } else if !initialized {
                 ProgressView("正在打开你的册页…")
-            } else if notebookFixture {
-                mainTabs
-            } else if !store.isSignedIn {
+            } else if !notebookAccountAvailable {
                 NavigationStack { AccountView(session: store.accountSession, onboarding: true) }
             } else if store.preparingAccount {
                 ProgressView("正在读取你的资料…")
             } else if store.state.birth == nil {
                 BirthEditor(existing: nil, required: true) { birth in try await store.updateBirth(birth) }
-            } else if !store.hasNatalDossier {
-                DossierSetupView()
-            } else {
-                mainTabs
-            }
+            } else { DossierSetupView() }
         }
+    }
+    private var presentedContent: some View {
+        accountContent
         .background(SujiTheme.paper)
         .sheet(item: $sheet) { item in sheetContent(item) }
+        .environment(\.notebookThemeNavigation, themeNavigation)
+        .environment(\.openNotebookTheme, { binding, title, prompt in
+            themeNavigation.stage(binding, title: title, prompt: prompt)
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            sheet = nil; store.selectedTab = 1
+        })
+        .environment(\.returnNotebookTheme, {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            sheet = .themeReport
+        })
         .alert("请留意", isPresented: Binding(get: { store.error != nil }, set: { if !$0 { store.error = nil } })) {
             Button("知道了", role: .cancel) { store.error = nil }
         } message: { Text(store.error ?? "") }
+    }
+    private var accountLifecycleContent: some View {
+        presentedContent
         .onChange(of: store.state.appearance, initial: true) { _, value in SujiTheme.appearance.name = value }
         .task {
             consumePendingNotificationRoute()
@@ -89,10 +107,30 @@ struct RootView: View {
             await ReminderService.shared.refreshFromSavedPreferences()
         }
         .task(id: store.scopeKey) { await store.prepareAccount() }
+        .onChange(of: store.scopeKey) { _, _ in sheet = nil }
+        .onChange(of: store.scopeRevision) { _, _ in
+            themeNavigation.resetAccount(); admittedScopeRevision = nil
+#if DEBUG
+            observedDossierGap = false
+#endif
+        }
+        .onChange(of: store.birthRevision) { _, _ in themeNavigation.invalidateBirth() }
+        .onChange(of: store.hasNatalDossier) { _, ready in
+#if DEBUG
+            // Observe the real invalidation interval; do not manufacture a
+            // failed dossier or delay the engine to make this UI test pass.
+            if gatedNotebookFixture && admittedScopeRevision == store.scopeRevision && !ready {
+                observedDossierGap = true
+            }
+#endif
+        }
         .onChange(of: store.isSignedIn) { _, signedIn in
             sheet = nil
             if signedIn { Task { await store.prepareAccount() } }
         }
+    }
+    var body: some View {
+        accountLifecycleContent
         .onChange(of: phase) { _, value in if value == .active { Task { await store.refresh(); await store.syncBirthProfile(); await ReminderService.shared.refreshFromSavedPreferences() } } }
         .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in Task { await store.refresh() } }
         .onReceive(NotificationCenter.default.publisher(for: .NSSystemTimeZoneDidChange)) { _ in Task { await store.refresh() } }
@@ -110,18 +148,96 @@ struct RootView: View {
         false
 #endif
     }
+    /// UI fixtures replace authentication only. Birth entry, the actual local
+    /// engine and dossier readiness use exactly the production admission path.
+    private var gatedNotebookFixture: Bool {
+#if DEBUG
+        ProcessInfo.processInfo.arguments.contains("--ui-testing") && ProcessInfo.processInfo.arguments.contains("--notebook-gated-fixture")
+#else
+        false
+#endif
+    }
+    private var notebookAccountAvailable: Bool { store.isSignedIn || gatedNotebookFixture }
+    private var notebookReady: Bool {
+        guard initialized else { return false }
+        if notebookFixture { return true }
+        guard notebookAccountAvailable else { return false }
+        // An admitted notebook keeps its SwiftUI identity during birth rebuilds.
+        // Account/import scope changes still require admission afresh.
+        return admittedScopeRevision == store.scopeRevision
+            || (!store.preparingAccount && store.state.birth != nil && store.hasNatalDossier)
+    }
     @ViewBuilder private var mainTabs: some View {
         @Bindable var store = store
-        TabView(selection: $store.selectedTab) {
-            TodayView(date: store.today, lunarDate: store.calendarInfo?["lunarDate"].text ?? "", ganZhi: store.calendarInfo?["ganZhi"].text ?? "", solarTerm: store.calendarInfo?["solarTerm"].text ?? "", quote: store.ritual?.quote ?? store.content.quote, action: store.ritual?.action ?? store.content.action, isRevealed: store.ritual != nil, onReveal: { store.revealToday() }, onJournal: { sheet = .journal }, onHistory: { sheet = .history }, onShare: { sheet = .share }, onReflect: { sheet = .reflection })
-                .tabItem { Label("今日", systemImage: "sun.horizon") }.tag(0)
-            ChatView().tabItem { Label("问道", systemImage: "bubble.left.and.text.bubble.right") }.tag(1)
-            CalmView().tabItem { Label("静心", systemImage: "water.waves") }.tag(2)
-            ProfileView().tabItem { Label("我的", systemImage: "person.crop.circle") }.tag(3)
+        // The tab content and our navigation occupy separate layout regions.
+        // Nested safe-area insets on TabView previously allowed the navigation
+        // background to cover the lower half of ChatView's composer.
+        VStack(spacing: 0) {
+            notebookStatus
+            TabView(selection: $store.selectedTab) {
+                TodayView(date: store.today, lunarDate: store.calendarInfo?["lunarDate"].text ?? "", ganZhi: store.calendarInfo?["ganZhi"].text ?? "", solarTerm: store.calendarInfo?["solarTerm"].text ?? "", quote: store.ritual?.quote ?? store.content.quote, action: store.ritual?.action ?? store.content.action, isRevealed: store.ritual != nil, onReveal: { store.revealToday() }, onJournal: { sheet = .journal }, onHistory: { sheet = .history }, onShare: { sheet = .share }, onReflect: { sheet = .reflection })
+                    .toolbar(.hidden, for: .tabBar)
+                    .tabItem { Label("今日", systemImage: "sun.horizon") }.tag(0)
+                ChatView().toolbar(.hidden, for: .tabBar)
+                    .tabItem { Label("问道", systemImage: "bubble.left.and.text.bubble.right") }.tag(1)
+                NavigationStack {
+                    CalmView().navigationBarTitleDisplayMode(.inline)
+                        .toolbar { ToolbarItem(placement: .topBarTrailing) { NotebookProfileButton() } }
+                }.toolbar(.hidden, for: .tabBar)
+                    .tabItem { Label("静心", systemImage: "water.waves") }.tag(2)
+            }
+            .toolbar(.hidden, for: .tabBar)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            if !keyboardVisible {
+                NotebookTabBar(selection: $store.selectedTab)
+            }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onAppear {
+            admittedScopeRevision = store.scopeRevision
+            if !(0...2).contains(store.selectedTab) { store.selectedTab = 0 }
+        }
+        .environment(\.openNotebookProfile, {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+            sheet = .profile
+        })
+        .environment(\.editNotebookBirth, { sheet = .birth })
+        // Let UIKit complete its keyboard safe-area transition before changing
+        // the sibling's layout. Changing this VStack during willShow/willHide
+        // can overlap the TabView's own keyboard animation transaction.
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidShowNotification)) { _ in keyboardVisible = true }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidHideNotification)) { _ in keyboardVisible = false }
+    }
+    @ViewBuilder private var notebookStatus: some View {
+            if !store.hasNatalDossier && !notebookFixture {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(store.buildingNatalDossier ? "正在更新本命档案，草稿仍在。" : "本命档案等待更新，已有对话和草稿仍在。")
+                        .font(.footnote).accessibilityIdentifier("notebook.rebuilding")
+                    if !store.buildingNatalDossier {
+                        Button("检查档案") { sheet = .dossierSetup }.font(.footnote).frame(minHeight: 44)
+                    }
+                }.padding(.horizontal, 20).padding(.vertical, 8)
+                    .frame(maxWidth: .infinity, alignment: .leading).background(SujiTheme.surface)
+            }
+#if DEBUG
+            if gatedNotebookFixture {
+                Text(observedDossierGap ? "合成验收 · 已观察到档案重建间隙" : "合成验收 · 仅跳过登录，仍检查档案")
+                    .font(.caption).dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+                    .frame(maxWidth: .infinity).padding(6).background(SujiTheme.surface)
+                    .accessibilityIdentifier(observedDossierGap ? "notebook.gate.observedGap" : "notebook.gate.active")
+            }
+#endif
     }
     @ViewBuilder private func sheetContent(_ item: RootSheet) -> some View {
             switch item {
+            case .profile: NotebookProfileSheet { sheet = nil }
+            case .themeReport: NotebookProfileSheet(startsAtTheme: true) { sheet = nil }
+            case .dossierSetup:
+                VStack(spacing: 0) {
+                    HStack { Spacer(); Button("关闭") { sheet = nil }.frame(minWidth: 44, minHeight: 44) }.padding(.horizontal, 20)
+                    DossierSetupView()
+                }.background(SujiTheme.paper)
+            case .birth: BirthEditor(existing: store.state.birth) { birth in try await store.updateBirth(birth) }
             case .journal: JournalComposer()
             case .history: RitualHistoryView()
             case .share: RitualShareView()
@@ -140,12 +256,16 @@ struct RootView: View {
     private func consumePendingNotificationRoute() {
         if notificationRoute.consumeToday() { openToday() }
     }
-    private func openToday() { sheet = nil; store.selectedTab = 0; Task { await store.refresh() } }
+    private func openToday() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        keyboardVisible = false; sheet = nil; store.selectedTab = 0
+        Task { await store.refresh() }
+    }
 }
 private enum RootSheet: Identifiable {
-    case journal, history, share, reflection, recovery(URL)
+    case profile, themeReport, dossierSetup, birth, journal, history, share, reflection, recovery(URL)
     var id: String {
-        switch self { case .journal: "journal"; case .history: "history"; case .share: "share"; case .reflection: "reflection"; case .recovery: "recovery" }
+        switch self { case .profile: "profile"; case .themeReport: "themeReport"; case .dossierSetup: "dossierSetup"; case .birth: "birth"; case .journal: "journal"; case .history: "history"; case .share: "share"; case .reflection: "reflection"; case .recovery: "recovery" }
     }
 }
 

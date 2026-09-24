@@ -4,6 +4,51 @@ import Foundation
 /// truth checker. Ambiguous wording requests another review; it cannot authorize
 /// a rewrite. In particular, values from adjacent fields are not interchangeable.
 enum ReadingVerificationAssertions {
+    /// Keep limitations local to the actual product and current request. A
+    /// missing interpretation is not a failed calculation or proof that an
+    /// entire tradition has no relevant method.
+    static func responseContractIssues(_ draft: String, history: [ChatMessage]) -> [String] {
+        guard history.first(where: { $0.role == .system })?.content?.contains("本次方式：命理") == true else { return [] }
+        var issues: [String] = []
+        let results = history.enumerated().compactMap { index, message -> [String: JSONValue]? in
+            guard message.role == .tool,
+                  case let .object(value) = ToolOutputWire.decode(message, history: Array(history.prefix(index))) else { return nil }
+            return value
+        }
+        let hasFacts = results.contains { !$0.isEmpty && ($0["error"] == nil || $0["error"] == .null) }
+        let hasFailure = results.contains { $0["error"] != nil && $0["error"] != .null }
+        let financialQuestion = has(history.last(where: { $0.role == .user })?.content ?? "", "股票|证券|投资|收益|回报|赚多少")
+        for sentence in ReadingVerificationEvidence.sentences(draft) where !conditional(sentence) {
+            let localScope = has(sentence, "本次|当前|目前|这套|工具|本产品|尚未")
+            // A generic disclaimer does not negate an earlier chart-based
+            // portfolio recommendation. Check affirmative clauses separately.
+            if has(sentence, "命盘|盘面|看盘|八字|紫微|流年|大运"),
+               !has(sentence, "与命盘无关|不依据命盘|不由命盘决定"),
+               clauses(sentence).contains(where: { clause in
+                   !denied(clause) && has(clause, "重仓|仓位|减仓|加仓|押注|股票|证券|投资|收益|回报|赚钱|亏钱")
+                       && has(clause, "指向|意味着|显示|适合|不宜|不利|有利|提示|应该|建议|容易|最好|会")
+               }) {
+                issues.append("不能由命盘、流年或星曜给出股票波动、仓位、加减仓或投资回报建议；保留实际财星与时间层事实，投资安排仅依据现实财务资料。笼统的不保证或仅供参考不能消除前面的盘面推断。")
+            }
+            if financialQuestion, has(sentence, "命盘|盘面|八字|紫微|流年|大运|财星|格局"),
+               !has(sentence, "与命盘无关|不依据命盘|不由命盘决定"),
+               clauses(sentence).contains(where: { !denied($0) && has($0, "有机会|伴随.{0,6}波动|兼顾波动|波动偏大|平稳躺赚") }) {
+                issues.append("本题询问投资；不能把财星、格局或流年标签转换成投资机会、波动或获利类型，即使没有给出金额。保留原始对应及明确缺项，现实财务建议与盘面分开。")
+            }
+            if (!localScope && has(sentence, "(命理|命盘|八字|紫微|传统).{0,14}(没有一条|没有任何|不存在任何).{0,8}(规则|方法)"))
+                || has(sentence, "谁.{0,16}(报|给|说).{0,16}(岁数|年龄|年份).{0,20}(都是编|都是骗)") {
+                issues.append("把局限准确限定为本次工具和已实现规则的覆盖范围，不断言整个命理传统没有这种方法或其他解读都是编造。解释当前已有的对应、宫位与时间层，不编造尚未返回的应期。")
+            }
+            if has(sentence, "那才是有用的|比(看星|看盘|算命|命理).{0,5}(有用|靠谱)|这对你没好处") {
+                issues.append("尊重用户主动选择的命理解读，不评价这个兴趣无用。直接解释与问题有关的依据，具体说明尚缺的判断条件；不要用生活建议代替全部分析。")
+            }
+            if hasFacts && !hasFailure && has(sentence, "(这轮|本轮|本次|这次).{0,16}(读取不稳定|没有取得.{0,8}盘面|没有可用.{0,8}盘面)|得等.{0,6}取数稳定") {
+                issues.append("本轮已有成功工具结果且没有工具错误。不得沿用历史故障说法称本轮读取不稳定或没有盘面；若缺的是解释或应期规则，请明确那项覆盖范围。")
+            }
+        }
+        return Array(Set(issues)).sorted()
+    }
+
     static func has(_ text: String, _ pattern: String) -> Bool {
         text.range(of: pattern, options: .regularExpression) != nil
     }

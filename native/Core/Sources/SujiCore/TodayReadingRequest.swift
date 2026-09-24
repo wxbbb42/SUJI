@@ -1,6 +1,6 @@
 import Foundation
 
-/// Deterministic fact acquisition for a small set of explicit, general today questions.
+/// Deterministic fact acquisition for explicit general and single-activity today questions.
 /// This selects the existing tool; the engine and ordinary writer retain their contracts.
 public enum TodayReadingRequest {
     public static func applies(question: String, mode: String) -> Bool {
@@ -16,9 +16,20 @@ public enum TodayReadingRequest {
         let chinesePattern = #"\A(?:请问[，,]?)?(?:(?:今天|今日)(?:我)?|我(?:今天|今日))(?:适合|应该|该|可以)(?:(?:做|干)(?:点)?什么|干嘛)(?:呢|呀|啊)?[？?！!。.]*\z"#
         let advicePattern = #"\A(?:请问[，,]?)?(?:今天|今日)(?:有什么建议|(?:需要|应该|该)注意什么|有什么需要注意的)(?:吗|呢)?[？?！!。.]*\z"#
         let englishPattern = #"\A(?:please[,]? )?(?:what (?:should|can) i do today|what should i focus on today|what is today good for|what (?:is|would be) good (?:for me )?to do today|(?:any )?(?:advice|suggestions) for today|how should i spend today)(?:,? please)?\s*[?!.]*\z"#
-        return chinese.range(of: chinesePattern, options: .regularExpression) != nil
+        let general = chinese.range(of: chinesePattern, options: .regularExpression) != nil
             || chinese.range(of: advicePattern, options: .regularExpression) != nil
             || english.range(of: englishPattern, options: .regularExpression) != nil
+        if general { return true }
+        // Acquire calendar facts for an ordinary activity without pretending the
+        // calendar decides its outcome. Other dates, requested methods, refusals
+        // and relationship/financial topics keep the ordinary domain planner.
+        let otherScope = #"明天|后天|昨天|明年|去年|下周|下个月|[0-9]{4}年|八字|紫微|紫薇|六爻|奇门|奇門|起卦|排盘|命盘|命理|投资|结婚|婚姻|备孕|孩子|子女|流年|大运|不看|不算|不用|不要计算|tomorrow|yesterday|next |last |qimen|liuyao|bazi|ziwei|chart|astrology|without"#
+        guard question.lowercased().range(of: otherScope, options: .regularExpression) == nil,
+              !chinese.contains("什么"), !chinese.contains("干嘛") else { return false }
+        let activity = #"\A(?:请问[，,]?)?(?:(?:今天|今日)(?:我)?|我(?:今天|今日))(?:适合|适不适合|可以|能不能|能|该不该|要不要|应该)[^，,。；;！？?!“”‘’\"\n]{1,60}?(?:吗|么|呢)?[？?。！!]*\z"#
+        let englishActivity = #"\A(?:please[,]? )?(?:can|should|may) i [a-z\p{L}0-9 '\-]{1,100} today\s*[?!.]*\z"#
+        return chinese.range(of: activity, options: .regularExpression) != nil
+            || english.range(of: englishActivity, options: .regularExpression) != nil
     }
 
     /// Callers replay matching cached receipts into the writer's history, as for

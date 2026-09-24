@@ -186,7 +186,14 @@ final class StoreRegressionTests: XCTestCase {
         let oldUpdate = Task { try await store.updateBirth(oldBirth) }
         await waitUntilComputing(store)
         try await store.updateBirth(newBirth)
-        try await oldUpdate.value
+        do {
+            try await oldUpdate.value
+            XCTFail("The superseded birth update must finish as cancelled, not authorize a stale generation")
+        } catch is CancellationError {
+            // The replacement was saved; the older caller must not report success.
+        } catch {
+            XCTFail("Expected stale-generation cancellation, got \(error)")
+        }
 
         XCTAssertEqual(store.state.birth, newBirth)
         XCTAssertEqual(store.profile?["marker"].text, "new")

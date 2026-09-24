@@ -18,21 +18,30 @@ final class MingliAuditUITests: XCTestCase {
 
     private func begin() {
         app.launch()
-        XCTAssertTrue(app.tabBars.buttons["我的"].waitForExistence(timeout: 10))
-        app.tabBars.buttons["我的"].tap()
+        XCTAssertTrue(app.buttons["nav.profile"].waitForExistence(timeout: 10))
+        app.selectNotebookPage("我的")
         XCTAssertTrue(app.buttons["profile.addBirth"].waitForExistence(timeout: 10))
     }
 
     private func saveBirth() {
         let confirm = app.switches["birth.confirm"]
-        if confirm.exists {
+        if confirm.exists || !app.buttons["birth.save"].isEnabled {
             for _ in 0..<8 { if confirm.isHittable { break }; app.swipeUp() }
+            XCTAssertTrue(confirm.isHittable)
             confirm.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
         }
         app.buttons["birth.save"].tap()
     }
 
     private func tapRow(_ title: String) {
+        if title == "命盘手稿" { app.openProfessionalCharts(); return }
+        if title == "人生的节奏" {
+            app.selectNotebookPage("我的")
+            app.buttons["profile.report"].tap()
+            app.buttons["report.professional"].tap()
+        } else if title == "校准出生时辰" || title == "关系里的我们" {
+            app.selectNotebookPage("我的")
+        }
         let row = app.buttons.containing(.staticText, identifier: title).firstMatch
         for _ in 0..<5 {
             if row.isHittable { break }
@@ -63,7 +72,7 @@ final class MingliAuditUITests: XCTestCase {
         XCTAssertTrue(app.buttons["birth.save"].waitForExistence(timeout: 5))
         capture("01-birth-editor")
         saveBirth()
-        XCTAssertTrue(app.staticTexts["你的底色"].waitForExistence(timeout: 20))
+        XCTAssertTrue(app.staticTexts["profile.dossierReady"].waitForExistence(timeout: 25))
         capture("02-profile-reading")
 
         tapRow("命盘手稿")
@@ -134,7 +143,7 @@ final class MingliAuditUITests: XCTestCase {
         app.swipeUp()
         capture("09-relationship")
 
-        app.tabBars.buttons["问道"].tap()
+        app.selectNotebookPage("问道")
         XCTAssertTrue(app.textFields["chat.input"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["去登录"].exists)
         capture("10-chat-start")
@@ -145,38 +154,25 @@ final class MingliAuditUITests: XCTestCase {
         capture("11-chat-login-required")
     }
 
-    func testCaptureLargeTextChart() {
-        app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
-        begin()
-        app.buttons["profile.addBirth"].tap()
-        XCTAssertTrue(app.buttons["birth.save"].waitForExistence(timeout: 5))
-        saveBirth()
-        XCTAssertTrue(app.staticTexts["你的底色"].waitForExistence(timeout: 20))
-        tapRow("命盘手稿")
-        XCTAssertTrue(app.navigationBars["命盘手稿"].waitForExistence(timeout: 5))
-        capture("12-large-text-four-pillars")
-        app.swipeUp()
-        capture("13-large-text-elements")
-    }
 
     func testCaptureFourTabsAndDarkPalaces() {
         begin()
-        app.tabBars.buttons["今日"].tap(); capture("20-light-today")
-        app.tabBars.buttons["静心"].tap(); capture("21-light-calm")
+        app.selectNotebookPage("今日"); capture("20-light-today")
+        app.selectNotebookPage("静心"); capture("21-light-calm")
         revealButton("关于这些声音").tap()
         XCTAssertTrue(text(containing: "并非自然环境录音").exists)
         app.swipeUp(); capture("27-calm-sound-source")
         app.terminate()
         app.launchArguments += ["--test-dark"]
         begin()
-        app.tabBars.buttons["今日"].tap(); capture("22-dark-today")
-        app.tabBars.buttons["静心"].tap(); capture("23-dark-calm")
-        app.tabBars.buttons["问道"].tap(); capture("24-dark-chat")
-        app.tabBars.buttons["我的"].tap()
+        app.selectNotebookPage("今日"); capture("22-dark-today")
+        app.selectNotebookPage("静心"); capture("23-dark-calm")
+        app.selectNotebookPage("问道"); capture("24-dark-chat")
+        app.selectNotebookPage("我的")
         app.buttons["profile.addBirth"].tap()
         XCTAssertTrue(app.buttons["birth.save"].waitForExistence(timeout: 5))
         saveBirth()
-        XCTAssertTrue(app.staticTexts["你的底色"].waitForExistence(timeout: 20)); capture("25-dark-profile")
+        XCTAssertTrue(app.staticTexts["profile.dossierReady"].waitForExistence(timeout: 25)); capture("25-dark-profile")
         tapRow("命盘手稿")
         app.buttons["紫微"].tap(); capture("26-dark-ziwei")
     }

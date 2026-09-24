@@ -172,12 +172,28 @@ public enum BaziFrameworkReading {
         let strengthTrace = BaziStrengthTrace.make(pillars: value("/bazi/pillars", root)!, strength: value("/bazi/strengthReference", root)!, structure: value("/bazi/structureReference", root))
         // A supplied but inconsistent trace cannot be replaced by plausible prose.
         if value(s + "evidence", root) != nil && strengthTrace == nil { return nil }
-        let strengthText = strengthTrace.map { $0.summary + "参考用神为\(strengthElement.rawValue)。" + $0.footnote }
+        var strengthText = strengthTrace.map { $0.summary + "参考用神为\(strengthElement.rawValue)。" + $0.footnote }
             ?? "扶抑看日主强弱与扶助、制约的取向。本次工程启发式结果为\(strong ? "偏强" : "偏弱")，参考用神为\(strengthElement.rawValue)。这来自当前天干、藏干权重计数规则；该规则未纳入完整的月令、根气和全局配合，也未验证预测效力，仍是参考结果。"
-        let strengthPaths = [s + "suggestionBasis", s + "suggestionStatus", s + "riZhuStrong", s + "yongShen", s + "tiaohouApplied"]
+        var strengthPaths = [s + "suggestionBasis", s + "suggestionStatus", s + "riZhuStrong", s + "yongShen", s + "tiaohouApplied"]
             + (strengthTrace == nil ? [] : ["/bazi/pillars", "/bazi/strengthReference", "/bazi/structureReference"])
+        let monthBase = "/bazi/structureReference/evidence/"
+        var strengthRules = ["suji.fuyi-counting-v1"]
+        if string(monthBase + "monthMethod") == "month-branch-main-qi" {
+            guard string(monthBase + "basis") == "engineering-heuristic",
+                  let branch = string(monthBase + "monthBranch"), branch == string(p + "month/ganZhi/zhi"),
+                  let mainQi = string(monthBase + "monthMainQi"), let monthElement = element(monthBase + "monthMainElement"),
+                  stemElement(mainQi) == monthElement, let relation = string(monthBase + "monthRelation"),
+                  let state = string("/bazi/structureReference/yueLingState"), ["旺", "相", "休", "囚", "死"].contains(state) else { return nil }
+            let relations = ["peer": (monthElement == dayElement, "同类"), "resource": (monthElement.generates == dayElement, "生我"),
+                             "output": (dayElement.generates == monthElement, "我生"), "wealth": (dayElement.controls == monthElement, "我克"),
+                             "officer": (monthElement.controls == dayElement, "克我")]
+            guard let selected = relations[relation], selected.0 else { return nil }
+            strengthText += "\n\n月令本气参考：月支\(branch)，本气\(mainQi)\(monthElement.rawValue)，与日主\(dayStem)\(dayElement.rawValue)为“\(selected.1)”关系；本次月令五态记为“\(state)”。这是按月支本气的工程矩阵，未按月内司令变化细分，不能单凭得令就断整体身强；它和上面的固定权重计数是不同口径。"
+            strengthPaths += [monthBase + "basis", monthBase + "monthMethod", monthBase + "monthBranch", monthBase + "monthMainQi", monthBase + "monthMainElement", monthBase + "monthRelation", "/bazi/structureReference/yueLingState"]
+            strengthRules.append("suji.month-main-qi-v1")
+        }
         claims.append(Claim(id: "strength", qualification: .heuristic, text: strengthText,
-                            evidence: evidence(strengthPaths), ruleIDs: ["suji.fuyi-counting-v1"]))
+                            evidence: evidence(strengthPaths), ruleIDs: strengthRules))
 
         let trace = patternTrace(root: root)
         let conditionTrace = BaziPatternConditionTrace.make(root:root)
@@ -348,6 +364,7 @@ public enum BaziFrameworkReading {
     }
 
     private static let ruleSources = [
+        RuleSource(id: "suji.month-main-qi-v1", source: "native/Engine/src/bazi/structural.ts#computeRiZhuStructure", scope: "Returned month-branch main qi and relative element classification only; engineering matrix, not month-internal commander selection or complete strength adjudication."),
         RuleSource(id:"bazi.adjudicated-subsets-v1",source:"native/Engine/src/bazi/zhuanWangSources.ts; native/Engine/src/bazi/rescueSources.ts",scope:"Source-profile formation and locally checked combination-role limits bound to original pillars and civil birth context; no global rescue or outcome claim."),
         RuleSource(id:"bazi.pattern-conditions-v1",source:"native/Engine/src/bazi/patternSources.ts; native/Engine/src/bazi/structural.ts#computePatternConditions",scope:"Returned stem relations and constraints, with exact columns and source hashes; no adjudicated remedy efficacy or pattern success."),
         RuleSource(id: "suji.fuyi-counting-v1", source: "native/Engine/src/bazi/BaziEngine.ts#computeWuXingStrength", scope: "Current product counting heuristic; not a complete traditional strength calculation or an empirical prediction."),

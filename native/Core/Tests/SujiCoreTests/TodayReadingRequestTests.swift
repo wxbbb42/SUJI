@@ -32,6 +32,15 @@ final class TodayReadingRequestTests: XCTestCase {
         ] { XCTAssertTrue(TodayReadingRequest.applies(question: question, mode: "命理"), question) }
     }
 
+    func testConcreteTodayActivitiesAcquireFactsWithoutASecondInstructionToCalculate() {
+        for question in ["今天我适合拆宝可梦卡吗", "我今天适合拆卡吗？", "今天能不能拆一包卡？", "今天适不适合打游戏？", "请问，今天我可以出去散步吗？", "Can I open Pokemon cards today?", "Should I go for a walk today?"] {
+            XCTAssertTrue(TodayReadingRequest.applies(question: question, mode: "命理"), question)
+        }
+        for question in ["今天我适合拆卡吗，明天呢", "今天我适合拆卡吗？不要计算", "今天我适合用奇门看拆卡吗", "今天我适合拆卡吗？我的孩子几岁出生", "他说‘今天我适合拆卡吗’是什么意思", "今天我适合不看命盘只拆卡吗", "Can I open cards today without a chart?", "Should I plan tomorrow today?"] {
+            XCTAssertFalse(TodayReadingRequest.applies(question: question, mode: "命理"), question)
+        }
+    }
+
     func testEdgeControlsDoNotDefeatExplicitTodayQuestions() {
         for question in [
             "\u{8}What should I do today?", "\u{8}\t What should I do today? \u{0}\r\n",

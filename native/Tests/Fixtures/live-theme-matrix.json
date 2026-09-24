@@ -1,0 +1,138 @@
+{
+  "syntheticOnly": true,
+  "description": "8 synthetic scenarios. Maximum 24 real model requests for this stage. No real user data.",
+  "profiles": {
+    "both": {
+      "year": 1987,
+      "month": 2,
+      "day": 14,
+      "hour": 14,
+      "minute": 20,
+      "gender": "女",
+      "city": "明确合成主题测试",
+      "longitude": 120,
+      "timeZoneID": "Asia/Shanghai"
+    },
+    "mixed": {
+      "year": 1987,
+      "month": 1,
+      "day": 2,
+      "hour": 2,
+      "minute": 20,
+      "gender": "女",
+      "city": "明确合成主题测试",
+      "longitude": 120,
+      "timeZoneID": "Asia/Shanghai"
+    },
+    "missing": {
+      "year": 1987,
+      "month": 1,
+      "day": 5,
+      "hour": 2,
+      "minute": 20,
+      "gender": "女",
+      "city": "明确合成主题测试",
+      "longitude": 120,
+      "timeZoneID": "Asia/Shanghai"
+    }
+  },
+  "cases": [
+    {
+      "id": "T01",
+      "profile": "both",
+      "question": "这页为什么把表达与规则放在一起",
+      "turns": [
+        {
+          "kind": "followup",
+          "question": "举个具体例子，并问我一个能帮助继续练习的问题"
+        },
+        {
+          "kind": "answer-followup",
+          "question": "方法"
+        },
+        {
+          "kind": "followup",
+          "question": "昨天我和同事讨论规则时很难开口，练习怎么用"
+        },
+        {
+          "kind": "followup",
+          "question": "我从不主动表达不同意见，这不符合我"
+        }
+      ]
+    },
+    {
+      "id": "T02",
+      "profile": "mixed",
+      "question": "这页的透干与藏干有什么依据",
+      "turns": []
+    },
+    {
+      "id": "T03",
+      "profile": "both",
+      "question": "这页为什么这么说",
+      "turns": [
+        {
+          "kind": "stale-birth",
+          "question": "这页为什么这么说"
+        },
+        {
+          "kind": "refresh-theme",
+          "question": "这页为什么这么说"
+        }
+      ]
+    },
+    {
+      "id": "T04",
+      "profile": "both",
+      "question": "这页的表达与规则是什么意思",
+      "turns": [
+        {
+          "kind": "followup",
+          "question": "明年也这样吗"
+        }
+      ]
+    },
+    {
+      "id": "T05",
+      "profile": "both",
+      "question": "今年事业流年怎么看",
+      "turns": []
+    },
+    {
+      "id": "T06",
+      "profile": "both",
+      "question": "这页为什么这么说",
+      "turns": [
+        {
+          "kind": "followup",
+          "question": "那我姐姐呢"
+        },
+        {
+          "kind": "followup",
+          "question": "这样合适吗"
+        },
+        {
+          "kind": "followup",
+          "question": "这件事能成吗"
+        }
+      ]
+    },
+    {
+      "id": "T07",
+      "profile": "both",
+      "question": "这页为什么这么说",
+      "turns": [
+        {
+          "kind": "retry",
+          "question": "这页为什么这么说"
+        }
+      ]
+    },
+    {
+      "id": "T08",
+      "profile": "missing",
+      "question": "这页为什么没有采用表达与规则的组合解读",
+      "turns": []
+    }
+  ]
+}
