@@ -104,6 +104,31 @@ final class BaziThemeHandoffUITests: XCTestCase {
         let attachment = XCTAttachment(screenshot: app.screenshot())
         attachment.name = name; attachment.lifetime = .keepAlways; add(attachment)
     }
+    private func dismissKeyboardIfShown() {
+        // Fresh iOS 18 CI simulators show this system introduction when a
+        // suggestion focuses the composer without XCTest typing into it.
+        // It covers the keyboard toolbar; scrolling app content cannot close it.
+        let introduction = app.staticTexts.containing(
+            NSPredicate(format: "label CONTAINS %@", "Speed up your typing")).firstMatch
+        if introduction.waitForExistence(timeout: 2) {
+            let next = app.buttons["Continue"]
+            XCTAssertTrue(next.waitForExistence(timeout: 5) && next.isHittable)
+            next.tap()
+            let gone = XCTNSPredicateExpectation(
+                predicate: NSPredicate(format: "exists == false"), object: introduction)
+            XCTAssertEqual(XCTWaiter.wait(for: [gone], timeout: 5), .completed)
+        }
+        if app.keyboards.firstMatch.exists {
+            let dismiss = app.buttons["chat.dismissKeyboard"]
+            let ready = XCTNSPredicateExpectation(
+                predicate: NSPredicate(format: "exists == true AND hittable == true"), object: dismiss)
+            XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 5), .completed)
+            dismiss.tap()
+            let hidden = XCTNSPredicateExpectation(
+                predicate: NSPredicate(format: "exists == false"), object: app.keyboards.firstMatch)
+            XCTAssertEqual(XCTWaiter.wait(for: [hidden], timeout: 5), .completed)
+        }
+    }
     private func assertComposerDoesNotOverlapNavigation() {
         XCTAssertFalse(app.tabBars.firstMatch.exists, "The system tab bar must not duplicate the notebook navigation")
         let bar = app.otherElements["nav.bar"]
@@ -181,7 +206,7 @@ final class BaziThemeHandoffUITests: XCTestCase {
         XCTAssertTrue(input.waitForExistence(timeout: 10))
         XCTAssertFalse((input.value as? String ?? "").isEmpty)
         XCTAssertFalse(app.staticTexts["chat.failure"].exists, "Choosing a suggestion must not send it")
-        if app.buttons["chat.dismissKeyboard"].exists { tap("chat.dismissKeyboard") }
+        dismissKeyboardIfShown()
         capture("theme-06b-dark-filled-draft")
         tap("theme.pending.return")
         XCTAssertTrue(app.navigationBars["我的册页"].waitForExistence(timeout: 10))
@@ -235,7 +260,7 @@ final class BaziThemeHandoffUITests: XCTestCase {
         tap("theme.continue")
         XCTAssertTrue(app.buttons["theme.pending.cancel"].waitForExistence(timeout: 10))
         input.tap(); input.typeText("我现在只想聊一聊最近的心情")
-        if app.buttons["chat.dismissKeyboard"].exists { tap("chat.dismissKeyboard") }
+        dismissKeyboardIfShown()
         let mode = app.segmentedControls["chat.mode"]
         XCTAssertTrue(mode.waitForExistence(timeout: 10)); mode.buttons["倾诉"].tap()
         XCTAssertTrue(mode.buttons["倾诉"].isSelected)

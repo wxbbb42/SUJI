@@ -172,3 +172,13 @@ PR为[#9](https://github.com/wxbbb42/SUJI/pull/9)，[同提交PR CI](https://git
 针对该有证据的原因，仅给报告ScrollView补稳定标识，报告分支使用该ScrollView的原生swipeUp/swipeDown；聊天的可见范围手势保持原实现。新增滑动后仍在册页的断言及展开状态断言，保留正文/小例子/来源实际内容和显式选择问题的断言。不禁用报告按钮、不跳过功能、不伪造预展开状态。新复验仍需完成后读回，不将该修正预报为通过。
 
 报告原生滑动修后本机完整`BaziThemeHandoffUITests`：5项全部通过，215.0秒，xcodebuild退出0，记录`standard-scroll-native.log/.xcresult`。新CI须复验同样23项UI；本机通过不替代iOS 18结果。
+
+## iOS首次键盘说明挡住后续操作
+
+`3662b23f82195108c1737c1e1ec5a2384a5ae4f2`的[PR CI](https://github.com/wxbbb42/SUJI/actions/runs/35940006229)及[push CI](https://github.com/wxbbb42/SUJI/actions/runs/35940002534)仍为引擎/Core/hosted通过、23项UI中22通过/1失败。本次原生报告滑动已经通过，小例子展开/收起、来源引用/适用边界、进入问道、选择问题均实际走过。残余失败位于`chat.dismissKeyboard`，不能沿用“找不到theme.example”的旧定位。
+
+实际下载并查看PR失败录屏尾帧：iOS首次键盘说明覆盖了下方区域，显示“Speed up your typing by sliding your finger across the letters to compose a word.”与系统“Continue”。草稿已经填入且仍在问道；屏外键盘工具栏不是滚动报告能到达的内容。这是新模拟器首次键盘引导，不能通过关闭业务断言解决。
+
+测试新增有条件的系统说明处理：仅看到该特定说明时点Continue，并确认说明消失；键盘存在时等待真实工具栏可点击、收起后确认键盘消失。保留输入未发送、完整内容/依据与返回断言，不注入模型/键盘成功、不改变业务源码或模拟器全局设置。无系统说明的本机与有说明的CI分别验证，不能用本机无说明时通过来断言已覆盖新模拟器分支。
+
+系统说明处理修后，本机两个受影响用例（模式切换与深色完整往返）均通过，xcodebuild退出0；`keyboard-introduction.log/.xcresult`保留。本机已用过键盘，不代表CI首次使用分支已通过；最终合并继续等待同一iOS 18环境的完整23项UI。
