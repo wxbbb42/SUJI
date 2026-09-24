@@ -7,7 +7,7 @@ private extension NatalReportSystem {
     }
     var notebookCoverage: String {
         switch self {
-        case .bazi: "位置与关系"
+        case .bazi: "结构与局部配合"
         case .ziwei: "宫位与星曜"
         case .mansions: "月亮所处参照宿"
         case .qizheng: "排盘与安命说明"
@@ -66,6 +66,7 @@ struct NatalReadingReportView: View {
     @State private var expandedSources: Set<String> = []
     @State private var readingPositions: [NatalReportSystem: String] = [:]
     @State private var visiblePosition: String?
+    @State private var legacyThemeExpanded = false
     @AccessibilityFocusState private var sourceFocus: String?
     var focusTheme = false
     private var identity: NotebookReportIdentity { NotebookReportIdentity(store) }
@@ -81,13 +82,13 @@ struct NatalReadingReportView: View {
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView {
-                LazyVStack(alignment: .leading, spacing: 20) {
+                // The report is a bounded set of sections. Eager measurement
+                // keeps scroll-position restoration stable when a long section
+                // expands near the bottom; LazyVStack can repeatedly re-estimate
+                // that geometry on iOS 26 and stall the main run loop.
+                VStack(alignment: .leading, spacing: 20) {
                     introduction.id("report.top")
                     systemPicker
-                    if let report = currentReport, report.system == .bazi,
-                       let theme = try? BaziLifeThemeCompiler.compile(report: report) {
-                        BaziLifeThemeCard(theme: theme).id("report.theme")
-                    }
                     NavigationLink { ProfessionalArchiveView(system: system) } label: {
                         HStack(spacing: 12) {
                             Text("专业档案").font(.subheadline.weight(.medium))
@@ -99,21 +100,44 @@ struct NatalReadingReportView: View {
                     if let report = currentReport {
                         reportSummary(report)
                         HStack(alignment: .firstTextBaseline) {
-                            Text("从这里读起").font(SujiTheme.serif(23, relativeTo: .title2))
+                            Text(report.system == .bazi ? "你的盘，分五步读" : "从这里读起").font(SujiTheme.serif(23, relativeTo: .title2))
                                 .accessibilityAddTraits(.isHeader)
                             Spacer(minLength: 8)
                             Menu {
-                                ForEach(report.entries) { entry in
+                                ForEach(primaryEntries(report)) { entry in
                                     Button(entry.title) { proxy.scrollTo(entry.id, anchor: .top) }
                                 }
-                            } label: { Label("位置目录", systemImage: "list.bullet").font(.subheadline).frame(minHeight: 44) }
+                            } label: { Label("阅读目录", systemImage: "list.bullet").font(.subheadline).frame(minHeight: 44) }
                         }
-                        ForEach(Array(report.entries.enumerated()), id: \.element.id) { index, entry in
-                            if index == 2 {
-                                Text("沿着位置继续读").font(SujiTheme.serif(23, relativeTo: .title2))
-                                    .accessibilityAddTraits(.isHeader).padding(.top, 12)
-                            }
+                        ForEach(primaryEntries(report)) { entry in
                             readingEntry(entry, report: report).id(entry.id)
+                        }
+                        if report.system == .bazi {
+                            DisclosureGroup("逐柱与藏干说明") {
+                                ForEach(report.entries.filter { !$0.id.hasPrefix("module.") }) { entry in
+                                    readingEntry(entry, report: report).id(entry.id)
+                                }
+                            }.font(.subheadline).accessibilityIdentifier("report.positions")
+                            if let theme = try? BaziLifeThemeCompiler.compile(report: report) {
+                                // Keep old conversations' return path without making this
+                                // paused experiment the structure of the personal report.
+                                VStack(alignment: .leading, spacing: 14) {
+                                    Button { legacyThemeExpanded.toggle() } label: {
+                                        HStack {
+                                            Text("表达与规则 · 早期专题")
+                                            Spacer()
+                                            Image(systemName: legacyThemeExpanded ? "chevron.down" : "chevron.right")
+                                                .accessibilityHidden(true)
+                                        }.frame(minHeight: 44).contentShape(Rectangle())
+                                    }.buttonStyle(.plain)
+                                        .accessibilityIdentifier("report.legacyTheme")
+                                        .accessibilityValue(legacyThemeExpanded ? "已展开" : "已收起")
+                                    // Conditionally mount the reading itself. A native
+                                    // DisclosureGroup inside the eager report retained
+                                    // stale AX hit regions after its content expanded.
+                                    if legacyThemeExpanded { BaziLifeThemeCard(theme: theme) }
+                                }.font(.subheadline).id("report.theme")
+                            }
                         }
                         Text("基础读盘无需等待 AI 回信，可随时回来看。")
                             .font(.footnote).foregroundStyle(SujiTheme.secondary).lineSpacing(5)
@@ -133,6 +157,7 @@ struct NatalReadingReportView: View {
             }
             .onChange(of: currentReport?.snapshotID) { _, snapshot in
                 if focusTheme && snapshot != nil && system == .bazi {
+                    legacyThemeExpanded = true
                     proxy.scrollTo("report.theme", anchor: .top)
                 }
             }
@@ -143,6 +168,10 @@ struct NatalReadingReportView: View {
         .task(id: NotebookReportTask(identity: identity, attempt: astronomyAttempt, enabled: system.usesAstronomy)) {
             if system.usesAstronomy { await loadAstronomy() }
         }
+    }
+
+    private func primaryEntries(_ report: NatalReadingReport) -> [NatalReadingReport.Entry] {
+        report.system == .bazi ? report.entries.filter { $0.id.hasPrefix("module.") } : report.entries
     }
 
     private var introduction: some View {
@@ -200,6 +229,15 @@ struct NatalReadingReportView: View {
             .accessibilityValue(expandedEntries.contains(entry.id) ? "已展开" : "已收起")
             .accessibilityIdentifier("report.entry." + entry.id)
             Text(entry.summary).font(.body).lineSpacing(6)
+            if !entry.diagram.isEmpty {
+                VStack(alignment: .leading, spacing: 10) {
+                    ForEach(Array(entry.diagram.enumerated()), id: \.offset) { _, row in
+                        Text(row).font(.subheadline.weight(.medium)).lineSpacing(5)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }.padding(16).frame(maxWidth: .infinity, alignment: .leading)
+                    .background(SujiTheme.surface, in: RoundedRectangle(cornerRadius: 12))
+            }
             // Meaning-changing conditions remain visible when the long reading is collapsed.
             Text(entry.boundary).font(.subheadline).foregroundStyle(SujiTheme.secondary).lineSpacing(5)
             if expandedEntries.contains(entry.id) {

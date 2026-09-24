@@ -56,7 +56,6 @@ struct RootView: View {
     @State private var sheet: RootSheet?
     @State private var notificationRoute = NotificationRoute.shared
     @State private var initialized = false
-    @State private var keyboardVisible = false
     @State private var themeNavigation = NotebookThemeNavigation()
     @State private var admittedScopeRevision: UUID?
 #if DEBUG
@@ -167,30 +166,36 @@ struct RootView: View {
         return admittedScopeRevision == store.scopeRevision
             || (!store.preparingAccount && store.state.birth != nil && store.hasNatalDossier)
     }
+    private var chatTabRole: TabRole? {
+#if compiler(>=6.4)
+        // Xcode 27 introduces this API; older CI toolchains still compile the
+        // standard native tab bar. Runtime availability alone is insufficient.
+        if #available(iOS 27.0, *) { return .prominent }
+#endif
+        return nil
+    }
     @ViewBuilder private var mainTabs: some View {
         @Bindable var store = store
-        // The tab content and our navigation occupy separate layout regions.
-        // Nested safe-area insets on TabView previously allowed the navigation
-        // background to cover the lower half of ChatView's composer.
+        // The system owns tab presentation, safe areas and keyboard transitions.
+        // On iOS 27, the prominent chat tab sits apart from home and calm.
+        // Earlier systems keep all three destinations in the native tab bar.
         VStack(spacing: 0) {
             notebookStatus
             TabView(selection: $store.selectedTab) {
-                TodayView(date: store.today, lunarDate: store.calendarInfo?["lunarDate"].text ?? "", ganZhi: store.calendarInfo?["ganZhi"].text ?? "", solarTerm: store.calendarInfo?["solarTerm"].text ?? "", quote: store.ritual?.quote ?? store.content.quote, action: store.ritual?.action ?? store.content.action, isRevealed: store.ritual != nil, onReveal: { store.revealToday() }, onJournal: { sheet = .journal }, onHistory: { sheet = .history }, onShare: { sheet = .share }, onReflect: { sheet = .reflection })
-                    .toolbar(.hidden, for: .tabBar)
-                    .tabItem { Label("今日", systemImage: "sun.horizon") }.tag(0)
-                ChatView().toolbar(.hidden, for: .tabBar)
-                    .tabItem { Label("问道", systemImage: "bubble.left.and.text.bubble.right") }.tag(1)
-                NavigationStack {
-                    CalmView().navigationBarTitleDisplayMode(.inline)
-                        .toolbar { ToolbarItem(placement: .topBarTrailing) { NotebookProfileButton() } }
-                }.toolbar(.hidden, for: .tabBar)
-                    .tabItem { Label("静心", systemImage: "water.waves") }.tag(2)
+                Tab("主页", systemImage: "sun.horizon", value: 0) {
+                    TodayView(date: store.today, lunarDate: store.calendarInfo?["lunarDate"].text ?? "", ganZhi: store.calendarInfo?["ganZhi"].text ?? "", solarTerm: store.calendarInfo?["solarTerm"].text ?? "", quote: store.ritual?.quote ?? store.content.quote, action: store.ritual?.action ?? store.content.action, isRevealed: store.ritual != nil, onReveal: { store.revealToday() }, onJournal: { sheet = .journal }, onHistory: { sheet = .history }, onShare: { sheet = .share }, onReflect: { sheet = .reflection })
+                }
+                Tab("静心", systemImage: "water.waves", value: 2) {
+                    NavigationStack {
+                        CalmView().navigationBarTitleDisplayMode(.inline)
+                            .toolbar { ToolbarItem(placement: .topBarTrailing) { NotebookProfileButton() } }
+                    }
+                }
+                Tab("问道", systemImage: "bubble.left.and.text.bubble.right", value: 1, role: chatTabRole) {
+                    ChatView()
+                }
             }
-            .toolbar(.hidden, for: .tabBar)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            if !keyboardVisible {
-                NotebookTabBar(selection: $store.selectedTab)
-            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onAppear {
@@ -202,11 +207,6 @@ struct RootView: View {
             sheet = .profile
         })
         .environment(\.editNotebookBirth, { sheet = .birth })
-        // Let UIKit complete its keyboard safe-area transition before changing
-        // the sibling's layout. Changing this VStack during willShow/willHide
-        // can overlap the TabView's own keyboard animation transaction.
-        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidShowNotification)) { _ in keyboardVisible = true }
-        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardDidHideNotification)) { _ in keyboardVisible = false }
     }
     @ViewBuilder private var notebookStatus: some View {
             if !store.hasNatalDossier && !notebookFixture {
@@ -258,7 +258,7 @@ struct RootView: View {
     }
     private func openToday() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-        keyboardVisible = false; sheet = nil; store.selectedTab = 0
+        sheet = nil; store.selectedTab = 0
         Task { await store.refresh() }
     }
 }

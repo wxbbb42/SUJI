@@ -6,7 +6,7 @@ import Foundation
 enum NatalReadingCatalog {
     typealias Entry = NatalReadingReport.Entry
     typealias Source = NatalReadingReport.Source
-    static let baziBoundary = "这页帮助你读懂四柱中的位置与关系。性格、事业与关系的综合解读仍待补充；十神名称和数量本身不代表人生结果。"
+    static let baziBoundary = "本页包含结构导读与已核对的局部配合。格局、强弱各有适用条件；完整个体综合解读仍待补齐。"
     static let ziweiBoundary = "这页帮助你读懂十二宫与星曜的联系。性格、事业与关系的综合解读仍待补充；传统象义需结合全盘条件理解。"
     static let baziRule = Source(id: "bazi-relations-v1", title: "十神与藏干的计算口径", locator: "BaziEngine.computeShiShen / CANG_GAN", note: "相对日干的五行与阴阳关系。藏干权重为工程约定，不是实测力量。", url: nil)
     static let baziText = Source(id: "yuanhai-shishen-v1", title: "《渊海子平》十神诸论", locator: "论伤官、论食神、论正财、正官论、论七杀、论印绶、论劫财", note: "Wikisource电子转录未与纸本逐字校勘；仅作术语解释，不抽取条件判词作人格结论。", url: "https://zh.wikisource.org/wiki/淵海子平")

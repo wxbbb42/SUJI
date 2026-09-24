@@ -20,6 +20,9 @@ public struct NatalReadingReport: Identifiable, Sendable, Equatable {
         public let reflection: String?
         public let evidence: [Evidence]
         public let sources: [Source]
+        /// Text-equivalent diagram rows, derived from the same bound facts.
+        /// Arrows express named relations, never unmeasured strength.
+        public var diagram: [String] = []
     }
     public let id: String
     public let system: NatalReportSystem
@@ -29,7 +32,7 @@ public struct NatalReadingReport: Identifiable, Sendable, Equatable {
 }
 
 public enum NatalReadingCompiler {
-    public static let contentVersion = "natal-structure-reading-2026-09-23-v1"
+    public static let contentVersion = "natal-module-reading-2026-09-24-v2"
     public static let adapterVersion = "natal-reading-adapter-v1"
 
     public static func natal(dossier: NatalDossier, ownerID: String, birth: BirthProfile, engineRevision: String, enginePayloadRevision: String) throws -> [NatalReadingReport] {
@@ -40,12 +43,13 @@ public enum NatalReadingCompiler {
             guard NatalAstronomyDossier.revision(enginePayloadRevision), chart.engineRevision == enginePayloadRevision else { throw EngineContract.Failure.invalid }
             try chart.validate(birth: birth)
             let evidence = try NatalReadingEvidence(dossier.payload)
-            let entries = [try NatalReadingCatalog.bazi(chart, evidence), try NatalReadingCatalog.ziwei(chart, evidence)]
+            let modules = try BaziReadableModules.make(chart, evidence)
+            let entries = [modules + (try NatalReadingCatalog.bazi(chart, evidence)), try NatalReadingCatalog.ziwei(chart, evidence)]
             let systems: [NatalReportSystem] = [.bazi, .ziwei]
-            let titles = ["八字：位置与关系", "紫微：宫位与星曜"]
+            let titles = ["读懂你的八字", "紫微：宫位与星曜"]
             let b = chart.mingPan, z = chart.ziweiPan
             let summaries = [
-                "以\(b.riZhu.gan)\(b.riZhu.wuXing)日干为参照，四柱为\(b.siZhu.all.map { $0.ganZhi.gan + $0.ganZhi.zhi }.joined(separator: "、"))。先分清天干与支藏，再看同类关系落在哪些位置。",
+                "\(b.riZhu.gan)\(b.riZhu.wuXing)日主 · \(b.siZhu.month.ganZhi.zhi)月\n" + modules[3].summary,
                 "命宫在\(z.mingGongPosition)，身宫在\(z.shenGongPosition)。从命宫开始读十二宫的实际星曜；空宫、同宫与生年四化分别说明。"
             ]
             return try systems.indices.map { i in

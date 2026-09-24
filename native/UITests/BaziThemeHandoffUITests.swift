@@ -12,7 +12,7 @@ final class BaziThemeHandoffUITests: XCTestCase {
         app.textFields["chat.input"].exists ? app.textFields["chat.input"] : app.textViews["chat.input"]
     }
     private func tap(_ id: String) {
-        let target = app.buttons[id]
+        let target = app.notebookNavigationButton(id)
         reveal(target)
         XCTAssertTrue(target.isHittable, id)
         target.tap()
@@ -99,6 +99,8 @@ final class BaziThemeHandoffUITests: XCTestCase {
         XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 10), .completed)
         report.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
         XCTAssertTrue(app.navigationBars["我的册页"].waitForExistence(timeout: 10))
+        // This earlier experiment is explicitly secondary to the system report.
+        tap("report.legacyTheme")
     }
     private func capture(_ name: String) {
         let attachment = XCTAttachment(screenshot: app.screenshot())
@@ -130,8 +132,8 @@ final class BaziThemeHandoffUITests: XCTestCase {
         }
     }
     private func assertComposerDoesNotOverlapNavigation() {
-        XCTAssertFalse(app.tabBars.firstMatch.exists, "The system tab bar must not duplicate the notebook navigation")
-        let bar = app.otherElements["nav.bar"]
+        let bar = app.tabBars.firstMatch
+        XCTAssertEqual(app.tabBars.count, 1, "Only the native tab bar owns navigation")
         let send = app.buttons["chat.send"]
         XCTAssertTrue(bar.waitForExistence(timeout: 5))
         XCTAssertTrue(input.exists && send.exists)
@@ -232,13 +234,13 @@ final class BaziThemeHandoffUITests: XCTestCase {
         app.launchArguments += ["--notebook-gated-fixture"]
         app.launch()
         XCTAssertTrue(app.navigationBars["建立你的档案"].waitForExistence(timeout: 15))
-        XCTAssertFalse(app.buttons["nav.chat"].exists)
+        XCTAssertFalse(app.notebookNavigationButton("nav.chat").exists)
         let confirm = app.switches["birth.confirm"]
         for _ in 0..<12 { if confirm.isHittable { break }; app.swipeUp() }
         XCTAssertTrue(confirm.isHittable)
         confirm.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
         tap("birth.save")
-        XCTAssertTrue(app.buttons["nav.chat"].waitForExistence(timeout: 30))
+        XCTAssertTrue(app.notebookNavigationButton("nav.chat").waitForExistence(timeout: 30))
         XCTAssertTrue(app.staticTexts["notebook.gate.active"].exists)
         tap("nav.chat")
         input.tap(); input.typeText("真实档案重建期间保留这段合成草稿")
