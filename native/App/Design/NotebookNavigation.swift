@@ -85,53 +85,6 @@ struct NotebookProfileButton: View {
     }
 }
 
-/// Three destinations share one selection. The separate capsule is still a tab,
-/// so opening 问道 never creates a new conversation or discards a draft.
-struct NotebookTabBar: View {
-    @Binding var selection: Int
-    @Environment(\.dynamicTypeSize) private var typeSize
-    var body: some View {
-        HStack(alignment: .center, spacing: 0) {
-            HStack(spacing: 4) {
-                destination("今日", symbol: "sun.horizon", tag: 0, identifier: "today")
-                destination("静心", symbol: "water.waves", tag: 2, identifier: "calm")
-            }
-            .padding(4)
-            .background(SujiTheme.surface, in: Capsule())
-            .overlay(Capsule().stroke(SujiTheme.line, lineWidth: 1))
-            Spacer(minLength: 12)
-            destination("问道", symbol: "bubble.left.and.text.bubble.right", tag: 1, identifier: "chat")
-                .padding(4)
-                .background(SujiTheme.surface, in: Capsule())
-                .overlay(Capsule().stroke(SujiTheme.line, lineWidth: 1))
-        }
-        .padding(.horizontal, typeSize.isAccessibilitySize ? 16 : 24).padding(.top, 8).padding(.bottom, 6)
-        .background(SujiTheme.paper)
-        .accessibilityElement(children: .contain)
-        .accessibilityIdentifier("nav.bar")
-    }
-    private func destination(_ title: String, symbol: String, tag: Int, identifier: String) -> some View {
-        Button { selection = tag } label: {
-            VStack(spacing: 4) {
-                Image(systemName: symbol).font(.system(size: 20, weight: .regular))
-                    .frame(width: 24, height: 24)
-                Text(title).font(.caption.weight(selection == tag ? .semibold : .regular))
-                    .fixedSize(horizontal: true, vertical: false)
-            }
-            .frame(minWidth: typeSize.isAccessibilitySize ? 60 : 56, minHeight: 44)
-            .padding(.horizontal, 4).padding(.vertical, 5)
-            .foregroundStyle(selection == tag ? SujiTheme.paper : SujiTheme.ink)
-            .background(selection == tag ? SujiTheme.ink : Color.clear, in: Capsule())
-            .contentShape(Capsule())
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel(title)
-        .accessibilityValue(selection == tag ? "当前页面" : "")
-        .accessibilityAddTraits(selection == tag ? [.isSelected] : [])
-        .accessibilityIdentifier("nav." + identifier)
-    }
-}
-
 /// The close action belongs to the presentation, outside its navigation path.
 /// It remains available even when a legacy chart pushes another detail page.
 struct NotebookProfileSheet: View {

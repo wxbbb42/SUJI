@@ -13,9 +13,21 @@ final class NatalReadingReportUITests: XCTestCase {
         XCTAssertTrue(app.buttons["nav.profile"].waitForExistence(timeout: 15))
     }
     private func tap(_ id: String) {
-        let button = app.buttons[id]
-        XCTAssertTrue(button.waitForExistence(timeout: 15), id)
-        for _ in 0..<9 { if button.isHittable { break }; app.swipeUp() }
+        let button = app.notebookNavigationButton(id)
+        if app.navigationBars["我的册页"].exists && id.hasPrefix("report.") {
+            // LazyVStack need not expose lower modules to AX before scrolling.
+            // Also keep the target's center below the overlaid navigation bar.
+            for _ in 0..<14 {
+                let top = app.navigationBars["我的册页"].frame.maxY + 4
+                if button.exists && button.isHittable && button.frame.minY >= top && button.frame.maxY <= app.frame.maxY - 34 { break }
+                let scroll = app.scrollViews["report.scroll"]
+                if button.exists && button.frame.midY < top { scroll.swipeDown(velocity: .slow) }
+                else { scroll.swipeUp(velocity: .slow) }
+            }
+        } else {
+            XCTAssertTrue(button.waitForExistence(timeout: 15), id)
+            for _ in 0..<9 { if button.isHittable { break }; app.swipeUp() }
+        }
         XCTAssertTrue(button.isHittable, id); button.tap()
     }
     private func createSyntheticDossier() {
@@ -49,6 +61,35 @@ final class NatalReadingReportUITests: XCTestCase {
     }
     private func capture(_ name: String) {
         let a = XCTAttachment(screenshot: app.screenshot()); a.name = name; a.lifetime = .keepAlways; add(a)
+    }
+    func testSystemTabBarOwnsNavigationAndKeepsDraft() {
+        launch(); capture("native-tabs-before-interaction")
+        let bar = app.tabBars.firstMatch
+        XCTAssertTrue(bar.waitForExistence(timeout: 5), "Navigation must use the system tab bar")
+        XCTAssertEqual(bar.buttons.count, 3)
+        let home = bar.buttons["主页"], calm = bar.buttons["静心"], chat = bar.buttons["问道"]
+        XCTAssertTrue(home.exists && calm.exists && chat.exists)
+        XCTAssertLessThan(home.frame.midX, calm.frame.midX)
+        XCTAssertLessThan(calm.frame.midX, chat.frame.midX)
+#if compiler(>=6.4)
+        if #available(iOS 27.0, *) {
+            let groupGap = calm.frame.minX - home.frame.maxX
+            let prominentGap = chat.frame.minX - calm.frame.maxX
+            XCTAssertGreaterThan(prominentGap, groupGap + 24, "Chat must be visually separate from the home/calm group")
+        }
+#endif
+        bar.buttons["问道"].tap()
+        let input = app.textFields["chat.input"].exists ? app.textFields["chat.input"] : app.textViews["chat.input"]
+        XCTAssertTrue(input.waitForExistence(timeout: 8))
+        input.tap(); input.typeText("保留原生导航切换前的草稿")
+        // Opening and closing Profile dismisses the keyboard without modifying
+        // the draft, using the same route as the person using the app.
+        tap("nav.profile"); tap("profile.close")
+        XCTAssertTrue(bar.buttons["静心"].waitForExistence(timeout: 5))
+        bar.buttons["静心"].tap(); bar.buttons["问道"].tap()
+        XCTAssertEqual(input.value as? String, "保留原生导航切换前的草稿")
+        XCTAssertLessThanOrEqual(input.frame.maxY, bar.frame.minY + 1)
+        capture("native-tabs-draft-return")
     }
     func testProfileReportAndProfessionalReturnPreserveChatDraft() {
         launch(); capture("report-01-shell")
@@ -86,9 +127,9 @@ final class NatalReadingReportUITests: XCTestCase {
         let source = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'report.sources.'")).firstMatch
         for _ in 0..<8 { if source.isHittable { break }; app.swipeUp() }
         XCTAssertTrue(source.isHittable); source.tap(); capture("report-07-source")
-        let rawPointer = app.staticTexts["/mingPan/riZhu/gan"]
+        let rawPointer = app.staticTexts["/mingPan/riZhu"]
         XCTAssertFalse(rawPointer.exists, "Technical fields stay behind the second disclosure")
-        let fields = app.buttons["report.fields.day.reference"]
+        let fields = app.buttons["report.fields.module.day-month"]
         for _ in 0..<8 { if fields.isHittable { break }; app.swipeUp() }
         XCTAssertTrue(fields.isHittable); fields.tap()
         XCTAssertTrue(rawPointer.waitForExistence(timeout: 5))
@@ -113,5 +154,23 @@ final class NatalReadingReportUITests: XCTestCase {
         tap("report.system.ziwei"); capture("report-13-standard-ziwei")
         tap("report.professional"); tap("profile.close")
         XCTAssertTrue(app.buttons["ritual.reveal"].waitForExistence(timeout: 10))
+    }
+    func testModuleReadingShowsConditionsBeforeProfessionalFields() {
+        launch(); tap("nav.profile"); createSyntheticDossier(); openReport()
+        XCTAssertTrue(app.staticTexts["report.summary"].waitForExistence(timeout: 25))
+        XCTAssertFalse(app.buttons["theme.continue"].exists, "The paused life-theme experiment is not the default report")
+        tap("report.entry.module.pattern")
+        XCTAssertEqual(app.buttons["report.entry.module.pattern"].value as? String, "已展开")
+        XCTAssertFalse(app.staticTexts["/mingPan/geJuV2"].exists, "The ordinary reading is not raw engine output")
+        capture("report-14-pattern-conditions")
+        tap("report.entry.module.methods")
+        XCTAssertEqual(app.buttons["report.entry.module.methods"].value as? String, "已展开")
+        capture("report-15-methods-scope")
+        tap("report.entry.module.methods")
+        XCTAssertEqual(app.buttons["report.entry.module.methods"].value as? String, "已收起")
+        tap("report.entry.module.pattern")
+        XCTAssertEqual(app.buttons["report.entry.module.pattern"].value as? String, "已收起")
+        tap("report.professional")
+        XCTAssertTrue(app.navigationBars["专业档案"].waitForExistence(timeout: 8), "Expansion and collapse must leave scrolling and navigation responsive")
     }
 }

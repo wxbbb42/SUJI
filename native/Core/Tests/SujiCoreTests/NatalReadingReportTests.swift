@@ -42,6 +42,93 @@ final class NatalReadingReportTests: XCTestCase {
         }
         return node
     }
+    func testReadableModulesDistinguishSupportedBlockedAndUnresolvedLocalPaths() async throws {
+        var summaries: [String] = []
+        for (day, expected) in [(10, "仍有条件未定"), (20, "有一条局部配合可用"), (30, "这条配合受到牵制")] {
+            let birth = BirthProfile(year: 1984, month: 9, day: day, hour: 17, minute: 30, gender: "男", city: "合成条件盘", longitude: 120)
+            let data = try await run("natal", birth: birth)
+            let report = try XCTUnwrap(compile(data, birth: birth).first)
+            let modules = report.entries.filter { $0.id.hasPrefix("module.") }
+            XCTAssertEqual(modules.map(\.id), ["module.day-month", "module.elements", "module.relations", "module.pattern", "module.methods"])
+            let pattern = try XCTUnwrap(modules.first { $0.id == "module.pattern" })
+            XCTAssertTrue(pattern.summary.contains(expected), pattern.summary)
+            XCTAssertTrue(pattern.boundary.contains("不等于整格成败"))
+            XCTAssertFalse(pattern.sources.isEmpty)
+            for field in modules.flatMap(\.evidence) { _ = try resolve(field.pointer, in: data) }
+            summaries.append(pattern.summary)
+        }
+        XCTAssertEqual(Set(summaries).count, 3, "Different efficacy must change the main reading, not just a footnote")
+    }
+    func testInvalidAdvancedRuleCannotContaminateOtherModulesOrHeadline() async throws {
+        let birth = BirthProfile(year: 1984, month: 9, day: 20, hour: 17, minute: 30, gender: "男", city: "合成反例", longitude: 120)
+        let data = try await run("natal", birth: birth)
+        let baseline = try XCTUnwrap(compile(data, birth: birth).first)
+        let invalid: [([String], Any?)] = [
+            (["mingPan", "geJuV2", "rescueEvidence", "dependencyResolution", "actions", "0", "status"], "blocked"),
+            (["mingPan", "geJuV2", "conditionalEvidence", "sources", "0", "sha256"], "unknown"),
+            (["mingPan", "geJuV2", "conditionalEvidence", "selectedYong"], "正官"),
+            (["mingPan", "geJuV2", "name"], "正官格"),
+            (["mingPan", "geJuV2", "selectionBasis"], "future-selector"),
+            (["mingPan", "geJuV2", "selectionBasis"], nil),
+            (["mingPan", "geJuV2", "selectionBasis"], "yueling-benqi-tougan"),
+            (["mingPan", "geJuV2"], nil)
+        ]
+        for (path, value) in invalid {
+            let report = try XCTUnwrap(compile(changed(data, path: path, value: value), birth: birth).first)
+            XCTAssertTrue(report.entries.first { $0.id == "module.pattern" }!.title.contains("暂不能确认"), path.joined(separator: "/"))
+            XCTAssertFalse(report.summary.contains("局部配合可用"))
+            for id in ["module.day-month", "module.elements", "module.relations"] {
+                XCTAssertEqual(report.entries.first { $0.id == id }, baseline.entries.first { $0.id == id })
+            }
+            XCTAssertTrue(report.entries.first { $0.id == "module.methods" }!.summary.contains("格局模块尚未通过"))
+        }
+    }
+    func testAbsentOptionalStrengthStructureDoesNotEraseOtherReports() async throws {
+        let data = try await run("natal", birth: samples[0])
+        let baseline = try compile(data, birth: samples[0])
+        let reports = try compile(changed(data, path: ["mingPan", "riZhuStructure"], value: nil), birth: samples[0])
+        XCTAssertEqual(reports.map(\.system), [.bazi, .ziwei])
+        XCTAssertEqual(reports[1], baseline[1])
+        for id in ["module.day-month", "module.elements", "module.relations", "module.pattern"] {
+            XCTAssertEqual(reports[0].entries.first { $0.id == id }, baseline[0].entries.first { $0.id == id })
+        }
+        XCTAssertTrue(reports[0].entries.first { $0.id == "module.methods" }!.title.contains("暂待核对"))
+    }
+    func testCandidateReasonExplainsMiddleQiAndPeerNamesAreMonthBound() async throws {
+        let middle = BirthProfile(year: 1995, month: 8, day: 15, hour: 19, minute: 30, gender: "女", city: "合成取格", longitude: 121.47)
+        let middleData = try await run("natal", birth: middle)
+        let pattern = try XCTUnwrap(compile(middleData, birth: middle).first?.entries.first { $0.id == "module.pattern" })
+        XCTAssertTrue(pattern.explanation.contains("中气壬"), pattern.explanation)
+        XCTAssertTrue(pattern.explanation.contains("时干"))
+        XCTAssertFalse(pattern.explanation.contains("完整条件"))
+        for (day, expected, incorrect) in [(24, "建禄格", "比肩结构（格局待辨）"), (23, "月刃格", "月劫格")] {
+            let birth = BirthProfile(year: 1984, month: 9, day: day, hour: 17, minute: 30, gender: "男", city: "合成取格反例", longitude: 120)
+            let data = try await run("natal", birth: birth)
+            XCTAssertEqual(try resolve("/mingPan/geJuV2/name", in: data) as? String, expected)
+            let report = try XCTUnwrap(compile(changed(data, path: ["mingPan", "geJuV2", "name"], value: incorrect), birth: birth).first)
+            XCTAssertTrue(report.entries.first { $0.id == "module.pattern" }!.title.contains("暂不能确认"))
+        }
+    }
+    func testReadableSyntheticSamplePackAndAdvancedCoverageRemainHonest() async throws {
+        let conditional = [10, 20, 30].map { BirthProfile(year: 1984, month: 9, day: $0, hour: 17, minute: 30, gender: "男", city: "合成条件盘", longitude: 120) }
+        let noPath = BirthProfile(year: 1995, month: 8, day: 15, hour: 19, minute: 30, gender: "女", city: "合成覆盖盘", longitude: 121.47)
+        var prose = "# 本地模块报告：六份合成样稿\n\n全部资料为测试构造，不来自用户或竞品截图。B1/B2/B3/B5为结构与方法导读，B4只在审核的子集内给条件解释。这些样稿不代表完整个体报告或人口覆盖率。\n"
+        for (index, birth) in (conditional + samples + [noPath]).enumerated() {
+            let data = try await run("natal", birth: birth)
+            let report = try XCTUnwrap(compile(data, birth: birth).first)
+            let modules = report.entries.filter { $0.id.hasPrefix("module.") }
+            XCTAssertEqual(modules.count, 5)
+            XCTAssertEqual(report, try compile(data, birth: birth).first)
+            prose += "\n## 合成样稿 \(index + 1)\n\n\(birth.label)；\(birth.gender)；经度 \(birth.longitude)。\n\n概览：\(report.summary)\n\n范围：\(report.boundary)\n"
+            for m in modules {
+                XCTAssertFalse(m.summary.isEmpty); XCTAssertFalse(m.boundary.isEmpty)
+                prose += "\n### \(m.title)\n\n\(m.summary)\n\n\(m.explanation)\n\n适用范围：\(m.boundary)\n\n依据：\(m.sources.map(\.id).joined(separator: "、"))\n\n字段：\(m.evidence.map(\.pointer).joined(separator: "、"))\n"
+            }
+        }
+        if let path = ProcessInfo.processInfo.environment["SUJI_MODULE_SAMPLES_OUTPUT"] {
+            try prose.write(toFile: path, atomically: true, encoding: .utf8)
+        }
+    }
     func testRealEngineSamplesAreStableDetailedAndEveryEvidenceResolves() async throws {
         var reportsBySample: [[NatalReadingReport]] = []
         for (index,birth) in samples.enumerated() {

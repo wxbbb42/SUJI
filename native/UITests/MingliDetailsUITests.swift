@@ -128,7 +128,7 @@ final class MingliDetailsUITests: XCTestCase {
         for dark in [false, true] {
             if dark { app.launchArguments += ["--test-dark"] }
             app.launch()
-            XCTAssertTrue(app.buttons["nav.chat"].waitForExistence(timeout: 20))
+            XCTAssertTrue(app.notebookNavigationButton("nav.chat").waitForExistence(timeout: 20))
             app.selectNotebookPage("问道")
             let input = app.textFields["chat.input"]
             XCTAssertTrue(input.waitForExistence(timeout: 5)); XCTAssertEqual(input.label, "写下此刻的心事")

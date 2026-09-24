@@ -16,7 +16,7 @@ final class SujiUITests: XCTestCase {
         app.launch()
         XCTAssertTrue(app.navigationBars["欢迎来到有时"].waitForExistence(timeout: 15))
         XCTAssertTrue(app.textFields["邮箱地址"].exists)
-        XCTAssertFalse(app.buttons["nav.today"].exists)
+        XCTAssertFalse(app.tabBars.firstMatch.exists)
         XCTAssertFalse(app.buttons["ritual.reveal"].exists)
         capture("01-account-required")
         app.buttons["注册"].tap()
