@@ -99,10 +99,6 @@ final class StrengthTracePresentationUITests: XCTestCase {
         app.launchArguments += ["--test-dark"]
         inspectChat("20-dark")
     }
-    func testStrengthTraceAtXXXL() {
-        app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
-        inspectChat("30-xxxl")
-    }
 
     func testBriefStrengthKeepsQualificationsWithoutRepeatingLongFootnote() {
         app.launchArguments += ["--strength-brief-fixture"]
@@ -130,15 +126,14 @@ final class StrengthTracePresentationUITests: XCTestCase {
         XCTAssertFalse(app.staticTexts["reading.strength.trace.group.count"].exists)
     }
 
-    func testLargeTextStructureHeadingAndEvidenceMetadata() {
-        app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+    func testStructureHeadingAndEvidenceMetadata() {
         app.launch()
         let toggle = app.staticTexts["reading.strength.trace.toggle"]
         reveal(toggle); toggle.tap()
         let heading = app.staticTexts["reading.strength.trace.group.structure"]
         reveal(heading, alignToTop: true)
         XCTAssertLessThanOrEqual(heading.frame.maxY, contentBottom)
-        capture("70-xxxl-structure-heading")
+        capture("70-standard-structure-heading")
         reveal(toggle); toggle.tap()
         let evidence = app.buttons["reading.evidence.top"]
         reveal(evidence); evidence.tap()
@@ -146,7 +141,7 @@ final class StrengthTracePresentationUITests: XCTestCase {
         app.swipeUp()
         let metadata = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", "提问时刻,")).firstMatch
         reveal(metadata, alignToTop: true)
-        capture("71-xxxl-evidence-metadata")
+        capture("71-standard-evidence-metadata")
         XCTAssertTrue(metadata.isHittable)
         XCTAssertTrue(metadata.label.contains("2026年9月19日"))
     }
@@ -172,8 +167,4 @@ final class StrengthTracePresentationUITests: XCTestCase {
         inspectTrace("profile.strength.trace", capturePrefix: prefix + "-profile")
     }
     func testStrengthTraceProfile() { inspectProfile("40-light") }
-    func testStrengthTraceProfileAtXXXL() {
-        app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
-        inspectProfile("50-xxxl")
-    }
 }

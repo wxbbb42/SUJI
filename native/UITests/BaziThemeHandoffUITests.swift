@@ -71,13 +71,22 @@ final class BaziThemeHandoffUITests: XCTestCase {
         confirm.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
         tap("birth.save")
         XCTAssertTrue(app.staticTexts["profile.dossierReady"].waitForExistence(timeout: 30))
-        let report = app.buttons["profile.report"].staticTexts["我的册页"]
-        let contentTop = app.navigationBars["我的"].frame.maxY + 8
-        for _ in 0..<12 {
-            if report.isHittable && report.frame.minY >= contentTop { break }
-            app.swipeDown()
-        }
-        XCTAssertTrue(report.isHittable); report.tap()
+        // Dossier readiness can be visible behind BirthEditor while its
+        // dismissal is still animating on iOS 18. A downward app swipe at
+        // that moment dismisses Profile itself. Wait for the real transition
+        // and tap the exposed card; do not use scrolling as a readiness wait.
+        let editorGone = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "exists == false"), object: app.buttons["birth.save"])
+        XCTAssertEqual(XCTWaiter.wait(for: [editorGone], timeout: 10), .completed)
+        let report = app.buttons["profile.report"]
+        let ready = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            guard report.exists && report.isHittable else { return false }
+            let frame = report.frame
+            return frame.minY >= self.app.navigationBars["我的"].frame.maxY
+                && frame.maxY <= self.app.frame.maxY - 34
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 10), .completed)
+        report.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
         XCTAssertTrue(app.navigationBars["我的册页"].waitForExistence(timeout: 10))
     }
     private func capture(_ name: String) {
@@ -124,18 +133,18 @@ final class BaziThemeHandoffUITests: XCTestCase {
         XCTAssertEqual(input.value as? String, "我想保留这段尚未发送的话")
         XCTAssertFalse(app.buttons["theme.pending.cancel"].exists)
     }
-    func testLargeDarkThemeCanBeReadAndQuestionChosenExplicitly() {
-        app.launchArguments += ["--test-dark", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+    func testDarkThemeCanBeReadAndQuestionChosenExplicitly() {
+        app.launchArguments += ["--test-dark"]
         app.launch(); openSyntheticReport()
         reveal(app.staticTexts["theme.boundary"])
-        tap("theme.expand"); capture("theme-04-large-dark-reading")
+        tap("theme.expand"); capture("theme-04-dark-reading")
         tap("theme.example")
         XCTAssertEqual(app.buttons["theme.example"].value as? String, "已展开")
         let example = app.staticTexts["theme.example.text"]
         reveal(example)
         XCTAssertTrue(example.isHittable)
         XCTAssertGreaterThan(example.label.count, 40, "The expanded example must contain the actual local reading")
-        capture("theme-04b-large-dark-example")
+        capture("theme-04b-dark-example")
         tap("theme.example")
         XCTAssertEqual(app.buttons["theme.example"].value as? String, "已收起")
         tap("theme.sources")
@@ -144,27 +153,27 @@ final class BaziThemeHandoffUITests: XCTestCase {
         reveal(sourceQuote)
         XCTAssertTrue(sourceQuote.isHittable)
         XCTAssertTrue(sourceQuote.label.contains("全在配合"))
-        capture("theme-05-large-dark-source")
+        capture("theme-05-dark-source")
         let sourceScope = app.staticTexts["theme.source.scope.ziping-theme-composition-v1"]
         reveal(sourceScope)
         XCTAssertTrue(sourceScope.isHittable)
         XCTAssertTrue(sourceScope.label.contains("不支持"))
-        capture("theme-05b-large-dark-source-boundary")
+        capture("theme-05b-dark-source-boundary")
         tap("theme.sources")
         XCTAssertEqual(app.buttons["theme.sources"].value as? String, "已收起")
         tap("theme.continue.footer")
         XCTAssertTrue(app.buttons["theme.pending.usePrompt"].waitForExistence(timeout: 10))
         assertComposerDoesNotOverlapNavigation()
-        capture("theme-06-large-dark-handoff")
+        capture("theme-06-dark-handoff")
         tap("theme.pending.usePrompt")
         XCTAssertTrue(input.waitForExistence(timeout: 10))
         XCTAssertFalse((input.value as? String ?? "").isEmpty)
         XCTAssertFalse(app.staticTexts["chat.failure"].exists, "Choosing a suggestion must not send it")
         if app.buttons["chat.dismissKeyboard"].exists { tap("chat.dismissKeyboard") }
-        capture("theme-06b-large-dark-filled-draft")
+        capture("theme-06b-dark-filled-draft")
         tap("theme.pending.return")
         XCTAssertTrue(app.navigationBars["我的册页"].waitForExistence(timeout: 10))
-        capture("theme-07-large-dark-return")
+        capture("theme-07-dark-return")
     }
     func testBirthReconfirmationExpiresThemeWithoutClearingDraft() {
         app.launch(); openSyntheticReport(); reveal(app.staticTexts["theme.boundary"])

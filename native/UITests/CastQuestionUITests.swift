@@ -1,11 +1,10 @@
 import XCTest
 
 final class CastQuestionUITests: XCTestCase {
-    private func launch(large: Bool = false) -> XCUIApplication {
+    private func launch() -> XCUIApplication {
         continueAfterFailure = false
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing", "--cast-confirmation-fixtures", "-AppleLanguages", "(zh-Hans)", "-AppleLocale", "zh_CN"]
-        if large { app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"] }
         app.launch()
         return app
     }
@@ -81,10 +80,10 @@ final class CastQuestionUITests: XCTestCase {
         capture("f6b-source-and-supplement-evidence", app: app)
     }
 
-    func testCancelAtAccessibilitySizeNeverCasts() {
-        let app = launch(large: true)
+    func testCancelNeverCasts() {
+        let app = launch()
         XCTAssertTrue(app.buttons["cast.cancel"].waitForExistence(timeout: 10))
-        capture("f6-accessibility-cancel", app: app)
+        capture("f6-cancel", app: app)
         app.buttons["cast.cancel"].tap()
         XCTAssertTrue(app.staticTexts["audit.cast.cancelled"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.staticTexts["audit.cast.saved"].exists)

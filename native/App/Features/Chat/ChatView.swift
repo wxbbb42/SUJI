@@ -99,8 +99,11 @@ import SujiCore
                             VStack(alignment: .leading, spacing: 12) {
                                 Text(failure).font(.footnote).foregroundStyle(SujiTheme.secondary).accessibilityIdentifier("chat.failure")
                                 HStack {
-                                    Button("重试") { if let last = store.state.conversations.last(where: { $0.role == "user" }) { session.send(last.text, mode: mode, store: store, appendUser: false, themeBinding: last.themeBinding) } }
-                                        .frame(minWidth: 44, minHeight: 44).accessibilityIdentifier("chat.retry")
+                                    Button {
+                                        if let last = store.state.conversations.last(where: { $0.role == "user" }) { session.send(last.text, mode: mode, store: store, appendUser: false, themeBinding: last.themeBinding) }
+                                    } label: {
+                                        Text("重试").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
+                                    }.accessibilityIdentifier("chat.retry")
                                     NavigationLink("账户与登录") { AccountView(session: store.accountSession) }
                                         .frame(minHeight: 44).accessibilityIdentifier("chat.account")
                                 }.font(.subheadline)

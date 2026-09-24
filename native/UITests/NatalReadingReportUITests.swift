@@ -29,19 +29,22 @@ final class NatalReadingReportUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["profile.dossierReady"].waitForExistence(timeout: 30))
     }
     private func openReport() {
+        // Dossier readiness can be visible behind BirthEditor while its
+        // dismissal is still animating on iOS 18. A downward app swipe at
+        // that moment dismisses Profile itself. Wait for the real transition
+        // and tap the exposed card; do not use scrolling as a readiness wait.
+        let editorGone = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "exists == false"), object: app.buttons["birth.save"])
+        XCTAssertEqual(XCTWaiter.wait(for: [editorGone], timeout: 10), .completed)
         let report = app.buttons["profile.report"]
-        XCTAssertTrue(report.waitForExistence(timeout: 10))
-        let title = report.staticTexts["我的册页"]
-        // After dismissing BirthEditor at AX XXXL, the card is partly above
-        // the navigation bar. A hittable card does not guarantee its center
-        // is exposed. Scroll its actual title into view before tapping it.
-        let contentTop = app.navigationBars["我的"].frame.maxY + 8
-        for _ in 0..<8 {
-            if title.isHittable && title.frame.minY >= contentTop { break }
-            app.swipeDown()
-        }
-        XCTAssertTrue(title.isHittable && title.frame.minY >= contentTop)
-        title.tap()
+        let ready = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            guard report.exists && report.isHittable else { return false }
+            let frame = report.frame
+            return frame.minY >= self.app.navigationBars["我的"].frame.maxY
+                && frame.maxY <= self.app.frame.maxY - 34
+        }, object: nil)
+        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 10), .completed)
+        report.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
         XCTAssertTrue(app.navigationBars["我的册页"].waitForExistence(timeout: 8))
     }
     private func capture(_ name: String) {
@@ -100,14 +103,14 @@ final class NatalReadingReportUITests: XCTestCase {
         tap("report.professional"); tap("professional.astronomy")
         XCTAssertTrue(app.staticTexts["出生时的天空"].waitForExistence(timeout: 20)); capture("report-10-astronomy")
     }
-    func testLargeDarkReportNavigationRemainsReachable() {
-        app.launchArguments += ["--test-dark", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
-        launch(); capture("report-11-large-shell"); tap("nav.profile"); createSyntheticDossier(); openReport()
+    func testDarkReportNavigationRemainsReachable() {
+        app.launchArguments += ["--test-dark"]
+        launch(); capture("report-11-standard-shell"); tap("nav.profile"); createSyntheticDossier(); openReport()
         let summary = app.staticTexts["report.summary"]
         for _ in 0..<10 { if summary.isHittable { break }; app.swipeUp() }
-        XCTAssertTrue(summary.waitForExistence(timeout: 25)); capture("report-12-large-bazi")
+        XCTAssertTrue(summary.waitForExistence(timeout: 25)); capture("report-12-standard-bazi")
         for _ in 0..<10 { if app.buttons["report.system.ziwei"].isHittable { break }; app.swipeDown() }
-        tap("report.system.ziwei"); capture("report-13-large-ziwei")
+        tap("report.system.ziwei"); capture("report-13-standard-ziwei")
         tap("report.professional"); tap("profile.close")
         XCTAssertTrue(app.buttons["ritual.reveal"].waitForExistence(timeout: 10))
     }

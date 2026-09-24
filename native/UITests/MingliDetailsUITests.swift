@@ -62,51 +62,47 @@ final class MingliDetailsUITests: XCTestCase {
         header.tap()
     }
 
-    private func inspectEvidence(large: Bool) {
+    private func inspectEvidence() {
         launchFixture("六爻明细验收")
-        capture(large ? "40-liuyao-xxxl-overview" : "30-liuyao-overview")
+        capture("30-liuyao-overview")
         reveal("六爻明细 · 上爻至初爻", type: .button).tap()
         let upper = reveal("evidence.liuyao.line.6")
         XCTAssertTrue(upper.label.contains("第6爻")); XCTAssertTrue(upper.label.contains("少阳"))
         showEntireRow(upper)
-        capture(large ? "41-liuyao-xxxl-upper" : "31-liuyao-upper")
+        capture("31-liuyao-upper")
         let lower = reveal("evidence.liuyao.line.1")
         XCTAssertTrue(lower.label.contains("第1爻")); XCTAssertTrue(lower.label.contains("老阴"))
         XCTAssertTrue(lower.label.contains("变爻"))
         showEntireRow(lower)
-        capture(large ? "42-liuyao-xxxl-lower" : "32-liuyao-lower")
+        capture("32-liuyao-lower")
         app.navigationBars.buttons.firstMatch.tap()
         app.buttons["奇门明细验收"].tap()
-        capture(large ? "43-qimen-xxxl-overview" : "33-qimen-overview")
+        capture("33-qimen-overview")
         reveal("九宫明细", type: .button).tap()
         let first = reveal("evidence.qimen.palace.1")
         XCTAssertTrue(first.label.contains("地盘")); XCTAssertTrue(first.label.contains("天盘"))
         showEntireRow(first)
-        capture(large ? "44-qimen-xxxl-first" : "34-qimen-first")
+        capture("34-qimen-first")
         let middle = reveal("evidence.qimen.palace.5")
         XCTAssertTrue(middle.label.contains("天禽")); XCTAssertTrue(middle.label.contains("中宫不布八门与八神"))
         showEntireRow(middle)
-        capture(large ? "45-qimen-xxxl-center" : "35-qimen-center")
+        capture("35-qimen-center")
         let last = reveal("evidence.qimen.palace.9")
         XCTAssertTrue(last.label.contains("9宫"))
         showEntireRow(last)
-        capture(large ? "46-qimen-xxxl-last" : "36-qimen-last")
+        capture("36-qimen-last")
     }
 
-    func testEvidenceDetails() { inspectEvidence(large: false) }
-    func testEvidenceDetailsAtXXXL() {
-        app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
-        inspectEvidence(large: true)
-    }
+    func testEvidenceDetails() { inspectEvidence() }
 
-    private func inspectArchives(large: Bool) {
+    private func inspectArchives() {
         launchFixture("历史整理分组验收")
         XCTAssertTrue(app.buttons["重试这次整理"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.buttons["重试这次整理"].isEnabled)
         reveal("较早的整理（只读）", type: .button).tap()
-        let groupForFraming = app.buttons[large ? "reflection.archive.ui-audit:previous-birth" : "reflection.archive.ui-audit:imported"]
+        let groupForFraming = app.buttons["reflection.archive.ui-audit:imported"]
         showEntireRow(groupForFraming)
-        capture(large ? "51-archives-xxxl-groups" : "37-archives-groups")
+        capture("37-archives-groups")
         let ids = ["ui-audit:previous-birth", "ui-audit:previous-engine", "ui-audit:imported"]
         let labels = ["旧出生资料", "旧计算版本", "导入旧记录"]
         let replies = ["旧出生资料的占位段落，非模型回信", "旧计算版本的占位段落，非模型回信", "导入记录的占位段落，非模型回信"]
@@ -118,17 +114,13 @@ final class MingliDetailsUITests: XCTestCase {
             for _ in 0..<7 { if reply.isHittable { break }; app.swipeUp() }
             XCTAssertTrue(reply.isHittable)
             showEntireRow(reply)
-            capture("\(large ? 52 + index : 38 + index)-archive-\(large ? "xxxl-" : "")\(index)")
+            capture("\(38 + index)-archive-\(index)")
             tapArchiveHeader(group)
             XCTAssertFalse(reply.exists, "Collapsed history must not remain in the accessibility tree")
         }
         XCTAssertTrue(app.textFields["reflection.input"].exists || app.textViews["reflection.input"].exists)
     }
-    func testReflectionArchiveGroups() { inspectArchives(large: false) }
-    func testReflectionArchiveGroupsAtXXXL() {
-        app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
-        inspectArchives(large: true)
-    }
+    func testReflectionArchiveGroups() { inspectArchives() }
 
     func testChatPlaceholderLightAndDark() {
         app.launchArguments.removeAll { $0 == "--mingli-detail-fixtures" }

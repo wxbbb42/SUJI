@@ -124,10 +124,41 @@ xcodebuild -project native/Suji.xcodeproj -scheme Suji \
 
 资料入口修后本机大字号主题完整用例1项通过，148.1秒；保留`ci-profile-native.log/.xcresult`。最终远端兼容结果继续以PR最新提交的完整CI为准；本文件保留每次失败而不重判。
 
-## 收尾阻塞：不合并失败CI
+## 历史收尾阻塞：不合并失败CI（被下方2026-09-24范围更新接续）
 
 实现/测试头提交`a4944dd944721dd88a53e7d695bedddd32590d17`的[push CI](https://github.com/wxbbb42/SUJI/actions/runs/35881103577)仍为失败：引擎、Core通过；hosted 61项（2skip）通过，UI 22项中21通过、1失败。此次`openSyntheticReport`已走完出生资料确认和进入报告，失败前移/后移应按日志区分：现为`BaziThemeHandoffUITests/testLargeDarkThemeCanBeReadAndQuestionChosenExplicitly`在`reveal(theme.boundary)`时无法找到AX元素（第57行），不是上一轮的`profile.addBirth`。日志为本地`ci-profile-native-push.log`，远端同run的`native-test-results`保留结果包与录屏。
 
 尚未完成该最新报告内部滚动失败的截图/AX根因核对，不能提前认定只是测试问题，也不能宣称完整大字号路径已在CI通过。当地仅装有iOS 26.4/26.5/27，不能在本机直接复现CI的iOS 18。有限修正已解决编译超时与两项占问误触，但尚不满足全部检查通过的合并条件。停止继续试改，不降低断言、不跳过该用例、不更换CI运行时、不强行合并。
 
 PR为[#9](https://github.com/wxbbb42/SUJI/pull/9)，[同提交PR CI](https://github.com/wxbbb42/SUJI/actions/runs/35881108127)可继续读回；即使另一个run后来通过，已知push失败仍需解释解决，不应自动合并。此状态说明为文档更新，不改变待验收源码。remote main最后读回`8164f25d12ffc246b9cead96cae64d6760098983`，没有merge SHA或本次main CI；没有部署、安装或发布。下一位agent先从当前PR分支调查此阻塞，再决定收尾；产品新方案仍待用户确认。
+
+## 2026-09-24：用户延后大字号适配，继续普通字号回归及合并
+
+用户明确要求“直接merge”“去除大字相关的测试”“现在还没到做适配的时候”。这是用户调整验收范围，不是将历史失败修为通过。保留上方全部失败、原始本地证据、检查点与命理失败结论；不移除App的动态字体行为、不降低证据核验、不改变原有登录或起局门槛。
+
+- 删除6项重复字号变体：解读正文、六爻/奇门明细、归档分组、命盘截图、强弱追踪、个人页强弱追踪。普通字号原用例继续保留。
+- 7项混合用例改为普通字号并重命名：深色主题/来源/显式选问题、深色册页导航、取消不落盘、垂直/短拉不揭页、深色及减少动态效果流程、计算失败恢复、结构标题与证据元数据。保留原功能断言。
+- CI同步两条显式用例名；册页、主题、占问和天文套件的整组选择仍在。引擎、Core和hosted仍全量验证。不启动线上模型矩阵。
+
+进一步读回`de50691`的[PR运行35883968269](https://github.com/wxbbb42/SUJI/actions/runs/35883968269)，实际UI为22项、2失败：大字号`theme.boundary`之外，普通字号`testChoosingAnotherConversationModeDetachesThemeAndKeepsDraft`也在册页入口失败。此前“21/1”仅适用于`a4944dd`运行，不能推广到该运行。引擎、Core、hosted仍通过。
+
+实际查看该PR artifact的失败录屏29、30、35秒：出生编辑页正在关闭、Profile转场、随后测试下滑将Profile关闭回今日页。`profile.dossierReady.exists`可在编辑页关闭动画期间为真，不能代表前景已可交互。普通字号问题单独修正为等待`birth.save`消失及册页卡片完整可点击后再点击卡片中心；不再以整屏向下滑当作转场等待。两套报告测试共享相同逻辑；未改业务源码。录屏仍在远端该运行的`native-test-results`中，本地抽帧不提交。
+
+本轮可重跑选择：完整`BaziThemeHandoffUITests`、`NatalReadingReportUITests`，以及`CastQuestionUITests/testCancelNeverCasts`、`SujiUITests/testPaperVerticalAndShortPullStayUnrevealed`、`SujiUITests/testDarkAndReducedMotionRitual`、`ReadingPresentationUITests/testFailedCalculationRecovery`、`StrengthTracePresentationUITests/testStructureHeadingAndEvidenceMetadata`、`MingliDetailsUITests/testEvidenceDetails`和`MingliDetailsUITests/testReflectionArchiveGroups`。使用`native/README.md`中的xcodebuild命令加这些`-only-testing:SujiUITests/...`参数，独立DerivedData、串行运行；无需线上凭据。
+
+本地证据记录：`standard-scope.log/.xcresult`、`standard-config.log`位于作者忽略目录；它们不是远端附件。远端复验、合并状态及合并后main CI以[#9](https://github.com/wxbbb42/SUJI/pull/9)和[Actions](https://github.com/wxbbb42/SUJI/actions/workflows/validate.yml)为准，不在结果出现前写已通过。最新产品状态与下一步见[产品摘要](../2026-09-24-product-status.md)。
+
+普通字号首轮还暴露`testFailedCalculationRecovery`的按钮命中区域问题：`chat.retry`的AX高度为18pt，小于既有44pt断言；字号变体原先没有揭示这一点。源码原将frame放在Button外部，只增加布局占位。本轮唯一业务视图改动将同样44pt frame及矩形contentShape移入Button标签，不改变重试动作、输入、账号、模型或核验逻辑。保留失败回归并纳入普通CI，不通过删断言解决。
+
+本轮本地结果（Xcode 27 / iOS 26.5，2026-09-24）：
+
+| 检查 | 结果 |
+| --- | --- |
+| 调整后UI首轮 | 15项，14通过/1失败，505.5秒；唯一失败是重试按钮18pt命中区域。 |
+| 按钮标签修后 | 命中区已为44pt；严格浮点比较读到43.99999999999994而失败，保留此轮记录；仅给几何断言加0.001pt浮点容差。 |
+| 最终失败恢复专项 | 1项通过，xcodebuild退出0；`standard-retry-final.log/.xcresult`。其它14项为同轮首轮通过，不拼接成一次15项全绿。 |
+| 公开配置隔离 | 4项通过；现有私有配置未改。 |
+| SwiftUI-only | 通过。 |
+| 提交卫生 | diff --check通过；相对main候选中无密钥文件、原始响应、截图、构建产物；凭据模式检查0命中。文档相对文件链接有效。 |
+
+实际查看普通字号深色`theme-06b-dark-filled-draft`截图，草稿/返回操作、输入区与底栏可见；不将单张截图视为完整设计或人工VoiceOver验收。正常本机测试没有访问线上模型。远端CI还将完整运行引擎/Core/hosted和23项UI（原22项范围改用普通字号，另纳入失败恢复1项）。大字号、真实问答修后、真机、人工VoiceOver及新方案实现仍未验收。

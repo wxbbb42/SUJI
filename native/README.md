@@ -70,6 +70,8 @@ npm run typecheck --prefix native/Engine
 npm test --prefix native/Engine
 ```
 
+As of 2026-09-24, the current product scope defers large Dynamic Type adaptation and removes its dedicated test variants. Normal-size functional assertions, dark mode, account isolation and evidence validation remain in scope. Historical large-type failures remain documented; deferral is not a fix.
+
 UI tests use an in-memory notebook via a Debug-only test launch argument and attach actual simulator screenshots. They do not overwrite a user's persistent notebook. The test run contains no live AI/auth requests with user credentials. See `VERIFICATION.md` for executed results and remaining physical-device/online checks.
 
 To regenerate the deterministic engine and independent Node fixtures:

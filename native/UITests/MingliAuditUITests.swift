@@ -154,19 +154,6 @@ final class MingliAuditUITests: XCTestCase {
         capture("11-chat-login-required")
     }
 
-    func testCaptureLargeTextChart() {
-        app.launchArguments += ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
-        begin()
-        app.buttons["profile.addBirth"].tap()
-        XCTAssertTrue(app.buttons["birth.save"].waitForExistence(timeout: 5))
-        saveBirth()
-        XCTAssertTrue(app.staticTexts["profile.dossierReady"].waitForExistence(timeout: 25))
-        tapRow("命盘手稿")
-        XCTAssertTrue(app.navigationBars["命盘手稿"].waitForExistence(timeout: 5))
-        capture("12-large-text-four-pillars")
-        app.swipeUp()
-        capture("13-large-text-elements")
-    }
 
     func testCaptureFourTabsAndDarkPalaces() {
         begin()
