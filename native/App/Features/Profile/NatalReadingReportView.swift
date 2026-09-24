@@ -125,6 +125,7 @@ struct NatalReadingReportView: View {
                 .padding(.horizontal, 24).padding(.top, 12).padding(.bottom, 40)
                 .frame(maxWidth: 680).frame(maxWidth: .infinity)
             }
+            .accessibilityIdentifier("report.scroll")
             .scrollPosition(id: $visiblePosition, anchor: .top)
             .onChange(of: system) { old, new in
                 if let visiblePosition { readingPositions[old] = visiblePosition }

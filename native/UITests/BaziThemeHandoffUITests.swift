@@ -42,6 +42,17 @@ final class BaziThemeHandoffUITests: XCTestCase {
             let height = bottom - top
             let midpoint = (top + bottom) / 2
             let downward = !target.isEmpty && target.midY < midpoint
+            if reportBar.exists {
+                // A short press-and-drag can activate a report action on iOS
+                // 18 even at the gutter. A native scroll-view swipe cancels
+                // the button press and stays inside the presented report.
+                let scroll = app.scrollViews["report.scroll"]
+                XCTAssertTrue(scroll.exists)
+                if downward { scroll.swipeDown(velocity: .slow) }
+                else { scroll.swipeUp(velocity: .slow) }
+                XCTAssertTrue(reportBar.exists, "Scrolling must not activate a report action")
+                continue
+            }
             let distance = target.isEmpty ? height * 0.42
                 : min(height * 0.5, max(80, abs(target.midY - midpoint)))
             let startY = top + height * (downward ? 0.25 : 0.75)
@@ -138,6 +149,7 @@ final class BaziThemeHandoffUITests: XCTestCase {
         app.launch(); openSyntheticReport()
         reveal(app.staticTexts["theme.boundary"])
         tap("theme.expand"); capture("theme-04-dark-reading")
+        XCTAssertEqual(app.buttons["theme.expand"].value as? String, "已展开")
         tap("theme.example")
         XCTAssertEqual(app.buttons["theme.example"].value as? String, "已展开")
         let example = app.staticTexts["theme.example.text"]

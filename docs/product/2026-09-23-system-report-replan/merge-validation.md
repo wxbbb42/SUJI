@@ -162,3 +162,13 @@ PR为[#9](https://github.com/wxbbb42/SUJI/pull/9)，[同提交PR CI](https://git
 | 提交卫生 | diff --check通过；相对main候选中无密钥文件、原始响应、截图、构建产物；凭据模式检查0命中。文档相对文件链接有效。 |
 
 实际查看普通字号深色`theme-06b-dark-filled-draft`截图，草稿/返回操作、输入区与底栏可见；不将单张截图视为完整设计或人工VoiceOver验收。正常本机测试没有访问线上模型。远端CI还将完整运行引擎/Core/hosted和23项UI（原22项范围改用普通字号，另纳入失败恢复1项）。大字号、真实问答修后、真机、人工VoiceOver及新方案实现仍未验收。
+
+## 普通字号CI复验：确认剩余为报告内手势误触
+
+`0c7f5cdaa39c59823c335e8ec07f5d48aa511c35`的[PR CI](https://github.com/wxbbb42/SUJI/actions/runs/35937966597)与[push CI](https://github.com/wxbbb42/SUJI/actions/runs/35937963699)均为：引擎77组/1016项通过、fixture检查7项与25份一致、后端15项通过；Core 516项/1skip/0失败、hosted 61项/2skip/0失败；UI 23项/22通过/1失败。普通字号报告入口、失败恢复按钮已获CI通过，不能把残余失败归入已经延后的字号专项。
+
+失败是`testDarkThemeCanBeReadAndQuestionChosenExplicitly`寻找`theme.example`，并非初始`theme.boundary`：日志明确初始限定已找到，`theme.expand`已点击；`theme-04-dark-reading`截图可见“收起细读”和展开正文。原生录屏尾帧却到了问道的待提问卡。测试在报告内短按拖动时误激活“带着这页继续问”，离开报告后当然找不到小例子。此处先前用空白边缘的短按拖动仍不可靠，不能继续用它作普通滑动。
+
+针对该有证据的原因，仅给报告ScrollView补稳定标识，报告分支使用该ScrollView的原生swipeUp/swipeDown；聊天的可见范围手势保持原实现。新增滑动后仍在册页的断言及展开状态断言，保留正文/小例子/来源实际内容和显式选择问题的断言。不禁用报告按钮、不跳过功能、不伪造预展开状态。新复验仍需完成后读回，不将该修正预报为通过。
+
+报告原生滑动修后本机完整`BaziThemeHandoffUITests`：5项全部通过，215.0秒，xcodebuild退出0，记录`standard-scroll-native.log/.xcresult`。新CI须复验同样23项UI；本机通过不替代iOS 18结果。
